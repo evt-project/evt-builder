@@ -1,0 +1,60 @@
+/**
+ * 
+ * Test jQuery plugin
+ * Version 0.1 (201210)
+ *
+ * Dual licensed under the MIT and GPL licenses:
+ * http://www.opensource.org/licenses/mit-license.php
+ * http://www.gnu.org/licenses/gpl.html
+ * 
+ * @author RafMas 
+ * @since 2012
+ *
+ **/
+
+( function($) { 
+
+	$.fn.extend({
+		testf: function( options ) {
+				// # Definisco le impostazioni base
+				var defaults = {
+				mode: 1,
+				message: "blabla",
+				opacity: ".8"
+			};
+
+			options = $.extend( defaults, options );
+
+			// ## test
+			var marginLeft = Math.floor( options.width / 2 );
+
+			// # Questo plugin accetta un solo elemento
+			if( this.length != 1 ) {
+				return false;
+			}
+
+			// # Se mode == 1 dobbiamo solo nascondere il div ( lo "chiudiamo" )
+			if( options.mode == 1 ) {
+				$(this).slideUp( options.speed );
+				return false;
+			}
+
+			// # Show
+			$(this).html( options.message )
+				.css({ 
+					backgroundColor: options.backgroundColor,
+					color:  options.color,
+					height: options.height + "px",
+					width: options.width + "px",
+					border: options.border,
+					lineHeight: options.height + "px",
+					opacity: options.opacity,
+					top: "0px",
+					left: "50%",
+					marginLeft:  "-" + marginLeft + "px"
+				})
+				.slideDown( options.speed );
+		}  
+	});
+
+}) ( jQuery );

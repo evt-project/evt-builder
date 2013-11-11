@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<XSLTdocConfig>
+  <Title>XSLTdoc - A Code Documentation for EVT Builder</Title>
+  <Introduction>
+    <p>
+      XSLTdoc is a Javadoc-like tool for all versions of XSLT (1.0,
+      1.1, 2.0). It defines
+      conventions to document XSL &quot;code elements&quot; directly in the source code. These
+      &quot;documentation elements&quot; are then extracted by the XSLTdoc
+      tool to build a documentation consisting of several linked HTML pages
+      which provide easy browsing through the documentation. The
+      XSLT source code is available with syntax highlighting.
+    </p>
+    XSLTdoc was developed in a project funded by the European Space Agency under contract 18664/04/NL/LvH.
+    <p>
+      <a href="http://sourceforge.net/projects/xsltdoc/">Project Page</a> on SourceForge.
+    </p>
+   
+    <h2>Table of Contents</h2>
+    <ul>
+      <li>
+        <a href="#News">News</a>
+      </li>
+      <li>
+        <a href="#Features">Features</a>
+      </li>
+      <li>
+        <a href="#DocumentingTheCode">Documenting the code</a>
+      </li>
+    </ul>
+    <h2><a name="News">News</a></h2>
+      <h3>2012/10/28</h3>
+      <p>XSLTdoc added</p>
+      <p>Changelog</p>
+      <ul>
+        <li>...</li>
+        <li>...</li>
+        <li>...</li>
+      </ul>
+    
+      <h3>2012/10/..</h3>
+      <p>......</p>
+      
+    <h2><a name="Features">Features</a></h2>
+    <ul>
+      <li>Documentation is embedded in the XSL program</li>
+      <li>Documenting of XSLT 2.0 functions</li>
+      <li>Syntax highlighted source code browsing</li>
+      <li>Generates documentation a whole set of stylesheets</li>
+      <li>Generates documentation for included and imported stylesheets</li>
+      <li>Layout is customizeable with CSS stylesheets</li>
+      <li>Site layout is based on a customizeable/interchangeable html template</li>
+      <li>Easely extensible with new tags</li>
+      <li>Open source under GPL license</li>
+      <li>Written in XSLT</li>
+    </ul>
+    
+    <h2><a name="DocumentingTheCode">Documenting the code</a></h2>
+    <p>Documentation elements are written in XML. Because XSLT is expressed in
+      XML too, it is necessary to define a new namespace for XSLTdoc to enable a
+      XSLT processor to distinguish between documentation and source code. The
+      URI for this namespace is
+      <code>http://www.pnp-software.com/XSLTdoc</code>. This namespace must be
+      declared in any stylesheet which uses XSLTdoc for documenting. Example:</p>
+    <div class="source"><pre><![CDATA[<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+                xmlns:xd="http://www.pnp-software.com/XSLTdoc" version="2.0">
+  ...
+<xsl:stylesheet>]]></pre></div>
+	<h3>General documenting rules</h3>
+    <p>The documentation is normally added before the source element that should
+      be documented. Generally this looks like this (with the XSLTdoc namespace
+      mapped to <code>xd</code>):</p>
+    <div class="source"><pre><![CDATA[<xd:doc>
+  ...
+</xd:doc>
+<xsl:...>]]></pre></div>
+    <p>Any XSLTdoc documentation is enclosed in a <code>xd:doc</code> element.
+      If you just want to write a plain text comment the <code>xd:doc</code> element can contain simple text. 
+      Text before the first period is considered as short description, the remaining as detailed description:</p>
+    <div class="source"><pre><![CDATA[<xd:doc>
+  This is the short description. And here comes a more detailed 
+  description that appears in the detailed view of the documentation only.
+</xd:doc>
+<xsl:...>]]></pre></div>
+    <p>If you use this technique no HTML elements are allowed in the text. If you want to use HTML tags
+      within short and detailed description the text for the short and detailed description needs to enclosed in
+      special XSLTdoc tags:</p>
+    <div class="source"><pre><![CDATA[<xd:doc>
+  <xd:short>This is the short description with <code>HTML tags</code>.</xd:short>
+  <xd:detail>
+    And here comes a <b>more detailed</b> 
+    description showed only in the detailed view of the documentation.
+  <xd:detail>
+</xd:doc>
+<xsl:...>]]></pre></div>
+	<h3>Stylesheet documentation</h3>
+	<p>The documentaion of a stylesheet is the only exception where the documentation 
+	is written as a subelement of the target element (xsl:stylesheet). To mark a documentation element
+	as a stylesheet documentation the type attribute of the <code>xd:doc</code> element must be set to 'stylesheet'.
+	A stylesheet documentation can have the following subelements (properties): xd:author, xd:copyright, xd:cvsId, xd:svnId:</p>
+    <div class="source"><pre><![CDATA[<xsl:stylesheet ...>
+  <xd:doc ]]><strong>type="stylesheet"</strong><![CDATA[>
+    ...
+    <xd:author>ibirrer</xd:author>
+    <xd:copyright>P&amp;P Software, 2007</xd:copyright>
+    <xd:cvsId>$Id: XSLTdocConfig.xml 42 2009-01-16 15:02:32Z ibirrer $</xd:cvsId>
+  <xd:doc/>
+  ...
+<xsl:stylesheet>]]></pre></div>
+	<p>Properties can be added by writing a property extension. See the properties directory of the XSLTdoc
+	installation for examples.</p>
+    <h3>Stylesheet Parameter</h3>
+    <p>
+      To document a stylesheet parameter you can use the type attribute of the xd:doc element
+      to define its type:</p>
+      <div class="source"><pre><![CDATA[<xsl:stylesheet ...>
+...
+  <xd:doc type="string">
+    A Stylesheet parameter of type string.
+  </xd:doc>
+  <xsl:param name="outputDir"/>
+  ...
+</xsl:stylesheet>]]></pre></div>
+	<h3>Function/Template Documentation</h3>
+    <p>The parameter of a template or a function can be described with a
+      <code>xd:param</code> element. The name attribute is obligatory for
+      templates and functions while the type attribute is optional for
+      template definitions.</p>
+    <div class="source"><pre><![CDATA[<xd:doc>
+  A template with a parameter of the type string.
+  <xd:param type="string">The string to be processed.</xd:param>
+</xd:doc>]]></pre></div>
+    
+
+    
+    <p>Look at the source code of the XSLTdoc tool for more examples. The source
+      code is accessible through this website. Just go to a detailed description
+      of a template or function and click on the <i>source</i> link.
+    </p>
+    <h3>Inline tags</h3>
+    <p>You can use so called inline tags to tag special parts inside a <code>xs:short</code> or <code>xd:detail</code> element:</p>
+    <p>The xd:xml inline tag can be used to to print print an xml to the output. The whole xml inside the tag is transformed to html by XSLTdoc.</p>
+    <div class="source"><pre><![CDATA[<xd:doc>
+  <xd:detail>
+    The following XML inside the xd:xml tag is printed exactly as it shows here:
+    <xd:xml>
+<html>
+  <head></head>
+  <body>
+    Bla
+  </body>
+</html>
+    </xd:xml>
+  <xd:detail>
+</xd:doc>
+<xsl:...>]]></pre></div>
+    
+
+  </Introduction>
+  
+  
+  
+  
+  <!-- Target directory. Absolute or relative to this file -->
+  <TargetDirectory path="../doc"/>
+
+  <!-- The stylesheets to document -->
+  <RootStylesheets dir="./">
+    <!-- This stylesheet inlcudes or imports all others -->
+    <File href="evt_builder.xsl"/>
+  </RootStylesheets>
+</XSLTdocConfig>

@@ -1,0 +1,195 @@
+﻿
+
+/*
+#ImageContainer{
+    margin: 0;
+    padding: 0;
+	height: 800px;
+	width: 500px;
+	border: 1px solid black;
+	float: left;
+}
+
+#Image{
+    margin: 1em;
+    padding: 0;
+    border: none;
+}*/
+
+div#CurrentAnnotation{
+    display: none;
+}
+
+/*div.Annotation{
+    display: none;
+    position: absolute;
+    width: auto;
+    min-width: 10%;
+    background-color: #ffffff;
+    color: #000000;
+    border-color: #d0d0f0 #a0a0d0 #a0a0d0 #d0d0f0;
+    border-width: 2px;
+    border-style: solid;
+    padding: 0;
+    max-width: 30%;
+}
+
+div.AnnTitleBar{
+
+}
+
+div.PopupCloser{*/
+/* Floating right causes the containing element to stretch to its max-width. :-( */
+    /*float: left;
+    width: 1em;
+    margin-right: 0;
+    text-align: center;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #a0a0d0 #d0d0f0 #d0d0f0 #a0a0d0;
+    font-variant: small-caps;
+    font-stretch: extra-expanded;
+    cursor: pointer;
+}
+
+
+div.AnnText{
+    border-style: solid;
+    border-width: 1px;
+    border-color: #000000;
+}
+#buttons{
+	position: absolute;
+	left: 1100px;}
+
+#AnnMenuContainer{
+    position: relative;
+	left: 600px;
+    padding: 0.2em;
+    width: 400px;
+	height: 800px;
+    border: 2px solid #d0d0f0;
+    background-color: #bbbbdd;
+    color: #000000;
+    max-width: 33%;
+}
+
+#AnnMenuTitle, div.Annotation div.AnnTitlebar{
+	height: 20px;
+	border: 1px solid black;
+    background-color: #bbbbdd;
+    color: #000000;
+    padding: 0.25em;
+    cursor: pointer;
+    margin: 0;
+    text-align: center;
+}
+
+#AnnMenu{
+    margin: 0;
+    padding: 0;
+    font-family: "trebuchet ms", verdana, sans-serif;
+	border: 1px solid green;
+    list-style-type: none;
+    background-color: #ffffff;
+    color: #000000;
+    overflow: auto;
+	position: relative;
+	top: -790px;
+}
+*
+
+.CategoryTitleClosed{
+    cursor: pointer;
+    font-weight: bold;
+}*/
+
+#AnnMenu>li{
+    padding: 0.25em;
+    margin: 0.2em;
+    /*cursor: pointer;*/
+}
+
+.AnnSubmenu{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+/*.AnnSubmenu>li{
+    margin-left: 0.5em;
+}*/
+
+.AnnMenuItem{
+    /*cursor: pointer;*/
+    color: #000000;
+    background-color: #ffffff;
+}
+
+.HighlightedAnnMenuItem{
+    cursor: pointer;
+    background-color: #e6cea0;/*d5b17d e4c89b*/
+	opacity: 0.8;
+	filter:alpha(opacity=80); /* For IE8 and earlier */
+	border: 1px solid #b99562;
+    color: #000000;
+}
+
+.SelectedAnnMenuItem{
+    cursor: pointer;
+	background-color: #d5b17d;
+	opacity: 0.9;
+	filter:alpha(opacity=90); /* For IE8 and earlier */
+	border: 1px solid #b99562;
+    color: #ffffff;
+}
+
+div.SelectedArea{
+    border: 1px solid #4c2f2f;
+	background-color: #9c4837;
+	opacity: 0.5;
+	filter:alpha(opacity=50); /* For IE8 and earlier */
+}
+
+div.HighlightedArea{
+    border: 1px solid #4c2f2f;
+	background-color: #c67261;
+	opacity: 0.4;
+	filter:alpha(opacity=40); /* For IE8 and earlier */
+}
+
+/*p{
+    margin: 0.25em;
+}
+
+div.Para{
+    margin: 0.25em;
+}
+
+div.Stanza{
+    margin: 0.5em;
+}
+
+div.BlockCit{
+    margin: 1em;
+}
+
+div.BlockCitBibl{
+    text-align: right;
+}
+*/
+
+div#Zoom{
+    display: none;
+    overflow: hidden;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    border-style: outset;
+    border-width: 3px;
+    border-color: #ffffff;
+}   
+
+div#Zoom img{
+    position: relative;
+}
