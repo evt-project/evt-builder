@@ -77,9 +77,22 @@
             </xsl:call-template>
         </xsl:if>
     </xsl:template>
+
+    <xsl:template name="ee_select_build">
+		<select class="main_ee_select">
+			<xsl:for-each select="$edition_array">
+				<xsl:variable name="edition_name" select="name(.)" />
+				<xsl:if test="$edition_name = 'edition'">
+					<option>
+						<xsl:value-of select="."/>
+					</option>										
+				</xsl:if>
+			</xsl:for-each>
+		</select>
+	</xsl:template>
 			
 	<xsl:template name="pp_select_build">
-	<xsl:param name="html_select_main"/>
+		<xsl:param name="html_select_main"/>
 		<select class="main_pp_select">
 			 <xsl:if test="$html_select_main='html_select_main'">
 				<xsl:attribute name="id">

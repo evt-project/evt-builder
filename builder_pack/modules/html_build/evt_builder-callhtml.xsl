@@ -222,11 +222,15 @@
 							<div id="main_right_arrow" title="Next"/>
 							<header id="right_header">
 								<div id="text_menu">
-									<span class="span_pp_select"> Folio: <xsl:call-template
+									<span class="span_pp_select"><xsl:call-template
 										name="pp_select_build">
 										<xsl:with-param name="html_select_main"
 											select="'html_select_main'"/>
 									</xsl:call-template>
+									</span>
+
+									<span>
+										<xsl:call-template name="ee_select_build" />
 									</span>
 									
 									<form id="radio_edition" name="radio_edition_name">
@@ -261,11 +265,11 @@
 								<div id="main_left_arrow" title="Previous"/>
 								<header id="left_header">
 									<div id="image_menu">
-										<span class="span_pp_select"> Folio: <xsl:call-template
+										<span class="span_pp_select"><xsl:call-template
 											name="pp_select_build"/>
 										</span>
 										<p id="thumb_elem">
-											<a href="javascript:void(0);" id="thumb_link"> Thumbnail
+											<a href="javascript:void(0);" id="thumb_link"> Thumb
 											</a>
 										</p>
 										<input type="image" src="images/zoom.png" id="switchZoom" value="zoom" onclick="zoomOn()"/>

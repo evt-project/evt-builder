@@ -581,14 +581,19 @@ footer{
 }
 
 .main_pp_select{
+	margin-right: 110px;
+}
+
+.main_pp_select, .main_ee_select{
 	/*background: transparent;
 	width: 88px;
 	padding: 5px;
 	font-size: 16px;
 	border: 1px solid #ccc;
 	height: 34px;
-	overflow: hidden;*/
-	width: 140px;
+	overflow: hidden;
+	width: 140px;*/
+	width: 129px;
 	height: 34px;
 	overflow: hidden;
 	font-size: 20px;
@@ -599,7 +604,7 @@ footer{
 	position: absolute;
 	right: 16px;
 	top: 4px;
-	border: 2px solid #f5ead4;
+	#border: 2px solid #f5ead4;
 	height: 35px;
 	padding: 2px;
 	padding-left: 6px;
