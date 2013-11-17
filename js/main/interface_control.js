@@ -150,6 +150,7 @@ $( function() {
 		});			
 
 		// IT: Ingresso e uscita dal riquadro immagine
+		/*
 		$("#image_cont").mouseenter(function(){
 			if($("#image_elem").css('display')!="none"){
 				$("#image_tool").show("slow");
@@ -160,6 +161,7 @@ $( function() {
 			$("#image_tool").hide("slow");
 			keycount=0;
 		});
+		*/
 		
 	/* / Gestione eventi */
 	

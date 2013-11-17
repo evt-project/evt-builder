@@ -47,11 +47,11 @@ $( function() {
             }
         }
         
-	   $("#in").click(function(){ iv1.iviewer('zoom_by', 1); }); 
-	   $("#out").click(function(){ iv1.iviewer('zoom_by', -1); }); 
-	   $("#fit").click(function(){ iv1.iviewer('fit'); ReInitialize(); }); 
-	   $("#orig").click(function(){ iv1.iviewer('set_zoom', 100); ReInitialize(); }); 
-	   $("#update").click(function(){ iv1.iviewer('update_container_info'); });
+	   $("#zoom_in").click(function(){ iv1.iviewer('zoom_by', 1); }); 
+	   $("#zoom_out").click(function(){ iv1.iviewer('zoom_by', -1); }); 
+	   $("#zoom_fit").click(function(){ iv1.iviewer('fit'); ReInitialize(); }); 
+	   $("#zoom_orig").click(function(){ iv1.iviewer('set_zoom', 100); ReInitialize(); }); 
+	   $("#zoom_update").click(function(){ iv1.iviewer('update_container_info'); });
 	  
 	  /*$('select[name=" "]').change( function() {
 			iv1.iviewer('loadImage', document.getElementById('slideshow-image').getAttribute('src'));
@@ -64,7 +64,7 @@ $( function() {
 	  
 	  $("#slider").slider(
 	  {
-		  orientation: "vertical",
+		  orientation: "orizontal",
 		  min: 20,
 		  max: 140,
 		  step: 1,

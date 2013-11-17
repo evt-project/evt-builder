@@ -57,7 +57,8 @@
 		-->
 	<!-- IT: Per aggiungere una nuova edizione, bisognerà inserire una nuova riga qui e -necessariamente- la dichiarazione per i file di output nel file modules/evt_builder-main.xsl, sotto la condizione <xsl:if test="$edition_array[2]!=''">
 				Esempio: <Item>Nuova_edizione</Item>
-		-->    </xsl:variable>
+		-->    
+	</xsl:variable>
 	
 	<!-- Variable -->
 	<!--

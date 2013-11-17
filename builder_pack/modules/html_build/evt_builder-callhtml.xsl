@@ -195,89 +195,32 @@
 					</header>
 					
 					<section id="central_wrapper">
-						<xsl:if test="$image_frame=true()">
-							<div id="main_right_frame">
-								<div id="main_right_menu">
-									<a href="javascript:void(0);" id="main_right_menu-openlink"
-										title="Open menu"> + </a>
-									<a href="javascript:void(0);" id="main_right_menu-closelink"
-										title="Close menu"> - </a>
-								</div>
-								<div id="main_right_arrow" title="Next"/>
-								<div id="img_tools">
-									<input type="image" src="images/zoom.png" id="switchZoom" value="zoom" onclick="zoomOn()"/>
-									<input type="image" src="images/magOff.png" id="switchMag" value="mag" onclick="magOn()"/>
-									<input type="image" src="images/ITLoff.png" id="switchITL" value="turn ITL on" title="Image text link" onclick="switchIMT()"/>
-								</div>
-								<header id="right_header">
-									<div id="image_menu">
-										<span class="span_pp_select"> Folio: <xsl:call-template
-											name="pp_select_build"/>
-										</span>
-										<p id="thumb_elem">
-											<a href="javascript:void(0);" id="thumb_link"> Thumbnail
-											</a>
-										</p>
-									</div>
-								</header>
-								<div id="image_cont">
-									<div id="image_elem">
-										<!--<img id="iviewerImage" src="images/null.jpg" />-->
-									</div>
-									<div id="mag_image_elem" style="display:none;"></div>
-									<div id="image_tool">
-										<span id="spb">
-											<div id="spb_cont">
-												<a id="orig" class="zoom_btn"
-													href="javascript:void(0);" title="100%">Full</a>
-												<!--<a id="out" href="javascript:void(0);">-</a>-->
-												<div id="slider"/>
-												<!--<a id="in" href="javascript:void(0);">+</a>-->
-												<a id="fit" class="zoom_btn"
-													href="javascript:void(0);" title="Fit to frame"
-													>Fit</a>
-											</div>
-										</span>
-									</div>
-									<input id="dimFit" type="hidden" value=""/>
-									<input id="imgTit" type="hidden" value=""/>
-									<div id="thumb_cont">
-										<xsl:for-each select="//tei:pb">
-											<figure>
-												<img class="thumb_single" id="{@n}_small"
-													src="data/input_data/images/{@n}_small.jpg"/>
-												<figcaption>
-													<xsl:value-of select="@n"/>
-												</figcaption>
-											</figure>
-										</xsl:for-each>
-									</div>									
-								</div>							
-							</div>
-						</xsl:if>
-						
-						<xsl:variable name="id_left_frame">
+
+						<xsl:variable name="id_right_frame">
 							<xsl:choose>
 								<xsl:when test="$image_frame=true()">
-									<text>main_left_frame</text>
+									<text>main_right_frame</text>
 								</xsl:when>
 								<xsl:otherwise>
-									<text>main_left_frame-single</text>
+									<text>main_right_frame-single</text>
 								</xsl:otherwise>
 							</xsl:choose>
 						</xsl:variable>
-						<div id="{$id_left_frame}">
-							<div id="main_left_menu">
-								<a href="javascript:void(0);" id="main_left_menu-openlink"
+						
+						<div id="{$id_right_frame}">
+							<!--
+							<div id="main_right_menu">
+								<a href="javascript:void(0);" id="main_right_menu-openlink"
 									title="Open menu"> + </a>
-								<a href="javascript:void(0);" id="main_left_menu-closelink"
+								<a href="javascript:void(0);" id="main_right_menu-closelink"
 									title="Close menu"> - </a>
 							</div>
-							<div id="main_left_arrow" title="Previous"/>
+							-->
 							<xsl:if test="$image_frame=false()">
-								<div id="main_right_arrow" onclick="UnInitialize()" title="Next"/>
+								<div id="main_left_arrow" onclick="UnInitialize()" title="Previous"/>
 							</xsl:if>
-							<header id="left_header">
+							<div id="main_right_arrow" title="Next"/>
+							<header id="right_header">
 								<div id="text_menu">
 									<span class="span_pp_select"> Folio: <xsl:call-template
 										name="pp_select_build">
@@ -303,6 +246,69 @@
 								<div id="text_elem"/>
 							</div>
 						</div>
+						
+						
+						<xsl:if test="$image_frame=true()">
+							<div id="main_left_frame">
+								<!--
+								<div id="main_left_menu">
+									<a href="javascript:void(0);" id="main_left_menu-openlink"
+										title="Open menu"> + </a>
+									<a href="javascript:void(0);" id="main_left_menu-closelink"
+										title="Close menu"> - </a>
+								</div>
+								-->
+								<div id="main_left_arrow" title="Previous"/>
+								<header id="left_header">
+									<div id="image_menu">
+										<span class="span_pp_select"> Folio: <xsl:call-template
+											name="pp_select_build"/>
+										</span>
+										<p id="thumb_elem">
+											<a href="javascript:void(0);" id="thumb_link"> Thumbnail
+											</a>
+										</p>
+										<input type="image" src="images/zoom.png" id="switchZoom" value="zoom" onclick="zoomOn()"/>
+										<input type="image" src="images/magOff.png" id="switchMag" value="mag" onclick="magOn()"/>
+										<input type="image" src="images/ITLoff.png" id="switchITL" value="turn ITL on" title="Image text link" onclick="switchIMT()"/>
+									</div>
+								</header>
+								<div id="image_cont">
+									<div id="image_elem">
+										<!--<img id="iviewerImage" src="images/null.jpg" />-->
+									</div>
+									<div id="mag_image_elem"></div>
+									
+									<div id="image_tool">
+										<span id="spb">
+											<a id="zoom_orig" class="zoom_btn"
+													href="javascript:void(0);" title="100%"></a>
+											<a id="zoom_fit" class="zoom_btn"
+												href="javascript:void(0);" title="Fit to frame"
+												>	</a>
+											<a id="zoom_out" href="javascript:void(0);"></a>
+											<div id="spb_cont">
+												<div id="slider"/>
+											</div>
+											<a id="zoom_in" href="javascript:void(0);"></a>
+										</span>
+									</div>
+									<input id="dimFit" type="hidden" value=""/>
+									<input id="imgTit" type="hidden" value=""/>
+									<div id="thumb_cont">
+										<xsl:for-each select="//tei:pb">
+											<figure>
+												<img class="thumb_single" id="{@n}_small"
+													src="data/input_data/images/{@n}_small.jpg"/>
+												<figcaption>
+													<xsl:value-of select="@n"/>
+												</figcaption>
+											</figure>
+										</xsl:for-each>
+									</div>									
+								</div>
+							</div>
+						</xsl:if>
 					</section>
 					<section id="central_button">
 						<div id="edval">
