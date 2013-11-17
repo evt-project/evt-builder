@@ -135,7 +135,7 @@ footer{
 #main_right_frame header{
 	width: 100%;
 	position: absolute;
-	top: -1px;
+	#top: -1px;
 	height: 51px;
 	margin-left: auto;
 	margin-right: auto;
