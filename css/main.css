@@ -484,6 +484,7 @@ footer{
     width: 31px;
     height: 31px;
     top: -3px;
+    right: -40px;
     background-color: transparent;
     color: #786E64;
     font-size: 13px;
@@ -597,7 +598,7 @@ footer{
 .span_pp_select{
 	position: absolute;
 	right: 16px;
-	top: 20px;
+	top: 4px;
 	border: 2px solid #f5ead4;
 	height: 35px;
 	padding: 2px;
@@ -648,7 +649,7 @@ overflow-x: hidden;
 
 #thumb_elem{
 	position: absolute;
-	top: 20px;
+	top: 4px;
 	right: 240px;	
 	border: 2px solid #f5ead4;
 	width: 86px;
@@ -672,7 +673,7 @@ overflow-x: hidden;
 #radio_edition, #radio_edition-add{
 	position: absolute;
 	right: 225px;
-	top: 20px;
+	top: 4px;
 	min-width: 214px;
 	height: 31px;
 	padding-right: 12px;

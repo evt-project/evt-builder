@@ -305,7 +305,7 @@ $( function() {
 				$('#text_cont')
 					.clone()
 					.attr("id", "text_cont-add")
-					.insertAfter("#right_header")
+					.insertAfter("#left_header")
 				;
 				$('#text_cont-add>#text_elem')
 					.attr("id", "text_elem-add")
@@ -317,7 +317,7 @@ $( function() {
 				$('#radio_edition')
 					.clone()
 					.attr("id", "radio_edition-add")
-					.appendTo("#right_header")
+					.appendTo("#left_header")
 				;		
 				
 				$('#radio_edition-add>input[name="edition_r"]').each(function(index) {
