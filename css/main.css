@@ -585,15 +585,16 @@ footer{
 }
 
 .main_pp_select, .main_ee_select{
-	/*background: transparent;
+	/*
+	background: transparent;
 	width: 88px;
 	padding: 5px;
 	font-size: 16px;
 	border: 1px solid #ccc;
 	height: 34px;
 	overflow: hidden;
-	width: 140px;*/
-	width: 129px;
+	width: 140px;width: 129px;
+	*/
 	height: 34px;
 	overflow: hidden;
 	font-size: 20px;
