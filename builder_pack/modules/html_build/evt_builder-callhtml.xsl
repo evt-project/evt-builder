@@ -195,75 +195,22 @@
 					</header>
 					
 					<section id="central_wrapper">
-
-						<xsl:variable name="id_left_frame">
-							<xsl:choose>
-								<xsl:when test="$image_frame=true()">
-									<text>main_left_frame</text>
-								</xsl:when>
-								<xsl:otherwise>
-									<text>main_left_frame-single</text>
-								</xsl:otherwise>
-							</xsl:choose>
-						</xsl:variable>
-						
-						<div id="{$id_left_frame}">
-							<!--
-							<div id="main_left_menu">
-								<a href="javascript:void(0);" id="main_left_menu-openlink"
-									title="Open menu"> + </a>
-								<a href="javascript:void(0);" id="main_left_menu-closelink"
-									title="Close menu"> - </a>
-							</div>
-							-->
-							<xsl:if test="$image_frame=false()">
-								<div id="main_left_arrow" onclick="UnInitialize()" title="Previous"/>
-							</xsl:if>
-							<div id="main_left_arrow" title="Next"/>
-							<header id="left_header">
-								<div id="text_menu">
-									<span class="span_pp_select"><xsl:call-template
-										name="pp_select_build">
-										<xsl:with-param name="html_select_main"
-											select="'html_select_main'"/>
-									</xsl:call-template>
-									</span>
-
-									<span>
-										<xsl:call-template name="ee_select_build" />
-									</span>
-									
-									<form id="radio_edition" name="radio_edition_name">
-										<xsl:call-template name="rm-loops_radio">
-											<xsl:with-param name="rm_for">
-												<xsl:value-of select="count($edition_array)"/>
-											</xsl:with-param>
-											<xsl:with-param name="rm_counter_test"
-												>1</xsl:with-param>
-											<xsl:with-param name="rm_object" select="$edition_array"
-											/>
-										</xsl:call-template>
-									</form>
-								</div>
-							</header>
-							<div id="text_cont">
-								<div id="text_elem"/>
-							</div>
-						</div>
-						
 						
 						<xsl:if test="$image_frame=true()">
-							<div id="main_right_frame">
+							<div id="main_left_frame">
 								<!--
-								<div id="main_right_menu">
-									<a href="javascript:void(0);" id="main_right_menu-openlink"
+								<div id="main_left_menu">
+									<a href="javascript:void(0);" id="main_left_menu-openlink"
 										title="Open menu"> + </a>
-									<a href="javascript:void(0);" id="main_right_menu-closelink"
+									<a href="javascript:void(0);" id="main_left_menu-closelink"
 										title="Close menu"> - </a>
 								</div>
 								-->
-								<div id="main_right_arrow" title="Previous"/>
-								<header id="right_header">
+								<xsl:if test="$image_frame=false()">
+									<div id="main_left_arrow" onclick="UnInitialize()" title="Previous"/>
+								</xsl:if>
+								<div id="main_left_arrow" title="Next"/>
+								<header id="left_header">
 									<div id="image_menu">
 										<span class="span_pp_select"><xsl:call-template
 											name="pp_select_build"/>
@@ -313,6 +260,60 @@
 								</div>
 							</div>
 						</xsl:if>
+						
+						<xsl:variable name="id_right_frame">
+							<xsl:choose>
+								<xsl:when test="$image_frame=true()">
+									<text>main_right_frame</text>
+								</xsl:when>
+								<xsl:otherwise>
+									<text>main_right_frame-single</text>
+								</xsl:otherwise>
+							</xsl:choose>
+						</xsl:variable>
+						
+						
+						<div id="{$id_right_frame}">
+							<!--
+							<div id="main_right_menu">
+								<a href="javascript:void(0);" id="main_right_menu-openlink"
+									title="Open menu"> + </a>
+								<a href="javascript:void(0);" id="main_right_menu-closelink"
+									title="Close menu"> - </a>
+							</div>
+							-->
+							<div id="main_right_arrow" title="Previous"/>
+							<header id="right_header">
+								<div id="text_menu">
+										<span class="span_pp_select"><xsl:call-template
+											name="pp_select_build">
+											<xsl:with-param name="html_select_main"
+												select="'html_select_main'"/>
+										</xsl:call-template>
+										</span>
+
+										<span>
+											<xsl:call-template name="ee_select_build" />
+										</span>
+										
+										<form id="radio_edition" name="radio_edition_name">
+											<xsl:call-template name="rm-loops_radio">
+												<xsl:with-param name="rm_for">
+													<xsl:value-of select="count($edition_array)"/>
+												</xsl:with-param>
+												<xsl:with-param name="rm_counter_test"
+													>1</xsl:with-param>
+												<xsl:with-param name="rm_object" select="$edition_array"
+												/>
+											</xsl:call-template>
+										</form>
+									</div>
+							</header>
+							<div id="text_cont">
+								<div id="text_elem"/>
+							</div>
+						</div>
+
 					</section>
 					<section id="central_button">
 						<div id="edval">
