@@ -196,31 +196,31 @@
 					
 					<section id="central_wrapper">
 
-						<xsl:variable name="id_right_frame">
+						<xsl:variable name="id_left_frame">
 							<xsl:choose>
 								<xsl:when test="$image_frame=true()">
-									<text>main_right_frame</text>
+									<text>main_left_frame</text>
 								</xsl:when>
 								<xsl:otherwise>
-									<text>main_right_frame-single</text>
+									<text>main_left_frame-single</text>
 								</xsl:otherwise>
 							</xsl:choose>
 						</xsl:variable>
 						
-						<div id="{$id_right_frame}">
+						<div id="{$id_left_frame}">
 							<!--
-							<div id="main_right_menu">
-								<a href="javascript:void(0);" id="main_right_menu-openlink"
+							<div id="main_left_menu">
+								<a href="javascript:void(0);" id="main_left_menu-openlink"
 									title="Open menu"> + </a>
-								<a href="javascript:void(0);" id="main_right_menu-closelink"
+								<a href="javascript:void(0);" id="main_left_menu-closelink"
 									title="Close menu"> - </a>
 							</div>
 							-->
 							<xsl:if test="$image_frame=false()">
 								<div id="main_left_arrow" onclick="UnInitialize()" title="Previous"/>
 							</xsl:if>
-							<div id="main_right_arrow" title="Next"/>
-							<header id="right_header">
+							<div id="main_left_arrow" title="Next"/>
+							<header id="left_header">
 								<div id="text_menu">
 									<span class="span_pp_select"><xsl:call-template
 										name="pp_select_build">
@@ -253,17 +253,17 @@
 						
 						
 						<xsl:if test="$image_frame=true()">
-							<div id="main_left_frame">
+							<div id="main_right_frame">
 								<!--
-								<div id="main_left_menu">
-									<a href="javascript:void(0);" id="main_left_menu-openlink"
+								<div id="main_right_menu">
+									<a href="javascript:void(0);" id="main_right_menu-openlink"
 										title="Open menu"> + </a>
-									<a href="javascript:void(0);" id="main_left_menu-closelink"
+									<a href="javascript:void(0);" id="main_right_menu-closelink"
 										title="Close menu"> - </a>
 								</div>
 								-->
-								<div id="main_left_arrow" title="Previous"/>
-								<header id="left_header">
+								<div id="main_right_arrow" title="Previous"/>
+								<header id="right_header">
 									<div id="image_menu">
 										<span class="span_pp_select"><xsl:call-template
 											name="pp_select_build"/>
