@@ -340,6 +340,7 @@ $.widget( "ui.iviewer", $.ui.mouse, {
             new_zoom = this.options.width / this.img_object.orig_width() * 100;
         }
         else {
+            //var height_mod = this.options.height-102; //rafmasAgg
             new_zoom = this.options.height / this.img_object.orig_height() * 100;
         }
 		
