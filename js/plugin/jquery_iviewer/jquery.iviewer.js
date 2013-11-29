@@ -290,7 +290,7 @@ $.widget( "ui.iviewer", $.ui.mouse, {
 
     _updateContainerInfo: function()
     {
-        this.options.height = this.container.height();
+        this.options.height = this.container.height()-100;
         this.options.width = this.container.width();
 		//alert('chiamata');
     },
@@ -853,7 +853,7 @@ $.ui.iviewer.ImageObject = function(do_anim) {
                 .removeAttr("width")
                 .removeAttr("height")
                 .removeAttr("style")
-                .css({ position: "absolute", top :"0px", left: "0px"})
+                .css({ position: "absolute", top :"0px", left: "0px", paddingTop: "50px"})
 				.attr("id","iviewerImage") //rafmasAgg
 
             self._img[0].src = src;
