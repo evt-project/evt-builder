@@ -341,7 +341,7 @@ $.widget( "ui.iviewer", $.ui.mouse, {
         }
         else {
             //var height_mod = this.options.height-102; //rafmasAgg
-            new_zoom = height_mod / this.img_object.orig_height() * 100;
+            new_zoom = this.options.height / this.img_object.orig_height() * 100;
         }
 		
   //  this._updateContainerInfo(); //rafmasAgg
