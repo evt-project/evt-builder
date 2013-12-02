@@ -51,6 +51,9 @@ var selectedAreaImgLeft;
 var ImgWidth;
 var ImgRight;
 var ImgBottom;
+var paddingTop;
+var marginTop;
+var imgTop;
 var ImgHeight;
 var ViewWidth;
 var WindowHeight;
@@ -61,7 +64,7 @@ var Initializing = true;
 
 function Initialize(){
     if (Initializing == true){
-    //alert("Initialize");
+    
 /* Populate three handy lists with pointers to the menu items, areas and Anns. */
     HeightOffset = parseInt(document.getElementById('iviewerImage').offsetTop);
     ImgLeft = parseInt(document.getElementById('iviewerImage').offsetLeft);
@@ -69,7 +72,9 @@ function Initialize(){
     ImgRight = ImgLeft + ImgWidth;
     ImgHeight = parseInt(document.getElementById('iviewerImage').offsetHeight);
     ImgBottom = HeightOffset + ImgHeight;
-    
+    paddingTop = parseInt($("#iviewerImage").css('padding-top'));
+    marginTop = parseInt($("#iviewerImage").css('margin-top'));
+    imgTop = HeightOffset + paddingTop + marginTop;
     document.getElementById("switchITL").setAttribute('src','images/ITLon.png');
     
     //var L = document.getElementById('AnnMenuContainer');
@@ -81,7 +86,7 @@ function Initialize(){
     for (var i=0; i<NList.length; i++){
         if (NList[i].className == 'Area'){
             NList[i].style.left = (parseFloat(NList[i].style.left)*ratio) + ImgLeft + 'px';
-            NList[i].style.top = (parseFloat(NList[i].style.top)*ratio) + HeightOffset + 'px';
+            NList[i].style.top = (parseFloat(NList[i].style.top)*ratio) + imgTop + 'px';
             NList[i].style.width = (parseFloat(NList[i].style.width)*ratio) + 'px';
             NList[i].style.height = (parseFloat(NList[i].style.height)*ratio) + 'px';
 			NList[i].style.display = 'block';
@@ -174,7 +179,7 @@ function Initialize(){
 function ReInitialize(){
     //alert("ReInitialize()");
     if (Initializing == false){
-        newHeightOffset = parseInt(document.getElementById('iviewerImage').offsetTop);
+        newImgTop = parseInt(document.getElementById('iviewerImage').offsetTop) +parseInt($('#iviewerImage').css('padding-top')) + parseInt($('#iviewerImage').css('margin-top'));
         newImgLeft = parseInt(document.getElementById('iviewerImage').offsetLeft);    
         var newRatio = ((document.getElementById("iviewerImage").width)/1200);
         
@@ -182,13 +187,13 @@ function ReInitialize(){
         for (var i=0; i<NList.length; i++){
             if ((NList[i].className == 'Area')||(NList[i].className == 'SelectedArea')||(NList[i].className == 'HighlightedArea')){
                 NList[i].style.left = (((parseFloat(NList[i].style.left)) - ImgLeft)/Ratio) * newRatio + newImgLeft + 'px';
-		        NList[i].style.top = (((parseFloat(NList[i].style.top)) - HeightOffset)/Ratio) * newRatio + newHeightOffset + 'px';
+		        NList[i].style.top = (((parseFloat(NList[i].style.top)) - imgTop)/Ratio) * newRatio + newImgTop + 'px';
                 NList[i].style.width = ((parseFloat(NList[i].style.width))/Ratio) * newRatio + 'px';
                 NList[i].style.height = ((parseFloat(NList[i].style.height))/Ratio)* newRatio + 'px';
             }
 	    }
 	    ImgLeft = newImgLeft;
-	    HeightOffset = newHeightOffset;
+	    imgTop = newImgTop;
 	    Ratio = newRatio;
     }
 }
@@ -202,7 +207,7 @@ function UnInitialize(){
 	
 	for (var i=0; i<Areas.length; i++){
 	    Areas[i].style.left = ((parseFloat(Areas[i].style.left)) - ImgLeft)/ratio + 'px';
-		Areas[i].style.top = ((parseFloat(Areas[i].style.top)) - HeightOffset)/ratio + 'px';
+		Areas[i].style.top = ((parseFloat(Areas[i].style.top)) - imgTop)/ratio + 'px';
         Areas[i].style.width = (parseFloat(Areas[i].style.width)/ratio) + 'px';
         Areas[i].style.height = (parseFloat(Areas[i].style.height)/ratio) + 'px';
 		Areas[i].style.display = 'none';
@@ -219,6 +224,9 @@ function UnInitialize(){
 	ImgRight=0;
 	ImgBottom=0;
 	ImgHeight=0;
+	paddingTop = 0;
+	marginTop = 0;
+    imgTop = 0;
 	ViewWidth=0;
 	WindowHeight=0;
 	Initializing = true;
@@ -239,17 +247,17 @@ function switchIMT(){
 
     function moveAreas(){
     	if (Initializing == false){
-    	    newHeightOffset = parseInt(document.getElementById('iviewerImage').offsetTop);
+    	    newImgTop = parseInt(document.getElementById('iviewerImage').offsetTop) +parseInt($('#iviewerImage').css('padding-top')) + parseInt($('#iviewerImage').css('margin-top'));
             newImgLeft = parseInt(document.getElementById('iviewerImage').offsetLeft);
             var NList = document.getElementsByTagName('div')
             for (var i=0; i<NList.length; i++){
                 if ((NList[i].className == 'Area')||(NList[i].className == 'SelectedArea')||(NList[i].className == 'HighlightedArea')){
                     NList[i].style.left = (parseFloat(NList[i].style.left))- ImgLeft + newImgLeft + 'px';
-                    NList[i].style.top = (parseFloat(NList[i].style.top))- HeightOffset + newHeightOffset + 'px';
+                    NList[i].style.top = (parseFloat(NList[i].style.top))- imgTop + newImgTop + 'px';
                 }
 	       }
 	       ImgLeft = newImgLeft;
-	       HeightOffset = newHeightOffset;
+	       imgTop = newImgTop;
 	   }
     }
     
