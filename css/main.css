@@ -500,7 +500,7 @@ footer{
 	display: inline;
 }
 #spb{
-	border: 2px solid #786e64;
+	#border: 2px solid #786e64;
 }
 #spb a{
 	#color: #786e64;
@@ -519,7 +519,7 @@ footer{
 }
 #zoom_orig:hover, #zoom_fit:hover{
 	color: white;
-	background: #786e64;
+	#background: #786e64;
 }
 #spb_cont{
 	/*border-right: 2px solid #786e64;
@@ -547,33 +547,80 @@ footer{
 	position: absolute;
 	bottom:2px;
 	background: none;
+	left: 115px;
 }
 
 #zoom_in{
 	#float: right;
-    background: url(../images/iviewer.zoom_in.gif);
+    background: url(../images/iviewer.zoom_in.gif) top center no-repeat;
+    height:28px;
+	width: 28px;
+	position: absolute;
+	z-index: 9999999;
+	min-width: 28px;
+	min-height: 28px;
+	position: absolute;
+	top: 10px;
+	left: 351px;
 }
 
 #zoom_out{
 	#float: left;
 	position: absolute;
 	top: -40px;
-    background: url(../images/iviewer.zoom_out.gif);
+    background: url(../images/iviewer.zoom_out.gif) top center no-repeat;
+    height:28px;
+	width: 28px;
+	position: absolute;
+	z-index: 9999999;
+	min-width: 28px;
+	min-height: 28px;
+	top: 10px;
+	left: 78px;
 }
 
 #zoom_orig{
-	background: url(../images/iviewer.zoom_full.gif);
+	background: url(../images/iviewer.zoom_full.gif) top center no-repeat;
 	/*padding: 3px;
 	left: -6.5px;
 	top: -50px;
 	position: absolute;*/
+	height:28px;
+	width: 28px;
+	position: absolute;
+	z-index: 9999999;
+	min-width: 28px;
+	min-height: 28px;
+	top: 10px;
+	left: 5px;
+
 }
 #zoom_fit{
-	background: url(../images/iviewer.zoom_fit.gif);
+	background: url(../images/iviewer.zoom_fit.gif) top center no-repeat;
 	/*padding: 3px;
 	left: -3.5px;
 	top: 121px;
 	position: absolute;*/
+	height:28px;
+	width: 28px;
+	position: absolute;
+	z-index: 9999999;
+	min-width: 28px;
+	min-height: 28px;
+	top: 10px;
+	left: 40px;
+}
+
+#zoom_fit, #zoom_orig, #zoom_out, #zoom_in{
+	box-shadow: 0px 2px 6px -2px #000;
+	-moz-box-shadow: 0px 2px 6px -2px #000;
+	/* WARNING add the other browsers' css*/
+}
+
+#zoom_fit:hover, #zoom_orig:hover, #zoom_out:hover, #zoom_in:hover{
+	box-shadow: inset 0px 2px 6px -2px #000;
+	-moz-box-shadow: inset 0px 2px 6px -2px #000;
+	/* WARNING add the other browsers' css*/
 }
 
 #img_tools{
