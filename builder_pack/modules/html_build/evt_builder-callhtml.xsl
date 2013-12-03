@@ -198,10 +198,9 @@
 								><!--<img id="img_fullscreen" src="images/full_screen.png" />--></a>
 						</div>
 					</header>
-					<div id="main_left_arrow" onclick="UnInitialize()" title="Previous"/>
-					<div id="main_right_arrow" title="Next"/>
 					<section id="central_wrapper">
-						
+						<div id="main_left_arrow" onclick="UnInitialize()" title="Previous"/>
+						<div id="main_right_arrow" title="Next"/>
 						<xsl:if test="$image_frame=true()">
 							<div id="main_left_frame">
 								<!--
@@ -215,7 +214,7 @@
 								<xsl:if test="$image_frame=false()">
 									<!--<div id="main_left_arrow" onclick="UnInitialize()" title="Previous"/>-->
 								</xsl:if>
-								<div id="main_left_arrow" title="Next"/>
+								<!-- <div id="main_left_arrow" title="Previous"/> -->
 								<header id="left_header">
 									<div id="image_menu">
 										<span class="span_pp_select"><xsl:call-template

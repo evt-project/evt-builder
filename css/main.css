@@ -124,6 +124,7 @@ footer{
 	-khtml-box-shadow:0 10px 5px -6px rgba(0,0,0,0.8);
 	-ms-box-shadow:0 10px 5px -6px rgba(0,0,0,0.8);
 	box-shadow:0 10px 5px -6px rgba(0,0,0,0.8);
+	position: relative;
 }
 
 
@@ -1046,10 +1047,11 @@ overflow-x: hidden;
     */
  	
     /* CDP */
-    margin-top: 22%;
-	margin-right: 1.1%;
-	position: relative;
+    top: 50%;
+	position: absolute;
 	float: right;
+	right: -4%;
+	margin-top: -29.5px;
 }
 
 #main_right_arrow:hover{
@@ -1085,8 +1087,10 @@ overflow-x: hidden;
     z-index:9999;
 
     /*CDP*/
-    margin-left: 1.1%;
-	margin-top: 22%;
+    top:50%;
+    position: absolute;
+	left: -4%;
+	margin-top: -29.5px;
 }
 
 #main_left_arrow:hover{
