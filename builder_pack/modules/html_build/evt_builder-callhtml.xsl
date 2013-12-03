@@ -176,7 +176,12 @@
 						<div id="home_title">
 							<xsl:value-of select="$index_title"/>
 						</div>
-						
+						<div class='concave'>
+							<div class='extTop'>
+								<div class='topleftconcave'></div>
+							</div>
+							<div class='botleftconcave'></div>
+						</div>
 						<xsl:if test="$image_frame=true()">
 							<div id="mode_switch">
 								<a href="javascript:void(0);" id="txtimg_link" class="current_mode"

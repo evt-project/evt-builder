@@ -706,6 +706,10 @@ footer{
 	box-shadow:0px 1px 3px -1px rgba(0,0,0,0.6);
 }
 
+#slider a:focus{
+	outline: none;
+}
+
 #central_button{
 	height: 30px;
 	#margin-top: -4px;
@@ -1110,4 +1114,49 @@ overflow-x: hidden;
 
 #txttxt_link, #txtimg_link, #txttxt_link.current_mode, #txtimg_link.current_mode {
 	color:transparent !important;
+}
+
+/* Top Menu Wave */
+div.concave {
+    background: transparent;
+	width: 300px;
+	position: absolute;
+	right: 0px;
+	top: 11px;
+}
+
+div.extTop{
+	background: #3c322c;
+	width: 300px;
+	height: 25px;
+	position: relative;
+}
+div.topleftconcave {
+	position: absolute;
+	background: url(../images/bg-darker.png) fixed;
+	width: 25px;
+	height: 25px;
+	border-top-right-radius: 300px 300px;
+	box-shadow: 4px -2px 5px -3px rgba(0,0,0,0.6);
+	overflow-y: hidden;
+}
+div.botleftconcave {
+	position: absolute;
+	background: #3c322c;
+	width: 275px;
+	height: 25px;
+	top: 21px;
+	left: 25px;
+	border-bottom-left-radius: 60px 60px;
+	box-shadow: inset 4px -3px 5px -3px rgba(0,0,0,0.4), inset 0px -4px 5px -3px rgba(0,0,0,0.4);
+}
+
+#mode_switch{
+	top:5px;
+	right: 62px;
+}
+
+#cont_fullscreen{
+	top: 13px;
+	right: 0px;
 }
