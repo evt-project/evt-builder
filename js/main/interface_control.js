@@ -14,6 +14,105 @@
 
 $( function() {
 
+	$.ajax({
+		type: "GET",
+		url: "data/output_data/structure.xml",
+		dataType: "xml",
+		success: function(xml) {
+			//Edition
+			
+			/*$('.span_ee_select').append(
+				$('<div/>')
+					.addClass('main_ee_select')
+					.append($('<span/>').addClass('label_selected'))
+					.append($('<div/>').addClass('open_select'))
+					.append($('<div/>').addClass('option_container'))
+			);*/
+
+			$(xml).find('editions edition').each(function(){
+				//alert($(this).text());
+				var current_id = $(this).attr("n");
+				var current_label = $(this).text();
+				$('.main_ee_select .option_container').append(
+					$('<div/>')
+						.attr("id", "value_"+current_id)
+						.addClass('option')
+						.text(current_label)
+				);
+			});
+			$('.main_ee_select .option_container div:first').addClass('selected');
+			$('.main_ee_select .label_selected')
+				.text($('.main_ee_select .option_container div:first').text());
+
+			//Page
+			
+			/*$('.span_pp_select').append(
+				$('<div/>')
+					.addClass('main_pp_select')
+					.append($('<span/>').addClass('label_selected'))
+					.append($('<div/>').addClass('open_select'))
+					.append($('<div/>').addClass('option_container'))
+			);*/
+
+			$(xml).find('textpage text pb').each(function(){
+				var current_id = $(this).attr("n");
+				var current_label = $(this).text();
+				$('.main_pp_select .option_container').append(
+					$('<div/>')
+						.attr("id", "value_"+current_id)
+						.addClass('option')
+						.text(current_label)
+				);
+			});
+			$('.main_pp_select .option_container div:first').addClass('selected');
+			$('.main_pp_select .label_selected')
+				.text($('.main_pp_select .option_container div:first').text());
+
+
+			//Text
+			
+			/*$('.span_tt_select').append(
+				$('<div/>')
+					.addClass('main_tt_select')
+					.append($('<span/>').addClass('label_selected'))
+					.append($('<div/>').addClass('open_select'))
+					.append($('<div/>').addClass('option_container'))
+			);*/
+
+			$(xml).find('textpage text').each(function(){
+				var current_id = $(this).attr("n");
+				//var current_label = $(this).text();
+				$('.main_tt_select .option_container').append(
+					$('<div/>')
+						.attr("id", "value_"+current_id)
+						.addClass('option')
+						.text(current_id)
+				);
+			});
+			$('.main_tt_select .option_container div:first').addClass('selected');
+			$('.main_tt_select .label_selected')
+				.text($('.main_tt_select .option_container div:first').text());	
+
+
+			/* Gestione div */
+			$(".open_select").click(function(){
+				//$('#folioOptionCnt').toggle('blind');
+				//$(this).next().toggle('blind');
+				$(this).siblings('.option_container').toggle('blind');
+			});
+			$(".option").click(function(){
+				var newPage = $(this).attr('id').substr(6); 
+				$(this).addClass("selected").siblings().removeClass('selected');
+				$(this).parent().prev().prev().text(newPage); // .label_selected
+				$(this).parent().toggle('blind');
+			});
+			/* / Gestione div*/
+		}
+	});
+
+
+	//---
+
 	// IT: Setting variabili generiche
 	var keycount=0;
 	var fulltogg=false;
@@ -331,6 +430,7 @@ $( function() {
 			..codice qui..
 		});*/	
 	/* / Gestione click */
+
 
 	/* HASH CHANGE - ba.bbq plugin */
 		// IT: Associa un evento a windows.onhashchange; quando l'hash cambia, ottiene il suo valore per usarlo in diverse funzioni
