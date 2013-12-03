@@ -1031,19 +1031,25 @@ overflow-x: hidden;
 	background:url(../images/arrows.png) no-repeat 0 0;
 	background-position:0 -118px;
     
+    cursor:pointer;
+ 	display:inline-block;
+	height:59px;
+	outline:0;ù
+	text-indent:-9999px;
+    width:31px;
+    z-index:9999;
+    /* old
     float: right;
     margin-right: -39px;
 	margin-top: 225px;
-
-    cursor:pointer;
-    display:inline-block;
-    height:59px;
-    outline:0;
     #position:absolute;
-    
-    text-indent:-9999px;
-    width:31px;
-    z-index:9999;
+    */
+ 	
+    /* CDP */
+    margin-top: 22%;
+	margin-right: 1.1%;
+	position: relative;
+	float: right;
 }
 
 #main_right_arrow:hover{
@@ -1065,9 +1071,9 @@ overflow-x: hidden;
 	background:url(../images/arrows.png) no-repeat 0 0;
     
     float: left;
-	margin-left: -39px;
+	/*margin-left: -39px;
 	margin-top: 225px;
-
+	*/
     cursor:pointer;
     display:inline-block;
     height:59px;
@@ -1077,6 +1083,10 @@ overflow-x: hidden;
     text-indent:-9999px;
     width:31px;
     z-index:9999;
+
+    /*CDP*/
+    margin-left: 1.1%;
+	margin-top: 22%;
 }
 
 #main_left_arrow:hover{
