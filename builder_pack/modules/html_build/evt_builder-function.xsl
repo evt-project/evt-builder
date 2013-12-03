@@ -109,5 +109,15 @@
 			</xsl:for-each>
 		</select>
 	</xsl:template>
+
+	<xsl:template name="div_select_build">
+		<xsl:param name="html_div_class"/>
+
+		<div class="{$html_div_class}">
+	     	<span class="label_selected"></span>
+	        <div class="open_select" ></div>
+	        <div class="option_container"></div>  
+	    </div>
+	</xsl:template>
 	
 </xsl:stylesheet>

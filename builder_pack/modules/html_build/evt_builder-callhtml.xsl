@@ -217,9 +217,6 @@
 								<!-- <div id="main_left_arrow" title="Previous"/> -->
 								<header id="left_header">
 									<div id="image_menu">
-										<span class="span_pp_select"><xsl:call-template
-											name="pp_select_build"/>
-										</span>
 										<p id="thumb_elem">
 											<a href="javascript:void(0);" id="thumb_link"> Thumb
 											</a>
@@ -290,29 +287,25 @@
 							<!--<div id="main_right_arrow" title="Previous"/>-->
 							<header id="right_header">
 								<div id="text_menu">
-										<span class="span_pp_select"><xsl:call-template
-											name="pp_select_build">
-											<xsl:with-param name="html_select_main"
-												select="'html_select_main'"/>
+									<span class="like_select">
+										<xsl:call-template name="div_select_build">
+											<xsl:with-param name="html_div_class"
+												select="'main_tt_select'"/>
 										</xsl:call-template>
-										</span>
-
-										<span>
-											<xsl:call-template name="ee_select_build" />
-										</span>
-										
-										<form id="radio_edition" name="radio_edition_name">
-											<xsl:call-template name="rm-loops_radio">
-												<xsl:with-param name="rm_for">
-													<xsl:value-of select="count($edition_array)"/>
-												</xsl:with-param>
-												<xsl:with-param name="rm_counter_test"
-													>1</xsl:with-param>
-												<xsl:with-param name="rm_object" select="$edition_array"
-												/>
-											</xsl:call-template>
-										</form>
-									</div>
+									</span>
+									<span class="like_select">
+										<xsl:call-template name="div_select_build">
+											<xsl:with-param name="html_div_class"
+												select="'main_pp_select'"/>
+										</xsl:call-template>
+									</span>
+									<span class="like_select">
+										<xsl:call-template name="div_select_build">
+											<xsl:with-param name="html_div_class"
+												select="'main_ee_select'"/>
+										</xsl:call-template>
+									</span>
+								</div>
 							</header>
 							<div id="text_cont">
 								<div id="text_elem"/>
