@@ -19,16 +19,8 @@ $( function() {
 		url: "data/output_data/structure.xml",
 		dataType: "xml",
 		success: function(xml) {
-			//Edition
 			
-			/*$('.span_ee_select').append(
-				$('<div/>')
-					.addClass('main_ee_select')
-					.append($('<span/>').addClass('label_selected'))
-					.append($('<div/>').addClass('open_select'))
-					.append($('<div/>').addClass('option_container'))
-			);*/
-
+			//Edition
 			$(xml).find('editions edition').each(function(){
 				//alert($(this).text());
 				var current_id = $(this).attr("n");
@@ -45,15 +37,6 @@ $( function() {
 				.text($('.main_ee_select .option_container div:first').text());
 
 			//Page
-			
-			/*$('.span_pp_select').append(
-				$('<div/>')
-					.addClass('main_pp_select')
-					.append($('<span/>').addClass('label_selected'))
-					.append($('<div/>').addClass('open_select'))
-					.append($('<div/>').addClass('option_container'))
-			);*/
-
 			$(xml).find('textpage text pb').each(function(){
 				var current_id = $(this).attr("n");
 				var current_label = $(this).text();
@@ -70,15 +53,6 @@ $( function() {
 
 
 			//Text
-			
-			/*$('.span_tt_select').append(
-				$('<div/>')
-					.addClass('main_tt_select')
-					.append($('<span/>').addClass('label_selected'))
-					.append($('<div/>').addClass('open_select'))
-					.append($('<div/>').addClass('option_container'))
-			);*/
-
 			$(xml).find('textpage text').each(function(){
 				var current_id = $(this).attr("n");
 				//var current_label = $(this).text();
@@ -93,6 +67,38 @@ $( function() {
 			$('.main_tt_select .label_selected')
 				.text($('.main_tt_select .option_container div:first').text());	
 
+			/* Gestione eventi */
+
+			// riferimento a .trigger('change')
+			$(".main_ee_select .label_selected").on('change',function(){
+			     //alert($('.main_ee_select .label_selected').text()); 
+			     gotoedition(location.hash.replace( /^#/, '' ),$(this).text().toLowerCase(),"text_elem", "text_cont");
+			});
+			$(".main_ee_select-add .label_selected").on('change',function(){
+			    gotoedition(location.hash.replace( /^#/, '' ),$(this).text().toLowerCase(),"text_elem-add", "text_cont-add");
+			});
+			$(".main_pp_select .label_selected").on('change',function(){
+			     //alert($('.main_pp_select .label_selected').text()); 
+			     var pp_val_temp = $('.main_pp_select .label_selected').text();
+			     var parent_temp = $(xml)
+			     	.find('text pb:contains('+pp_val_temp+')')
+			     	.parent()
+			     	.attr("n");
+			     $(".main_tt_select .label_selected").text(parent_temp).trigger('change');
+			     
+			     var newhash = $(this).text()
+			     window.location.hash = newhash;
+			     $("#value_" + newhash).addClass("selected").siblings().removeClass('selected');
+
+			});
+			$(".main_tt_select .label_selected").on('change',function(){
+			    // alert($('.main_tt_select .label_selected').text()); 
+			    //alert("ci sonooo");
+			});
+
+			/* / Gestione eventi */
+
+
 
 			/* Gestione div */
 			$(".open_select").click(function(){
@@ -104,8 +110,7 @@ $( function() {
 			});
 			$(".option").click(function(){
 				var newPage = $(this).attr('id').substr(6); 
-				$(this).addClass("selected").siblings().removeClass('selected');
-				$(this).parent().prev().prev().text(newPage); // .label_selected
+				$(this).parent().prev().prev().text(newPage).trigger('change'); // .label_selected
 				$(this).parent().animate({height:"toggle"}, 400);
 			});
 
@@ -116,6 +121,32 @@ $( function() {
 			});
 
 			/* / Gestione div*/
+
+
+			/* HASH CHANGE - ba.bbq plugin */
+				// IT: Associa un evento a windows.onhashchange; quando l'hash cambia, ottiene il suo valore per usarlo in diverse funzioni
+				$(window).hashchange( function(){
+					var hash = location.hash;
+					var current_page = hash.replace( /^#/, '' );
+					var checkpp = $(xml).find('text pb:contains('+current_page+')').text();
+
+					if(hash && (checkpp != "")){
+						$(".main_pp_select .label_selected").text(current_page);
+						$("#value_" + current_page).addClass("selected").siblings().removeClass('selected');
+					    UnInitialize(); //Add by JK for ITL
+						gotopage(hash.replace( /^#/, '' ), "none");
+						//setallselect(hash.replace( /^#/, '' ));
+						chooseZoomMag(); //Add by JK for Mag
+						
+					}else{
+						window.location.hash=$(".main_pp_select .label_selected").text();
+					}
+					// IT: Cambia il titolo della pagina in base all'hash
+					//document.title = 'The hash is ' + ( hash.replace( /^#/, '' ) || 'blank' ) + '.';
+				})
+				// IT: L'evento viene attivato quando cambia l'hash della pagina
+				$(window).hashchange();
+			/* / HASH CHANGE - ba.bbq plugin */
 		}
 	});
 
@@ -133,14 +164,16 @@ $( function() {
 	
 	/* Funzioni */
 		// IT: Cicla e setta i valori di tutti i select di classe .main_pp_select
-		function setallselect(pp_num){
+		/*function setallselect(pp_num){
 			$(".main_pp_select").each(function(){
 				$(this).val( pp_num );
 			});
-		}	
+		}*/	
 		// IT: Gestiosce il cambio pagina e gli eventi correlati
+
 		function gotopage(pp_val, state){
-			var edition=$("input[name=edition_r]:checked").val().toLowerCase();						
+			//var edition=$("input[name=edition_r]:checked").val().toLowerCase();						
+			var edition=$(".main_ee_select .label_selected").text().toLowerCase();					
 				
 			// IT: Aggiorna l'indirizzo dell'iFrame per il testo
 			
@@ -154,12 +187,13 @@ $( function() {
 			*/
 			
 			$('#text_elem').load("data/output_data/"+edition+"/page_"+pp_val+"_"+edition+".html #text_frame");
+			
 			/*$('#text_elem').load('pagina.html', function() {
 			  alert('Load was performed.');
 			});*/
 			
 			// IT: Aggiorna l'indirizzo del frame secondario per il testo
-			if ($("#text_cont-add").length > 0){
+			if ($("#text_cont-add").length > 0){ //SISTEMARE
 				var edition_add=$("input[name=edition_r-add]:checked").val().toLowerCase();			
 				
 				/* Gestione iframe secondario - rimosso
@@ -186,19 +220,18 @@ $( function() {
 			}
 			
 			// IT: Aggiorna le informazioni all'interno delle etichette			
-			$('#central_page_number span').text(pp_val).hide()
-				.fadeIn(200);
-			$('#edval span')
+			$('#central_page_number span').text(pp_val);
+			/*$('#edval span')
 				.hide()
-				.fadeIn(200);
+				.fadeIn(200);*/
 
 			$("#iviewerImage").attr("src", "images/null.jpg"); // Loading...
-			$('#folio_page_number').val(pp_val).change(); // IT: Questo attiva l'evento nel file js/plugin/jquery.iviewer
+			$('#folio_page_number').val(pp_val).change(); // IT: Questo attiva l'evento nel file js/plugin/jquery.iviewer config
 			
 			preload([
-				'images/'+$('.main_pp_select option:selected').prev('option').val()+'.jpg',
-				'images/'+$('.main_pp_select option:selected').next('option').val()+'.jpg'
-			]);		
+				'images/'+$('.main_pp_select .option_container .option.selected').prev().text()+'.jpg',
+				'images/'+$('.main_pp_select .option_container .option.selected').next().text()+'.jpg'
+			]);
 
 			// IT: Se ci si trova nella modalit Thumb, chiude la schermata e visualizza l'immagine
 			if($("#image_elem").css('display')=="none"){
@@ -241,21 +274,11 @@ $( function() {
 	
 	/* Gestione eventi */
 		// IT: Principale per il cambio pagina: attiva l'evento al cambio hash
-		$('.main_pp_select').change(function(){
+		/*$('.main_pp_select').change(function(){
 			//gotopage($(this).val(), "none");
 			window.location.hash = $(this).val();
 			//setallselect($(this).val());		
-		});
-
-		// IT: Switch edizioni
-		$('input[name=edition_r]').change(function(){
-			gotoedition(location.hash.replace( /^#/, '' ),$(this).val().toLowerCase(),"text_elem", "text_cont");
-		});	
-
-		// IT: Viene utilizzata la modalit live per rilevare il cambiamento di elementi aggiunti dinamicamente alla pagina			
-		$("input[name=edition_r-add]").live("change", function(){
-			gotoedition(location.hash.replace( /^#/, '' ),$(this).val().toLowerCase(),"text_elem-add", "text_cont-add");
-		});			
+		});*/		
 
 		// IT: Ingresso e uscita dal riquadro immagine
 		/*
@@ -280,15 +303,15 @@ $( function() {
 		});		
 		
 		$("#main_left_arrow").click(function(){
-			if($('.main_pp_select option:selected').prev('option').val()){
-				window.location.hash = $('.main_pp_select option:selected').prev('option').val();
+			if($('.main_pp_select .option_container .option.selected').prev().text()){
+				window.location.hash = $('.main_pp_select .option_container .option.selected').prev().text();
 				//$("#main_left_arrow").trigger('click');
 			}		
 		});		
 		$("#main_right_arrow").click(function(){
-				if($('.main_pp_select option:selected').next('option').val()){
-					window.location.hash = $('.main_pp_select option:selected').next('option').val();
-					//$("#main_right_arrow").trigger('click');
+			if($('.main_pp_select .option_container .option.selected').next().text()){
+				window.location.hash = $('.main_pp_select .option_container .option.selected').next().text();
+				//$("#main_right_arrow").trigger('click');
 			}
 		});
 		
@@ -440,25 +463,4 @@ $( function() {
 		});*/	
 	/* / Gestione click */
 
-
-	/* HASH CHANGE - ba.bbq plugin */
-		// IT: Associa un evento a windows.onhashchange; quando l'hash cambia, ottiene il suo valore per usarlo in diverse funzioni
-		$(window).hashchange( function(){
-			var hash = location.hash;
-
-			if(hash){
-			    UnInitialize(); //Add by JK for ITL
-				gotopage(hash.replace( /^#/, '' ), "none");
-				setallselect(hash.replace( /^#/, '' ));
-				chooseZoomMag(); //Add by JK for Mag
-				
-			}else{
-				window.location.hash=$(".main_pp_select option:first").val();
-			}
-			// IT: Cambia il titolo della pagina in base all'hash
-			//document.title = 'The hash is ' + ( hash.replace( /^#/, '' ) || 'blank' ) + '.';
-		})
-		// IT: L'evento viene attivato quando cambia l'hash della pagina
-		$(window).hashchange();
-	/* / HASH CHANGE - ba.bbq plugin */
 });

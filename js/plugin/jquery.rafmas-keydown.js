@@ -15,15 +15,15 @@
 //Pressione tasti
 $(document).keydown(function(e){	
 	if (e.keyCode == 37) { //left
-		if($('.main_pp_select option:selected').prev('option').val()){
-			window.location.hash = $('.main_pp_select option:selected').prev('option').val();
+		if($('.main_pp_select .option_container .option.selected').prev().text()){
+			window.location.hash = $('.main_pp_select .option_container .option.selected').prev().text();
 			//$("#main_left_arrow").trigger('click');
-		}
+		}	
 		return false;
 	}				
 	if (e.keyCode == 39) { //right
-		if($('.main_pp_select option:selected').next('option').val()){
-			window.location.hash = $('.main_pp_select option:selected').next('option').val();
+		if($('.main_pp_select .option_container .option.selected').next().text()){
+			window.location.hash = $('.main_pp_select .option_container .option.selected').next().text();
 			//$("#main_right_arrow").trigger('click');
 		}
 		return false;
