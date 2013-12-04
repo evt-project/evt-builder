@@ -287,19 +287,19 @@
 							<!--<div id="main_right_arrow" title="Previous"/>-->
 							<header id="right_header">
 								<div id="text_menu">
-									<span class="like_select">
+									<span id="span_tt_select" class="like_select">
 										<xsl:call-template name="div_select_build">
 											<xsl:with-param name="html_div_class"
 												select="'main_tt_select'"/>
 										</xsl:call-template>
 									</span>
-									<span class="like_select">
+									<span id="span_pp_select" class="like_select">
 										<xsl:call-template name="div_select_build">
 											<xsl:with-param name="html_div_class"
 												select="'main_pp_select'"/>
 										</xsl:call-template>
 									</span>
-									<span class="like_select">
+									<span id="span_ee_select" class="like_select">
 										<xsl:call-template name="div_select_build">
 											<xsl:with-param name="html_div_class"
 												select="'main_ee_select'"/>
