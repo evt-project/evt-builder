@@ -148,7 +148,7 @@ footer{
 	margin-left: auto;
 	margin-right: auto;
 	#z-index: 120;
-	overflow: hidden;
+	#overflow: hidden;
 	text-align: right;
 	#display: none;
 	color: #f5ead4;
@@ -756,58 +756,58 @@ footer{
 	-webkit-overflow-scrolling: touch;
 }
 
-.main_pp_select, .main_ee_select{
-	/*background: transparent;
-	width: 88px;
-	padding: 5px;
-	font-size: 16px;
-	border: 1px solid #ccc;
-	height: 34px;
-	overflow: hidden;*/
-	width: 140px;
-	height: 34px;
-	overflow: hidden;
-	font-size: 20px;
-	background: url(../images/down_arrow_select-.jpg) no-repeat right #f5ead4;
+.like_select{
+	position: relative;
+	height: 35px;
+    left: 3px;
+	right: 3px;
+	top: 2px;
+	padding: 3px 6px;
 }
 
-.span_pp_select{
-	position: absolute;
-	right: 16px;
-	top: 4px;
-	/*Chiaraborder: 2px solid #f5ead4;*/
-	height: 35px;
-	padding: 2px;
-	padding-left: 6px;
-	padding-right: 6px;
-	padding-right: 6px;
-
+#right_header .like_select{
+	float: right;
+}
+#left_header .like_select{
+	float: left;
 }
 
 /*Chiara*/
-#left_header .main_pp_select{
+.like_select > div{
+	font-size: 20px;
+	background:#f5ead4;
 	color: #000;
 	text-align: left;
 	padding: 5px;
 	height: 24px;
 	overflow: visible;
+	min-width: 80px;
 }
 
-#left_header  .main_pp_select .option_container{
-	padding: 5px;
+.label_selected{
+	margin-right: 48px;
+}
+
+.like_select .option_container{
+	position: relative;
+	overflow-y:scroll;
+	display: none;
+	padding: 3px 5px 0px 5px;
 	background:#f5ead4;
 	width: 100%;
 	left: -5px;
-	position: relative;
 	top: 5px;
-	max-height: 70px;
-	overflow-y:scroll;
-	padding-top: 3px;
-	display: none;
+	max-height: 170px;
 	z-index: 400;
+	-moz-box-shadow:0px 2px 5px rgba(0, 0, 0, 0.7);
+	-webkit-box-shadow:0px 2px 5px rgba(0, 0, 0, 0.7);
+	-o-box-shadow:0px 2px 5px rgba(0, 0, 0, 0.7);
+	-khtml-box-shadow:0px 2px 5px rgba(0, 0, 0, 0.7);
+	-ms-box-shadow:0px 2px 5px rgba(0, 0, 0, 0.7);
+	box-shadow:0px 2px 5px rgba(0, 0, 0, 0.7);
 }
 
-#left_header .main_pp_select .option{
+.like_select .option{
 	color: rgb(0, 0, 0);
 	position: relative;
 	padding: 5px;
@@ -816,12 +816,12 @@ footer{
 	border-bottom: solid 1px rgba(60, 50, 44, 0.5);
 	cursor: pointer;
 }
-#left_header .main_pp_select .option:hover{
+.like_select .option:hover{
 	background: rgb(60, 50, 44);
 	color:#fff;
 }
 
-#left_header .main_pp_select .open_select{
+.like_select .open_select{
 	padding: 5px;
 	width: 24px;
 	text-align: center;
@@ -835,41 +835,15 @@ footer{
 	opacity: 0.5;
 }
 
-#left_header .main_pp_select .open_select:hover{
+.like_select .open_select:hover{
 	opacity: 1;
 }
-
-#main_left_frame .span_pp_select{
-	left: 10px;
-	right: auto;
-
-	/*Chiara*/
-	position: relative;
-	top: 2px;
-	/*Chiaraborder: 2px solid rgb(245, 234, 212);*/
-	padding: 3px 6px;
-	float: left;
-    right: auto;
-    left: 3px;
-
-}
-
-/*Chiara*/
-#main_right_frame .span_pp_select, .main_ee_select{
-	right: 3px;
-	top: 2px;
-	position: relative;
-	float: right;
-	padding: 3px 6px;
-	/*Chiara border: 2px solid rgb(245, 234, 212);*/
-
-}	
-/*Chiara*/
-.main_ee_select{
+	
+/*.main_ee_select{
 	margin:6px;
 	padding: 0px;
 	border:none;
-}
+}*/
 /*#thumb_cont{
 	display: none;
 	position: relative;
