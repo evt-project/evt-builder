@@ -98,7 +98,9 @@ $( function() {
 			$(".open_select").click(function(){
 				//$('#folioOptionCnt').toggle('blind');
 				//$(this).next().toggle('blind');
-				$(this).siblings('.option_container').toggle('blind');
+				if($('.option_container:visible').parents('.like_select').attr('id')!=$(this).parents('.like_select').attr('id'))
+					$('.option_container:visible').animate({height:"toggle"}, 400);
+				$(this).siblings('.option_container').animate({height:"toggle"}, 400);
 			});
 			$(".option").click(function(){
 				var newPage = $(this).attr('id').substr(6); 
