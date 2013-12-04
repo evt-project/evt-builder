@@ -108,6 +108,13 @@ $( function() {
 				$(this).parent().prev().prev().text(newPage); // .label_selected
 				$(this).parent().animate({height:"toggle"}, 400);
 			});
+
+			$(document).on('mousedown', function (e) {
+			    if ($(e.target).closest(".like_select").length === 0) {
+			        $('.option_container:visible').animate({height:"toggle"}, 400);
+			    }
+			});
+
 			/* / Gestione div*/
 		}
 	});
