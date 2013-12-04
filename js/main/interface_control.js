@@ -106,8 +106,15 @@ $( function() {
 				var newPage = $(this).attr('id').substr(6); 
 				$(this).addClass("selected").siblings().removeClass('selected');
 				$(this).parent().prev().prev().text(newPage); // .label_selected
-				$(this).parent().toggle('blind');
+				$(this).parent().animate({height:"toggle"}, 400);
 			});
+
+			$(document).on('mousedown', function (e) {
+			    if ($(e.target).closest(".like_select").length === 0) {
+			        $('.option_container:visible').animate({height:"toggle"}, 400);
+			    }
+			});
+
 			/* / Gestione div*/
 		}
 	});
