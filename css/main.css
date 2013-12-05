@@ -1180,3 +1180,7 @@ div.botleftconcave {
 	top: 13px;
 	right: 0px;
 }
+
+#span_dd_select{
+	display: none;
+}

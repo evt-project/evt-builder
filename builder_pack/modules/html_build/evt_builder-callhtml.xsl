@@ -189,6 +189,8 @@
 								<!--<a href="javascript:void(0);" id="imgimg_link" title="image/image mode"> [I|I] </a>-->
 								<a href="javascript:void(0);" id="txttxt_link"
 									title="text/text mode"> [T|T] </a>
+								<a href="javascript:void(0);" id="imgd_link"
+									title="text/text mode"> [I] </a>
 							</div>
 						</xsl:if>
 						
@@ -217,6 +219,12 @@
 								<!-- <div id="main_left_arrow" title="Previous"/> -->
 								<header id="left_header">
 									<div id="image_menu">
+										<span id="span_dd_select" class="like_select">
+											<xsl:call-template name="div_select_build">
+												<xsl:with-param name="html_div_class"
+													select="'main_dd_select'"/>
+											</xsl:call-template>
+										</span>
 										<p id="thumb_elem">
 											<a href="javascript:void(0);" id="thumb_link"> Thumb
 											</a>
