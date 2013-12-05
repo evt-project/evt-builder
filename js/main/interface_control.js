@@ -73,10 +73,8 @@ $( function() {
 			$(".main_ee_select .label_selected").on('change',function(){
 			     //alert($('.main_ee_select .label_selected').text()); 
 			     gotoedition(location.hash.replace( /^#/, '' ),$(this).text().toLowerCase(),"text_elem", "text_cont");
-			});
-			$(".main_ee_select-add .label_selected").on('change',function(){
-			    gotoedition(location.hash.replace( /^#/, '' ),$(this).text().toLowerCase(),"text_elem-add", "text_cont-add");
-			});
+			     $("#value_" + $(this).text()).addClass("selected").siblings().removeClass('selected');
+			});		
 			$(".main_pp_select .label_selected").on('change',function(){
 			     //alert($('.main_pp_select .label_selected').text()); 
 			     var tt_val_temp = $(".main_tt_select .label_selected").text();
@@ -179,8 +177,9 @@ $( function() {
 			
 			// IT: Aggiorna l'indirizzo del frame secondario per il testo
 			if ($("#text_cont-add").length > 0){ //SISTEMARE
-				var edition_add=$("input[name=edition_r-add]:checked").val().toLowerCase();			
-				
+				//var edition_add=$("input[name=edition_r-add]:checked").val().toLowerCase();			
+				var edition_add=$("#span_ee_select-add .option_container .option.selected").text().toLowerCase();			
+
 				/* Gestione iframe secondario - rimosso
 				$('#text_elem-add').remove();
 				$('<iframe id="text_elem-add" class="scroll-ios">').appendTo('#text_cont-add');
@@ -435,7 +434,7 @@ $( function() {
 					.appendTo("#left_header")
 				;		
 				$('#span_ee_select-add .main_ee_select')
-					.attr("class", ".main_ee_select-add");
+					.attr("class", "main_ee_select-add");
 				
 				$('#span_ee_select-add').find(".open_select").click(function(){
 					if($('.option_container:visible').parents('.like_select').attr('id')!=$(this).parents('.like_select').attr('id'))
@@ -447,6 +446,27 @@ $( function() {
 					$(this).parent().prev().prev().text(newPage).trigger('change'); // .label_selected
 					$(this).parent().animate({height:"toggle"}, 400);
 				});
+
+				var main_text_edition = $('.main_ee_select .option_container .option.selected').text();
+				var first_new_edition = $('.main_ee_select-add .option_container').children('.option').eq(0).text();
+				var second_new_edition = $('.main_ee_select-add .option_container').children('.option').eq(1).text();
+				if (main_text_edition == first_new_edition){
+					$(".main_ee_select-add .label_selected").text(second_new_edition); //perché non posso attivare il trigger qui?
+					$("#value_" + second_new_edition).addClass("selected").siblings().removeClass('selected');
+					second_new_edition = second_new_edition.toLowerCase();
+					gotoedition(location.hash.replace( /^#/, '' ),second_new_edition,"text_elem-add", "text_cont-add");
+				} else{
+					$(".main_ee_select-add .label_selected").text(first_new_edition); //perché non posso attivare il trigger qui?
+					$("#value_" + first_new_edition).addClass("selected").siblings().removeClass('selected');
+					first_new_edition = first_new_edition.toLowerCase();
+					gotoedition(location.hash.replace( /^#/, '' ),first_new_edition,"text_elem-add", "text_cont-add");
+				}
+
+				$(".main_ee_select-add .label_selected").on('change',function(){
+				    gotoedition(location.hash.replace( /^#/, '' ),$(this).text().toLowerCase(),"text_elem-add", "text_cont-add");
+				    $("#value_" + $(this).text()).addClass("selected").siblings().removeClass('selected');
+				});
+
 				//$('#radio_edition-add>input[name="edition_r"]').each(function(index) {
 				/*$('#span_ee_select-add .main_ee_select .option_container .option').each(function(index) {
 					this.name = this.name + "-add";
