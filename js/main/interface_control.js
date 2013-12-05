@@ -79,31 +79,32 @@ $( function() {
 			});
 			$(".main_pp_select .label_selected").on('change',function(){
 			     //alert($('.main_pp_select .label_selected').text()); 
+			     var tt_val_temp = $(".main_tt_select .label_selected").text();
 			     var pp_val_temp = $('.main_pp_select .label_selected').text();
 			     var parent_temp = $(xml)
 			     	.find('text pb:contains('+pp_val_temp+')')
 			     	.parent()
 			     	.attr("n");
-			     $(".main_tt_select .label_selected").text(parent_temp).trigger('change');
+			     if(parent_temp!=tt_val_temp){
+			     	$(".main_tt_select .label_selected").text(parent_temp).trigger('change');
+			     }
 			     
 			     var newhash = $(this).text()
 			     window.location.hash = newhash;
 			     $("#value_" + newhash).addClass("selected").siblings().removeClass('selected');
 
 			});
-			$(".main_tt_select .label_selected").on('change',function(){
+			$(".main_tt_select .option_container .option").click(function(){
 			    // alert($('.main_tt_select .label_selected').text()); 
-			    //alert("ci sonooo");
+				var tt_val_temp = $(this).text();
+			    var first_page = $(xml)
+	     			.find('text[n='+tt_val_temp+']')
+			     	.find(":first-child")
+			     	.text();
+			    gotopage(first_page, "none");
 			});
 
-			/* / Gestione eventi */
-
-
-
-			/* Gestione div */
 			$(".open_select").click(function(){
-				//$('#folioOptionCnt').toggle('blind');
-				//$(this).next().toggle('blind');
 				if($('.option_container:visible').parents('.like_select').attr('id')!=$(this).parents('.like_select').attr('id'))
 					$('.option_container:visible').animate({height:"toggle"}, 400);
 				$(this).siblings('.option_container').animate({height:"toggle"}, 400);
@@ -120,7 +121,7 @@ $( function() {
 			    }
 			});
 
-			/* / Gestione div*/
+			/* / Gestione eventi */
 
 
 			/* HASH CHANGE - ba.bbq plugin */
@@ -131,11 +132,8 @@ $( function() {
 					var checkpp = $(xml).find('text pb:contains('+current_page+')').text();
 
 					if(hash && (checkpp != "")){
-						$(".main_pp_select .label_selected").text(current_page);
-						$("#value_" + current_page).addClass("selected").siblings().removeClass('selected');
 					    UnInitialize(); //Add by JK for ITL
-						gotopage(hash.replace( /^#/, '' ), "none");
-						//setallselect(hash.replace( /^#/, '' ));
+						gotopage(current_page, "none");
 						chooseZoomMag(); //Add by JK for Mag
 						
 					}else{
@@ -156,35 +154,22 @@ $( function() {
 	// IT: Setting variabili generiche
 	var keycount=0;
 	var fulltogg=false;
-	var pp_temp_val=$(".main_pp_select").val();
+	//var pp_temp_val=$(".main_pp_select").val();
 	
 	// IT: Imposta l'etichetta dell'edizione, al primo caricamento della index
-	$('#edval span').text($("input[name=edition_r]:checked").val());	
+	//$('#edval span').text($("input[name=edition_r]:checked").val());	
 	
 	
 	/* Funzioni */
-		// IT: Cicla e setta i valori di tutti i select di classe .main_pp_select
-		/*function setallselect(pp_num){
-			$(".main_pp_select").each(function(){
-				$(this).val( pp_num );
-			});
-		}*/	
-		// IT: Gestiosce il cambio pagina e gli eventi correlati
 
+		// IT: Gestiosce il cambio pagina e gli eventi correlati
 		function gotopage(pp_val, state){
 			//var edition=$("input[name=edition_r]:checked").val().toLowerCase();						
-			var edition=$(".main_ee_select .label_selected").text().toLowerCase();					
-				
-			// IT: Aggiorna l'indirizzo dell'iFrame per il testo
-			
-			//Gestione iFrame - rimosso
-			/*$('#text_elem').remove();
-			$('<iframe id="text_elem" class="scroll-ios">').appendTo('#text_cont');
-			$("#text_elem")
-				.attr("src", "data/"+edition+"/page_"+pp_val+"_"+edition+".html")
-				.hide()
-				.fadeIn(400);
-			*/
+			var edition=$(".main_ee_select .label_selected").text().toLowerCase();	
+
+			$(".main_pp_select .label_selected").text(pp_val).trigger('change');
+			$("#value_" + pp_val).addClass("selected").siblings().removeClass('selected');				
+
 			
 			$('#text_elem').load("data/output_data/"+edition+"/page_"+pp_val+"_"+edition+".html #text_frame");
 			
@@ -293,7 +278,6 @@ $( function() {
 			keycount=0;
 		});
 		*/
-		
 	/* / Gestione eventi */
 	
 	
@@ -387,7 +371,7 @@ $( function() {
 
 				//$("#image_cont-add").remove();
 				$("#text_cont-add").remove();
-				$("#radio_edition-add").remove();
+				$("#span_ee_select-add").remove();
 				
 				$("#text_menu").show();
 				$("#text_cont").show();
@@ -445,15 +429,19 @@ $( function() {
 				$('#zvalint').hide();
 				$('#zvalopz').text($("input[name=edition_r]:checked").val());				
 							
-				$('#radio_edition')
+				$('#span_ee_select')
 					.clone()
-					.attr("id", "radio_edition-add")
+					.attr("id", "span_ee_select-add")
 					.appendTo("#left_header")
 				;		
+				$('#span_ee_select-add .main_ee_select')
+					.attr("class", ".main_ee_select-add");
 				
-				$('#radio_edition-add>input[name="edition_r"]').each(function(index) {
+				//$('#radio_edition-add>input[name="edition_r"]').each(function(index) {
+				/*$('#span_ee_select-add .main_ee_select .option_container .option').each(function(index) {
 					this.name = this.name + "-add";
-				});
+					//SISTEMARE
+				});*/
 			}
 		});	
 		// /MODE -
