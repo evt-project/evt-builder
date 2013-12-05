@@ -187,8 +187,7 @@ footer{
 	width: 49.8%;
 	height:100%;
 	background: black;
-	/*Da mettere se si spostano le frecce fuori
-	overflow: hidden;*/
+	overflow: hidden;
 
 	/*Chiara*/
 	float:left;
@@ -383,45 +382,43 @@ footer{
 }
 
 
-#text_cont, #text_cont-add{
-	background: white;
-	min-height: 480px;
-}
 
 #text_cont, #text_cont-add, #image_cont{
-	#margin-top: 51px;
 	height: 100%;
 	text-align: center;
 }	
 /*Chiara  */
-#text_cont{
+#text_cont, #text_cont-add{
+	background: white;
 	position: relative;
-	overflow: hidden;
-	height: 93%;
-	#border:2px solid #3c322c;
 	/*-moz-box-shadow:-2px 3px 5px -2px rgba(0, 0, 0, 0.8);
 	-webkit-box-shadow:-2px 3px 5px -2px rgba(0, 0, 0, 0.8);
 	-o-box-shadow:-2px 3px 5px -2px rgba(0, 0, 0, 0.8);
 	-khtml-box-shadow:-2px 3px 5px -2px rgba(0, 0, 0, 0.8);
 	-ms-box-shadow:-2px 3px 5px -2px rgba(0, 0, 0, 0.8);
 	box-shadow:-2px 3px 5px -2px rgba(0, 0, 0, 0.8);*/
-	min-height: 455.7px;
+	margin-top: 51px;
+	bottom:51px;
+	height: 92.8%;
+    min-height: 436.1px;
+    overflow: auto;
+}
+#text_cont-add{
+	bottom: 0px;
 }
 
-#text_frame {
-
+#text_frame, #text_elem-add > div {
 	margin-top:auto !important;
-	overflow-y: scroll;
+	#overflow-y: scroll;
 }
 
-#image_cont, #text_cont-add{
+#image_cont{
 	/*top: 16px;*/
 	position: relative;
 	/*height: 95%;
 	min-height: 480px;*/
-	#overflow: hidden;
 	height: 100%;
-	#border:2px solid #3c322c;
+	
 	/*-moz-box-shadow:2px 3px 5px -2px rgba(0, 0, 0, 0.8);
 	-webkit-box-shadow:2px 3px 5px -2px rgba(0, 0, 0, 0.8);
 	-o-box-shadow:2px 3px 5px -2px rgba(0, 0, 0, 0.8);
@@ -431,15 +428,18 @@ footer{
 	min-height: 455.7px;
 	width: 100%;
 }
+
+
 #image_cont{
 	background: #000;
 }
 
 #text_elem, #text_elem-add{
 	width: 99.4%;
-	height:100%;
 	min-height: 456px;
-	overflow-x: hidden;
+	overflow-y: auto;
+	position: relative;
+	top: 51px;
 }
 /*Chiara
 #text_cont{
