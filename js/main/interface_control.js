@@ -50,6 +50,26 @@ $( function() {
 			$('.main_pp_select .label_selected')
 				.text($('.main_pp_select .option_container div:first').text());
 
+			//Page_dd
+			$(xml).find('pages pair').each(function(){
+				var first_page_d = $(this).children('pb').eq(0).text();
+				var second_page_d = $(this).children('pb').eq(1).text();
+				var current_id = "";
+				if (second_page_d != "")
+					current_id = first_page_d+"-"+second_page_d;
+				else
+					current_id = first_page_d;
+				//alert(current_id);
+				$('.main_dd_select .option_container').append(
+					$('<div/>')
+						.attr("id", "value_"+current_id)
+						.addClass('option')
+						.text(current_id)
+				);
+			});
+			$('.main_dd_select .option_container div:first').addClass('selected');
+			$('.main_dd_select .label_selected')
+			 	.text($('.main_dd_select .option_container div:first').text());
 
 			//Text
 			$(xml).find('textpage text').each(function(){
@@ -72,7 +92,7 @@ $( function() {
 			$(".main_ee_select .label_selected").on('change',function(){
 			     //alert($('.main_ee_select .label_selected').text()); 
 			     gotoedition(location.hash.replace( /^#/, '' ),$(this).text().toLowerCase(),"text_elem", "text_cont");
-			     $("#value_" + $(this).text()).addClass("selected").siblings().removeClass('selected');
+			     //$("#value_" + $(this).text()).addClass("selected").siblings().removeClass('selected');
 			});		
 			$(".main_pp_select .label_selected").on('change',function(){
 			     //alert($('.main_pp_select .label_selected').text()); 
@@ -91,7 +111,7 @@ $( function() {
 
 			     var newhash = $(this).text()
 			     window.location.hash = newhash;
-			     $("#value_" + newhash).addClass("selected").siblings().removeClass('selected');
+			     //$("#value_" + newhash).addClass("selected").siblings().removeClass('selected');
 
 			});
 			$(".main_tt_select .option_container .option").click(function(){
@@ -113,6 +133,7 @@ $( function() {
 				var newPage = $(this).attr('id').substr(6); 
 				$(this).parent().prev().prev().text(newPage).trigger('change'); // .label_selected
 				$(this).parent().animate({height:"toggle"}, 400);
+				$("#value_" + newPage).addClass("selected").siblings().removeClass('selected');
 			});
 
 			$(document).on('mousedown', function (e) {
@@ -162,12 +183,29 @@ $( function() {
 	
 	/* Funzioni */
 
+		function gotopaged(pp_val){
+			
+
+			$("#iviewerImage").attr("src", "images/null.jpg"); // Loading...
+			$("#value_" + pp_val).addClass("selected").siblings().removeClass('selected');
+
+			$('#folio_page_number').val(pp_val).change(); // IT: Questo attiva l'evento nel file js/plugin/jquery.iviewer config
+
+			// IT: Se ci si trova nella modalit Thumb, chiude la schermata e visualizza l'immagine
+			if($("#image_elem").css('display')=="none"){
+				$("#image_elem").show();
+				$("#image_tool").show();
+				$("#thumb_cont").hide();
+			}			
+
+		}
+
 		// IT: Gestiosce il cambio pagina e gli eventi correlati
 		function gotopage(pp_val, state){
 			//var edition=$("input[name=edition_r]:checked").val().toLowerCase();						
 			var edition=$(".main_ee_select .label_selected").text().toLowerCase();	
 
-			$(".main_pp_select .label_selected").text(pp_val); //rimosso .trigger("change");
+			$(".main_pp_select .label_selected").text(pp_val).trigger("change");
 			$("#value_" + pp_val).addClass("selected").siblings().removeClass('selected');				
 
 			
@@ -367,12 +405,18 @@ $( function() {
 		$("#txtimg_link").click(function(){
 			if($(this).attr("class")!="current_mode"){
 				$("#txtimg_link").addClass("current_mode");
+				$("#imgd_link").removeClass("current_mode");
 				$("#imgimg_link").removeClass("current_mode");
 				$("#txttxt_link").removeClass("current_mode");
 
 				//$("#image_cont-add").remove();
 				$("#text_cont-add").remove();
 				$("#span_ee_select-add").remove();
+
+				$("#main_right_frame").show();
+				$("#main_left_frame").animate({
+						width: '49.8%',
+					});
 				
 				$("#text_menu").show();
 				$("#text_cont").show();
@@ -411,12 +455,19 @@ $( function() {
 			    UnInitialize();//Add by JK for ITL
 			    document.getElementById("switchITL").setAttribute('src','images/ITLoff.png');//Add by JK for ITL
 				$("#txttxt_link").addClass("current_mode");
+				$("#imgd_link").removeClass("current_mode");
 				$("#txtimg_link").removeClass("current_mode");
 				$("#imgimg_link").removeClass("current_mode");
 
 				$("#image_menu").hide();
 				$("#mag").hide();
 				$("#image_cont").hide(); 
+				
+
+				$("#main_right_frame").show();
+				$("#main_left_frame").animate({
+						width: '49.8%',
+					});
 
 				$('#text_cont')
 					.clone()
@@ -449,31 +500,55 @@ $( function() {
 					$(this).parent().animate({height:"toggle"}, 400);
 				});
 
-				var main_text_edition = $('.main_ee_select .option_container .option.selected').text();
-				var first_new_edition = $('.main_ee_select-add .option_container').children('.option').eq(0).text();
-				var second_new_edition = $('.main_ee_select-add .option_container').children('.option').eq(1).text();
-				if (main_text_edition == first_new_edition){
-					$(".main_ee_select-add .label_selected").text(second_new_edition); //perché non posso attivare il trigger qui?
-					$("#value_" + second_new_edition).addClass("selected").siblings().removeClass('selected');
-					second_new_edition = second_new_edition.toLowerCase();
-					gotoedition(location.hash.replace( /^#/, '' ),second_new_edition,"text_elem-add", "text_cont-add");
-				} else{
-					$(".main_ee_select-add .label_selected").text(first_new_edition); //perché non posso attivare il trigger qui?
-					$("#value_" + first_new_edition).addClass("selected").siblings().removeClass('selected');
-					first_new_edition = first_new_edition.toLowerCase();
-					gotoedition(location.hash.replace( /^#/, '' ),first_new_edition,"text_elem-add", "text_cont-add");
-				}
-
 				$(".main_ee_select-add .label_selected").on('change',function(){
 				    gotoedition(location.hash.replace( /^#/, '' ),$(this).text().toLowerCase(),"text_elem-add", "text_cont-add");
 				    $("#value_" + $(this).text()).addClass("selected").siblings().removeClass('selected');
 				});
+
+				var main_text_edition = $('.main_ee_select .option_container .option.selected').text();
+				var first_new_edition = $('.main_ee_select-add .option_container').children('.option').eq(0).text();
+				var second_new_edition = $('.main_ee_select-add .option_container').children('.option').eq(1).text();
+				if (main_text_edition == first_new_edition){
+					$(".main_ee_select-add .label_selected").text(second_new_edition).trigger("change"); //perché non posso attivare il trigger qui?
+				} else{
+					$(".main_ee_select-add .label_selected").text(first_new_edition).trigger("change");; //perché non posso attivare il trigger qui?
+				}
 
 				//$('#radio_edition-add>input[name="edition_r"]').each(function(index) {
 				/*$('#span_ee_select-add .main_ee_select .option_container .option').each(function(index) {
 					this.name = this.name + "-add";
 					//SISTEMARE
 				});*/
+			}
+		});
+
+		$("#imgd_link").click(function(){	
+			if($(this).attr("class")!="current_mode"){
+				$("#imgd_link").addClass("current_mode");
+				$("#txtimg_link").removeClass("current_mode");
+				$("#imgimg_link").removeClass("current_mode");
+				$("#txttxt_link").removeClass("current_mode");
+
+				
+				$("#main_left_frame").animate({
+		            'width': '99.5%', 
+		        }, function(){
+		             $("#main_right_frame").hide();	
+		        });				
+		
+
+				//$("#image_cont-add").remove();
+				$("#text_cont-add").remove();
+				$("#span_ee_select-add").remove();
+
+				//$("#text_cont").hide();
+
+				$("#mag").show();				
+				$("#image_menu").show();
+				$("#image_cont").show();
+				$("#span_dd_select").show();
+				
+				
 			}
 		});	
 		// /MODE -

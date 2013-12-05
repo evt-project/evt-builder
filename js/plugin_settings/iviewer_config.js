@@ -61,6 +61,11 @@ $( function() {
 			iv1.iviewer('fit');
 			iv1.iviewer('loadImage', "data/input_data/images/"+$('#central_page_number span').text()+".jpg");			
 		});
+
+		$(".main_dd_select .label_selected").on('change',function(){
+		    iv1.iviewer('fit');
+			iv1.iviewer('loadImage', "data/input_data/images/double/"+$(this).text()+".jpg");					   
+		});	
 	  
 	  $("#slider").slider(
 	  {
