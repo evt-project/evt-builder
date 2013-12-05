@@ -437,6 +437,16 @@ $( function() {
 				$('#span_ee_select-add .main_ee_select')
 					.attr("class", ".main_ee_select-add");
 				
+				$('#span_ee_select-add').find(".open_select").click(function(){
+					if($('.option_container:visible').parents('.like_select').attr('id')!=$(this).parents('.like_select').attr('id'))
+						$('.option_container:visible').animate({height:"toggle"}, 400);
+					$('#span_ee_select-add').find('.option_container').animate({height:"toggle"}, 400);
+				});
+				$('#span_ee_select-add').find(".option").click(function(){
+					var newPage = $(this).attr('id').substr(6); 
+					$(this).parent().prev().prev().text(newPage).trigger('change'); // .label_selected
+					$(this).parent().animate({height:"toggle"}, 400);
+				});
 				//$('#radio_edition-add>input[name="edition_r"]').each(function(index) {
 				/*$('#span_ee_select-add .main_ee_select .option_container .option').each(function(index) {
 					this.name = this.name + "-add";

@@ -203,7 +203,7 @@ footer{
 	margin-left: auto;
 	margin-right: auto;
 	#z-index: 10;
-	overflow: hidden;
+	#overflow: hidden;
 	text-align: right;
 	#display: none;
 	color: #f5ead4;
@@ -811,7 +811,7 @@ footer{
 
 .like_select .option_container{
 	position: relative;
-	overflow-y:scroll;
+	overflow-y:auto;
 	display: none;
 	padding: 3px 5px 0px 5px;
 	background:#f5ead4;
