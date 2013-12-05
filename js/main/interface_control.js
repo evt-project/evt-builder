@@ -37,14 +37,13 @@ $( function() {
 				.text($('.main_ee_select .option_container div:first').text());
 
 			//Page
-			$(xml).find('textpage text pb').each(function(){
-				var current_id = $(this).attr("n");
-				var current_label = $(this).text();
+			$(xml).find('pages pair pb').each(function(){
+				var current_id = $(this).text();
 				$('.main_pp_select .option_container').append(
 					$('<div/>')
 						.attr("id", "value_"+current_id)
 						.addClass('option')
-						.text(current_label)
+						.text(current_id)
 				);
 			});
 			$('.main_pp_select .option_container div:first').addClass('selected');
@@ -83,10 +82,13 @@ $( function() {
 			     	.find('text pb:contains('+pp_val_temp+')')
 			     	.parent()
 			     	.attr("n");
-			     if(parent_temp!=tt_val_temp){
-			     	$(".main_tt_select .label_selected").text(parent_temp).trigger('change');
-			     }
-			     
+			     if(!parent_temp)
+			     	$(".main_tt_select .label_selected").text("(Text)");
+			     else
+				     if(parent_temp!=tt_val_temp){
+				     	$(".main_tt_select .label_selected").text(parent_temp).trigger('change');
+			     	}
+
 			     var newhash = $(this).text()
 			     window.location.hash = newhash;
 			     $("#value_" + newhash).addClass("selected").siblings().removeClass('selected');
@@ -165,7 +167,7 @@ $( function() {
 			//var edition=$("input[name=edition_r]:checked").val().toLowerCase();						
 			var edition=$(".main_ee_select .label_selected").text().toLowerCase();	
 
-			$(".main_pp_select .label_selected").text(pp_val).trigger('change');
+			$(".main_pp_select .label_selected").text(pp_val); //rimosso .trigger("change");
 			$("#value_" + pp_val).addClass("selected").siblings().removeClass('selected');				
 
 			
