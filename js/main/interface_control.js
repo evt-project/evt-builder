@@ -591,72 +591,7 @@ $( function() {
 		});*/	
 	
 	/* / Gestione key press */
-	$(document).keydown(function(e){	
-			// Toggle Full screen img * PRESS F *
-			if ((e.keyCode == 70)&&(!$("#main_right_frame").hasClass('full'))){
-				$("#main_left_frame").toggleClass("full");
-				if($('#main_left_frame').hasClass('full')){
-					var height_full = ($(window).height()>$("body").height()) ? $(window).height()-4 : $("body").height();
-					var width_full = $(window).width()-4; /* "-4" perché il box ha bordo 2px */
-					var margin_left = -($('#main_left_frame').offset().left);
-					var margin_top = -($('#main_left_frame').offset().top);
-					$('#main_left_frame').animate({
-						width: width_full,
-						height: height_full,
-						top: margin_top,
-						left: margin_left,
-						minWidth: "1021px"
-					}, 700);
-				} else {
-					if($('#main_right_frame').css("display")=="none"){
-						$('#main_left_frame').animate({
-							width: "99.5%", 
-							height: "100%", 
-							top: "0px", 
-							left: "0px", 
-							minWidth: "0px"
-						}, 700);
-					} else {
-						$('#main_left_frame').animate({
-							width: "49.8%",
-							height: "100%",
-							top: "0px",
-							left: "0px",
-							minWidth: "0px"
-						}, 700);
-					}
-				}
-				$(".top_image_tools").toggle("bind");
-			}
-
-			// Toggle Full screen textRight * PRESS G *
-			if ((e.keyCode == 71)&&(!$("#main_left_frame").hasClass('full'))){
-				$("#main_right_frame").toggleClass("full");
-				if($('#main_right_frame').hasClass('full')){
-					var height_full = ($(window).height()>$("body").height()) ? $(window).height()-4 : $("body").height();
-					var width_full = $(window).width()-4; /* "-4" perché il box ha bordo 2px */
-					var margin_left = -($('#main_right_frame').offset().left);
-					var margin_top = -($('#main_right_frame').offset().top);
-					$('#main_right_frame').animate({
-						width: width_full,
-						height: height_full,
-						marginTop: margin_top,
-						left: margin_left,
-						minWidth: "1021px"
-					}, 700);
-				} else {
-					$('#main_right_frame').animate({
-						width:  "49.7%",
-						height: "100%", 
-						marginTop: "0px", 
-						left: "0px", 
-						minWidth: "0px"
-					}, 700, function(){
-						$('#main_right_frame').removeAttr("style");
-					});
-				}
-			}
-
+$(document).keydown(function(e){	
 			// Hide/show left-header * PRESS L *
 			if (e.keyCode == 76){
 				$('#left_header').toggle('blind').toggleClass('menuClosed');
