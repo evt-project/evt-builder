@@ -218,13 +218,19 @@
 								</xsl:if>
 								<!-- <div id="main_left_arrow" title="Previous"/> -->
 								<header id="left_header">
+									<span id="span_dd_select" class="like_select">
+										<xsl:call-template name="div_select_build">
+											<xsl:with-param name="html_div_class"
+												select="'main_dd_select'"/>
+										</xsl:call-template>
+									</span>
+									<span id="span_ee_select-add" class="like_select">
+										<xsl:call-template name="div_select_build">
+											<xsl:with-param name="html_div_class"
+												select="'main_ee_select'"/>
+										</xsl:call-template>
+									</span>
 									<div id="image_menu">
-										<span id="span_dd_select" class="like_select">
-											<xsl:call-template name="div_select_build">
-												<xsl:with-param name="html_div_class"
-													select="'main_dd_select'"/>
-											</xsl:call-template>
-										</span>
 										<p id="thumb_elem">
 											<a href="javascript:void(0);" id="thumb_link"> Thumb
 											</a>

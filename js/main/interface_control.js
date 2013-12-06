@@ -1,7 +1,7 @@
 /**
  * 
  * Interface Control jQuery
- * Version 0.1 (201210)
+ * Version 0.2 (201312)
  *
  * Dual licensed under the MIT and GPL licenses:
  * http://www.opensource.org/licenses/mit-license.php
@@ -22,7 +22,6 @@ $( function() {
 			
 			//Edition
 			$(xml).find('editions edition').each(function(){
-				//alert($(this).text());
 				var current_id = $(this).attr("n");
 				var current_label = $(this).text();
 				$('.main_ee_select .option_container').append(
@@ -59,7 +58,6 @@ $( function() {
 					current_id = first_page_d+"-"+second_page_d;
 				else
 					current_id = first_page_d;
-				//alert(current_id);
 				$('.main_dd_select .option_container').append(
 					$('<div/>')
 						.attr("id", "value_"+current_id)
@@ -74,7 +72,6 @@ $( function() {
 			//Text
 			$(xml).find('textpage text').each(function(){
 				var current_id = $(this).attr("n");
-				//var current_label = $(this).text();
 				$('.main_tt_select .option_container').append(
 					$('<div/>')
 						.attr("id", "value_"+current_id)
@@ -88,14 +85,26 @@ $( function() {
 
 			/* Gestione eventi */
 
-			// riferimento a .trigger('change')
+			$(".label_selected").on('change',function(){
+				var current_lab = $(this).text();
+				$(this).siblings(".option_container")
+					.find("#value_"+current_lab)
+					.addClass("selected")
+					.siblings().removeClass('selected');
+			});		
 			$(".main_ee_select .label_selected").on('change',function(){
-			     //alert($('.main_ee_select .label_selected').text()); 
-			     gotoedition(location.hash.replace( /^#/, '' ),$(this).text().toLowerCase(),"text_elem", "text_cont");
-			     //$("#value_" + $(this).text()).addClass("selected").siblings().removeClass('selected');
+			     var temp_frame = "";
+			     var temp_parent = "";
+			     if($(this).parent().parent().attr("id") == "span_ee_select-add"){
+			     	temp_frame = "text_elem-add";
+			     	temp_parent = "text_cont-add";
+			     } else{
+			     	temp_frame = "text_elem";
+			     	temp_parent = "text_cont";
+			     }
+			     gotoedition(location.hash.replace( /^#/, '' ),$(this).text().toLowerCase(),temp_frame,temp_parent);
 			});		
 			$(".main_pp_select .label_selected").on('change',function(){
-			     //alert($('.main_pp_select .label_selected').text()); 
 			     var tt_val_temp = $(".main_tt_select .label_selected").text();
 			     var pp_val_temp = $('.main_pp_select .label_selected').text();
 			     var parent_temp = $(xml)
@@ -111,11 +120,9 @@ $( function() {
 
 			     var newhash = $(this).text()
 			     window.location.hash = newhash;
-			     //$("#value_" + newhash).addClass("selected").siblings().removeClass('selected');
 
 			});
 			$(".main_tt_select .option_container .option").click(function(){
-			    // alert($('.main_tt_select .label_selected').text()); 
 				var tt_val_temp = $(this).text();
 			    var first_page = $(xml)
 	     			.find('text[n='+tt_val_temp+']')
@@ -125,19 +132,22 @@ $( function() {
 			});
 
 			$(".open_select").click(function(){
-				if($('.option_container:visible').parents('.like_select').attr('id')!=$(this).parents('.like_select').attr('id'))
-					$('.option_container:visible').animate({height:"toggle"}, 400);
-				$(this).siblings('.option_container').animate({height:"toggle"}, 400);
+				if (!($(".option_container").is(':animated'))){
+					if($('.option_container:visible').parents('.like_select').attr('id')!=$(this).parents('.like_select').attr('id'))
+						$('.option_container:visible').animate({height:"toggle"}, 400);
+					$(this).siblings('.option_container').animate({height:"toggle"}, 400);
+				}
 			});
 			$(".option").click(function(){
+				//var newPage = $(this).text(); 
 				var newPage = $(this).attr('id').substr(6); 
 				$(this).parent().prev().prev().text(newPage).trigger('change'); // .label_selected
 				$(this).parent().animate({height:"toggle"}, 400);
-				$("#value_" + newPage).addClass("selected").siblings().removeClass('selected');
+				//$("#value_" + newPage).addClass("selected").siblings().removeClass('selected');
 			});
 
-			$(document).on('mousedown', function (e) {
-			    if ($(e.target).closest(".like_select").length === 0) {
+			$("#global_wrapper").on('mousedown', function (e) {
+			    if ( ($(e.target).closest(".like_select").length === 0) && !($(".option_container").is(':animated')) ) {
 			        $('.option_container:visible').animate({height:"toggle"}, 400);
 			    }
 			});
@@ -187,7 +197,7 @@ $( function() {
 			
 
 			$("#iviewerImage").attr("src", "images/null.jpg"); // Loading...
-			$("#value_" + pp_val).addClass("selected").siblings().removeClass('selected');
+			//$("#value_" + pp_val).addClass("selected").siblings().removeClass('selected');
 
 			$('#folio_page_number').val(pp_val).change(); // IT: Questo attiva l'evento nel file js/plugin/jquery.iviewer config
 
@@ -201,13 +211,10 @@ $( function() {
 		}
 
 		// IT: Gestiosce il cambio pagina e gli eventi correlati
-		function gotopage(pp_val, state){
-			//var edition=$("input[name=edition_r]:checked").val().toLowerCase();						
-			var edition=$(".main_ee_select .label_selected").text().toLowerCase();	
+		function gotopage(pp_val, state){					
+			var edition=$("#span_ee_select .main_ee_select .label_selected").text().toLowerCase();	
 
 			$(".main_pp_select .label_selected").text(pp_val).trigger("change");
-			$("#value_" + pp_val).addClass("selected").siblings().removeClass('selected');				
-
 			
 			$('#text_elem').load("data/output_data/"+edition+"/page_"+pp_val+"_"+edition+".html #text_frame");
 			
@@ -217,17 +224,8 @@ $( function() {
 			
 			// IT: Aggiorna l'indirizzo del frame secondario per il testo
 			if ($("#text_cont-add").length > 0){ //SISTEMARE
-				//var edition_add=$("input[name=edition_r-add]:checked").val().toLowerCase();			
 				var edition_add=$("#span_ee_select-add .option_container .option.selected").text().toLowerCase();			
-
-				/* Gestione iframe secondario - rimosso
-				$('#text_elem-add').remove();
-				$('<iframe id="text_elem-add" class="scroll-ios">').appendTo('#text_cont-add');
-				$("#text_elem-add")
-					.attr("src", "data/"+edition_add+"/page_"+pp_val+"_"+edition_add+".html")
-					.hide()
-					.fadeIn(400);
-				*/	
+	
 				$('#text_elem-add').load("data/output_data/"+edition_add+"/page_"+pp_val+"_"+edition_add+".html #text_frame");
 					
 				// IT: Aggiorna le informazioni all'interno dell'etichetta destra	
@@ -235,7 +233,6 @@ $( function() {
 					.text($("input[name=edition_r-add]:checked").val())
 					.hide()
 					.fadeIn(200);	
-				//$('input[name=edition_r-add]').prop('checked', false);
 			} else {
 				// IT: Aggiorna le informazioni all'interno dell'etichetta destra	
 				$('#zval>span')
@@ -266,12 +263,6 @@ $( function() {
 		}
 		// IT: Gestisce il cambio edizione nel frame testuale
 		function gotoedition(pp_val, pp_el, frame_id, parent_id){
-			//$('#'+frame_id).remove();
-			//$('<iframe id="'+frame_id+'">').appendTo('#'+parent_id);
-			//$('#'+frame_id)
-			//	.attr("src", "data/"+pp_el+"/page_"+pp_val+"_"+pp_el+".html");/*
-			//	.hide()
-			//	.fadeIn(800);*/
 			UnInitialize(); //Add by JK for ITL
 			$('#'+frame_id).load("data/output_data/"+pp_el+"/page_"+pp_val+"_"+pp_el+".html #text_frame");
 			var pp_el_upp = pp_el;
@@ -411,15 +402,17 @@ $( function() {
 
 				//$("#image_cont-add").remove();
 				$("#text_cont-add").remove();
-				$("#span_ee_select-add").remove();
+				$("#span_ee_select-add").hide();
 
 				$("#main_right_frame").show();
 				$("#main_left_frame").animate({
-						width: '49.8%',
-					});
+		            'width': '49.8%', 
+		        }, function(){
+		        	$("#text_menu").show();
+					$("#text_cont").show();
+		        });				
 				
-				$("#text_menu").show();
-				$("#text_cont").show();
+				
 				$("#mag").show();				
 				$("#image_menu").show();
 				$("#image_cont").show();
@@ -466,8 +459,11 @@ $( function() {
 
 				$("#main_right_frame").show();
 				$("#main_left_frame").animate({
-						width: '49.8%',
-					});
+		            'width': '49.8%', 
+		        }, function(){
+		        	$("#text_menu").show();
+					$("#text_cont").show();
+		        });		
 
 				$('#text_cont')
 					.clone()
@@ -478,47 +474,19 @@ $( function() {
 					.attr("id", "text_elem-add")
 				;
 
-				$('#zvalint').hide();
-				$('#zvalopz').text($("input[name=edition_r]:checked").val());				
-							
-				$('#span_ee_select')
-					.clone()
-					.attr("id", "span_ee_select-add")
-					.appendTo("#left_header")
-				;		
-				$('#span_ee_select-add .main_ee_select')
-					.attr("class", "main_ee_select-add");
-				
-				$('#span_ee_select-add').find(".open_select").click(function(){
-					if($('.option_container:visible').parents('.like_select').attr('id')!=$(this).parents('.like_select').attr('id'))
-						$('.option_container:visible').animate({height:"toggle"}, 400);
-					$('#span_ee_select-add').find('.option_container').animate({height:"toggle"}, 400);
-				});
-				$('#span_ee_select-add').find(".option").click(function(){
-					var newPage = $(this).attr('id').substr(6); 
-					$(this).parent().prev().prev().text(newPage).trigger('change'); // .label_selected
-					$(this).parent().animate({height:"toggle"}, 400);
-				});
+				$('#zvalint').hide(); //SISTEMARE
+				//$('#zvalopz').text($("input[name=edition_r]:checked").val());			
 
-				$(".main_ee_select-add .label_selected").on('change',function(){
-				    gotoedition(location.hash.replace( /^#/, '' ),$(this).text().toLowerCase(),"text_elem-add", "text_cont-add");
-				    $("#value_" + $(this).text()).addClass("selected").siblings().removeClass('selected');
-				});
+				$("#span_ee_select-add").show();
 
-				var main_text_edition = $('.main_ee_select .option_container .option.selected').text();
-				var first_new_edition = $('.main_ee_select-add .option_container').children('.option').eq(0).text();
-				var second_new_edition = $('.main_ee_select-add .option_container').children('.option').eq(1).text();
+				var main_text_edition = $('#span_ee_select .main_ee_select .label_selected').text();
+				var first_new_edition = $('.main_ee_select .option_container').children('.option').eq(0).text();
+				var second_new_edition = $('.main_ee_select .option_container').children('.option').eq(1).text();
 				if (main_text_edition == first_new_edition){
-					$(".main_ee_select-add .label_selected").text(second_new_edition).trigger("change"); //perché non posso attivare il trigger qui?
+					$("#span_ee_select-add .main_ee_select .label_selected").text(second_new_edition).trigger("change"); 
 				} else{
-					$(".main_ee_select-add .label_selected").text(first_new_edition).trigger("change");; //perché non posso attivare il trigger qui?
+					$("#span_ee_select-add .main_ee_select .label_selected").text(first_new_edition).trigger("change");
 				}
-
-				//$('#radio_edition-add>input[name="edition_r"]').each(function(index) {
-				/*$('#span_ee_select-add .main_ee_select .option_container .option').each(function(index) {
-					this.name = this.name + "-add";
-					//SISTEMARE
-				});*/
 			}
 		});
 
@@ -529,7 +497,8 @@ $( function() {
 				$("#imgimg_link").removeClass("current_mode");
 				$("#txttxt_link").removeClass("current_mode");
 
-				
+
+				$("#text_menu").hide();
 				$("#main_left_frame").animate({
 		            'width': '99.5%', 
 		        }, function(){
@@ -539,7 +508,7 @@ $( function() {
 
 				//$("#image_cont-add").remove();
 				$("#text_cont-add").remove();
-				$("#span_ee_select-add").remove();
+				$("#span_ee_select-add").hide();
 
 				//$("#text_cont").hide();
 
