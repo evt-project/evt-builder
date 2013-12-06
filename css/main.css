@@ -842,6 +842,16 @@ footer{
 	color:#fff;
 }
 
+.option.selected{
+	color:#CCC;
+	cursor: default;
+}
+
+.option.selected:hover{
+	background: #F5EAD4;
+	color: #ccc;
+}
+
 .like_select .open_select{
 	padding: 5px;
 	width: 24px;
