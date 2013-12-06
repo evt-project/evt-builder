@@ -531,5 +531,41 @@ $( function() {
 			..codice qui..
 		});*/	
 	/* / Gestione click */
+	$(document).keydown(function(e){	
+			if (e.keyCode == 70){
+				$('#main_left_frame').toggleClass('full');
+				$('#left_header').toggle('blind');				
+				if($('#main_left_frame').hasClass('full')){
+					var height_full = ($(window).height()>$("body").height()) ? $(window).height() : $("body").height();
+					var width_full = $(window).width();
+					var margin_left = -($('#main_left_frame').offset().left);
+					$('#main_left_frame').animate({
+						width: width_full,
+						height: height_full,
+						top: "-71px",
+						left: margin_left,
+						minWidth: "1021px"
+					}, 700);
+				} else {
+					if($('#main_right_frame').css("display")=="none"){
+						$('#main_left_frame').animate({
+							width: "99.5%", 
+							height: "100%", 
+							top: "0px", 
+							left: "0px", 
+							minWidth: "0px"
+						}, 700);
+					} else {
+						$('#main_left_frame').animate({
+							width: "49.8%",
+							height: "100%",
+							top: "0px",
+							left: "0px",
+							minWidth: "0px"
+						}, 700);
+					}
+				}
+			}
+		});
 
 });
