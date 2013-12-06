@@ -123,12 +123,15 @@ $( function() {
 
 			});
 			$(".main_tt_select .option_container .option").click(function(){
-				var tt_val_temp = $(this).text();
-			    var first_page = $(xml)
-	     			.find('text[n='+tt_val_temp+']')
-			     	.find(":first-child")
-			     	.text();
-			    gotopage(first_page, "none");
+			    if(! $(this).hasClass('selected')){
+			    	// alert($('.main_tt_select .label_selected').text()); 
+					var tt_val_temp = $(this).text();
+				    var first_page = $(xml)
+		     			.find('text[n='+tt_val_temp+']')
+				     	.find(":first-child")
+				     	.text();
+				    gotopage(first_page, "none");
+				}
 			});
 
 			$(".open_select").click(function(){
@@ -139,11 +142,12 @@ $( function() {
 				}
 			});
 			$(".option").click(function(){
-				//var newPage = $(this).text(); 
-				var newPage = $(this).attr('id').substr(6); 
-				$(this).parent().prev().prev().text(newPage).trigger('change'); // .label_selected
-				$(this).parent().animate({height:"toggle"}, 400);
-				//$("#value_" + newPage).addClass("selected").siblings().removeClass('selected');
+				if(! $(this).hasClass('selected')){
+					var newPage = $(this).attr('id').substr(6); 
+					$(this).parent().prev().prev().text(newPage).trigger('change'); // .label_selected
+					$(this).parent().animate({height:"toggle"}, 400);
+					$("#value_" + newPage).addClass("selected").siblings().removeClass('selected');
+				}
 			});
 
 			$("#global_wrapper").on('mousedown', function (e) {
