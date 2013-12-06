@@ -290,7 +290,7 @@ $.widget( "ui.iviewer", $.ui.mouse, {
 
     _updateContainerInfo: function()
     {
-        this.options.height = this.container.height()-100;
+        this.options.height = this.container.height()-50;
         this.options.width = this.container.width();
 		//alert('chiamata');
     },
