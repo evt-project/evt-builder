@@ -1198,5 +1198,4 @@ div.botleftconcave {
 #main_left_frame.full{
 	position: absolute;
 	z-index: 99999999;
-	min-width: 1021px;
 }
