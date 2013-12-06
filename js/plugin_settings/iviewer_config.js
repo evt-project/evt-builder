@@ -57,18 +57,20 @@ $( function() {
 			iv1.iviewer('loadImage', document.getElementById('slideshow-image').getAttribute('src'));
 		});*/
 		
-		$('#folio_page_number').change(function(){	
+		//$('#folio_page_number').change(function(){	
+		$(".main_pp_select .label_selected").on('change',function(){
 			iv1.iviewer('fit');
-			iv1.iviewer('loadImage', "data/input_data/images/"+$('#central_page_number span').text()+".jpg");			
+			iv1.iviewer('loadImage', "data/input_data/images/"+$(this).text()+".jpg");	//SISTEMARE: rimuovere central_page_number		
 		});
 
 		$(".main_dd_select .label_selected").on('change',function(){
 		    iv1.iviewer('fit');
 			iv1.iviewer('loadImage', "data/input_data/images/double/"+$(this).text()+".jpg");					   
 		});	
-	  
-	  $("#slider").slider(
-	  {
+
+
+		$("#slider").slider(
+		{
 		  orientation: "orizontal",
 		  min: 20,
 		  max: 140,
@@ -76,15 +78,14 @@ $( function() {
 		  slide: showValue,
 		  change: showValue
 
-	  });
-	  $("#update").click(function () {
+		});
+		$("#update").click(function () {
 		  $("#slider").slider("option", "value", iv1.iviewer('info', 'zoom'));
-
-	  });
-	  function showValue(event, ui) {
+		});
+		function showValue(event, ui) {
 		  $("#val").html(iv1.iviewer('info', 'zoom'));
 		  iv1.iviewer('set_zoom', ui.value);
 		  
 		  //alert(iv1.iviewer('info', 'zoom'));
-	  }
+		}
 });
