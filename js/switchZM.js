@@ -33,14 +33,17 @@ function magOn(){
         /*IT: Se il collegamento testo immagine è attivo, lo disattivo*/
         if (Initializing == false){
             UnInitialize();//Add by JK for ITL
-		    document.getElementById("switchITL").setAttribute('src','images/ITLoff.png');//Add by JK for ITL
+		    //document.getElementById("switchITL").setAttribute('src','images/ITLoff.png');//Add by JK for ITL
+            $('#switchITL').removeClass('inactive'); //Add by CDP for FA
 		}
         /*IT: rendo visibile il div del magnifier e invisibile quello dello zoom*/
         $("#mag_image_elem").css({'display':'block'});
         $("#image_elem, #image_tool").css('display','none');
         document.getElementById("switchZoom").setAttribute('src','images/zoomOff.png');
         document.getElementById("switchMag").setAttribute('src','images/mag.png');
-        document.getElementById("switchITL").setAttribute('src','images/ITLdis.png');//Add by JK for ITL
+        $('#switchMag').addClass('active');//Add by CDP for FA
+        //document.getElementById("switchITL").setAttribute('src','images/ITLdis.png');//Add by JK for ITL
+        $('#switchITL').removeClass('fa-chain').addClass('fa-chain-broken').addClass('inactive'); //Add by CDP for FA
         magnifierON = true;
     }
 }
@@ -51,8 +54,10 @@ function zoomOn(){
         $("#image_elem").css({"display" : "block",    "overflow": "hidden" });
         document.getElementById("mag_image_elem").setAttribute('style', 'display:none;');
         document.getElementById("switchZoom").setAttribute('src','images/zoom.png');
-        document.getElementById("switchMag").setAttribute('src','images/magOff.png');
-        document.getElementById("switchITL").setAttribute('src','images/ITLoff.png');//Add by JK for ITL
+        //document.getElementById("switchMag").setAttribute('src','images/magOff.png');
+        $('#switchMag').removeClass('active');//Add by CDP for FA
+        //document.getElementById("switchITL").setAttribute('src','images/ITLoff.png');//Add by JK for ITL
+        $('#switchITL').removeClass('inactive'); //Add by CDP for FA
         magnifierON = false;
     }
 }
