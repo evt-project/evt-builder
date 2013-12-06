@@ -168,12 +168,12 @@ footer{
 
 	/*Chiara*/
 	z-index: 999;
-	-moz-box-shadow:0px 2px 3px -2px rgb(0, 0, 0);
-	-webkit-box-shadow:0px 2px 3px -2px rgb(0, 0, 0);
-	-o-box-shadow:0px 2px 3px -2px rgb(0, 0, 0);
-	-khtml-box-shadow:0px 2px 3px -2px rgb(0, 0, 0);
-	-ms-box-shadow:0px 2px 3px -2px rgb(0, 0, 0);
-	box-shadow:0px 2px 3px -2px rgb(0, 0, 0);
+	-moz-box-shadow:0 0px 4px rgba(0,0,0,0.8);
+	-webkit-box-shadow:0 0px 4px rgba(0,0,0,0.8);
+	-o-box-shadow:0 0px 4px rgba(0,0,0,0.8);
+	-khtml-box-shadow:0 0px 4px rgba(0,0,0,0.8);
+	-ms-box-shadow:0 0px 4px rgba(0,0,0,0.8);
+	box-shadow:0 0px 4px rgba(0,0,0,0.8);
 
 	min-height: 44px;
 	position: relative;
@@ -221,12 +221,12 @@ footer{
 
 	/*Chiara*/
 	z-index: 999;
-	-moz-box-shadow:0px 2px 3px -2px rgb(0, 0, 0);
-	-webkit-box-shadow:0px 2px 3px -2px rgb(0, 0, 0);
-	-o-box-shadow:0px 2px 3px -2px rgb(0, 0, 0);
-	-khtml-box-shadow:0px 2px 3px -2px rgb(0, 0, 0);
-	-ms-box-shadow:0px 2px 3px -2px rgb(0, 0, 0);
-	box-shadow:0px 2px 3px -2px rgb(0, 0, 0);
+	-moz-box-shadow:0 0px 4px rgba(0,0,0,0.8);
+	-webkit-box-shadow:0 0px 4px rgba(0,0,0,0.8);
+	-o-box-shadow:0 0px 4px rgba(0,0,0,0.8);
+	-khtml-box-shadow:0 0px 4px rgba(0,0,0,0.8);
+	-ms-box-shadow:0 0px 4px rgba(0,0,0,0.8);
+	box-shadow:0 0px 4px rgba(0,0,0,0.8);
 
 	/*per select
 	overflow: visible;*/
@@ -1193,4 +1193,10 @@ div.botleftconcave {
 
 #span_dd_select{
 	display: none;
+}
+
+#main_left_frame.full{
+	position: absolute;
+	z-index: 99999999;
+	min-width: 1021px;
 }
