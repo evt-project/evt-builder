@@ -579,13 +579,23 @@ $( function() {
 						minWidth: "1021px"
 					}, 700);
 				} else {
-					$('#main_left_frame').animate({
-						width: "49.8%",
-						height: "100%",
-						top: "0px",
-						left: "0px",
-						minWidth: "0px"
-					}, 700);
+					if($('#main_right_frame').css("display")=="none"){
+						$('#main_left_frame').animate({
+							width: "99.5%", 
+							height: "100%", 
+							top: "0px", 
+							left: "0px", 
+							minWidth: "0px"
+						}, 700);
+					} else {
+						$('#main_left_frame').animate({
+							width: "49.8%",
+							height: "100%",
+							top: "0px",
+							left: "0px",
+							minWidth: "0px"
+						}, 700);
+					}
 				}
 			}
 		});
