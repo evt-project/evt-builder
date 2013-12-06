@@ -1181,6 +1181,6 @@ div.botleftconcave {
 	right: 0px;
 }
 
-#span_dd_select{
+#span_dd_select, #span_ee_select-add{
 	display: none;
 }
