@@ -589,7 +589,16 @@ $( function() {
 		/*$("#text_copy").live("click", function(){
 			..codice qui..
 		});*/	
-	
+	$( window ).resize(function(){
+			if($('.full')){
+				var height_full = ($(window).height()>$("body").height()) ? $(window).height()-4 : $("body").height();
+				var width_full = $(window).width()-4;
+				$('.full').animate({
+					height: height_full,
+					width: width_full,
+				},100);
+			}
+	});
 	/* / Gestione key press */
 $(document).keydown(function(e){	
 			// Hide/show left-header * PRESS L *
