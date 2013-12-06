@@ -235,9 +235,9 @@
 											<a href="javascript:void(0);" id="thumb_link"> Thumb
 											</a>
 										</p>
-										<input type="image" src="images/zoom.png" id="switchZoom" value="zoom" onclick="zoomOn()"/>
-										<input type="image" src="images/magOff.png" id="switchMag" value="mag" onclick="magOn()"/>
-										<input type="image" src="images/ITLoff.png" id="switchITL" value="turn ITL on" title="Image text link" onclick="switchIMT()"/>
+										<input type="image" src="images/zoom.png" id="switchZoom" class="top_image_tools" value="zoom" onclick="zoomOn()"/>
+										<input type="image" src="images/magOff.png" id="switchMag" class="top_image_tools" value="mag" onclick="magOn()"/>
+										<input type="image" src="images/ITLoff.png" id="switchITL" class="top_image_tools" value="turn ITL on" title="Image text link" onclick="switchIMT()"/>
 									</div>
 								</header>
 								<div id="image_cont">
