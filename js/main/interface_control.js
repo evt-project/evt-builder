@@ -161,7 +161,8 @@ $( function() {
 	     			.find('text[n='+tt_val_temp+']')
 			     	.find(":first-child")
 			     	.text();
-			    $(".main_pp_select .label_selected").text(first_page).trigger("change");
+			    window.location.hash = first_page;
+			    //$(".main_pp_select .label_selected").text(first_page).trigger("change");
 			});
 
 			$(".open_select").click(function(){
@@ -175,15 +176,18 @@ $( function() {
 			$(".main_pp_select .option_container .option").click(function(){
 				if(! $(this).hasClass('selected')){
 					var newPage = $(this).attr('id').substr(6);
-					gotopage(newPage, "none");
-					$(this).parent().animate({height:"toggle"}, 400);
+					//gotopage(newPage, "none");
+					window.location.hash = newPage;
+					//$(this).parent().animate({height:"toggle"}, 400);
 				}
 				
 			});
 			$(".option").click(function(){
 				if(! $(this).hasClass('selected')){
 					var newPage = $(this).attr('id').substr(6); 
-					$(this).parent().prev().prev().text(newPage).trigger('change'); // .label_selected
+					//alert($(this).parent().parent().attr("class"));
+					if ($(this).parent().parent().attr("class") != "main_pp_select")
+						$(this).parent().prev().prev().text(newPage).trigger('change'); // .label_selected
 					$(this).parent().animate({height:"toggle"}, 400);
 					//$("#value_" + newPage).addClass("selected").siblings().removeClass('selected');
 				}
@@ -243,7 +247,6 @@ $( function() {
 		function gotopage(pp_val, state){	
 
 			//N.B. i caricamenti delle immagini si attivano grazie agli eventi change dei label_selected in iviewer_config
-
 			var edition=$("#span_ee_select .main_ee_select .label_selected").text().toLowerCase();	
 			$(".main_pp_select .label_selected").text(pp_val).trigger("change"); 
 			$('#text_elem').load("data/output_data/"+edition+"/page_"+pp_val+"_"+edition+".html #text_frame");
@@ -594,14 +597,14 @@ $( function() {
 			..codice qui..
 		});*/	
 	$( window ).resize(function(){
-			if($('.full')){
-				var height_full = ($(window).height()>$("body").height()) ? $(window).height()-4 : $("body").height();
-				var width_full = $(window).width()-4;
-				$('.full').animate({
-					height: height_full,
-					width: width_full,
-				},100);
-			}
+		if($('.full')){
+			var height_full = ($(window).height()>$("body").height()) ? $(window).height()-4 : $("body").height();
+			var width_full = $(window).width()-4;
+			$('.full').animate({
+				height: height_full,
+				width: width_full,
+			},100);
+		}
 	});
 	/* / Gestione key press */
 	$(document).keydown(function(e){	
