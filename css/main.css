@@ -954,7 +954,7 @@ top: 100px;
 margin: 0 auto;
 width: 436px;
 height: 73%;
-overflow: scroll;
+overflow: auto;
 overflow-x: hidden;
 }
 
