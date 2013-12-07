@@ -72,6 +72,9 @@ var selectedAreaImgLeftHS;
 var ImgWidthHS;
 var ImgRightHS;
 var ImgBottomHS;
+var paddingTopHS;
+var marginTopHS;
+var imgTopHS;
 var ImgHeightHS;
 var ViewWidthHS;
 var WindowHeightHS;
@@ -101,23 +104,19 @@ function Initialize(){
     Ratio = ratio;
     var NList = $('.Area');
     for (var i=0; i<NList.length; i++){
-        if (NList[i].className == 'Area'){
-            NList[i].style.left = (parseFloat(NList[i].style.left)*ratio) + ImgLeft + 'px';
-            NList[i].style.top = (parseFloat(NList[i].style.top)*ratio) + imgTop + 'px';
-            NList[i].style.width = (parseFloat(NList[i].style.width)*ratio) + 'px';
-            NList[i].style.height = (parseFloat(NList[i].style.height)*ratio) + 'px';
-			NList[i].style.display = 'block';
-//Remove non-breaking spaces which were only added for the accursed IE.
-            if (isIE == false){
-                NList[i].innerHTML = '';
-            }
-            Areas.push(NList[i]);
-            document.getElementById("image_elem").appendChild(NList[i]);
+        NList[i].style.left = (parseFloat(NList[i].style.left)*ratio) + ImgLeft + 'px';
+        NList[i].style.top = (parseFloat(NList[i].style.top)*ratio) + imgTop + 'px';
+        NList[i].style.width = (parseFloat(NList[i].style.width)*ratio) + 'px';
+        NList[i].style.height = (parseFloat(NList[i].style.height)*ratio) + 'px';
+        NList[i].style.display = 'block';
+        //Remove non-breaking spaces which were only added for the accursed IE.
+        if (isIE == false){
+            NList[i].innerHTML = '';
         }
         Areas.push(NList[i]);
         document.getElementById("image_elem").appendChild(NList[i]);
     }
-    
+
     /*NList = $('.Annotation');
     for (i=0; i<NList.length; i++){
         Anns.push(NList[i]);
@@ -234,10 +233,10 @@ function UnInitialize(keep){
 	
     Deselect();
         
-    var ratio = ((document.getElementById("iviewerImage").width)/1200);	
+    var ratio = (($("#iviewerImage").width())/1200);	
     for (var i=0; i<Areas.length; i++){
         Areas[i].style.left = ((parseFloat(Areas[i].style.left)) - ImgLeft)/ratio + 'px';
-        Areas[i].style.top = ((parseFloat(Areas[i].style.top)) - HeightOffset)/ratio + 'px';
+        Areas[i].style.top = ((parseFloat(Areas[i].style.top)) - imgTop)/ratio + 'px';
         Areas[i].style.width = (parseFloat(Areas[i].style.width)/ratio) + 'px';
         Areas[i].style.height = (parseFloat(Areas[i].style.height)/ratio) + 'px';
         Areas[i].style.display = 'none';
@@ -265,17 +264,17 @@ function UnInitialize(keep){
 
 function moveAreas(){
     if (Initializing == false){
-        newHeightOffset = parseInt(document.getElementById('iviewerImage').offsetTop);
+        newImgTop = parseInt(document.getElementById('iviewerImage').offsetTop) +parseInt($('#iviewerImage').css('padding-top')) + parseInt($('#iviewerImage').css('margin-top'));
         newImgLeft = parseInt(document.getElementById('iviewerImage').offsetLeft);
         var NList = document.getElementsByTagName('div')
         for (var i=0; i<NList.length; i++){
             if ((NList[i].className == 'Area')||(NList[i].className == 'SelectedArea')||(NList[i].className == 'HighlightedArea')){
                 NList[i].style.left = (parseFloat(NList[i].style.left))- ImgLeft + newImgLeft + 'px';
-                NList[i].style.top = (parseFloat(NList[i].style.top))- HeightOffset + newHeightOffset + 'px';
+                NList[i].style.top = (parseFloat(NList[i].style.top))- imgTop + newImgTop + 'px';
             }
        }
        ImgLeft = newImgLeft;
-       HeightOffset = newHeightOffset;
+       imgTop = newImgTop;
    }
 }
 
@@ -300,12 +299,16 @@ function InitializeHS(){
     if (InitializingHS == true){
     //alert("inizialize")
 /* Populate three handy lists with pointers to the menu items, areas and Anns. */
+			
     HeightOffsetHS = parseInt(document.getElementById('iviewerImage').offsetTop);
     ImgLeftHS = parseInt(document.getElementById('iviewerImage').offsetLeft);
     ImgWidthHS = parseInt(document.getElementById('iviewerImage').offsetWidth);
     ImgRightHS = ImgLeftHS + ImgWidthHS;
     ImgHeightHS = parseInt(document.getElementById('iviewerImage').offsetHeight);
     ImgBottomHS = HeightOffsetHS + ImgHeightHS;
+    paddingTopHS = parseInt($("#iviewerImage").css('padding-top'));
+    marginTopHS = parseInt($("#iviewerImage").css('margin-top'));
+    imgTopHS = HeightOffsetHS + paddingTopHS + marginTopHS;
     
     document.getElementById("switchHS").setAttribute('src','images/HSon.png');
 
@@ -314,7 +317,7 @@ function InitializeHS(){
     var NList = $('.AreaHS');
     for (var i=0; i<NList.length; i++){
         NList[i].style.left = (parseFloat(NList[i].style.left)*ratio) + ImgLeftHS + 'px';
-        NList[i].style.top = (parseFloat(NList[i].style.top)*ratio) + HeightOffsetHS + 'px';
+        NList[i].style.top = (parseFloat(NList[i].style.top)*ratio) + imgTopHS + 'px';
         NList[i].style.width = (parseFloat(NList[i].style.width)*ratio) + 'px';
         NList[i].style.height = (parseFloat(NList[i].style.height)*ratio) + 'px';
     	NList[i].style.display = 'block';
@@ -431,7 +434,7 @@ function ShowAnnHS(ItemId){
 function ReInitializeHS(){
     //alert("ReInitialize()");
     if (InitializingHS == false){
-        newHeightOffsetHS = parseInt(document.getElementById('iviewerImage').offsetTop);
+        newImgTopHS = parseInt(document.getElementById('iviewerImage').offsetTop) +parseInt($('#iviewerImage').css('padding-top')) + parseInt($('#iviewerImage').css('margin-top'));
         newImgLeftHS = parseInt(document.getElementById('iviewerImage').offsetLeft);    
         var newRatioHS = (($("#iviewerImage").width())/1200);
         
@@ -439,30 +442,30 @@ function ReInitializeHS(){
         for (var i=0; i<NList.length; i++){
             if ((NList[i].className == 'AreaHS')||(NList[i].className == 'SelectedAreaHS')||(NList[i].className == 'HighlightedAreaHS')){
                 NList[i].style.left = (((parseFloat(NList[i].style.left)) - ImgLeftHS)/RatioHS) * newRatioHS + newImgLeftHS + 'px';
-		        NList[i].style.top = (((parseFloat(NList[i].style.top)) - HeightOffsetHS)/RatioHS) * newRatioHS + newHeightOffsetHS + 'px';
+		        NList[i].style.top = (((parseFloat(NList[i].style.top)) - imgTopHS)/RatioHS) * newRatioHS + newImgTopHS + 'px';
                 NList[i].style.width = ((parseFloat(NList[i].style.width))/RatioHS) * newRatioHS + 'px';
                 NList[i].style.height = ((parseFloat(NList[i].style.height))/RatioHS)* newRatioHS + 'px';
             }
 	    }
 	    ImgLeftHS = newImgLeftHS;
-	    HeightOffsetHS = newHeightOffsetHS;
+	    imgTopHS = newImgTopHS;
 	    RatioHS = newRatioHS;
     }
 }
 
 function moveAreasHS(){
     if (InitializingHS == false){
-        newHeightOffsetHS = parseInt(document.getElementById('iviewerImage').offsetTop);
+        newImgTopHS = parseInt(document.getElementById('iviewerImage').offsetTop) +parseInt($('#iviewerImage').css('padding-top')) + parseInt($('#iviewerImage').css('margin-top'));
         newImgLeftHS = parseInt(document.getElementById('iviewerImage').offsetLeft);
         var NList = document.getElementsByTagName('div')
         for (var i=0; i<NList.length; i++){
             if ((NList[i].className == 'AreaHS')||(NList[i].className == 'SelectedAreaHS')||(NList[i].className == 'HighlightedAreaHS')){
                 NList[i].style.left = (parseFloat(NList[i].style.left))- ImgLeftHS + newImgLeftHS + 'px';
-                NList[i].style.top = (parseFloat(NList[i].style.top))- HeightOffsetHS + newHeightOffsetHS + 'px';
+                NList[i].style.top = (parseFloat(NList[i].style.top))- imgTopHS + newImgTopHS + 'px';
             }
        }
        ImgLeftHS = newImgLeftHS;
-       HeightOffsetHS = newHeightOffsetHS;
+       imgTopHS = newImgTopHS;
    }
 }
 
@@ -486,7 +489,7 @@ function UnInitializeHS(keep){
     var ratioHS = (($("#iviewerImage").width())/1200);	
     for (var i=0; i<AreasHS.length; i++){
         AreasHS[i].style.left = ((parseFloat(AreasHS[i].style.left)) - ImgLeftHS)/ratioHS + 'px';
-        AreasHS[i].style.top = ((parseFloat(AreasHS[i].style.top)) - HeightOffsetHS)/ratioHS + 'px';
+        AreasHS[i].style.top = ((parseFloat(AreasHS[i].style.top)) - imgTopHS)/ratioHS + 'px';
         AreasHS[i].style.width = (parseFloat(AreasHS[i].style.width)/ratioHS) + 'px';
         AreasHS[i].style.height = (parseFloat(AreasHS[i].style.height)/ratioHS) + 'px';
         AreasHS[i].style.display = 'none';
@@ -507,6 +510,9 @@ function UnInitializeHS(keep){
 	ImgWidthHS =0;
 	ImgRightHS=0;
 	ImgBottomHS=0;
+    paddingTopHS = 0;
+    marginTopHS = 0;
+    imgTopHS = 0;
 	ImgHeightHS=0;
 	ViewWidthHS=0;
 	WindowHeightHS=0;
@@ -720,7 +726,7 @@ function ShowAnn(ItemId){
         }    
        TheMenuItem.className = 'SelectedAnnMenuItem';
        //scroll it
-       $('#text_elem').animate({ scrollTop: TheMenuItem.offsetTop-5 }); //Add by JK for EVT-builder
+       $('#text_cont').animate({ scrollTop: TheMenuItem.offsetTop-5 }); //Add by JK for EVT-builder
         
 //Now try to scroll it into view
         //TheMenuItem.scrollIntoView();
