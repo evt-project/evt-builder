@@ -56,6 +56,7 @@ function zoomOn(){
         document.getElementById("switchZoom").setAttribute('src','images/zoom.png');
         //document.getElementById("switchMag").setAttribute('src','images/magOff.png');
         $('#switchMag').removeClass('active');//Add by CDP for FA
+        $("#image_elem, #image_tool").show();
         //document.getElementById("switchITL").setAttribute('src','images/ITLoff.png');//Add by JK for ITL
         $('#switchITL').removeClass('inactive'); //Add by CDP for FA
         magnifierON = false;
