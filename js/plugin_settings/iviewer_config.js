@@ -62,39 +62,45 @@ $( function() {
             }
         }
         
-	   $("#in").click(function(){ iv1.iviewer('zoom_by', 1); }); 
-	   $("#out").click(function(){ iv1.iviewer('zoom_by', -1); }); 
-	   $("#fit").click(function(){ iv1.iviewer('fit'); ReInitialize(); }); 
-	   $("#orig").click(function(){ iv1.iviewer('set_zoom', 100); ReInitialize(); }); 
-	   $("#update").click(function(){ iv1.iviewer('update_container_info'); });
+	   $("#zoom_in").click(function(){ iv1.iviewer('zoom_by', 1); }); 
+	   $("#zoom_out").click(function(){ iv1.iviewer('zoom_by', -1); }); 
+	   $("#zoom_fit").click(function(){ iv1.iviewer('fit'); ReInitialize(); }); 
+	   $("#zoom_orig").click(function(){ iv1.iviewer('set_zoom', 100); ReInitialize(); }); 
+	   $("#zoom_update").click(function(){ iv1.iviewer('update_container_info'); });
 	  
 	  /*$('select[name=" "]').change( function() {
 			iv1.iviewer('loadImage', document.getElementById('slideshow-image').getAttribute('src'));
 		});*/
 		
-		$('#folio_page_number').change(function(){	
+		//$('#folio_page_number').change(function(){	
+		$(".main_pp_select .label_selected").on('change',function(){
 			iv1.iviewer('fit');
-			iv1.iviewer('loadImage', "data/input_data/images/"+$('#central_page_number span').text()+".jpg");			
+			iv1.iviewer('loadImage', "data/input_data/images/"+$(this).text()+".jpg");	//SISTEMARE: rimuovere central_page_number		
 		});
-	  
-	  $("#slider").slider(
-	  {
-		  orientation: "vertical",
+
+		$(".main_dd_select .label_selected").on('change',function(){
+		    iv1.iviewer('fit');
+			iv1.iviewer('loadImage', "data/input_data/images/double/"+$(this).text()+".jpg");
+		});	
+
+
+		$("#slider").slider(
+		{
+		  orientation: "orizontal",
 		  min: 20,
 		  max: 140,
 		  step: 1,
 		  slide: showValue,
 		  change: showValue
 
-	  });
-	  $("#update").click(function () {
+		});
+		$("#update").click(function () {
 		  $("#slider").slider("option", "value", iv1.iviewer('info', 'zoom'));
-
-	  });
-	  function showValue(event, ui) {
+		});
+		function showValue(event, ui) {
 		  $("#val").html(iv1.iviewer('info', 'zoom'));
 		  iv1.iviewer('set_zoom', ui.value);
 		  
 		  //alert(iv1.iviewer('info', 'zoom'));
-	  }
+		}
 });
