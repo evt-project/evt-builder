@@ -315,7 +315,7 @@ $( function() {
 		}
 		// IT: Gestisce il cambio edizione nel frame testuale
 		function gotoedition(pp_val, pp_el, frame_id, parent_id){
-			if (Initializing == false) {UnInitialize(true)}; //Add by JK for ITL
+			if (Initializing == false) {UnInitialize(true);}; //Add by JK for ITL
 			if (InitializingHS == false) {UnInitializeHS(true)}; //Add by JK for HS
 			$('#'+frame_id).load("data/output_data/"+pp_el+"/page_"+pp_val+"_"+pp_el+".html #text_frame",
 			     function() {
