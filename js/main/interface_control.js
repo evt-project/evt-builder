@@ -224,7 +224,8 @@ $( function() {
 				$(window).hashchange( function(){
 					var hash = location.hash;
 					var current_page = hash.replace( /^#/, '' );
-					var checkpp = $(xml).find('text pb:contains('+current_page+')').text();
+					//var checkpp = $(xml).find('text pb:contains('+current_page+')').text();
+					var checkpp = $(xml).find('pages pb:contains('+current_page+')').text();
 					var checkdd = $(".main_dd_select").find('.option:contains('+current_page+')').text();
 
 					if(hash && (checkpp != "") && ($("#imgd_link").attr("class") != "current_mode")){
@@ -314,12 +315,6 @@ $( function() {
 		}
 		// IT: Gestisce il cambio edizione nel frame testuale
 		function gotoedition(pp_val, pp_el, frame_id, parent_id){
-			//$('#'+frame_id).remove();
-			//$('<iframe id="'+frame_id+'">').appendTo('#'+parent_id);
-			//$('#'+frame_id)
-			//	.attr("src", "data/"+pp_el+"/page_"+pp_val+"_"+pp_el+".html");/*
-			//	.hide()
-			//	.fadeIn(800);*/
 			if (Initializing == false) {UnInitialize(true)}; //Add by JK for ITL
 			if (InitializingHS == false) {UnInitializeHS(true)}; //Add by JK for HS
 			$('#'+frame_id).load("data/output_data/"+pp_el+"/page_"+pp_val+"_"+pp_el+".html #text_frame",
