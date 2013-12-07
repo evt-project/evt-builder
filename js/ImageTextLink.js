@@ -39,11 +39,10 @@ var isOldIE = ((navigator.userAgent.indexOf('MSIE 6') > -1) || (navigator.userAg
 var isIE = (navigator.userAgent.indexOf('MSIE') > -1);
 
 /*These three arrays are for convenience; they allow us to unhighlight things quickly. */
-
 var Areas = new Array();
-var Anns = new Array();
+//var Anns = new Array();
 var AnnMenuItems = new Array();
-
+/*IMT variabili*/
 var HeightOffset;
 var selectedAreaHeightOffset;
 var ImgLeft;
@@ -57,11 +56,30 @@ var WindowHeight;
 var Ratio;
 var click;
 var Initializing = true;
+var SelectedArea = null;
 
+
+var AreasHS = new Array();
+var AnnsHS = new Array();
+/*Variabili HS*/
+var HeightOffsetHS;
+var selectedAreaHeightOffsetHS;
+var ImgLeftHS;
+var selectedAreaImgLeftHS;
+var ImgWidthHS;
+var ImgRightHS;
+var ImgBottomHS;
+var ImgHeightHS;
+var ViewWidthHS;
+var WindowHeightHS;
+var RatioHS;
+var click;
+var InitializingHS = true;
+var SelectedAreaHS = null;
 
 function Initialize(){
     if (Initializing == true){
-    //alert("Initialize");
+    //alert("inizialize")
 /* Populate three handy lists with pointers to the menu items, areas and Anns. */
     HeightOffset = parseInt(document.getElementById('iviewerImage').offsetTop);
     ImgLeft = parseInt(document.getElementById('iviewerImage').offsetLeft);
@@ -74,36 +92,34 @@ function Initialize(){
     
     //var L = document.getElementById('AnnMenuContainer');
     //ViewWidth = parseInt(L.parentNode.offsetWidth);
-    
     var ratio = ((document.getElementById("iviewerImage").width)/1200);
     Ratio = ratio;
-    var NList = document.getElementsByTagName('div');
+    var NList = $('.Area');
     for (var i=0; i<NList.length; i++){
-        if (NList[i].className == 'Area'){
-            NList[i].style.left = (parseFloat(NList[i].style.left)*ratio) + ImgLeft + 'px';
-            NList[i].style.top = (parseFloat(NList[i].style.top)*ratio) + HeightOffset + 'px';
-            NList[i].style.width = (parseFloat(NList[i].style.width)*ratio) + 'px';
-            NList[i].style.height = (parseFloat(NList[i].style.height)*ratio) + 'px';
-			NList[i].style.display = 'block';
-//Remove non-breaking spaces which were only added for the accursed IE.
-            if (isIE == false){
-                NList[i].innerHTML = '';
-            }
-            Areas.push(NList[i]);
-            document.getElementById("image_elem").appendChild(NList[i]);
+        NList[i].style.left = (parseFloat(NList[i].style.left)*ratio) + ImgLeft + 'px';
+        NList[i].style.top = (parseFloat(NList[i].style.top)*ratio) + HeightOffset + 'px';
+        NList[i].style.width = (parseFloat(NList[i].style.width)*ratio) + 'px';
+        NList[i].style.height = (parseFloat(NList[i].style.height)*ratio) + 'px';
+    	NList[i].style.display = 'block';
+    	//Remove non-breaking spaces which were only added for the accursed IE.
+        if (isIE == false){
+            NList[i].innerHTML = '';
         }
-        else{
-            if (NList[i].className == 'Annotation'){
-                Anns.push(NList[i]);
-            }
-        }
+        Areas.push(NList[i]);
+        document.getElementById("image_elem").appendChild(NList[i]);
     }
-    NList = document.getElementsByTagName('li');
+    
+    /*NList = $('.Annotation');
     for (i=0; i<NList.length; i++){
-         if (NList[i].className == 'AnnMenuItem'){
-             AnnMenuItems.push(NList[i]);
-         }
+        Anns.push(NList[i]);
+    }*/
+    
+    NList = $('.AnnMenuItem');
+    for (i=0; i<NList.length; i++){
+        AnnMenuItems.push(NList[i]);
     }
+   
+    
 //Position the Annotation Menu container
     /*
     L.style.top = HeightOffset + 'px';  
@@ -161,16 +177,16 @@ function Initialize(){
     }*/
     
 //Attach the onresize event (if the IE version is not 6, where it causes endless loops).
-    if (isOldIE == false){
-        //window.onresize = SetAnnMenuHeight;
-    }    
+    /*if (isOldIE == false){
+        window.onresize = SetAnnMenuHeight;
+    }*/    
     
     Initializing = false;
+    if (SelectedArea){ShowAnn(SelectedArea.replace('Area_','')); SelectedArea == null;}
     }
 }
 
 /*ADD BY JK: */
-
 function ReInitialize(){
     //alert("ReInitialize()");
     if (Initializing == false){
@@ -193,24 +209,34 @@ function ReInitialize(){
     }
 }
 
-function UnInitialize(){ 
+function UnInitialize(keep){
 	if (Initializing == false){
 	//alert("UnInitialize");
-	UnHighlight();
-	Deselect();
-	var ratio = ((document.getElementById("iviewerImage").width)/1200);	
+	keep = keep | false;
 	
-	for (var i=0; i<Areas.length; i++){
-	    Areas[i].style.left = ((parseFloat(Areas[i].style.left)) - ImgLeft)/ratio + 'px';
-		Areas[i].style.top = ((parseFloat(Areas[i].style.top)) - HeightOffset)/ratio + 'px';
+	if (keep){
+        var trovato = false;
+        var i = 0;
+        while (!trovato && i<Areas.length){
+            if(Areas[i].className == 'SelectedArea'){ SelectedArea = Areas[i].id; trovato=true;};
+            i++;
+        }
+	}
+	
+    Deselect();
+        
+    var ratio = ((document.getElementById("iviewerImage").width)/1200);	
+    for (var i=0; i<Areas.length; i++){
+        Areas[i].style.left = ((parseFloat(Areas[i].style.left)) - ImgLeft)/ratio + 'px';
+        Areas[i].style.top = ((parseFloat(Areas[i].style.top)) - HeightOffset)/ratio + 'px';
         Areas[i].style.width = (parseFloat(Areas[i].style.width)/ratio) + 'px';
         Areas[i].style.height = (parseFloat(Areas[i].style.height)/ratio) + 'px';
-		Areas[i].style.display = 'none';
-		document.getElementById("areaAnnotations").appendChild(Areas[i]);
-	}
-	Areas = [];
-	
-	Anns = [];
+        Areas[i].style.display = 'none';
+        document.getElementById("areaAnnotations").appendChild(Areas[i]);
+    }
+    
+    Areas = [];
+    Anns = [];
 	AnnMenuItems = [];
 	
 	HeightOffset=0;
@@ -225,8 +251,24 @@ function UnInitialize(){
     }
 }
 
+function moveAreas(){
+    if (Initializing == false){
+        newHeightOffset = parseInt(document.getElementById('iviewerImage').offsetTop);
+        newImgLeft = parseInt(document.getElementById('iviewerImage').offsetLeft);
+        var NList = document.getElementsByTagName('div')
+        for (var i=0; i<NList.length; i++){
+            if ((NList[i].className == 'Area')||(NList[i].className == 'SelectedArea')||(NList[i].className == 'HighlightedArea')){
+                NList[i].style.left = (parseFloat(NList[i].style.left))- ImgLeft + newImgLeft + 'px';
+                NList[i].style.top = (parseFloat(NList[i].style.top))- HeightOffset + newHeightOffset + 'px';
+            }
+       }
+       ImgLeft = newImgLeft;
+       HeightOffset = newHeightOffset;
+   }
+}
+
 function switchIMT(){
-    if (magnifierON==true){}
+    if ((magnifierON==true)&&(bigImage==true)){}
 	else if (Initializing == true){
 	   Initialize();
 	   document.getElementById("switchITL").setAttribute('src','images/ITLon.png');//Add by JK for ITL
@@ -237,28 +279,281 @@ function switchIMT(){
 	}
 }
 
-    function moveAreas(){
-    	if (Initializing == false){
-    	    newHeightOffset = parseInt(document.getElementById('iviewerImage').offsetTop);
-            newImgLeft = parseInt(document.getElementById('iviewerImage').offsetLeft);
-            var NList = document.getElementsByTagName('div')
-            for (var i=0; i<NList.length; i++){
-                if ((NList[i].className == 'Area')||(NList[i].className == 'SelectedArea')||(NList[i].className == 'HighlightedArea')){
-                    NList[i].style.left = (parseFloat(NList[i].style.left))- ImgLeft + newImgLeft + 'px';
-                    NList[i].style.top = (parseFloat(NList[i].style.top))- HeightOffset + newHeightOffset + 'px';
-                }
-	       }
-	       ImgLeft = newImgLeft;
-	       HeightOffset = newHeightOffset;
-	   }
+/*HOT SPOT*/
+function InitializeHS(){
+    if (InitializingHS == true){
+    //alert("inizialize")
+/* Populate three handy lists with pointers to the menu items, areas and Anns. */
+    HeightOffsetHS = parseInt(document.getElementById('iviewerImage').offsetTop);
+    ImgLeftHS = parseInt(document.getElementById('iviewerImage').offsetLeft);
+    ImgWidthHS = parseInt(document.getElementById('iviewerImage').offsetWidth);
+    ImgRightHS = ImgLeftHS + ImgWidthHS;
+    ImgHeightHS = parseInt(document.getElementById('iviewerImage').offsetHeight);
+    ImgBottomHS = HeightOffsetHS + ImgHeightHS;
+    
+    document.getElementById("switchHS").setAttribute('src','images/HSon.png');
+
+    ratio = $("#iviewerImage").width()/1200;
+    Ratio = ratio
+    var NList = $('.AreaHS');
+    for (var i=0; i<NList.length; i++){
+        NList[i].style.left = (parseFloat(NList[i].style.left)*ratio) + ImgLeftHS + 'px';
+        NList[i].style.top = (parseFloat(NList[i].style.top)*ratio) + HeightOffsetHS + 'px';
+        NList[i].style.width = (parseFloat(NList[i].style.width)*ratio) + 'px';
+        NList[i].style.height = (parseFloat(NList[i].style.height)*ratio) + 'px';
+    	NList[i].style.display = 'block';
+    	//Remove non-breaking spaces which were only added for the accursed IE.
+        if (isIE == false){
+            NList[i].innerHTML = '';
+        }
+        AreasHS.push(NList[i]);
+        $("#image_elem").append(NList[i]);
     }
+    
+    NList = $('.Annotation');
+    for (i=0; i<NList.length; i++){
+        AnnsHS.push(NList[i]);
+        $("#image_elem").append(NList[i]);
+    }
+    
+   /* NList = $('.AnnMenuItem');
+    for (i=0; i<NList.length; i++){
+        AnnMenuItems.push(NList[i]);
+    }*/      
+    
+    InitializingHS = false;
+    if (SelectedAreaHS){ShowAnnHS(SelectedAreaHS.replace('Area_','')); SelectedAreaHS == null;}
+    }
+}
+
+function HighlightHS(ItemId){
+    if (InitializingHS == true){return;}
+    UnHighlightHS();
+    
+    var El = document.getElementById("Area_" + ItemId);
+    if (El != null){
+        if (El.className != 'SelectedAreaHS'){
+            El.className = 'HighlightedAreaHS';
+        }
+    }
+    
+    /*El = $('#MenuItem_' + ItemId);
+    if (El != null){
+        if (El.className != 'SelectedAnnMenuItem'){
+            El.className = 'HighlightedAnnMenuItem';
+    //The following lines can be uncommented if you want to make the menu expand itself automatically to reveal hidden items when their counterpart areas in the image are moused-over.
+    //      if (El.parentNode.style.display != 'block'){
+    //          El.parentNode.style.display = 'block';
+    //     }
+        }
+    }*/
+}
+
+function ShowAnnHS(ItemId){
+    if (click==false){return;}
+    DeselectHS();
+    
+    var TheArea = document.getElementById("Area_" + ItemId);
+    if (TheArea != null){
+        TheArea.className = 'SelectedAreaHS';
+    }
+    
+    /*var TheMenuItem = document.getElementById('MenuItem_' + ItemId);
+    if (TheMenuItem != null){
+        if (TheMenuItem.parentNode.style.display != 'block'){
+            TheMenuItem.parentNode.style.display = 'block';
+        }    
+       TheMenuItem.className = 'SelectedAnnMenuItem';
+       //scroll it
+       $('#text_elem').animate({ scrollTop: TheMenuItem.offsetTop-5 }); //Add by JK for EVT-builder
+        
+//Now try to scroll it into view
+        //TheMenuItem.scrollIntoView();
+    }*/
+    
+    var TheAnnotation = document.getElementById('Ann_' + ItemId);
+    //Position the Ann div (try to keep it on the image itself)
+    if (TheAnnotation != null){
+    //if the user has previously dragged a div, use the same position
+        if ((DroppedX > -1)&&(DroppedY > -1)){
+            if (isOldIE == false){
+                TheAnnotation.style.position = 'fixed';
+            }
+            TheAnnotation.style.left = DroppedX + 'px';
+            TheAnnotation.style.top = DroppedY + 'px';
+            TheAnnotation.style.display = 'block';
+            return;
+        }	
+        //Otherwise, figure out the best place to show it:
+        //First, set it to absolute positioning
+        TheAnnotation.style.position = 'absolute';
+        //Horizontal position
+        var ALeft = parseInt(TheArea.style.left);
+
+        //Show the Ann so we can position it afterwards
+        TheAnnotation.style.left = ALeft + 'px';
+        TheAnnotation.style.display = 'block';
+        if (ALeft + parseInt(TheAnnotation.offsetWidth) > ImgRight){
+            ALeft = ImgRight - parseInt(TheAnnotation.offsetWidth);
+            TheAnnotation.style.left = ALeft + 'px';
+        }
+        //Vertical position
+        var ATop = parseInt(TheArea.style.top) + parseInt(TheArea.offsetHeight);
+        if (ATop + parseInt(TheAnnotation.offsetHeight) > ImgBottom){
+            ATop = parseInt(TheArea.style.top) - parseInt(TheAnnotation.offsetHeight);
+            TheAnnotation.style.top = ATop  + 'px';
+        }
+
+        //Handle the problem of disappearing off the top
+        if (parseInt(TheAnnotation.offsetTop) < HeightOffset){
+            TheAnnotation.style.top = HeightOffset + 'px';
+            TheAnnotation.style.left = '0px';
+        }
+    }
+}
+
+function ReInitializeHS(){
+    //alert("ReInitialize()");
+    if (InitializingHS == false){
+        newHeightOffsetHS = parseInt(document.getElementById('iviewerImage').offsetTop);
+        newImgLeftHS = parseInt(document.getElementById('iviewerImage').offsetLeft);    
+        var newRatioHS = (($("#iviewerImage").width())/1200);
+        
+        var NList = document.getElementsByTagName('div');
+        for (var i=0; i<NList.length; i++){
+            if ((NList[i].className == 'AreaHS')||(NList[i].className == 'SelectedAreaHS')||(NList[i].className == 'HighlightedAreaHS')){
+                NList[i].style.left = (((parseFloat(NList[i].style.left)) - ImgLeftHS)/RatioHS) * newRatioHS + newImgLeftHS + 'px';
+		        NList[i].style.top = (((parseFloat(NList[i].style.top)) - HeightOffsetHS)/RatioHS) * newRatioHS + newHeightOffsetHS + 'px';
+                NList[i].style.width = ((parseFloat(NList[i].style.width))/RatioHS) * newRatioHS + 'px';
+                NList[i].style.height = ((parseFloat(NList[i].style.height))/RatioHS)* newRatioHS + 'px';
+            }
+	    }
+	    ImgLeftHS = newImgLeftHS;
+	    HeightOffsetHS = newHeightOffsetHS;
+	    RatioHS = newRatioHS;
+    }
+}
+
+function moveAreasHS(){
+    if (InitializingHS == false){
+        newHeightOffsetHS = parseInt(document.getElementById('iviewerImage').offsetTop);
+        newImgLeftHS = parseInt(document.getElementById('iviewerImage').offsetLeft);
+        var NList = document.getElementsByTagName('div')
+        for (var i=0; i<NList.length; i++){
+            if ((NList[i].className == 'AreaHS')||(NList[i].className == 'SelectedAreaHS')||(NList[i].className == 'HighlightedAreaHS')){
+                NList[i].style.left = (parseFloat(NList[i].style.left))- ImgLeftHS + newImgLeftHS + 'px';
+                NList[i].style.top = (parseFloat(NList[i].style.top))- HeightOffsetHS + newHeightOffsetHS + 'px';
+            }
+       }
+       ImgLeftHS = newImgLeftHS;
+       HeightOffsetHS = newHeightOffsetHS;
+   }
+}
+
+function UnInitializeHS(keep){
+	if (InitializingHS == false){
+	//alert("UnInitializeHS");
+	keep = keep | false;
+	
+	if (keep){
+        var trovato = false;
+        var i = 0;
+        while (!trovato && i<AreasHS.length){
+            if(AreasHS[i].className == 'SelectedAreaHS'){ 
+            SelectedAreaHS = AreasHS[i].id; trovato=true;};
+            i++;
+        }
+	}
+	
+    DeselectHS();
+        
+    var ratioHS = (($("#iviewerImage").width())/1200);	
+    for (var i=0; i<AreasHS.length; i++){
+        AreasHS[i].style.left = ((parseFloat(AreasHS[i].style.left)) - ImgLeftHS)/ratioHS + 'px';
+        AreasHS[i].style.top = ((parseFloat(AreasHS[i].style.top)) - HeightOffsetHS)/ratioHS + 'px';
+        AreasHS[i].style.width = (parseFloat(AreasHS[i].style.width)/ratioHS) + 'px';
+        AreasHS[i].style.height = (parseFloat(AreasHS[i].style.height)/ratioHS) + 'px';
+        AreasHS[i].style.display = 'none';
+       $("#areaAnnotations").append(AreasHS[i]);
+    }
+    for (var i=0; i<AnnsHS.length; i++){
+       AnnsHS[i].style.left = '0px';
+       AnnsHS[i].style.top = '0px';
+       $("#text").append(AnnsHS[i]);
+    }
+    
+    AreasHS = [];
+    Anns = [];
+	/*AnnMenuItems = [];*/
+	
+	HeightOffsetHS=0;
+	ImgLeftHS=0;
+	ImgWidthHS =0;
+	ImgRightHS=0;
+	ImgBottomHS=0;
+	ImgHeightHS=0;
+	ViewWidthHS=0;
+	WindowHeightHS=0;
+	InitializingHS = true;
+    }
+}
+
+function UnHighlightHS(){
+/* Hide all area borders on the image, and unhighlight area list items, assuming they aren't the currently selected item.  */
+     for (var i=0; i<AreasHS.length; i++){
+         if (AreasHS[i] != null){
+             if (AreasHS[i].className != 'SelectedAreaHS'){
+                 AreasHS[i].className = 'AreaHS';
+            }
+         }
+      }
+      /*for (var i=0; i<AnnMenuItems.length; i++){
+         if (AnnMenuItems[i] != null) {
+             if (AnnMenuItems[i].className != 'SelectedAnnMenuItem'){
+                 AnnMenuItems[i].className = 'AnnMenuItem';
+            }
+         }
+     }*/
+}
+
+function DeselectHS(){
+    if (InitializingHS == true){return;}
+    
+    //Deselect the currently-selected elements
+     for (var i=0; i<AreasHS.length; i++){
+        if (AreasHS[i] != null){
+            AreasHS[i].className = 'AreaHS';
+        }
+     }
+     /*for (var i=0; i<AnnMenuItems.length; i++){
+        if (AnnMenuItems[i] != null){
+            AnnMenuItems[i].className= 'AnnMenuItem';
+        }
+     }*/
+     /*for (i=0; i<Anns.length; i++){
+         if (Anns[i] != null){
+             Anns[i].style.display = 'none';
+         }
+     }*/
+}
+
+function switchHS(){
+    if ((magnifierON==true)&&(bigImage==true)){}
+	else if (InitializingHS == true){
+	   InitializeHS();
+	   document.getElementById("switchHS").setAttribute('src','images/HSon.png');//Add by JK for ITL
+    }
+	else {
+	   UnInitializeHS();
+	   document.getElementById("switchHS").setAttribute('src','images/HSoff.png');
+	}
+}
     
 /* END ADD BY JK*/
 
-/*function SetAnnMenuHeight(){*/
-/* Set the maximum height of the menu, based on the available window height, so that 
-    it can scroll appropriately when required. */
-    /*
+/*function SetAnnMenuHeight(){
+    //Set the maximum height of the menu, based on the available window height, so that it can scroll appropriately when required.
+    
     if (window.innerHeight){
         WindowHeight = parseInt(window.innerHeight);
     }
@@ -296,23 +591,23 @@ function UnHighlight(){
 
 function Deselect(){
     if (Initializing == true){return;}
+    
 /* Deselect the currently-selected elements  */
-     var c;
      for (var i=0; i<Areas.length; i++){
-         if (Areas[i] != null){
-             Areas[i].className = 'Area';
-         }
+        if (Areas[i] != null){
+            Areas[i].className = 'Area';
+        }
      }
-     for (i=0; i<AnnMenuItems.length; i++){
-         if (AnnMenuItems[i] != null){
-             AnnMenuItems[i].className = 'AnnMenuItem';
-         }
+     for (var i=0; i<AnnMenuItems.length; i++){
+        if (AnnMenuItems[i] != null){
+            AnnMenuItems[i].className= 'AnnMenuItem';
+        }
      }
-     for (i=0; i<Anns.length; i++){
+     /*for (i=0; i<Anns.length; i++){
          if (Anns[i] != null){
              Anns[i].style.display = 'none';
          }
-     }
+     }*/
 }
 
 function Highlight(ItemId){
@@ -361,7 +656,6 @@ function JumpTo(ItemId){
     var TheArea = document.getElementById('Area_' + ItemId);
     if (TheArea != null){
         TheArea.className = 'SelectedArea';
-        //document.getElementById('image_elem').scrollTop = TheArea.offsetTop; //Add by JK for EVT-builder
     }
 
     var TheMenuItem = document.getElementById('MenuItem_' + ItemId);
@@ -389,11 +683,10 @@ move the menu so it doesn't scroll out of view. */
 function ShowAnn(ItemId){
     if (click==false){return;}
     Deselect();
-    
+
     var TheArea = document.getElementById('Area_' + ItemId);
         if (TheArea != null){
         TheArea.className = 'SelectedArea';
-        //document.getElementById('image_elem').scrollTop = TheArea.offsetTop; //Add by JK for EVT-builder
         //TheArea.scrollIntoView();
         /*if (parseInt(TheArea.style.top) < GetScrollTop()){
             window.scrollBy(0, (parseInt(TheArea.style.top) - GetScrollTop()));
@@ -411,7 +704,7 @@ function ShowAnn(ItemId){
         }    
        TheMenuItem.className = 'SelectedAnnMenuItem';
        //scroll it
-       document.getElementById('text_elem').scrollTop = TheMenuItem.offsetTop; //Add by JK for EVT-builder
+       $('#text_elem').animate({ scrollTop: TheMenuItem.offsetTop-5 }); //Add by JK for EVT-builder
         
 //Now try to scroll it into view
         //TheMenuItem.scrollIntoView();
@@ -469,8 +762,7 @@ function ShowAnn(ItemId){
     }
     DroppedX = -1;
     DroppedY = -1;
-}*/ 
-/*#1 PopUp con annotazione sull'immagine*/
+}*/
 
 var DeltaX;
 var DeltaY;
@@ -478,12 +770,16 @@ var DraggedEl = null;
 var DroppedX = -1;
 var DroppedY = -1;
 
-/*function BeginDrag(El, e){
+function BeginDrag(El, e){
     if (!e){e = window.event;}
     var x = parseInt(El.style.left);
+    alert(x)
     var y = parseInt(El.style.top);
-    DeltaX = e.clientX - x;
-    DeltaY = e.clientY - y;
+    //DeltaX = e.clientX - x;
+    //DeltaY = e.clientY - y;
+    DeltaX = e.clientX
+    DeltaY = e.clientY
+    
     DraggedEl = El;
     if (document.addEventListener){
         document.addEventListener('mousemove', MouseMoveHandler, true);
@@ -495,9 +791,9 @@ var DroppedY = -1;
     }
     if (e.stopPropagation){e.stopPropagation();}else{e.cancelBubble = true;}
     if (e.preventDefault){e.preventDefault();}else{e.returnValue = false;}
-}*/
+}
 
-/*function MouseMoveHandler(e){
+function MouseMoveHandler(e){
     if (!e){e = window.event;}
     DraggedEl.style.left = (e.clientX - DeltaX) + 'px';
     DraggedEl.style.top = (e.clientY - DeltaY) + 'px';
@@ -519,20 +815,20 @@ function MouseUpHandler(e){
         DroppedX = parseInt(DraggedEl.style.left);
         DroppedY = parseInt(DraggedEl.style.top);
         if (isOldIE == false){
-            DroppedX = DroppedX - GetScrollLeft();
-            DroppedY = DroppedY - GetScrollTop();*/
-/*If the user moved the annotation, we should conclude that he/she wants it to be 
-in a fixed location, perhaps off to the side of the graphic. If that's the case, then 
-we need to set it to position: fixed, then convert its location relative to the scroll 
-offset. */
-//        DraggedEl.style.position = 'absolute';
-/*            DraggedEl.style.left = DroppedX + 'px';
-            DraggedEl.style.top = DroppedY + 'px';
+            //DroppedX = DroppedX - GetScrollLeft();
+            //DroppedY = DroppedY - GetScrollTop();
+            /*If the user moved the annotation, we should conclude that he/she wants it to be 
+            in a fixed location, perhaps off to the side of the graphic. If that's the case, then 
+            we need to set it to position: fixed, then convert its location relative to the scroll 
+            offset. */
+            DraggedEl.style.position = 'absolute';
+            DraggedEl.style.left += DroppedX + 'px';
+            DraggedEl.style.top += DroppedY + 'px';
             DraggedEl.style.position = 'fixed';
         }
     }
     DraggedEl = null;
-}*/
+}
 
 //Utility function for getting the vertical scroll offset for a scrolling document
 /*function GetScrollTop(){

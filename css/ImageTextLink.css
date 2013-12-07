@@ -20,8 +20,8 @@ div#CurrentAnnotation{
     display: none;
 }
 
-/*div.Annotation{
-    display: none;
+div.Annotation{
+    /*display: none;*/
     position: absolute;
     width: auto;
     min-width: 10%;
@@ -38,9 +38,9 @@ div.AnnTitleBar{
 
 }
 
-div.PopupCloser{*/
+div.PopupCloser{
 /* Floating right causes the containing element to stretch to its max-width. :-( */
-    /*float: left;
+    float: left;
     width: 1em;
     margin-right: 0;
     text-align: center;
@@ -50,6 +50,8 @@ div.PopupCloser{*/
     font-variant: small-caps;
     font-stretch: extra-expanded;
     cursor: pointer;
+    height: 17px;
+    line-height: 17px;
 }
 
 
@@ -58,6 +60,7 @@ div.AnnText{
     border-width: 1px;
     border-color: #000000;
 }
+/*
 #buttons{
 	position: absolute;
 	left: 1100px;}
@@ -73,18 +76,17 @@ div.AnnText{
     color: #000000;
     max-width: 33%;
 }
-
+*/
 #AnnMenuTitle, div.Annotation div.AnnTitlebar{
 	height: 20px;
-	border: 1px solid black;
     background-color: #bbbbdd;
     color: #000000;
-    padding: 0.25em;
-    cursor: pointer;
+    cursor: move;
     margin: 0;
     text-align: center;
+    width: 100%;
 }
-
+/*
 #AnnMenu{
     margin: 0;
     padding: 0;
@@ -97,12 +99,12 @@ div.AnnText{
 	position: relative;
 	top: -790px;
 }
-*
 
 .CategoryTitleClosed{
     cursor: pointer;
     font-weight: bold;
-}*/
+}
+*/
 
 #AnnMenu>li{
     padding: 0.25em;
@@ -144,14 +146,22 @@ div.AnnText{
     color: #ffffff;
 }
 
-div.SelectedArea{
+div.AreaHS{
+    border: 1px solid #4c2f2f;
+   	opacity: 0.4;
+	filter:alpha(opacity=40); /* For IE8 and earlier */
+}
+
+div.SelectedArea,
+div.SelectedAreaHS{
     border: 1px solid #4c2f2f;
 	background-color: #9c4837;
 	opacity: 0.5;
 	filter:alpha(opacity=50); /* For IE8 and earlier */
 }
 
-div.HighlightedArea{
+div.HighlightedArea, 
+div.HighlightedAreaHS{
     border: 1px solid #4c2f2f;
 	background-color: #c67261;
 	opacity: 0.4;
@@ -177,7 +187,7 @@ div.BlockCit{
 div.BlockCitBibl{
     text-align: right;
 }
-*/
+
 
 div#Zoom{
     display: none;
@@ -193,3 +203,4 @@ div#Zoom{
 div#Zoom img{
     position: relative;
 }
+*/

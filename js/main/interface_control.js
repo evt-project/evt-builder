@@ -107,14 +107,19 @@ $( function() {
 			//	.attr("src", "data/"+pp_el+"/page_"+pp_val+"_"+pp_el+".html");/*
 			//	.hide()
 			//	.fadeIn(800);*/
-			UnInitialize(); //Add by JK for ITL
-			$('#'+frame_id).load("data/output_data/"+pp_el+"/page_"+pp_val+"_"+pp_el+".html #text_frame");
-			var pp_el_upp = pp_el;
+			if (Initializing == false) {UnInitialize(true)}; //Add by JK for ITL
+			if (InitializingHS == false) {UnInitializeHS(true)}; //Add by JK for HS
+			$('#'+frame_id).load("data/output_data/"+pp_el+"/page_"+pp_val+"_"+pp_el+".html #text_frame",
+			     function() {
+			         if ($("#switchITL").attr('src')=='images/ITLon.png'){Initialize();} /*Add by JK for ITL*/
+			         if ($("#switchHS").attr('src')=='images/HSon.png'){InitializeHS();} /*Add by JK for HS*/
+			     }
+			 );
+		       
+            var pp_el_upp = pp_el;
 			pp_el_upp = pp_el_upp.toLowerCase().replace(/\b[a-z]/g, function(letter) {
 				return letter.toUpperCase();	
 			});
-		    setTimeout(function(){ var prova = document.getElementById("switchITL").getAttribute('src'); //Add by JK for ITL
-		       if (prova=='images/ITLon.png'){Initialize();};},100); //Add by JK for ITL
 
 			// IT: Gestisce la scrittura nell'etichetta destra o sinistra a seconda del frame caricato
 			if (frame_id.indexOf("-add")>-1) {
@@ -256,6 +261,7 @@ $( function() {
 				$("#text_cont-add").remove();
 				$("#radio_edition-add").remove();
 				
+				$("#img_tools").show();//Add by JK 
 				$("#text_menu").show();
 				$("#text_cont").show();
 				$("#mag").show();				
@@ -291,12 +297,13 @@ $( function() {
 		$("#txttxt_link").click(function(){
 			if($(this).attr("class")!="current_mode"){
 			    UnInitialize();//Add by JK for ITL
-			    document.getElementById("switchITL").setAttribute('src','images/ITLoff.png');//Add by JK for ITL
+			    UnInitializeHS();//Add by JK for HS
 				$("#txttxt_link").addClass("current_mode");
 				$("#txtimg_link").removeClass("current_mode");
 				$("#imgimg_link").removeClass("current_mode");
 
-				$("#image_menu").hide();
+			    $("#img_tools").hide();//Add by JK 
+			    $("#image_menu").hide();
 				$("#mag").hide();
 				$("#image_cont").hide(); 
 
@@ -337,10 +344,11 @@ $( function() {
 
 			if(hash){
 			    UnInitialize(); //Add by JK for ITL
+			    UnInitializeHS(); //Add by JK for HS
+			    $("#mag_image_elem").empty(); //Add by JK for Mag
+			    $("#mag_image_elem").css({"display":"none"});
 				gotopage(hash.replace( /^#/, '' ), "none");
-				setallselect(hash.replace( /^#/, '' ));
-				chooseZoomMag(); //Add by JK for Mag
-				
+				setallselect(hash.replace( /^#/, '' ));			
 			}else{
 				window.location.hash=$(".main_pp_select option:first").val();
 			}

@@ -20,12 +20,17 @@
 
 	<!-- P Paragraphs -->
 	<xsl:template match="tei:p" mode="dipl">
-		<xsl:element name="p">
+		<xsl:element name="span">
+			<xsl:attribute name="class"><xsl:value-of>dipl-<xsl:value-of select="name()"/></xsl:value-of></xsl:attribute>
 			<xsl:apply-templates mode="#current"> </xsl:apply-templates>
 		</xsl:element>
 	</xsl:template>
 
 	<!-- L Verse line-->
+	<xsl:template match="tei:l" mode="dipl">
+		<xsl:apply-templates mode="#current"/> 
+		<xsl:text> </xsl:text><!--important-->
+	</xsl:template>
 	<!--<xsl:template match="tei:l" mode="dipl">
 		<xsl:variable name="n"><xsl:value-of select="@n"/></xsl:variable>
 		<xsl:choose>
@@ -48,6 +53,31 @@
 		</xsl:choose>
 	</xsl:template>-->
 
+	<!-- Line break -->
+	<!-- IT: Ignora i lb che hanno xml:id che termina con 'o' e riporta quelli che hanno xml:id che termina con 'r' eliminando quest'ultimo carattere -->
+	<xsl:template match="tei:lb" mode="dipl">
+		<xsl:choose>
+			<xsl:when test="@xml:id">
+				<xsl:choose>
+					<xsl:when test="not(ends-with(@xml:id, 'orig'))">
+						<xsl:element name="tei:lb">
+							<xsl:copy-of select="@* except(@xml:id)"></xsl:copy-of>
+							<xsl:attribute name="{@xml:id/name()}" select="if(ends-with(@xml:id, 'reg')) then(replace(@xml:id, 'reg', '')) else(@xml:id)"/>
+						</xsl:element>
+					</xsl:when>
+					<xsl:otherwise/>
+				</xsl:choose>
+			</xsl:when>
+			<xsl:otherwise><xsl:copy-of select="."/></xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
+	
+
+	<!-- Page break -->
+	<xsl:template match="tei:pb" mode="dipl">
+		<xsl:copy-of select="."/>
+	</xsl:template>
+	
 
 	<!--               -->
 	<!-- Transcription -->
@@ -59,12 +89,13 @@
 			<xsl:when test="tei:corr">
 				<xsl:apply-templates select="tei:corr" mode="#current"> </xsl:apply-templates>
 			</xsl:when>
-			<xsl:when test="tei:orig">
+			<xsl:when test="tei:reg">
 				<xsl:element name="span">
 					<xsl:attribute name="class">
 						<xsl:value-of>dipl-choice_popup</xsl:value-of>
 					</xsl:attribute>
-					<xsl:apply-templates select="tei:orig" mode="#current"> </xsl:apply-templates>
+					<xsl:if test="tei:orig"><xsl:apply-templates select="tei:orig" mode="#current"/>
+						<xsl:sequence select="' '"/><!--important--></xsl:if>
 					<xsl:apply-templates select="tei:reg" mode="#current"> </xsl:apply-templates>
 				</xsl:element>
 			</xsl:when>
@@ -82,32 +113,27 @@
 	</xsl:template>
 	
 	<!-- ADD Addition -->
-	<xsl:template match="tei:add" mode="dipl"
-		priority="2">
+	<xsl:template match="tei:add" mode="dipl" priority="2">
 		<xsl:element name="span">
 			<xsl:attribute name="class">
 				<xsl:value-of>dipl-<xsl:value-of select="name()"/></xsl:value-of>
 			</xsl:attribute>
 			<xsl:choose>
 				<xsl:when test="@place='sup'">
-					\
-					<xsl:element name="span">
+					\<xsl:element name="span">
 						<xsl:attribute name="class">
 							<xsl:value-of>dipl-<xsl:value-of select="@place"/></xsl:value-of>
 						</xsl:attribute>
 						<xsl:apply-templates mode="#current"> </xsl:apply-templates>
-					</xsl:element>
-					/
+					</xsl:element>/
 				</xsl:when>
 				<xsl:when test="@place='sub'">
-					/
-					<xsl:element name="span">
+					/<xsl:element name="span">
 						<xsl:attribute name="class">
 							<xsl:value-of>dipl-<xsl:value-of select="@place"/></xsl:value-of>
 						</xsl:attribute>
 						<xsl:apply-templates mode="#current"> </xsl:apply-templates>
-					</xsl:element>
-					\
+					</xsl:element>\
 				</xsl:when>
 				<xsl:otherwise>
 					<xsl:apply-templates mode="#current"> </xsl:apply-templates>
@@ -117,23 +143,29 @@
 	</xsl:template>
 	
 
-	<!--
-		EXPAN expansion
+	<!--EXPAN expansion
 		DAMAGE Damage
 		EX editorial expansion
 		CORR Correction
-		DEL Deletions
 		REG Regularization
 		ORIG Original form
 	-->
-	<xsl:template match="tei:expan|tei:damage|tei:ex|tei:corr|tei:del|tei:reg|tei:orig" mode="dipl">
+	<xsl:template match="tei:expan|tei:damage|tei:ex|tei:corr|tei:reg|tei:orig" mode="dipl">
 		<xsl:element name="span">
 			<xsl:attribute name="class">
 				<xsl:value-of>dipl-<xsl:value-of select="name()"/></xsl:value-of>
 			</xsl:attribute>
-			<xsl:if test="name()='del'">[[</xsl:if>
-			<xsl:apply-templates mode="#current"> </xsl:apply-templates>
-			<xsl:if test="name()='del'">]]</xsl:if>
+			<xsl:apply-templates mode="#current"/> 
+		</xsl:element>
+	</xsl:template>
+	
+	<!-- DEL Deletions -->
+	<xsl:template match="tei:del" mode="dipl">
+		<xsl:element name="span">
+			<xsl:attribute name="class">
+				<xsl:value-of>dipl-<xsl:value-of select="name()"/></xsl:value-of>
+			</xsl:attribute>
+			[[<xsl:apply-templates mode="#current"/>]]
 		</xsl:element>
 	</xsl:template>
 

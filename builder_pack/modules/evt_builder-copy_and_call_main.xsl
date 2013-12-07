@@ -17,8 +17,8 @@
 			Per ogni pagina presente in questa copia viene chiamato il template page (questo template si trova in evt_builder-main)
 		</xd:short>
 	</xd:doc>
-	
-	
+
+
 	<!-- MULTI PHASE TRASFORMATION -->
 	
 	<!-- EN: Close and open back elements when you find a pb or an lb -->
@@ -34,9 +34,7 @@
 					</xsl:if>
 					<!-- Copies the elements in the group except lb/pb -->
 					<xsl:element name="{parent::node()/name()}" xmlns="http://www.tei-c.org/ns/1.0">
-						<xsl:for-each select="parent::node()/@*[not(name()='part')]">
-							<xsl:attribute name="{name()}" select="."/>
-						</xsl:for-each>
+						<xsl:copy-of select="parent::node()/@* except (parent::node()/@part)"/>
 						<xsl:attribute name="part" select="position()"></xsl:attribute>
 						<xsl:sequence select="current-group()[not(self::lb|self::pb)]"/>
 					</xsl:element>
@@ -60,11 +58,8 @@
 					</xsl:if>
 					<!-- Copies all elements in the group except lb/pb -->
 					<xsl:element name="{parent::node()/name()}" xmlns="http://www.tei-c.org/ns/1.0">
-						<xsl:for-each select="parent::node()/@*">
-							<xsl:attribute name="{name()}">
-								<xsl:value-of select="."></xsl:value-of>
-							</xsl:attribute>
-						</xsl:for-each>
+						<xsl:copy-of select="parent::node()/@* except (parent::node()/@part)"/>
+						<xsl:attribute name="part" select="position()"></xsl:attribute>
 						<xsl:sequence select="current-group()[not(self::lb|self::pb)]"/>
 					</xsl:element>
 				</xsl:for-each-group>
@@ -87,11 +82,8 @@
 					</xsl:if>
 					<!-- Copies all elements in the group except lb/pb -->
 					<xsl:element name="{parent::node()/name()}" xmlns="http://www.tei-c.org/ns/1.0">
-						<xsl:for-each select="parent::node()/@*">
-							<xsl:attribute name="{name()}">
-								<xsl:value-of select="."></xsl:value-of>
-							</xsl:attribute>
-						</xsl:for-each>
+						<xsl:copy-of select="parent::node()/@* except (parent::node()/@part)"/>
+						<xsl:attribute name="part" select="position()"></xsl:attribute>
 						<xsl:sequence select="current-group()[not(self::lb|self::pb)]"/>
 					</xsl:element>
 				</xsl:for-each-group>
@@ -114,11 +106,8 @@
 					</xsl:if>
 					<!-- Copies all elements in the group except lb/pb -->
 					<xsl:element name="{parent::node()/name()}" xmlns="http://www.tei-c.org/ns/1.0">
-						<xsl:for-each select="parent::node()/@*">
-							<xsl:attribute name="{name()}">
-								<xsl:value-of select="."></xsl:value-of>
-							</xsl:attribute>
-						</xsl:for-each>
+						<xsl:copy-of select="parent::node()/@* except (parent::node()/@part)"/>
+						<xsl:attribute name="part" select="position()"></xsl:attribute>
 						<xsl:sequence select="current-group()[not(self::lb|self::pb)]"/>
 					</xsl:element>
 				</xsl:for-each-group>
@@ -141,11 +130,8 @@
 					</xsl:if>
 					<!-- Copies all elements in the group except lb/pb -->
 					<xsl:element name="{parent::node()/name()}" xmlns="http://www.tei-c.org/ns/1.0">
-						<xsl:for-each select="parent::node()/@*">
-							<xsl:attribute name="{name()}">
-								<xsl:value-of select="."></xsl:value-of>
-							</xsl:attribute>
-						</xsl:for-each>
+						<xsl:copy-of select="parent::node()/@* except (parent::node()/@part)"/>
+						<xsl:attribute name="part" select="position()"></xsl:attribute>
 						<xsl:sequence select="current-group()[not(self::lb|self::pb)]"/>
 					</xsl:element>
 				</xsl:for-each-group>
@@ -168,11 +154,8 @@
 					</xsl:if>
 					<!-- Copies all elements in the group except lb/pb -->
 					<xsl:element name="{parent::node()/name()}" xmlns="http://www.tei-c.org/ns/1.0">
-						<xsl:for-each select="parent::node()/@*">
-							<xsl:attribute name="{name()}">
-								<xsl:value-of select="."></xsl:value-of>
-							</xsl:attribute>
-						</xsl:for-each>
+						<xsl:copy-of select="parent::node()/@* except (parent::node()/@part)"/>
+						<xsl:attribute name="part" select="position()"></xsl:attribute>
 						<xsl:sequence select="current-group()[not(self::lb|self::pb)]"/>
 					</xsl:element>
 				</xsl:for-each-group>
@@ -226,7 +209,7 @@
 	</xsl:variable>
 	
 	<xsl:variable name="step-5">
-		<xsl:apply-templates select="//tei:TEI" mode="split-5"/>
+		<xsl:apply-templates select="//node()[name()=$ed_content]" mode="split-5"/>
 	</xsl:variable>
 	
 	<!-- ADD NEW STEP PART 3 -->
@@ -244,19 +227,83 @@
 	
 	<!-- END OF MULTI PHASE TRASFORMATION -->
 	
+	<xsl:variable name="root" select="/"/>
 	<xsl:template match="/" priority="1">
 		<xsl:apply-templates select="$step0" mode="splitPages"></xsl:apply-templates>
+		<xsl:apply-templates select="$step0" mode="xml4research"></xsl:apply-templates>
+		<xsl:apply-templates select="$step0" mode="structure_generation"></xsl:apply-templates>
 	</xsl:template>
+	
+	<xsl:template match="*" mode="xml4research">
+		<!-- IT: Per ogni pagina, genera le corrispettive edizioni. Il template data_structure si trova in html_build/evt_builder-callhtml.xsl -->
+		<xsl:if test="$edition_array[1]!=''">
+			<xsl:variable name="edition_current" select="lower-case($edition_array[1])" />
+			<xsl:result-document method="xml" href="{$filePrefix}/data/output_data/{$edition_current}/{$edition_current}.xml" indent="yes">
+				<xml>
+					<xsl:for-each-group select="//node()[name()=$ed_content]/descendant-or-self::node()[name()=$start_split]/node()" group-starting-with="//tei:pb">
+					<pagina>
+						<xsl:attribute name="n" select="if(self::tei:pb/@n) then(self::tei:pb/@n) else('no page info')"></xsl:attribute>
+						<xsl:choose>
+							<xsl:when test="current-group()/(descendant-or-self::lb)">
+								<xsl:for-each-group select="current-group()[not(self::pb)]" group-starting-with="tei:lb">
+									<xsl:if test="current-group()[not((string-length(normalize-space()))= 0)]">
+									<line>
+										<xsl:attribute name="n" select="if(self::tei:lb/@n) then(self::tei:lb/@n) else('no line info')"></xsl:attribute>
+										<xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:lb)]" mode="facs"/></xsl:variable>
+										<xsl:copy-of select="$var//text()"></xsl:copy-of>
+									</line>
+									</xsl:if>
+								</xsl:for-each-group>
+							</xsl:when>
+							<xsl:otherwise>
+								<xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:pb)]" mode="facs"/></xsl:variable>
+								<xsl:copy-of select="$var//text()"></xsl:copy-of>
+							</xsl:otherwise>
+						</xsl:choose>
+					</pagina>
+				</xsl:for-each-group>
+				</xml>
+			</xsl:result-document>
+		</xsl:if>
+		<xsl:if test="$edition_array[2]!=''">
+			<xsl:variable name="edition_current" select="lower-case($edition_array[2])" />
+			<xsl:result-document method="xml" href="{$filePrefix}/data/output_data/{$edition_current}/{$edition_current}.xml" indent="yes">
+				<xml>
+					<xsl:for-each-group select="//node()[name()=$ed_content]/descendant-or-self::node()[name()=$start_split]/node()" group-starting-with="//tei:pb">
+					<pagina>
+						<xsl:attribute name="n" select="if(self::tei:pb/@n) then(self::tei:pb/@n) else('no page info')"></xsl:attribute>
+						<xsl:choose>
+							<xsl:when test="current-group()/(descendant-or-self::lb)">
+								<xsl:for-each-group select="current-group()[not(self::pb)]" group-starting-with="tei:lb">
+									<xsl:if test="current-group()[not((string-length(normalize-space()))= 0)]">
+									<line>
+										<xsl:attribute name="n" select="if(self::tei:lb/@n) then(self::tei:lb/@n) else('no line info')"></xsl:attribute>
+										<xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:lb)]" mode="dipl"/></xsl:variable>
+										<xsl:copy-of select="$var//text()"></xsl:copy-of>
+									</line>
+									</xsl:if>
+								</xsl:for-each-group>
+							</xsl:when>
+							<xsl:otherwise>
+								<xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:pb)]" mode="dipl"/></xsl:variable>
+								<xsl:copy-of select="$var//text()"></xsl:copy-of>
+							</xsl:otherwise>
+						</xsl:choose>
+					</pagina>
+				</xsl:for-each-group>
+				</xml>
+			</xsl:result-document>
+		</xsl:if>
+	</xsl:template>
+	
 	
 	<!--EN: Calls the page template for every page -->
 	<!--IT: Per ogni pagina chiama il template page -->
 	<xsl:template match="*" mode="splitPages">
 		<!--<xsl:copy-of select="*"></xsl:copy-of>-->
-		<xsl:for-each-group select="//tei:text//node()[name()=$start_split]/node()" group-starting-with="//tei:pb">
-			<xsl:if test="self::tei:pb">
-				<xsl:call-template name="page"> <!-- See: evt_builder-main -->
-					<xsl:with-param name="pb_n" select="@n"/>	
-				</xsl:call-template>
+		<xsl:for-each-group select="//node()[name()=$ed_content]/descendant-or-self::node()[name()=$start_split]/node()" group-starting-with="//tei:pb">
+			<xsl:if test="self::tei:pb"> <!--IT: test per non creare una pagina per un gruppo che non inizia con pb (puo succedere al primo gruppo)  -->
+				<xsl:call-template name="page"/> <!-- See: evt_builder-main -->
 			</xsl:if>
 		</xsl:for-each-group>
 		<!--EN: Calls the template that generates the index -->

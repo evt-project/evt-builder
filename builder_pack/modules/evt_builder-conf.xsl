@@ -17,6 +17,7 @@
 	</xd:doc>
        
 	<!-- GLOBAL -->
+	<!-- IT: La variabile globale $root si trova nel file evt_builder-copy_and_call_main.xsl-->
 	
 	<!-- Parameters -->
 	<!-- EN: It is possible to modify these prefixes so that they point to a custom web site, for instance:
@@ -52,12 +53,13 @@
 		<Item>Diplomatic</Item>	<!-- EN: For processing in the modules: $edition_array[2] -->
 								<!-- IT: Per l'elaborazione nei moduli: $edition_array[2] -->
 		
-	<!-- EN: To add a new edition it is necessary to add a new line here and -forcedly- a declaration concerning output file in the modules/evt_builder-main.xsl file, under the <xsl:if test="$edition_array[2]!=''" condition>
-				For instance: <Item>New_edition</Item>
+	<!-- EN: To add a new edition it is necessary to add a new line here
+			For instance: <Item>New_edition</Item>
 		-->
-	<!-- IT: Per aggiungere una nuova edizione, bisognerà inserire una nuova riga qui e -necessariamente- la dichiarazione per i file di output nel file modules/evt_builder-main.xsl, sotto la condizione <xsl:if test="$edition_array[2]!=''">
-				Esempio: <Item>Nuova_edizione</Item>
-		-->    </xsl:variable>
+	<!-- IT: Per aggiungere una nuova edizione, bisognerà inserire una nuova riga qui
+			Esempio: <Item>Nuova_edizione</Item>
+		-->
+	</xsl:variable>
 	
 	<!-- Variable -->
 	<!--
@@ -67,8 +69,11 @@
     <xsl:variable name="pubdate" select="teiHeader/fileDesc/publicationStmt/date" />
 	-->
 	
+	<!-- Nodo che contiene il testo da trasformare per ogni livello di edizione -->
+	<xsl:variable name="ed_content" select="//tei:body/name()"></xsl:variable>
 	<!-- Punto di partenza per la divisione degli elementi contententi pb/lb -->
 	<xsl:variable name="start_split" select="if(//tei:body/tei:div) then(//tei:body/tei:div/name()) else(//tei:body/name())"/>
+	
 	<!-- Indica la profondità massima dei pb/lb rispetto all'elemento inserito della variabile $start_split-->
 	<xsl:variable name="start_split_depth" select="//node()[name()=$start_split]/count(ancestor-or-self::node())"/>
 	<xsl:variable name="max_depth" as="xs:integer" select="max(((max(//tei:pb/count(ancestor-or-self::node())) - //node()[name()=$start_split]/count(ancestor-or-self::node())), (max(//tei:lb/count(ancestor-or-self::node())) - //node()[name()=$start_split]/count(ancestor-or-self::node()))))"/>

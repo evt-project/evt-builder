@@ -8,11 +8,15 @@
 
 	<xd:doc type="stylesheet">
 		<xd:short>
-			EN: Templates used to process the TEI elements of the TRANSCR and LINKING modules.
-			IT: I template per la trasformazione degli elementi TEI del modulo TRANSCR e LINKING.
+			EN: Templates used to process the TEI elements of the TRANSCR, LINKING and gaiji modules.
+			IT: I template per la trasformazione degli elementi TEI del modulo TRANSCR, LINKING e gaiji.
 		</xd:short>
 	</xd:doc>
 
+	<xsl:template match="tei:g" mode="facs">
+		<xsl:variable name="id" select="substring-after(@ref,'#')"/>
+		<xsl:apply-templates select="if($root//tei:charDecl//tei:glyph[@xml:id=$id]/tei:mapping[@type='diplomatic']) then($root//tei:charDecl//tei:glyph[@xml:id=$id]/tei:mapping[@type='diplomatic']) else($root//tei:charDecl//tei:char[@xml:id=$id]/tei:mapping[@type='diplomatic'])" mode="#current"/>
+	</xsl:template>
 
 	<xsl:template match="tei:fw" mode="facs" priority="2">
 		<xsl:choose>

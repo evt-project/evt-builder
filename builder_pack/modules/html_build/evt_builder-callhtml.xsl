@@ -44,7 +44,7 @@
 			<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
 			<title>
-				<xsl:value-of select="//tei:titleStmt/tei:title"/>
+				<xsl:value-of select="$root//tei:titleStmt/tei:title"/>
 				<!-- <xsl:value-of select="normalize-space(//tei:titleStmt/tei:title)"/> -->
 			</title>
 
@@ -104,8 +104,8 @@
 	</xsl:template>
 
 	<xsl:template name="data_structure">
-		<xsl:param name="pb_n"/>
 		<xsl:param name="output"/>
+		<xsl:param name="pb_n"/>
 
 		<html lang="en-US">
 			<xsl:call-template name="html_head">
@@ -119,38 +119,33 @@
 						<div id="text">
 							<xsl:if test="$output='facsimile'">
 								<xsl:choose>
-									<!-- EN: If the surface element is present first of all we apply the text-image link template, to which only the pb is passed -->
-									<!-- IT: Se c'è il surface viene applicato per primo il template per il collegamento testo-immagine al quale devo passare solo il pb -->
-									<xsl:when test="//tei:facsimile/tei:surface[substring(@xml:id, string-length(@xml:id)-3)=$pb_n]">
-										<!--<xsl:copy-of select="current-group()"/>-->
-										<xsl:apply-templates select="." mode="facs">
-											<xsl:with-param name="n" select="$pb_n"/>
-										</xsl:apply-templates>
+									<!-- IT: Se c'è il surface viene creato un albero temporaneo che corrisponde al gruppo corrente trasformato in base al livello di edizione;
+										 a questo viene applicato il template per il collegamento testo-immagine-->
+									<xsl:when test="$root//tei:facsimile/tei:surface[substring(@xml:id, string-length(@xml:id)-3)=$pb_n]//tei:zone[@rendition='Line']">
+										<!--<xsl:copy-of select="current-group()"/>--> <!-- <-use this to find split errors -->
+										<xsl:variable name="text"><xsl:apply-templates select="current-group()" mode="facs"/></xsl:variable>
+										<xsl:apply-templates select="$text" mode="ITL"/>
 									</xsl:when>
-									<!-- EN: If the surface element is not present only the diplomatic edition templates are applied; those need all the page content -->
-									<!-- IT: Se non c'è il surface devo applicare direttamente i templates per l'edizione diplomatica; a questi devo passare tutto il contenuto della pagina -->
+									<!-- EN: If the surface element is not present only the facsimile edition templates are applied -->
+									<!-- IT: Se non c'è il surface devo applicare direttamente i templates per l'edizione facsimile -->
 									<xsl:otherwise>
-										<xsl:apply-templates select="current-group()" mode="facs">
-											<xsl:with-param name="n" select="$pb_n"/>
-										</xsl:apply-templates>
+										<xsl:apply-templates select="current-group()" mode="facs"/>
 									</xsl:otherwise>
 								</xsl:choose>
 							</xsl:if>
 							<xsl:if test="$output='diplomatic'">
 								<xsl:choose>
-									<!-- EN: If the surface element is present first of all we apply the text-image link template, to which only the pb is passed -->
-									<!-- IT: Se c'è il surface viene applicato per primo il template per il collegamento testo-immagine al quale devo passare solo il pb-->
-									<xsl:when test="//tei:facsimile/tei:surface[substring(@xml:id, string-length(@xml:id)-3)=$pb_n]">
-										<xsl:apply-templates select="." mode="dipl">
-											<xsl:with-param name="n" select="$pb_n"/>
-										</xsl:apply-templates>
+									<!-- IT: Se c'è il surface viene creato un albero temporaneo che corrisponde al gruppo corrente trasformato in base al livello di edizione;
+										 a questo viene applicato il template per il collegamento testo-immagine-->
+									<xsl:when test="$root//tei:facsimile/tei:surface[substring(@xml:id, string-length(@xml:id)-3)=$pb_n]//tei:zone[@rendition='Line']">
+										<!--<xsl:copy-of select="current-group()"/>--> <!-- <-use this to find split errors -->
+										<xsl:variable name="text"><xsl:apply-templates select="current-group()" mode="dipl"/></xsl:variable>
+										<xsl:apply-templates select="$text" mode="ITL"/>
 									</xsl:when>
-									<!-- EN: If the surface element is not present only the diplomatic edition templates are applied; those need all the page content -->
-									<!-- IT: Se non c'è il surface devo applicare direttamente i templates per l'edizione diplomatica; a questi devo passare tutto il contenuto della pagina -->
+									<!-- EN: If the surface element is not present only the diplomatic edition templates are applied -->
+									<!-- IT: Se non c'è il surface devo applicare direttamente i templates per l'edizione diplomatica-->
 									<xsl:otherwise>
-										<xsl:apply-templates select="current-group()" mode="dipl">
-											<xsl:with-param name="n" select="$pb_n"/>
-										</xsl:apply-templates>
+										<xsl:apply-templates select="current-group()" mode="dipl"/>
 									</xsl:otherwise>
 								</xsl:choose>
 							</xsl:if>
@@ -208,6 +203,7 @@
 									<input type="image" src="images/zoom.png" id="switchZoom" value="zoom" onclick="zoomOn()"/>
 									<input type="image" src="images/magOff.png" id="switchMag" value="mag" onclick="magOn()"/>
 									<input type="image" src="images/ITLoff.png" id="switchITL" value="turn ITL on" title="Image text link" onclick="switchIMT()"/>
+									<input type="image" src="images/HSoff.png" id="switchHS" value="turn HS on" title="Hot Spot" onclick="switchHS()"/>
 								</div>
 								<header id="right_header">
 									<div id="image_menu">

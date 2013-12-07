@@ -20,19 +20,34 @@ $( function() {
 		   zoom_animation: false,
 		   mousewheel: true,
 		   onMouseMove: function(ev, coords) {clickTrue(); },
-		   onFinishLoad: function(ev, src) {var prova = document.getElementById("switchITL").getAttribute('src'); if (prova=='images/ITLon.png'){Initialize();} //Add by JK for ITL
-		                                      magnifierReady(); //Add by JK for Mag
-		                                      
-		                 ;}, 
+		   onFinishLoad: function(ev, src) {if ($("#switchITL").attr('src')=='images/ITLon.png'){Initialize();} //Add by JK for ITL
+		                                    if ($("#switchHS").attr('src')=='images/HSon.png'){InitializeHS();} //Add by JK for HS
+		                                    $.ajax({
+                                                    url: 'data/input_data/images/'+location.hash.replace( /^#/, '' )+'_big.jpg',
+                                                    success: function(data){
+                                                        if ($("#switchMag").attr("title")){$("#switchMag").removeAttr("title"); $("#switchMag").attr("onclick", "magOn()");}
+                                                        bigImage=true; 
+                                                        magnifierReady();
+                                                        chooseZoomMag();
+                                                    },
+                                                    error: function(data){
+                                                        $("#switchMag").attr("title", "no big image");
+                                                        $("#switchMag").removeAttr("onclick");
+                                                        bigImage=false;
+                                                        if ($("#switchITL").attr('src')=='images/ITLdis.png'){$("#switchITL").attr('src','images/ITLoff.png');}//Add by JK for ITL
+                                                        if ($("#switchHS").attr('src')=='images/HSdis.png'){$("#switchHS").attr('src','images/HSoff.png');}//Add by JK for HS
+                                                        chooseZoomMag();
+                                                    }
+                                                }); //Add by JK for Mag
+		                                    ;}, 
 		  // onStartDrag: function(ev, coords) { return false; }, //this image will not be dragged
-		   onAfterZoom: function(ev, zoom) { var prova = document.getElementById("switchITL").getAttribute('src');
-		                                     if (prova=='images/ITLon.png'){ReInitialize();};
-		                                     $( "#slider" ).slider( "option", "value", iv1.iviewer('info', 'zoom') );
+		   onAfterZoom: function(ev, zoom) {if ($("#switchITL").attr('src')=='images/ITLon.png'){ReInitialize();}; //Add by JK for ITL
+		                                    if ($("#switchHS").attr('src')=='images/HSon.png'){ReInitializeHS();}; //Add by JK for HS
+		                                    $( "#slider" ).slider( "option", "value", iv1.iviewer('info', 'zoom') );
 		                                   },
-		   //onAfterZoom: function(ev, new_zoom) {var prova = document.getElementById("switchITL").getAttribute('value'); if (prova=='turn ITL off'){alert("aa");ReInitialize();}}, //Add by JK for ITL
 		   onStartDrag: function() {click="true";},
-		   onDrag: function (ev, point) {moveAreas();}, //Add by JK for ITL
-		   onStopDrag: function(ev, point) {moveAreas(); onmouseup=clickFalse();} //Add by JK for ITL
+		   onDrag: function (ev, point) {moveAreas(); moveAreasHS()}, //Add by JK for ITL
+		   onStopDrag: function(ev, point) {moveAreas(); moveAreasHS(); onmouseup=clickFalse();} //Add by JK for ITL
 		   
 	  });
 	  
@@ -42,7 +57,7 @@ $( function() {
         }
         function clickTrue(){
         //Add by JK for ITL
-            if((Initializing == false)&&(click == false)){
+            if(((Initializing == false)&&(click == false))||((InitializingHS == false)&&(click == false))){
                 click = true;
             }
         }

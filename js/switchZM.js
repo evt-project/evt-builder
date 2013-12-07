@@ -6,9 +6,9 @@
  **/
  
 var magnifierON = false;
+var bigImage;
 
 function magnifierReady(){
-    $("#mag_image_elem").empty();
     var img=document.getElementById("iviewerImage").cloneNode(false);
     img.removeAttribute("style");
     /*IT: calcolo nuova altezza: */
@@ -38,9 +38,9 @@ function magOn(){
         /*IT: rendo visibile il div del magnifier e invisibile quello dello zoom*/
         $("#mag_image_elem").css({'display':'block'});
         $("#image_elem, #image_tool").css('display','none');
-        document.getElementById("switchZoom").setAttribute('src','images/zoomOff.png');
-        document.getElementById("switchMag").setAttribute('src','images/mag.png');
-        document.getElementById("switchITL").setAttribute('src','images/ITLdis.png');//Add by JK for ITL
+        $("#switchZoom").attr('src','images/zoomOff.png');
+        $("#switchMag").attr('src','images/mag.png');
+        $("#switchITL").attr('src','images/ITLdis.png');//Add by JK for ITL
         magnifierON = true;
     }
 }
@@ -49,27 +49,29 @@ function zoomOn(){
     if (magnifierON==true){
         /*IT: rendo visibile il div dello dello zoom e invisibile quello del magnifier*/
         $("#image_elem").css({"display" : "block",    "overflow": "hidden" });
-        document.getElementById("mag_image_elem").setAttribute('style', 'display:none;');
-        document.getElementById("switchZoom").setAttribute('src','images/zoom.png');
-        document.getElementById("switchMag").setAttribute('src','images/magOff.png');
-        document.getElementById("switchITL").setAttribute('src','images/ITLoff.png');//Add by JK for ITL
+        $("#mag_image_elem").attr('style', 'display:none;');
+        $("#switchZoom").attr('src','images/zoom.png');
+        $("#switchMag").attr('src','images/magOff.png');
+        $("#switchITL").attr('src','images/ITLoff.png');//Add by JK for ITL
         magnifierON = false;
     }
 }
 
 function chooseZoomMag(){   
-    if (magnifierON==true){
+    if ((magnifierON==true)&&(bigImage==true)){
         /*IT: rendo visibile il div del magnifier e invisibile quello dello zoom*/
         $("#image_elem, #image_tool").css('display','none');
         $("#mag_image_elem").css({'display':'block'});
-        document.getElementById("switchZoom").setAttribute('src','images/zoomOff.png');
-        document.getElementById("switchMag").setAttribute('src','images/mag.png');
-        //document.getElementById("#image_tool").setAttribute('style', 'display:none;');
+        $("#switchZoom").attr('src','images/zoomOff.png');
+        $("#switchMag").attr('src','images/mag.png');
     }
-    else if (magnifierON==false){
+    else if ((magnifierON==false)||((magnifierON==true)&&(bigImage==false))){
         /*IT: rendo visibile il div dello dello zoom e invisibile quello del magnifier*/
-        document.getElementById("mag_image_elem").setAttribute('style', 'display:none;');
+        magnifierON==false;
+        $("#mag_image_elem").css({"display":"none"});
         $("#image_elem").css({"display" : "block",    "overflow": "hidden" });
+        $("#switchZoom").attr('src','images/zoom.png');
+        $("#switchMag").attr('src','images/magOff.png');
     }
 }
 
