@@ -44,7 +44,7 @@
                 </textpage>
                 <pages>
                     <!--<xsl:variable name="all_pb" select="//tei:pb"/>-->
-                    <xsl:for-each-group select="//tei:pb" group-starting-with="node()[ends-with(@n, 'v') or (ends-with(@n, 'r') and not(preceding-sibling::node()[ends-with(@n, 'v')]) )]" >
+                    <xsl:for-each-group select="//tei:pb" group-starting-with="node()[ends-with(@n, 'v') or (ends-with(@n, 'r') and not(preceding-sibling::node()[ends-with(@n, 'v')]) ) or (not (ends-with(@n, 'v') or ends-with(@n, 'r')))]" >
                         <pair>
                             <xsl:for-each select="current-group()/self::tei:pb">
                                 <pb><xsl:value-of select="@n"></xsl:value-of></pb>
