@@ -27,13 +27,12 @@ $( function() {
 			
 			//Edition
 			$(xml).find('editions edition').each(function(){
-				var current_id = $(this).attr("n");
-				var current_label = $(this).text();
+				var current_id = $(this).text();
 				$('.main_ee_select .option_container').append(
 					$('<div/>')
 						.attr("id", "value_"+current_id)
 						.addClass('option')
-						.text(current_label)
+						.text(current_id)
 				);
 			});
 			$(".main_ee_select .option_container div:first-child").addClass( "selected" );
@@ -130,6 +129,10 @@ $( function() {
 					}
 			});
 
+			$(".main_dd_select .label_selected").on('change',function(){
+				window.location.hash = $(this).text();
+			});	
+
 			$(".main_pp_select").on('txtimg_mode',function(){	
 				var newhash = $(".main_dd_select .label_selected").text().match('.*(?=-)');
 				window.location.hash = newhash;
@@ -208,8 +211,15 @@ $( function() {
 						gotopage(current_page, "none");
 						chooseZoomMag(); //Add by JK for Mag
 					} else{	
-						if ($("#imgd_link").attr("class") != "current_mode")
-							window.location.hash=$(".main_pp_select .label_selected").text();
+						//alert(!checkdd);
+						if ($("#imgd_link").attr("class") != "current_mode"){
+							if(checkdd){
+									var newhash = hash.match('.*(?=-)');
+									window.location.hash = newhash;
+								}
+							else
+								window.location.hash=$(".main_pp_select .label_selected").text();
+						}
 					}
 					// IT: Cambia il titolo della pagina in base all'hash
 					//document.title = 'The hash is ' + ( hash.replace( /^#/, '' ) || 'blank' ) + '.';

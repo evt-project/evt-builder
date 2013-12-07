@@ -65,7 +65,7 @@ $( function() {
 
 		$(".main_dd_select .label_selected").on('change',function(){
 		    iv1.iviewer('fit');
-			iv1.iviewer('loadImage', "data/input_data/images/double/"+$(this).text()+".jpg");					   
+			iv1.iviewer('loadImage', "data/input_data/images/double/"+$(this).text()+".jpg");
 		});	
 
 
