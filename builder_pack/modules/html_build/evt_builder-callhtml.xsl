@@ -199,7 +199,7 @@
 					<section id="central_wrapper">
 						<div id="main_left_arrow" onclick="UnInitialize()" title="Previous"/>
 						<div id="main_right_arrow" title="Next"/>
-						<i class="fa fa-sort-desc go-full-left" onclick="fullScreenLeft();"></i>
+						<i class="fa fa-angle-up go-full-left" onclick="fullScreenLeft();"></i>
 						<xsl:if test="$image_frame=true()">
 							<div id="main_left_frame">
 								<!--
@@ -228,21 +228,24 @@
 										</xsl:call-template>
 									</span>
 									<div id="image_menu">
+										<span class="imageTopTool" id="switchMag" value="mag" onclick="magOn()">
+											<span>Magnifier</span>
+											<i class="fa fa-search-plus"></i>
+										</span>
+										<p class="imageTopTool" id="switchHP" value="mag" onclick="#">
+											<span>HotSpot</span>
+											<i class="fa fa-dot-circle-o"></i>
+										</p>
+										<span class="imageTopTool" id="switchITL" value="turn ITL on" title="Image text link" onclick="switchIMT()">
+											<span>ITL</span>
+											<i class="fa fa-chain-broken"></i>
+										</span>
 										<p id="thumb_elem">
 											<a href="javascript:void(0);" id="thumb_link"><i class="fa fa-th"></i></a>
-											<span>Thumbs</span>
 										</p>
 										<!--<input type="image" src="images/zoom.png" id="switchZoom" class="top_image_tools" value="zoom" onclick="zoomOn()"/>-->
 										<!--<input type="image" src="images/magOff.png" id="switchMag" class="top_image_tools" value="mag" onclick="magOn()"/>-->
-										<span class="imageTopTool" id="switchMag" value="mag" onclick="magOn()">
-											<i class="fa fa-search-plus"></i>
-											<span>Magnifier OFF</span>
-										</span>
 										<!--<input type="image" src="images/ITLoff.png" id="switchITL" class="top_image_tools" value="turn ITL on" title="Image text link" onclick="switchIMT()"/>-->
-										<span class="imageTopTool" id="switchITL" value="turn ITL on" title="Image text link" onclick="switchIMT()">
-											<i class="fa fa-chain-broken"></i>
-											<span>ITL OFF</span>
-										</span>
 									</div>
 								</header>
 								<div id="image_cont">
@@ -263,6 +266,15 @@
 												<div id="slider"/>
 											</div>
 											<a id="zoom_in" href="javascript:void(0);"><i class="fa fa-plus-circle"></i></a>
+										</div>
+										<div id="zval">
+											<xsl:if test="$image_frame=true()">
+												<span id="zvalint"><span id="val">0</span>%</span>
+												<span id="zvalopz"/>
+											</xsl:if>
+											<xsl:if test="$image_frame=false()">
+												<span>No image</span>
+											</xsl:if>
 										</div>
 									</div>
 									<input id="dimFit" type="hidden" value=""/>
@@ -306,10 +318,10 @@
 							<!--<div id="main_right_arrow" title="Previous"/>-->
 							<header id="right_header">
 								<div id="text_menu">
-									<span id="span_ee_select" class="like_select">
+									<span id="span_tt_select" class="like_select">
 										<xsl:call-template name="div_select_build">
 											<xsl:with-param name="html_div_class"
-												select="'main_ee_select'"/>
+												select="'main_tt_select'"/>
 										</xsl:call-template>
 									</span>
 									<span id="span_pp_select" class="like_select">
@@ -318,19 +330,22 @@
 												select="'main_pp_select'"/>
 										</xsl:call-template>
 									</span>
-									<span id="span_tt_select" class="like_select">
+									<span id="span_ee_select" class="like_select">
 										<xsl:call-template name="div_select_build">
 											<xsl:with-param name="html_div_class"
-												select="'main_tt_select'"/>
+												select="'main_ee_select'"/>
 										</xsl:call-template>
 									</span>
+									<p id="search_elem">
+										<a href="javascript:void(0);" id="search_link"><i class="fa fa-search"></i></a>
+									</p>
 								</div>
 							</header>
 							<div id="text_cont">
 								<div id="text_elem"/>
 							</div>
 						</div>
-						<i class="fa fa-sort-desc go-full-right" onclick="fullScreenRight();"></i>
+						<i class="fa fa-angle-up go-full-right" onclick="fullScreenRight();"></i>
 					</section>
 					<section id="central_button">
 						<div id="edval">
@@ -339,16 +354,6 @@
 						<div id="central_page_number">
 							<span>Folio: </span>
 						</div>
-						<div id="zval">
-							<xsl:if test="$image_frame=true()">
-								<span id="zvalint">Zoom: <span id="val">0</span>%</span>
-								<span id="zvalopz"/>
-							</xsl:if>
-							<xsl:if test="$image_frame=false()">
-								<span>No image</span>
-							</xsl:if>
-						</div>
-						
 						<input id="folio_page_number" type="hidden" value=""/>
 					</section>
 					
