@@ -210,6 +210,11 @@ $( function() {
 				}
 			});
 
+			$('.option_container').each(function(){
+				var width = $(this).parent().parent('.like_select').find('div').width();
+				$(this).css('width', width);
+			});
+
 			$("#global_wrapper").on('mousedown', function (e) {
 			    if ( ($(e.target).closest(".like_select").length === 0) && !($(".option_container").is(':animated')) ) {
 			        $('.option_container:visible').animate({height:"toggle"}, 400);

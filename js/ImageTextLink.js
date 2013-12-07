@@ -96,7 +96,9 @@ function Initialize(){
     paddingTop = parseInt($("#iviewerImage").css('padding-top'));
     marginTop = parseInt($("#iviewerImage").css('margin-top'));
     imgTop = HeightOffset + paddingTop + marginTop;
-    document.getElementById("switchITL").setAttribute('src','images/ITLon.png');
+    //document.getElementById("switchITL").setAttribute('src','images/ITLon.png');
+    $('#switchITL i').removeClass('fa-chain-broken').addClass('fa-chain');//Add by CDP for FA
+
     
     //var L = document.getElementById('AnnMenuContainer');
     //ViewWidth = parseInt(L.parentNode.offsetWidth);
@@ -282,15 +284,13 @@ function switchIMT(){
     if ((magnifierON==true)&&(bigImage==true)){}
 	else if (Initializing == true){
 	   Initialize();
-	   //document.getElementById("switchITL").setAttribute('src','images/ITLon.png');//Add by JK for ITL
-     $('#switchITL i').removeClass('fa-chain-broken').addClass('fa-chain');//Add by CDP for FA
-     $('#switchITL span').text("ITL ON");//Add by CDP for FA
+        //document.getElementById("switchITL").setAttribute('src','images/ITLon.png');//Add by JK for ITL
+        $('#switchITL i').removeClass('fa-chain-broken').addClass('fa-chain');//Add by CDP for FA
     }
 	else {
 	   UnInitialize();
-	   //document.getElementById("switchITL").setAttribute('src','images/ITLoff.png');
-     $('#switchITL i ').removeClass('fa-chain').addClass('fa-chain-broken');//Add by CDP for FA
-     $('#switchITL span').text("ITL OFF");//Add by CDP for FA
+        //document.getElementById("switchITL").setAttribute('src','images/ITLoff.png');
+        $('#switchITL i ').removeClass('fa-chain').addClass('fa-chain-broken');//Add by CDP for FA
 	}
 }
 
