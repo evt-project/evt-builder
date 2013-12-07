@@ -793,7 +793,7 @@
 			}
 
             this.node.onerror = function () {
-                alert('Problems while loading the big image.');
+                //alert('Problems while loading the big image.'); rimosso temp rafmas
                 throw 'Problems while loading the big image.';
             };
             this.node.onload = function () {
