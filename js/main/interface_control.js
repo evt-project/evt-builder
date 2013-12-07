@@ -112,25 +112,27 @@ $( function() {
 			     gotoedition(location.hash.replace( /^#/, '' ),$(this).text().toLowerCase(),temp_frame,temp_parent);
 			});		
 			$(".main_pp_select .label_selected").on('change',function(){
+				var tt_val_temp = $(".main_tt_select .label_selected").text();
+				var pp_val_temp = $('.main_pp_select .label_selected').text();
+				var parent_temp = $(xml)
+					.find('text pb:contains('+pp_val_temp+')')
+					.parent()
+					.attr("n");
+				if(!parent_temp){
+					$(".main_tt_select .label_selected").text("(Text)");
+				} else
+					if(parent_temp!=tt_val_temp){
+						$(".main_tt_select .label_selected").text(parent_temp);//.trigger("change");
+						$(".main_tt_select .label_selected").siblings(".option_container")
+							.find("#value_"+parent_temp)
+							.addClass("selected")
+							.siblings().removeClass('selected');
+					}
 				var hasht="#"+$(this).text();
 				if (hasht != window.location.hash){
-					var tt_val_temp = $(".main_tt_select .label_selected").text();
-					var pp_val_temp = $('.main_pp_select .label_selected').text();
-					var parent_temp = $(xml)
-						.find('text pb:contains('+pp_val_temp+')')
-						.parent()
-						.attr("n");
-					if(!parent_temp)
-						$(".main_tt_select .label_selected").text("(Text)");
-					else
-						if(parent_temp!=tt_val_temp){
-							$(".main_tt_select .label_selected").text(parent_temp).trigger("change");
-					}
-
 					var newhash = $(this).text()
 					window.location.hash = newhash;
 				}
-
 			});
 
 			$(".main_pp_select").on('txtimg_mode',function(){	
@@ -226,32 +228,13 @@ $( function() {
 	
 	/* Funzioni */
 
-		function gotopaged(pp_val){
-			
-
-			$("#iviewerImage").attr("src", "images/null.jpg"); // Loading...
-			//$("#value_" + pp_val).addClass("selected").siblings().removeClass('selected');
-
-			$('#folio_page_number').val(pp_val).change(); // IT: Questo attiva l'evento nel file js/plugin/jquery.iviewer config
-
-			// IT: Se ci si trova nella modalit Thumb, chiude la schermata e visualizza l'immagine
-			if($("#image_elem").css('display')=="none"){
-				$("#image_elem").show();
-				$("#image_tool").show();
-				$("#thumb_cont").hide();
-			}			
-
-		}
-
 		// IT: Gestiosce il cambio pagina e gli eventi correlati
 		function gotopage(pp_val, state){	
 
 			//N.B. i caricamenti delle immagini si attivano grazie agli eventi change dei label_selected in iviewer_config
 
 			var edition=$("#span_ee_select .main_ee_select .label_selected").text().toLowerCase();	
-			
 			$(".main_pp_select .label_selected").text(pp_val).trigger("change"); 
-
 			$('#text_elem').load("data/output_data/"+edition+"/page_"+pp_val+"_"+edition+".html #text_frame");
 			
 			/*$('#text_elem').load('pagina.html', function() {
@@ -282,7 +265,7 @@ $( function() {
 				.hide()
 				.fadeIn(200);*/
 
-			$("#iviewerImage").attr("src", "images/null.jpg"); // Loading...
+			//$("#iviewerImage").attr("src", "images/null.jpg"); // Loading...
 			//$('#folio_page_number').val(pp_val).change(); // IT: Questo attiva l'evento nel file js/plugin/jquery.iviewer config
 			
 			preload([
@@ -455,14 +438,20 @@ $( function() {
 		// MODE -
 		$("#txtimg_link").click(function(){
 			if($(this).attr("class")!="current_mode"){
-				$("#txtimg_link").addClass("current_mode");
-				$("#imgd_link").removeClass("current_mode");
-				$("#imgimg_link").removeClass("current_mode");
-				$("#txttxt_link").removeClass("current_mode");
+
+				if ($("#imgd_link").attr("class") == "current_mode")
+					$(".main_pp_select").trigger("txtimg_mode");
+
+				$("#txtimg_link").addClass("current_mode").siblings().removeClass("current_mode");
+				//$("#imgd_link").removeClass("current_mode");
+				//$("#imgimg_link").removeClass("current_mode");
+				//$("#txttxt_link").removeClass("current_mode");
 
 				//$("#image_cont-add").remove();
 				$("#text_cont-add").remove();
 				$("#span_ee_select-add").hide();
+
+				$("#span_dd_select").hide();
 
 				$("#main_right_frame").show();
 				$("#main_left_frame").animate({
@@ -470,7 +459,6 @@ $( function() {
 		        }, function(){
 		        	$("#text_menu").show();
 					$("#text_cont").show();
-					$(".main_pp_select").trigger("txtimg_mode");
 		        });		
 		
 				
@@ -508,14 +496,19 @@ $( function() {
 			if($(this).attr("class")!="current_mode"){
 			    UnInitialize();//Add by JK for ITL
 			    document.getElementById("switchITL").setAttribute('src','images/ITLoff.png');//Add by JK for ITL
-				$("#txttxt_link").addClass("current_mode");
-				$("#imgd_link").removeClass("current_mode");
-				$("#txtimg_link").removeClass("current_mode");
-				$("#imgimg_link").removeClass("current_mode");
+				
+			    if ($("#imgd_link").attr("class") == "current_mode")
+					$(".main_pp_select").trigger("txtimg_mode");
+
+				$("#txttxt_link").addClass("current_mode").siblings().removeClass("current_mode");
+				//$("#imgd_link").removeClass("current_mode");
+				//$("#txtimg_link").removeClass("current_mode");
+				//$("#imgimg_link").removeClass("current_mode");
 
 				$("#image_menu").hide();
 				$("#mag").hide();
-				$("#image_cont").hide(); 
+				$("#image_cont").hide();
+				$("#span_dd_select").hide(); 
 				
 
 				$("#main_right_frame").show();
@@ -553,10 +546,10 @@ $( function() {
 
 		$("#imgd_link").click(function(){	
 			if($(this).attr("class")!="current_mode"){
-				$("#imgd_link").addClass("current_mode");
-				$("#txtimg_link").removeClass("current_mode");
-				$("#imgimg_link").removeClass("current_mode");
-				$("#txttxt_link").removeClass("current_mode");
+				$("#imgd_link").addClass("current_mode").siblings().removeClass("current_mode");
+				//$("#txtimg_link").removeClass("current_mode");
+				//$("#imgimg_link").removeClass("current_mode");
+				//$("#txttxt_link").removeClass("current_mode");
 
 				//alert($(".main_pp_select .label_selected").text());
 				$(".main_dd_select").trigger("imgd_mode");
@@ -565,10 +558,10 @@ $( function() {
 				$("#text_menu").hide();
 				$("#main_left_frame").animate({
 		            'width': '99.5%', 
-		        }, function(){
+		        }//, 800
+		         , function(){
 		             $("#main_right_frame").hide();	
-		        });				
-		
+		        });	
 
 				//$("#image_cont-add").remove();
 				$("#text_cont-add").remove();
@@ -600,39 +593,39 @@ $( function() {
 			}
 	});
 	/* / Gestione key press */
-$(document).keydown(function(e){	
-			// Hide/show left-header * PRESS L *
-			if (e.keyCode == 76){
-				$('#left_header').toggle('blind').toggleClass('menuClosed');
-				if($('#left_header').hasClass('menuClosed')){
-					noMenu_height = $('#image_cont').height()+50;
-					$('#image_cont').animate({
-						top: "-50px",
-						height: noMenu_height
-					});
-				} else {
-					noMenu_height = $('#image_cont').height()+50;
-					$('#image_cont').animate({
-						top: "0px",
-						height: "100%"
-					});
-				}
+	$(document).keydown(function(e){	
+		// Hide/show left-header * PRESS L *
+		if (e.keyCode == 76){
+			$('#left_header').toggle('blind').toggleClass('menuClosed');
+			if($('#left_header').hasClass('menuClosed')){
+				noMenu_height = $('#image_cont').height()+50;
+				$('#image_cont').animate({
+					top: "-50px",
+					height: noMenu_height
+				});
+			} else {
+				noMenu_height = $('#image_cont').height()+50;
+				$('#image_cont').animate({
+					top: "0px",
+					height: "100%"
+				});
 			}
+		}
 
-			// Hide/show right-header * PRESS R * 
-			if (e.keyCode == 82){
-				$('#right_header').toggle('blind').toggleClass('menuClosed');
-				if($('#right_header').hasClass('menuClosed')){
-					$('#text_cont').animate({
-						height: "100%"
-					});
-				} else {
-					noMenu_height = $('#image_cont').height()+50;
-					$('#text_cont').animate({
-						height: "92.8%"
-					});
-				}
+		// Hide/show right-header * PRESS R * 
+		if (e.keyCode == 82){
+			$('#right_header').toggle('blind').toggleClass('menuClosed');
+			if($('#right_header').hasClass('menuClosed')){
+				$('#text_cont').animate({
+					height: "100%"
+				});
+			} else {
+				noMenu_height = $('#image_cont').height()+50;
+				$('#text_cont').animate({
+					height: "92.8%"
+				});
 			}
-		});
+		}
+	});
 
 });

@@ -191,7 +191,7 @@
 								<a href="javascript:void(0);" id="txttxt_link"
 									title="text/text mode"> [T|T] </a>
 								<a href="javascript:void(0);" id="imgd_link"
-									title="text/text mode"> [I] </a>
+									title="double mode"> [I] </a>
 							</div>
 						</xsl:if>
 						
