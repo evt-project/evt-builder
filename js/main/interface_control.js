@@ -247,6 +247,7 @@ $( function() {
 		function gotopage(pp_val, state){	
 
 			//N.B. i caricamenti delle immagini si attivano grazie agli eventi change dei label_selected in iviewer_config
+
 			var edition=$("#span_ee_select .main_ee_select .label_selected").text().toLowerCase();	
 			$(".main_pp_select .label_selected").text(pp_val).trigger("change"); 
 			$('#text_elem').load("data/output_data/"+edition+"/page_"+pp_val+"_"+edition+".html #text_frame");
@@ -596,16 +597,36 @@ $( function() {
 		/*$("#text_copy").live("click", function(){
 			..codice qui..
 		});*/	
-	$( window ).resize(function(){
+	$(window).bind('resize', function(e){
+	    window.resizeEvt;
 		if($('.full')){
 			var height_full = ($(window).height()>$("body").height()) ? $(window).height()-4 : $("body").height();
 			var width_full = $(window).width()-4;
-			$('.full').animate({
-				height: height_full,
-				width: width_full,
-			},100);
+			$('.full').css({
+				"height": height_full,
+				"width": width_full
+			});
+			$(window).resize(function(){
+	        clearTimeout(window.resizeEvt);
+	        window.resizeEvt = setTimeout(function()
+	        {
+				var leftCss = $('.full').css("left").replace(/[^-\d\.]/g, '');
+				var newLeft = leftCss - ($('.full').offset().left);
+				$('.full').css("left", newLeft);
+
+				if($('#main_right_frame').hasClass('full')){
+					var rightR = -(($('.go-full-right').offset().left)-($('.go-full-right').position().left));
+					$('.go-full-right').css("right", rightR);
+				} 
+				else if($('#main_left_frame').hasClass('full')){
+					var leftR = -(($('.go-full-left').offset().left)-($('.go-full-left').position().left));
+					$('.go-full-left').css("left", leftR);
+				}
+	        }, 300);
+	    });
 		}
 	});
+	
 	/* / Gestione key press */
 	$(document).keydown(function(e){	
 		// Hide/show left-header * PRESS L *

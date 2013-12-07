@@ -234,16 +234,18 @@ function UnInitialize(){
 }
 
 function switchIMT(){
-    if (magnifierON==true){}
+  if (magnifierON==true){}
 	else if (Initializing == true){
 	   Initialize();
 	   //document.getElementById("switchITL").setAttribute('src','images/ITLon.png');//Add by JK for ITL
-     $('#switchITL').removeClass('fa-chain-broken').addClass('fa-chain');//Add by CDP for FA
+     $('#switchITL i').removeClass('fa-chain-broken').addClass('fa-chain');//Add by CDP for FA
+     $('#switchITL span').text("ITL ON");//Add by CDP for FA
     }
 	else {
 	   UnInitialize();
 	   //document.getElementById("switchITL").setAttribute('src','images/ITLoff.png');
-     $('#switchITL').removeClass('fa-chain').addClass('fa-chain-broken');//Add by CDP for FA
+     $('#switchITL i ').removeClass('fa-chain').addClass('fa-chain-broken');//Add by CDP for FA
+     $('#switchITL span').text("ITL OFF");//Add by CDP for FA
 	}
 }
 
