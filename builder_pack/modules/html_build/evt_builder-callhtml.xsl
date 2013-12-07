@@ -100,6 +100,7 @@
 				<xsl:comment>/image text link</xsl:comment>
 
 			</xsl:if>
+			<link rel="stylesheet" href="css/font-awesome/css/font-awesome.css" />
 		</head>
 	</xsl:template>
 
@@ -171,7 +172,12 @@
 						<div id="home_title">
 							<xsl:value-of select="$index_title"/>
 						</div>
-						
+						<div class='concave'>
+							<div class='extTop'>
+								<div class='topleftconcave'></div>
+							</div>
+							<div class='botleftconcave'></div>
+						</div>
 						<xsl:if test="$image_frame=true()">
 							<div id="mode_switch">
 								<a href="javascript:void(0);" id="txtimg_link" class="current_mode"
@@ -179,61 +185,85 @@
 								<!--<a href="javascript:void(0);" id="imgimg_link" title="image/image mode"> [I|I] </a>-->
 								<a href="javascript:void(0);" id="txttxt_link"
 									title="text/text mode"> [T|T] </a>
+								<a href="javascript:void(0);" id="imgd_link"
+									title="double mode"> [I] </a>
 							</div>
 						</xsl:if>
 						
 						<div id="cont_fullscreen">
 							<a href="javascript:void(0);" id="main_fullscreen" title="fullscreen"
 								style="float: right; padding: 12px; padding-left: 14px;"
-								><!--<img id="img_fullscreen" src="images/full_screen.png" />--></a>
+								><!--<img id="img_fullscreen" src="images/full_screen.png" />--><i class="fa fa-expand"></i></a>
 						</div>
 					</header>
-					
 					<section id="central_wrapper">
+						<div id="main_left_arrow" onclick="UnInitialize()" title="Previous"/>
+						<div id="main_right_arrow" title="Next"/>
+						<i class="fa fa-sort-desc go-full-left" onclick="fullScreenLeft();"></i>
 						<xsl:if test="$image_frame=true()">
-							<div id="main_right_frame">
-								<div id="main_right_menu">
-									<a href="javascript:void(0);" id="main_right_menu-openlink"
+							<div id="main_left_frame">
+								<!--
+								<div id="main_left_menu">
+									<a href="javascript:void(0);" id="main_left_menu-openlink"
 										title="Open menu"> + </a>
-									<a href="javascript:void(0);" id="main_right_menu-closelink"
+									<a href="javascript:void(0);" id="main_left_menu-closelink"
 										title="Close menu"> - </a>
 								</div>
-								<div id="main_right_arrow" title="Next"/>
-								<div id="img_tools">
-									<input type="image" src="images/zoom.png" id="switchZoom" value="zoom" onclick="zoomOn()"/>
-									<input type="image" src="images/magOff.png" id="switchMag" value="mag" onclick="magOn()"/>
-									<input type="image" src="images/ITLoff.png" id="switchITL" value="turn ITL on" title="Image text link" onclick="switchIMT()"/>
-									<input type="image" src="images/HSoff.png" id="switchHS" value="turn HS on" title="Hot Spot" onclick="switchHS()"/>
-								</div>
-								<header id="right_header">
+								-->
+								<xsl:if test="$image_frame=false()">
+									<!--<div id="main_left_arrow" onclick="UnInitialize()" title="Previous"/>-->
+								</xsl:if>
+								<!-- <div id="main_left_arrow" title="Previous"/> -->
+								<header id="left_header">
+									<span id="span_dd_select" class="like_select">
+										<xsl:call-template name="div_select_build">
+											<xsl:with-param name="html_div_class"
+												select="'main_dd_select'"/>
+										</xsl:call-template>
+									</span>
+									<span id="span_ee_select-add" class="like_select">
+										<xsl:call-template name="div_select_build">
+											<xsl:with-param name="html_div_class"
+												select="'main_ee_select'"/>
+										</xsl:call-template>
+									</span>
 									<div id="image_menu">
-										<span class="span_pp_select"> Folio: <xsl:call-template
-											name="pp_select_build"/>
-										</span>
 										<p id="thumb_elem">
-											<a href="javascript:void(0);" id="thumb_link"> Thumbnail
-											</a>
+											<a href="javascript:void(0);" id="thumb_link"><i class="fa fa-th"></i></a>
+											<span>Thumbs</span>
 										</p>
+										<!--<input type="image" src="images/zoom.png" id="switchZoom" class="top_image_tools" value="zoom" onclick="zoomOn()"/>-->
+										<!--<input type="image" src="images/magOff.png" id="switchMag" class="top_image_tools" value="mag" onclick="magOn()"/>-->
+										<span class="imageTopTool" id="switchMag" value="mag" onclick="magOn()">
+											<i class="fa fa-search-plus"></i>
+											<span>Magnifier OFF</span>
+										</span>
+										<!--<input type="image" src="images/ITLoff.png" id="switchITL" class="top_image_tools" value="turn ITL on" title="Image text link" onclick="switchIMT()"/>-->
+										<span class="imageTopTool" id="switchITL" value="turn ITL on" title="Image text link" onclick="switchIMT()">
+											<i class="fa fa-chain-broken"></i>
+											<span>ITL OFF</span>
+										</span>
 									</div>
 								</header>
 								<div id="image_cont">
 									<div id="image_elem">
 										<!--<img id="iviewerImage" src="images/null.jpg" />-->
 									</div>
-									<div id="mag_image_elem" style="display:none;"></div>
+									<div id="mag_image_elem"></div>
+									
 									<div id="image_tool">
-										<span id="spb">
+										<div id="spb">
+											<a id="zoom_orig" class="zoom_btn"
+												href="javascript:void(0);" title="100%"><i class="icona">1:1</i></a>
+											<a id="zoom_fit" class="zoom_btn"
+												href="javascript:void(0);" title="Fit to frame"
+												><i class="fa fa-arrows"></i></a>
+											<a id="zoom_out" href="javascript:void(0);"><i class="fa fa-minus-circle"></i></a>
 											<div id="spb_cont">
-												<a id="orig" class="zoom_btn"
-													href="javascript:void(0);" title="100%">Full</a>
-												<!--<a id="out" href="javascript:void(0);">-</a>-->
 												<div id="slider"/>
-												<!--<a id="in" href="javascript:void(0);">+</a>-->
-												<a id="fit" class="zoom_btn"
-													href="javascript:void(0);" title="Fit to frame"
-													>Fit</a>
 											</div>
-										</span>
+											<a id="zoom_in" href="javascript:void(0);"><i class="fa fa-plus-circle"></i></a>
+										</div>
 									</div>
 									<input id="dimFit" type="hidden" value=""/>
 									<input id="imgTit" type="hidden" value=""/>
@@ -248,57 +278,59 @@
 											</figure>
 										</xsl:for-each>
 									</div>									
-								</div>							
+								</div>
 							</div>
 						</xsl:if>
 						
-						<xsl:variable name="id_left_frame">
+						<xsl:variable name="id_right_frame">
 							<xsl:choose>
 								<xsl:when test="$image_frame=true()">
-									<text>main_left_frame</text>
+									<text>main_right_frame</text>
 								</xsl:when>
 								<xsl:otherwise>
-									<text>main_left_frame-single</text>
+									<text>main_right_frame-single</text>
 								</xsl:otherwise>
 							</xsl:choose>
 						</xsl:variable>
-						<div id="{$id_left_frame}">
-							<div id="main_left_menu">
-								<a href="javascript:void(0);" id="main_left_menu-openlink"
+						
+						
+						<div id="{$id_right_frame}">
+							<!--
+							<div id="main_right_menu">
+								<a href="javascript:void(0);" id="main_right_menu-openlink"
 									title="Open menu"> + </a>
-								<a href="javascript:void(0);" id="main_left_menu-closelink"
+								<a href="javascript:void(0);" id="main_right_menu-closelink"
 									title="Close menu"> - </a>
 							</div>
-							<div id="main_left_arrow" title="Previous"/>
-							<xsl:if test="$image_frame=false()">
-								<div id="main_right_arrow" onclick="UnInitialize()" title="Next"/>
-							</xsl:if>
-							<header id="left_header">
+							-->
+							<!--<div id="main_right_arrow" title="Previous"/>-->
+							<header id="right_header">
 								<div id="text_menu">
-									<span class="span_pp_select"> Folio: <xsl:call-template
-										name="pp_select_build">
-										<xsl:with-param name="html_select_main"
-											select="'html_select_main'"/>
-									</xsl:call-template>
-									</span>
-									
-									<form id="radio_edition" name="radio_edition_name">
-										<xsl:call-template name="rm-loops_radio">
-											<xsl:with-param name="rm_for">
-												<xsl:value-of select="count($edition_array)"/>
-											</xsl:with-param>
-											<xsl:with-param name="rm_counter_test"
-												>1</xsl:with-param>
-											<xsl:with-param name="rm_object" select="$edition_array"
-											/>
+									<span id="span_ee_select" class="like_select">
+										<xsl:call-template name="div_select_build">
+											<xsl:with-param name="html_div_class"
+												select="'main_ee_select'"/>
 										</xsl:call-template>
-									</form>
+									</span>
+									<span id="span_pp_select" class="like_select">
+										<xsl:call-template name="div_select_build">
+											<xsl:with-param name="html_div_class"
+												select="'main_pp_select'"/>
+										</xsl:call-template>
+									</span>
+									<span id="span_tt_select" class="like_select">
+										<xsl:call-template name="div_select_build">
+											<xsl:with-param name="html_div_class"
+												select="'main_tt_select'"/>
+										</xsl:call-template>
+									</span>
 								</div>
 							</header>
 							<div id="text_cont">
 								<div id="text_elem"/>
 							</div>
 						</div>
+						<i class="fa fa-sort-desc go-full-right" onclick="fullScreenRight();"></i>
 					</section>
 					<section id="central_button">
 						<div id="edval">

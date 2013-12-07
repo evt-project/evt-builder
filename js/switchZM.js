@@ -33,15 +33,32 @@ function magOn(){
         /*IT: Se il collegamento testo immagine è attivo, lo disattivo*/
         if (Initializing == false){
             UnInitialize();//Add by JK for ITL
-		    document.getElementById("switchITL").setAttribute('src','images/ITLoff.png');//Add by JK for ITL
+		    //document.getElementById("switchITL").setAttribute('src','images/ITLoff.png');//Add by JK for ITL
+            $('#switchITL').removeClass('inactive'); //Add by CDP for FA
 		}
         /*IT: rendo visibile il div del magnifier e invisibile quello dello zoom*/
         $("#mag_image_elem").css({'display':'block'});
         $("#image_elem, #image_tool").css('display','none');
-        $("#switchZoom").attr('src','images/zoomOff.png');
-        $("#switchMag").attr('src','images/mag.png');
-        $("#switchITL").attr('src','images/ITLdis.png');//Add by JK for ITL
+        //document.getElementById("switchZoom").setAttribute('src','images/zoomOff.png');
+        //document.getElementById("switchMag").setAttribute('src','images/mag.png');
+        $('#switchMag').addClass('active');//Add by CDP for FA
+        $('#switchMag span').text('Magnifier ON');//Add by CDP for FA
+        //document.getElementById("switchITL").setAttribute('src','images/ITLdis.png');//Add by JK for ITL
+        $('#switchITL').addClass('inactive');//Add by CDP for FA
+        $('#switchITL i').removeClass('fa-chain').addClass('fa-chain-broken'); //Add by CDP for FA
+        $('#switchITL span').text('ITL OFF');//Add by CDP for FA
         magnifierON = true;
+    } else {
+        /*IT: rendo visibile il div dello dello zoom e invisibile quello del magnifier*/
+        $("#image_elem, #image_tool").css({"display" : "block",    "overflow": "hidden" });
+        $("#mag_image_elem").css({'display':'none'});
+        //  document.getElementById("switchZoom").setAttribute('src','images/zoom.png');
+        //document.getElementById("switchMag").setAttribute('src','images/magOff.png');
+        $('#switchMag').removeClass('active');//Add by CDP for FA
+        $('#switchMag span').text('Magnifier OFF');//Add by CDP for FA
+        $('#switchITL').removeClass('inactive');//Add by CDP for FA
+        //document.getElementById("switchITL").setAttribute('src','images/ITLoff.png');//Add by JK for ITL
+        magnifierON = false;
     }
 }
 
@@ -49,10 +66,13 @@ function zoomOn(){
     if (magnifierON==true){
         /*IT: rendo visibile il div dello dello zoom e invisibile quello del magnifier*/
         $("#image_elem").css({"display" : "block",    "overflow": "hidden" });
-        $("#mag_image_elem").attr('style', 'display:none;');
-        $("#switchZoom").attr('src','images/zoom.png');
-        $("#switchMag").attr('src','images/magOff.png');
-        $("#switchITL").attr('src','images/ITLoff.png');//Add by JK for ITL
+        document.getElementById("mag_image_elem").setAttribute('style', 'display:none;');
+        document.getElementById("switchZoom").setAttribute('src','images/zoom.png');
+        //document.getElementById("switchMag").setAttribute('src','images/magOff.png');
+        $('#switchMag').removeClass('active');//Add by CDP for FA
+        $("#image_elem, #image_tool").show();
+        //document.getElementById("switchITL").setAttribute('src','images/ITLoff.png');//Add by JK for ITL
+        $('#switchITL').removeClass('inactive'); //Add by CDP for FA
         magnifierON = false;
     }
 }
@@ -62,8 +82,10 @@ function chooseZoomMag(){
         /*IT: rendo visibile il div del magnifier e invisibile quello dello zoom*/
         $("#image_elem, #image_tool").css('display','none');
         $("#mag_image_elem").css({'display':'block'});
-        $("#switchZoom").attr('src','images/zoomOff.png');
-        $("#switchMag").attr('src','images/mag.png');
+        // document.getElementById("switchZoom").setAttribute('src','images/zoomOff.png');
+        //document.getElementById("switchMag").setAttribute('src','images/mag.png');
+        $('#switchMag').addClass('active');//Add by CDP for FA
+        //document.getElementById("#image_tool").setAttribute('style', 'display:none;');
     }
     else if ((magnifierON==false)||((magnifierON==true)&&(bigImage==false))){
         /*IT: rendo visibile il div dello dello zoom e invisibile quello del magnifier*/

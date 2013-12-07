@@ -50,6 +50,9 @@ var selectedAreaImgLeft;
 var ImgWidth;
 var ImgRight;
 var ImgBottom;
+var paddingTop;
+var marginTop;
+var imgTop;
 var ImgHeight;
 var ViewWidth;
 var WindowHeight;
@@ -87,7 +90,9 @@ function Initialize(){
     ImgRight = ImgLeft + ImgWidth;
     ImgHeight = parseInt(document.getElementById('iviewerImage').offsetHeight);
     ImgBottom = HeightOffset + ImgHeight;
-    
+    paddingTop = parseInt($("#iviewerImage").css('padding-top'));
+    marginTop = parseInt($("#iviewerImage").css('margin-top'));
+    imgTop = HeightOffset + paddingTop + marginTop;
     document.getElementById("switchITL").setAttribute('src','images/ITLon.png');
     
     //var L = document.getElementById('AnnMenuContainer');
@@ -96,14 +101,18 @@ function Initialize(){
     Ratio = ratio;
     var NList = $('.Area');
     for (var i=0; i<NList.length; i++){
-        NList[i].style.left = (parseFloat(NList[i].style.left)*ratio) + ImgLeft + 'px';
-        NList[i].style.top = (parseFloat(NList[i].style.top)*ratio) + HeightOffset + 'px';
-        NList[i].style.width = (parseFloat(NList[i].style.width)*ratio) + 'px';
-        NList[i].style.height = (parseFloat(NList[i].style.height)*ratio) + 'px';
-    	NList[i].style.display = 'block';
-    	//Remove non-breaking spaces which were only added for the accursed IE.
-        if (isIE == false){
-            NList[i].innerHTML = '';
+        if (NList[i].className == 'Area'){
+            NList[i].style.left = (parseFloat(NList[i].style.left)*ratio) + ImgLeft + 'px';
+            NList[i].style.top = (parseFloat(NList[i].style.top)*ratio) + imgTop + 'px';
+            NList[i].style.width = (parseFloat(NList[i].style.width)*ratio) + 'px';
+            NList[i].style.height = (parseFloat(NList[i].style.height)*ratio) + 'px';
+			NList[i].style.display = 'block';
+//Remove non-breaking spaces which were only added for the accursed IE.
+            if (isIE == false){
+                NList[i].innerHTML = '';
+            }
+            Areas.push(NList[i]);
+            document.getElementById("image_elem").appendChild(NList[i]);
         }
         Areas.push(NList[i]);
         document.getElementById("image_elem").appendChild(NList[i]);
@@ -190,7 +199,7 @@ function Initialize(){
 function ReInitialize(){
     //alert("ReInitialize()");
     if (Initializing == false){
-        newHeightOffset = parseInt(document.getElementById('iviewerImage').offsetTop);
+        newImgTop = parseInt(document.getElementById('iviewerImage').offsetTop) +parseInt($('#iviewerImage').css('padding-top')) + parseInt($('#iviewerImage').css('margin-top'));
         newImgLeft = parseInt(document.getElementById('iviewerImage').offsetLeft);    
         var newRatio = ((document.getElementById("iviewerImage").width)/1200);
         
@@ -198,13 +207,13 @@ function ReInitialize(){
         for (var i=0; i<NList.length; i++){
             if ((NList[i].className == 'Area')||(NList[i].className == 'SelectedArea')||(NList[i].className == 'HighlightedArea')){
                 NList[i].style.left = (((parseFloat(NList[i].style.left)) - ImgLeft)/Ratio) * newRatio + newImgLeft + 'px';
-		        NList[i].style.top = (((parseFloat(NList[i].style.top)) - HeightOffset)/Ratio) * newRatio + newHeightOffset + 'px';
+		        NList[i].style.top = (((parseFloat(NList[i].style.top)) - imgTop)/Ratio) * newRatio + newImgTop + 'px';
                 NList[i].style.width = ((parseFloat(NList[i].style.width))/Ratio) * newRatio + 'px';
                 NList[i].style.height = ((parseFloat(NList[i].style.height))/Ratio)* newRatio + 'px';
             }
 	    }
 	    ImgLeft = newImgLeft;
-	    HeightOffset = newHeightOffset;
+	    imgTop = newImgTop;
 	    Ratio = newRatio;
     }
 }
@@ -245,6 +254,9 @@ function UnInitialize(keep){
 	ImgRight=0;
 	ImgBottom=0;
 	ImgHeight=0;
+	paddingTop = 0;
+	marginTop = 0;
+    imgTop = 0;
 	ViewWidth=0;
 	WindowHeight=0;
 	Initializing = true;
@@ -271,11 +283,15 @@ function switchIMT(){
     if ((magnifierON==true)&&(bigImage==true)){}
 	else if (Initializing == true){
 	   Initialize();
-	   document.getElementById("switchITL").setAttribute('src','images/ITLon.png');//Add by JK for ITL
+	   //document.getElementById("switchITL").setAttribute('src','images/ITLon.png');//Add by JK for ITL
+     $('#switchITL i').removeClass('fa-chain-broken').addClass('fa-chain');//Add by CDP for FA
+     $('#switchITL span').text("ITL ON");//Add by CDP for FA
     }
 	else {
 	   UnInitialize();
-	   document.getElementById("switchITL").setAttribute('src','images/ITLoff.png');
+	   //document.getElementById("switchITL").setAttribute('src','images/ITLoff.png');
+     $('#switchITL i ').removeClass('fa-chain').addClass('fa-chain-broken');//Add by CDP for FA
+     $('#switchITL span').text("ITL OFF");//Add by CDP for FA
 	}
 }
 

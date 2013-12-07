@@ -13,19 +13,45 @@
  **/
 
 //Pressione tasti
-$(document).keydown(function(e){	
+$(document).keydown(function(e){
+
+	function arrow(toward){
+		if ($("#imgd_link").attr("class") != "current_mode"){
+			if (toward=="left"){
+				if($('.main_pp_select .option_container .option.selected').prev().text()){
+					window.location.hash = $('.main_pp_select .option_container .option.selected').prev().text();
+				}
+			}
+			if (toward=="right"){
+				if($('.main_pp_select .option_container .option.selected').next().text()){
+					window.location.hash = $('.main_pp_select .option_container .option.selected').next().text();
+				}
+			}
+		} else {
+			if (toward=="left"){
+				if($('.main_dd_select .option_container .option.selected').prev().text()){
+					var d_page = $('.main_dd_select .option_container .option.selected').prev().text();
+					$(".main_dd_select .label_selected").text(d_page).trigger("change");
+					//window.location.hash = $('.main_dd_select .option_container .option.selected').prev().text();
+				}
+			}
+			if (toward=="right"){
+				if($('.main_dd_select .option_container .option.selected').next().text()){
+					var d_page = $('.main_dd_select .option_container .option.selected').next().text();
+					$(".main_dd_select .label_selected").text(d_page).trigger("change");
+					//window.location.hash = $('.main_dd_select .option_container .option.selected').next().text();
+				}
+			}
+		}				
+	}
+
+
 	if (e.keyCode == 37) { //left
-		if($('.main_pp_select option:selected').prev('option').val()){
-			window.location.hash = $('.main_pp_select option:selected').prev('option').val();
-			//$("#main_left_arrow").trigger('click');
-		}
+		arrow("left");
 		return false;
 	}				
 	if (e.keyCode == 39) { //right
-		if($('.main_pp_select option:selected').next('option').val()){
-			window.location.hash = $('.main_pp_select option:selected').next('option').val();
-			//$("#main_right_arrow").trigger('click');
-		}
+		arrow("right");
 		return false;
 	}		
 	if (e.keyCode == 27) { //escape
