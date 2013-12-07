@@ -20,8 +20,8 @@ $( function() {
 		   zoom_animation: false,
 		   mousewheel: true,
 		   onMouseMove: function(ev, coords) {clickTrue(); },
-		   onFinishLoad: function(ev, src) {if ($("#switchITL").attr('src')=='images/ITLon.png'){Initialize();} //Add by JK for ITL
-		                                    if ($("#switchHS").attr('src')=='images/HSon.png'){InitializeHS();} //Add by JK for HS
+		   onFinishLoad: function(ev, src) {if ($('#switchITL i ').hasClass('fa-chain')){Initialize();} //Add by JK for ITL
+		                                    //if ($("#switchHS").attr('src')=='images/HSon.png'){InitializeHS();} //Add by JK for HS
 		                                    $.ajax({
                                                     url: 'data/input_data/images/'+location.hash.replace( /^#/, '' )+'_big.jpg',
                                                     success: function(data){
@@ -34,15 +34,15 @@ $( function() {
                                                         $("#switchMag").attr("title", "no big image");
                                                         $("#switchMag").removeAttr("onclick");
                                                         bigImage=false;
-                                                        if ($("#switchITL").attr('src')=='images/ITLdis.png'){$("#switchITL").attr('src','images/ITLoff.png');}//Add by JK for ITL
-                                                        if ($("#switchHS").attr('src')=='images/HSdis.png'){$("#switchHS").attr('src','images/HSoff.png');}//Add by JK for HS
+                                                        if ($('#switchITL').hasClass('inactive')){$('#switchITL i ').removeClass('fa-chain').addClass('fa-chain-broken');}//Add by JK for ITL
+                                                        //if ($("#switchHS").attr('src')=='images/HSdis.png'){$("#switchHS").attr('src','images/HSoff.png');}//Add by JK for HS
                                                         chooseZoomMag();
                                                     }
                                                 }); //Add by JK for Mag
 		                                    ;}, 
 		  // onStartDrag: function(ev, coords) { return false; }, //this image will not be dragged
-		   onAfterZoom: function(ev, zoom) {if ($("#switchITL").attr('src')=='images/ITLon.png'){ReInitialize();}; //Add by JK for ITL
-		                                    if ($("#switchHS").attr('src')=='images/HSon.png'){ReInitializeHS();}; //Add by JK for HS
+		   onAfterZoom: function(ev, zoom) {if ($('#switchITL i ').hasClass('fa-chain')){ReInitialize();}; //Add by JK for ITL
+		                                    //if ($("#switchHS").attr('src')=='images/HSon.png'){ReInitializeHS();}; //Add by JK for HS
 		                                    $( "#slider" ).slider( "option", "value", iv1.iviewer('info', 'zoom') );
 		                                   },
 		   onStartDrag: function() {click="true";},

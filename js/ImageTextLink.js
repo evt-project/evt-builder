@@ -96,11 +96,10 @@ function Initialize(){
     paddingTop = parseInt($("#iviewerImage").css('padding-top'));
     marginTop = parseInt($("#iviewerImage").css('margin-top'));
     imgTop = HeightOffset + paddingTop + marginTop;
-    document.getElementById("switchITL").setAttribute('src','images/ITLon.png');
-    
+    if($('#switchITL i ').hasClass('fa-chain-broken')){$('#switchITL i ').removeClass('fa-chain-broken').addClass('fa-chain');}
     //var L = document.getElementById('AnnMenuContainer');
     //ViewWidth = parseInt(L.parentNode.offsetWidth);
-    var ratio = ((document.getElementById("iviewerImage").width)/1200);
+    var ratio = (($("#iviewerImage").width())/1200);
     Ratio = ratio;
     var NList = $('.Area');
     for (var i=0; i<NList.length; i++){
@@ -200,7 +199,7 @@ function ReInitialize(){
     if (Initializing == false){
         newImgTop = parseInt(document.getElementById('iviewerImage').offsetTop) +parseInt($('#iviewerImage').css('padding-top')) + parseInt($('#iviewerImage').css('margin-top'));
         newImgLeft = parseInt(document.getElementById('iviewerImage').offsetLeft);    
-        var newRatio = ((document.getElementById("iviewerImage").width)/1200);
+        var newRatio = $("#iviewerImage").width()/1200;
         
         var NList = document.getElementsByTagName('div');
         for (var i=0; i<NList.length; i++){
@@ -284,13 +283,11 @@ function switchIMT(){
 	   Initialize();
 	   //document.getElementById("switchITL").setAttribute('src','images/ITLon.png');//Add by JK for ITL
      $('#switchITL i').removeClass('fa-chain-broken').addClass('fa-chain');//Add by CDP for FA
-     $('#switchITL span').text("ITL ON");//Add by CDP for FA
     }
 	else {
 	   UnInitialize();
 	   //document.getElementById("switchITL").setAttribute('src','images/ITLoff.png');
      $('#switchITL i ').removeClass('fa-chain').addClass('fa-chain-broken');//Add by CDP for FA
-     $('#switchITL span').text("ITL OFF");//Add by CDP for FA
 	}
 }
 
