@@ -204,6 +204,7 @@
 					<section id="central_wrapper">
 						<div id="main_left_arrow" onclick="UnInitialize()" title="Previous"/>
 						<div id="main_right_arrow" title="Next"/>
+						<i class="fa fa-sort-desc go-full-left" onclick="fullScreenLeft();"></i>
 						<xsl:if test="$image_frame=true()">
 							<div id="main_left_frame">
 								<!--
@@ -233,15 +234,20 @@
 									</span>
 									<div id="image_menu">
 										<p id="thumb_elem">
-											<a href="javascript:void(0);" id="thumb_link"><i class="fa fa-th"></i>
-											</a>
+											<a href="javascript:void(0);" id="thumb_link"><i class="fa fa-th"></i></a>
+											<span>Thumbs</span>
 										</p>
-										<input type="image" src="images/zoom.png" id="switchZoom" class="top_image_tools" value="zoom" onclick="zoomOn()"/>
+										<!--<input type="image" src="images/zoom.png" id="switchZoom" class="top_image_tools" value="zoom" onclick="zoomOn()"/>-->
 										<!--<input type="image" src="images/magOff.png" id="switchMag" class="top_image_tools" value="mag" onclick="magOn()"/>-->
-										<i class="fa fa-search-plus top_image_tools" id="switchMag" value="mag" onclick="magOn()"></i>
+										<span class="imageTopTool" id="switchMag" value="mag" onclick="magOn()">
+											<i class="fa fa-search-plus"></i>
+											<span>Magnifier OFF</span>
+										</span>
 										<!--<input type="image" src="images/ITLoff.png" id="switchITL" class="top_image_tools" value="turn ITL on" title="Image text link" onclick="switchIMT()"/>-->
-										<i class="fa fa-chain-broken top_image_tools"  id="switchITL" value="turn ITL on" title="Image text link" onclick="switchIMT()"></i>
-										<i class="fa fa-sort-desc go-full-left" onclick="fullScreenLeft();"></i>
+										<span class="imageTopTool" id="switchITL" value="turn ITL on" title="Image text link" onclick="switchIMT()">
+											<i class="fa fa-chain-broken"></i>
+											<span>ITL OFF</span>
+										</span>
 									</div>
 								</header>
 								<div id="image_cont">
@@ -304,7 +310,6 @@
 							-->
 							<!--<div id="main_right_arrow" title="Previous"/>-->
 							<header id="right_header">
-								<i class="fa fa-sort-desc go-full-right" onclick="fullScreenRight();"></i>
 								<div id="text_menu">
 									<span id="span_ee_select" class="like_select">
 										<xsl:call-template name="div_select_build">
@@ -330,7 +335,7 @@
 								<div id="text_elem"/>
 							</div>
 						</div>
-
+						<i class="fa fa-sort-desc go-full-right" onclick="fullScreenRight();"></i>
 					</section>
 					<section id="central_button">
 						<div id="edval">
