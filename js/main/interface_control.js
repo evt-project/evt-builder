@@ -787,14 +787,26 @@ function collapseHeader(){
 	}
 
 	if($('#header_collapse').hasClass('fa-caret-up')){
-		$('#header_collapse').animate({
-			top: "-6px"
-		});
+		if($(".closeFullScreen:visible").length>0){
+			$('#header_collapse').animate({
+				top: "-75px"
+			});
+		} else {
+			$('#header_collapse').animate({
+				top: "-6px"
+			});
+		}
 		$('#header_collapse').removeClass('fa-caret-up').addClass('fa-caret-down');
 	} else {
-		$('#header_collapse').animate({
-			top: "30px"
-		});
+		if($(".closeFullScreen:visible").length>0){
+			$('#header_collapse').animate({
+				top: "-39px"
+			});
+		} else {
+			$('#header_collapse').animate({
+				top: "30px"
+			});
+		}
 		$('#header_collapse').removeClass('fa-caret-down').addClass('fa-caret-up');
 	}
 }
