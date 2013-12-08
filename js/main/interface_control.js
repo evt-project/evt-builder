@@ -288,7 +288,10 @@ $( function() {
 			//N.B. i caricamenti delle immagini si attivano grazie agli eventi change dei label_selected in iviewer_config
 			var edition=$("#span_ee_select .main_ee_select .label_selected").text().toLowerCase();	
 			$(".main_pp_select .label_selected").text(pp_val).trigger("change"); 
-			$('#text_elem').load("data/output_data/"+edition+"/page_"+pp_val+"_"+edition+".html #text_frame");
+			$('#text_elem').load("data/output_data/"+edition+"/page_"+pp_val+"_"+edition+".html #text_frame", function(){
+			    if (!$("#text .Area").length >0){disableITLbutton();} else if($('#switchITL').hasClass('inactive')){enableITLbutton();}
+			    if (!$("#text .AreaHS").length >0){disableHSbutton();} else if($('#switchHS').hasClass('inactive')){enableHSbutton();}
+			});
 			
 			/*$('#text_elem').load('pagina.html', function() {
 			  alert('Load was performed.');
@@ -339,8 +342,8 @@ $( function() {
 			if (InitializingHS == false) {UnInitializeHS(true)}; //Add by JK for HS
 			$('#'+frame_id).load("data/output_data/"+pp_el+"/page_"+pp_val+"_"+pp_el+".html #text_frame",
 			     function() {
-			         if ($("#switchITL").attr('src')=='images/ITLon.png'){Initialize();} /*Add by JK for ITL*/
-			         if ($("#switchHS").attr('src')=='images/HSon.png'){InitializeHS();} /*Add by JK for HS*/
+			         if (!$("#switchITL").hasClass('inactive')){Initialize();} /*Add by JK for ITL*/
+			         if (!$("#switchHS").hasClass('inactive')){InitializeHS();} /*Add by JK for HS*/
 			     }
 			 );
 		       
@@ -516,7 +519,7 @@ $( function() {
 
 				$("#main_right_frame").show();
 				$("#main_left_frame").animate({
-		            'width': '49.8%', 
+		            'width': '49.8%' 
 		        }, function(){
 		        	$("#text_menu").show();
 					$("#text_cont").show();
@@ -574,7 +577,7 @@ $( function() {
 
 				$("#main_right_frame").show();
 				$("#main_left_frame").animate({
-		            'width': '49.8%', 
+		            'width': '49.8%'
 		        }, function(){
 		        	$("#text_menu").show();
 					$("#text_cont").show();
@@ -618,7 +621,7 @@ $( function() {
 
 				$("#text_menu").hide();
 				$("#main_left_frame").animate({
-		            'width': '99.5%', 
+		            'width': '99.5%'
 		        }//, 800
 		         , function(){
 		             $("#main_right_frame").hide();	
