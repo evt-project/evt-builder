@@ -21,7 +21,7 @@ $( function() {
 		   mousewheel: true,
 		   onMouseMove: function(ev, coords) {clickTrue(); },
 		   onFinishLoad: function(ev, src) {if ($('#switchITL i ').hasClass('fa-chain')){Initialize();} //Add by JK for ITL
-		                                    //if ($("#switchHS").attr('src')=='images/HSon.png'){InitializeHS();} //Add by JK for HS
+		                                    //if ($("#switchHS i").hasClass('?HS')){InitializeHS();} //Add by JK for HS
 		                                    $.ajax({
                                                     url: 'data/input_data/images/'+location.hash.replace( /^#/, '' )+'_big.jpg',
                                                     success: function(data){
@@ -32,17 +32,17 @@ $( function() {
                                                     },
                                                     error: function(data){
                                                         $("#switchMag").attr("title", "no big image");
-                                                        $("#switchMag").removeAttr("onclick");
+                                                        $("#switchMag").removeAttr("onclick").addClass('inactive');
                                                         bigImage=false;
                                                         if ($('#switchITL').hasClass('inactive')){$('#switchITL i ').removeClass('fa-chain').addClass('fa-chain-broken');}//Add by JK for ITL
-                                                        //if ($("#switchHS").attr('src')=='images/HSdis.png'){$("#switchHS").attr('src','images/HSoff.png');}//Add by JK for HS
+                                                        //if ($("#switchHS").hasClass('inactive')){$("#switchHS i").removeClass('fa-chain').addClass('fa-chain-broken');}//Add by JK for HS
                                                         chooseZoomMag();
                                                     }
                                                 }); //Add by JK for Mag
 		                                    ;}, 
 		  // onStartDrag: function(ev, coords) { return false; }, //this image will not be dragged
 		   onAfterZoom: function(ev, zoom) {if ($('#switchITL i ').hasClass('fa-chain')){ReInitialize();}; //Add by JK for ITL
-		                                    //if ($("#switchHS").attr('src')=='images/HSon.png'){ReInitializeHS();}; //Add by JK for HS
+		                                    //if ($("#switchHS i").hasClass('?HS')){ReInitializeHS();}; //Add by JK for HS
 		                                    $( "#slider" ).slider( "option", "value", iv1.iviewer('info', 'zoom') );
 		                                   },
 		   onStartDrag: function() {click="true";},

@@ -802,7 +802,7 @@ overflow-x: hidden;
 #switchITL:hover .fa, #switchMag:hover .fa, #switchMag.active .fa, #switchHS.active .fa{
 	text-shadow: none !important;	
 }
-#switchITL.inactive, #switchITL.inactive i, #switchITL.inactive span, #switchHS.inactive span{
+#switchMag.inactive, #switchMag.inactive i, #switchITL.inactive, #switchITL.inactive i, #switchITL.inactive span, #switchHS.inactive span{
 	text-shadow:none;	
 	color: #786E64;
 	-moz-box-shadow:none;
@@ -813,7 +813,7 @@ overflow-x: hidden;
     box-shadow:none;
     text-shadow:none !important;
 }
-#switchITL.inactive:hover, #switchHS.inactive:hover{
+#switchMag.inactive:hover, #switchITL.inactive:hover, #switchHS.inactive:hover{
 	color: #786E64;
 	cursor: default;
 	-moz-box-shadow:none;
