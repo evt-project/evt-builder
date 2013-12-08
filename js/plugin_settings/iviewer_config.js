@@ -25,7 +25,7 @@ $( function() {
 		                                    $.ajax({
                                                     url: 'data/input_data/images/'+location.hash.replace( /^#/, '' )+'_big.jpg',
                                                     success: function(data){
-                                                        if ($("#switchMag").attr("title")){$("#switchMag").removeAttr("title"); $("#switchMag").attr("onclick", "magOn()");}
+                                                        if ($("#switchMag").attr("title")){$("#switchMag").removeAttr("title").removeClass('inactive'); $("#switchMag").attr("onclick", "magOn()");}
                                                         bigImage=true; 
                                                         magnifierReady();
                                                         chooseZoomMag();
@@ -34,7 +34,7 @@ $( function() {
                                                         $("#switchMag").attr("title", "no big image");
                                                         $("#switchMag").removeAttr("onclick").addClass('inactive');
                                                         bigImage=false;
-                                                        if ($('#switchITL').hasClass('inactive')){$('#switchITL i ').removeClass('fa-chain').addClass('fa-chain-broken');}//Add by JK for ITL
+                                                        //if ($('#switchITL').hasClass('inactive')){$('#switchITL i ').removeClass('fa-chain').addClass('fa-chain-broken');}//Add by JK for ITL
                                                         //if ($("#switchHS").hasClass('inactive')){$("#switchHS i").removeClass('fa-chain').addClass('fa-chain-broken');}//Add by JK for HS
                                                         chooseZoomMag();
                                                     }

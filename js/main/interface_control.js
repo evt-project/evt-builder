@@ -289,8 +289,17 @@ $( function() {
 			var edition=$("#span_ee_select .main_ee_select .label_selected").text().toLowerCase();	
 			$(".main_pp_select .label_selected").text(pp_val).trigger("change"); 
 			$('#text_elem').load("data/output_data/"+edition+"/page_"+pp_val+"_"+edition+".html #text_frame", function(){
-			    if (!$("#text .Area").length >0){disableITLbutton();} else if($('#switchITL').hasClass('inactive')){enableITLbutton();}
-			    if (!$("#text .AreaHS").length >0){disableHSbutton();} else if($('#switchHS').hasClass('inactive')){enableHSbutton();}
+			    if ($("#text .Area").length >0){
+			         areaInThisPage = true;
+			         if($('#switchITL').hasClass('inactive')){enableITLbutton();}
+			    } else { disableITLbutton(); }
+			    
+			    if ($("#text .AreaHS").length >0){
+			         areaHSInThisPage = true;
+			         if($('#switchHS').hasClass('inactive')){enableHSbutton();}
+			    } else {
+			        disableHSbutton();
+			    }
 			});
 			
 			/*$('#text_elem').load('pagina.html', function() {
