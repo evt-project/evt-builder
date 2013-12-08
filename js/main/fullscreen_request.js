@@ -100,12 +100,30 @@
 })();
 
 function goFullScreenLeft(){
+			if($('.menuClosed')) collapseHeader();
+			$('#header_collapse').toggle();
 			$("#main_left_frame").toggleClass("full");
 			var height_full = ($(window).height() > $("body").height()) ? $(window).height()-4 : $("body").height();
 			var width_full = ($(window).width()>$("#global_wrapper").width()) ? $(window).width()-4 : $("#global_wrapper").width()-4;
 			// 4 è l'altezza totale dei bordi di sinistra e destra
 			var margin_left = -($('#main_left_frame').offset().left);
 			var margin_top = -($('#main_left_frame').offset().top);
+			
+			/* Gestione icona per collassare il menu
+			$('#header_collapse').css({
+				'float': 'left',
+				'left': '0px',
+				'opacity': '0'
+			});
+			var margin_collapse = -($('#header_collapse').offset().left)+2;
+			var top_collapse = "";
+			if($('#header_collapse').hasClass('fa-caret-down')){top_collapse="-75px"} else {top_collapse="-39px"}
+			$('#header_collapse').animate({
+				left: margin_collapse,
+				top: top_collapse
+			});
+			// Fine */
+
 			$('#main_left_frame').animate({
 				width: width_full,
 				height: height_full,
@@ -114,8 +132,9 @@ function goFullScreenLeft(){
 				minWidth: "1021px"
 			}, 700, function(){
 				$('#left_header .closeFullScreen').toggle();
+				//$('#header_collapse').animate({opacity: 1});
 			});
-			$('.go-full-left, #header_collapse').toggle();
+			$('.go-full-left').toggle();
 			$('#switchITL:visible').hide();
 			
 			if(!$('#span_ee_select-add').hasClass('widthChanged')){
@@ -138,6 +157,7 @@ function goFullScreenLeft(){
 }
 
 function closeFullScreenLeft(){
+	//$('#header_collapse').animate({opacity: 0});
 	$("#main_left_frame").toggleClass("full");
 	//caso in cui si passa a fullscreen dalla visualizzazione a doppia pagina
 	if($('#main_right_frame').css("display")=="none"){
@@ -149,7 +169,9 @@ function closeFullScreenLeft(){
 			minWidth: "0px"
 		}, 700, function(){
 			$('#left_header .closeFullScreen').toggle();
-			$('.go-full-left, #header_collapse').toggle();
+			$('.go-full-left').toggle();
+			//$('#header_collapse').removeAttr('style');
+			$('#header_collapse').toggle();
 		});
 	} else {
 		$('#main_left_frame').animate({
@@ -160,7 +182,9 @@ function closeFullScreenLeft(){
 			minWidth: "0px"
 		}, 700, function(){
 			$('#left_header .closeFullScreen').toggle();
-			$('.go-full-left, #header_collapse').toggle();
+			$('.go-full-left').toggle();
+			//$('#header_collapse').removeAttr('style');
+			$('#header_collapse').toggle();
 		});
 		$('#switchITL').show();
 	}		
@@ -168,35 +192,78 @@ function closeFullScreenLeft(){
 }
 
 function goFullScreenRight(){
-	$("#main_right_frame").toggleClass("full");
-	var height_full = ($(window).height() > $("body").height()) ? $(window).height()-4 : $("body").height();
-	var width_full = ($(window).width()>$("#global_wrapper").width()) ? $(window).width()-4 : $("#global_wrapper").width()-4;
-	// 4 è l'altezza totale dei bordi di sinistra e destra
-	var margin_left = -($('#main_right_frame').offset().left);
-	var margin_top = -($('#main_right_frame').offset().top);
-	$('#main_right_frame').animate({
-		width: width_full,
-		height: height_full,
-		marginTop: margin_top,
-		left: margin_left,
-		minWidth: "1021px"
-	}, 700, function(){
-		$('#right_header .closeFullScreen').toggle();
-	});
-	$('.go-full-right, #header_collapse').toggle();
+	if($('.menuClosed')) collapseHeader();
+	$('#header_collapse').toggle();
+	if ($.browser.webkit) {
+		var height_full = ($(window).height() > $("body").height()) ? $(window).height()-4 : $("body").height();
+		var width_full = ($(window).width()>$("#global_wrapper").width()) ? $(window).width()-4 : $("#global_wrapper").width()-4;
+		// 4 è l'altezza totale dei bordi di sinistra e destra
+		var margin_right = -($(window).width()-($('#main_right_frame').offset().left+$('#main_right_frame').width())-4);
+		var margin_top = -($('#main_right_frame').offset().top);
+		$("#main_right_frame").toggleClass("full");
+		$('#main_right_frame').animate({
+			width: width_full,
+			height: height_full,
+			marginTop: margin_top,
+			right:margin_right,
+			minWidth: "1021px"
+		}, 700, function(){
+			$('#right_header .closeFullScreen').toggle();
+		});
+		$("#main_right_frame").css('position', 'absolute');
+		$('.go-full-right').toggle();
+		
+	} else {
+		var height_full = ($(window).height() > $("body").height()) ? $(window).height()-4 : $("body").height();
+		var width_full = ($(window).width()>$("#global_wrapper").width()) ? $(window).width()-4 : $("#global_wrapper").width()-4;
+		// 4 è l'altezza totale dei bordi di sinistra e destra
+		var margin_right = -($(window).width()-($('#main_right_frame').offset().left+$('#main_right_frame').width())-4);
+		var margin_top = -($('#main_right_frame').offset().top);
+		var margin_left = -($('#main_right_frame').offset().left);
+		$("#main_right_frame").toggleClass("full");
+
+		$('#main_right_frame').animate({
+			width: width_full,
+			height: height_full,
+			marginTop: margin_top,
+			left: margin_left,
+			right:margin_right,
+			minWidth: "1021px"
+		}, 700, function(){
+			$('#right_header .closeFullScreen').toggle();
+		});
+		$('.go-full-right').toggle();
+	}
 } 
 
 function closeFullScreenRight(){
-	$("#main_right_frame").toggleClass("full");
-	$('#main_right_frame').animate({
-		width:  "49.7%",
-		height: "100%", 
-		marginTop: "0px", 
-		left: "0px", 
-		minWidth: "0px"
-	}, 700, function(){
-		$('#main_right_frame').removeAttr("style");
-		$('#right_header .closeFullScreen').toggle();
-	});
-	$('.go-full-right, #header_collapse').toggle();
+	if ($.browser.webkit) {
+		var widthLeft = $('#main_left_frame').width()-4;
+		$('#main_right_frame').animate({
+			width: widthLeft,
+			height: "100%", 
+			marginTop: "0px", 
+			right: "0px", 
+			minWidth: "0px",
+		}, 700, function(){
+			$('#main_right_frame').removeAttr("style");
+			$('#right_header .closeFullScreen, #header_collapse').toggle();
+			$('#main_right_frame').toggleClass("full");
+			$('.go-full-right').toggle();
+		});
+	} else {
+		var widthLeft = $('#main_left_frame').width()-3;
+		$('#main_right_frame').animate({
+			width: widthLeft,
+			height: "100%", 
+			marginTop: "0px", 
+			left: "0px", 
+			minWidth: "0px",
+		}, 700, function(){
+			$('#main_right_frame').removeAttr("style");
+			$('#right_header .closeFullScreen,  #header_collapse').toggle();
+			$('#main_right_frame').toggleClass("full");
+			$('.go-full-right').toggle();
+		});
+	}
 }
