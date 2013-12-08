@@ -443,7 +443,7 @@ footer{
 	-khtml-box-shadow:-2px 3px 5px -2px rgba(0, 0, 0, 0.8);
 	-ms-box-shadow:-2px 3px 5px -2px rgba(0, 0, 0, 0.8);
 	box-shadow:-2px 3px 5px -2px rgba(0, 0, 0, 0.8);*/
-	margin-top: 51px;
+	margin-top: 44px;
 	bottom:51px;
 	height:  100%;
 	height: -webkit-calc(100% - 44px);
@@ -850,11 +850,15 @@ overflow-x: hidden;
 	margin: 4px 0px;
 	top:0px;
 }
-#image_menu, #text_menu{
+#text_menu, #left_menu{
 	position: relative;
 	margin: 0 auto;
 	width: 100%;
 	text-align: center;
+}
+
+#image_menu{
+	display: inline-block;
 }
 
 #slider { 	
@@ -940,7 +944,7 @@ overflow-x: hidden;
     left: 3px;
 	right: 3px;
 	#top: 4px;
-	top:-6px;
+	top:-9px;
 	padding: 3px 6px;
 	font-size: 1em;
 	vertical-align: middle;
@@ -952,7 +956,11 @@ overflow-x: hidden;
 	display: inline-block;
 }
 #left_header .like_select{
-	float: left;
+	display:none;
+	#float: left;
+}
+#span_ee_select-add{
+	top:3px;
 }
 
 /*Chiara*/
