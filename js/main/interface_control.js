@@ -516,15 +516,15 @@ $( function() {
 
 				$("#main_right_frame").show();
 				$("#main_left_frame").animate({
-		            'width': '49.8%', 
+		            'width': '49.8%' 
 		        }, function(){
 		        	$("#text_menu").show();
 					$("#text_cont").show();
 		        });		
-		
 				
 				$("#mag").show();				
 				$("#image_menu").show();
+				$('#switchITL').show();
 				$("#image_cont").show();
 				
 				$('#zvalint').show();
@@ -591,8 +591,8 @@ $( function() {
 
 				$('#zvalint').hide(); //SISTEMARE
 				//$('#zvalopz').text($("input[name=edition_r]:checked").val());			
-
-				$("#span_ee_select-add").show();
+				$('#span_ee_select-add').css({display: "inline-block"});
+				//$("#span_ee_select-add").show();
 
 				var main_text_edition = $('#span_ee_select .main_ee_select .label_selected').text();
 				var first_new_edition = $('.main_ee_select .option_container').children('.option').eq(0).text();
@@ -602,6 +602,25 @@ $( function() {
 				} else{
 					$("#span_ee_select-add .main_ee_select .label_selected").text(first_new_edition).trigger("change");
 				}
+
+
+			}
+			if(!$('#span_ee_select-add').hasClass('widthChanged')){
+				$('#span_ee_select-add').addClass('widthChanged')
+				$('#span_ee_select-add .option_container').removeAttr('style');
+
+				$('#span_ee_select-add').each(function(){
+					var widthSel = $(this).width();
+					var widthOpt = $(this).find('.option_container').width()+10;
+					if(widthSel > (widthOpt+24)){ 
+						$(this).find('.option_container').css('width', widthSel-10);
+						//alert("widthSel"); 
+					} else {
+						$(this).css('width', widthOpt+24);
+						$(this).find('.option_container').css('width', widthOpt+14);
+						//alert("widthOpt");
+					}
+				});
 			}
 		});
 
@@ -633,9 +652,25 @@ $( function() {
 				$("#mag").show();				
 				$("#image_menu").show();
 				$("#image_cont").show();
-				$("#span_dd_select").show();
-				
-				
+				$('#span_dd_select').css({display: "inline-block"});
+				$('#switchITL:visible').hide();
+			}
+			if(!$('#span_dd_select').hasClass('widthChanged')){
+				$('#span_dd_select').addClass('widthChanged')
+				$('#span_dd_select .option_container').removeAttr('style');
+
+				$('#span_dd_select').each(function(){
+					var widthSel = $(this).width();
+					var widthOpt = $(this).find('.option_container').width()+10;
+					if(widthSel > (widthOpt+24)){ 
+						$(this).find('.option_container').css('width', widthSel-10);
+						//alert("widthSel"); 
+					} else {
+						$(this).css('width', widthOpt+24);
+						$(this).find('.option_container').css('width', widthOpt+14);
+						//alert("widthOpt");
+					}
+				});
 			}
 		});	
 		// /MODE -
