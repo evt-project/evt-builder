@@ -24,7 +24,6 @@ $( function() {
 		url: "data/output_data/structure.xml",
 		dataType: "xml",
 		success: function(xml) {
-			
 			//Edition
 			$(xml).find('editions edition').each(function(){
 				var current_id = $(this).text();
@@ -240,7 +239,6 @@ $( function() {
 			        $('.option_container:visible').animate({height:"toggle"}, 400);
 			    }
 			});
-
 			/* / Gestione eventi */
 
 
@@ -252,7 +250,6 @@ $( function() {
 					//var checkpp = $(xml).find('text pb:contains('+current_page+')').text();
 					var checkpp = $(xml).find('pages pb:contains('+current_page+')').text();
 					var checkdd = $(".main_dd_select").find('.option:contains('+current_page+')').text();
-
 					if(hash && (checkpp != "") && ($("#imgd_link").attr("class") != "current_mode")){
 				    	UnInitialize(); //Add by JK for ITL
 						gotopage(current_page, "none");
@@ -286,11 +283,9 @@ $( function() {
 	
 	/* Funzioni */
 
-		// IT: Gestiosce il cambio pagina e gli eventi correlati
+		// IT: Gestisce il cambio pagina e gli eventi correlati
 		function gotopage(pp_val, state){	
-
 			//N.B. i caricamenti delle immagini si attivano grazie agli eventi change dei label_selected in iviewer_config
-
 			var edition=$("#span_ee_select .main_ee_select .label_selected").text().toLowerCase();	
 			$(".main_pp_select .label_selected").text(pp_val).trigger("change"); 
 			$('#text_elem').load("data/output_data/"+edition+"/page_"+pp_val+"_"+edition+".html #text_frame");

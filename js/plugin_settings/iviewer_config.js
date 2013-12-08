@@ -71,16 +71,20 @@ $( function() {
 	  /*$('select[name=" "]').change( function() {
 			iv1.iviewer('loadImage', document.getElementById('slideshow-image').getAttribute('src'));
 		});*/
-		
+
 		//$('#folio_page_number').change(function(){	
 		$(".main_pp_select .label_selected").on('change',function(){
 			iv1.iviewer('fit');
+			$("#image_elem").css({opacity:0});
 			iv1.iviewer('loadImage', "data/input_data/images/"+$(this).text()+".jpg");	//SISTEMARE: rimuovere central_page_number		
+			$("#image_elem").animate({opacity:1});
 		});
 
 		$(".main_dd_select .label_selected").on('change',function(){
 		    iv1.iviewer('fit');
+		    $("#image_elem").css({opacity:0});
 			iv1.iviewer('loadImage', "data/input_data/images/double/"+$(this).text()+".jpg");
+			$("#image_elem").animate({opacity:1});
 		});	
 
 
