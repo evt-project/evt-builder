@@ -181,10 +181,10 @@
 						<xsl:if test="$image_frame=true()">
 							<div id="mode_switch">
 								<a href="javascript:void(0);" id="txtimg_link" class="current_mode"
-									title="text/image mode"> [T|I] </a>
+									title="text/image mode"> <img src="images/imgText.png" onmouseover="$(this).attr('src', 'images/imgText-hover.png');" onmouseout="$(this).attr('src', 'images/imgText.png');"/></a>
 								<!--<a href="javascript:void(0);" id="imgimg_link" title="image/image mode"> [I|I] </a>-->
 								<a href="javascript:void(0);" id="txttxt_link"
-									title="text/text mode"> [T|T] </a>
+									title="text/text mode"> <img src="images/textText.png" onmouseover="$(this).attr('src', 'images/textText-hover.png');" onmouseout="$(this).attr('src', 'images/textText.png');"/>  </a>
 								<xsl:if test="$double_view=true()">
 									<a href="javascript:void(0);" id="imgd_link"
 										title="double mode"> [I] </a>
@@ -195,14 +195,14 @@
 						<div id="cont_fullscreen">
 							<a href="javascript:void(0);" id="main_fullscreen" title="fullscreen"
 								style="float: right; padding: 12px; padding-left: 14px;"
-								><!--<img id="img_fullscreen" src="images/full_screen.png" />--><i class="fa fa-expand"></i></a>
+								><img id="img_fullscreen" src="images/full_screen.png" /></a>
 						</div>
 					</header>
 					<section id="central_wrapper">
 						<i class="fa fa-caret-up" id="header_collapse" onclick="collapseHeader();"></i>
 						<div id="main_left_arrow" onclick="UnInitialize()" title="Previous"/>
 						<div id="main_right_arrow" title="Next"/>
-						<i class="fa fa-angle-up go-full-left" onclick="goFullScreenLeft();"></i>
+						<i class="fa fa-expand go-full-left" onclick="goFullScreenLeft();"></i>
 						<xsl:if test="$image_frame=true()">
 							<div id="main_left_frame">
 								<!--
@@ -352,7 +352,7 @@
 								<div id="text_elem"/>
 							</div>
 						</div>
-						<i class="fa fa-angle-up go-full-right" onclick="goFullScreenRight();"></i>
+						<i class="fa fa-expand go-full-right" onclick="goFullScreenRight();"></i>
 					</section>
 					<section id="central_button">
 						<div id="edval">
