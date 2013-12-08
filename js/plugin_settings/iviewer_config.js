@@ -42,7 +42,7 @@ $( function() {
 		                                    ;}, 
 		  // onStartDrag: function(ev, coords) { return false; }, //this image will not be dragged
 		   onAfterZoom: function(ev, zoom) {if ($('#switchITL i ').hasClass('fa-chain')){ReInitialize();}; //Add by JK for ITL
-		                                    //if ($("#switchHS i").hasClass('?HS')){ReInitializeHS();}; //Add by JK for HS
+		                                    if ($("#switchHS i").hasClass('fa fa-dot-circle-o')){ReInitializeHS();}; //Add by JK for HS
 		                                    $( "#slider" ).slider( "option", "value", iv1.iviewer('info', 'zoom') );
 		                                   },
 		   onStartDrag: function() {click="true";},

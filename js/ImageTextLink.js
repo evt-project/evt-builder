@@ -93,9 +93,7 @@ function Initialize(){
     ImgRight = ImgLeft + ImgWidth;
     ImgHeight = parseInt(document.getElementById('iviewerImage').offsetHeight);
     ImgBottom = HeightOffset + ImgHeight;
-    paddingTop = parseInt($("#iviewerImage").css('padding-top'));
-    marginTop = parseInt($("#iviewerImage").css('margin-top'));
-    imgTop = HeightOffset + paddingTop + marginTop;
+    imgTop = HeightOffset + parseInt($("#iviewerImage").css('padding-top')) + parseInt($("#iviewerImage").css('margin-top'));
     if($('#switchITL i ').hasClass('fa-chain-broken')){$('#switchITL i ').removeClass('fa-chain-broken').addClass('fa-chain');}
     //var L = document.getElementById('AnnMenuContainer');
     //ViewWidth = parseInt(L.parentNode.offsetWidth);
@@ -329,7 +327,6 @@ function InitializeHS(){
     NList = $('.Annotation');
     for (i=0; i<NList.length; i++){
         AnnsHS.push(NList[i]);
-        $("#image_elem").append(NList[i]);
     }
     
    /* NList = $('.AnnMenuItem');
@@ -383,13 +380,14 @@ function ShowAnnHS(ItemId){
        //scroll it
        $('#text_elem').animate({ scrollTop: TheMenuItem.offsetTop-5 }); //Add by JK for EVT-builder
         
-//Now try to scroll it into view
+        //Now try to scroll it into view
         //TheMenuItem.scrollIntoView();
     }*/
     
     var TheAnnotation = document.getElementById('Ann_' + ItemId);
     //Position the Ann div (try to keep it on the image itself)
     if (TheAnnotation != null){
+    $("#image_elem").append(TheAnnotation);
     //if the user has previously dragged a div, use the same position
         if ((DroppedX > -1)&&(DroppedY > -1)){
             if (isOldIE == false){
@@ -417,15 +415,27 @@ function ShowAnnHS(ItemId){
         var ATop = parseInt(TheArea.style.top) + parseInt(TheArea.offsetHeight);
         if (ATop + parseInt(TheAnnotation.offsetHeight) > ImgBottom){
             ATop = parseInt(TheArea.style.top) - parseInt(TheAnnotation.offsetHeight);
-            TheAnnotation.style.top = ATop  + 'px';
         }
+        TheAnnotation.style.top = ATop  + 'px';
 
         //Handle the problem of disappearing off the top
         if (parseInt(TheAnnotation.offsetTop) < HeightOffset){
             TheAnnotation.style.top = HeightOffset + 'px';
             TheAnnotation.style.left = '0px';
         }
+        //$(TheAnnotation).click(function(){alert();});
     }
+}
+
+function HideAnnHS(AnnId){
+    var El = document.getElementById(AnnId);
+    if (El != null){
+	El.style.display = 'none';
+	El.style.position = 'absolute';
+	$("#text").append(TheAnnotation);
+    }
+    DroppedX = -1;
+    DroppedY = -1;
 }
 
 function ReInitializeHS(){
@@ -789,15 +799,14 @@ var DraggedEl = null;
 var DroppedX = -1;
 var DroppedY = -1;
 
-function BeginDrag(El, e){
+function BeginDragHS(El, e){
     if (!e){e = window.event;}
     var x = parseInt(El.style.left);
-    alert(x)
     var y = parseInt(El.style.top);
     //DeltaX = e.clientX - x;
     //DeltaY = e.clientY - y;
-    DeltaX = e.clientX
-    DeltaY = e.clientY
+    DeltaX = e.clientX - x;
+    DeltaY = e.clientY - y;
     
     DraggedEl = El;
     if (document.addEventListener){
@@ -830,7 +839,7 @@ function MouseUpHandler(e){
     }
     if (!e){e = window.event;}
     if (e.stopPropagation){e.stopPropagation();}else{e.cancelBubble = true;}
-    if (DraggedEl != document.getElementById('AnnMenuContainer')){
+    //if (DraggedEl != document.getElementById('AnnMenuContainer')){
         DroppedX = parseInt(DraggedEl.style.left);
         DroppedY = parseInt(DraggedEl.style.top);
         if (isOldIE == false){
@@ -840,12 +849,21 @@ function MouseUpHandler(e){
             in a fixed location, perhaps off to the side of the graphic. If that's the case, then 
             we need to set it to position: fixed, then convert its location relative to the scroll 
             offset. */
+            
+            containreWidth = $("#image_elem").width();
+            containreHeight = $("#image_elem").height();
+            if(DroppedX<0){DroppedX=0;}
+            else if (DroppedX > (containreHeight - $(DraggedEl).height())){DroppedX = containreHeight - $(DraggedEl).height()}
+            
+            if(DroppedY<(0+parseInt($("#iviewerImage").css('padding-top')))){DroppedY=0+parseInt($("#iviewerImage").css('padding-top'))}
+            else if (DroppedY > (containreWidth - $(DraggedEl).width())){DroppedY = containreWidth - $(DraggedEl).width() }
+            
             DraggedEl.style.position = 'absolute';
-            DraggedEl.style.left += DroppedX + 'px';
-            DraggedEl.style.top += DroppedY + 'px';
-            DraggedEl.style.position = 'fixed';
+            DraggedEl.style.left = DroppedX + 'px';
+            DraggedEl.style.top = DroppedY + 'px';
+            //DraggedEl.style.position = 'fixed';
         }
-    }
+    //}
     DraggedEl = null;
 }
 
