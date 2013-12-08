@@ -282,7 +282,7 @@ function switchIMT(){
 	else if (Initializing == true){
 	   Initialize();
 	   //document.getElementById("switchITL").setAttribute('src','images/ITLon.png');//Add by JK for ITL
-     $('#switchITL i').removeClass('fa-chain-broken').addClass('fa-chain');//Add by CDP for FA
+     //$('#switchITL i').removeClass('fa-chain-broken').addClass('fa-chain');//Add by CDP for FA
     }
 	else {
 	   UnInitialize();
