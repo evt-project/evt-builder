@@ -34,7 +34,10 @@
 	<xsl:param name="index_title" select="'Codex Viewer'"/> 	
 	
 	<!-- Hide/Show scans -->
-	<xsl:param name="image_frame" select="true()"/> 
+	<xsl:param name="image_frame" select="true()"/>
+
+	<!-- On/Off doubleview -->
+	<xsl:param name="double_view" select="true()"/>
 
 	<!-- Edition -->
 	<!-- EN: To use it in your code:

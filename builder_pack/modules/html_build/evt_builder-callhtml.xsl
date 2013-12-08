@@ -185,8 +185,10 @@
 								<!--<a href="javascript:void(0);" id="imgimg_link" title="image/image mode"> [I|I] </a>-->
 								<a href="javascript:void(0);" id="txttxt_link"
 									title="text/text mode"> [T|T] </a>
-								<a href="javascript:void(0);" id="imgd_link"
-									title="double mode"> [I] </a>
+								<xsl:if test="$double_view=true()">
+									<a href="javascript:void(0);" id="imgd_link"
+										title="double mode"> [I] </a>
+								</xsl:if>
 							</div>
 						</xsl:if>
 						
