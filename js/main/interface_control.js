@@ -76,12 +76,13 @@ $( function() {
 
 			//Text
 			$(xml).find('textpage text').each(function(){
-				var current_id = $(this).attr("n");
+				var current_label = $(this).attr("n");
+				var current_id = current_label.replace(/\s+/g, '');
 				$('.main_tt_select .option_container').append(
 					$('<div/>')
 						.attr("id", "value_"+current_id)
 						.addClass('option')
-						.text(current_id)
+						.text(current_label)
 				);
 			});
 			$('.main_tt_select .option_container div:first-child').addClass('selected');
@@ -92,8 +93,9 @@ $( function() {
 
 			$(".label_selected").on('change',function(){
 				var current_lab = $(this).text();
+				var current_id = current_lab.replace(/\s+/g, '');
 				$(this).siblings(".option_container")
-					.find("#value_"+current_lab)
+					.find("#value_"+current_id)
 					.addClass("selected")
 					.siblings().removeClass('selected');
 			});
@@ -111,6 +113,7 @@ $( function() {
 			     gotoedition(location.hash.replace( /^#/, '' ),$(this).text().toLowerCase(),temp_frame,temp_parent);
 			});		
 			$(".main_pp_select .label_selected").on('change',function(){
+				//var tt_val_temp = $(".main_tt_select").find('.option.selected').attr("id").substr(6);
 				var tt_val_temp = $(".main_tt_select .label_selected").text();
 				var pp_val_temp = $('.main_pp_select .label_selected').text();
 				var parent_temp = $(xml)
@@ -123,7 +126,7 @@ $( function() {
 					if(parent_temp!=tt_val_temp){
 						$(".main_tt_select .label_selected").text(parent_temp);//.trigger("change");
 						$(".main_tt_select .label_selected").siblings(".option_container")
-							.find("#value_"+parent_temp)
+							.find("#value_"+parent_temp.replace(/\s+/g, ''))
 							.addClass("selected")
 							.siblings().removeClass('selected');
 					}
@@ -175,7 +178,7 @@ $( function() {
 			$(".main_tt_select .label_selected").on('change',function(){
 				var tt_val_temp = $(this).text();
 			    var first_page = $(xml)
-	     			.find('text[n='+tt_val_temp+']')
+	     			.find('text[n="'+tt_val_temp+'"]')
 			     	.find(":first-child")
 			     	.text();
 			    window.location.hash = first_page;
@@ -201,8 +204,12 @@ $( function() {
 			});
 			$(".option").click(function(){
 				if(! $(this).hasClass('selected')){
-					var newPage = $(this).attr('id').substr(6); 
+					var newPage = $(this).attr('id').substr(6);
+					var newText = $(this).text();
 					//alert($(this).parent().parent().attr("class"));
+					if ($(this).parent().parent().attr("class") == "main_tt_select")
+						$(this).parent().prev().prev().text(newText).trigger('change'); // .label_selected
+					else
 					if ($(this).parent().parent().attr("class") != "main_pp_select")
 						$(this).parent().prev().prev().text(newPage).trigger('change'); // .label_selected
 					$(this).parent().animate({height:"toggle"}, 400);
