@@ -222,6 +222,19 @@ $( function() {
 				$(this).css('width', width);
 			});
 
+			$('.like_select').each(function(){
+				var widthSel = $(this).width();
+				var widthOpt = $(this).find('.option_container').width()+10;
+				if(widthSel > (widthOpt+24)){ 
+					$(this).find('.option_container').css('width', widthSel-10);
+					//alert("widthSel"); 
+				} else {
+					$(this).css('width', widthOpt+24);
+					$(this).find('.option_container').css('width', widthOpt+14);
+					//alert("widthOpt");
+				}
+			});
+			
 			$("#global_wrapper").on('mousedown', function (e) {
 			    if ( ($(e.target).closest(".like_select").length === 0) && !($(".option_container").is(':animated')) ) {
 			        $('.option_container:visible').animate({height:"toggle"}, 400);
