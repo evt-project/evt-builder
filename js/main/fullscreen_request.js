@@ -124,11 +124,10 @@ function fullScreenLeft(){
 					}, 700);
 					$('.go-full-left').toggleClass('closeFullScreen');
 				} else {
-					$('.go-full-right').css("z-index", "99999999");
 					$('.go-full-left').animate({
-						"left": "-3px",
+						"left": "-22px",
 						"color": "#4E443C",
-						"top": "-11px"
+						"top": "-34.4px"
 					}, 700);
 					if($('#main_right_frame').css("display")=="none"){
 						$('#main_left_frame').animate({
@@ -179,11 +178,10 @@ function fullScreenLeft(){
 			$('.go-full-right').toggleClass('closeFullScreen');
 			
 		} else {
-			$('.go-full-left').css("z-index", "999999999999");
 			$('.go-full-right').animate({
-				"right": "-4px",
+				"right": "-22px",
 				"color": "#4E443C",
-				"top": "-11px"
+				"top": "-34.4px"
 			}, 700);
 			$('#main_right_frame').animate({
 				width:  "49.7%",
