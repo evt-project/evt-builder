@@ -42,9 +42,8 @@ function magOn(){
         //document.getElementById("switchZoom").setAttribute('src','images/zoomOff.png');
         //document.getElementById("switchMag").setAttribute('src','images/mag.png');
         $('#switchMag').addClass('active');//Add by CDP for FA
-        //document.getElementById("switchITL").setAttribute('src','images/ITLdis.png');//Add by JK for ITL
-        $('#switchITL').addClass('inactive');//Add by CDP for FA
-        $('#switchITL i').removeClass('fa-chain').addClass('fa-chain-broken'); //Add by CDP for FA
+        $('#switchITL').removeClass('inactive');//Add by CDP for FA
+        disableITLbutton();
         magnifierON = true;
     } else {
         /*IT: rendo visibile il div dello dello zoom e invisibile quello del magnifier*/
@@ -53,10 +52,32 @@ function magOn(){
         //  document.getElementById("switchZoom").setAttribute('src','images/zoom.png');
         //document.getElementById("switchMag").setAttribute('src','images/magOff.png');
         $('#switchMag').removeClass('active');//Add by CDP for FA
-        $('#switchITL').removeClass('inactive');//Add by CDP for FA
+
         //document.getElementById("switchITL").setAttribute('src','images/ITLoff.png');//Add by JK for ITL
         magnifierON = false;
     }
+}
+
+function disableITLbutton(){
+    //document.getElementById("switchITL").setAttribute('src','images/ITLdis.png');//Add by JK for ITL
+    $('#switchITL').addClass('inactive');//Add by CDP for FA
+    $('#switchITL').removeAttr("onclick");
+    $('#switchITL i').removeClass('fa-chain').addClass('fa-chain-broken'); //Add by CDP for FA
+}
+function enableITLbutton(){
+    $('#switchITL').removeClass('inactive');
+    $('#switchITL').attr('onclick',  'switchIMT()');
+}
+
+function disableHSbutton(){
+    //document.getElementById("switchITL").setAttribute('src','images/ITLdis.png');//Add by JK for ITL
+    $('#switchHS').addClass('inactive');//Add by CDP for FA
+    $('#switchHS').removeAttr("onclick");
+    $('#switchHS i').removeClass('fa fa-dot-circle-o').addClass('fa fa-dot-circle-o'); //Add by CDP for FA
+}
+function enableHSbutton(){
+    $('#switchHS').removeClass('inactive');
+    $('#switchHS').attr('onclick',  'switchHS()');
 }
 
 function zoomOn(){
