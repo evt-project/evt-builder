@@ -96,9 +96,9 @@
 		</xsl:element>
 		
 		<!-- Now the actual annotation data itself (which will be hidden until called up). -->  
-		<!--<xsl:for-each select="$root//tei:back//tei:div[if(@facs)then(translate(@facs, '#', '')=$root//tei:surface[@xml:id=concat('surf_',$n)]//tei:zone[@rendition='HotSpot']/@xml:id) else(translate(@corresp, '#', '')=$root//tei:surface[@xml:id=concat('surf_',$n)]//tei:zone[@rendition='HotSpot']/@xml:id)]">
-			--><!-- Find out the id it's linked to, whether it happens to use @facs or @corresp to point to it. -->
-			<!--<xsl:variable name="linkId" select="if(@facs) then(translate(@facs, '#', '')) else(translate(@corresp, '#', ''))"/>
+		<xsl:for-each select="$root//tei:back//tei:div[if(@facs)then(translate(@facs, '#', '')=$root//tei:surface[@xml:id=concat('surf_',$n)]//tei:zone[@rendition='HotSpot']/@xml:id) else(translate(@corresp, '#', '')=$root//tei:surface[@xml:id=concat('surf_',$n)]//tei:zone[@rendition='HotSpot']/@xml:id)]">
+			<!-- Find out the id it's linked to, whether it happens to use @facs or @corresp to point to it. -->
+			<xsl:variable name="linkId" select="if(@facs) then(translate(@facs, '#', '')) else(translate(@corresp, '#', ''))"/>
 			<xsl:element name="div">
 				<xsl:attribute name="id">Ann_<xsl:value-of select="$linkId"></xsl:value-of></xsl:attribute>
 				<xsl:attribute name="class">Annotation</xsl:attribute>
@@ -106,10 +106,13 @@
 					<xsl:attribute name="class">AnnTitlebar</xsl:attribute>
 					<xsl:element name="div">
 						<xsl:attribute name="class">PopupCloser</xsl:attribute>
-						<xsl:attribute name="onclick">HideAnn('Ann_<xsl:value-of select="$linkId"></xsl:value-of>')</xsl:attribute>X</xsl:element>
+						<xsl:attribute name="onclick">HideAnnHS('Ann_<xsl:value-of select="$linkId"></xsl:value-of>')</xsl:attribute>X</xsl:element>
 					<xsl:element name="div">
 						<xsl:attribute name="class">AnnTitle</xsl:attribute>
-						<xsl:attribute name="onmousedown">BeginDrag(this.parentNode.parentNode, event)</xsl:attribute><xsl:apply-templates select="tei:head"></xsl:apply-templates></xsl:element>
+						<xsl:attribute name="onmousedown">BeginDragHS(this.parentNode.parentNode, event)</xsl:attribute>
+						<!--<xsl:apply-templates select="tei:head"/>-->
+						<xsl:text>   </xsl:text>
+					</xsl:element>
 				</xsl:element>
 				<xsl:element name="div">
 					<xsl:attribute name="class">AnnText</xsl:attribute>
@@ -118,7 +121,7 @@
 					</xsl:for-each>
 				</xsl:element>
 			</xsl:element>   
-		</xsl:for-each>-->
+		</xsl:for-each>
 	</xsl:template>
 	
 	<xsl:template name="Area">
