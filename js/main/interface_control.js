@@ -62,7 +62,7 @@ $( function() {
 				if (second_page_d != "")
 					current_id = first_page_d+"-"+second_page_d;
 				else
-					current_id = first_page_d;
+					current_id = first_page_d+"-";
 				$('.main_dd_select .option_container').append(
 					$('<div/>')
 						.attr("id", "value_"+current_id)
