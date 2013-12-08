@@ -731,7 +731,7 @@ overflow-x: hidden;
 	background: url(../images/opacity.png) repeat-x 0 -50px;
 }
 
-#switchMag, #switchITL, #switchHP{
+#switchMag, #switchITL, #switchHS{
     #border: 2px solid #786E64;
     border-radius: 2px;
     -moz-box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4);
@@ -745,7 +745,7 @@ overflow-x: hidden;
     #padding: 0px 10px 3px 3px;
    	color: #000;
 }    
-#switchMag, #switchITL, #switchHP, #thumb_elem, #search_elem{
+#switchMag, #switchITL, #switchHS, #thumb_elem, #search_elem{
     height: 35px;
     top: 0px;
     font-weight: bold;
@@ -781,11 +781,11 @@ overflow-x: hidden;
 	margin: auto;
 }
 
-#switchITL .fa, #switchMag .fa, #switchHP .fa{
+#switchITL .fa, #switchMag .fa, #switchHS .fa{
 	text-shadow: none !important;
 }
 
-#switchITL:hover, #switchMag:hover, #switchHP:hover, #switchMag.active{	
+#switchITL:hover, #switchMag:hover, #switchHS:hover, #switchMag.active{	
 	-moz-box-shadow:inset  2px 3px 3px rgba(0, 0, 0, 0.6);
 	-webkit-box-shadow:inset  2px 3px 3px rgba(0, 0, 0, 0.6);
 	-o-box-shadow:inset  2px 3px 3px rgba(0, 0, 0, 0.6);
@@ -799,10 +799,10 @@ overflow-x: hidden;
 	text-shadow: none !important;
 }
 
-#switchITL:hover .fa, #switchMag:hover .fa, #switchMag.active .fa, #switchHP.active .fa{
+#switchITL:hover .fa, #switchMag:hover .fa, #switchMag.active .fa, #switchHS.active .fa{
 	text-shadow: none !important;	
 }
-#switchITL.inactive, #switchITL.inactive i, #switchITL.inactive span, #switchHP.inactive span{
+#switchITL.inactive, #switchITL.inactive i, #switchITL.inactive span, #switchHS.inactive span{
 	text-shadow:none;	
 	color: #786E64;
 	-moz-box-shadow:none;
@@ -813,7 +813,7 @@ overflow-x: hidden;
     box-shadow:none;
     text-shadow:none !important;
 }
-#switchITL.inactive:hover, #switchHP.inactive:hover{
+#switchITL.inactive:hover, #switchHS.inactive:hover{
 	color: #786E64;
 	cursor: default;
 	-moz-box-shadow:none;
@@ -824,7 +824,7 @@ overflow-x: hidden;
     box-shadow:none;
 }
 
-#switchMag span, #switchITL span, #switchHP span, #thumb_elem span, #search_elem span{
+#switchMag span, #switchITL span, #switchHS span, #thumb_elem span, #search_elem span{
 	font-size: 0.6em;
     font-weight: normal;
     height: 35px;
@@ -833,7 +833,7 @@ overflow-x: hidden;
     top: -8px;
 }
 
-#switchMag i, #switchITL i, #switchHP i, #thumb_elem i, #search_elem i{
+#switchMag i, #switchITL i, #switchHS i, #thumb_elem i, #search_elem i{
 	font-size: 0.6em;
 	text-decoration: none;
 	text-indent: 0;

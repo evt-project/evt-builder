@@ -234,7 +234,7 @@
 											<span>Magnifier</span>
 											<i class="fa fa-search-plus"></i>
 										</span>
-										<p class="imageTopTool" id="switchHP" value="mag" onclick="#">
+										<p class="imageTopTool" id="switchHS" value="mag" onclick="switchHS()">
 											<span>HotSpot</span>
 											<i class="fa fa-dot-circle-o"></i>
 										</p>
