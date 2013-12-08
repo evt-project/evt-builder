@@ -710,3 +710,44 @@ $( function() {
 	});
 
 });
+
+function collapseHeader(){
+	$('#image_tool').toggle("height").toggleClass('menuClosed');
+	$('#left_header').toggle('blind').toggleClass('menuClosed');
+	if($('#left_header').hasClass('menuClosed')){
+		noMenu_height = $('#image_cont').height()+50;
+		$('#image_cont').animate({
+			top: "-50px",
+			height: noMenu_height
+		});
+	} else {
+		noMenu_height = $('#image_cont').height()+50;
+		$('#image_cont').animate({
+			top: "0px",
+			height: "100%"
+		});
+	}
+	$('#right_header').toggle('blind').toggleClass('menuClosed');
+	if($('#right_header').hasClass('menuClosed')){
+		$('#text_cont').animate({
+			height: "100%"
+		});
+	} else {
+		noMenu_height = $('#image_cont').height()+50;
+		$('#text_cont').animate({
+			height: "92.8%"
+		});
+	}
+
+	if($('#header_collapse').hasClass('fa-caret-up')){
+		$('#header_collapse').animate({
+			top: "-6px"
+		});
+		$('#header_collapse').removeClass('fa-caret-up').addClass('fa-caret-down');
+	} else {
+		$('#header_collapse').animate({
+			top: "30px"
+		});
+		$('#header_collapse').removeClass('fa-caret-down').addClass('fa-caret-up');
+	}
+}

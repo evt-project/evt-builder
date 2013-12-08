@@ -136,6 +136,32 @@ footer{
 	position: relative;
 }
 
+#header_collapse{
+	position: absolute;
+	color: rgb(245, 234, 212);
+	z-index: 9999999999;
+	margin: auto;
+	left: 50%;
+	width: 24px;
+	text-align: center;
+	margin-left: -10px;
+	max-height: 12px;
+	font-size: 0.8em;
+	cursor: pointer;
+	text-shadow:none !important;
+}
+
+#header_collapse.fa-caret-up{
+	top: 30px;
+}
+
+#header_collapse.fa-caret-down{
+	top:-6px;
+}
+
+#header_collapse:hover{
+	color:rgb(126,108,95);
+}
 
 #main_right_frame{
 	#border: 2px solid #786e64;
@@ -1344,17 +1370,20 @@ div.botleftconcave {
 	cursor: pointer;
 }
 
-.go-full-right.closeFullScreen{
-	font-size: 1.2em;
-    position: absolute;
-    text-shadow:none;
-    overflow: hidden;
-    z-index: 999999999999;
+#right_header .closeFullScreen{
+	right: 5px;
+	position: absolute;
+	top: 2px;
+	display: none;
+	z-index: 9999999;
+	cursor: pointer;
 }
 
-.go-full-left.closeFullScreen{
-	font-size: 1.2em;
-    position: absolute;
-    text-shadow:none;
-    z-index: 999999999999;
+#left_header .closeFullScreen{
+	position: absolute;
+	left: 5px;
+	top: 2px;
+	display: none;
+	z-index: 9999999;
+	cursor: pointer;
 }
