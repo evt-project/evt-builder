@@ -199,9 +199,10 @@
 						</div>
 					</header>
 					<section id="central_wrapper">
+						<i class="fa fa-caret-up" id="header_collapse" onclick="collapseHeader();"></i>
 						<div id="main_left_arrow" onclick="UnInitialize()" title="Previous"/>
 						<div id="main_right_arrow" title="Next"/>
-						<i class="fa fa-angle-up go-full-left" onclick="fullScreenLeft();"></i>
+						<i class="fa fa-angle-up go-full-left" onclick="goFullScreenLeft();"></i>
 						<xsl:if test="$image_frame=true()">
 							<div id="main_left_frame">
 								<!--
@@ -217,34 +218,37 @@
 								</xsl:if>
 								<!-- <div id="main_left_arrow" title="Previous"/> -->
 								<header id="left_header">
-									<span id="span_dd_select" class="like_select">
-										<xsl:call-template name="div_select_build">
-											<xsl:with-param name="html_div_class"
-												select="'main_dd_select'"/>
-										</xsl:call-template>
-									</span>
-									<span id="span_ee_select-add" class="like_select">
-										<xsl:call-template name="div_select_build">
-											<xsl:with-param name="html_div_class"
-												select="'main_ee_select'"/>
-										</xsl:call-template>
-									</span>
-									<div id="image_menu">
-										<span class="imageTopTool" id="switchMag" value="mag" onclick="magOn()">
-											<span>Magnifier</span>
-											<i class="fa fa-search-plus"></i>
+									<i class="fa fa-times-circle closeFullScreen" onclick="closeFullScreenLeft();"></i>
+									<div id="left_menu">
+										<span id="span_dd_select" class="like_select">
+											<xsl:call-template name="div_select_build">
+												<xsl:with-param name="html_div_class"
+													select="'main_dd_select'"/>
+											</xsl:call-template>
 										</span>
-										<p class="imageTopTool" id="switchHS" value="mag" onclick="switchHS()">
-											<span>HotSpot</span>
-											<i class="fa fa-dot-circle-o"></i>
-										</p>
-										<span class="imageTopTool" id="switchITL" value="turn ITL on" title="Image text link" onclick="switchIMT()">
-											<span>ITL</span>
-											<i class="fa fa-chain-broken"></i>
+										<span id="span_ee_select-add" class="like_select">
+											<xsl:call-template name="div_select_build">
+												<xsl:with-param name="html_div_class"
+													select="'main_ee_select'"/>
+											</xsl:call-template>
 										</span>
-										<p id="thumb_elem">
-											<a href="javascript:void(0);" id="thumb_link"><i class="fa fa-th"></i></a>
-										</p>
+										<div id="image_menu">
+											<span class="imageTopTool" id="switchMag" value="mag" onclick="magOn()">
+												<span>Magnifier</span>
+												<i class="fa fa-search-plus"></i>
+											</span>
+											<p class="imageTopTool" id="switchHS" value="mag" onclick="switchHS()">
+												<span>HotSpot</span>
+												<i class="fa fa-dot-circle-o"></i>
+											</p>
+											<span class="imageTopTool" id="switchITL" value="turn ITL on" title="Image text link" onclick="switchIMT()">
+												<span>ITL</span>
+												<i class="fa fa-chain-broken"></i>
+											</span>
+											<p id="thumb_elem">
+												<a href="javascript:void(0);" id="thumb_link"><i class="fa fa-th"></i></a>
+											</p>
+										</div>
 										<!--<input type="image" src="images/zoom.png" id="switchZoom" class="top_image_tools" value="zoom" onclick="zoomOn()"/>-->
 										<!--<input type="image" src="images/magOff.png" id="switchMag" class="top_image_tools" value="mag" onclick="magOn()"/>-->
 										<!--<input type="image" src="images/ITLoff.png" id="switchITL" class="top_image_tools" value="turn ITL on" title="Image text link" onclick="switchIMT()"/>-->
@@ -342,12 +346,13 @@
 										<a href="javascript:void(0);" id="search_link"><i class="fa fa-search"></i></a>
 									</p>
 								</div>
+								<i class="fa fa-times-circle closeFullScreen" onclick="closeFullScreenRight();"></i>
 							</header>
 							<div id="text_cont">
 								<div id="text_elem"/>
 							</div>
 						</div>
-						<i class="fa fa-angle-up go-full-right" onclick="fullScreenRight();"></i>
+						<i class="fa fa-angle-up go-full-right" onclick="goFullScreenRight();"></i>
 					</section>
 					<section id="central_button">
 						<div id="edval">
