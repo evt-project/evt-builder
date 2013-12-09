@@ -255,8 +255,10 @@
 									</div>
 								</header>
 								<div id="image_cont">
-									<div id="image_elem">
-										<!--<img id="iviewerImage" src="images/null.jpg" />-->
+									<div id="image_fade">
+										<div id="image_elem">
+											<!--<img id="iviewerImage" src="images/null.jpg" />-->
+										</div>
 									</div>
 									<div id="mag_image_elem"></div>
 									
