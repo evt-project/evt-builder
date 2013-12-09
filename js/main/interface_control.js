@@ -316,8 +316,8 @@ $( function() {
 			} else {
 				// IT: Aggiorna le informazioni all'interno dell'etichetta destra	
 				$('#zval>span')
-					.hide()
-					.fadeIn(200);			
+					.fadeOut(100)
+					.fadeIn(100);			
 			}
 			
 			// IT: Aggiorna le informazioni all'interno delle etichette			
