@@ -22,8 +22,9 @@ $( function() {
 		   mousewheel: true,
 		   onMouseMove: function(ev, coords) {clickTrue(); },
 		   onFinishLoad: function(ev, src) {
-		   									if ($('#switchITL i ').hasClass('fa-chain')){Initialize();} //Add by JK for ITL
-		                                    //if ($("#switchHS i").hasClass('?HS')){InitializeHS();} //Add by JK for HS
+		   									$("#iviewerImage").fadeIn(200);
+		   									if ($('#switchITL i').hasClass('fa-chain')){Initialize();} //Add by JK for ITL
+		                                    if ($("#switchHS i").hasClass('fa fa-dot-circle-o')){InitializeHS();} //Add by JK for HS
 		                                    
 		                                    $.ajax({
                                                     url: 'data/input_data/images/'+location.hash.replace( /^#/, '' )+'_big.jpg',
@@ -45,11 +46,11 @@ $( function() {
 											$("#mag_image_elem").empty();
 											$('#image_fade').fadeIn(400);
 											setTimeout(function (){
-									            iv1.iviewer('fit');
+									            //iv1.iviewer('fit');
 									         }, 320);
 		                                    ;}, 
 		  // onStartDrag: function(ev, coords) { return false; }, //this image will not be dragged
-		   onAfterZoom: function(ev, zoom) {if ($('#switchITL i ').hasClass('fa-chain')){ReInitialize();}; //Add by JK for ITL
+		   onAfterZoom: function(ev, zoom) {if ($('#switchITL i').hasClass('fa-chain')){ReInitialize();}; //Add by JK for ITL
 		                                    if ($("#switchHS i").hasClass('fa fa-dot-circle-o')){ReInitializeHS();}; //Add by JK for HS
 		                                    $( "#slider" ).slider( "option", "value", iv1.iviewer('info', 'zoom') );
 		                                   },
@@ -65,15 +66,15 @@ $( function() {
         }
         function clickTrue(){
         //Add by JK for ITL
-            if(((ITLon == true)&&(click == false))||((InitializingHS == false)&&(click == false))){
+            if(((ITLon == true)&&(click == false))||((HSon == true)&&(click == false))){
                 click = true;
             }
         }
         
 	   $("#zoom_in").click(function(){ iv1.iviewer('zoom_by', 1); }); 
 	   $("#zoom_out").click(function(){ iv1.iviewer('zoom_by', -1); }); 
-	   $("#zoom_fit").click(function(){ iv1.iviewer('fit'); ReInitialize(); }); 
-	   $("#zoom_orig").click(function(){ iv1.iviewer('set_zoom', 100); ReInitialize(); }); 
+	   $("#zoom_fit").click(function(){ iv1.iviewer('fit'); ReInitialize(); ReInitializeHS(); }); 
+	   $("#zoom_orig").click(function(){ iv1.iviewer('set_zoom', 100); ReInitialize(); ReInitializeHS();}); 
 	   $("#zoom_update").click(function(){ iv1.iviewer('update_container_info'); });
 	  
 	  /*$('select[name=" "]').change( function() {
