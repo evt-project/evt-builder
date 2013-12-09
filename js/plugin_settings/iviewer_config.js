@@ -21,7 +21,6 @@ $( function() {
 		   mousewheel: true,
 		   onMouseMove: function(ev, coords) {clickTrue(); },
 		   onFinishLoad: function(ev, src) {
-		   									$("#iviewerImage").fadeIn(200);
 		   									if ($('#switchITL i ').hasClass('fa-chain')){Initialize();} //Add by JK for ITL
 		                                    //if ($("#switchHS i").hasClass('?HS')){InitializeHS();} //Add by JK for HS
 		                                    
