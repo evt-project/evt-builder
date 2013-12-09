@@ -56,6 +56,7 @@ function magOn(){
         //  document.getElementById("switchZoom").setAttribute('src','images/zoom.png');
         //document.getElementById("switchMag").setAttribute('src','images/magOff.png');
         $('#switchMag').removeClass('active');//Add by CDP for FA
+        enableITLbutton();//Add by CDP
         //document.getElementById("switchITL").setAttribute('src','images/ITLoff.png');//Add by JK for ITL
         magnifierON = false;
     }
