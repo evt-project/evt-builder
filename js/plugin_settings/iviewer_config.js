@@ -87,17 +87,19 @@ $( function() {
 			$("#iviewerImage").attr("src", "images/null.jpg");
 			*/	
 			//iv1.iviewer('loadImage', "data/input_data/images/"+$(this).text()+".jpg");
-
-			var lval = "data/input_data/images/"+$(this).text()+".jpg";
-			$('#iviewerImage').fadeOut(200, function(){
+			//$('#iviewerImage').fadeOut(800);
+			iv1.iviewer('fit');
+			iv1.iviewer('loadImage', "data/input_data/images/"+$(this).text()+".jpg");
+			//var lval = "data/input_data/images/"+$(this).text()+".jpg";
+			//$('#iviewerImage').fadeOut(200, function(){
 				// inserire qui il loading
 	      		/*$(this).attr('src',lval).bind('onreadystatechange load', function(){
 	      			iv1.iviewer('fit');
 					if (this.complete) 
 						
       			});*/
-				iv1.iviewer('loadImage', lval);
-	   		});
+			//	iv1.iviewer('loadImage', lval);
+	   		//});
 
 
 		});
