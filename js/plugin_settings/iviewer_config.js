@@ -79,39 +79,13 @@ $( function() {
 	
 		
 		$(".main_pp_select .label_selected").on('change',function(){
-			/*iv1.iviewer('fit');
-			$("#image_elem").css({opacity:0});
-			iv1.iviewer('loadImage', "data/input_data/images/"+$(this).text()+".jpg");	//SISTEMARE: rimuovere central_page_number		
-			$("#image_elem").animate({opacity:1});
-
-			$("#iviewerImage").attr("src", "images/null.jpg");
-			*/	
-			//iv1.iviewer('loadImage', "data/input_data/images/"+$(this).text()+".jpg");
-			//$('#iviewerImage').fadeOut(800);
 			iv1.iviewer('fit');
 			iv1.iviewer('loadImage', "data/input_data/images/"+$(this).text()+".jpg");
-			//var lval = "data/input_data/images/"+$(this).text()+".jpg";
-			//$('#iviewerImage').fadeOut(200, function(){
-				// inserire qui il loading
-	      		/*$(this).attr('src',lval).bind('onreadystatechange load', function(){
-	      			iv1.iviewer('fit');
-					if (this.complete) 
-						
-      			});*/
-			//	iv1.iviewer('loadImage', lval);
-	   		//});
-
-
 		});
 
 		$(".main_dd_select .label_selected").on('change',function(){
-		    //iv1.iviewer('fit');
-			//iv1.iviewer('loadImage', "data/input_data/images/double/"+$(this).text()+".jpg");
-
-			var lval = "data/input_data/images/double/"+$(this).text()+".jpg";
-			$('#iviewerImage').fadeOut(200, function(){
-				iv1.iviewer('loadImage', lval);
-	   		});
+		    iv1.iviewer('fit');
+			iv1.iviewer('loadImage', "data/input_data/images/double/"+$(this).text()+".jpg");
 		});	
 		
 

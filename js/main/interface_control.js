@@ -240,7 +240,6 @@ $( function() {
 			/* HASH CHANGE - ba.bbq plugin */
 				// IT: Associa un evento a windows.onhashchange; quando l'hash cambia, ottiene il suo valore per usarlo in diverse funzioni
 				$(window).hashchange( function(){
-					$('#iviewerImage').fadeOut(200, function(){
 					var hash = location.hash;
 					var current_page = hash.replace( /^#/, '' );
 					//var checkpp = $(xml).find('text pb:contains('+current_page+')').text();
@@ -260,7 +259,7 @@ $( function() {
 							else
 								window.location.hash=$(".main_pp_select .label_selected").text();
 						}
-					} });
+					}
 					// IT: Cambia il titolo della pagina in base all'hash
 					//document.title = 'The hash is ' + ( hash.replace( /^#/, '' ) || 'blank' ) + '.';
 				})
