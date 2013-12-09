@@ -58,7 +58,7 @@ var ViewWidth;
 var WindowHeight;
 var Ratio;
 var click;
-var Initializing = true;
+var ITLon = false;
 var SelectedArea = null;
 
 
@@ -84,8 +84,8 @@ var InitializingHS = true;
 var SelectedAreaHS = null;
 
 function Initialize(){
-    if (Initializing == true){
-    //alert("inizialize")
+    //alert("inizialize");
+    if (ITLon == false){
 /* Populate three handy lists with pointers to the menu items, areas and Anns. */
     HeightOffset = parseInt(document.getElementById('iviewerImage').offsetTop);
     ImgLeft = parseInt(document.getElementById('iviewerImage').offsetLeft);
@@ -186,15 +186,15 @@ function Initialize(){
         window.onresize = SetAnnMenuHeight;
     }*/    
     
-    Initializing = false;
-    if (SelectedArea){ShowAnn(SelectedArea.replace('Area_','')); SelectedArea == null;}
+    ITLon = true;
+    if (SelectedArea){JumpTo(SelectedArea.replace('Area_','')); SelectedArea == null;}
     }
 }
 
 /*ADD BY JK: */
 function ReInitialize(){
     //alert("ReInitialize()");
-    if (Initializing == false){
+    if (ITLon == true){
         newImgTop = parseInt(document.getElementById('iviewerImage').offsetTop) +parseInt($('#iviewerImage').css('padding-top')) + parseInt($('#iviewerImage').css('margin-top'));
         newImgLeft = parseInt(document.getElementById('iviewerImage').offsetLeft);    
         var newRatio = $("#iviewerImage").width()/1200;
@@ -215,7 +215,7 @@ function ReInitialize(){
 }
 
 function UnInitialize(keep){
-	if (Initializing == false){
+	if (ITLon == true){
 	//alert("UnInitialize");
 	keep = keep | false;
 	
@@ -255,12 +255,12 @@ function UnInitialize(keep){
     imgTop = 0;
 	ViewWidth=0;
 	WindowHeight=0;
-	Initializing = true;
+	ITLon = false;
     }
 }
 
 function moveAreas(){
-    if (Initializing == false){
+    if (ITLon == true){
         newImgTop = parseInt(document.getElementById('iviewerImage').offsetTop) +parseInt($('#iviewerImage').css('padding-top')) + parseInt($('#iviewerImage').css('margin-top'));
         newImgLeft = parseInt(document.getElementById('iviewerImage').offsetLeft);
         var NList = document.getElementsByTagName('div')
@@ -277,7 +277,7 @@ function moveAreas(){
 
 function switchIMT(){
     if ((magnifierON==true)&&(bigImage==true)){}
-	else if (Initializing == true){
+	else if (ITLon == false){
 	   Initialize();
 	   //document.getElementById("switchITL").setAttribute('src','images/ITLon.png');//Add by JK for ITL
      //$('#switchITL i').removeClass('fa-chain-broken').addClass('fa-chain');//Add by CDP for FA
@@ -305,7 +305,7 @@ function InitializeHS(){
     marginTopHS = parseInt($("#iviewerImage").css('margin-top'));
     imgTopHS = HeightOffsetHS + paddingTopHS + marginTopHS;
     
-    document.getElementById("switchHS").setAttribute('src','images/HSon.png');
+    if($('#switchHS i ').hasClass('fa fa-circle-o')){$('#switchHS i ').removeClass('fa fa-circle-o').addClass('fa fa-dot-circle-o');}
 
     ratio = $("#iviewerImage").width()/1200;
     Ratio = ratio
@@ -577,11 +577,10 @@ function switchHS(){
     if ((magnifierON==true)&&(bigImage==true)){}
 	else if (InitializingHS == true){
 	   InitializeHS();
-	   document.getElementById("switchHS").setAttribute('src','images/HSon.png');//Add by JK for ITL
     }
 	else {
 	   UnInitializeHS();
-	   document.getElementById("switchHS").setAttribute('src','images/HSoff.png');
+	   $('#switchHS i ').removeClass('fa fa-dot-circle-o').addClass('fa fa-circle-o'); //Add for FA
 	}
 }
     
@@ -626,7 +625,7 @@ function UnHighlight(){
 }
 
 function Deselect(){
-    if (Initializing == true){return;}
+    if (ITLon == false){return;}
     
 /* Deselect the currently-selected elements  */
      for (var i=0; i<Areas.length; i++){
@@ -647,7 +646,7 @@ function Deselect(){
 }
 
 function Highlight(ItemId){
-    if (Initializing == true){return;}
+    if (ITLon == false){return;}
     UnHighlight();
     
     var El = document.getElementById('Area_' + ItemId);
@@ -686,7 +685,7 @@ counterpart areas in the image are moused-over. */
 // #3 Serve per aprire e chiudere la cetegoria quando clicco sul titolo della cat
 
 function JumpTo(ItemId){
-	if (Initializing == true){return;}
+	if (ITLon == false){return;}
 	Deselect();
     
     var TheArea = document.getElementById('Area_' + ItemId);
