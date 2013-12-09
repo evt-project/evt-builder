@@ -45,7 +45,7 @@ $( function() {
 											$("#mag_image_elem").empty();
 											$('#image_fade').fadeIn(400);
 											setTimeout(function (){
-									            iv1.iviewer('fit');
+									            //iv1.iviewer('fit');
 									         }, 320);
 		                                    ;}, 
 		  // onStartDrag: function(ev, coords) { return false; }, //this image will not be dragged

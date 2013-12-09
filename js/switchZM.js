@@ -42,7 +42,7 @@ function magOn(){
         /*IT: rendo visibile il div del magnifier e invisibile quello dello zoom*/
         $("#mag_image_elem").css({'display':'block'});
 
-        $("#image_elem, #image_tool").css({'display':'none'});
+        $("#image_elem, #image_tool, #image_fade").css({'display':'none'});
         //$('#image_tool').addClass('menuClosed'); //Add by CDP per gestire la scomparsa del menu
         //document.getElementById("switchZoom").setAttribute('src','images/zoomOff.png');
         //document.getElementById("switchMag").setAttribute('src','images/mag.png');
@@ -52,7 +52,7 @@ function magOn(){
         magnifierON = true;
     } else {
         /*IT: rendo visibile il div dello dello zoom e invisibile quello del magnifier*/
-        $("#image_elem").css({"display" : "block",    "overflow": "hidden" });
+        $("#image_elem, #image_fade").css({"display" : "block",    "overflow": "hidden" });
         if(!$('#image_tool').hasClass('menuClosed')) $("#image_tool").css({"display" : "block",    "overflow": "hidden"}); //Add by CDP per gestire la scomparsa del menu
         $("#mag_image_elem").css({'display':'none'});
         //  document.getElementById("switchZoom").setAttribute('src','images/zoom.png');
@@ -94,7 +94,7 @@ function zoomOn(){
         document.getElementById("switchZoom").setAttribute('src','images/zoom.png');
         //document.getElementById("switchMag").setAttribute('src','images/magOff.png');
         $('#switchMag').removeClass('active');//Add by CDP for FA
-        $("#image_elem, #image_tool").show();
+        $("#image_elem, #image_tool, #image_fade").show();
         //document.getElementById("switchITL").setAttribute('src','images/ITLoff.png');//Add by JK for ITL
         $('#switchITL').removeClass('inactive'); //Add by CDP for FA
         magnifierON = false;
@@ -105,7 +105,7 @@ function chooseZoomMag(){
     if ((magnifierON==true)&&(bigImage==true)){
         //alert("MAg");
         /*IT: rendo visibile il div del magnifier e invisibile quello dello zoom*/
-        $("#image_elem, #image_tool").css('display','none');
+        $("#image_elem, #image_tool, #image_fade").css('display','none');
         $("#mag_image_elem").css({'display':'block'});
         // document.getElementById("switchZoom").setAttribute('src','images/zoomOff.png');
         //document.getElementById("switchMag").setAttribute('src','images/mag.png');
