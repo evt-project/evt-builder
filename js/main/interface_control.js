@@ -460,8 +460,8 @@ $( function() {
 		$("#thumb_link").click(function(){				
 			if (magnifierON==false){  //modalità zoom attivo JK
                 if($("#image_elem").css('display')=="none"){
-				    $("#image_elem").fadeIn(800);
-				    $("#image_tool").fadeIn(800);
+				    $("#image_elem").fadeIn(900);
+				    $("#image_tool").fadeIn(900);
 				    $("#thumb_cont").hide();
 			    } else{
 				    $("#image_elem").hide();

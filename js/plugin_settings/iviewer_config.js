@@ -13,6 +13,7 @@
  **/
 
 $( function() {
+	 var firstload = true;
 	 var cpns="data/input_data/images/"+location.hash.replace( /^#/, '' )+".jpg";
 	 var iv1 = $("#image_elem").iviewer({
 		   src: cpns, 
@@ -80,13 +81,36 @@ $( function() {
 		});*/
 	
 		$(".main_pp_select .label_selected").on('change',function(){
-			//$('#iviewerImage').fadeOut(300);
+			//iv1.iviewer('fit');
 			//iv1.iviewer('loadImage', "data/input_data/images/"+$(this).text()+".jpg");
+			
+
+			//$("#image_elem").empty();
+			if (firstload){
+				iv1.iviewer('loadImage', "data/input_data/images/"+$(this).text()+".jpg");
+				firstload = false;
+			}
+			else {
+			var curr_src = "data/input_data/images/"+$(this).text()+".jpg";
+			$('#iviewerImage').fadeOut(300, function(){
+			$(this).attr('src', curr_src).bind('onreadystatechange load', function(){
+			         if (this.complete){ 
+			         	iv1.iviewer('fit');
+			         	$(this).fadeIn(400);
+			         }
+				});
+			});
+			}
+
+
+			/* opz1
 			$("#iviewerImage").empty();
 			var curr_src = "data/input_data/images/"+$(this).text()+".jpg";
-			$('#iviewerImage').fadeOut(600, function(){
+			//$('#iviewerImage').fadeOut(600, function(){
+			$('#iviewerImage').fadeOut(600);				
 				iv1.iviewer('loadImage', curr_src);
-			});
+			//});
+			*/
 		});
 
 		$(".main_dd_select .label_selected").on('change',function(){
