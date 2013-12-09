@@ -34,7 +34,7 @@ $( function() {
                                                     },
                                                     error: function(data){
                                                         $("#switchMag").attr("title", "no big image");
-                                                        $("#switchMag").removeAttr("onclick").addClass('inactive');
+                                                        $("#switchMag").removeAttr("onclick").removeClass('active').addClass('inactive');
                                                         bigImage=false;
                                                         //if ($('#switchITL').hasClass('inactive')){$('#switchITL i ').removeClass('fa-chain').addClass('fa-chain-broken');}//Add by JK for ITL
                                                         //if ($("#switchHS").hasClass('inactive')){$("#switchHS i").removeClass('fa-chain').addClass('fa-chain-broken');}//Add by JK for HS
@@ -64,7 +64,7 @@ $( function() {
         }
         function clickTrue(){
         //Add by JK for ITL
-            if(((Initializing == false)&&(click == false))||((InitializingHS == false)&&(click == false))){
+            if(((ITLon == true)&&(click == false))||((InitializingHS == false)&&(click == false))){
                 click = true;
             }
         }
