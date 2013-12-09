@@ -112,6 +112,19 @@ footer{
 	height: 500px;
 }*/
 
+.mainHeaderimg{
+	width:67px;
+	opacity: 0.5;
+}
+
+.mainHeaderimg:hover, .current_mode .mainHeaderimg{
+	opacity: 1;
+}
+
+#imgd_link .mainHeaderimg{
+	width: 55px;
+} 
+
 #global_wrapper {
 	#border: 3px solid yellow;
 	min-width: 1024px;
@@ -1293,7 +1306,7 @@ overflow-x: hidden;
 /* Top Menu Wave */
 div.concave {
     background: transparent;
-	width: 300px;
+	width: 325px;
 	position: absolute;
 	right: 0px;
 	top: 11px;
@@ -1301,7 +1314,7 @@ div.concave {
 
 div.extTop{
 	background: #3c322c;
-	width: 300px;
+	width: 325px;
 	height: 25px;
 	position: relative;
 }
@@ -1322,8 +1335,8 @@ div.topleftconcave {
 div.botleftconcave {
 	position: absolute;
 	background: #3c322c;
-	width: 275px;
-	height: 18px;
+	width: 300px;
+	height: 24px;
 	top: 21px;
 	left: 25px;
 	border-bottom-left-radius: 60px 60px;
