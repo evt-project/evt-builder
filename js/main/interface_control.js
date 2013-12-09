@@ -762,7 +762,7 @@ function updateSelectLength(elem){
 function collapseHeader(){
 	if (magnifierON==false) $('#image_tool').slideToggle().toggleClass('menuClosed');
 	$('#left_header').toggle('blind').toggleClass('menuClosed');
-	
+	$('.go-full-right').toggleClass('onWhite');
 	if($('#left_header').hasClass('menuClosed')){
 		noMenu_height = $('#image_cont').height()+50;
 		$('#image_cont').animate({
