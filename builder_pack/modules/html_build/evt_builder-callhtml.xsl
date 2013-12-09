@@ -202,9 +202,9 @@
 						<i class="fa fa-caret-up" id="header_collapse" onclick="collapseHeader();"></i>
 						<div id="main_left_arrow" onclick="UnInitialize()" title="Previous"/>
 						<div id="main_right_arrow" title="Next"/>
-						<i class="fa fa-external-link-square go-full-left" onclick="goFullScreenLeft();"></i>
 						<xsl:if test="$image_frame=true()">
 							<div id="main_left_frame">
+								<i class="fa fa-caret-up go-full-left" onclick="goFullScreenLeft();"></i>
 								<!--
 								<div id="main_left_menu">
 									<a href="javascript:void(0);" id="main_left_menu-openlink"
@@ -315,6 +315,7 @@
 						
 						
 						<div id="{$id_right_frame}">
+							<i class="fa fa-caret-up go-full-right" onclick="goFullScreenRight();"></i>
 							<!--
 							<div id="main_right_menu">
 								<a href="javascript:void(0);" id="main_right_menu-openlink"
@@ -354,7 +355,6 @@
 								<div id="text_elem"/>
 							</div>
 						</div>
-						<i class="fa fa-external-link-square go-full-right" onclick="goFullScreenRight();"></i>
 					</section>
 					<section id="central_button">
 						<div id="edval">
