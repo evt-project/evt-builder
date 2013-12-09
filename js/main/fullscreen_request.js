@@ -100,7 +100,7 @@
 })();
 
 function goFullScreenLeft(){
-			if($('.menuClosed')) collapseHeader();
+			if($('#header_collapse').hasClass('fa-caret-down')) collapseHeader();
 			$('#header_collapse').toggle();
 			$("#main_left_frame").toggleClass("full");
 			var height_full = ($(window).height() > $("body").height()) ? $(window).height()-4 : $("body").height();
@@ -192,7 +192,7 @@ function closeFullScreenLeft(){
 }
 
 function goFullScreenRight(){
-	if($('.menuClosed')) collapseHeader();
+	if($('#header_collapse').hasClass('fa-caret-down')) collapseHeader();
 	$('#header_collapse').toggle();
 	if ($.browser.webkit) {
 		var height_full = ($(window).height() > $("body").height()) ? $(window).height()-4 : $("body").height();
