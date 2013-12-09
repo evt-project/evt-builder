@@ -35,9 +35,14 @@ function magOn(){
     if (magnifierON==false){
         /*IT: Se il collegamento testo immagine è attivo, lo disattivo*/
         if (ITLon == true){
-            UnInitialize();//Add by JK for ITL
-		    //document.getElementById("switchITL").setAttribute('src','images/ITLoff.png');//Add by JK for ITL
-            $('#switchITL').removeClass('inactive'); //Add by CDP for FA
+            UnInitialize(); //Add by JK for ITL
+            $('#switchITL i').removeClass('fa-chain').addClass('fa-chain-broken');
+            //$('#switchITL').removeClass('inactive'); //Add by CDP for FA
+		}
+		/*IT: Se gli HotSpot sono attivi, li disattivo*/
+        if (HSon == true){
+            UnInitializeHS();   //Add by JK for HS
+            $('#switchHS i').removeClass('fa fa-dot-circle-o').addClass('fa fa-dot-circle-o');
 		}
         /*IT: rendo visibile il div del magnifier e invisibile quello dello zoom*/
         $("#mag_image_elem").css({'display':'block'});
@@ -47,8 +52,9 @@ function magOn(){
         //document.getElementById("switchZoom").setAttribute('src','images/zoomOff.png');
         //document.getElementById("switchMag").setAttribute('src','images/mag.png');
         $('#switchMag').addClass('active');//Add by CDP for FA
-        $('#switchITL').removeClass('inactive');//Add by CDP for FA
+        //$('#switchITL').removeClass('inactive');//Add by CDP for FA
         disableITLbutton();
+        disableHSbutton();
         magnifierON = true;
     } else {
         /*IT: rendo visibile il div dello dello zoom e invisibile quello del magnifier*/
@@ -58,8 +64,8 @@ function magOn(){
         //  document.getElementById("switchZoom").setAttribute('src','images/zoom.png');
         //document.getElementById("switchMag").setAttribute('src','images/magOff.png');
         $('#switchMag').removeClass('active');//Add by CDP for FA
-        enableITLbutton();//Add by CDP
-        //document.getElementById("switchITL").setAttribute('src','images/ITLoff.png');//Add by JK for ITL
+        if(areaInThisPage){enableITLbutton();}
+        if(areaHSInThisPage){enableHSbutton();}
         magnifierON = false;
     }
 }
@@ -79,16 +85,15 @@ function disableHSbutton(){
     //document.getElementById("switchITL").setAttribute('src','images/ITLdis.png');//Add by JK for ITL
     $('#switchHS').addClass('inactive');//Add by CDP for FA
     $('#switchHS').removeAttr("onclick");
-    $('#switchHS i').removeClass('fa fa-dot-circle-o').addClass('fa fa-dot-circle-o'); //Add by CDP for FA
+    //$('#switchHS i').removeClass('fa fa-dot-circle-o').addClass('fa fa-dot-circle-o'); //Add by CDP for FA
 }
 function enableHSbutton(){
     $('#switchHS').removeClass('inactive');
     $('#switchHS').attr('onclick',  'switchHS()');
 }
 
-function zoomOn(){
+/*function zoomOn(){
     if (magnifierON==true){
-        /*IT: rendo visibile il div dello dello zoom e invisibile quello del magnifier*/
         $("#image_elem").css({"display" : "block",    "overflow": "hidden" });
         document.getElementById("mag_image_elem").setAttribute('style', 'display:none;');
         document.getElementById("switchZoom").setAttribute('src','images/zoom.png');
@@ -99,11 +104,10 @@ function zoomOn(){
         $('#switchITL').removeClass('inactive'); //Add by CDP for FA
         magnifierON = false;
     }
-}
+}*/
 
 function chooseZoomMag(){   
     if ((magnifierON==true)&&(bigImage==true)){
-        //alert("MAg");
         /*IT: rendo visibile il div del magnifier e invisibile quello dello zoom*/
         $("#image_elem, #image_tool, #image_fade").css('display','none');
         $("#mag_image_elem").css({'display':'block'});
