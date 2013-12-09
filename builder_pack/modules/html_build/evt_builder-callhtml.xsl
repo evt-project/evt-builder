@@ -202,7 +202,7 @@
 						<i class="fa fa-caret-up" id="header_collapse" onclick="collapseHeader();"></i>
 						<div id="main_left_arrow" onclick="UnInitialize()" title="Previous"/>
 						<div id="main_right_arrow" title="Next"/>
-						<i class="fa fa-expand go-full-left" onclick="goFullScreenLeft();"></i>
+						<i class="fa fa-external-link-square go-full-left" onclick="goFullScreenLeft();"></i>
 						<xsl:if test="$image_frame=true()">
 							<div id="main_left_frame">
 								<!--
@@ -352,7 +352,7 @@
 								<div id="text_elem"/>
 							</div>
 						</div>
-						<i class="fa fa-expand go-full-right" onclick="goFullScreenRight();"></i>
+						<i class="fa fa-external-link-square go-full-right" onclick="goFullScreenRight();"></i>
 					</section>
 					<section id="central_button">
 						<div id="edval">

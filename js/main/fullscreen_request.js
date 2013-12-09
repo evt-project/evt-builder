@@ -195,6 +195,7 @@ function goFullScreenRight(){
     if (ITLon){UnInitialize();} //Add by JK for ITL
 	if($('#header_collapse').hasClass('fa-caret-down')) collapseHeader();
 	$('#header_collapse').toggle();
+	// Gestione del full screen per browser webkit
 	if ($.browser.webkit) {
 		var height_full = ($(window).height() > $("body").height()) ? $(window).height()-4 : $("body").height();
 		var width_full = ($(window).width()>$("#global_wrapper").width()) ? $(window).width()-4 : $("#global_wrapper").width()-4;
@@ -239,6 +240,7 @@ function goFullScreenRight(){
 
 function closeFullScreenRight(){
     if ($('#switchITL i ').hasClass('fa-chain')){Initialize();} //Add by JK for ITL
+    // Gestione del full screen per browser webkit
 	if ($.browser.webkit) {
 		var widthLeft = $('#main_left_frame').width()-4;
 		$('#main_right_frame').animate({
