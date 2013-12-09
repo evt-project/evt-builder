@@ -529,7 +529,7 @@ footer{
     overflow: auto;
 }
 
-#image_elem {  
+#image_elem, #image_fade {  
 	height:100%;
 	/*margin-top: -15.6px;
 	background:#f95000;*/

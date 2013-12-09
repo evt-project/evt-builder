@@ -326,6 +326,7 @@ $( function() {
 			// IT: Se ci si trova nella modalit Thumb, chiude la schermata e visualizza l'immagine
 			if($("#image_elem").css('display')=="none"){
 				$("#image_elem").show();
+				$("#image_fade").show();
 				$("#image_tool").show();
 				$("#thumb_cont").hide();
 			}			
@@ -460,11 +461,13 @@ $( function() {
 		$("#thumb_link").click(function(){				
 			if (magnifierON==false){  //modalità zoom attivo JK
                 if($("#image_elem").css('display')=="none"){
-				    $("#image_elem").fadeIn(900);
-				    $("#image_tool").fadeIn(900);
+				    $("#image_elem").show();
+				    $("#image_fade").show();
+				    $("#image_tool").show();
 				    $("#thumb_cont").hide();
 			    } else{
 				    $("#image_elem").hide();
+				    $("#image_fade").hide();
 				    $("#image_tool").hide();
 				    $("#thumb_cont").show();
 				}
