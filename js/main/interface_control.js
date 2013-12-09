@@ -304,9 +304,9 @@ $( function() {
 					.fadeIn(200);	
 			} else {
 				// IT: Aggiorna le informazioni all'interno dell'etichetta destra	
-				$('#zval>span')
+				/*$('#zval>span')
 					.fadeOut(100)
-					.fadeIn(100);			
+					.fadeIn(100);*/
 			}
 			
 			// IT: Aggiorna le informazioni all'interno delle etichette			
@@ -460,8 +460,8 @@ $( function() {
 		$("#thumb_link").click(function(){				
 			if (magnifierON==false){  //modalità zoom attivo JK
                 if($("#image_elem").css('display')=="none"){
-				    $("#image_elem").show();
-				    $("#image_tool").show();
+				    $("#image_elem").fadeIn(800);
+				    $("#image_tool").fadeIn(800);
 				    $("#thumb_cont").hide();
 			    } else{
 				    $("#image_elem").hide();

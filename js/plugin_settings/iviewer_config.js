@@ -41,8 +41,11 @@ $( function() {
                                                         chooseZoomMag();
                                                     }
                                                 }); //Add by JK for Mag
-
-											$("#iviewerImage").fadeIn(600);
+											$("#mag_image_elem").empty();
+											$('#iviewerImage').fadeIn(300);
+											setTimeout(function (){
+									            iv1.iviewer('fit');
+									         }, 320);
 		                                    ;}, 
 		  // onStartDrag: function(ev, coords) { return false; }, //this image will not be dragged
 		   onAfterZoom: function(ev, zoom) {if ($('#switchITL i ').hasClass('fa-chain')){ReInitialize();}; //Add by JK for ITL
@@ -76,10 +79,14 @@ $( function() {
 			iv1.iviewer('loadImage', document.getElementById('slideshow-image').getAttribute('src'));
 		});*/
 	
-		
 		$(".main_pp_select .label_selected").on('change',function(){
-			iv1.iviewer('fit');
-			iv1.iviewer('loadImage', "data/input_data/images/"+$(this).text()+".jpg");
+			//$('#iviewerImage').fadeOut(300);
+			//iv1.iviewer('loadImage', "data/input_data/images/"+$(this).text()+".jpg");
+			$("#iviewerImage").empty();
+			var curr_src = "data/input_data/images/"+$(this).text()+".jpg";
+			$('#iviewerImage').fadeOut(300, function(){
+				iv1.iviewer('loadImage', curr_src);
+			});
 		});
 
 		$(".main_dd_select .label_selected").on('change',function(){
@@ -102,7 +109,10 @@ $( function() {
 		  $("#slider").slider("option", "value", iv1.iviewer('info', 'zoom'));
 		});
 		function showValue(event, ui) {
-		  $("#val").html(iv1.iviewer('info', 'zoom'));
+		  var curr_val = iv1.iviewer('info', 'zoom');
+		  //if (curr_val>25 && curr_val<140)
+		  $("#val").html(curr_val.toFixed());
+		  //console.log(iv1.iviewer('info', 'zoom'));
 		  iv1.iviewer('set_zoom', ui.value);
 		  
 		  //alert(iv1.iviewer('info', 'zoom'));
