@@ -84,7 +84,7 @@ $( function() {
 			//iv1.iviewer('loadImage', "data/input_data/images/"+$(this).text()+".jpg");
 			$("#iviewerImage").empty();
 			var curr_src = "data/input_data/images/"+$(this).text()+".jpg";
-			$('#iviewerImage').fadeOut(300, function(){
+			$('#iviewerImage').fadeOut(600, function(){
 				iv1.iviewer('loadImage', curr_src);
 			});
 		});
