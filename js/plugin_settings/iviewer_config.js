@@ -20,8 +20,11 @@ $( function() {
 		   zoom_animation: false,
 		   mousewheel: true,
 		   onMouseMove: function(ev, coords) {clickTrue(); },
-		   onFinishLoad: function(ev, src) {if ($('#switchITL i ').hasClass('fa-chain')){Initialize();} //Add by JK for ITL
+		   onFinishLoad: function(ev, src) {
+		   									$("#iviewerImage").fadeIn(200);
+		   									if ($('#switchITL i ').hasClass('fa-chain')){Initialize();} //Add by JK for ITL
 		                                    //if ($("#switchHS i").hasClass('?HS')){InitializeHS();} //Add by JK for HS
+		                                    
 		                                    $.ajax({
                                                     url: 'data/input_data/images/'+location.hash.replace( /^#/, '' )+'_big.jpg',
                                                     success: function(data){
@@ -39,6 +42,8 @@ $( function() {
                                                         chooseZoomMag();
                                                     }
                                                 }); //Add by JK for Mag
+
+											$("#iviewerImage").fadeIn(600);
 		                                    ;}, 
 		  // onStartDrag: function(ev, coords) { return false; }, //this image will not be dragged
 		   onAfterZoom: function(ev, zoom) {if ($('#switchITL i ').hasClass('fa-chain')){ReInitialize();}; //Add by JK for ITL
@@ -71,20 +76,42 @@ $( function() {
 	  /*$('select[name=" "]').change( function() {
 			iv1.iviewer('loadImage', document.getElementById('slideshow-image').getAttribute('src'));
 		});*/
+	
 		
-		//$('#folio_page_number').change(function(){	
 		$(".main_pp_select .label_selected").on('change',function(){
-			iv1.iviewer('fit');
+			/*iv1.iviewer('fit');
 			$("#image_elem").css({opacity:0});
 			iv1.iviewer('loadImage', "data/input_data/images/"+$(this).text()+".jpg");	//SISTEMARE: rimuovere central_page_number		
 			$("#image_elem").animate({opacity:1});
+
+			$("#iviewerImage").attr("src", "images/null.jpg");
+			*/	
+			//iv1.iviewer('loadImage', "data/input_data/images/"+$(this).text()+".jpg");
+
+			var lval = "data/input_data/images/"+$(this).text()+".jpg";
+			$('#iviewerImage').fadeOut(200, function(){
+				// inserire qui il loading
+	      		/*$(this).attr('src',lval).bind('onreadystatechange load', function(){
+	      			iv1.iviewer('fit');
+					if (this.complete) 
+						
+      			});*/
+				iv1.iviewer('loadImage', lval);
+	   		});
+
+
 		});
 
 		$(".main_dd_select .label_selected").on('change',function(){
-		    iv1.iviewer('fit');
-			iv1.iviewer('loadImage', "data/input_data/images/double/"+$(this).text()+".jpg");
-		});	
+		    //iv1.iviewer('fit');
+			//iv1.iviewer('loadImage', "data/input_data/images/double/"+$(this).text()+".jpg");
 
+			var lval = "data/input_data/images/double/"+$(this).text()+".jpg";
+			$('#iviewerImage').fadeOut(200, function(){
+				iv1.iviewer('loadImage', lval);
+	   		});
+		});	
+		
 
 		$("#slider").slider(
 		{
