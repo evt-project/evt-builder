@@ -303,9 +303,9 @@ $( function() {
 					.fadeIn(200);	
 			} else {
 				// IT: Aggiorna le informazioni all'interno dell'etichetta destra	
-				$('#zval>span')
-					.hide()
-					.fadeIn(200);			
+				/*$('#zval>span')
+					.fadeOut(100)
+					.fadeIn(100);*/
 			}
 			
 			// IT: Aggiorna le informazioni all'interno delle etichette			
@@ -325,6 +325,7 @@ $( function() {
 			// IT: Se ci si trova nella modalit Thumb, chiude la schermata e visualizza l'immagine
 			if($("#image_elem").css('display')=="none"){
 				$("#image_elem").show();
+				$("#image_fade").show();
 				$("#image_tool").show();
 				$("#thumb_cont").hide();
 			}			
@@ -460,10 +461,12 @@ $( function() {
 			if (magnifierON==false){  //modalità zoom attivo JK
                 if($("#image_elem").css('display')=="none"){
 				    $("#image_elem").show();
+				    $("#image_fade").show();
 				    $("#image_tool").show();
 				    $("#thumb_cont").hide();
 			    } else{
 				    $("#image_elem").hide();
+				    $("#image_fade").hide();
 				    $("#image_tool").hide();
 				    $("#thumb_cont").show();
 				}
@@ -757,7 +760,7 @@ function updateSelectLength(elem){
 
 // Evento per chiudere e aprire i menu secondari dei box
 function collapseHeader(){
-	$('#image_tool').slideToggle().toggleClass('menuClosed');
+	if (magnifierON==false) $('#image_tool').slideToggle().toggleClass('menuClosed');
 	$('#left_header').toggle('blind').toggleClass('menuClosed');
 	
 	if($('#left_header').hasClass('menuClosed')){

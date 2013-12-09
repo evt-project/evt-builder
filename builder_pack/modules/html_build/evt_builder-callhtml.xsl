@@ -181,13 +181,13 @@
 						<xsl:if test="$image_frame=true()">
 							<div id="mode_switch">
 								<a href="javascript:void(0);" id="txtimg_link" class="current_mode"
-									title="text/image mode"> <img src="images/imgText.png" onmouseover="$(this).attr('src', 'images/imgText-hover.png');" onmouseout="$(this).attr('src', 'images/imgText.png');"/></a>
+									title="text/image mode"> <img src="images/img-txt.png" class="mainHeaderimg"></img></a>
 								<!--<a href="javascript:void(0);" id="imgimg_link" title="image/image mode"> [I|I] </a>-->
 								<a href="javascript:void(0);" id="txttxt_link"
-									title="text/text mode"> <img src="images/textText.png" onmouseover="$(this).attr('src', 'images/textText-hover.png');" onmouseout="$(this).attr('src', 'images/textText.png');"/>  </a>
+									title="text/text mode"> <img src="images/txt-txt.png" class="mainHeaderimg"></img> </a>
 								<xsl:if test="$double_view=true()">
 									<a href="javascript:void(0);" id="imgd_link"
-										title="double mode"> [I] </a>
+										title="double mode"> <img src="images/double-view.png" class="mainHeaderimg"></img> </a>
 								</xsl:if>
 							</div>
 						</xsl:if>
