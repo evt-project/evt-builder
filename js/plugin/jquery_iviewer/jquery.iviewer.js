@@ -599,6 +599,8 @@ $.widget( "ui.iviewer", $.ui.mouse, {
     set_zoom: function(new_zoom, skip_animation, zoom_center)
     {
         //this.fakefit(); //rafmasAgg
+        this._updateContainerInfo(); //rafmasAgg
+
 
         if (this._trigger('onZoom', 0, new_zoom) == false) {
             return;

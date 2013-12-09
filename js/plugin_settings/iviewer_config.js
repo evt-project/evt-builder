@@ -13,6 +13,7 @@
  **/
 
 $( function() {
+	 var firstload = true;
 	 var cpns="data/input_data/images/"+location.hash.replace( /^#/, '' )+".jpg";
 	 var iv1 = $("#image_elem").iviewer({
 		   src: cpns, 
@@ -42,7 +43,7 @@ $( function() {
                                                     }
                                                 }); //Add by JK for Mag
 											$("#mag_image_elem").empty();
-											$('#iviewerImage').fadeIn(300);
+											$('#image_fade').fadeIn(400);
 											setTimeout(function (){
 									            iv1.iviewer('fit');
 									         }, 320);
@@ -80,18 +81,37 @@ $( function() {
 		});*/
 	
 		$(".main_pp_select .label_selected").on('change',function(){
-			//$('#iviewerImage').fadeOut(300);
+			//iv1.iviewer('fit');
 			//iv1.iviewer('loadImage', "data/input_data/images/"+$(this).text()+".jpg");
-			$("#iviewerImage").empty();
-			var curr_src = "data/input_data/images/"+$(this).text()+".jpg";
-			$('#iviewerImage').fadeOut(600, function(){
-				iv1.iviewer('loadImage', curr_src);
-			});
+			
+			if (firstload){
+				iv1.iviewer('loadImage', "data/input_data/images/"+$(this).text()+".jpg");
+				firstload = false;
+			}
+			else {
+				var curr_src = "data/input_data/images/"+$(this).text()+".jpg";
+				$('#image_fade').fadeOut(600, function(){
+				//$('#iviewerImage').fadeOut(600);				
+					iv1.iviewer('loadImage', curr_src);
+				});
+			}
 		});
 
 		$(".main_dd_select .label_selected").on('change',function(){
-		    iv1.iviewer('fit');
-			iv1.iviewer('loadImage', "data/input_data/images/double/"+$(this).text()+".jpg");
+		    //iv1.iviewer('fit');
+			//iv1.iviewer('loadImage', "data/input_data/images/double/"+$(this).text()+".jpg");
+
+			if (firstload){
+				iv1.iviewer('loadImage', "data/input_data/images/double/"+$(this).text()+".jpg");
+				firstload = false;
+			}
+			else {
+				var curr_src = "data/input_data/images/double/"+$(this).text()+".jpg";
+				$('#image_fade').fadeOut(600, function(){
+				//$('#iviewerImage').fadeOut(600);				
+					iv1.iviewer('loadImage', curr_src);
+				});
+			}
 		});	
 		
 
