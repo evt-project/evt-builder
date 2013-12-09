@@ -1016,7 +1016,7 @@ overflow-x: hidden;
 
 .label_selected{
 	margin: 8px;
-	margin-right: 40px;
+	margin-right: 24px;
 	top: 3px;
 	position: relative;
 	vertical-align: top;
@@ -1078,7 +1078,7 @@ overflow-x: hidden;
 	width: 24px;
 	text-align: center;
 	position: absolute;
-	right: 6px;
+	right: 4px;
 	top: 3px;
 	height: 28px;
 	border-left: 1px solid #d9d7d7;
