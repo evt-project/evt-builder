@@ -239,7 +239,7 @@
 											</span>
 											<span class="imageTopTool" id="switchHS" value="HS" onclick="switchHS()">
 												<span>HotSpot</span>
-												<i class="fa fa-dot-circle-o"></i>
+												<i class="fa fa-circle-o"></i>
 											</span>
 											<span class="imageTopTool" id="switchITL" value="turn ITL on" title="Image text link" onclick="switchIMT()">
 												<span>ITL</span>
