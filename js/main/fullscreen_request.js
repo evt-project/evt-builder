@@ -179,6 +179,7 @@ function closeFullScreenLeft(){
 
 function goFullScreenRight(){
     if (ITLon){UnInitialize();} //Add by JK for ITL
+    if (HSon){UnInitialize();} //Add by JK for HS
 	if($('#header_collapse').hasClass('fa-caret-down')) collapseHeader();
 	$('#header_collapse').toggle();
 	// Gestione del full screen per browser webkit
@@ -226,6 +227,7 @@ function goFullScreenRight(){
 
 function closeFullScreenRight(){
     if ($('#switchITL i ').hasClass('fa-chain')){Initialize();} //Add by JK for ITL
+    if ($('#switchHS i ').hasClass('fa fa-dot-circle-o')){InitializeHS();} //Add by JK for HS
     // Gestione del full screen per browser webkit
 	if ($.browser.webkit) {
 		var widthLeft = $('#main_left_frame').width()-4;

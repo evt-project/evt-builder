@@ -80,7 +80,7 @@ var ViewWidthHS;
 var WindowHeightHS;
 var RatioHS;
 var click;
-var InitializingHS = true;
+var HSon = false;
 var SelectedAreaHS = null;
 
 function Initialize(){
@@ -291,7 +291,7 @@ function switchIMT(){
 
 /*HOT SPOT*/
 function InitializeHS(){
-    if (InitializingHS == true){
+    if (HSon == false){
     //alert("inizialize")
 /* Populate three handy lists with pointers to the menu items, areas and Anns. */
 			
@@ -334,13 +334,13 @@ function InitializeHS(){
         AnnMenuItems.push(NList[i]);
     }*/      
     
-    InitializingHS = false;
+    HSon = true;
     if (SelectedAreaHS){ShowAnnHS(SelectedAreaHS.replace('Area_','')); SelectedAreaHS == null;}
     }
 }
 
 function HighlightHS(ItemId){
-    if (InitializingHS == true){return;}
+    if (HSon == false){return;}
     UnHighlightHS();
     
     var El = document.getElementById("Area_" + ItemId);
@@ -446,7 +446,7 @@ function HideAnnHS(AnnId){
 
 function ReInitializeHS(){
     //alert("ReInitialize()");
-    if (InitializingHS == false){
+    if (HSon == true){
         newImgTopHS = parseInt(document.getElementById('iviewerImage').offsetTop) +parseInt($('#iviewerImage').css('padding-top')) + parseInt($('#iviewerImage').css('margin-top'));
         newImgLeftHS = parseInt(document.getElementById('iviewerImage').offsetLeft);    
         var newRatioHS = (($("#iviewerImage").width())/1200);
@@ -467,7 +467,7 @@ function ReInitializeHS(){
 }
 
 function moveAreasHS(){
-    if (InitializingHS == false){
+    if (HSon == true){
         newImgTopHS = parseInt(document.getElementById('iviewerImage').offsetTop) +parseInt($('#iviewerImage').css('padding-top')) + parseInt($('#iviewerImage').css('margin-top'));
         newImgLeftHS = parseInt(document.getElementById('iviewerImage').offsetLeft);
         var NList = document.getElementsByTagName('div')
@@ -483,7 +483,7 @@ function moveAreasHS(){
 }
 
 function UnInitializeHS(keep){
-	if (InitializingHS == false){
+	if (HSon == true){
 	//alert("UnInitializeHS");
 	keep = keep | false;
 	
@@ -530,7 +530,7 @@ function UnInitializeHS(keep){
 	ImgHeightHS=0;
 	ViewWidthHS=0;
 	WindowHeightHS=0;
-	InitializingHS = true;
+	HSon = false;
     }
 }
 
@@ -553,7 +553,7 @@ function UnHighlightHS(){
 }
 
 function DeselectHS(){
-    if (InitializingHS == true){return;}
+    if (HSon == false){return;}
     
     //Deselect the currently-selected elements
      for (var i=0; i<AreasHS.length; i++){
@@ -575,7 +575,7 @@ function DeselectHS(){
 
 function switchHS(){
     if ((magnifierON==true)&&(bigImage==true)){}
-	else if (InitializingHS == true){
+	else if (HSon == false){
 	   InitializeHS();
     }
 	else {
@@ -671,7 +671,7 @@ counterpart areas in the image are moused-over. */
 }
 
 /*function ShowCategory(El){
-    if (Initializing == true){return;}
+    if (ITLon == true){return;}
     var AnnList = El.parentNode.getElementsByTagName('ul');
     if (AnnList.length > 0){
         if (AnnList[0].style.display != 'block'){
