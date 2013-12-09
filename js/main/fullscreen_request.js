@@ -100,6 +100,7 @@
 })();
 
 function goFullScreenLeft(){
+			if (ITLon){UnInitialize();}
 			if($('#header_collapse').hasClass('fa-caret-down')) collapseHeader();
 			$('#header_collapse').toggle();
 			$("#main_left_frame").toggleClass("full");
@@ -109,21 +110,6 @@ function goFullScreenLeft(){
 			var margin_left = -($('#main_left_frame').offset().left);
 			var margin_top = -($('#main_left_frame').offset().top);
 			
-			/* Gestione icona per collassare il menu
-			$('#header_collapse').css({
-				'float': 'left',
-				'left': '0px',
-				'opacity': '0'
-			});
-			var margin_collapse = -($('#header_collapse').offset().left)+2;
-			var top_collapse = "";
-			if($('#header_collapse').hasClass('fa-caret-down')){top_collapse="-75px"} else {top_collapse="-39px"}
-			$('#header_collapse').animate({
-				left: margin_collapse,
-				top: top_collapse
-			});
-			// Fine */
-
 			$('#main_left_frame').animate({
 				width: width_full,
 				height: height_full,
@@ -137,7 +123,7 @@ function goFullScreenLeft(){
 			$('.go-full-left').toggle();
 			$('#switchITL:visible').hide();
 			
-			if(!$('#span_ee_select-add').hasClass('widthChanged')){
+			if(($('#span_ee_select-add').is('visible'))&&!$('#span_ee_select-add').hasClass('widthChanged')){
 				$('#span_ee_select-add').addClass('widthChanged')
 				$('#span_ee_select-add .option_container').removeAttr('style');
 
