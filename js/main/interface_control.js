@@ -236,6 +236,7 @@ $( function() {
 					var checkdd = $(".main_dd_select").find('.option:contains('+current_page+')').text();
 					if(hash && (checkpp != "") && ($("#imgd_link").attr("class") != "current_mode")){
 				    	UnInitialize(); //Add by JK for ITL
+				    	UnInitializeHS(); //Add by JK for HS
 						gotopage(current_page, "none");
 						chooseZoomMag(); //Add by JK for Mag
 					} else{	
@@ -277,14 +278,12 @@ $( function() {
 			    if ($("#text .Area").length >0){
 			         areaInThisPage = true;
 			         if($('#switchITL').hasClass('inactive')){enableITLbutton();}
-			    } else { disableITLbutton(); }
+			    } else { areaInThisPage = false; disableITLbutton(); }
 			    //IT: controlla se la pagine ha gli elementi necessari allo strumento HS
 			    if ($("#text .AreaHS").length >0){
 			         areaHSInThisPage = true;
 			         if($('#switchHS').hasClass('inactive')){enableHSbutton();}
-			    } else {
-			        disableHSbutton();
-			    }
+			    } else { areaHSInThisPage = false; disableHSbutton(); }
 			});
 			
 			/*$('#text_elem').load('pagina.html', function() {
@@ -334,7 +333,7 @@ $( function() {
 		// IT: Gestisce il cambio edizione nel frame testuale
 		function gotoedition(pp_val, pp_el, frame_id, parent_id){
 			if (ITLon == true) {UnInitialize(true);}; //Add by JK for ITL
-			if (InitializingHS == false) {UnInitializeHS(true)}; //Add by JK for HS
+			if (HSon == true) {UnInitializeHS(true)}; //Add by JK for HS
 			$('#'+frame_id).load("data/output_data/"+pp_el+"/page_"+pp_val+"_"+pp_el+".html #text_frame",
 			     function() {
 			         if (!$("#switchITL").hasClass('inactive')){Initialize();} /*Add by JK for ITL*/
@@ -561,6 +560,7 @@ $( function() {
 		$("#txttxt_link").click(function(){
 			if($(this).attr("class")!="current_mode"){
 			    UnInitialize();//Add by JK for ITL
+			    UnInitializeHS();//Add by JK for HS
                 $('#switchITL i').removeClass('fa-chain').addClass('fa-chain-broken'); //JK CANC?
 			    //$("#switchITL").setAttribute('src','images/ITLoff.png');//Add by JK for ITL
 				
@@ -624,6 +624,8 @@ $( function() {
 
 		$("#imgd_link").click(function(){	
 			if($(this).attr("class")!="current_mode"){
+			    UnInitialize();//Add by JK for ITL
+			    UnInitializeHS();//Add by JK for HS
 				$("#imgd_link").addClass("current_mode").siblings().removeClass("current_mode");
 				//$("#txtimg_link").removeClass("current_mode");
 				//$("#imgimg_link").removeClass("current_mode");
