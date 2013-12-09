@@ -154,7 +154,7 @@ $( function() {
 	     		//alert(first_page+"-"+second_page);
 				var newhash = first_page+"-"+second_page;
 				$(".main_dd_select .label_selected").text(newhash).trigger('change');
-				window.location.hash = newhash;
+				//window.location.hash = newhash;
 			});
 
 			$(".main_dd_select").on('imgd_mode',function(){
@@ -170,7 +170,7 @@ $( function() {
 	     		//alert(first_page+"-"+second_page);
 				var newhash = first_page+"-"+second_page;
 				$(".main_dd_select .label_selected").text(newhash).trigger('change');
-				window.location.hash = newhash;
+				//window.location.hash = newhash;
 
 			});
 
@@ -324,11 +324,8 @@ $( function() {
 
 			// IT: Se ci si trova nella modalit Thumb, chiude la schermata e visualizza l'immagine
 			if($("#image_elem").css('display')=="none"){
-				$("#image_elem").show();
-				$("#image_fade").show();
-				$("#image_tool").show();
-				$("#thumb_cont").hide();
-			}			
+				$("#thumb_link").trigger('click');
+			}
 		}
 		// IT: Gestisce il cambio edizione nel frame testuale
 		function gotoedition(pp_val, pp_el, frame_id, parent_id){
@@ -347,11 +344,11 @@ $( function() {
 			});
 
 			// IT: Gestisce la scrittura nell'etichetta destra o sinistra a seconda del frame caricato
-			if (frame_id.indexOf("-add")>-1) {
+			/*if (frame_id.indexOf("-add")>-1) {
 				$('#zvalopz').text(pp_el_upp);
 			} else{
 				$('#edval span').text(pp_el_upp);
-			}
+			}*/
 		}
 		// IT: Un preload basilare per la navigazione delle immagini
 		function preload(arrayOfImages) {
@@ -485,13 +482,14 @@ $( function() {
 
 		$(".thumb_single").click(function(){
 			window.location.hash = $(this).attr('id').replace( '_small', '' );
+			
 			if ($("#imgd_link").attr("class") == "current_mode")
 				$(".main_dd_select").trigger("imgd_thumb");
-			
+
 			$("#thumb_link").trigger('click');
-			if($("#main_right_frame header").css('display')!="none"){
+			/*if($("#main_right_frame header").css('display')!="none"){
 				$("#main_right_menu").trigger('click');
-			}
+			}*/
 			
 		});	
 		
@@ -526,8 +524,9 @@ $( function() {
 				$('#switchITL').show();
 				$("#image_cont").show();
 				
+				$('#thumb_elem').show();
 				$('#zvalint').show();
-				$('#zvalopz').text("");
+				//$('#zvalopz').text("");
 				
 			}
 			$('#header_collapse').animate({
@@ -595,7 +594,7 @@ $( function() {
 					.attr("id", "text_elem-add")
 				;
 
-				$('#zvalint').hide(); //SISTEMARE
+				//$('#zvalint').hide(); //SISTEMARE
 				//$('#zvalopz').text($("input[name=edition_r]:checked").val());			
 				$('#span_ee_select-add').css({display: "inline-block"});
 				//$("#span_ee_select-add").show();
@@ -654,6 +653,7 @@ $( function() {
 				$("#image_cont").show();
 				$('#span_dd_select').css({display: "inline-block"});
 				$('#switchITL:visible').hide();
+				$('#thumb_elem').hide();
 			}
 			if(!$('#span_dd_select').hasClass('widthChanged')){
 				$('#span_dd_select').addClass('widthChanged')
