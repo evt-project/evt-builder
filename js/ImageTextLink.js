@@ -389,7 +389,7 @@ function ShowAnnHS(ItemId){
     if (TheAnnotation != null){
     $("#image_elem").append(TheAnnotation);
     //if the user has previously dragged a div, use the same position
-        if ((DroppedX > -1)&&(DroppedY > -1)){
+        /*if ((DroppedX > -1)&&(DroppedY > -1)){
             if (isOldIE == false){
                 TheAnnotation.style.position = 'fixed';
             }
@@ -397,7 +397,7 @@ function ShowAnnHS(ItemId){
             TheAnnotation.style.top = DroppedY + 'px';
             TheAnnotation.style.display = 'block';
             return;
-        }	
+        }*/	
         //Otherwise, figure out the best place to show it:
         //First, set it to absolute positioning
         TheAnnotation.style.position = 'absolute';
@@ -425,6 +425,12 @@ function ShowAnnHS(ItemId){
         }
         //$(TheAnnotation).click(function(){alert();});
     }
+}
+
+function doNothingHS(El, e){
+    if (!e){e = window.event;}
+    if (e.stopPropagation){e.stopPropagation();}else{e.cancelBubble = true;}
+    if (e.preventDefault){e.preventDefault();}else{e.returnValue = false;}
 }
 
 function HideAnnHS(AnnId){
@@ -505,6 +511,7 @@ function UnInitializeHS(keep){
     for (var i=0; i<AnnsHS.length; i++){
        AnnsHS[i].style.left = '0px';
        AnnsHS[i].style.top = '0px';
+       AnnsHS[i].style.display = 'none';
        $("#text").append(AnnsHS[i]);
     }
     
@@ -801,12 +808,10 @@ var DroppedY = -1;
 
 function BeginDragHS(El, e){
     if (!e){e = window.event;}
-    var x = parseInt(El.style.left);
-    var y = parseInt(El.style.top);
-    //DeltaX = e.clientX - x;
-    //DeltaY = e.clientY - y;
-    DeltaX = e.clientX - x;
-    DeltaY = e.clientY - y;
+    //var x = parseInt(El.style.left);
+    //var y = parseInt(El.style.top);
+    DeltaX = e.clientX - parseInt(El.style.left);
+    DeltaY = e.clientY - parseInt(El.style.top);
     
     DraggedEl = El;
     if (document.addEventListener){
@@ -850,13 +855,13 @@ function MouseUpHandler(e){
             we need to set it to position: fixed, then convert its location relative to the scroll 
             offset. */
             
-            containreWidth = $("#image_elem").width();
-            containreHeight = $("#image_elem").height();
+            containerWidth = $("#image_elem").width();
+            containerHeight = $("#image_elem").height();
             if(DroppedX<0){DroppedX=0;}
-            else if (DroppedX > (containreHeight - $(DraggedEl).height())){DroppedX = containreHeight - $(DraggedEl).height()}
+            else if (DroppedX > (containerHeight - $(DraggedEl).height())){DroppedX = containerHeight - $(DraggedEl).height()}
             
             if(DroppedY<(0+parseInt($("#iviewerImage").css('padding-top')))){DroppedY=0+parseInt($("#iviewerImage").css('padding-top'))}
-            else if (DroppedY > (containreWidth - $(DraggedEl).width())){DroppedY = containreWidth - $(DraggedEl).width() }
+            else if (DroppedY > (containerWidth - $(DraggedEl).width())){DroppedY = containerWidth - $(DraggedEl).width() }
             
             DraggedEl.style.position = 'absolute';
             DraggedEl.style.left = DroppedX + 'px';

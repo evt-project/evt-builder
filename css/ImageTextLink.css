@@ -27,9 +27,8 @@ div.Annotation{
     min-width: 10%;
     background-color: #ffffff;
     color: #000000;
-    border-color: #d0d0f0 #a0a0d0 #a0a0d0 #d0d0f0;
-    border-width: 2px;
-    border-style: solid;
+    border: 2px solid #4E443C;
+    border-radius: 2px;
     padding: 0;
     max-width: 50%;
 }
@@ -46,20 +45,19 @@ div.PopupCloser{
     text-align: center;
     border-style: solid;
     border-width: 1px;
-    border-color: #a0a0d0 #d0d0f0 #d0d0f0 #a0a0d0;
+    border-color: #bfac85 #F5EAD4 #F5EAD4 #bfac85;
     font-variant: small-caps;
     font-stretch: extra-expanded;
     cursor: pointer;
     height: 17px;
     line-height: 17px;
     font-size: 17px;
+    color: #F5EAD4;
 }
 
 
 div.AnnText{
-    border-style: solid;
-    border-width: 1px;
-    border-color: #000000;
+    border-top: 2px solid #4E443C;
     font-size: 16px;
     max-height: 200px;
     overflow: scroll;
@@ -93,6 +91,8 @@ div.AnnText{
 .AnnTitle{
     width: 100%;
     height: 100%;
+    background-color: #4E443C;
+    /*background-color: #F5EAD4;*/
 }
 /*
 #AnnMenu{

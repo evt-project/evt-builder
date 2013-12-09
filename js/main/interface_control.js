@@ -289,11 +289,12 @@ $( function() {
 			var edition=$("#span_ee_select .main_ee_select .label_selected").text().toLowerCase();	
 			$(".main_pp_select .label_selected").text(pp_val).trigger("change"); 
 			$('#text_elem').load("data/output_data/"+edition+"/page_"+pp_val+"_"+edition+".html #text_frame", function(){
+			     //IT: controlla se la pagine ha gli elementi necessari allo strumento ITL
 			    if ($("#text .Area").length >0){
 			         areaInThisPage = true;
 			         if($('#switchITL').hasClass('inactive')){enableITLbutton();}
 			    } else { disableITLbutton(); }
-			    
+			    //IT: controlla se la pagine ha gli elementi necessari allo strumento HS
 			    if ($("#text .AreaHS").length >0){
 			         areaHSInThisPage = true;
 			         if($('#switchHS').hasClass('inactive')){enableHSbutton();}
@@ -568,7 +569,8 @@ $( function() {
 		$("#txttxt_link").click(function(){
 			if($(this).attr("class")!="current_mode"){
 			    UnInitialize();//Add by JK for ITL
-			    document.getElementById("switchITL").setAttribute('src','images/ITLoff.png');//Add by JK for ITL
+                $('#switchITL i').removeClass('fa-chain').addClass('fa-chain-broken');
+			    //$("#switchITL").setAttribute('src','images/ITLoff.png');//Add by JK for ITL
 				
 			    if ($("#imgd_link").attr("class") == "current_mode")
 					$(".main_pp_select").trigger("txtimg_mode");

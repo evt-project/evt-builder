@@ -116,6 +116,7 @@
 				</xsl:element>
 				<xsl:element name="div">
 					<xsl:attribute name="class">AnnText</xsl:attribute>
+					<xsl:attribute name="onmousedown">doNothingHS(this, event)</xsl:attribute>
 					<xsl:for-each select="tei:p">
 						<xsl:apply-templates select="."></xsl:apply-templates>
 					</xsl:for-each>
