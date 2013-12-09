@@ -43,6 +43,7 @@ function magOn(){
         $("#mag_image_elem").css({'display':'block'});
 
         $("#image_elem, #image_tool").css({'display':'none'});
+        //$('#image_tool').addClass('menuClosed'); //Add by CDP per gestire la scomparsa del menu
         //document.getElementById("switchZoom").setAttribute('src','images/zoomOff.png');
         //document.getElementById("switchMag").setAttribute('src','images/mag.png');
         $('#switchMag').addClass('active');//Add by CDP for FA
@@ -51,7 +52,8 @@ function magOn(){
         magnifierON = true;
     } else {
         /*IT: rendo visibile il div dello dello zoom e invisibile quello del magnifier*/
-        $("#image_elem, #image_tool").css({"display" : "block",    "overflow": "hidden" });
+        $("#image_elem").css({"display" : "block",    "overflow": "hidden" });
+        if(!$('#image_tool').hasClass('menuClosed')) $("#image_tool").css({"display" : "block",    "overflow": "hidden"}); //Add by CDP per gestire la scomparsa del menu
         $("#mag_image_elem").css({'display':'none'});
         //  document.getElementById("switchZoom").setAttribute('src','images/zoom.png');
         //document.getElementById("switchMag").setAttribute('src','images/magOff.png');
@@ -101,7 +103,7 @@ function zoomOn(){
 
 function chooseZoomMag(){   
     if ((magnifierON==true)&&(bigImage==true)){
-        alert("MAg");
+        //alert("MAg");
         /*IT: rendo visibile il div del magnifier e invisibile quello dello zoom*/
         $("#image_elem, #image_tool").css('display','none');
         $("#mag_image_elem").css({'display':'block'});
@@ -114,7 +116,8 @@ function chooseZoomMag(){
         /*IT: rendo visibile il div dello dello zoom e invisibile quello del magnifier*/
         magnifierON==false;
         $("#mag_image_elem").css({"display":"none"});
-        $("#image_elem, #image_tool").css({"display" : "block", "overflow": "hidden" });
+        $("#image_elem").css({"display" : "block", "overflow": "hidden" });
+        if(!$('#image_tool').hasClass('menuClosed')) $("#image_tool").css({"display" : "block",    "overflow": "hidden"}); //Add by CDP per gestire la scomparsa del menu
         //$("#switchMag").attr('src','images/magOff.png');
     }
 }

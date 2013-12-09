@@ -755,7 +755,7 @@ function updateSelectLength(elem){
 
 // Evento per chiudere e aprire i menu secondari dei box
 function collapseHeader(){
-	$('#image_tool').slideToggle().toggleClass('menuClosed');
+	if (magnifierON==false) $('#image_tool').slideToggle().toggleClass('menuClosed');
 	$('#left_header').toggle('blind').toggleClass('menuClosed');
 	
 	if($('#left_header').hasClass('menuClosed')){
