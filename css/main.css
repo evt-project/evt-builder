@@ -1446,6 +1446,10 @@ div.botleftconcave {
 	cursor: pointer;
 }
 
+.onWhite{
+	color:#362d28;
+}
+
 #right_header .closeFullScreen{
 	right: 5px;
 	position: absolute;
