@@ -216,16 +216,11 @@ $( function() {
 				}
 			});
 
-			$('.option_container').each(function(){
-				var width = $(this).parent().parent('.like_select').find('div').width();
-				$(this).css('width', width);
-			});
-
 			$('.like_select').each(function(){
-				var widthSel = $(this).width();
+				var widthSel = $(this).find('div').width()-1;
 				var widthOpt = $(this).find('.option_container').width()+10;
 				if(widthSel > (widthOpt+24)){ 
-					$(this).find('.option_container').css('width', widthSel-10);
+					$(this).find('.option_container').css('width', widthSel-9);
 					//alert("widthSel"); 
 				} else {
 					$(this).css('width', widthOpt+24);
@@ -543,6 +538,11 @@ $( function() {
 				$('#zvalopz').text("");
 				
 			}
+			$('#header_collapse').animate({
+				left: "50%",
+				marginLeft: "-10px"
+			});
+			if(! $('.go-full-right').is(':visible')) $('.go-full-right').show();
 		});		
 		/*$("#imgimg_link").click(function(){
 			if($(this).attr("class")!="current_mode"){
@@ -614,8 +614,6 @@ $( function() {
 				} else{
 					$("#span_ee_select-add .main_ee_select .label_selected").text(first_new_edition).trigger("change");
 				}
-
-
 			}
 			if(!$('#span_ee_select-add').hasClass('widthChanged')){
 				$('#span_ee_select-add').addClass('widthChanged')
@@ -634,6 +632,11 @@ $( function() {
 					}
 				});
 			}
+			$('#header_collapse').animate({
+				left: "50%",
+				marginLeft: "-10px"
+			});
+			if(! $('.go-full-right').is(':visible')) $('.go-full-right').show();
 		});
 
 		$("#imgd_link").click(function(){	
@@ -684,6 +687,11 @@ $( function() {
 					}
 				});
 			}
+			$('#header_collapse').animate({
+				left: "100%",
+				marginLeft: "-30px"
+			});
+			$('.go-full-right').hide();
 		});	
 		// /MODE -
 		

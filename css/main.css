@@ -778,6 +778,9 @@ overflow-x: hidden;
 	margin-left: -4px;
 }
 
+#thumb_elem{
+	top:-2px;
+}
 #thumb_elem, #search_elem{
 	background: none;
 }
@@ -866,6 +869,7 @@ overflow-x: hidden;
 	color: #F5EAD4;
 	font-size: 1em;
 	margin: 4px 0px;
+	line-height: 0px;
 	top:0px;
 }
 #text_menu, #left_menu{
@@ -873,6 +877,7 @@ overflow-x: hidden;
 	margin: 0 auto;
 	width: 100%;
 	text-align: center;
+	top:5px;
 }
 
 #image_menu{
@@ -968,7 +973,7 @@ overflow-x: hidden;
 	right: 3px;
 	#top: 4px;
 	top:-9px;
-	padding: 3px 6px;
+	padding: 3px 4px;
 	font-size: 1em;
 	vertical-align: middle;
 }
@@ -983,7 +988,7 @@ overflow-x: hidden;
 	#float: left;
 }
 #span_ee_select-add{
-	top:3px;
+	top:-4px;
 }
 
 /*Chiara*/
@@ -1024,7 +1029,7 @@ overflow-x: hidden;
 	padding: 3px 5px 0px 5px;
 	background:#f5ead4;
 	width: auto;
-	left: 6px;
+	left: 4px;
 	top: 5px;
 	max-height: 170px;
 	z-index: 400;
@@ -1341,7 +1346,7 @@ div.botleftconcave {
     top: -5px;
 }
 
-#span_dd_select, #span_ee_select-add{
+#span_dd_select, #span_ee_select-add-4px{
 	display: none;
 }
 
@@ -1378,11 +1383,13 @@ div.botleftconcave {
     
     position: absolute;
 	width: 0px;
-	top: 3px;
-	right: 18px;
+	#top: 3px;
+	#right: 18px;
+	top: 0px;
+	right: -4px;
 	text-shadow: none !important;
 	font-weight: lighter !important;
-	color: #f5ead4;
+	color:rgb(54, 45, 40);
 	font-size: 0.6em;
 	z-index: 999999;
 }
@@ -1411,11 +1418,14 @@ div.botleftconcave {
 	transform: rotate(270deg);
     position: absolute;
 	width: 0px;
-	top: 9px;
-	left: 11px;
+	#top: 9px;
+	#left: 11px;
+	top: 6px;
+	left: -10px;
 	text-shadow: none !important;
 	font-weight: lighter !important;
-	color: #f5ead4;
+	#color: #f5ead4;
+	color:rgb(54, 45, 40);
 	font-size: 0.6em;
 	z-index: 999999;
 }
