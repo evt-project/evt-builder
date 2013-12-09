@@ -343,7 +343,7 @@ $( function() {
 		}
 		// IT: Gestisce il cambio edizione nel frame testuale
 		function gotoedition(pp_val, pp_el, frame_id, parent_id){
-			if (Initializing == false) {UnInitialize(true);}; //Add by JK for ITL
+			if (ITLon == true) {UnInitialize(true);}; //Add by JK for ITL
 			if (InitializingHS == false) {UnInitializeHS(true)}; //Add by JK for HS
 			$('#'+frame_id).load("data/output_data/"+pp_el+"/page_"+pp_val+"_"+pp_el+".html #text_frame",
 			     function() {
@@ -569,7 +569,7 @@ $( function() {
 		$("#txttxt_link").click(function(){
 			if($(this).attr("class")!="current_mode"){
 			    UnInitialize();//Add by JK for ITL
-                $('#switchITL i').removeClass('fa-chain').addClass('fa-chain-broken');
+                $('#switchITL i').removeClass('fa-chain').addClass('fa-chain-broken'); //JK CANC?
 			    //$("#switchITL").setAttribute('src','images/ITLoff.png');//Add by JK for ITL
 				
 			    if ($("#imgd_link").attr("class") == "current_mode")
