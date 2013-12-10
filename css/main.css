@@ -122,7 +122,7 @@ footer{
 }
 
 #imgd_link .mainHeaderimg{
-	width: 55px;
+	width: 51px;
 } 
 
 #global_wrapper {
@@ -746,7 +746,7 @@ overflow-x: hidden;
 #thumb_cont figure figcaption{
     color: white;
 	position: relative;
-	top: -40px;
+	top: -52px;
 	background: url(../images/opacity.png) repeat-x 0 -50px;
 }
 
@@ -982,7 +982,7 @@ overflow-x: hidden;
 .like_select{
 	position: relative;
 	height: 35px;
-    left: 3px;
+    left: 0px;
 	right: 3px;
 	#top: 4px;
 	top:-9px;
@@ -1171,17 +1171,18 @@ overflow-x: hidden;
 }
 
 #main_fullscreen{
-	width: 34px;
-	height: 34px;
+	#width: 34px;
+	#height: 34px;
 	#background: url(../images/full_screen.png) no-repeat;
 	text-shadow: 0 1px 4px #000000; 
 	color:#F5EAD4;
+	font-size: 0.65em;
 }
 #main_fullscreen:hover{
-	width: 34px;
+	#width: 34px;
 	height: 34px;
 	#background: url(../images/full_screen-hover.png) no-repeat;
-	color:#fff;
+	color:rgb(180,177,170);
 }
 #cont_fullscreen{
 	top: 15px;
@@ -1274,7 +1275,7 @@ overflow-x: hidden;
 	min-height: 50px;
 	font-size: 1.4em;
 	padding:0px;
-	margin: 0px 2.5px;
+	#margin: 0px 2.5px;
 }
 
 #txttxt_link {
@@ -1282,7 +1283,7 @@ overflow-x: hidden;
 	min-height: 50px;
 	font-size: 1.4em;
 	padding:0px;
-	margin: 0px 2.5px;
+	#margin: 0px 2.5px;
 }
 
 #txtimg_link:hover, #txtimg_link.current_mode  {
@@ -1306,7 +1307,7 @@ overflow-x: hidden;
 /* Top Menu Wave */
 div.concave {
     background: transparent;
-	width: 325px;
+	width: 265px;
 	position: absolute;
 	right: 0px;
 	top: 11px;
@@ -1314,8 +1315,8 @@ div.concave {
 
 div.extTop{
 	background: #3c322c;
-	width: 325px;
-	height: 25px;
+	width: 265px;
+	height: 17px;
 	position: relative;
 }
 div.topleftconcave {
@@ -1335,10 +1336,10 @@ div.topleftconcave {
 div.botleftconcave {
 	position: absolute;
 	background: #3c322c;
-	width: 300px;
-	height: 24px;
-	top: 21px;
-	left: 25px;
+	width: 241px;
+	height: 16px;
+	top: 16px;
+	left: 24px;
 	border-bottom-left-radius: 60px 60px;
 	-moz-box-shadow: inset 4px -3px 5px -3px rgba(0,0,0,0.4), inset 0px -4px 5px -3px rgba(0,0,0,0.4);
 	-webkit-box-shadow: inset 4px -3px 5px -3px rgba(0,0,0,0.4), inset 0px -4px 5px -3px rgba(0,0,0,0.4);
@@ -1349,8 +1350,8 @@ div.botleftconcave {
 }
 
 #mode_switch{
-	top:5px;
-	right: 62px;
+	top:0px;
+	right: 41px;
 }
 
 #cont_fullscreen{
@@ -1359,7 +1360,7 @@ div.botleftconcave {
     top: -5px;
 }
 
-#span_dd_select, #span_ee_select-add-4px{
+#span_dd_select, #span_ee_select-add{
 	display: none;
 }
 
@@ -1444,6 +1445,10 @@ div.botleftconcave {
 	color:rgb(126,108,95);
 	color:rgb(180,177,170);
 	cursor: pointer;
+}
+
+.onWhite{
+	color:#362d28;
 }
 
 #right_header .closeFullScreen{
