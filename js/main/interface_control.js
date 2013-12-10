@@ -803,12 +803,14 @@ function collapseHeader(){
 	if($('#text_cont-add').css('display')=='block'){$('.go-full-left').toggleClass('onWhite');}
 	
 	if($('#left_header').hasClass('menuClosed')){
+	   $("#mag_image_elem").css({'margin-top': $("#left_header").height()+'px', 'height': ($("#main_left_frame").height())+'px'}); //Add for Mag
 		noMenu_height = $('#image_cont').height()+44;
 		$('#image_cont, #text_cont-add').animate({
 			top: "-44px",
 			height: noMenu_height
 		});
 	} else {
+        setMagHeight(); //Add for Mag
 		noMenu_height = $('#image_cont').height()+44;
 		$('#image_cont, #text_cont-add').animate({
 			top: "0px",

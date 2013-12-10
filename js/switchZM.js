@@ -9,7 +9,8 @@ var magnifierON = false;
 var bigImage;
 
 function magnifierReady(){
-    $("#mag_image_elem").empty();
+    $("#mag_image_elem").empty(); 
+    setMagHeight();
     var img=document.getElementById("iviewerImage").cloneNode(false);
     img.removeAttribute("style");
     /*IT: calcolo nuova altezza: */
@@ -17,18 +18,19 @@ function magnifierReady(){
     var imgWidth = parseFloat($("#iviewerImage").css('width'));
     var imgHheight = parseFloat($("#iviewerImage").css('height'));
     var newHeight = (zoomImagWidth * imgHheight)/imgWidth;
-    //var left_headerHeight = $("#left_header").height();
     /*IT: modifico gli attibuti della nuova immagine*/
     img.setAttribute( 'id' , 'magImage'  );
     /*IT: inserisco nuova immagine in #mag_image_elem */ 
     imgB= "data/input_data/images/"+location.hash.replace( /^#/, '' )+"_big.jpg";
     $("#mag_image_elem").append('<a href="'+imgB+'" class="magnifier" title="image_'+location.hash.replace( /^#/, " ")+'_big"></a>');
     $("#mag_image_elem > a").append(img);
-    //$("#mag_image_elem").css({'margin-top': left_headerHeight+'px', 'height': ($("#image_cont").height())-left_headerHeight+'px'});
     /*IT: imposto il css della nuova immagine*/
     $("#magImage").css({'width': zoomImagWidth+'px', 'height': newHeight+'px', 'margin-left': 'auto', 'margin-right': 'auto'});
     setTimeout(function(){magON(); },1000);
-   
+}
+function setMagHeight(){
+    left_headerHeight = $("#left_header").height();
+    $("#mag_image_elem").css({'margin-top': left_headerHeight+'px', 'height': ($("#image_cont").height())-left_headerHeight+'px'});
 }
 
 function magOn(){
@@ -46,12 +48,12 @@ function magOn(){
 		}
         /*IT: rendo visibile il div del magnifier e invisibile quello dello zoom*/
         $("#mag_image_elem").css({'display':'block'});
-
         $("#image_elem, #image_tool, #image_fade").css({'display':'none'});
         //$('#image_tool').addClass('menuClosed'); //Add by CDP per gestire la scomparsa del menu
         //document.getElementById("switchZoom").setAttribute('src','images/zoomOff.png');
         //document.getElementById("switchMag").setAttribute('src','images/mag.png');
         $('#switchMag').addClass('active');//Add by CDP for FA
+        $('#switchMag i').removeClass('fa fa-search').addClass('fa fa-search-plus');
         //$('#switchITL').removeClass('inactive');//Add by CDP for FA
         disableITLbutton();
         disableHSbutton();
@@ -64,6 +66,7 @@ function magOn(){
         //  document.getElementById("switchZoom").setAttribute('src','images/zoom.png');
         //document.getElementById("switchMag").setAttribute('src','images/magOff.png');
         $('#switchMag').removeClass('active');//Add by CDP for FA
+        $('#switchMag i').removeClass('fa fa-search-plus').addClass('fa fa-search');
         if(areaInThisPage){enableITLbutton();}
         if(areaHSInThisPage){enableHSbutton();}
         magnifierON = false;
@@ -131,8 +134,8 @@ function magON(){
             zoomType: 'drag',
 			position: 'inside',
 			title: false,
-            lens: true,  
-            preloadImages: true,  
+            lens: false,  
+            preloadImages: false,  
             alwaysOn: false,  
 			lensWidth: 30,  
             lensHeight: 15,

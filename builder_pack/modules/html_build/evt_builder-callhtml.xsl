@@ -235,7 +235,7 @@
 										<div id="image_menu">
 											<span class="imageTopTool" id="switchMag" value="mag" onclick="magOn()">
 												<span>Magnifier</span>
-												<i class="fa fa-search-plus"></i><!-- fa fa-search -->
+												<i class="fa fa-search"></i>
 											</span>
 											<span class="imageTopTool" id="switchHS" value="HS" onclick="switchHS()">
 												<span>HotSpot</span>
