@@ -14,10 +14,10 @@ function magnifierReady(){
     var img=document.getElementById("iviewerImage").cloneNode(false);
     img.removeAttribute("style");
     /*IT: calcolo nuova altezza: */
-    zoomImagWidth = 445;
+    zoomImagWidth = 445; /*richiamata anche in jqzoom*/
     var imgWidth = parseFloat($("#iviewerImage").css('width'));
-    var imgHheight = parseFloat($("#iviewerImage").css('height'));
-    var newHeight = (zoomImagWidth * imgHheight)/imgWidth;
+    var imgHeight = parseFloat($("#iviewerImage").css('height'));
+    zoomImagHeight = (zoomImagWidth * imgHeight)/imgWidth;  /*richiamata anche in jqzoom*/
     /*IT: modifico gli attibuti della nuova immagine*/
     img.setAttribute( 'id' , 'magImage'  );
     /*IT: inserisco nuova immagine in #mag_image_elem */ 
@@ -25,7 +25,7 @@ function magnifierReady(){
     $("#mag_image_elem").append('<a href="'+imgB+'" class="magnifier" title="image_'+location.hash.replace( /^#/, " ")+'_big"></a>');
     $("#mag_image_elem > a").append(img);
     /*IT: imposto il css della nuova immagine*/
-    $("#magImage").css({'width': zoomImagWidth+'px', 'height': newHeight+'px', 'margin-left': 'auto', 'margin-right': 'auto'});
+    $("#magImage").css({'width': zoomImagWidth+'px', 'height': zoomImagHeight+'px', 'margin-left': 'auto', 'margin-right': 'auto'});
     setTimeout(function(){magON(); },1000);
 }
 function setMagHeight(){
