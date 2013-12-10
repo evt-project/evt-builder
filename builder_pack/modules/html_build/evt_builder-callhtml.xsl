@@ -59,6 +59,8 @@
 						href="{$html_path}/css/ImageTextLink.css"/>
 					<link rel="stylesheet" type="text/css"
 						href="{$html_path}/css/jquery.jqzoom.css"/>
+					<!--<link rel="stylesheet" type="text/css"
+						href="{$html_path}/js/tipuesearch/tipuesearch.css"/>-->
 				</xsl:when>
 				<xsl:otherwise>
 					<link rel="stylesheet" type="text/css" href="{$html_path}/css/page_data-include-{$output}.css"/>
@@ -69,11 +71,12 @@
 			<script type="text/javascript" src="{$html_path}/js/jquery_lib/jquery-latest.js"/>
 			<script type="text/javascript" src="{$html_path}/js/jquery_lib/jquery-ui-latest.js"/>
 			<xsl:comment>/jQuery lib</xsl:comment>
-
+			
 			<xsl:if test="$html_tc!='datastructure'">
 				<xsl:comment>main lib</xsl:comment>
 				<script type="text/javascript" src="{$html_path}/js/main/interface_control.js"/>
 				<script type="text/javascript" src="{$html_path}/js/main/utils.js"/>
+				<script type="text/javascript" src="{$html_path}/js/main/search.js"/>
 				<xsl:comment>/main lib</xsl:comment>
 
 				<xsl:comment>keydown</xsl:comment>
@@ -98,6 +101,16 @@
 				<xsl:comment>image text link</xsl:comment>
 				<script type="text/javascript" src="js/ImageTextLink.js"/>
 				<xsl:comment>/image text link</xsl:comment>
+				
+				<xsl:comment>TipueSearch</xsl:comment>
+				<script type="text/javascript" src="{$html_path}/js/tipuesearch/tipuesearch_content.js"/>
+				<script type="text/javascript" src="{$html_path}/js/tipuesearch/tipuesearch_set.js"/>
+				<script type="text/javascript" src="{$html_path}/js/tipuesearch/tipuesearch.js"/>
+				<xsl:comment>/TipueSearch</xsl:comment>
+				
+				<xsl:comment>highlight</xsl:comment>
+				<script src="js/plugin/jquery.highlight.js"/>
+				<xsl:comment>/highlight</xsl:comment>
 
 			</xsl:if>
 			<link rel="stylesheet" href="css/font-awesome/css/font-awesome.css" />
@@ -345,9 +358,14 @@
 												select="'main_ee_select'"/>
 										</xsl:call-template>
 									</span>
+									<span id="span_ss_select" class="like_select">
+										<input type="text" id="tipue_search_input"/>
+									</span>
 									<p id="search_elem">
 										<a href="javascript:void(0);" id="search_link"><i class="fa fa-search"></i></a>
 									</p>
+									<span id="query" class="like_select"></span>
+									<div id="tipue_search_content"></div>	
 								</div>
 								<i class="fa fa-times-circle closeFullScreen" onclick="closeFullScreenRight();"></i>
 							</header>
