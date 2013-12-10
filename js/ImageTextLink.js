@@ -292,7 +292,7 @@ function switchIMT(){
 /*HOT SPOT*/
 function InitializeHS(){
     if (HSon == false){
-    //alert("inizialize")
+    //alert("inizializeHS")
 /* Populate three handy lists with pointers to the menu items, areas and Anns. */
 			
     HeightOffsetHS = parseInt(document.getElementById('iviewerImage').offsetTop);
@@ -307,14 +307,14 @@ function InitializeHS(){
     
     if($('#switchHS i ').hasClass('fa fa-circle-o')){$('#switchHS i ').removeClass('fa fa-circle-o').addClass('fa fa-dot-circle-o');}
 
-    ratio = $("#iviewerImage").width()/1200;
-    Ratio = ratio
+    ratioHS = $("#iviewerImage").width()/1200;
+    RatioHS = ratioHS
     var NList = $('.AreaHS');
     for (var i=0; i<NList.length; i++){
-        NList[i].style.left = (parseFloat(NList[i].style.left)*ratio) + ImgLeftHS + 'px';
-        NList[i].style.top = (parseFloat(NList[i].style.top)*ratio) + imgTopHS + 'px';
-        NList[i].style.width = (parseFloat(NList[i].style.width)*ratio) + 'px';
-        NList[i].style.height = (parseFloat(NList[i].style.height)*ratio) + 'px';
+        NList[i].style.left = (parseFloat(NList[i].style.left)*ratioHS) + ImgLeftHS + 'px';
+        NList[i].style.top = (parseFloat(NList[i].style.top)*ratioHS) + imgTopHS + 'px';
+        NList[i].style.width = (parseFloat(NList[i].style.width)*ratioHS) + 'px';
+        NList[i].style.height = (parseFloat(NList[i].style.height)*ratioHS) + 'px';
     	NList[i].style.display = 'block';
     	//Remove non-breaking spaces which were only added for the accursed IE.
         if (isIE == false){
@@ -335,7 +335,7 @@ function InitializeHS(){
     }*/      
     
     HSon = true;
-    if (SelectedAreaHS){ShowAnnHS(SelectedAreaHS.replace('Area_','')); SelectedAreaHS == null;}
+    //if (SelectedAreaHS){HighlightHS(SelectedAreaHS.replace('Area_',''));/*ShowAnnHS(SelectedAreaHS.replace('Area_',''));*/ SelectedAreaHS == null;}
     }
 }
 
@@ -423,7 +423,6 @@ function ShowAnnHS(ItemId){
             TheAnnotation.style.top = HeightOffset + 'px';
             TheAnnotation.style.left = '0px';
         }
-        //$(TheAnnotation).click(function(){alert();});
     }
 }
 
@@ -484,7 +483,7 @@ function moveAreasHS(){
 
 function UnInitializeHS(keep){
 	if (HSon == true){
-	//alert("UnInitializeHS");
+    //alert("UnInitializeHS");
 	keep = keep | false;
 	
 	if (keep){
@@ -498,7 +497,7 @@ function UnInitializeHS(keep){
 	}
 	
     DeselectHS();
-        
+
     var ratioHS = (($("#iviewerImage").width())/1200);	
     for (var i=0; i<AreasHS.length; i++){
         AreasHS[i].style.left = ((parseFloat(AreasHS[i].style.left)) - ImgLeftHS)/ratioHS + 'px';

@@ -236,7 +236,7 @@ $( function() {
 					var checkpp = $(xml).find('pages pb:contains('+current_page+')').text();
 					var checkdd = $(".main_dd_select").find('.option:contains('+current_page+')').text();
 					if(hash && (checkpp != "") && ($("#imgd_link").attr("class") != "current_mode")){
-				    	UnInitialize(); //Add by JK for ITL
+					   	UnInitialize(); //Add by JK for ITL 
 				    	UnInitializeHS(); //Add by JK for HS
 						gotopage(current_page, "none");
 						chooseZoomMag(); //Add by JK for Mag
@@ -336,13 +336,11 @@ $( function() {
 			     function() {
 			     // IT: se il pulsante ITL è attivo e non sono in modalità txttxt, attiva ITL
 			         if ($("#switchITL i").hasClass('fa fa-chain')){
-			             if($('.current_mode').attr('id')=='txttxt_link'){/*alert("TT");*/}
-			             else{/*alert("NI");*/Initialize();}
-			        } /*Add by JK for ITL*/
+			             if(!($('.current_mode').attr('id')=='txttxt_link')){Initialize();}
+			         }/*Add by JK for ITL*/
 			         if ($("#switchHS i").hasClass('fa fa-dot-circle-o')){
-			             if($('.current_mode').attr('id')=='txttxt_link'){/*alert("TTHS");*/}
-			             else{/*alert("NIHS");*/InitializeHS();} /*Add by JK for HS*/
-			         }
+			             if(!($('.current_mode').attr('id')=='txttxt_link')){InitializeHS();} 
+			         }/*Add by JK for HS*/
 			     }
 			 );
 		       
@@ -515,13 +513,6 @@ $( function() {
 
 				//$("#image_cont-add").remove();
 				
-				if ($("#switchITL i").hasClass('fa fa-chain')){
-    	            if(!$("#switchITL").hasClass('inactive')){/*alert("NP");*/Initialize();}
-                }/*Add by JK for ITL*/
-    	        if ($("#switchHS i").hasClass('fa fa-dot-circle-o')){
-    	            if(!$("#switchITL").hasClass('inactive')){/*alert("NPHS");*/InitializeHS();}
-                }/*Add by JK for HS*/
-				
 				$("#text_cont-add").remove();
 				$("#span_ee_select-add").hide();
 
@@ -534,11 +525,12 @@ $( function() {
 		        	$("#text_menu").show();
 					$("#text_cont").show();
 		        });		
-				
+								
 				$("#mag").show();				
 				$("#image_menu").show();
 				$('#switchITL').show();
 				$("#image_cont").show();
+				
 				
 				$('#thumb_elem').show();
 				$('#zvalint').show();
@@ -550,6 +542,12 @@ $( function() {
 				marginLeft: "-10px"
 			});
 			if(! $('.go-full-right').is(':visible')) $('.go-full-right').show();
+			if ($("#switchITL i").hasClass('fa fa-chain')){
+                if(!$("#switchITL").hasClass('inactive')){Initialize();}
+            }/*Add by JK for ITL*/
+    	    if ($("#switchHS i").hasClass('fa fa-dot-circle-o')){
+                if(!$("#switchHS").hasClass('inactive')){InitializeHS();}
+            }/*Add by JK for HS*/
 		});		
 		/*$("#imgimg_link").click(function(){
 			if($(this).attr("class")!="current_mode"){
