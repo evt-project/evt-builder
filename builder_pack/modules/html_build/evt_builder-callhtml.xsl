@@ -242,7 +242,7 @@
 												<i class="fa fa-circle-o"></i>
 											</span>
 											<span class="imageTopTool" id="switchITL" value="turn ITL on" title="Image text link" onclick="switchIMT()">
-												<span>ITL</span>
+												<span>TextLink</span>
 												<i class="fa fa-chain-broken"></i>
 											</span>
 											<p id="thumb_elem">
