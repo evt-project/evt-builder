@@ -195,7 +195,7 @@
 						<div id="cont_fullscreen">
 							<a href="javascript:void(0);" id="main_fullscreen" title="fullscreen"
 								style="float: right; padding: 12px; padding-left: 14px;"
-								><img id="img_fullscreen" src="images/full_screen.png" /></a>
+								><i class="fa fa-expand"></i></a>
 						</div>
 					</header>
 					<section id="central_wrapper">
