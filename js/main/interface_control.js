@@ -336,8 +336,15 @@ $( function() {
 			if (HSon == true) {UnInitializeHS(true)}; //Add by JK for HS
 			$('#'+frame_id).load("data/output_data/"+pp_el+"/page_"+pp_val+"_"+pp_el+".html #text_frame",
 			     function() {
-			         if (!$("#switchITL").hasClass('inactive')){Initialize();} /*Add by JK for ITL*/
-			         if (!$("#switchHS").hasClass('inactive')){InitializeHS();} /*Add by JK for HS*/
+			     // IT: se il pulsante ITL è attivo e non sono in modalità txttxt, attiva ITL
+			         if ($("#switchITL i").hasClass('fa fa-chain')){
+			             if($('.current_mode').attr('id')=='txttxt_link'){/*alert("TT");*/}
+			             else{/*alert("NI");*/Initialize();}
+			        } /*Add by JK for ITL*/
+			         if ($("#switchHS i").hasClass('fa fa-dot-circle-o')){
+			             if($('.current_mode').attr('id')=='txttxt_link'){/*alert("TTHS");*/}
+			             else{/*alert("NIHS");*/InitializeHS();} /*Add by JK for HS*/
+			         }
 			     }
 			 );
 		       
@@ -508,6 +515,14 @@ $( function() {
 				//$("#txttxt_link").removeClass("current_mode");
 
 				//$("#image_cont-add").remove();
+				
+				if ($("#switchITL i").hasClass('fa fa-chain')){
+    	            if(!$("#switchITL").hasClass('inactive')){/*alert("NP");*/Initialize();}
+                }/*Add by JK for ITL*/
+    	        if ($("#switchHS i").hasClass('fa fa-dot-circle-o')){
+    	            if(!$("#switchITL").hasClass('inactive')){/*alert("NPHS");*/InitializeHS();}
+                }/*Add by JK for HS*/
+				
 				$("#text_cont-add").remove();
 				$("#span_ee_select-add").hide();
 
@@ -561,8 +576,6 @@ $( function() {
 			if($(this).attr("class")!="current_mode"){
 			    UnInitialize();//Add by JK for ITL
 			    UnInitializeHS();//Add by JK for HS
-                $('#switchITL i').removeClass('fa-chain').addClass('fa-chain-broken'); //JK CANC?
-			    //$("#switchITL").setAttribute('src','images/ITLoff.png');//Add by JK for ITL
 				
 			    if ($("#imgd_link").attr("class") == "current_mode")
 					$(".main_pp_select").trigger("txtimg_mode");
