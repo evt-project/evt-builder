@@ -23,7 +23,7 @@ $( function() {
 		   onMouseMove: function(ev, coords) {clickTrue(); },
 		   onFinishLoad: function(ev, src) {
 		   									$("#iviewerImage").fadeIn(200);
-		   									if ($('#switchITL i').hasClass('fa-chain')){Initialize();} //Add by JK for ITL
+		   									if ($('#switchITL i').hasClass('fa fa-chain')){Initialize();} //Add by JK for ITL
 		                                    if ($("#switchHS i").hasClass('fa fa-dot-circle-o')){InitializeHS();} //Add by JK for HS
 		                                    
 		                                    $.ajax({
