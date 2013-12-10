@@ -154,7 +154,7 @@ $( function() {
 	     		//alert(first_page+"-"+second_page);
 				var newhash = first_page+"-"+second_page;
 				$(".main_dd_select .label_selected").text(newhash).trigger('change');
-				window.location.hash = newhash;
+				//window.location.hash = newhash;
 			});
 
 			$(".main_dd_select").on('imgd_mode',function(){
@@ -170,7 +170,7 @@ $( function() {
 	     		//alert(first_page+"-"+second_page);
 				var newhash = first_page+"-"+second_page;
 				$(".main_dd_select .label_selected").text(newhash).trigger('change');
-				window.location.hash = newhash;
+				//window.location.hash = newhash;
 
 			});
 
@@ -215,6 +215,7 @@ $( function() {
 					//$("#value_" + newPage).addClass("selected").siblings().removeClass('selected');
 				}
 			});
+
 
 			$('.like_select').each(function(){updateSelectLength(this);});
 			
@@ -324,11 +325,8 @@ $( function() {
 
 			// IT: Se ci si trova nella modalit Thumb, chiude la schermata e visualizza l'immagine
 			if($("#image_elem").css('display')=="none"){
-				$("#image_elem").show();
-				$("#image_fade").show();
-				$("#image_tool").show();
-				$("#thumb_cont").hide();
-			}			
+				$("#thumb_link").trigger('click');
+			}
 		}
 		// IT: Gestisce il cambio edizione nel frame testuale
 		function gotoedition(pp_val, pp_el, frame_id, parent_id){
@@ -347,11 +345,11 @@ $( function() {
 			});
 
 			// IT: Gestisce la scrittura nell'etichetta destra o sinistra a seconda del frame caricato
-			if (frame_id.indexOf("-add")>-1) {
+			/*if (frame_id.indexOf("-add")>-1) {
 				$('#zvalopz').text(pp_el_upp);
 			} else{
 				$('#edval span').text(pp_el_upp);
-			}
+			}*/
 		}
 		// IT: Un preload basilare per la navigazione delle immagini
 		function preload(arrayOfImages) {
@@ -485,13 +483,14 @@ $( function() {
 
 		$(".thumb_single").click(function(){
 			window.location.hash = $(this).attr('id').replace( '_small', '' );
+			
 			if ($("#imgd_link").attr("class") == "current_mode")
 				$(".main_dd_select").trigger("imgd_thumb");
-			
+
 			$("#thumb_link").trigger('click');
-			if($("#main_right_frame header").css('display')!="none"){
+			/*if($("#main_right_frame header").css('display')!="none"){
 				$("#main_right_menu").trigger('click');
-			}
+			}*/
 			
 		});	
 		
@@ -526,8 +525,9 @@ $( function() {
 				$('#switchITL').show();
 				$("#image_cont").show();
 				
+				$('#thumb_elem').show();
 				$('#zvalint').show();
-				$('#zvalopz').text("");
+				//$('#zvalopz').text("");
 				
 			}
 			$('#header_collapse').animate({
@@ -595,7 +595,7 @@ $( function() {
 					.attr("id", "text_elem-add")
 				;
 
-				$('#zvalint').hide(); //SISTEMARE
+				//$('#zvalint').hide(); //SISTEMARE
 				//$('#zvalopz').text($("input[name=edition_r]:checked").val());			
 				$('#span_ee_select-add').css({display: "inline-block"});
 				//$("#span_ee_select-add").show();
@@ -620,6 +620,14 @@ $( function() {
 				marginLeft: "-10px"
 			});
 			if(! $('.go-full-right').is(':visible')) $('.go-full-right').show();
+			if($('#left_header').hasClass('menuClosed')){
+				noMenu_height = $('#image_cont').height()+44;
+				$('#image_cont, #text_cont-add').css({
+					"top": "-44px",
+					"height": noMenu_height
+				});
+				$('.go-full-left').addClass('onWhite');
+			}
 		});
 
 		$("#imgd_link").click(function(){	
@@ -654,6 +662,7 @@ $( function() {
 				$("#image_cont").show();
 				$('#span_dd_select').css({display: "inline-block"});
 				$('#switchITL:visible').hide();
+				$('#thumb_elem').hide();
 			}
 			if(!$('#span_dd_select').hasClass('widthChanged')){
 				$('#span_dd_select').addClass('widthChanged')
@@ -756,6 +765,23 @@ function updateSelectLength(elem){
 		$(elem).css('width', widthOpt+34);
 		$(elem).find('.option_container').css('width', widthOpt+24);
 	}
+
+	if(elem.id=='span_ee_select'){
+		var widthEE = $('#span_ee_select').find('div').width(); 
+		var optEE = $('#span_ee_select').find('.option_container').width(); 
+		$('#span_ee_select-add').find('.option_container').removeAttr('style');
+		$('#span_ee_select-add').css('width', widthEE);
+		$('#span_ee_select-add').find('.option_container').css('width', optEE);
+		$('#span_ee_select-add').addClass('widthChanged');
+	}
+	else if(elem.id=='span_pp_select'){
+		var widthEE = $('#span_pp_select').find('div').width()*1.5; 
+		var optEE = $('#span_pp_select').find('.option_container').width()*1.5; 
+		$('#span_dd_select').find('.option_container').removeAttr('style');
+		$('#span_dd_select').css('width', widthEE);
+		$('#span_dd_select').find('.option_container').css('width', optEE+5);
+		$('#span_dd_select').addClass('widthChanged');
+	}
 }
 
 // Evento per chiudere e aprire i menu secondari dei box
@@ -763,15 +789,17 @@ function collapseHeader(){
 	if (magnifierON==false) $('#image_tool').slideToggle().toggleClass('menuClosed');
 	$('#left_header').toggle('blind').toggleClass('menuClosed');
 	$('.go-full-right').toggleClass('onWhite');
+	if($('#text_cont-add').css('display')=='block'){$('.go-full-left').toggleClass('onWhite');}
+	
 	if($('#left_header').hasClass('menuClosed')){
-		noMenu_height = $('#image_cont').height()+50;
-		$('#image_cont').animate({
-			top: "-50px",
+		noMenu_height = $('#image_cont').height()+44;
+		$('#image_cont, #text_cont-add').animate({
+			top: "-44px",
 			height: noMenu_height
 		});
 	} else {
-		noMenu_height = $('#image_cont').height()+50;
-		$('#image_cont').animate({
+		noMenu_height = $('#image_cont').height()+44;
+		$('#image_cont, #text_cont-add').animate({
 			top: "0px",
 			height: "100%"
 		});
@@ -779,13 +807,13 @@ function collapseHeader(){
 
 	$('#right_header').toggle('blind').toggleClass('menuClosed');
 	if($('#right_header').hasClass('menuClosed')){
-		$('#text_cont').animate({
+		$('#text_cont, #text_cont-add').animate({
 			height: "100%"
 		});
 	} else {
-		noMenu_height = $('#image_cont').height()+50;
-		$('#text_cont').animate({
-			height: "92.8%"
+		noMenu_height = $('#image_cont').height()+44;
+		$('#text_cont, #text_cont-add').animate({
+			height: "93.4%"
 		});
 	}
 
@@ -812,4 +840,11 @@ function collapseHeader(){
 		}
 		$('#header_collapse').removeClass('fa-caret-down').addClass('fa-caret-up');
 	}
+	if(!$('#span_ee_select-add').hasClass('widthChanged')){
+		$('#span_ee_select-add').addClass('widthChanged')
+		$('#span_ee_select-add .option_container').removeAttr('style');
+		$('#span_ee_select-add').each(function(){updateSelectLength(this);});
+	}
+	
+
 }
