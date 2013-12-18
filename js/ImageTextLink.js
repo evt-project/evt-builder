@@ -363,11 +363,29 @@ function HighlightHS(ItemId){
         }
     }*/
 }
-
+function checkAnnPosHS(){
+    if(HSon==true){
+        var TheAnnotation = $("#image_elem > .Annotation");
+        for(i=0; i<TheAnnotation.length; i++){
+            annW = TheAnnotation.width();
+            imgW= $("#image_elem").width()
+            rightLimit = $("#image_elem").offset().left + imgW;
+            if (parseInt(TheAnnotation.css('left')) + annW > rightLimit){
+                TheAnnotation.css({left: imgW -10- annW +'px'});
+            }
+            annH = TheAnnotation.height();
+            imgH= $("#image_elem").height()
+            bottLimit = $("#image_elem").offset().top + imgH;
+            if (parseInt(TheAnnotation.css('top')) + annH > bottLimit){
+                TheAnnotation.css({top: imgH -10- annH +'px'}); //-$("#left_header").height() ?
+            }
+        }
+    }
+}
 function ShowAnnHS(ItemId){
     if (click==false){return;}
     DeselectHS();
-    
+
     var TheArea = document.getElementById("Area_" + ItemId);
     if (TheArea != null){
         TheArea.className = 'SelectedAreaHS';
