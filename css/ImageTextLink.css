@@ -28,7 +28,7 @@ div.Annotation{
     border: 2px solid #4E443C;
     border-radius: 2px;
     padding: 0;
-    width: 50%;
+    width: 300px;
 }
 
 div.AnnTitleBar{
@@ -58,7 +58,7 @@ div.AnnText{
     border-top: 2px solid #4E443C;
     font-size: 16px;
     max-height: 200px;
-    overflow: scroll;
+    overflow-y: scroll;
 }
 /*
 #buttons{

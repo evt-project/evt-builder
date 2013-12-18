@@ -295,11 +295,11 @@ function InitializeHS(){
     //alert("inizializeHS")
 /* Populate three handy lists with pointers to the menu items, areas and Anns. */
 			
-    HeightOffsetHS = parseInt(document.getElementById('iviewerImage').offsetTop);
-    ImgLeftHS = parseInt(document.getElementById('iviewerImage').offsetLeft);
-    ImgWidthHS = parseInt(document.getElementById('iviewerImage').offsetWidth);
+    HeightOffsetHS = parseInt(document.getElementById('image_elem').offsetTop);
+    ImgLeftHS = parseInt(document.getElementById('image_elem').offsetLeft);
+    ImgWidthHS = parseInt(document.getElementById('image_elem').offsetWidth);
     ImgRightHS = ImgLeftHS + ImgWidthHS;
-    ImgHeightHS = parseInt(document.getElementById('iviewerImage').offsetHeight);
+    ImgHeightHS = parseInt(document.getElementById('image_elem').offsetHeight);
     ImgBottomHS = HeightOffsetHS + ImgHeightHS;
     paddingTopHS = parseInt($("#iviewerImage").css('padding-top'));
     marginTopHS = parseInt($("#iviewerImage").css('margin-top'));
@@ -403,7 +403,6 @@ function ShowAnnHS(ItemId){
         TheAnnotation.style.position = 'absolute';
         //Horizontal position
         var ALeft = parseInt(TheArea.style.left);
-
         //Show the Ann so we can position it afterwards
         TheAnnotation.style.left = ALeft + 'px';
         TheAnnotation.style.display = 'block';
@@ -435,19 +434,20 @@ function doNothingHS(El, e){
 function HideAnnHS(AnnId){
     var El = document.getElementById(AnnId);
     if (El != null){
-	El.style.display = 'none';
-	El.style.position = 'absolute';
-	$("#text").append(TheAnnotation);
+    	El.style.display = 'none';
+    	El.style.position = 'absolute';
+    	$("#text").append(El);
     }
+    DeselectHS();
     DroppedX = -1;
     DroppedY = -1;
 }
 
 function ReInitializeHS(){
-    //alert("ReInitialize()");
-    if (HSon == true){
+    //alert("ReInitializeHS()");
+    if (HSon == true){    
         newImgTopHS = parseInt(document.getElementById('iviewerImage').offsetTop) +parseInt($('#iviewerImage').css('padding-top')) + parseInt($('#iviewerImage').css('margin-top'));
-        newImgLeftHS = parseInt(document.getElementById('iviewerImage').offsetLeft);    
+        newImgLeftHS = parseInt(document.getElementById('iviewerImage').offsetLeft);
         var newRatioHS = (($("#iviewerImage").width())/1200);
         
         var NList = document.getElementsByTagName('div');
@@ -460,6 +460,7 @@ function ReInitializeHS(){
             }
 	    }
 	    ImgLeftHS = newImgLeftHS;
+	    ImgRightHS = ImgLeftHS + ImgWidthHS;
 	    imgTopHS = newImgTopHS;
 	    RatioHS = newRatioHS;
     }
@@ -553,7 +554,6 @@ function UnHighlightHS(){
 
 function DeselectHS(){
     if (HSon == false){return;}
-    
     //Deselect the currently-selected elements
      for (var i=0; i<AreasHS.length; i++){
         if (AreasHS[i] != null){
@@ -856,10 +856,11 @@ function MouseUpHandler(e){
             containerWidth = $("#image_elem").width();
             containerHeight = $("#image_elem").height();
             if(DroppedX<0){DroppedX=0;}
-            else if (DroppedX > (containerHeight - $(DraggedEl).height())){DroppedX = containerHeight - $(DraggedEl).height()}
-            
+            //else if (DroppedX > (containerHeight - $(DraggedEl).height())){DroppedX = containerHeight - $(DraggedEl).height()}
+            else if (DroppedX > (containerWidth - $(DraggedEl).width())){DroppedX = containerWidth - $(DraggedEl).width() }
             if(DroppedY<(0+parseInt($("#iviewerImage").css('padding-top')))){DroppedY=0+parseInt($("#iviewerImage").css('padding-top'))}
-            else if (DroppedY > (containerWidth - $(DraggedEl).width())){DroppedY = containerWidth - $(DraggedEl).width() }
+            //else if (DroppedY > (containerWidth - $(DraggedEl).width())){DroppedY = containerWidth - $(DraggedEl).width() }
+            else if (DroppedY > (containerHeight - $(DraggedEl).height())){DroppedY = containerHeight - $(DraggedEl).height()}
             
             DraggedEl.style.position = 'absolute';
             DraggedEl.style.left = DroppedX + 'px';
