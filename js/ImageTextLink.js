@@ -280,12 +280,14 @@ function switchIMT(){
 	else if (ITLon == false){
 	   Initialize();
 	   //document.getElementById("switchITL").setAttribute('src','images/ITLon.png');//Add by JK for ITL
-     //$('#switchITL i').removeClass('fa-chain-broken').addClass('fa-chain');//Add by CDP for FA
+        //$('#switchITL i').removeClass('fa-chain-broken').addClass('fa-chain');//Add by CDP for FA
+        $('#switchITL').addClass('active'); //Add by CDP
     }
 	else {
 	   UnInitialize();
-	   //document.getElementById("switchITL").setAttribute('src','images/ITLoff.png');
-     $('#switchITL i ').removeClass('fa-chain').addClass('fa-chain-broken');//Add by CDP for FA
+        //document.getElementById("switchITL").setAttribute('src','images/ITLoff.png');
+        $('#switchITL i ').removeClass('fa-chain').addClass('fa-chain-broken');//Add by CDP for FA
+        $('#switchITL').removeClass('active'); //Add by CDP
 	}
 }
 
@@ -295,11 +297,11 @@ function InitializeHS(){
     //alert("inizializeHS")
 /* Populate three handy lists with pointers to the menu items, areas and Anns. */
 			
-    HeightOffsetHS = parseInt(document.getElementById('iviewerImage').offsetTop);
-    ImgLeftHS = parseInt(document.getElementById('iviewerImage').offsetLeft);
-    ImgWidthHS = parseInt(document.getElementById('iviewerImage').offsetWidth);
+    HeightOffsetHS = parseInt(document.getElementById('image_elem').offsetTop);
+    ImgLeftHS = parseInt(document.getElementById('image_elem').offsetLeft);
+    ImgWidthHS = parseInt(document.getElementById('image_elem').offsetWidth);
     ImgRightHS = ImgLeftHS + ImgWidthHS;
-    ImgHeightHS = parseInt(document.getElementById('iviewerImage').offsetHeight);
+    ImgHeightHS = parseInt(document.getElementById('image_elem').offsetHeight);
     ImgBottomHS = HeightOffsetHS + ImgHeightHS;
     paddingTopHS = parseInt($("#iviewerImage").css('padding-top'));
     marginTopHS = parseInt($("#iviewerImage").css('margin-top'));
@@ -361,11 +363,29 @@ function HighlightHS(ItemId){
         }
     }*/
 }
-
+function checkAnnPosHS(){
+    if(HSon==true){
+        var TheAnnotation = $("#image_elem > .Annotation");
+        for(i=0; i<TheAnnotation.length; i++){
+            annW = TheAnnotation.width();
+            imgW= $("#image_elem").width()
+            rightLimit = $("#image_elem").offset().left + imgW;
+            if (parseInt(TheAnnotation.css('left')) + annW > rightLimit){
+                TheAnnotation.css({left: imgW -10- annW +'px'});
+            }
+            annH = TheAnnotation.height();
+            imgH= $("#image_elem").height()
+            bottLimit = $("#image_elem").offset().top + imgH;
+            if (parseInt(TheAnnotation.css('top')) + annH > bottLimit){
+                TheAnnotation.css({top: imgH -10- annH +'px'}); //-$("#left_header").height() ?
+            }
+        }
+    }
+}
 function ShowAnnHS(ItemId){
     if (click==false){return;}
     DeselectHS();
-    
+
     var TheArea = document.getElementById("Area_" + ItemId);
     if (TheArea != null){
         TheArea.className = 'SelectedAreaHS';
@@ -403,24 +423,23 @@ function ShowAnnHS(ItemId){
         TheAnnotation.style.position = 'absolute';
         //Horizontal position
         var ALeft = parseInt(TheArea.style.left);
-
         //Show the Ann so we can position it afterwards
         TheAnnotation.style.left = ALeft + 'px';
         TheAnnotation.style.display = 'block';
-        if (ALeft + parseInt(TheAnnotation.offsetWidth) > ImgRight){
-            ALeft = ImgRight - parseInt(TheAnnotation.offsetWidth);
+        if (ALeft + parseInt(TheAnnotation.offsetWidth) > ImgRightHS){
+            ALeft = ImgRightHS - parseInt(TheAnnotation.offsetWidth);
             TheAnnotation.style.left = ALeft + 'px';
         }
         //Vertical position
         var ATop = parseInt(TheArea.style.top) + parseInt(TheArea.offsetHeight);
-        if (ATop + parseInt(TheAnnotation.offsetHeight) > ImgBottom){
+        if (ATop + parseInt(TheAnnotation.offsetHeight) > ImgBottomHS){
             ATop = parseInt(TheArea.style.top) - parseInt(TheAnnotation.offsetHeight);
         }
         TheAnnotation.style.top = ATop  + 'px';
 
         //Handle the problem of disappearing off the top
-        if (parseInt(TheAnnotation.offsetTop) < HeightOffset){
-            TheAnnotation.style.top = HeightOffset + 'px';
+        if (parseInt(TheAnnotation.offsetTop) < HeightOffsetHS){
+            TheAnnotation.style.top = HeightOffsetHS + 'px';
             TheAnnotation.style.left = '0px';
         }
     }
@@ -435,19 +454,20 @@ function doNothingHS(El, e){
 function HideAnnHS(AnnId){
     var El = document.getElementById(AnnId);
     if (El != null){
-	El.style.display = 'none';
-	El.style.position = 'absolute';
-	$("#text").append(TheAnnotation);
+    	El.style.display = 'none';
+    	El.style.position = 'absolute';
+    	$("#text").append(El);
     }
+    DeselectHS();
     DroppedX = -1;
     DroppedY = -1;
 }
 
 function ReInitializeHS(){
-    //alert("ReInitialize()");
-    if (HSon == true){
+    //alert("ReInitializeHS()");
+    if (HSon == true){    
         newImgTopHS = parseInt(document.getElementById('iviewerImage').offsetTop) +parseInt($('#iviewerImage').css('padding-top')) + parseInt($('#iviewerImage').css('margin-top'));
-        newImgLeftHS = parseInt(document.getElementById('iviewerImage').offsetLeft);    
+        newImgLeftHS = parseInt(document.getElementById('iviewerImage').offsetLeft);
         var newRatioHS = (($("#iviewerImage").width())/1200);
         
         var NList = document.getElementsByTagName('div');
@@ -460,6 +480,7 @@ function ReInitializeHS(){
             }
 	    }
 	    ImgLeftHS = newImgLeftHS;
+	    ImgRightHS = ImgLeftHS + ImgWidthHS;
 	    imgTopHS = newImgTopHS;
 	    RatioHS = newRatioHS;
     }
@@ -553,7 +574,6 @@ function UnHighlightHS(){
 
 function DeselectHS(){
     if (HSon == false){return;}
-    
     //Deselect the currently-selected elements
      for (var i=0; i<AreasHS.length; i++){
         if (AreasHS[i] != null){
@@ -856,10 +876,11 @@ function MouseUpHandler(e){
             containerWidth = $("#image_elem").width();
             containerHeight = $("#image_elem").height();
             if(DroppedX<0){DroppedX=0;}
-            else if (DroppedX > (containerHeight - $(DraggedEl).height())){DroppedX = containerHeight - $(DraggedEl).height()}
-            
+            //else if (DroppedX > (containerHeight - $(DraggedEl).height())){DroppedX = containerHeight - $(DraggedEl).height()}
+            else if (DroppedX > (containerWidth - $(DraggedEl).width())){DroppedX = containerWidth - $(DraggedEl).width() }
             if(DroppedY<(0+parseInt($("#iviewerImage").css('padding-top')))){DroppedY=0+parseInt($("#iviewerImage").css('padding-top'))}
-            else if (DroppedY > (containerWidth - $(DraggedEl).width())){DroppedY = containerWidth - $(DraggedEl).width() }
+            //else if (DroppedY > (containerWidth - $(DraggedEl).width())){DroppedY = containerWidth - $(DraggedEl).width() }
+            else if (DroppedY > (containerHeight - $(DraggedEl).height())){DroppedY = containerHeight - $(DraggedEl).height()}
             
             DraggedEl.style.position = 'absolute';
             DraggedEl.style.left = DroppedX + 'px';

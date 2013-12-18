@@ -233,21 +233,21 @@
 											</xsl:call-template>
 										</span>
 										<div id="image_menu">
-											<span class="imageTopTool" id="switchMag" value="mag" onclick="magOn()">
+											<span class="imageTopTool mainButtons" id="switchMag" value="mag" onclick="magOn()">
 												<span>Magnifier</span>
 												<i class="fa fa-search"></i>
 											</span>
-											<span class="imageTopTool" id="switchHS" value="HS" onclick="switchHS()">
+											<span class="imageTopTool mainButtons" id="switchHS" value="HS" onclick="switchHS()">
 												<span>HotSpot</span>
 												<i class="fa fa-circle-o"></i>
 											</span>
-											<span class="imageTopTool" id="switchITL" value="turn ITL on" title="Image text link" onclick="switchIMT()">
+											<span class="imageTopTool mainButtons" id="switchITL" value="turn ITL on" title="Image text link" onclick="switchIMT()">
 												<span>TextLink</span>
 												<i class="fa fa-chain-broken"></i>
 											</span>
-											<p id="thumb_elem">
+											<span id="thumb_elem" class="iconButtons">
 												<a href="javascript:void(0);" id="thumb_link"><i class="fa fa-th"></i></a>
-											</p>
+											</span>
 										</div>
 										<!--<input type="image" src="images/zoom.png" id="switchZoom" class="top_image_tools" value="zoom" onclick="zoomOn()"/>-->
 										<!--<input type="image" src="images/magOff.png" id="switchMag" class="top_image_tools" value="mag" onclick="magOn()"/>-->
@@ -345,9 +345,9 @@
 												select="'main_ee_select'"/>
 										</xsl:call-template>
 									</span>
-									<p id="search_elem">
+									<span id="search_elem" class="iconButtons">
 										<a href="javascript:void(0);" id="search_link"><i class="fa fa-search"></i></a>
-									</p>
+									</span>
 								</div>
 								<i class="fa fa-times-circle closeFullScreen" onclick="closeFullScreenRight();"></i>
 							</header>

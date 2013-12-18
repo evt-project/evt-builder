@@ -23,14 +23,12 @@ div#CurrentAnnotation{
 div.Annotation{
     display: none;
     position: absolute;
-    width: auto;
-    min-width: 10%;
     background-color: #ffffff;
     color: #000000;
     border: 2px solid #4E443C;
     border-radius: 2px;
     padding: 0;
-    max-width: 50%;
+    width: 300px;
 }
 
 div.AnnTitleBar{
@@ -60,7 +58,7 @@ div.AnnText{
     border-top: 2px solid #4E443C;
     font-size: 16px;
     max-height: 200px;
-    overflow: scroll;
+    overflow-y: scroll;
 }
 /*
 #buttons{
