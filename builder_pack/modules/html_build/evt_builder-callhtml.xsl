@@ -100,7 +100,7 @@
 				<xsl:comment>/image text link</xsl:comment>
 
 			</xsl:if>
-			<link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css" />
+			<link rel="stylesheet" href="css/font-awesome.min.css" />
 		</head>
 	</xsl:template>
 
