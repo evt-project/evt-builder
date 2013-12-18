@@ -156,7 +156,7 @@
                     if (el.largeimageloaded && (settings.zoomType != 'drag' || (settings.zoomType == 'drag' && el.mouseDown))) {
                         lens.setposition(e);
 						if (settings.position == 'inside'){
-							stage.moveposition(e); 
+							stage.moveposition(e);
 						}
                     }
                 });
@@ -208,7 +208,7 @@
             activate: function (e) {
                 clearTimeout(el.timer);
                 //show lens and zoomWindow
-                lens.show();
+                if (settings.lens==true){lens.show();}
                 stage.show();
             },
             deactivate: function (e) {
@@ -265,67 +265,29 @@
         function Smallimage(image) {
             var $obj = this;
             this.node = image[0];
-            /*this.setdimensions = function (){
-                var maxW = $("#image_cont").width();
-                var maxH = $("#image_cont").height();
-                //var maxW = this.node.parent().width();
-                //var maxH = this.parent().width();
-                $("#imgMag").css({
-                    maxWidth: maxW,
-                    maxHeight: maxH
-
-                });
-            };*/
             this.findborder = function () {
-                var bordertop = 0;
-                bordertop = image.css('border-top-width');
-                btop = '';
-                var borderleft = 0;
-                borderleft = image.css('border-left-width');
-                bleft = '';
-                if (bordertop) {
-                    for (i = 0; i < 3; i++) {
-                        var x = [];
-                        x = bordertop.substr(i, 1);
-                        if (isNaN(x) == false) {
-                            btop = btop + '' + bordertop.substr(i, 1);
-                        } else {
-                            break;
-                        }
-                    }
-                }
-                if (borderleft) {
-                    for (i = 0; i < 3; i++) {
-                        if (!isNaN(borderleft.substr(i, 1))) {
-                            bleft = bleft + borderleft.substr(i, 1)
-                        } else {
-                            break;
-                        }
-                    }
-                }
-                $obj.btop = (btop.length > 0) ? eval(btop) : 0;
-                $obj.bleft = (bleft.length > 0) ? eval(bleft) : 0;
+                var bordertop = parseFloat(image.css('border-top-width'));
+                var borderleft = parseFloat(image.css('border-left-width'));
+                $obj.btop = (bordertop> 0) ? eval(bordertop) : 0;
+                $obj.bleft = (borderleft > 0) ? eval(borderleft) : 0;
             };
             this.fetchdata = function () {
-                /*if ($(".zoomPad", el).length == 0) {
-                    el.zoomPad = $('<div/>').addClass('zoomPad');
-                    img.wrap(el.zoomPad);
-                }*/
 				var scaleI = {};
                 $obj.findborder();
                 $obj.w = image.width();
                 $obj.h = image.height();
-                $obj.ow = image.outerWidth();
+                $obj.ow = image.outerWidth();   //width+padding+border  (NO margin)
                 $obj.oh = image.outerHeight();
                 $obj.pos = image.offset();
-                $obj.addLeft = image.position().left;
-                $obj.pos.l = image.offset().left + $obj.bleft;
-                //alert($obj.pos.l);
-                $obj.pos.t = image.offset().top + $obj.btop;
+                $obj.position = image.position();
+                $obj.addLeft = $obj.position.left;
+                $obj.addTop = $obj.position.top;
+                $obj.pos.l = $obj.pos.left + $obj.bleft;
+                $obj.pos.t = $obj.pos.top + $obj.btop;
                 $obj.pos.r = $obj.pos.l + $obj.w;
                 $obj.pos.b = $obj.pos.t + $obj.h;
-                $obj.rightlimit = image.offset().left + $obj.ow;
-                $obj.bottomlimit = image.offset().top + $obj.oh;
+                $obj.rightlimit = $obj.pos.left + $obj.ow;
+                $obj.bottomlimit = $obj.pos.top + $obj.oh;
 				scaleI.x = ($obj.w / largeimage.w);
                 scaleI.y = ($obj.h / largeimage.h);
                 el.scaleI = scaleI;
@@ -354,8 +316,20 @@
             };
             this.show = function () {
                 smallimage.fetchdata();
-                this.node.top = (smallimage.oh - this.node.height()) / 2;
-                this.node.left = (smallimage.ow - this.node.width()) / 2  + smallimage.addLeft;
+                if(smallimage.addLeft==0){//If add by JK for EVT-builder
+                    var add= (parseFloat($("#main_right_frame").css("width"))-smallimage.ow)/2;
+        	        this.node.left = (smallimage.ow - this.node.width())/ 2 + add;
+        	    }
+        	    else {
+        	       this.node.left = (smallimage.ow - this.node.width()) / 2  + smallimage.addLeft;
+        		}
+        		if(smallimage.addTop==0){//If add by JK for EVT-builder
+        	       //var add= (parseFloat($("#main_right_frame").css("height"))-smallimage.oh)/2;
+        	       this.node.top = (smallimage.oh - this.node.height())/ 2;
+        	    }
+        	    else {
+        		   this.node.top = (smallimage.oh - this.node.height()) / 2 + smallimage.addTop;
+        		}
                 //setting position
                 this.node.css({
                     top: this.node.top + "px",
@@ -389,21 +363,20 @@
 				$obj.setdimensions();
             };
             this.setdimensions = function () {										/*info dimensioni*/
-                smallimage.fetchdata();
                 this.node.w = (parseInt(settings.lensWidth) > smallimage.w ) ? smallimage.w : parseInt (settings.lensWidth); 
                 this.node.h = (parseInt(settings.lensHeight) > smallimage.h ) ? smallimage.h : parseInt(settings.lensHeight);
 				//centering lens
-				if(smallimage.addLeft==0){//If add by JK for EVT-builder
+				/*if(smallimage.addLeft==0){//If add by JK for EVT-builder
 				    var add= (parseFloat($("#main_right_frame").css("width"))-zoomImagWidth)/2;  //Var zoomImagWidth set in switchZM.js
 				    this.node.top = (smallimage.oh - this.node.h - 2) / 2;
                     this.node.left = ((smallimage.ow - this.node.w - 2) / 2) + add;
 				}else {
 				    this.node.top = (smallimage.oh - this.node.h - 2) / 2;
                     this.node.left = ((smallimage.ow - this.node.w - 2) / 2) + smallimage.addLeft;
-                }
+                }*/
                 this.node.css({
                     top: 0,
-                    left: this.node.left + 'px',
+                    left: 0,
                     width: this.node.w + 'px',
                     height: this.node.h + 'px',
                     position: 'absolute',
@@ -428,13 +401,18 @@
             this.setcenter = function () {											/*do le coordinare top e left per posizionare la lente al centro*/
                 //calculating center position
 				if(smallimage.addLeft==0){//If add by JK for EVT-builder
-				    var add= (parseFloat($("#main_right_frame").css("width"))-zoomImagWidth)/2;  //Var zoomImagWidth set in switchZM.js
-				    this.node.top = (smallimage.oh - this.node.h - 2) / 2;
-                    this.node.left = ((smallimage.ow - this.node.w - 2) / 2) + add;
+				    var add= (parseFloat($("#main_right_frame").css("width"))-smallimage.w)/2;
+                    this.node.left = ((smallimage.ow - this.node.w - 2) / 2)+ add;
 				}else {
-				    this.node.top = (smallimage.oh - this.node.h - 2) / 2;
                     this.node.left = ((smallimage.ow - this.node.w - 2) / 2) + smallimage.addLeft;
                 }
+                if(smallimage.addTop==0){//If add by JK for EVT-builder
+				    var add= (parseFloat($("#main_right_frame").css("height"))-smallimage.h)/2;
+                    this.node.top = ((smallimage.oh - this.node.h - 2) / 2)+add;
+				}else {
+                    this.node.top = (smallimage.oh - this.node.h - 2) / 2 + smallimage.addTop;
+                }
+                this.node.top = (smallimage.oh - this.node.h - 2) / 2;
                 //centering lens
                 this.node.css({
                     top: this.node.top,
@@ -459,20 +437,19 @@
                 var lenstop = 0;
 
                 function overleft(lens) {
-                    return el.mousepos.x - (lens.w / 2) < smallimage.pos.l; 
+                    return el.mousepos.x -1-(lens.w / 2) < smallimage.pos.l; 
                 }
 
                 function overright(lens) {
-                    return el.mousepos.x + (lens.w / 2) > smallimage.pos.r; 
-                   
+                    return el.mousepos.x +1+(lens.w/ 2) > smallimage.pos.r;
                 }
 
                 function overtop(lens) {
-                    return el.mousepos.y - (lens.h) / 2 < smallimage.pos.t; 
+                    return el.mousepos.y -1-(lens.h) / 2 < smallimage.pos.t; 
                 }
 
                 function overbottom(lens) {
-                    return el.mousepos.y + (lens.h) / 2 > smallimage.pos.b; 
+                    return el.mousepos.y +1+(lens.h) / 2 > smallimage.pos.b; 
                 }
                 
                 if (overleft(this.node)) {
@@ -480,15 +457,15 @@
                 } else if (overright(this.node)) {
                     lensleft = smallimage.addLeft + smallimage.w + smallimage.bleft - this.node.w;
                 } else {
-					lensleft = el.mousepos.x + smallimage.bleft - smallimage.pos.l  + smallimage.addLeft - (this.node.w + 2) / 2;
+					lensleft = el.mousepos.x-smallimage.pos.l+smallimage.bleft+smallimage.addLeft - ((this.node.w + 2)/2);
 				}
 
                 if (overtop(this.node)) {
-                    lenstop = smallimage.btop - 1;
+                    lenstop = smallimage.addTop + smallimage.btop;
                 } else if (overbottom(this.node)) {
-                    lenstop = smallimage.h + smallimage.btop - this.node.h;
+                    lenstop = smallimage.addTop + smallimage.h + smallimage.btop - this.node.h;
                 } else {
-					lenstop = el.mousepos.y + smallimage.btop - smallimage.pos.t - (this.node.h + 2) / 2;
+					lenstop = el.mousepos.y - smallimage.pos.t + smallimage.btop + smallimage.addTop - (this.node.h + 2) / 2;
 				}
                 
                 this.node.left = lensleft;
@@ -512,12 +489,6 @@
                
                 largeimage.setposition();
 			};
-			/*this.getposition = function(e){		//AGG CANC
-				var o = {};
-                o.left = e.pageX;
-                o.top = e.pageY;
-                return o;
-			};*/
             this.hide = function () {
                 img.css({
                     'opacity': 1
@@ -670,16 +641,19 @@
                         break;
 					case "inside":
 					    if(smallimage.addLeft==0){//If add by JK for EVT-builder
-					       var add= (parseFloat($("#main_right_frame").css("width"))-zoomImagWidth)/2;  //Var zoomImagWidth set in switchZM.js
-					       this.node.leftpos = smallimage.bleft - 2 + (smallimage.w - settings.lensWidth/el.scaleI.x)/ 2 + add;
-						   this.node.toppos =  smallimage.btop - 2 + (smallimage.h - settings.lensHeight/el.scaleI.y) / 2;
-						   break;
+					       var add= (parseFloat($("#main_right_frame").css("width"))-smallimage.w)/2;
+					       this.node.leftpos = (smallimage.w - settings.lensWidth/el.scaleI.x -2)/ 2 + add -2;
 					   }
 					   else {
 						  this.node.leftpos = smallimage.bleft - 2 + (smallimage.w - settings.lensWidth/el.scaleI.x)/ 2 + smallimage.addLeft;
-						  this.node.toppos =  smallimage.btop - 2 + (smallimage.h - settings.lensHeight/el.scaleI.y) / 2;
-						  break;
 						}
+						if(smallimage.addTop==0){//If add by JK for EVT-builder
+					       //var add= (parseFloat($("#main_right_frame").css("height"))-smallimage.h)/2;
+					       this.node.toppos = (smallimage.oh - settings.lensHeight/el.scaleI.y -2)/ 2 -2;
+					   }else{
+						  this.node.toppos = smallimage.btop - 2 + (smallimage.h - settings.lensHeight/el.scaleI.y)/ 2 + smallimage.addTop;
+						}
+						break;
                     default:
                         this.node.leftpos = (smallimage.rightlimit + Math.abs(settings.xOffset) + zoomWidth < screen.width) ? (smallimage.ow + Math.abs(settings.xOffset)) : (0 - zoomWidth - Math.abs(settings.xOffset));
                         this.node.toppos = Math.abs(settings.yOffset);
@@ -720,7 +694,7 @@
 				//el.mousepos.x = e.pageX;
                 //el.mousepos.y = e.pageY;
 				lensleft = el.mousepos.x + smallimage.bleft - smallimage.pos.l - (wid + 2) / 2 + smallimage.addLeft;
-				lenstop = el.mousepos.y + smallimage.btop - smallimage.pos.t - (hei + 2) / 2;
+				lenstop = el.mousepos.y + smallimage.btop - smallimage.pos.t - (hei + 2) / 2 + smallimage.addTop;
 
 				if (overleft(this.node)) {
 					lensleft = smallimage.addLeft + smallimage.bleft;
@@ -770,8 +744,8 @@
                 $obj.w = image.width();
                 $obj.h = image.height();
                 $obj.pos = image.offset();
-                $obj.pos.l = image.offset().left;
-                $obj.pos.t = image.offset().top;
+                $obj.pos.l = $obj.pos.left;
+                $obj.pos.t = $obj.pos.top;
                 $obj.pos.r = $obj.w + $obj.pos.l;
                 $obj.pos.b = $obj.h + $obj.pos.t;
                 scale.x = ($obj.w / smallimage.w);
@@ -791,14 +765,13 @@
 					height: this.h + 'px'
                 });
 			}
-
             this.node.onerror = function () {
                 //alert('Problems while loading the big image.'); rimosso temp rafmas
                 throw 'Problems while loading the big image.';
             };
             this.node.onload = function () {
                 //fetching data
-                $obj.fetchdata();
+                $obj.fetchdata();       //calls $obj.setdimensions();
 				smallimage.fetchdata();
 				stage.setdimensions();
 				stage.setposition();
@@ -809,7 +782,7 @@
                 loader.hide();
                 if (settings.zoomType == 'drag' || settings.alwaysOn) {
                     lens.setcenter();
-                    lens.show();
+                    if (settings.lens==true){lens.show();}
                     stage.show();
 					//if (settings.position == 'inside'){
 						//stage.setposition();
@@ -817,8 +790,8 @@
                 }
             };
             this.setposition = function () {
-                var left = -el.scale.x * (lens.getoffset().left - smallimage.bleft + 1) * settings.zoomRatio;
-                var top = -el.scale.y * (lens.getoffset().top - smallimage.btop + 1)* settings.zoomRatio;
+                var left = -el.scale.x * (lens.getoffset().left - smallimage.bleft) * settings.zoomRatio;
+                var top = -el.scale.y * (lens.getoffset().top - smallimage.btop)* settings.zoomRatio;
                 $(this.node).css({
                     'left': left + 'px',
                     'top': top + 'px'
