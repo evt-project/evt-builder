@@ -721,16 +721,14 @@ $( function() {
 		if($('#text_cont-add').css('display')=='block'){
 			$('.go-full-left').toggleClass('onWhite');
 		}
-		
+		setMagHeight(); //Add for Mag
 		if($('#left_header').hasClass('menuClosed')){
-		   $("#mag_image_elem").css({'margin-top': $("#left_header").height()+'px', 'height': ($("#main_left_frame").height())+'px'}); //Add for Mag
 			noMenu_height = $('#image_cont').height();
 			$('#image_cont, #text_cont-add').animate({
 				//top: "-42px",
 				height: noMenu_height
 			});
 		} else {
-	        setMagHeight(); //Add for Mag
 			//noMenu_height = $('#image_cont').height()+42;
 			$('#image_cont, #text_cont-add').animate({
 				//top: "0px",
@@ -796,10 +794,11 @@ $( function() {
 				"height": height_full,
 				"width": width_full
 			});
+			setMagHeight();
 			$(window).resize(function(){
 				clearTimeout(window.resizeEvt);
 				window.resizeEvt = setTimeout(function()
-				{
+				{   
 					var leftCss = $('.full').css("left").replace(/[^-\d\.]/g, '');
 					var newLeft = leftCss - ($('.full').offset().left);
 					$('.full').css("left", newLeft);

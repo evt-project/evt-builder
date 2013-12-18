@@ -172,8 +172,6 @@ function goFullScreenLeft(){
 				$('#header_collapse').toggle();
 				//Add for Mag
 				setMagHeight();
-				$('.zoomWindow').css({left: ($("#image_cont").width() - $(".zoomWindow").width())/2+'px'});
-	            $('.zoomPup').css({left: ($("#image_cont").width() - $(".zoomPup").width())/2+'px'});
 	            $('.zoomWindow').show();
 			});
 		} else {
@@ -190,8 +188,6 @@ function goFullScreenLeft(){
 				$('#header_collapse').toggle();
 				//Add for Mag
 				setMagHeight();
-				$('.zoomWindow').css({left: ($("#image_cont").width() - $(".zoomWindow").width())/2+'px'});
-	            $('.zoomPup').css({left: ($("#image_cont").width() - $(".zoomPup").width())/2+'px'});
 	            $('.zoomWindow').show();
 	            checkAnnPosHS(); //Add for HS
 			});
