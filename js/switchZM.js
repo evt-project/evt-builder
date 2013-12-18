@@ -28,9 +28,15 @@ function magnifierReady(){
     $("#magImage").css({'width': zoomImagWidth+'px', 'height': zoomImagHeight+'px', 'margin-left': 'auto', 'margin-right': 'auto'});
     setTimeout(function(){magON(); },1000);
 }
-function setMagHeight(){
+function setMagHeight(){;
     left_headerHeight = $("#left_header").height();
-    $("#mag_image_elem").css({'margin-top': left_headerHeight+'px', 'height': ($("#image_cont").height())-left_headerHeight+'px'});
+    if($('#left_header').hasClass('menuClosed')){
+        $("#mag_image_elem").css({'margin-top': '0px', 'height': ($("#image_cont").height())+'px'});
+    }else{
+        $("#mag_image_elem").css({'margin-top': left_headerHeight+'px', 'height': ($("#image_cont").height())-left_headerHeight+'px'});
+    }
+    $('.zoomWindow').css({left: ($("#image_cont").width() - $(".zoomWindow").width())/2+'px'});
+	$('.zoomPup').css({left: ($("#image_cont").width() - $(".zoomPup").width())/2+'px'});
 }
 
 function magOn(){
@@ -39,7 +45,7 @@ function magOn(){
         if (ITLon == true){
             UnInitialize(); //Add by JK for ITL
             $('#switchITL i').removeClass('fa-chain').addClass('fa-chain-broken');
-            //$('#switchITL').removeClass('inactive'); //Add by CDP for FA
+            $('#switchITL').removeClass('active'); //Add by CDP
 		}
 		/*IT: Se gli HotSpot sono attivi, li disattivo*/
         if (HSon == true){
@@ -47,7 +53,7 @@ function magOn(){
             $('#switchHS i').removeClass('fa fa-dot-circle-o').addClass('fa fa-dot-circle-o');
 		}
         /*IT: rendo visibile il div del magnifier e invisibile quello dello zoom*/
-        $("#mag_image_elem").css({'display':'block'});
+        $("#mag_image_elem").fadeIn();
         $("#image_elem, #image_tool, #image_fade").css({'display':'none'});
         //$('#image_tool').addClass('menuClosed'); //Add by CDP per gestire la scomparsa del menu
         //document.getElementById("switchZoom").setAttribute('src','images/zoomOff.png');
@@ -60,9 +66,10 @@ function magOn(){
         magnifierON = true;
     } else {
         /*IT: rendo visibile il div dello dello zoom e invisibile quello del magnifier*/
-        $("#image_elem, #image_fade").css({"display" : "block",    "overflow": "hidden" });
+        $("#image_elem, #image_fade").css({"overflow": "hidden" });
+        $("#image_elem, #image_fade").fadeIn();
         if(!$('#image_tool').hasClass('menuClosed')) $("#image_tool").css({"display" : "block",    "overflow": "hidden"}); //Add by CDP per gestire la scomparsa del menu
-        $("#mag_image_elem").css({'display':'none'});
+        $("#mag_image_elem").fadeOut();
         //  document.getElementById("switchZoom").setAttribute('src','images/zoom.png');
         //document.getElementById("switchMag").setAttribute('src','images/magOff.png');
         $('#switchMag').removeClass('active');//Add by CDP for FA
@@ -112,8 +119,8 @@ function enableHSbutton(){
 function chooseZoomMag(){   
     if ((magnifierON==true)&&(bigImage==true)){
         /*IT: rendo visibile il div del magnifier e invisibile quello dello zoom*/
-        $("#image_elem, #image_tool, #image_fade").css('display','none');
-        $("#mag_image_elem").css({'display':'block'});
+        $("#image_elem, #image_tool, #image_fade, #thumb_cont").css('display','none');
+        $("#mag_image_elem").css('display','none').fadeIn(1000);
         // document.getElementById("switchZoom").setAttribute('src','images/zoomOff.png');
         //document.getElementById("switchMag").setAttribute('src','images/mag.png');
         $('#switchMag').removeClass('inactive');//Add by CDP for FA
@@ -122,7 +129,7 @@ function chooseZoomMag(){
     else if ((magnifierON==false)||((magnifierON==true)&&(bigImage==false))){
         /*IT: rendo visibile il div dello dello zoom e invisibile quello del magnifier*/
         magnifierON==false;
-        $("#mag_image_elem").css({"display":"none"});
+        $("#mag_image_elem, #thumb_cont").css({"display":"none"});
         $("#image_elem").css({"display" : "block", "overflow": "hidden" });
         if(!$('#image_tool').hasClass('menuClosed')) $("#image_tool").css({"display" : "block",    "overflow": "hidden"}); //Add by CDP per gestire la scomparsa del menu
         //$("#switchMag").attr('src','images/magOff.png');

@@ -655,9 +655,9 @@ $( function() {
 		});
 		if(! $('.go-full-right').is(':visible')) $('.go-full-right').show();
 		if($('#left_header').hasClass('menuClosed')){
-			noMenu_height = $('#image_cont').height()+44;
+			noMenu_height = $('#image_cont').height()+42;
 			$('#image_cont, #text_cont-add').css({
-				"top": "-44px",
+				"top": "-42px",
 				"height": noMenu_height
 			});
 			$('.go-full-left').addClass('onWhite');
@@ -721,19 +721,17 @@ $( function() {
 		if($('#text_cont-add').css('display')=='block'){
 			$('.go-full-left').toggleClass('onWhite');
 		}
-		
+		setMagHeight(); //Add for Mag
 		if($('#left_header').hasClass('menuClosed')){
-		   $("#mag_image_elem").css({'margin-top': $("#left_header").height()+'px', 'height': ($("#main_left_frame").height())+'px'}); //Add for Mag
-			noMenu_height = $('#image_cont').height()+44;
+			noMenu_height = $('#image_cont').height();
 			$('#image_cont, #text_cont-add').animate({
-				top: "-44px",
+				//top: "-42px",
 				height: noMenu_height
 			});
 		} else {
-	        setMagHeight(); //Add for Mag
-			noMenu_height = $('#image_cont').height()+44;
+			//noMenu_height = $('#image_cont').height()+42;
 			$('#image_cont, #text_cont-add').animate({
-				top: "0px",
+				//top: "0px",
 				height: "100%"
 			});
 		}
@@ -744,7 +742,7 @@ $( function() {
 				height: "100%"
 			});
 		} else {
-			noMenu_height = $('#image_cont').height()+44;
+			noMenu_height = $('#image_cont').height()+42;
 			$('#text_cont, #text_cont-add').animate({
 				height: "93.4%"
 			});
@@ -768,7 +766,7 @@ $( function() {
 				});
 			} else {
 				$('#header_collapse').animate({
-					top: "30px"
+					top: "28px"
 				});
 			}
 			$('#header_collapse').removeClass('fa-caret-down').addClass('fa-caret-up');
@@ -796,10 +794,11 @@ $( function() {
 				"height": height_full,
 				"width": width_full
 			});
+			setMagHeight();
 			$(window).resize(function(){
 				clearTimeout(window.resizeEvt);
 				window.resizeEvt = setTimeout(function()
-				{
+				{   
 					var leftCss = $('.full').css("left").replace(/[^-\d\.]/g, '');
 					var newLeft = leftCss - ($('.full').offset().left);
 					$('.full').css("left", newLeft);
@@ -819,11 +818,3 @@ $( function() {
 	});
 
 });
-
-
-
-// Evento per chiudere e aprire i menu secondari dei box
-function collapseHeader(){
-	
-
-}
