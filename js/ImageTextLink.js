@@ -280,12 +280,14 @@ function switchIMT(){
 	else if (ITLon == false){
 	   Initialize();
 	   //document.getElementById("switchITL").setAttribute('src','images/ITLon.png');//Add by JK for ITL
-     //$('#switchITL i').removeClass('fa-chain-broken').addClass('fa-chain');//Add by CDP for FA
+        //$('#switchITL i').removeClass('fa-chain-broken').addClass('fa-chain');//Add by CDP for FA
+        $('#switchITL').addClass('active'); //Add by CDP
     }
 	else {
 	   UnInitialize();
-	   //document.getElementById("switchITL").setAttribute('src','images/ITLoff.png');
-     $('#switchITL i ').removeClass('fa-chain').addClass('fa-chain-broken');//Add by CDP for FA
+        //document.getElementById("switchITL").setAttribute('src','images/ITLoff.png');
+        $('#switchITL i ').removeClass('fa-chain').addClass('fa-chain-broken');//Add by CDP for FA
+        $('#switchITL').removeClass('active'); //Add by CDP
 	}
 }
 
