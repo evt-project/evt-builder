@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 
  * Interface Control jQuery
  * Version 0.2 (201312)
@@ -18,6 +18,15 @@ $( function() {
 	var keycount=0;
 	var fulltogg=false;
 	//var pp_temp_val=$(".main_pp_select").val();
+
+	$.ajaxSetup({contentType: 'text/html;charset=utf-8'});
+
+	$.ajaxSetup({
+		'beforeSend' : function(xhr) {
+			xhr.overrideMimeType('text/html; charset=utf-8');
+		},
+	});
+
 
 	$.ajax({
 		type: "GET",
@@ -693,7 +702,7 @@ $( function() {
 			..codice qui..
 		});*/	
 	$(window).bind('resize', function(e){
-	    window.resizeEvt;
+		window.resizeEvt;
 		if($('.full')){
 			var height_full = ($(window).height()>$("body").height()) ? $(window).height()-4 : $("body").height();
 			var width_full = $(window).width()-4;
@@ -702,23 +711,24 @@ $( function() {
 				"width": width_full
 			});
 			$(window).resize(function(){
-	        clearTimeout(window.resizeEvt);
-	        window.resizeEvt = setTimeout(function()
-	        {
-				var leftCss = $('.full').css("left").replace(/[^-\d\.]/g, '');
-				var newLeft = leftCss - ($('.full').offset().left);
-				$('.full').css("left", newLeft);
+				clearTimeout(window.resizeEvt);
+				window.resizeEvt = setTimeout(function()
+				{
+					var leftCss = $('.full').css("left").replace(/[^-\d\.]/g, '');
+					var newLeft = leftCss - ($('.full').offset().left);
+					$('.full').css("left", newLeft);
 
-				if($('#main_right_frame').hasClass('full')){
-					var rightR = -(($('.go-full-right').offset().left)-($('.go-full-right').position().left));
-					$('.go-full-right').css("right", rightR);
-				} 
-				else if($('#main_left_frame').hasClass('full')){
-					var leftR = -(($('.go-full-left').offset().left)-($('.go-full-left').position().left));
-					$('.go-full-left').css("left", leftR);
-				}
-	        }, 300);
-	    });
+					if($('#main_right_frame').hasClass('full')){
+						var rightR = -(($('.go-full-right').offset().left)-($('.go-full-right').position().left));
+						$('.go-full-right').css("right", rightR);
+					} 
+					else 
+						if($('#main_left_frame').hasClass('full')){
+							var leftR = -(($('.go-full-left').offset().left)-($('.go-full-left').position().left));
+							$('.go-full-left').css("left", leftR);
+						}
+				}, 300);
+			});
 		}
 	});
 	

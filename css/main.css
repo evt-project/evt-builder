@@ -44,15 +44,6 @@ footer, header, hgroup, menu, nav, section {
     font-style: italic;
 }
 	
-@font-face {
-  font-family: "FontAwesome";
-  src: url('font/fontawesome-webfont.eot');
-  src: url('font/fontawesome-webfont.eot?#iefix') format('eot'), 
-  url('font/fontawesome-webfont.woff') format('woff'), 
-  url('font/fontawesome-webfont.ttf') format('truetype'), 
-  url('font/fontawesome-webfont.svg#FontAwesome') format('svg');
-}
-
 html, body {
 	/*padding: 20px 0 40px 0;*/
 	/*font-family: ff-tisa-web-pro-1, ff-tisa-web-pro-2, Georgia, sans-serif;*/

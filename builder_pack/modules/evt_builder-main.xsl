@@ -29,7 +29,7 @@
     </xd:doc>
 	
 	
-	<xsl:output indent="yes" method="html" encoding="UTF-8"
+	<xsl:output indent="yes" method="html" encoding="UTF-8" media-type="text/plain" byte-order-mark="yes"
 		doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN"
 		doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 	
@@ -39,7 +39,7 @@
 		<xsl:for-each select="$edition_array">
 			<xsl:if test=".!=''">
 				<xsl:variable name="edition_current" select="lower-case(.)"/>
-				<xsl:result-document method="html" href="{$filePrefix}/data/output_data/{$edition_current}/page_{$pb_n}_{$edition_current}.html" indent="yes">
+				<xsl:result-document method="html" encoding="UTF-8" media-type="text/plain" byte-order-mark="yes" href="{$filePrefix}/data/output_data/{$edition_current}/page_{$pb_n}_{$edition_current}.html" indent="yes">
 					<xsl:call-template name="data_structure">
 						<xsl:with-param name="output" select="$edition_current"/>
 						<xsl:with-param name="pb_n" select="$pb_n"/>
@@ -52,7 +52,7 @@
 	<xsl:template name="index">
 		<!-- EN: index generation. The index_build template can be found in html_build/evt_builder-callhtml.xsl -->
 		<!-- IT: Generazione della index. Il template index_build si trova in html_build/evt_builder-callhtml.xsl -->
-		<xsl:result-document method="html" href="{$filePrefix}/index.html" indent="yes">
+		<xsl:result-document method="html" encoding="UTF-8" media-type="text/plain" byte-order-mark="yes" href="{$filePrefix}/index.html" indent="yes">
 			<xsl:call-template name="index_build" />			
 		</xsl:result-document>
 	</xsl:template>
