@@ -39,7 +39,7 @@ function magOn(){
         if (ITLon == true){
             UnInitialize(); //Add by JK for ITL
             $('#switchITL i').removeClass('fa-chain').addClass('fa-chain-broken');
-            //$('#switchITL').removeClass('inactive'); //Add by CDP for FA
+            $('#switchITL').removeClass('active'); //Add by CDP
 		}
 		/*IT: Se gli HotSpot sono attivi, li disattivo*/
         if (HSon == true){

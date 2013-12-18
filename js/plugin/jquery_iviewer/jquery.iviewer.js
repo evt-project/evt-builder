@@ -386,7 +386,7 @@ $.widget( "ui.iviewer", $.ui.mouse, {
 
     _updateContainerInfo: function()
     {
-        this.options.height = this.container.height()-50;
+        this.options.height = this.container.height()-84; //rafmasAgg
         this.options.width = this.container.width();
     },
 
@@ -661,7 +661,15 @@ $.widget( "ui.iviewer", $.ui.mouse, {
         });
         this.current_zoom = new_zoom;
 
+        //rafmasAgg start
+        var plus_zoom = Math.floor($("#dimFit").val())+3.0;
+        if (new_zoom > plus_zoom)
+            $("#image_tool").addClass("image_tool-class");
+        else
+            $("#image_tool").removeClass("image_tool-class");
+
         this.update_status();
+        //rafmasAgg end
     },
 
     /**
@@ -994,7 +1002,7 @@ $.ui.iviewer.ImageObject = function(do_anim) {
                 .removeAttr("height")
                 .removeAttr("style")
                 //max-width is reset, because plugin breaks in the twitter bootstrap otherwise
-                .css({ position: "absolute", top :"0px", left: "0px", maxWidth: "none", paddingTop: "50px"}) //rafmasAgg padding
+                .css({ position: "absolute", top :"0px", left: "0px", maxWidth: "none", paddingTop: "42px"}) //rafmasAgg padding
                 .attr("id","iviewerImage"); //rafmasAgg
 
             self._img[0].src = src;
