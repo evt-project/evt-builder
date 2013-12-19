@@ -51,7 +51,7 @@ html, body {
 	color: #4e443c;
 	/*font-size: 70%;*/
 	font-size: 21pt;
-	background: url(../images/bg-darker.png) fixed;
+	background: url(../images/bg-darker.jpg) fixed;
 	}
 
 body{
@@ -1212,7 +1212,7 @@ div.extTop{
 }
 div.topleftconcave {
 	position: absolute;
-	background: url(../images/bg-darker.png) fixed;
+	background: url(../images/bg-darker.jpg) fixed;
 	width: 25px;
 	height: 25px;
 	border-top-right-radius: 300px 300px;
