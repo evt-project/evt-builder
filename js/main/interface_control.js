@@ -755,6 +755,9 @@ $( function() {
 	    if ($("#switchHS i").hasClass('fa fa-dot-circle-o')){
             if(!$("#switchHS").hasClass('inactive')){InitializeHS();}
         }/*Add by JK for HS*/
+        if($('.go-full-left').hasClass('onWhite')){
+        	$('.go-full-left').removeClass('onWhite')
+        };
 	});		
 	/*$("#imgimg_link").click(function(){
 		if($(this).attr("class")!="current_mode"){
@@ -895,6 +898,9 @@ $( function() {
 			marginLeft: "-30px"
 		});
 		$('.go-full-right').hide();
+		if($('.go-full-left').hasClass('onWhite')){
+        	$('.go-full-left').removeClass('onWhite')
+        };
 	});	
 	// /MODE -
 
