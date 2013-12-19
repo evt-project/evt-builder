@@ -1034,7 +1034,8 @@ overflow-x: hidden;
 .like_select .option_container{
 	position: relative;
 	overflow-y:auto;
-	display: none;
+	#display: none;
+	visibility: hidden;
 	padding: 3px 5px 0px 5px;
 	background:#f5ead4;
 	width: auto;
@@ -1049,6 +1050,11 @@ overflow-x: hidden;
 	-ms-box-shadow:0px 2px 5px rgba(0, 0, 0, 0.7);
 	box-shadow:0px 2px 5px rgba(0, 0, 0, 0.7);
 	top:30px;
+	#position: absolute;
+}
+.like_select.widthChanged .option_container{
+	visibility: visible;
+	display: none;
 	position: absolute;
 }
 
