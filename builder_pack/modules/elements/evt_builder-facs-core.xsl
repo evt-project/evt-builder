@@ -138,7 +138,7 @@
 			<xsl:attribute name="class">
 				<xsl:value-of>facs-<xsl:value-of select="name()"/></xsl:value-of>
 			</xsl:attribute>
-			<xsl:apply-templates mode="#current"> </xsl:apply-templates>
+			<xsl:apply-templates mode="#current"/> 
 		</xsl:element>
 	</xsl:template>
 	
@@ -153,44 +153,17 @@
 	<!-- HI Highlighted text -->
 	<xsl:template match="tei:hi" mode="facs" priority="2">
 		<xsl:choose>
-			<xsl:when test="@rend='double'">
-				<xsl:element name="span">
-					<xsl:attribute name="class">facs-hi-double</xsl:attribute>
-					<xsl:apply-templates mode="#current"> </xsl:apply-templates>
-				</xsl:element>
-			</xsl:when>
-			<xsl:when test="@rend='cap'">
-				<xsl:element name="span">
-					<xsl:attribute name="class">facs-hi-cap</xsl:attribute>
-					<xsl:apply-templates mode="#current"> </xsl:apply-templates>
-				</xsl:element>
-			</xsl:when>
-			<xsl:when test="@rend='cap2.0'">
-				<xsl:element name="span">
-					<xsl:attribute name="class">facs-hi-cap2.0</xsl:attribute>
-					<xsl:apply-templates mode="#current"> </xsl:apply-templates>
-				</xsl:element>
-			</xsl:when>
-			<xsl:when test="@rend='7init'">
-				<xsl:element name="span">
-					<xsl:attribute name="class">facs-hi-7init</xsl:attribute>
-					<xsl:apply-templates mode="#current"> </xsl:apply-templates>
-				</xsl:element>
-			</xsl:when>
-			<xsl:when test="@rend='init3.1'">
-				<xsl:element name="span">
-					<xsl:attribute name="class">facs-hi-init3-1</xsl:attribute>
-					<xsl:apply-templates mode="#current"> </xsl:apply-templates>
-				</xsl:element>
-			</xsl:when>
 			<xsl:when test="@rend='red'">
 				<xsl:element name="span">
-					<xsl:value-of>facs-<xsl:value-of select="@rend"/></xsl:value-of>
+					<xsl:attribute name="class"><xsl:value-of>facs-<xsl:value-of select="@rend"/></xsl:value-of></xsl:attribute>
 					<xsl:apply-templates mode="#current"> </xsl:apply-templates>
 				</xsl:element>
 			</xsl:when>
 			<xsl:otherwise>
+				<xsl:element name="span">
+					<xsl:attribute name="class">facs-hi-<xsl:value-of select="translate(@rend, '.', '_')"/></xsl:attribute>
 				<xsl:apply-templates mode="#current"> </xsl:apply-templates>
+				</xsl:element>
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
