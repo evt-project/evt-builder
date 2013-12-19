@@ -836,9 +836,10 @@ overflow-x: hidden;
 	#padding: 0px;
 	font-size: 1em;
 	margin:0 4px;
-	#top:-1px;
+	top:-7px;
 	#vertical-align: middle;
 }
+
 .mainButtons{
 	display: inline-block;
 }
@@ -974,17 +975,13 @@ overflow-x: hidden;
 	text-decoration: none;
 	text-indent: 0;
 	background: none;
-	font-size:1.6em;
-	position: absolute;
+	font-size:1.5em;
+	#position: absolute;
 	color: #F5EAD4;
 }
 
 .mainButtons .fa{
 	text-shadow: none !important;
-}
-
-#search_elem i{
-	top: -1px;
 }
 
 .mainButtons:hover{	
@@ -1178,11 +1175,12 @@ overflow-x: hidden;
 
 /* Top Menu Wave */
 div.concave {
+	border-top: 2px solid #3C322C;
     background: transparent;
 	width: 265px;
 	position: absolute;
 	right: 0px;
-	top: 11px;
+	top: 9px;
 }
 
 div.extTop{
