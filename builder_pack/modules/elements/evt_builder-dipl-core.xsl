@@ -86,8 +86,31 @@
 	<!-- Choice -->
 	<xsl:template match="tei:choice" mode="dipl" priority="3">
 		<xsl:choose>
-			<xsl:when test="tei:corr">
-				<xsl:apply-templates select="tei:corr" mode="#current"> </xsl:apply-templates>
+			<xsl:when test="tei:sic">
+				<xsl:element name="span">
+					<xsl:attribute name="class">
+						<xsl:value-of>dipl-choice_popup</xsl:value-of>
+					</xsl:attribute>
+					<xsl:if test="tei:corr">
+						<xsl:element name="span">
+							<xsl:attribute name="class" select="'dipl-corr'"/>
+							<xsl:element name="span"><xsl:attribute name="class" select="'dipl-corr-resp'"/>
+								<xsl:value-of select="tei:corr/@resp"/>
+							</xsl:element><xsl:sequence select="' '"/>
+							<xsl:apply-templates select="tei:corr[not(child::node())]"/>
+							<xsl:apply-templates select="tei:corr/node()" mode="#current"/>
+						</xsl:element>
+					</xsl:if>
+					<xsl:element name="span">
+						<xsl:attribute name="class" select="'dipl-sic'"></xsl:attribute>
+						<xsl:apply-templates select="tei:sic[not(child::node())]"/>
+						<xsl:apply-templates select="tei:sic/node()" mode="#current"/>
+					</xsl:element>
+				</xsl:element>
+				
+			</xsl:when>
+			<xsl:when test="tei:expan">
+				<xsl:apply-templates select="tei:expan" mode="#current"> </xsl:apply-templates>
 			</xsl:when>
 			<xsl:when test="tei:reg">
 				<xsl:element name="span">
@@ -102,12 +125,18 @@
 		</xsl:choose>
 	</xsl:template>
 	
+	<xsl:template match="tei:abbr//tei:g | tei:sic//tei:g" mode="dipl">
+		<xsl:variable name="id" select="substring-after(@ref,'#')"/>
+		<xsl:apply-templates select="if($root//tei:charDecl//tei:glyph[@xml:id=$id]/tei:mapping[@type='diplomatic']) then($root//tei:charDecl//tei:glyph[@xml:id=$id]/tei:mapping[@type='diplomatic']) else($root//tei:charDecl//tei:char[@xml:id=$id]/tei:mapping[@type='diplomatic'])" mode="#current"/>
+	</xsl:template>
+	
 	<!-- SUBST substitution -->
 	<xsl:template match="tei:subst" mode="dipl" priority="3">
 		<xsl:element name="span">
 			<xsl:attribute name="class">
 				<xsl:value-of>dipl-<xsl:value-of select="name()"/></xsl:value-of>
 			</xsl:attribute>
+			<xsl:apply-templates select="tei:del" mode="#current"></xsl:apply-templates>
 			<xsl:apply-templates select="tei:add" mode="#current"></xsl:apply-templates>
 		</xsl:element>
 	</xsl:template>
@@ -150,7 +179,7 @@
 		REG Regularization
 		ORIG Original form
 	-->
-	<xsl:template match="tei:expan|tei:damage|tei:ex|tei:corr|tei:reg|tei:orig" mode="dipl">
+	<xsl:template match="tei:expan|tei:damage|tei:ex|tei:corr|tei:reg|tei:orig|tei:abbr" mode="dipl">
 		<xsl:element name="span">
 			<xsl:attribute name="class">
 				<xsl:value-of>dipl-<xsl:value-of select="name()"/></xsl:value-of>
@@ -159,22 +188,16 @@
 		</xsl:element>
 	</xsl:template>
 	
+	<xsl:template match="tei:sic" mode="dipl">
+		<!-- do nothing -->
+	</xsl:template>
+	
 	<!-- DEL Deletions -->
 	<xsl:template match="tei:del" mode="dipl">
 		<xsl:element name="span">
 			<xsl:attribute name="class">
 				<xsl:value-of>dipl-<xsl:value-of select="name()"/></xsl:value-of>
-			</xsl:attribute>
-			[[<xsl:apply-templates mode="#current"/>]]
-		</xsl:element>
-	</xsl:template>
-
-	<!--
-		SIC Text reproduced although apparently incorrect or inaccurate
-		ABBR Abbreviation
-	-->
-	<xsl:template match="tei:sic|tei:abbr" mode="dipl">
-		<!-- Do nothing -->
+			</xsl:attribute>[[<xsl:apply-templates mode="#current"/>]]</xsl:element>
 	</xsl:template>
 
 	<!-- HI Highlighted text -->

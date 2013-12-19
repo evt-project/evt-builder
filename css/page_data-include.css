@@ -100,7 +100,7 @@ span.facs-choice_popup {display : inline;}
 span.facs-reg:before{content: url("../images/popup_before.png");    left: 15%;  position: absolute; top: -13px;}
 span.facs-reg {font-size: 80%;  position : absolute;    line-height: 16px;    display : none;    background : #e5dac4;    border : 2.5px solid black;    border-radius: 3px;
                 box-shadow: 2px 2px 2px #7e7067;    padding : 0.4%;     margin-top:30px;}
-span.facs-choice_popup:hover span.facs-reg {display : inline;}
+span.facs-choice_popup:hover span.facs-reg {display : inline; min-width: 20px; text-align: center;}
 span.facs-choice_popup:hover span.facs-orig {text-decoration: underline;}
 
 /*SPAN.expan {font-style: italic}
@@ -116,17 +116,18 @@ SPAN.facs-hi-double {font-size: 120%; font-weight: bold;}
 SPAN.dipl-center {margin-left: 0.5cm; margin-right: 0.5cm; text-indent: 0.5cm;   text-align: center;     display:block;}
 SPAN.dipl-right {margin-left: 0.5cm; margin-right: 0.5cm; text-indent: 0.5cm;    text-align: right;     display:block;}
 
+SPAN.dipl-ex {font-style: italic;}
 span.dipl-choice_popup {display : inline;}
-span.dipl-orig:before{content: url("../images/popup_before.png");    left: 15%;  position: absolute; top: -13px;}
-span.dipl-orig {font-size: 80%;  position : absolute;    line-height: 16px;    display : none;    background : #e5dac4;    border : 2.5px solid black;    border-radius: 3px;
+span.dipl-orig:before, span.dipl-corr:before{content: url("../images/popup_before.png");    left: 15%;  position: absolute; top: -13px;}
+span.dipl-orig, span.dipl-corr{font-size: 80%;  position : absolute;    line-height: 16px;    display : none;    background : #e5dac4;    border : 2.5px solid black;    border-radius: 3px;
                 box-shadow: 2px 2px 2px #7e7067;    padding : 0.4%;     margin-top:30px;}
-span.dipl-choice_popup:hover span.dipl-orig {display : inline;}
-span.dipl-choice_popup:hover span.dipl-reg {text-decoration: underline;}
-
+span.dipl-choice_popup:hover span.dipl-orig, span.dipl-choice_popup:hover span.dipl-corr {display : inline; min-width: 20px; text-align: center;;}
+span.dipl-choice_popup:hover span.dipl-reg, span.dipl-choice_popup:hover span.dipl-sic {text-decoration: underline;}
+SPAN.dipl-corr-resp {font-weight: bold;}
 
 SPAN.dipl-red {color: red;}                      /*JK ADD*/
 SPAN.dipl-hi-7init{font-size: 140%}              /*JK OK*/
-SPAN.dipl-hi-init3_1{font-size: 120%; font-weight: bold;}            /*JK OK*/
+SPAN.dipl-hi-init3_1{font-size: 120%; /*font-weight: bold;*/}            /*JK OK*/
 SPAN.dipl-hi-cap {text-transform:uppercase;}    /*JK OK*/
 SPAN.dipl-hi-double {font-size: 120%; font-weight: bold;}           /*JK OK*/
 SPAN.dipl-ex {font-style: italic;}
