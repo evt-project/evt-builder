@@ -181,28 +181,28 @@
 						<xsl:if test="$image_frame=true()">
 							<div id="mode_switch">
 								<a href="javascript:void(0);" id="txtimg_link" class="current_mode"
-									title="text/image mode"> <img src="images/img-txt.png" class="mainHeaderimg"></img></a>
+									title="Text/Image mode"> <img src="images/img-txt.png" class="mainHeaderimg"></img></a>
 								<!--<a href="javascript:void(0);" id="imgimg_link" title="image/image mode"> [I|I] </a>-->
 								<a href="javascript:void(0);" id="txttxt_link"
-									title="text/text mode"> <img src="images/txt-txt.png" class="mainHeaderimg"></img> </a>
+									title="Text/Text mode"> <img src="images/txt-txt.png" class="mainHeaderimg"></img> </a>
 								<xsl:if test="$double_view=true()">
 									<a href="javascript:void(0);" id="imgd_link"
-										title="double mode"> <img src="images/double-view.png" class="mainHeaderimg"></img> </a>
+										title="Bookreader mode"> <img src="images/double-view.png" class="mainHeaderimg"></img> </a>
 								</xsl:if>
 							</div>
 						</xsl:if>
 						
 						<div id="cont_fullscreen">
-							<a href="javascript:void(0);" id="main_fullscreen" title="fullscreen"><i class="fa fa-expand"></i></a>
+							<a href="javascript:void(0);" id="main_fullscreen" title="Fullscreen"><i class="fa fa-expand"></i></a>
 						</div>
 					</header>
 					<section id="central_wrapper">
-						<i class="fa fa-caret-up" id="header_collapse"></i>
+						<i class="fa fa-caret-up" id="header_collapse" title="Toggle menu"></i>
 						<div id="main_left_arrow" onclick="UnInitialize()" title="Previous"/>
 						<div id="main_right_arrow" title="Next"/>
 						<xsl:if test="$image_frame=true()">
 							<div id="main_left_frame">
-								<i class="fa fa-caret-up go-full-left" id="goFullScreenLeft"></i>
+								<i class="fa fa-caret-up go-full-left" id="goFullScreenLeft" title="Expand frame"></i>
 								<!--
 								<div id="main_left_menu">
 									<a href="javascript:void(0);" id="main_left_menu-openlink"
@@ -230,12 +230,15 @@
 													select="'main_ee_select'"/>
 											</xsl:call-template>
 										</span>
+										<span id="thumb_elem-add" class="iconButtons">
+											<a href="javascript:void(0);" class="thumb_link"><i class="fa fa-th"></i></a>
+										</span>
 										<div id="image_menu">
-											<span class="imageTopTool mainButtons" id="switchMag" value="mag" onclick="magOn()">
+											<span class="imageTopTool mainButtons" id="switchMag" value="mag" onclick="magOn()" title="Magnifier">
 												<span>Magnifier</span>
 												<i class="fa fa-search"></i>
 											</span>
-											<span class="imageTopTool mainButtons" id="switchHS" value="HS" onclick="switchHS()">
+											<span class="imageTopTool mainButtons" id="switchHS" value="HS" title="Hot spot" onclick="switchHS()">
 												<span>HotSpot</span>
 												<i class="fa fa-circle-o"></i>
 											</span>
@@ -243,8 +246,8 @@
 												<span>TextLink</span>
 												<i class="fa fa-chain-broken"></i>
 											</span>
-											<span id="thumb_elem" class="iconButtons">
-												<a href="javascript:void(0);" id="thumb_link"><i class="fa fa-th"></i></a>
+											<span id="thumb_elem" class="iconButtons" title="Thumbnails">
+												<a href="javascript:void(0);" class="thumb_link"><i class="fa fa-th"></i></a>
 											</span>
 										</div>
 										<!--<input type="image" src="images/zoom.png" id="switchZoom" class="top_image_tools" value="zoom" onclick="zoomOn()"/>-->
@@ -315,7 +318,7 @@
 						
 						
 						<div id="{$id_right_frame}">
-							<i class="fa fa-caret-up go-full-right" id="goFullScreenRight"></i>
+							<i class="fa fa-caret-up go-full-right" id="goFullScreenRight" title="Expand frame"></i>
 							<!--
 							<div id="main_right_menu">
 								<a href="javascript:void(0);" id="main_right_menu-openlink"
@@ -327,25 +330,25 @@
 							<!--<div id="main_right_arrow" title="Previous"/>-->
 							<header id="right_header">
 								<div id="right_menu">
-									<span id="span_tt_select" class="like_select">
+									<span id="span_tt_select" class="like_select" title="Edition text">
 										<xsl:call-template name="div_select_build">
 											<xsl:with-param name="html_div_class"
 												select="'main_tt_select'"/>
 										</xsl:call-template>
 									</span>
-									<span id="span_pp_select" class="like_select">
+									<span id="span_pp_select" class="like_select" title="Folio">
 										<xsl:call-template name="div_select_build">
 											<xsl:with-param name="html_div_class"
 												select="'main_pp_select'"/>
 										</xsl:call-template>
 									</span>
-									<span id="span_ee_select" class="like_select">
+									<span id="span_ee_select" class="like_select" title="Edition levels">
 										<xsl:call-template name="div_select_build">
 											<xsl:with-param name="html_div_class"
 												select="'main_ee_select'"/>
 										</xsl:call-template>
 									</span>
-									<span id="search_elem" class="iconButtons">
+									<span id="search_elem" class="iconButtons" title="Search">
 										<a href="javascript:void(0);" id="search_link"><i class="fa fa-search"></i></a>
 									</span>
 								</div>
