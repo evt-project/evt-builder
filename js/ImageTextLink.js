@@ -596,10 +596,12 @@ function switchHS(){
     if ((magnifierON==true)&&(bigImage==true)){}
 	else if (HSon == false){
 	   InitializeHS();
+	   $('#switchHS').addClass('active');
     }
 	else {
 	   UnInitializeHS();
 	   $('#switchHS i ').removeClass('fa fa-dot-circle-o').addClass('fa fa-circle-o'); //Add for FA
+	   $('#switchHS').removeClass('active'); //Add for FA
 	}
 }
     
