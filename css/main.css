@@ -738,9 +738,11 @@ overflow-x: hidden;
 
 #image_menu > span span{
 	margin: 0px 4px 0px 8px;
-	position: relative;
-	top: -6.7px;
+	position: absolute;
+	top: 3px;
+	left:0;
 	height: 28px;
+
 }
 #image_menu .iconButtons, #text_menu .iconButtons, .iconButtons{
 	position:relative;
@@ -761,6 +763,7 @@ overflow-x: hidden;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4);
     background-color: #F5EAD4;
     color: #000;
+    width: 102px;
 }
 
 .mainButtons, .iconButtons{
@@ -815,6 +818,8 @@ overflow-x: hidden;
 .mainButtons .fa{
 	text-shadow: none !important;
 	height: 0px;
+	position: absolute;
+	right: 0px;
 }
 
 .mainButtons:hover, .active{	
@@ -901,9 +906,9 @@ overflow-x: hidden;
 	-ms-box-shadow:0 1px 6px rgba(0, 0, 0, 0.8);
     box-shadow:0 1px 6px rgba(0, 0, 0, 0.8);
     background-color: #F5EAD4;
-    height: 14px;
+    height: 11px;
     top: 50%;
-	margin-top: -6.8px;
+	margin-top: -5.5px;
 }
 
 #slider a{
@@ -915,10 +920,10 @@ overflow-x: hidden;
 	box-shadow:0px 1px 3px -1px rgba(0,0,0,0.6);
 	border-radius: 5px;
 	background-color: #F5EAD4;
-	top: 50%;
+	width: 10px;
     margin-left: -0.2em;
-    margin-top: -18px;
-    height: 34px;
+    top: -10.5px;
+    height: 30px;
 }
 
 #slider a:focus{
@@ -962,7 +967,8 @@ overflow-x: hidden;
     position: relative;
     top: -14px;
     font-weight: lighter;
-    min-height:64px;
+    min-width: 60px;
+	text-align: left;
 }
 #zval>span{
 	position: relative;
@@ -1399,4 +1405,15 @@ div.botleftconcave {
 
 .iviewer_zoom_status{
 	display: none;
+}
+
+.square{
+	background:rgb(54, 45, 40);
+	position:absolute;
+	min-width: 17.1px;
+	min-height: 17.1px;
+	top: 0px;
+	left: 0px;
+	margin-top: 3px;
+	margin-left: 3.6px;
 }
