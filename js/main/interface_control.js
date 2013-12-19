@@ -1010,6 +1010,9 @@ $( function() {
 	$("#closeFullScreenRight").click(function(){
 		closeFullScreenRight();
 	});
+	$("#search_link").click(function(){
+		alert("Coming soon ...");
+	});
 	/* / Gestione click */
 	
 	/*$("#text_copy").live("click", function(){

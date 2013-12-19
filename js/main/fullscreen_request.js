@@ -17,7 +17,7 @@
     if (viewFullScreen) {
         viewFullScreen.addEventListener("click", function () {
 			//alert(viewFullScreen.title);
-			if(viewFullScreen.title=="fullscreen"){
+			if(viewFullScreen.title=="Fullscreen"){
 				var docElm = document.documentElement;
 				if (docElm.requestFullscreen) {
 					docElm.requestFullscreen();
@@ -48,7 +48,7 @@
 	var viewFullScreenII = document.getElementById("view-fullscreenII");
     if (viewFullScreenII) {
         viewFullScreenII.addEventListener("click", function () {
-			if(viewFullScreenII.title=="fullscreen"){
+			if(viewFullScreenII.title=="Fullscreen"){
 				var docElm = document.documentElement;
 				if (docElm.requestFullscreen) {
 					docElm.requestFullscreen();
@@ -78,23 +78,23 @@
 	
 	//Doesn't quite work - rafmas
 	document.addEventListener("mozfullscreenchange", function(e) {
-		if(viewFullScreen.title=="fullscreen"){
+		if(viewFullScreen.title=="Fullscreen"){
 			viewFullScreen.title="close";
 			viewFullScreenII.title="close";
 			return false;
 		}
 		if(viewFullScreen.title=="close")
-			viewFullScreen.title="fullscreen";	
-			viewFullScreenII.title="fullscreen";	
+			viewFullScreen.title="Fullscreen";	
+			viewFullScreenII.title="Fullscreen";	
 	},false);
 	document.addEventListener("webkitfullscreenchange", function(e) {
-		if(viewFullScreen.title=="fullscreen"){
+		if(viewFullScreen.title=="Fullscreen"){
 			viewFullScreen.title="close";
 			viewFullScreenII.title="close";
 			return false;
 		}
 		if(viewFullScreen.title=="close")
-			viewFullScreen.title="fullscreen";	
-			viewFullScreenII.title="fullscreen";	},false);
+			viewFullScreen.title="Fullscreen";	
+			viewFullScreenII.title="Fullscreen";	},false);
 
 })();
