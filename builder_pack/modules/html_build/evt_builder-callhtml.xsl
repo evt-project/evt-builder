@@ -258,6 +258,9 @@
 											<!--<img id="iviewerImage" src="images/null.jpg" />-->
 										</div>
 									</div>
+									<div id="image_loading">
+										<i class="fa fa-refresh fa-spin"></i>
+									</div>
 									<div id="mag_image_elem"></div>
 									
 									<div id="image_tool">

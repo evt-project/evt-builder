@@ -729,7 +729,7 @@ overflow-x: hidden;
 
 #thumb_cont figure{
     float: left;
-	padding: 3px;
+	padding: 9px 3px;
 	cursor: pointer;
 }
 
@@ -741,7 +741,7 @@ overflow-x: hidden;
 #thumb_cont figure figcaption{
     color: white;
 	position: relative;
-	top: -52px;
+	margin-top: -52px;
 	background: url(../images/opacity.png) repeat-x 0 -50px;
 }
 
