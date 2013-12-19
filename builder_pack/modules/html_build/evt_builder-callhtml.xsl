@@ -193,18 +193,16 @@
 						</xsl:if>
 						
 						<div id="cont_fullscreen">
-							<a href="javascript:void(0);" id="main_fullscreen" title="fullscreen"
-								style="float: right; padding: 12px; padding-left: 14px;"
-								><i class="fa fa-expand"></i></a>
+							<a href="javascript:void(0);" id="main_fullscreen" title="fullscreen"><i class="fa fa-expand"></i></a>
 						</div>
 					</header>
 					<section id="central_wrapper">
-						<i class="fa fa-caret-up" id="header_collapse" onclick="collapseHeader();"></i>
+						<i class="fa fa-caret-up" id="header_collapse"></i>
 						<div id="main_left_arrow" onclick="UnInitialize()" title="Previous"/>
 						<div id="main_right_arrow" title="Next"/>
 						<xsl:if test="$image_frame=true()">
 							<div id="main_left_frame">
-								<i class="fa fa-caret-up go-full-left" onclick="goFullScreenLeft();"></i>
+								<i class="fa fa-caret-up go-full-left" id="goFullScreenLeft"></i>
 								<!--
 								<div id="main_left_menu">
 									<a href="javascript:void(0);" id="main_left_menu-openlink"
@@ -218,7 +216,7 @@
 								</xsl:if>
 								<!-- <div id="main_left_arrow" title="Previous"/> -->
 								<header id="left_header">
-									<i class="fa fa-times-circle closeFullScreen" onclick="closeFullScreenLeft();"></i>
+									<i class="fa fa-times-circle closeFullScreen" id="closeFullScreenLeft"></i>
 									<div id="left_menu">
 										<span id="span_dd_select" class="like_select">
 											<xsl:call-template name="div_select_build">
@@ -315,7 +313,7 @@
 						
 						
 						<div id="{$id_right_frame}">
-							<i class="fa fa-caret-up go-full-right" onclick="goFullScreenRight();"></i>
+							<i class="fa fa-caret-up go-full-right" id="goFullScreenRight"></i>
 							<!--
 							<div id="main_right_menu">
 								<a href="javascript:void(0);" id="main_right_menu-openlink"
@@ -349,7 +347,7 @@
 										<a href="javascript:void(0);" id="search_link"><i class="fa fa-search"></i></a>
 									</span>
 								</div>
-								<i class="fa fa-times-circle closeFullScreen" onclick="closeFullScreenRight();"></i>
+								<i class="fa fa-times-circle closeFullScreen" id="closeFullScreenRight"></i>
 							</header>
 							<div id="text_cont">
 								<div id="text_elem"/>
