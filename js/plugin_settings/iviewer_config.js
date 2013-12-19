@@ -22,6 +22,7 @@ $( function() {
 		   mousewheel: true,
 		   onMouseMove: function(ev, coords) {clickTrue(); },
 		   onFinishLoad: function(ev, src) {
+		   									$('#image_loading').hide();
 		   									$("#iviewerImage").fadeIn(200);
 		   									if (($('.current_mode').attr('id')=='txtimg_link') & (!$('#switchITL').hasClass('inactive')) & ($('#switchITL i').hasClass('fa fa-chain')) ){
 		   									      Initialize();} //Add by JK for ITL
@@ -94,7 +95,8 @@ $( function() {
 			else {
 				var curr_src = "data/input_data/images/"+$(this).text()+".jpg";
 				$('#image_fade').fadeOut(600, function(){
-				//$('#iviewerImage').fadeOut(600);				
+				//$('#iviewerImage').fadeOut(600);		
+					$('#image_loading').show();		
 					iv1.iviewer('loadImage', curr_src);
 				});
 			}
@@ -111,7 +113,8 @@ $( function() {
 			else {
 				var curr_src = "data/input_data/images/double/"+$(this).text()+".jpg";
 				$('#image_fade').fadeOut(600, function(){
-				//$('#iviewerImage').fadeOut(600);				
+				//$('#iviewerImage').fadeOut(600);
+					$('#image_loading').show();
 					iv1.iviewer('loadImage', curr_src);
 				});
 			}

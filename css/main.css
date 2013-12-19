@@ -550,6 +550,16 @@ footer{
 	display: inline;
 }
 
+#image_loading{
+	height:28px;
+	position: absolute;
+	top: 50%;
+	margin-top: -14px;
+	width: 100%;
+	text-align: center;
+	display: none;
+}
+
 #spb a{
 	color: #F5EAD4;
 
@@ -674,6 +684,11 @@ footer{
     margin: 5px;
     min-height: 40px;
     font-size: 0.9em;
+}
+
+#zoom_fit{
+	margin: 10px !important;
+	font-size: 0.85em !important;
 }
 
 #zoom_fit:hover, #zoom_orig:hover, #zoom_out:hover, #zoom_in:hover{
@@ -836,7 +851,7 @@ overflow-x: hidden;
 	#padding: 0px;
 	font-size: 1em;
 	margin:0 4px;
-	top:-7px;
+	#top:-7px;
 	#vertical-align: middle;
 }
 
@@ -978,6 +993,12 @@ overflow-x: hidden;
 	font-size:1.5em;
 	#position: absolute;
 	color: #F5EAD4;
+	height: 28px;
+	vertical-align: middle;
+}
+#search_elem i{
+	top: -1px;
+	position: relative;
 }
 
 .mainButtons .fa{
@@ -1010,7 +1031,7 @@ overflow-x: hidden;
 }
 
 .active{
-	background: #e8edc9;	
+	background: #ff9;	
 }
 
 .inactive i, .inactive span{
