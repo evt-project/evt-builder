@@ -532,7 +532,7 @@ footer{
 	-khtml-box-shadow:0px -2px 3px -2px rgba(0, 0, 0, 1);
 	-ms-box-shadow:0px -2px 3px -2px rgba(0, 0, 0, 1);
 	box-shadow:0px -2px 3px -2px rgba(0, 0, 0, 1);
-	background: rgb(60, 50, 44);
+	background: #362d28;;
 	#opacity: 0.4;
 }
 
@@ -903,7 +903,7 @@ overflow-x: hidden;
     background-color: #F5EAD4;
     height: 14px;
     top: 50%;
-	margin-top: -6px;
+	margin-top: -6.8px;
 }
 
 #slider a{
