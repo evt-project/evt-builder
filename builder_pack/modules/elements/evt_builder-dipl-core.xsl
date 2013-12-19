@@ -64,7 +64,14 @@
 							<xsl:copy-of select="@* except(@xml:id)"></xsl:copy-of>
 							<xsl:attribute name="{@xml:id/name()}" select="if(ends-with(@xml:id, 'reg')) then(replace(@xml:id, 'reg', '')) else(@xml:id)"/>
 						</xsl:element>
+						<xsl:if test="@n">
+							<xsl:element name="span">
+								<xsl:attribute name="class" select="'dipl-lineN'"/>
+								<xsl:value-of select="if(string-length(@n) &gt; 1) then(@n) else(concat('&#xA0;&#xA0;',@n))"/><xsl:text>&#xA0;&#xA0;</xsl:text>
+							</xsl:element>
+						</xsl:if>
 					</xsl:when>
+					<xsl:when test="ends-with(@xml:id, 'orig')"></xsl:when>
 					<xsl:otherwise/>
 				</xsl:choose>
 			</xsl:when>
@@ -86,46 +93,63 @@
 	<!-- Choice -->
 	<xsl:template match="tei:choice" mode="dipl" priority="3">
 		<xsl:choose>
-			<xsl:when test="tei:sic">
-				<xsl:element name="span">
-					<xsl:attribute name="class">
-						<xsl:value-of>dipl-choice_popup</xsl:value-of>
-					</xsl:attribute>
-					<xsl:if test="tei:corr">
-						<xsl:element name="span">
-							<xsl:attribute name="class" select="'dipl-corr'"/>
-							<xsl:element name="span"><xsl:attribute name="class" select="'dipl-corr-resp'"/>
-								<xsl:value-of select="tei:corr/@resp"/>
-							</xsl:element><xsl:sequence select="' '"/>
-							<xsl:apply-templates select="tei:corr[not(child::node())]"/>
-							<xsl:apply-templates select="tei:corr/node()" mode="#current"/>
-						</xsl:element>
-					</xsl:if>
-					<xsl:element name="span">
-						<xsl:attribute name="class" select="'dipl-sic'"></xsl:attribute>
-						<xsl:apply-templates select="tei:sic[not(child::node())]"/>
-						<xsl:apply-templates select="tei:sic/node()" mode="#current"/>
-					</xsl:element>
-				</xsl:element>
-				
-			</xsl:when>
-			<xsl:when test="tei:expan">
-				<xsl:apply-templates select="tei:expan" mode="#current"> </xsl:apply-templates>
-			</xsl:when>
-			<xsl:when test="tei:reg">
+			<xsl:when test="@part=1 or @part=2 or @part=3">
+				<xsl:apply-templates select="reg" mode="#current"/>
+				<!--<xsl:variable name="reg2" select="following::tei:choice[@part=2][1]/tei:reg"/>
 				<xsl:element name="span">
 					<xsl:attribute name="class">
 						<xsl:value-of>dipl-choice_popup</xsl:value-of>
 					</xsl:attribute>
 					<xsl:if test="tei:orig"><xsl:apply-templates select="tei:orig" mode="#current"/>
-						<xsl:sequence select="' '"/><!--important--></xsl:if>
-					<xsl:apply-templates select="tei:reg" mode="#current"> </xsl:apply-templates>
-				</xsl:element>
+						<xsl:sequence select="' '"/></xsl:if>
+					<xsl:apply-templates select="$reg2" mode="#current"> </xsl:apply-templates>
+				</xsl:element>-->
 			</xsl:when>
+			<xsl:otherwise>
+				<xsl:choose>
+					<xsl:when test="tei:sic">
+						<xsl:element name="span">
+							<xsl:attribute name="class">
+								<xsl:value-of>dipl-choice_popup</xsl:value-of>
+							</xsl:attribute>
+							<xsl:if test="tei:corr">
+								<xsl:element name="span">
+									<xsl:attribute name="class" select="'dipl-corr'"/>
+									<xsl:element name="span"><xsl:attribute name="class" select="'dipl-corr-resp'"/>
+										<xsl:value-of select="tei:corr/@resp"/>
+									</xsl:element><xsl:text>&#xA0;</xsl:text>
+									<xsl:apply-templates select="tei:corr[not(child::node())]"/>
+									<xsl:apply-templates select="tei:corr/node()" mode="#current"/>
+								</xsl:element>
+							</xsl:if>
+							<xsl:element name="span">
+								<xsl:attribute name="class" select="'dipl-sic'"></xsl:attribute>
+								<xsl:apply-templates select="tei:sic[not(child::node())]"/>
+								<xsl:apply-templates select="tei:sic/node()" mode="#current"/>
+							</xsl:element>
+						</xsl:element>
+						
+					</xsl:when>
+					<xsl:when test="tei:expan">
+						<xsl:apply-templates select="tei:expan" mode="#current"> </xsl:apply-templates>
+					</xsl:when>
+					<xsl:when test="tei:reg">
+						<xsl:element name="span">
+							<xsl:attribute name="class">
+								<xsl:value-of>dipl-choice_popup</xsl:value-of>
+							</xsl:attribute>
+							<xsl:if test="tei:orig"><xsl:apply-templates select="tei:orig" mode="#current"/>
+								<xsl:sequence select="' '"/><!--important--></xsl:if>
+							
+							<xsl:apply-templates select="tei:reg" mode="#current"> </xsl:apply-templates>
+						</xsl:element>
+					</xsl:when>
+				</xsl:choose>
+			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
 	
-	<xsl:template match="tei:abbr//tei:g | tei:sic//tei:g" mode="dipl">
+	<xsl:template match="tei:abbr//tei:g | tei:sic//tei:g | tei:choice//tei:orig//tei:g" mode="dipl">
 		<xsl:variable name="id" select="substring-after(@ref,'#')"/>
 		<xsl:apply-templates select="if($root//tei:charDecl//tei:glyph[@xml:id=$id]/tei:mapping[@type='diplomatic']) then($root//tei:charDecl//tei:glyph[@xml:id=$id]/tei:mapping[@type='diplomatic']) else($root//tei:charDecl//tei:char[@xml:id=$id]/tei:mapping[@type='diplomatic'])" mode="#current"/>
 	</xsl:template>
