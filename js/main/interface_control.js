@@ -405,20 +405,37 @@ $( function() {
 
 	// Gestione lunghezza delle select sulla base della option più lunga
 	function updateSelectLength(elem){
+		// Calcolo la larghezza del div figlio di .like_select
 		var widthSel = $(elem).find('div').width();
+		// Calcolo la larghezza del div.option_container, aggiungendo 10 per via del padding 
 		var widthOpt = $(elem).find('.option_container').width()+10;
-		//alert(widthSel+" - "+widthOpt);
+		// Se la larghezza del contenitore esterno è maggiore di quella delle option aggiorno l'option_container e ristemo il genitore	
 		if(widthSel > widthOpt){ 
+			// Imposto la larghezza dell'option container secondo quella del div figlio di .like_select
 			$(elem).find('.option_container').css('width', widthSel);
-			widthSel = $(elem).find('div').width();
+
+			// Ricalcolo la dimensione dell'option_container, sempre aggiungendo 10 per il padding
 			widthOpt = $(elem).find('.option_container').width()+10;
+			// Se la nuova dimensione di option_container è maggiore di quella del div figlio di .like_select
+			// (Ovvero se le opzioni "sbordano")
+			// Aggiorno nuovamente la larghezza del div .like_select sulla base della nuova larghezza di option_container
 			if(widthSel < widthOpt){
 				$(elem).css('width', widthOpt);	
 			}
-		} else {
-			$(elem).css('width', widthOpt+34);
-			$(elem).find('.option_container').css('width', widthOpt+24);
+		} 
+		// Se altrimenti il contenitore delle option è più largo in partenza aggiorno il genitore
+		else {
+			
+			// imposto la larghezza di .like_select sulla base di quella di option_container, 
+			// aggiungendo 24 per via del div per l'apertura, che è largo 24px
+			$(elem).css('width', widthOpt+24);
+			// Poi aggiorno la dimensione dell'option_container, aggiungendo i 24px che mi permettono di allinearla al div figlio di .like_select
+			$(elem).find('.option_container').css('width', widthOpt+14);
 		}
+		// Riporto la position di option_container ad absolute per rendere corretto il posizionamento all'apertura
+		$(elem).find('.option_container').css("position", "absolute");
+		$(elem).find('.option_container').css("visibility", "visible");
+		$(elem).find('.option_container').css("display", "none");
 
 		if(elem.id=='span_ee_select'){
 			var widthEE = $('#span_ee_select').find('div').width(); 
@@ -436,6 +453,7 @@ $( function() {
 			$('#span_dd_select').find('.option_container').css('width', optEE+5);
 			$('#span_dd_select').addClass('widthChanged');
 		}
+		
 	}
 
 	function goFullScreenLeft(){
