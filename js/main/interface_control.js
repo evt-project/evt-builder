@@ -411,6 +411,7 @@ $( function() {
 		var widthOpt = $(elem).find('.option_container').width()+10;
 		// Se la larghezza del contenitore esterno è maggiore di quella delle option aggiorno l'option_container e ristemo il genitore	
 		if(widthSel > widthOpt){ 
+			
 			// Imposto la larghezza dell'option container secondo quella del div figlio di .like_select
 			$(elem).find('.option_container').css('width', widthSel);
 
@@ -427,10 +428,10 @@ $( function() {
 		else {
 			
 			// imposto la larghezza di .like_select sulla base di quella di option_container, 
-			// aggiungendo 24 per via del div per l'apertura, che è largo 24px
-			$(elem).css('width', widthOpt+24);
-			// Poi aggiorno la dimensione dell'option_container, aggiungendo i 24px che mi permettono di allinearla al div figlio di .like_select
-			$(elem).find('.option_container').css('width', widthOpt+14);
+			// aggiungendo 14 per via del div per l'apertura
+			$(elem).css('width', widthOpt+14);
+			// Poi aggiorno la dimensione dell'option_container, aggiungendo i 4px che mi permettono di allinearla al div figlio di .like_select
+			$(elem).find('.option_container').css('width', widthOpt+4);
 		}
 		// Riporto la position di option_container ad absolute per rendere corretto il posizionamento all'apertura
 		$(elem).find('.option_container').css("position", "absolute");

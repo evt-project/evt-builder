@@ -266,7 +266,7 @@
 												href="javascript:void(0);" title="100%"><i class="icona">1:1</i></a>
 											<a id="zoom_fit" class="zoom_btn"
 												href="javascript:void(0);" title="Fit to frame"
-												><i class="fa fa-arrows"></i></a>
+												><i class="fa fa-arrows-v"></i></a>
 											<a id="zoom_out" href="javascript:void(0);"><i class="fa fa-minus-circle"></i></a>
 											<div id="spb_cont">
 												<div id="slider"/>
