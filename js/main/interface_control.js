@@ -297,6 +297,9 @@ $( function() {
 		    } else { areaHSInThisPage = false; disableHSbutton(); }
 		});
 		
+		$('#text_cont').animate({ scrollTop: 0 });
+		if($('.current_mode').attr('id')=='txttxt_link'){$('#text_cont-add').animate({ scrollTop: 0 });}
+		
 		/*$('#text_elem').load('pagina.html', function() {
 		  alert('Load was performed.');
 		});*/
