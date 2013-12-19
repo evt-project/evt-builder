@@ -43,6 +43,12 @@
 								<xsl:copy-of select="@* except(@xml:id)"></xsl:copy-of>
 								<xsl:attribute name="{@xml:id/name()}" select="if(ends-with(@xml:id, 'orig')) then(replace(@xml:id, 'orig', '')) else(@xml:id)"/>
 							</xsl:element>
+							<xsl:if test="@n">
+								<xsl:element name="span">
+									<xsl:attribute name="class" select="'facs-lineN'"/>
+									<xsl:value-of select="if(string-length(@n) &gt; 1) then(@n) else(concat('&#xA0;&#xA0;',@n))"/><xsl:text>&#xA0;&#xA0;</xsl:text>
+								</xsl:element>
+							</xsl:if>
 						</xsl:when>
 						<xsl:otherwise/>
 					</xsl:choose>
@@ -65,20 +71,27 @@
 	<!-- Choice -->
 	<xsl:template match="tei:choice" mode="facs" priority="3">
 		<xsl:choose>
-			<xsl:when test="tei:sic">
-				<xsl:apply-templates select="tei:sic" mode="#current"> </xsl:apply-templates>
+			<xsl:when test="@part=1 or @part=2 or @part=3">
+				<xsl:apply-templates select="orig" mode="#current"/>
 			</xsl:when>
-			<xsl:when test="tei:orig">
-				<xsl:element name="span">
-					<xsl:attribute name="class">
-						<xsl:value-of>facs-choice_popup</xsl:value-of>
-					</xsl:attribute>
-					<xsl:apply-templates select="tei:reg" mode="#current"> </xsl:apply-templates>
-					<xsl:sequence select="' '"/>
-					<xsl:apply-templates select="tei:orig" mode="#current"> </xsl:apply-templates>
-				</xsl:element>
-			</xsl:when>
-		</xsl:choose>	
+			<xsl:otherwise>
+				<xsl:choose>
+				<xsl:when test="tei:sic">
+					<xsl:apply-templates select="tei:sic" mode="#current"> </xsl:apply-templates>
+				</xsl:when>
+				<xsl:when test="tei:orig">
+					<xsl:element name="span">
+						<xsl:attribute name="class">
+							<xsl:value-of>facs-choice_popup</xsl:value-of>
+						</xsl:attribute>
+						<xsl:apply-templates select="tei:reg" mode="#current"> </xsl:apply-templates>
+						<xsl:sequence select="' '"/>
+						<xsl:apply-templates select="tei:orig" mode="#current"> </xsl:apply-templates>
+					</xsl:element>
+				</xsl:when>
+			</xsl:choose>
+		</xsl:otherwise>
+	  </xsl:choose>
 	</xsl:template>
 	
 	<!--SUBST substitution -->
@@ -142,12 +155,23 @@
 		</xsl:element>
 	</xsl:template>
 	
+	
 	<!--
 		CORR Correction
 		EXPAN Expansion
 	-->
-	<xsl:template match="tei:corr|tei:expan" mode="facs" priority="2">
+	<xsl:template match="tei:corr" mode="facs" priority="2">
 		<!-- Do nothing -->
+	</xsl:template>
+	<xsl:template match="tei:expan" mode="facs" priority="2">
+		<xsl:if test="ancestor::tei:reg">
+			<xsl:element name="span">
+				<xsl:attribute name="class">
+					<xsl:value-of>facs-<xsl:value-of select="name()"/></xsl:value-of>
+				</xsl:attribute>
+				<xsl:apply-templates mode="#current"/> 
+			</xsl:element>
+		</xsl:if>
 	</xsl:template>
 
 	<!-- HI Highlighted text -->

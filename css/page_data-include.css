@@ -90,6 +90,7 @@ TR {valign: top}*/
 
 SPAN.facs-center {margin-left: 0.5cm; margin-right: 0.5cm; text-indent: 0.5cm;   text-align: center;     display:block;}
 SPAN.facs-right {margin-left: 0.5cm; margin-right: 0.5cm; text-indent: 0.5cm;    text-align: right;     display:block;}
+SPAN.facs-lineN {color: grey; font-size: 0.8em;}
 SPAN.facs-subst{text-decoration: underline;}
 SPAN.facs-del {background-color: red; text-decoration: line-through;}
 SPAN.facs-add {background-color: green}
@@ -102,6 +103,7 @@ span.facs-reg {font-size: 80%;  position : absolute;    line-height: 16px;    di
                 box-shadow: 2px 2px 2px #7e7067;    padding : 0.4%;     margin-top:30px;}
 span.facs-choice_popup:hover span.facs-reg {display : inline; min-width: 20px; text-align: center;}
 span.facs-choice_popup:hover span.facs-orig {text-decoration: underline;}
+/*span.facs-orig {color: blue;}*/
 
 /*SPAN.expan {font-style: italic}
 SPAN.n {color: gray}*/
@@ -110,12 +112,12 @@ SPAN.facs-red{color: red;}
 SPAN.facs-hi-7init{font-size: 140%;}
 SPAN.facs-hi-init3_1{font-size: 120%; /*font-weight: bold;*/}
 SPAN.facs-hi-cap {text-transform:uppercase;}
-SPAN.facs-hi-double {font-size: 120%; font-weight: bold;}
+SPAN.facs-hi-double {font-size: 120%; font-size: 0.8em;}
 
 
 SPAN.dipl-center {margin-left: 0.5cm; margin-right: 0.5cm; text-indent: 0.5cm;   text-align: center;     display:block;}
 SPAN.dipl-right {margin-left: 0.5cm; margin-right: 0.5cm; text-indent: 0.5cm;    text-align: right;     display:block;}
-
+SPAN.dipl-lineN {color: grey; font-size: 0.8em;}
 SPAN.dipl-ex {font-style: italic;}
 span.dipl-choice_popup {display : inline;}
 span.dipl-orig:before, span.dipl-corr:before{content: url("../images/popup_before.png");    left: 15%;  position: absolute; top: -13px;}
@@ -123,6 +125,7 @@ span.dipl-orig, span.dipl-corr{font-size: 80%;  position : absolute;    line-hei
                 box-shadow: 2px 2px 2px #7e7067;    padding : 0.4%;     margin-top:30px;}
 span.dipl-choice_popup:hover span.dipl-orig, span.dipl-choice_popup:hover span.dipl-corr {display : inline; min-width: 20px; text-align: center;;}
 span.dipl-choice_popup:hover span.dipl-reg, span.dipl-choice_popup:hover span.dipl-sic {text-decoration: underline;}
+/*span.dipl-reg, span.dipl-sic{color: blue;}*/
 SPAN.dipl-corr-resp {font-weight: bold;}
 
 SPAN.dipl-red {color: red;}                      /*JK ADD*/
@@ -131,8 +134,3 @@ SPAN.dipl-hi-init3_1{font-size: 120%; /*font-weight: bold;*/}            /*JK OK
 SPAN.dipl-hi-cap {text-transform:uppercase;}    /*JK OK*/
 SPAN.dipl-hi-double {font-size: 120%; font-weight: bold;}           /*JK OK*/
 SPAN.dipl-ex {font-style: italic;}
-/*
-SPAN.hi-cap2 {font-size: 180%}
-
-SPAN.hi-init {font-size: 200%}
-SPAN.hi-maiusc {font-variant: small-caps}*/
