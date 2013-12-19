@@ -849,7 +849,9 @@ overflow-x: hidden;
 .active{
 	background: rgb(126,108,95);	
 }
-
+.inactive .fa{
+    color: #786E64;
+}
 .inactive i, .inactive span{
 	text-shadow:none;	
 	color: #786E64;
