@@ -335,7 +335,7 @@ $( function() {
 
 		// IT: Se ci si trova nella modalit Thumb, chiude la schermata e visualizza l'immagine
 		if($("#image_elem").css('display')=="none"){
-			$("#thumb_link").trigger('click');
+			$(".thumb_link").trigger('click');
 		}
 	}
 	// IT: Gestisce il cambio edizione nel frame testuale
@@ -411,6 +411,7 @@ $( function() {
 		var widthOpt = $(elem).find('.option_container').width()+10;
 		// Se la larghezza del contenitore esterno è maggiore di quella delle option aggiorno l'option_container e ristemo il genitore	
 		if(widthSel > widthOpt){ 
+			
 			// Imposto la larghezza dell'option container secondo quella del div figlio di .like_select
 			$(elem).find('.option_container').css('width', widthSel);
 
@@ -427,10 +428,10 @@ $( function() {
 		else {
 			
 			// imposto la larghezza di .like_select sulla base di quella di option_container, 
-			// aggiungendo 24 per via del div per l'apertura, che è largo 24px
-			$(elem).css('width', widthOpt+24);
-			// Poi aggiorno la dimensione dell'option_container, aggiungendo i 24px che mi permettono di allinearla al div figlio di .like_select
-			$(elem).find('.option_container').css('width', widthOpt+14);
+			// aggiungendo 14 per via del div per l'apertura
+			$(elem).css('width', widthOpt+14);
+			// Poi aggiorno la dimensione dell'option_container, aggiungendo i 4px che mi permettono di allinearla al div figlio di .like_select
+			$(elem).find('.option_container').css('width', widthOpt+4);
 		}
 		// Riporto la position di option_container ad absolute per rendere corretto il posizionamento all'apertura
 		$(elem).find('.option_container').css("position", "absolute");
@@ -684,7 +685,7 @@ $( function() {
 		}
 	});							
 
-	$("#thumb_link").click(function(){				
+	$(".thumb_link").click(function(){				
 		if (magnifierON==false){  //modalità zoom attivo JK
             if($("#image_elem").css('display')=="none"){
 			    $("#image_elem").show();
@@ -711,15 +712,14 @@ $( function() {
 	});				
 
 	$(".thumb_single").click(function(){
+		$("#image_elem").show();
+		$("#image_fade").show();
 		window.location.hash = $(this).attr('id').replace( '_small', '' );
 		
 		if ($("#imgd_link").attr("class") == "current_mode")
 			$(".main_dd_select").trigger("imgd_thumb");
 
-		$("#thumb_link").trigger('click');
-		/*if($("#main_right_frame header").css('display')!="none"){
-			$("#main_right_menu").trigger('click');
-		}*/
+		$(".thumb_link").trigger('click');
 		
 	});	
 	
@@ -903,7 +903,7 @@ $( function() {
 			$("#image_cont").show();
 			$('#span_dd_select').css({display: "inline-block"});
 			$('#switchITL').hide();
-			$('#thumb_elem').hide();
+			//$('#thumb_elem').hide();
 		}
 		if(!$('#span_dd_select').hasClass('widthChanged')){
 			$('#span_dd_select').addClass('widthChanged')
@@ -974,7 +974,7 @@ $( function() {
 				});
 			} else {
 				$('#header_collapse').animate({
-					top: "-6px"
+					top: "-8px"
 				});
 			}
 			$('#header_collapse').removeClass('fa-caret-up').addClass('fa-caret-down');
@@ -985,7 +985,7 @@ $( function() {
 				});
 			} else {
 				$('#header_collapse').animate({
-					top: "28px"
+					top: "23px"
 				});
 			}
 			$('#header_collapse').removeClass('fa-caret-down').addClass('fa-caret-up');
