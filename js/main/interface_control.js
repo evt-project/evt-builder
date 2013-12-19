@@ -335,7 +335,7 @@ $( function() {
 
 		// IT: Se ci si trova nella modalit Thumb, chiude la schermata e visualizza l'immagine
 		if($("#image_elem").css('display')=="none"){
-			$("#thumb_link").trigger('click');
+			$(".thumb_link").trigger('click');
 		}
 	}
 	// IT: Gestisce il cambio edizione nel frame testuale
@@ -685,7 +685,7 @@ $( function() {
 		}
 	});							
 
-	$("#thumb_link").click(function(){				
+	$(".thumb_link").click(function(){				
 		if (magnifierON==false){  //modalità zoom attivo JK
             if($("#image_elem").css('display')=="none"){
 			    $("#image_elem").show();
@@ -712,15 +712,14 @@ $( function() {
 	});				
 
 	$(".thumb_single").click(function(){
+		$("#image_elem").show();
+		$("#image_fade").show();
 		window.location.hash = $(this).attr('id').replace( '_small', '' );
 		
 		if ($("#imgd_link").attr("class") == "current_mode")
 			$(".main_dd_select").trigger("imgd_thumb");
 
-		$("#thumb_link").trigger('click');
-		/*if($("#main_right_frame header").css('display')!="none"){
-			$("#main_right_menu").trigger('click');
-		}*/
+		$(".thumb_link").trigger('click');
 		
 	});	
 	
@@ -904,7 +903,7 @@ $( function() {
 			$("#image_cont").show();
 			$('#span_dd_select').css({display: "inline-block"});
 			$('#switchITL').hide();
-			$('#thumb_elem').hide();
+			//$('#thumb_elem').hide();
 		}
 		if(!$('#span_dd_select').hasClass('widthChanged')){
 			$('#span_dd_select').addClass('widthChanged')
@@ -975,7 +974,7 @@ $( function() {
 				});
 			} else {
 				$('#header_collapse').animate({
-					top: "-6px"
+					top: "-8px"
 				});
 			}
 			$('#header_collapse').removeClass('fa-caret-up').addClass('fa-caret-down');
@@ -986,7 +985,7 @@ $( function() {
 				});
 			} else {
 				$('#header_collapse').animate({
-					top: "28px"
+					top: "23px"
 				});
 			}
 			$('#header_collapse').removeClass('fa-caret-down').addClass('fa-caret-up');

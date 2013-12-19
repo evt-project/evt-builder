@@ -150,13 +150,13 @@ footer{
 	text-align: center;
 	margin-left: -10px;
 	max-height: 12px;
-	font-size: 0.8em;
+	font-size: 1em;
 	cursor: pointer;
 	text-shadow:none !important;
 }
 
 #header_collapse.fa-caret-up{
-	top:28px;
+	top:23px;
 }
 
 #header_collapse.fa-caret-down{
@@ -717,14 +717,14 @@ footer{
     #display: none;
 }
 #thumb_cont{
-display: none;
-position: relative;
-top: 100px;
-margin: 0 auto;
-width: 436px;
-height: 73%;
-overflow: auto;
-overflow-x: hidden;
+	display: none;
+	position: relative;
+	top: 100px;
+	margin: 0 auto;
+	width: 436px;
+	height: 73%;
+	overflow: auto;
+	overflow-x: hidden;
 }
 
 #thumb_cont figure{
@@ -851,8 +851,7 @@ overflow-x: hidden;
 	#padding: 0px;
 	font-size: 1em;
 	margin:0 4px;
-	#top:-7px;
-	#vertical-align: middle;
+	top:-7px;
 }
 
 .mainButtons{
@@ -866,6 +865,9 @@ overflow-x: hidden;
 	display:none;
 }
 
+#span_ee_select-add{
+	top: 0px;
+}
 
 /*Chiara*/
 .like_select > div:hover{
@@ -979,6 +981,10 @@ overflow-x: hidden;
 	opacity: 1;
 }
 
+.iconButtons{
+	position: relative;
+	top: 1px;
+}
 
 .mainButtons, .iconButtons{
     text-decoration: none;
@@ -991,10 +997,8 @@ overflow-x: hidden;
 	text-indent: 0;
 	background: none;
 	font-size:1.5em;
-	#position: absolute;
 	color: #F5EAD4;
 	height: 28px;
-	vertical-align: middle;
 }
 #search_elem i{
 	top: -1px;
@@ -1027,11 +1031,10 @@ overflow-x: hidden;
 
 .active, .active .fa{
 	color: #4e443c;
-	#color: white;
 }
 
 .active{
-	background: #ff9;	
+	background: #E3C89C;
 }
 
 .inactive i, .inactive span{
@@ -1290,12 +1293,12 @@ div.botleftconcave {
 	width: 0px;
 	#top: 3px;
 	#right: 18px;
-	top: -15px;
-	right: 10px;
+	top: -16px;
+	right: 11px;
 	text-shadow: none !important;
 	font-weight: lighter !important;
 	color:rgb(245, 234, 212);
-	font-size: 1em;
+	font-size: 1.1em;
 	z-index: 999999;
 }
 
@@ -1327,7 +1330,7 @@ div.botleftconcave {
 	text-shadow: none !important;
 	font-weight: lighter !important;
 	color: rgb(245, 234, 212);
-	font-size: 1em;
+	font-size: 1.1em;
 	z-index: 999999;
 }
 
@@ -1373,4 +1376,8 @@ div.botleftconcave {
 	left: 0px;
 	margin-top: 3px;
 	margin-left: 3.6px;
+}
+
+#thumb_elem-add{
+	display: none;
 }
