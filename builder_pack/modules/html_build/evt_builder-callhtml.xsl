@@ -287,9 +287,8 @@
 									<input id="imgTit" type="hidden" value=""/>
 									<div id="thumb_cont">
 										<xsl:for-each select="//tei:pb">
-											<figure>
-												<img class="thumb_single" id="{@n}_small"
-													src="data/input_data/images/{@n}_small.jpg"/>
+											<figure class="thumb_single" id="{@n}_small">
+												<img src="data/input_data/images/{@n}_small.jpg"/>
 												<figcaption>
 													<xsl:value-of select="@n"/>
 												</figcaption>
