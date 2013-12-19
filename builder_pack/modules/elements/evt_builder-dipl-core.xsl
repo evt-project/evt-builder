@@ -180,44 +180,17 @@
 	<!-- HI Highlighted text -->
 	<xsl:template match="tei:hi" mode="dipl">
 		<xsl:choose>
-			<xsl:when test="@rend='double'">
-				<xsl:element name="span">
-					<xsl:attribute name="class">dipl-hi-double</xsl:attribute>
-					<xsl:apply-templates mode="#current"> </xsl:apply-templates>
-				</xsl:element>
-			</xsl:when>
-			<xsl:when test="@rend='cap'">
-				<xsl:element name="span">
-					<xsl:attribute name="class">dipl-hi-cap</xsl:attribute>
-					<xsl:apply-templates mode="#current"> </xsl:apply-templates>
-				</xsl:element>
-			</xsl:when>
-			<xsl:when test="@rend='cap2.0'">
-				<xsl:element name="span">
-					<xsl:attribute name="class">dipl-hi-cap2.0</xsl:attribute>
-					<xsl:apply-templates mode="#current"> </xsl:apply-templates>
-				</xsl:element>
-			</xsl:when>
-			<xsl:when test="@rend='7init'">
-				<xsl:element name="span">
-					<xsl:attribute name="class">dipl-hi-7init</xsl:attribute>
-					<xsl:apply-templates mode="#current"> </xsl:apply-templates>
-				</xsl:element>
-			</xsl:when>
-			<xsl:when test="@rend='init3.1'">
-				<xsl:element name="span">
-					<xsl:attribute name="class">dipl-hi-init3-1</xsl:attribute>
-					<xsl:apply-templates mode="#current"> </xsl:apply-templates>
-				</xsl:element>
-			</xsl:when>
 			<xsl:when test="@rend='red'">
 				<xsl:element name="span">
-					<xsl:value-of>dipl-<xsl:value-of select="@rend"/></xsl:value-of>
+					<xsl:attribute name="class"><xsl:value-of>dipl-<xsl:value-of select="@rend"/></xsl:value-of></xsl:attribute>
 					<xsl:apply-templates mode="#current"> </xsl:apply-templates>
 				</xsl:element>
 			</xsl:when>
 			<xsl:otherwise>
-				<xsl:apply-templates mode="#current"> </xsl:apply-templates>
+				<xsl:element name="span">
+					<xsl:attribute name="class">dipl-hi-<xsl:value-of select="translate(@rend, '.', '_')"/></xsl:attribute>
+					<xsl:apply-templates mode="#current"> </xsl:apply-templates>
+				</xsl:element>
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
