@@ -78,6 +78,7 @@
 									"text" :
 										"<xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:lb)]" mode="facs"/></xsl:variable>
 										<xsl:copy-of select="$var//text()"></xsl:copy-of>",
+									"tag" : "<xsl:value-of select="parent::div[@subtype='edition_text']/@n"/>"
 									"loc" : "<xsl:value-of select="if(preceding::pb[1]/@n) then(preceding::pb[1]/@n) else('no_page_info')"/>"
 									},
 									</xsl:if>
