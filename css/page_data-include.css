@@ -104,7 +104,7 @@ span.facs-reg {font-size: 80%;  position : absolute;    line-height: 16px;    di
 span.facs-choice_popup:hover span.facs-reg {display : inline; min-width: 20px; text-align: center;}
 /*span.facs-choice_popup:hover span.facs-orig {text-decoration: underline;}*/
 span.facs-choice_popup span.facs-orig {color: #874e3d;/*background-color: rgba(255,255,204,0.8);*/}
-span.facs-choice_popup span.facs-orig:hover {color: #561c0a;}
+span.facs-choice_popup span.facs-orig:hover {color: #561c0a; text-decoration: underline;}
 
 /*SPAN.expan {font-style: italic}
 SPAN.n {color: gray}*/
