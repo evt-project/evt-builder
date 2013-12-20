@@ -480,6 +480,7 @@ footer{
 	width: 99.4%;
 	min-height: 456px;
 	overflow-y: auto;
+	overflow-x: hidden;
 	position: relative;
 	top: 51px;
 	overflow-x: hidden;
