@@ -11,6 +11,7 @@ div.Annotation{
     border-radius: 2px;
     padding: 0;
     width: 300px;
+    text-align: left;
 }
 
 div.AnnTitleBar{
@@ -35,6 +36,12 @@ div.PopupCloser{
     color: #F5EAD4;
 }
 
+div.Annotation img{
+max-width: 100px;
+max-height: 100px;
+float: left;
+margin: 5px;
+}
 
 div.AnnText{
     border-top: 2px solid #4E443C;

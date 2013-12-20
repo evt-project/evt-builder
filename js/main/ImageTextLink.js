@@ -431,7 +431,7 @@ function ShowAnnHS(ItemId){
             TheAnnotation.style.left = ALeft + 'px';
         }*/
         //Vertical position
-        var ATop = parseInt(TheArea.style.top) + parseInt(TheArea.offsetHeight);
+        var ATop = parseInt(TheArea.style.top) + parseInt(TheArea.offsetHeight)+5;
         /*if (ATop + parseInt(TheAnnotation.offsetHeight) > ImgBottomHS){
             ATop = parseInt(TheArea.style.top) - parseInt(TheAnnotation.offsetHeight);
         }*/
