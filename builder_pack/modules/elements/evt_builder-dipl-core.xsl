@@ -134,15 +134,21 @@
 						<xsl:apply-templates select="tei:expan" mode="#current"> </xsl:apply-templates>
 					</xsl:when>
 					<xsl:when test="tei:reg">
-						<xsl:element name="span">
-							<xsl:attribute name="class">
-								<xsl:value-of>dipl-choice_popup</xsl:value-of>
-							</xsl:attribute>
-							<xsl:if test="tei:orig"><xsl:apply-templates select="tei:orig" mode="#current"/>
-								<xsl:sequence select="' '"/><!--important--></xsl:if>
-							
-							<xsl:apply-templates select="tei:reg" mode="#current"> </xsl:apply-templates>
-						</xsl:element>
+						<xsl:choose>
+							<xsl:when test="tei:reg[normalize-space()]">
+								<xsl:element name="span">
+									<xsl:attribute name="class">
+										<xsl:value-of>dipl-choice_popup</xsl:value-of>
+									</xsl:attribute>
+									<xsl:if test="tei:orig"><xsl:apply-templates select="tei:orig" mode="#current"/>
+										<xsl:sequence select="' '"/><!--important--></xsl:if>
+									<xsl:apply-templates select="tei:reg" mode="#current"> </xsl:apply-templates>
+								</xsl:element>
+							</xsl:when>
+							<xsl:otherwise>
+								<xsl:apply-templates select="tei:reg" mode="#current"> </xsl:apply-templates>
+							</xsl:otherwise>
+						</xsl:choose>
 					</xsl:when>
 				</xsl:choose>
 			</xsl:otherwise>

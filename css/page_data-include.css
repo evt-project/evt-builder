@@ -125,7 +125,7 @@ span.dipl-orig, span.dipl-corr{font-size: 80%;  position : absolute;    line-hei
                 box-shadow: 2px 2px 2px #7e7067;    padding : 0.4%;     margin-top:30px;}
 span.dipl-choice_popup:hover span.dipl-orig, span.dipl-choice_popup:hover span.dipl-corr {display : inline; min-width: 20px; text-align: center;}
 span.dipl-choice_popup:hover span.dipl-reg, span.dipl-choice_popup:hover span.dipl-sic {text-decoration: underline;}
-span.dipl-reg, span.dipl-sic{background-color: rgba(255,255,204,0.4);}
+span.facs-choice_popup span.dipl-reg, span.facs-choice_popup span.dipl-sic{background-color: rgba(255,255,204,0.4);}
 
 SPAN.dipl-corr-resp {font-weight: bold;}
 
