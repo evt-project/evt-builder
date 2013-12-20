@@ -553,6 +553,7 @@ $( function() {
 	            checkAnnPosHS(); //Add for HS
 			});
 			$('#switchITL').show();
+			if ($('#switchITL i ').hasClass('fa fa-chain')){Initialize();} //Add by JK for ITL
 		}
 	    
 		//$('#span_dd_select').hide();
@@ -609,7 +610,7 @@ $( function() {
 	} 
 
 	function closeFullScreenRight(){
-	    if ($('#switchITL i ').hasClass('fa-chain')){Initialize();} //Add by JK for ITL
+	    if ($('#switchITL i ').hasClass('fa fa-chain')){Initialize();} //Add by JK for ITL
 	    if ($('#switchHS i ').hasClass('fa fa-dot-circle-o')){InitializeHS();} //Add by JK for HS
 	    // Gestione del full screen per browser webkit
 		if ($.browser.webkit) {

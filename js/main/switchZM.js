@@ -14,7 +14,11 @@ function magnifierReady(){
     var img=document.getElementById("iviewerImage").cloneNode(false);
     img.removeAttribute("style");
     /*IT: calcolo nuova altezza: */
-    zoomImagWidth = 445; /*richiamata anche in jqzoom*/
+    if ($('.current_mode').attr('id')=='imgd_link'){
+        zoomImagWidth = 900;
+    }else{
+        zoomImagWidth = 445; /*richiamata anche in jqzoom*/
+    }
     var imgWidth = parseFloat($("#iviewerImage").css('width'));
     var imgHeight = parseFloat($("#iviewerImage").css('height'));
     zoomImagHeight = (zoomImagWidth * imgHeight)/imgWidth;  /*richiamata anche in jqzoom*/
@@ -29,7 +33,11 @@ function magnifierReady(){
     $("#mag_image_elem > a").append(img);
     /*IT: imposto il css della nuova immagine*/
     $("#magImage").css({'width': zoomImagWidth+'px', 'height': zoomImagHeight+'px', 'margin-left': 'auto', 'margin-right': 'auto'});
-    setTimeout(function(){magON(); },1000);
+    if ($('.current_mode').attr('id')=='imgd_link'){
+        setTimeout(function(){magONbig(); },1000);
+    }else{
+        setTimeout(function(){magON(); },1000);
+    }
 }
 function setMagHeight(){;
     left_headerHeight = $("#left_header").height();
@@ -149,6 +157,21 @@ function magON(){
             alwaysOn: false,  
 			lensWidth: 30,  
             lensHeight: 15,
+			zoomRatio: 1
+    };  
+    $('.magnifier').jqzoom(options);
+}
+
+function magONbig(){
+    var options = {  
+            zoomType: 'drag',
+			position: 'inside',
+			title: false,
+            lens: false,  
+            preloadImages: false,  
+            alwaysOn: false,  
+			lensWidth: 40,  
+            lensHeight: 20,
 			zoomRatio: 1
     };  
     $('.magnifier').jqzoom(options);
