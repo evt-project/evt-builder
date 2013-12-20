@@ -28,9 +28,15 @@ $( function() {
 		   									      Initialize();} //Add by JK for ITL
 		                                    if (($('.current_mode').attr('id')=='txtimg_link') & (!$('#switchHS').hasClass('inactive')) & ($("#switchHS i").hasClass('fa fa-dot-circle-o')) ) {
 		                                          InitializeHS();} //Add by JK for HS
+
+		                                    var current_url = '';
+		                                    if ($('.current_mode').attr('id')=='imgd_link')
+		                                    	current_url = 'data/input_data/images/double/'+location.hash.replace( /^#/, '' )+'_big.jpg';      
+		                                    else
+		                                    	current_url = 'data/input_data/images/'+location.hash.replace( /^#/, '' )+'_big.jpg';      
 		                                    
 		                                    $.ajax({
-                                                    url: 'data/input_data/images/'+location.hash.replace( /^#/, '' )+'_big.jpg',
+                                                    url: current_url,
                                                     success: function(data){
                                                         if ($("#switchMag").attr("title")){$("#switchMag").removeAttr("title").removeClass('inactive'); $("#switchMag").attr("onclick", "magOn()");}
                                                         bigImage=true; 
