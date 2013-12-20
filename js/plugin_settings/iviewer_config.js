@@ -52,7 +52,7 @@ $( function() {
                                                         chooseZoomMag();
                                                     }
                                                 }); //Add by JK for Mag
-											$("#mag_image_elem").empty();
+											//$("#mag_image_elem").empty();
 											$('#image_fade').fadeIn(400);
 											setTimeout(function (){
 									            //iv1.iviewer('fit');
