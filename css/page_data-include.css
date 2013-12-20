@@ -103,7 +103,7 @@ span.facs-reg {font-size: 80%;  position : absolute;    line-height: 16px;    di
                 box-shadow: 2px 2px 2px #7e7067;    padding : 0.4%;     margin-top:30px;}
 span.facs-choice_popup:hover span.facs-reg {display : inline; min-width: 20px; text-align: center;}
 /*span.facs-choice_popup:hover span.facs-orig {text-decoration: underline;}*/
-span.facs-choice_popup span.facs-orig {color: #543c2e;/*background-color: rgba(255,255,204,0.8);*/}
+span.facs-choice_popup span.facs-orig {color: #874e3d;/*background-color: rgba(255,255,204,0.8);*/}
 
 /*SPAN.expan {font-style: italic}
 SPAN.n {color: gray}*/
