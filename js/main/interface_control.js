@@ -753,6 +753,7 @@ $( function() {
 			$("#mag").show();				
 			$("#image_menu").show();
 			$('#switchITL').show();
+			$('#switchHS').show();
 			$("#image_cont").show();
 			if($('#right_header').hasClass('menuClosed'))
 				$('#right_header').hide();
@@ -903,6 +904,7 @@ $( function() {
 			$("#image_cont").show();
 			$('#span_dd_select').css({display: "inline-block"});
 			$('#switchITL').hide();
+			$('#switchHS').hide();
 			//$('#thumb_elem').hide();
 		}
 		if(!$('#span_dd_select').hasClass('widthChanged')){
