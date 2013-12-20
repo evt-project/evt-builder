@@ -117,6 +117,11 @@
 				<xsl:element name="div">
 					<xsl:attribute name="class">AnnText</xsl:attribute>
 					<xsl:attribute name="onmousedown">doNothingHS(this, event)</xsl:attribute>
+					<xsl:if test="tei:figure/tei:graphic/@url">
+						<img alt="HotSpot_{$linkId}">
+							<xsl:attribute name="src">data/input_data/images/hotspot/<xsl:value-of select="tei:figure/tei:graphic/@url"/></xsl:attribute>
+						</img>
+					</xsl:if>
 					<xsl:for-each select="tei:p">
 						<xsl:apply-templates select="."></xsl:apply-templates>
 					</xsl:for-each>
