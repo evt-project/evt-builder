@@ -42,7 +42,7 @@ hr{
 	margin: 10px auto;
 	text-align:left;
 	line-height: 28px;
-	font-size: 20px;
+	font-size: 19px;
 }
 
 .right{
@@ -93,26 +93,26 @@ SPAN.facs-right {margin-left: 0.5cm; margin-right: 0.5cm; text-indent: 0.5cm;   
 SPAN.facs-lineN {color: grey; font-size: 0.8em;}
 SPAN.facs-subst{text-decoration: underline;}
 SPAN.facs-del {background-color: red; text-decoration: line-through;}
-SPAN.facs-add {background-color: rgba(0,128,0, 0.8)}
+SPAN.facs-add {background-color: rgba(0,128,0, 0.8);}
 SPAN.facs-sup {vertical-align: 20%;}
-SPAN.facs-sub {vertical-align: -20%;}
-SPAN.facs-damage {background-color: #999999}
+SPAN.facs-under {vertical-align: -20%;}
+SPAN.facs-damage {color: #4b4b4b; /*background-color: rgba(193,193,193, 0.8);*/}
 span.facs-choice_popup {display : inline;}
 span.facs-reg:before{content: url("../images/popup_before.png");    left: 15%;  position: absolute; top: -13px;}
 span.facs-reg {font-size: 80%;  position : absolute;    line-height: 16px;    display : none;    background : #e5dac4;    border : 2.5px solid black;    border-radius: 3px;
                 box-shadow: 2px 2px 2px #7e7067;    padding : 0.4%;     margin-top:30px;}
 span.facs-choice_popup:hover span.facs-reg {display : inline; min-width: 20px; text-align: center;}
-span.facs-choice_popup:hover span.facs-orig {text-decoration: underline;}
-span.facs-choice_popup span.facs-orig {color: #5a6779;}
+/*span.facs-choice_popup:hover span.facs-orig {text-decoration: underline;}*/
+span.facs-choice_popup span.facs-orig {background-color: rgba(255,255,204,0.8);}
 
 /*SPAN.expan {font-style: italic}
 SPAN.n {color: gray}*/
 
 SPAN.facs-red{color: red;}
-SPAN.facs-hi-7init{font-size: 140%;}
-SPAN.facs-hi-init3_1{font-size: 120%; /*font-weight: bold;*/}
+SPAN.facs-hi-7init{font-size: 200%; font-weight: bold;}
+SPAN.facs-hi-init3_1{font-size: 180%; font-weight: bold;}
 SPAN.facs-hi-cap {text-transform:uppercase;}
-SPAN.facs-hi-double {font-size: 120%; font-size: 0.8em;}
+SPAN.facs-hi-double {font-size: 120%;}
 
 
 SPAN.dipl-center {margin-left: 0.5cm; margin-right: 0.5cm; text-indent: 0.5cm;   text-align: center;     display:block;}
@@ -123,14 +123,15 @@ span.dipl-choice_popup {display : inline;}
 span.dipl-orig:before, span.dipl-corr:before{content: url("../images/popup_before.png");    left: 15%;  position: absolute; top: -13px;}
 span.dipl-orig, span.dipl-corr{font-size: 80%;  position : absolute;    line-height: 16px;    display : none;    background : #e5dac4;    border : 2.5px solid black;    border-radius: 3px;
                 box-shadow: 2px 2px 2px #7e7067;    padding : 0.4%;     margin-top:30px;}
-span.dipl-choice_popup:hover span.dipl-orig, span.dipl-choice_popup:hover span.dipl-corr {display : inline; min-width: 20px; text-align: center;;}
+span.dipl-choice_popup:hover span.dipl-orig, span.dipl-choice_popup:hover span.dipl-corr {display : inline; min-width: 20px; text-align: center;}
 span.dipl-choice_popup:hover span.dipl-reg, span.dipl-choice_popup:hover span.dipl-sic {text-decoration: underline;}
-/*span.dipl-reg, span.dipl-sic{color: blue;}*/
+span.dipl-reg, span.dipl-sic{background-color: rgba(255,255,204,0.4);}
+
 SPAN.dipl-corr-resp {font-weight: bold;}
 
 SPAN.dipl-red {color: red;}                      /*JK ADD*/
 SPAN.dipl-hi-7init{font-size: 140%}              /*JK OK*/
 SPAN.dipl-hi-init3_1{font-size: 120%; /*font-weight: bold;*/}            /*JK OK*/
 SPAN.dipl-hi-cap {text-transform:uppercase;}    /*JK OK*/
-SPAN.dipl-hi-double {font-size: 120%; font-weight: bold;}           /*JK OK*/
+SPAN.dipl-hi-double {font-size: 120%;}           /*JK OK*/
 SPAN.dipl-ex {font-style: italic;}
