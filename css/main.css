@@ -551,10 +551,12 @@ footer{
 }
 
 #image_loading{
-	height:28px;
+	#height:28px;
+	color: #E1D7C7;
+	font-size: 48px;
 	position: absolute;
 	top: 50%;
-	margin-top: -14px;
+	margin-top: -30px;
 	width: 100%;
 	text-align: center;
 	display: none;
