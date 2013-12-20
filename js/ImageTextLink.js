@@ -426,22 +426,23 @@ function ShowAnnHS(ItemId){
         //Show the Ann so we can position it afterwards
         TheAnnotation.style.left = ALeft + 'px';
         TheAnnotation.style.display = 'block';
-        if (ALeft + parseInt(TheAnnotation.offsetWidth) > ImgRightHS){
+        /*if (ALeft + parseInt(TheAnnotation.offsetWidth) > ImgRightHS){
             ALeft = ImgRightHS - parseInt(TheAnnotation.offsetWidth);
             TheAnnotation.style.left = ALeft + 'px';
-        }
+        }*/
         //Vertical position
         var ATop = parseInt(TheArea.style.top) + parseInt(TheArea.offsetHeight);
-        if (ATop + parseInt(TheAnnotation.offsetHeight) > ImgBottomHS){
+        /*if (ATop + parseInt(TheAnnotation.offsetHeight) > ImgBottomHS){
             ATop = parseInt(TheArea.style.top) - parseInt(TheAnnotation.offsetHeight);
-        }
+        }*/
         TheAnnotation.style.top = ATop  + 'px';
 
         //Handle the problem of disappearing off the top
-        if (parseInt(TheAnnotation.offsetTop) < HeightOffsetHS){
+        /*if (parseInt(TheAnnotation.offsetTop) < HeightOffsetHS){
             TheAnnotation.style.top = HeightOffsetHS + 'px';
             TheAnnotation.style.left = '0px';
-        }
+        }*/
+        checkAnnPosHS();
     }
 }
 
@@ -454,6 +455,8 @@ function doNothingHS(El, e){
 function HideAnnHS(AnnId){
     var El = document.getElementById(AnnId);
     if (El != null){
+    El.style.left = '0px';
+       El.style.top = '0px';
     	El.style.display = 'none';
     	El.style.position = 'absolute';
     	$("#text").append(El);
