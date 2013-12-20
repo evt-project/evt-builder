@@ -67,20 +67,34 @@
 		<xsl:if test="$edition_array[1]!=''">
 			<xsl:variable name="edition_current" select="lower-case($edition_array[1])" />
 			<xsl:result-document method="text" href="{$filePrefix}/data/output_data/{$edition_current}/{$edition_current}.js" indent="no">
-				var tipuesearch = {"pages": [
+				{"pages": [
 					<xsl:for-each-group select="//node()[name()=$ed_content]/descendant-or-self::node()[name()=$start_split]/node()" group-starting-with="//tei:pb">
 						<xsl:choose>
 							<xsl:when test="current-group()/(descendant-or-self::lb)">
 								<xsl:for-each-group select="current-group()[not(self::pb)]" group-starting-with="tei:lb">
 									<xsl:if test="current-group()[not((string-length(normalize-space()))= 0)]">
-									{ "line" :
-										"<xsl:value-of select="if(self::tei:lb/@n) then(self::tei:lb/@n) else('no line info')" />",
-									"text" :
-										"<xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:lb)]" mode="facs"/></xsl:variable>
-										<xsl:copy-of select="$var//text()"></xsl:copy-of>",
-									"tag" : "<xsl:value-of select="parent::div[@subtype='edition_text']/@n"/>",
-									"loc" : "<xsl:value-of select="if(preceding::pb[1]/@n) then(preceding::pb[1]/@n) else('no_page_info')"/>"
-									},
+										<xsl:choose>
+											<xsl:when test="following::lb">
+												{ "line" :
+													"<xsl:value-of select="if(self::tei:lb/@n) then(self::tei:lb/@n) else('no line info')" />",
+												"text" :
+													"<xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:lb)]" mode="facs"/></xsl:variable>
+													<xsl:copy-of select="$var//text()"></xsl:copy-of>",
+												"tag" : "<xsl:value-of select="parent::div[@subtype='edition_text']/@n"/>",
+												"loc" : "<xsl:value-of select="if(preceding::pb[1]/@n) then(preceding::pb[1]/@n) else('no_page_info')"/>"
+												},
+											</xsl:when>
+											<xsl:otherwise>
+												{ "line" :
+												"<xsl:value-of select="if(self::tei:lb/@n) then(self::tei:lb/@n) else('no line info')" />",
+												"text" :
+												"<xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:lb)]" mode="facs"/></xsl:variable>
+												<xsl:copy-of select="$var//text()"></xsl:copy-of>",
+												"tag" : "<xsl:value-of select="parent::div[@subtype='edition_text']/@n"/>",
+												"loc" : "<xsl:value-of select="if(preceding::pb[1]/@n) then(preceding::pb[1]/@n) else('no_page_info')"/>"
+												}
+											</xsl:otherwise>
+										</xsl:choose>
 									</xsl:if>
 								</xsl:for-each-group>
 							</xsl:when>
@@ -95,21 +109,35 @@
 		</xsl:if>
 		<xsl:if test="$edition_array[2]!=''">
 			<xsl:variable name="edition_current" select="lower-case($edition_array[2])" />
-			<xsl:result-document method="text" href="{$filePrefix}/data/output_data/{$edition_current}/{$edition_current}.js" indent="no">
-				var tipuesearch = {"pages": [
+			<xsl:result-document method="text" href="{$filePrefix}/data/output_data/{$edition_current}/{$edition_current}.json" indent="no">
+				{"pages": [
 					<xsl:for-each-group select="//node()[name()=$ed_content]/descendant-or-self::node()[name()=$start_split]/node()" group-starting-with="//tei:pb">
 						<xsl:choose>
 							<xsl:when test="current-group()/(descendant-or-self::lb)">
 								<xsl:for-each-group select="current-group()[not(self::pb)]" group-starting-with="tei:lb">
 									<xsl:if test="current-group()[not((string-length(normalize-space()))= 0)]">
-									{ "line" :
-										"<xsl:value-of select="if(self::tei:lb/@n) then(self::tei:lb/@n) else('no line info')" />",
-									"text" :
-										"<xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:lb)]" mode="dipl"/></xsl:variable>
-										<xsl:copy-of select="$var//text()"></xsl:copy-of>",
-									"tag" : "<xsl:value-of select="parent::div[@subtype='edition_text']/@n"/>",
-									"loc" : "<xsl:value-of select="if(preceding::pb[1]/@n) then(preceding::pb[1]/@n) else('no_page_info')"/>"
-									},
+										<xsl:choose>
+											<xsl:when test="following::lb">
+												{ "line" :
+													"<xsl:value-of select="if(self::tei:lb/@n) then(self::tei:lb/@n) else('no line info')" />",
+												  "text" :
+													"<xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:lb)]" mode="dipl"/></xsl:variable>
+													<xsl:copy-of select="$var//text()"></xsl:copy-of>",
+												  "tag" : "<xsl:value-of select="parent::div[@subtype='edition_text']/@n"/>",
+												  "loc" : "<xsl:value-of select="if(preceding::pb[1]/@n) then(preceding::pb[1]/@n) else('no_page_info')"/>"
+												},
+											</xsl:when>
+											<xsl:otherwise>
+												{ "line" :
+												"<xsl:value-of select="if(self::tei:lb/@n) then(self::tei:lb/@n) else('no line info')" />",
+												"text" :
+												"<xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:lb)]" mode="dipl"/></xsl:variable>
+												<xsl:copy-of select="$var//text()"></xsl:copy-of>",
+												"tag" : "<xsl:value-of select="parent::div[@subtype='edition_text']/@n"/>",
+												"loc" : "<xsl:value-of select="if(preceding::pb[1]/@n) then(preceding::pb[1]/@n) else('no_page_info')"/>"
+												}
+											</xsl:otherwise>
+										</xsl:choose>
 									</xsl:if>
 								</xsl:for-each-group>
 							</xsl:when>

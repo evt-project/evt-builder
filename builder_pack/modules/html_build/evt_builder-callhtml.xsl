@@ -88,7 +88,7 @@
 
 				<xsl:comment>magnifier</xsl:comment>
 				<script type="text/javascript" src="js/plugin/jquery.jqzoom-core.js"/>
-				<script type="text/javascript" src="js/switchZM.js"/>
+				<script type="text/javascript" src="js/main/switchZM.js"/>
 				<xsl:comment>/magnifier</xsl:comment>
 				
 				<xsl:comment>hashchange</xsl:comment>
@@ -96,7 +96,7 @@
 				<xsl:comment>/hashchange</xsl:comment>
 				
 				<xsl:comment>image text link</xsl:comment>
-				<script type="text/javascript" src="js/ImageTextLink.js"/>
+				<script type="text/javascript" src="js/main/ImageTextLink.js"/>
 				<xsl:comment>/image text link</xsl:comment>
 
 			</xsl:if>
