@@ -25,9 +25,9 @@
 
 	<!-- Basic -->
 	<xsl:include href="modules/evt_builder-conf.xsl"/>
-	<xsl:include href="modules/evt_builder-copy_and_call_main.xsl"/>
-	<xsl:include href="modules/evt_builder-main.xsl"/>
-	<xsl:include href="modules/evt_builder-structure.xsl"/>
+	<xsl:include href="modules/main/evt_builder-copy_and_call_main.xsl"/>
+	<xsl:include href="modules/main/evt_builder-main.xsl"/>
+	<xsl:include href="modules/main/evt_builder-structure.xsl"/>
 	
 	
 	<xsl:include href="modules/html_build/evt_builder-callhtml.xsl"/>
@@ -46,7 +46,7 @@
 	<!--<xsl:include href="modules/elements/evt_builder-dipl-textstructure.xsl"/>-->
 
 	<!-- Image text link-->
-	<xsl:include href="modules/evt_builder-image_text_link.xsl"/>
+	<xsl:include href="modules/main/evt_builder-image_text_link.xsl"/>
 	
 	<!-- Extra -->
 	<xsl:include href="modules/extra/functx-1.0.xsl"/>
