@@ -107,34 +107,15 @@
 
 	<!-- ADD Addition -->
 	<xsl:template match="tei:add" mode="facs" priority="2">
-			<xsl:choose>
-				<xsl:when test="@place='sup'">
-					\<xsl:element name="span">
-						<xsl:attribute name="class">
-							<xsl:value-of>facs-<xsl:value-of select="@place"/></xsl:value-of>
-							<xsl:value-of> facs-add</xsl:value-of>
-						</xsl:attribute>
-						<xsl:apply-templates mode="#current"> </xsl:apply-templates>
-					</xsl:element>/
-				</xsl:when>
-				<xsl:when test="@place='sub'">
-					/<xsl:element name="span">
-						<xsl:attribute name="class">
-							<xsl:value-of>facs-<xsl:value-of select="@place"/></xsl:value-of>
-							<xsl:value-of> facs-add</xsl:value-of>
-						</xsl:attribute>
-						<xsl:apply-templates mode="#current"> </xsl:apply-templates>
-					</xsl:element>\
-				</xsl:when>
-				<xsl:otherwise>
-					<xsl:element name="span">
-						<xsl:attribute name="class">
-							<xsl:value-of>facs-<xsl:value-of select="name()"/></xsl:value-of>
-						</xsl:attribute>
-						<xsl:apply-templates mode="#current"> </xsl:apply-templates>
-					</xsl:element>
-				</xsl:otherwise>
-			</xsl:choose>
+		<xsl:element name="span">
+			<xsl:attribute name="class">
+				<xsl:value-of>facs-<xsl:value-of select="name()"/></xsl:value-of>
+				<xsl:if test="@place">
+					<xsl:value-of> facs-<xsl:value-of select="@place"/></xsl:value-of>
+				</xsl:if>
+			</xsl:attribute>
+			<xsl:apply-templates mode="#current"> </xsl:apply-templates>
+		</xsl:element>
 	</xsl:template>
 	
 	<!--
