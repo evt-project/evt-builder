@@ -1,22 +1,4 @@
-﻿
-
-/*
-#ImageContainer{
-    margin: 0;
-    padding: 0;
-	height: 800px;
-	width: 500px;
-	border: 1px solid black;
-	float: left;
-}
-
-#Image{
-    margin: 1em;
-    padding: 0;
-    border: none;
-}*/
-
-div#CurrentAnnotation{
+﻿div#CurrentAnnotation{
     display: none;
 }
 
@@ -136,18 +118,18 @@ div.AnnText{
 
 .HighlightedAnnMenuItem{
     cursor: pointer;
-    background-color: #e6cea0;/*d5b17d e4c89b*/
-	opacity: 0.8;
-	filter:alpha(opacity=80); /* For IE8 and earlier */
+    background-color: rgba(230,206,160,0.8); /*d5b17d e4c89b*/
+	/*opacity: 0.8;
+	filter:alpha(opacity=80);  For IE8 and earlier */
 	border: 1px solid #b99562;
     color: #000000;
 }
 
 .SelectedAnnMenuItem{
     cursor: pointer;
-	background-color: #d5b17d;
-	opacity: 0.9;
-	filter:alpha(opacity=90); /* For IE8 and earlier */
+	background-color: rgba(213,177,125,0.9);
+	/*opacity: 0.9;
+	filter:alpha(opacity=90);  For IE8 and earlier */
 	border: 1px solid #b99562;
     color: #000000;
 }
