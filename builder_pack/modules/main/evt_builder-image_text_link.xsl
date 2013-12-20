@@ -85,9 +85,13 @@
 						</xsl:if>		
 					</xsl:when>
 					<xsl:when test="$CurrClass='HotSpot'">
-						<xsl:call-template name="Area">
-							<xsl:with-param name="suffix" select="'HS'"/>
-						</xsl:call-template>
+						<xsl:variable name="idL" select="@xml:id"/>
+						<!-- IT: crea un div areaHS solo se esiste un div corrispondente alla zona corrente -->
+						<xsl:if test="//tei:div[@type='hotspot']/tei:div/translate(@facs, '#', '')=$idL">
+							<xsl:call-template name="Area">
+								<xsl:with-param name="suffix" select="'HS'"/>
+							</xsl:call-template>
+						</xsl:if>
 					</xsl:when>
 					<xsl:otherwise>
 					</xsl:otherwise>
