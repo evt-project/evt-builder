@@ -555,7 +555,7 @@ $( function() {
 			$('#switchITL').show();
 		}
 	    
-		$('#span_dd_select').hide();
+		//$('#span_dd_select').hide();
 	}
 
 	function goFullScreenRight(){
