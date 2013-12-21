@@ -107,6 +107,7 @@
 	<xsl:template name="data_structure">
 		<xsl:param name="output"/>
 		<xsl:param name="pb_n"/>
+		<xsl:param name="edition_pos"/>
 
 		<html lang="en-US">
 			<xsl:call-template name="html_head">
@@ -118,7 +119,7 @@
 				<section id="central_wrapper">
 					<div id="text_frame">
 						<div id="text">
-							<xsl:if test="$output='facsimile'">
+							<xsl:if test="$edition_pos=1">
 								<xsl:choose>
 									<!-- IT: Se c'è il surface viene creato un albero temporaneo che corrisponde al gruppo corrente trasformato in base al livello di edizione;
 										 a questo viene applicato il template per il collegamento testo-immagine-->
@@ -134,7 +135,7 @@
 									</xsl:otherwise>
 								</xsl:choose>
 							</xsl:if>
-							<xsl:if test="$output='diplomatic'">
+							<xsl:if test="$edition_pos=2">
 								<xsl:choose>
 									<!-- IT: Se c'è il surface viene creato un albero temporaneo che corrisponde al gruppo corrente trasformato in base al livello di edizione;
 										 a questo viene applicato il template per il collegamento testo-immagine-->
