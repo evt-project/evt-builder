@@ -132,7 +132,7 @@
 						<xsl:if test="$image_frame=true()">
 							<div id="mode_switch">
 								<a href="javascript:void(0);" id="txtimg_link" class="current_mode"
-									title="Text/Image mode"> <img src="images/img-txt.png" class="mainHeaderimg"></img></a>
+									title="Image/Text mode"> <img src="images/img-txt.png" class="mainHeaderimg"></img></a>
 								<!--<a href="javascript:void(0);" id="imgimg_link" title="image/image mode"> [I|I] </a>-->
 								<a href="javascript:void(0);" id="txttxt_link"
 									title="Text/Text mode"> <img src="images/txt-txt.png" class="mainHeaderimg"></img> </a>
@@ -185,7 +185,7 @@
 											<a href="javascript:void(0);" class="thumb_link"><i class="fa fa-th"></i></a>
 										</span>
 										<div id="image_menu">
-											<span class="imageTopTool mainButtons" id="switchMag" value="mag" onclick="magOn()" title="Magnifier">
+											<span class="imageTopTool mainButtons" id="switchMag" value="mag" onclick="magOn()" title="Magnifying lens">
 												<span>Magnifier</span>
 												<i class="fa fa-search"></i>
 											</span>
@@ -193,7 +193,7 @@
 												<span>HotSpot</span>
 												<i class="fa fa-circle-o"></i>
 											</span>
-											<span class="imageTopTool mainButtons" id="switchITL" value="turn ITL on" title="Image text link" onclick="switchIMT()">
+											<span class="imageTopTool mainButtons" id="switchITL" value="turn ITL on" title="Image-Text link" onclick="switchIMT()">
 												<span>TextLink</span>
 												<i class="fa fa-chain-broken"></i>
 											</span>
@@ -224,11 +224,11 @@
 											<a id="zoom_fit" class="zoom_btn"
 												href="javascript:void(0);" title="Fit to frame"
 												><i class="fa fa-arrows-v"></i></a>
-											<a id="zoom_out" href="javascript:void(0);"><i class="fa fa-minus-circle"></i></a>
+											<a id="zoom_out" href="javascript:void(0);" title="Zoom out"><i class="fa fa-minus-circle"></i></a>
 											<div id="spb_cont">
 												<div id="slider"/>
 											</div>
-											<a id="zoom_in" href="javascript:void(0);"><i class="fa fa-plus-circle"></i></a>
+											<a id="zoom_in" href="javascript:void(0);" title="Zoom in"><i class="fa fa-plus-circle"></i></a>
 										</div>
 										<div id="zval">
 											<xsl:if test="$image_frame=true()">
@@ -281,7 +281,7 @@
 							<!--<div id="main_right_arrow" title="Previous"/>-->
 							<header id="right_header">
 								<div id="right_menu">
-									<span id="span_tt_select" class="like_select" title="Edition text">
+									<span id="span_tt_select" class="like_select" title="Text">
 										<xsl:call-template name="div_select_build">
 											<xsl:with-param name="html_div_class"
 												select="'main_tt_select'"/>
@@ -293,7 +293,7 @@
 												select="'main_pp_select'"/>
 										</xsl:call-template>
 									</span>
-									<span id="span_ee_select" class="like_select" title="Edition levels">
+									<span id="span_ee_select" class="like_select" title="Edition level">
 										<xsl:call-template name="div_select_build">
 											<xsl:with-param name="html_div_class"
 												select="'main_ee_select'"/>
