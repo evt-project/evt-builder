@@ -53,16 +53,14 @@ function setMagHeight(){;
 function magOn(){
     if (magnifierON==false){
         /*IT: Se il collegamento testo immagine è attivo, lo disattivo*/
-        if (ITLon == true){
-            UnInitialize(); //Add by JK for ITL
-            $('#switchITL i').removeClass('fa-chain').addClass('fa-chain-broken');
-            $('#switchITL').removeClass('active'); //Add by CDP
-		}
+        UnInitialize(); //Add by JK for ITL
+        $('#switchITL i').removeClass('fa fa-chain').addClass('fa fa-chain-broken');
+        $('#switchITL').removeClass('active'); //Add by CDP
+        
 		/*IT: Se gli HotSpot sono attivi, li disattivo*/
-        if (HSon == true){
-            UnInitializeHS();   //Add by JK for HS
-            $('#switchHS i').removeClass('fa fa-dot-circle-o').addClass('fa fa-dot-circle-o');
-		}
+        UnInitializeHS();   //Add by JK for HS
+        $('#switchHS i').removeClass('fa fa-dot-circle-o').addClass('fa fa-dot-circle-o');
+
         /*IT: rendo visibile il div del magnifier e invisibile quello dello zoom*/
         $("#mag_image_elem").fadeIn();
         $("#image_elem, #image_tool, #image_fade").css({'display':'none'});

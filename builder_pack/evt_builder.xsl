@@ -45,8 +45,8 @@
 	<xsl:include href="modules/elements/evt_builder-dipl-multi_module.xsl"/>
 	<!--<xsl:include href="modules/elements/evt_builder-dipl-textstructure.xsl"/>-->
 
-	<!-- Image text link-->
-	<xsl:include href="modules/main/evt_builder-image_text_link.xsl"/>
+	<!-- Image text link & HotSpot-->
+	<xsl:include href="modules/main/evt-builder_imagetext-link_hotspot.xsl"/>
 	
 	<!-- Extra -->
 	<xsl:include href="modules/extra/functx-1.0.xsl"/>
