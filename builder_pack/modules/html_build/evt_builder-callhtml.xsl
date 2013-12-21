@@ -13,28 +13,6 @@
 		</xd:short>
 	</xd:doc>
 
-	<!--
-	<xsl:template name="example">
-        <xsl:param name="paraex"/>
-        <xsl:if test="$paraex != ''">
-            <xsl:attribute name="class">
-                <xsl:for-each select="tokenize($paraex, '\s')">
-                    <xsl:value-of select="concat(substring-after(., '#'), ' ')"/>
-                    <xsl:if test="position() != last()"/>
-                </xsl:for-each>
-            </xsl:attribute>
-        </xsl:if>
-    </xsl:template>	
-	<xsl:template name="example">
-    </xsl:template>	
-	
-	<xsl:call-template name="example">
-		<xsl:with-param name="html_path" select="$mainPrefix"/>
-	</xsl:call-template>
-	
-	<xsl:call-template name="example" />
-	
-	-->
 
 	<xsl:template name="html_head">
 		<xsl:param name="html_path"/>

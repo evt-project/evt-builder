@@ -492,7 +492,8 @@ $( function() {
 			//$('#header_collapse').animate({opacity: 1});
 		});
 		$('.go-full-left').toggle();
-		$('#switchITL:visible').hide();
+		//$('#switchITL:visible').hide();
+		$('#switchITL').addClass('inactive');
 		
 		if(($('#span_ee_select-add').is('visible'))&&!$('#span_ee_select-add').hasClass('widthChanged')){
 			$('#span_ee_select-add').addClass('widthChanged')
