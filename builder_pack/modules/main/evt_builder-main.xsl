@@ -63,6 +63,43 @@
 			</xsl:if>
 		</xsl:for-each>
     </xsl:template>
+	
+	<xsl:template name="edition_level">
+		<xsl:param name="pb_n"></xsl:param>
+		<xsl:param name="edition_pos"/>
+		<xsl:if test="$edition_pos=1">
+			<xsl:choose>
+				<!-- IT: Se c'è il surface viene creato un albero temporaneo che corrisponde al gruppo corrente trasformato in base al livello di edizione;
+										 a questo viene applicato il template per il collegamento testo-immagine-->
+				<xsl:when test="$root//tei:facsimile/tei:surface[substring(@xml:id, string-length(@xml:id)-3)=$pb_n]//tei:zone[@rendition='Line']">
+					<!--<xsl:copy-of select="current-group()"/>--> <!-- <-use this to find split errors -->
+					<xsl:variable name="text"><xsl:apply-templates select="current-group()" mode="facs"/></xsl:variable>
+					<xsl:apply-templates select="$text" mode="ITL"/>
+				</xsl:when>
+				<!-- EN: If the surface element is not present only the facsimile edition templates are applied -->
+				<!-- IT: Se non c'è il surface devo applicare direttamente i templates per l'edizione facsimile -->
+				<xsl:otherwise>
+					<xsl:apply-templates select="current-group()" mode="facs"/>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:if>
+		<xsl:if test="$edition_pos=2">
+			<xsl:choose>
+				<!-- IT: Se c'è il surface viene creato un albero temporaneo che corrisponde al gruppo corrente trasformato in base al livello di edizione;
+										 a questo viene applicato il template per il collegamento testo-immagine-->
+				<xsl:when test="$root//tei:facsimile/tei:surface[substring(@xml:id, string-length(@xml:id)-3)=$pb_n]//tei:zone[@rendition='Line']">
+					<!--<xsl:copy-of select="current-group()"/>--> <!-- <-use this to find split errors -->
+					<xsl:variable name="text"><xsl:apply-templates select="current-group()" mode="dipl"/></xsl:variable>
+					<xsl:apply-templates select="$text" mode="ITL"/>
+				</xsl:when>
+				<!-- EN: If the surface element is not present only the diplomatic edition templates are applied -->
+				<!-- IT: Se non c'è il surface devo applicare direttamente i templates per l'edizione diplomatica-->
+				<xsl:otherwise>
+					<xsl:apply-templates select="current-group()" mode="dipl"/>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:if>
+	</xsl:template>
 
 	<xsl:template name="search_file">
 		<xsl:if test="$edition_array[1]!=''">
