@@ -43,7 +43,6 @@
                     </xsl:for-each>
                 </textpage>
                 <pages>
-                    <!--<xsl:variable name="all_pb" select="//tei:pb"/>-->
                     <xsl:for-each-group select="//tei:pb" group-starting-with="node()[ends-with(@n, 'v') or (ends-with(@n, 'r') and not(preceding-sibling::node()[ends-with(@n, 'v')]) ) or (not (ends-with(@n, 'v') or ends-with(@n, 'r')))]" >
                         <pair>
                             <xsl:for-each select="current-group()/self::tei:pb">
@@ -51,25 +50,6 @@
                             </xsl:for-each>
                         </pair>
                     </xsl:for-each-group>
-                    <!--<pair>
-                        <pb>104v</pb>
-                        <pb>105r</pb>
-                    </pair>
-                    <pair>
-                        <pb>105v</pb>
-                        <pb>106r</pb>
-                    </pair>
-                    <pair>
-                        <pb>111v</pb>
-                        <pb>112r</pb>
-                    </pair>
-                    <pair>
-                        <pb>112v</pb>
-                        <pb>113r</pb>
-                    </pair>
-                    <pair>
-                        <pb>117v</pb> risultato html 117v-.jpg, interno alla cartella double
-                    </pair>-->
                 </pages>
             </xml>
         </xsl:result-document>
