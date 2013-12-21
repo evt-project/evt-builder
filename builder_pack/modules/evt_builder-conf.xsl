@@ -51,9 +51,9 @@
 	<!-- IT: E' possibile rimuovere la produzione di pagine di una determinata edizione semplicemente rimuovendo la parte testuale dell'item corrispondente.
 	-->
 	<xsl:variable name="edition_array" as="element()*">
-		<edition>Facsimile</edition> 	<!-- EN: For processing in the modules: $edition_array[1] -->
+		<edition>Diplomatic</edition> 	<!-- EN: For processing in the modules: $edition_array[1] -->
 								<!-- IT: Per l'elaborazione nei moduli: $edition_array[1] -->
-		<edition>Diplomatic</edition>	<!-- EN: For processing in the modules: $edition_array[2] -->
+		<edition>Interpretative</edition>	<!-- EN: For processing in the modules: $edition_array[2] -->
 								<!-- IT: Per l'elaborazione nei moduli: $edition_array[2] -->					
 	<!-- EN: To add a new edition it is necessary to add a new line here and -forcedly- a declaration concerning output file in the modules/evt_builder-main.xsl file, under the <xsl:if test="$edition_array[2]!=''" condition>
 				For instance: <edition>New_edition</edition>
