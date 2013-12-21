@@ -21,7 +21,7 @@ $( function() {
 	}
 	
 	// IT: Disabilita il tasto destro del mouse nel riquadro immagine
-	$("#image_elem").bind("contextmenu",function(e){
+	$("#image_elem, #mag_image_elem").bind("contextmenu",function(e){
 	  e.preventDefault()
 	});
 });

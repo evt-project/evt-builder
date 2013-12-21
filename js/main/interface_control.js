@@ -1018,7 +1018,7 @@ $( function() {
 		closeFullScreenRight();
 	});
 	$("#search_link").click(function(){
-		alert("Coming soon ...");
+		alert("Coming soon in 2014");
 	});
 	/* / Gestione click */
 	
