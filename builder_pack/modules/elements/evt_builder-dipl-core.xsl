@@ -110,14 +110,14 @@
 					<xsl:when test="tei:sic">
 						<xsl:element name="span">
 							<xsl:attribute name="class">
-								<xsl:value-of>dipl-choice_popup</xsl:value-of>
+								<xsl:value-of>dipl-choice_popup_corr</xsl:value-of>
 							</xsl:attribute>
 							<xsl:if test="tei:corr">
 								<xsl:element name="span">
 									<xsl:attribute name="class" select="'dipl-corr'"/>
-									<xsl:element name="span"><xsl:attribute name="class" select="'dipl-corr-resp'"/>
+									<!--<xsl:element name="span"><xsl:attribute name="class" select="'dipl-corr-resp'"/>
 										<xsl:value-of select="tei:corr/@resp"/>
-									</xsl:element><xsl:text>&#xA0;</xsl:text>
+									</xsl:element><xsl:text>&#xA0;</xsl:text>-->
 									<xsl:apply-templates select="tei:corr[not(child::node())]"/>
 									<xsl:apply-templates select="tei:corr/node()" mode="#current"/>
 								</xsl:element>
@@ -166,9 +166,7 @@
 			<xsl:attribute name="class">
 				<xsl:value-of>dipl-<xsl:value-of select="name()"/></xsl:value-of>
 			</xsl:attribute>
-			<xsl:apply-templates select="tei:del" mode="#current"></xsl:apply-templates>
-			<xsl:apply-templates select="tei:add" mode="#current"></xsl:apply-templates>
-		</xsl:element>
+			<xsl:apply-templates select="tei:del" mode="#current"></xsl:apply-templates>|<xsl:apply-templates select="tei:add" mode="#current"></xsl:apply-templates>|</xsl:element>
 	</xsl:template>
 	
 	<!-- ADD Addition -->
@@ -178,24 +176,37 @@
 				<xsl:value-of>dipl-<xsl:value-of select="name()"/></xsl:value-of>
 			</xsl:attribute>
 			<xsl:choose>
-				<xsl:when test="@place='sup'">
-					\<xsl:element name="span">
+				<xsl:when test="ancestor::choice">
+					<xsl:element name="span">
 						<xsl:attribute name="class">
-							<xsl:value-of>dipl-<xsl:value-of select="@place"/></xsl:value-of>
+							<xsl:value-of>dipl-<xsl:value-of select="name()"/></xsl:value-of>
+							<xsl:if test="@place"><xsl:value-of> dipl-<xsl:value-of select="@place"/></xsl:value-of></xsl:if>
 						</xsl:attribute>
 						<xsl:apply-templates mode="#current"> </xsl:apply-templates>
-					</xsl:element>/
-				</xsl:when>
-				<xsl:when test="@place='sub'">
-					/<xsl:element name="span">
-						<xsl:attribute name="class">
-							<xsl:value-of>dipl-<xsl:value-of select="@place"/></xsl:value-of>
-						</xsl:attribute>
-						<xsl:apply-templates mode="#current"> </xsl:apply-templates>
-					</xsl:element>\
+					</xsl:element>
 				</xsl:when>
 				<xsl:otherwise>
-					<xsl:apply-templates mode="#current"> </xsl:apply-templates>
+					<xsl:choose>
+						<xsl:when test="@place='sup'">
+							\<xsl:element name="span">
+								<xsl:attribute name="class">
+									<xsl:value-of>dipl-<xsl:value-of select="@place"/></xsl:value-of>
+								</xsl:attribute>
+								<xsl:apply-templates mode="#current"> </xsl:apply-templates>
+							</xsl:element>/
+						</xsl:when>
+						<xsl:when test="@place='sub'">
+							/<xsl:element name="span">
+								<xsl:attribute name="class">
+									<xsl:value-of>dipl-<xsl:value-of select="@place"/></xsl:value-of>
+								</xsl:attribute>
+								<xsl:apply-templates mode="#current"> </xsl:apply-templates>
+							</xsl:element>\
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:apply-templates mode="#current"> </xsl:apply-templates>
+						</xsl:otherwise>
+					</xsl:choose>
 				</xsl:otherwise>
 			</xsl:choose>
 		</xsl:element>
