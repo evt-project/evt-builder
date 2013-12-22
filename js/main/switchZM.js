@@ -59,8 +59,9 @@ function magOn(){
         
 		/*IT: Se gli HotSpot sono attivi, li disattivo*/
         UnInitializeHS();   //Add by JK for HS
-        $('#switchHS i').removeClass('fa fa-dot-circle-o').addClass('fa fa-dot-circle-o');
-
+        $('#switchHS i').removeClass('fa fa-dot-circle-o').addClass('fa fa-circle-o');
+        $('#switchHS').removeClass('active')
+        
         /*IT: rendo visibile il div del magnifier e invisibile quello dello zoom*/
         $("#mag_image_elem").fadeIn();
         $("#image_elem, #image_tool, #image_fade").css({'display':'none'});
