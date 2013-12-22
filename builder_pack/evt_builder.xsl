@@ -24,12 +24,16 @@
 	</xd:doc>
 
 	<!-- Basic -->
+	<xsl:include href="modules/evt_builder-main.xsl"/>
 	<xsl:include href="modules/evt_builder-conf.xsl"/>
-	<xsl:include href="modules/main/evt_builder-copy_and_call_main.xsl"/>
-	<xsl:include href="modules/main/evt_builder-main.xsl"/>
-	<xsl:include href="modules/main/evt_builder-structure.xsl"/>
+
+	<xsl:include href="modules/fundamental_units/evt_builder-copy_and_call_main.xsl"/>
+	<xsl:include href="modules/fundamental_units/evt_builder-structure.xsl"/>
 	
-	
+	<!-- Image-Text link & HotSpot-->
+	<xsl:include href="modules/fundamental_units/evt-builder_imagetext-link_hotspot.xsl"/>
+
+	<!-- HTML structure -->
 	<xsl:include href="modules/html_build/evt_builder-callhtml.xsl"/>
 	<xsl:include href="modules/html_build/evt_builder-function.xsl"/>
 		
@@ -44,9 +48,6 @@
 	<xsl:include href="modules/elements/evt_builder-dipl-core.xsl"/>
 	<xsl:include href="modules/elements/evt_builder-dipl-multi_module.xsl"/>
 	<!--<xsl:include href="modules/elements/evt_builder-dipl-textstructure.xsl"/>-->
-
-	<!-- Image text link & HotSpot-->
-	<xsl:include href="modules/main/evt-builder_imagetext-link_hotspot.xsl"/>
 	
 	<!-- Extra -->
 	<xsl:include href="modules/extra/functx-1.0.xsl"/>
