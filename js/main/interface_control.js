@@ -332,8 +332,8 @@ $( function() {
 		//$('#folio_page_number').val(pp_val).change(); // IT: Questo attiva l'evento nel file js/plugin/jquery.iviewer config
 		
 		preload([
-			'images/'+$('.main_pp_select .option_container .option.selected').prev().text()+'.jpg',
-			'images/'+$('.main_pp_select .option_container .option.selected').next().text()+'.jpg'
+			'images/single/'+$('.main_pp_select .option_container .option.selected').prev().text()+'.jpg',
+			'images/single/'+$('.main_pp_select .option_container .option.selected').next().text()+'.jpg'
 		]);
 
 		// IT: Se ci si trova nella modalit Thumb, chiude la schermata e visualizza l'immagine
@@ -751,7 +751,7 @@ $( function() {
 			$("#main_left_frame").animate({
 	            'width': '49.8%' 
 	        }, function(){
-	        	$("#text_menu").show();
+	        	$("#right_menu").show();
 				$("#text_cont").show();
 	        });		
 							
@@ -829,7 +829,7 @@ $( function() {
 			$("#main_left_frame").animate({
 	            'width': '49.8%'
 	        }, function(){
-	        	$("#text_menu").show();
+	        	$("#right_menu").show();
 				$("#text_cont").show();
 	        });		
 
@@ -890,7 +890,7 @@ $( function() {
 			$(".main_dd_select").trigger("imgd_mode");
 
 
-			$("#text_menu").hide();
+			$("#right_menu").hide();
 			$("#main_left_frame").animate({
 	            'width': '99.5%'
 	        }//, 800
@@ -986,6 +986,7 @@ $( function() {
 			}
 			$('#header_collapse').removeClass('fa-caret-up').addClass('fa-caret-down');
 		} else {
+			$('#text_cont').css('height', '100%').css('height', '-=42px');
 			if($(".closeFullScreen:visible").length>0){
 				$('#header_collapse').animate({
 					top: "-39px"

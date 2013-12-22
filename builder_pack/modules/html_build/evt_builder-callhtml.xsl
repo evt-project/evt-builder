@@ -132,10 +132,10 @@
 						<xsl:if test="$image_frame=true()">
 							<div id="mode_switch">
 								<a href="javascript:void(0);" id="txtimg_link" class="current_mode"
-									title="Image/Text mode"> <img src="images/img-txt.png" class="mainHeaderimg"></img></a>
+									title="Image|Text mode"> <img src="images/img-txt.png" class="mainHeaderimg"></img></a>
 								<!--<a href="javascript:void(0);" id="imgimg_link" title="image/image mode"> [I|I] </a>-->
 								<a href="javascript:void(0);" id="txttxt_link"
-									title="Text/Text mode"> <img src="images/txt-txt.png" class="mainHeaderimg"></img> </a>
+									title="Text|Text mode"> <img src="images/txt-txt.png" class="mainHeaderimg"></img> </a>
 								<xsl:if test="$double_view=true()">
 									<a href="javascript:void(0);" id="imgd_link"
 										title="Bookreader mode"> <img src="images/double-view.png" class="mainHeaderimg"></img> </a>
@@ -245,7 +245,7 @@
 									<div id="thumb_cont">
 										<xsl:for-each select="//tei:pb">
 											<figure class="thumb_single" id="{@n}_small">
-												<img src="data/input_data/images/{@n}_small.jpg"/>
+												<img src="data/input_data/images/single/{@n}_small.jpg"/>
 												<figcaption>
 													<xsl:value-of select="@n"/>
 												</figcaption>

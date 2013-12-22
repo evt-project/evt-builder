@@ -127,7 +127,7 @@ span.dipl-choice_popup_corr span.dipl-corr:before{content: url("../images/popup_
 
 span.dipl-choice_popup span.dipl-orig{font-size: 80%;  position : absolute;    line-height: 16px;    display : none;    background : #e5dac4;    border : 2.5px solid black;    border-radius: 3px;
                 box-shadow: 2px 2px 2px #7e7067;    padding : 0.4%;     margin-top:30px;}
-span.dipl-choice_popup_corr span.dipl-corr{font-size: 80%;  position : absolute;    line-height: 16px;    display : none;    background : #9b9089;    border : 2.5px solid black;    border-radius: 3px;
+span.dipl-choice_popup_corr span.dipl-corr{font-size: 80%;  position : absolute;    line-height: 16px;    display : none;    background : #f99069;    border : 2.5px solid black;    border-radius: 3px;
                 box-shadow: 2px 2px 2px #7e7067;    padding : 0.4%;     margin-top:30px;}
                 
 span.dipl-choice_popup:hover span.dipl-orig, span.dipl-choice_popup_corr:hover span.dipl-corr {display : inline; min-width: 20px; text-align: center;}
