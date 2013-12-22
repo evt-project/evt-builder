@@ -33,7 +33,7 @@ $( function() {
 		                                    if ($('.current_mode').attr('id')=='imgd_link')
 		                                    	current_url = 'data/input_data/images/double/'+location.hash.replace( /^#/, '' )+'_big.jpg';      
 		                                    else
-		                                    	current_url = 'data/input_data/images/'+location.hash.replace( /^#/, '' )+'_big.jpg';      
+		                                    	current_url = 'data/input_data/images/single/'+location.hash.replace( /^#/, '' )+'_big.jpg';      
 		                                    
 		                                    $.ajax({
                                                     url: current_url,
@@ -95,11 +95,11 @@ $( function() {
 			//iv1.iviewer('loadImage', "data/input_data/images/"+$(this).text()+".jpg");
 			
 			if (firstload){
-				iv1.iviewer('loadImage', "data/input_data/images/"+$(this).text()+".jpg");
+				iv1.iviewer('loadImage', "data/input_data/images/single/"+$(this).text()+".jpg");
 				firstload = false;
 			}
 			else {
-				var curr_src = "data/input_data/images/"+$(this).text()+".jpg";
+				var curr_src = "data/input_data/images/single/"+$(this).text()+".jpg";
 				$('#image_fade').fadeOut(600, function(){
 				//$('#iviewerImage').fadeOut(600);		
 					$('#image_loading').show();		

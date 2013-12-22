@@ -28,7 +28,7 @@
 		</xd:detail>
     </xd:doc>
 	
-	<xsl:output indent="yes" method="html" encoding="UTF-8" media-type="text/plain" byte-order-mark="yes"
+	<xsl:output indent="yes" method="html" encoding="UTF-8" media-type="text/plain"
 		doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN"
 		doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 
@@ -42,7 +42,7 @@
 	<xsl:template name="index">
 		<!-- EN: index generation. The index_build template can be found in html_build/evt_builder-callhtml.xsl -->
 		<!-- IT: Generazione della index. Il template index_build si trova in html_build/evt_builder-callhtml.xsl -->
-		<xsl:result-document method="html" encoding="UTF-8" media-type="text/plain" byte-order-mark="yes" href="{$filePrefix}/index.html" indent="yes">
+		<xsl:result-document method="html" encoding="UTF-8" media-type="text/plain" href="{$filePrefix}/index.html" indent="yes">
 			<xsl:call-template name="index_build" />			
 		</xsl:result-document>
 	</xsl:template>

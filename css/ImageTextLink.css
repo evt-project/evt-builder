@@ -143,6 +143,7 @@ div.AnnText{
 
 div.AreaHS{
     border: 1px solid #4c2f2f;
+    background-color: #c67261;
    	opacity: 0.4;
 	filter:alpha(opacity=40); /* For IE8 and earlier */
 }

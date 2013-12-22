@@ -28,7 +28,7 @@ function magnifierReady(){
     if ($('.current_mode').attr('id')=='imgd_link')
         imgB= "data/input_data/images/double/"+location.hash.replace( /^#/, '' )+"_big.jpg";
     else
-        imgB= "data/input_data/images/"+location.hash.replace( /^#/, '' )+"_big.jpg";
+        imgB= "data/input_data/images/single/"+location.hash.replace( /^#/, '' )+"_big.jpg";
     $("#mag_image_elem").append('<a href="'+imgB+'" class="magnifier" title="image_'+location.hash.replace( /^#/, " ")+'_big"></a>');
     $("#mag_image_elem > a").append(img);
     /*IT: imposto il css della nuova immagine*/
