@@ -153,28 +153,28 @@ function Initialize(){
     /*var DocHash = document.location.hash;
     var Item = null;
     var ItemId = '';
-    if (DocHash.length > 1){*/
+    if (DocHash.length > 1){
 //Find the item id by stripping off the initial #Area_ or # if not Area_
-        /*if (DocHash.substring(0, 6) == '#Area_'){
+        if (DocHash.substring(0, 6) == '#Area_'){
             ItemId = DocHash.substring(6, DocHash.length);
-            Item = document.getElementById(ItemId);*/
+            Item = document.getElementById(ItemId);
 //If it's an annotation, show it:
-            /*if (Item.className == 'Annotation'){
+            if (Item.className == 'Annotation'){
                 ShowAnn(ItemId);
             }
         }
         else{
             ItemId = DocHash.substring(1, DocHash.length);
             Item = document.getElementById(ItemId);
-            if (Item != null){*/
+            if (Item != null){
 //Try to find a container which is an annotation div
-                /*while ((Item.className != 'Annotation') && (Item.nodeName.toLowerCase() != 'body')){
+                while ((Item.className != 'Annotation') && (Item.nodeName.toLowerCase() != 'body')){
                     Item = Item.parentNode;
                 }
-                if (Item.className == 'Annotation'){*/
+                if (Item.className == 'Annotation'){
 //we have an annotation; we need to find the corresponding area and show it.
 //Strip off the first four characters (Ann_).
-                    /*var TheId = Item.getAttribute('id');
+                    var TheId = Item.getAttribute('id');
                     ShowAnn(TheId.substring(4, TheId.length));      
                 }
             }
@@ -278,16 +278,18 @@ function moveAreas(){
 function switchIMT(){
     if ((magnifierON==true)&&(bigImage==true)){}
 	else if (ITLon == false){
-	   Initialize();
-	   //document.getElementById("switchITL").setAttribute('src','images/ITLon.png');//Add by JK for ITL
-        //$('#switchITL i').removeClass('fa-chain-broken').addClass('fa-chain');//Add by CDP for FA
-        $('#switchITL').addClass('active'); //Add by CDP
+	   if (HSon){
+	       UnInitializeHS();
+	       $('#switchHS i ').removeClass('fa fa-dot-circle-o').addClass('fa fa-circle-o'); //Add for FA
+	       $('#switchHS').removeClass('active'); //Add for FA
+	   }
+       Initialize();
+       $('#switchITL').addClass('active'); //Add by CDP
     }
 	else {
 	   UnInitialize();
-        //document.getElementById("switchITL").setAttribute('src','images/ITLoff.png');
-        $('#switchITL i ').removeClass('fa-chain').addClass('fa-chain-broken');//Add by CDP for FA
-        $('#switchITL').removeClass('active'); //Add by CDP
+       $('#switchITL i ').removeClass('fa-chain').addClass('fa-chain-broken');//Add by CDP for FA
+       $('#switchITL').removeClass('active'); //Add by CDP
 	}
 }
 
@@ -297,17 +299,17 @@ function InitializeHS(){
     //alert("inizializeHS")
 /* Populate three handy lists with pointers to the menu items, areas and Anns. */
 			
-    HeightOffsetHS = parseInt(document.getElementById('image_elem').offsetTop);
-    ImgLeftHS = parseInt(document.getElementById('image_elem').offsetLeft);
-    ImgWidthHS = parseInt(document.getElementById('image_elem').offsetWidth);
+    HeightOffsetHS = parseInt(document.getElementById('iviewerImage').offsetTop);
+    ImgLeftHS = parseInt(document.getElementById('iviewerImage').offsetLeft);
+    ImgWidthHS = parseInt(document.getElementById('iviewerImage').offsetWidth);
     ImgRightHS = ImgLeftHS + ImgWidthHS;
-    ImgHeightHS = parseInt(document.getElementById('image_elem').offsetHeight);
+    ImgHeightHS = parseInt(document.getElementById('iviewerImage').offsetHeight);
     ImgBottomHS = HeightOffsetHS + ImgHeightHS;
     paddingTopHS = parseInt($("#iviewerImage").css('padding-top'));
     marginTopHS = parseInt($("#iviewerImage").css('margin-top'));
     imgTopHS = HeightOffsetHS + paddingTopHS + marginTopHS;
     
-    if($('#switchHS i ').hasClass('fa fa-circle-o')){$('#switchHS i ').removeClass('fa fa-circle-o').addClass('fa fa-dot-circle-o');}
+    if($('#switchHS i ').hasClass('fa-circle-o')){$('#switchHS i ').removeClass('fa-circle-o').addClass('fa-dot-circle-o');}
 
     ratioHS = $("#iviewerImage").width()/1200;
     RatioHS = ratioHS
@@ -468,7 +470,7 @@ function HideAnnHS(AnnId){
 
 function ReInitializeHS(){
     //alert("ReInitializeHS()");
-    if (HSon == true){    
+    if (HSon == true){
         newImgTopHS = parseInt(document.getElementById('iviewerImage').offsetTop) +parseInt($('#iviewerImage').css('padding-top')) + parseInt($('#iviewerImage').css('margin-top'));
         newImgLeftHS = parseInt(document.getElementById('iviewerImage').offsetLeft);
         var newRatioHS = (($("#iviewerImage").width())/1200);
@@ -598,6 +600,11 @@ function DeselectHS(){
 function switchHS(){
     if ((magnifierON==true)&&(bigImage==true)){}
 	else if (HSon == false){
+	   if(ITLon){
+	       UnInitialize();
+	       $('#switchITL i ').removeClass('fa-chain').addClass('fa-chain-broken');//Add by CDP for FA
+           $('#switchITL').removeClass('active'); //Add by CDP
+	   }
 	   InitializeHS();
 	   $('#switchHS').addClass('active');
     }
