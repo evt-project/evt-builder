@@ -968,8 +968,10 @@ $( function() {
 			});
 		} else {
 			noMenu_height = $('#image_cont').height()+42;
-			/*$('#text_cont, #text_cont-add').animate({
-				height: "calc(100% - 42px)"
+			/*$('#text_cont, #text_cont-add, #thumb_cont').animate({ //non funzia
+				height: "calc(100% - 42px)",
+				height: "-webkit-calc(100% - 42px)",
+				height: "-moz-calc(100% - 42px)"
 			});*/
 			$('#text_cont, #text_cont-add, #thumb_cont')
 				.css('height', '100%')
@@ -1041,6 +1043,14 @@ $( function() {
 			setMagHeight();
 			$(window).resize(function(){
 				clearTimeout(window.resizeEvt);
+				if($('#left_header').hasClass('menuClosed')){
+					$('#text_cont, #text_cont-add, #thumb_cont')
+						.css('height', '100%')
+				} else {
+					$('#text_cont, #text_cont-add, #thumb_cont')
+						.css('height', '100%')
+						.css('height', '-=42px');
+				}
 				window.resizeEvt = setTimeout(function()
 				{   
 					var leftCss = $('.full').css("left").replace(/[^-\d\.]/g, '');
