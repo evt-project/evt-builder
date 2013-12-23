@@ -1093,6 +1093,7 @@ footer{
 	-ms-box-shadow:none;
     box-shadow:none;
     background: #F5EAD4;
+    cursor:not-allowed;
 }
 
 #radio_edition, #radio_edition-add{
@@ -1397,6 +1398,10 @@ div.botleftconcave {
 	display: none;
 	z-index: 9999999;
 	cursor: pointer;
+}
+
+#iviewerImage{
+	cursor: move;
 }
 
 .iviewer_zoom_status{
