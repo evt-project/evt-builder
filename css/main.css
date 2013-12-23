@@ -87,7 +87,28 @@ footer{
 	color: #3c322c;
 	/*color: #f5ead4;*/
 	font-weight: bold;
-	width: 380px;
+	#width: 380px;
+}
+
+#badge_title{
+	font-family: ff-tisa-web-pro-1, ff-tisa-web-pro-2, Georgia, sans-serif;
+	border-radius: 4px;
+	text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+	display:inline;
+	position: relative;
+	top: -3px;
+	border-style:solid;
+	border-color:#bbb #888 #666 #aaa;
+	#border-width:3px 4px 4px 3px;
+	padding: 1px 3px;
+	background:#362D28;
+	color:#F5EAD4;
+	line-height:1;
+	text-align:center;
+	text-decoration:none;
+	font-weight:500;
+	font-size: 0.5em;
+	cursor:default
 }
 
 /*

@@ -37,6 +37,11 @@
 	<!-- Hide/Show scans -->
 	<xsl:param name="image_frame" select="true()"/>
 
+	<!-- Hide/Show badge -->
+	<xsl:param name="badge" select="true()"/>
+	<!-- alpha, beta, stable etc -->
+	<xsl:param name="badge_text" select="'beta'"/>
+
 	<!-- On/Off doubleview -->
 	<xsl:param name="double_view" select="true()"/>
 

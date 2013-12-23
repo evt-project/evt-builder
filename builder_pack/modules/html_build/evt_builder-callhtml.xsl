@@ -122,6 +122,9 @@
 					<header id="main_header">
 						<div id="home_title">
 							<xsl:value-of select="$index_title"/>
+							<xsl:if test="$badge=true()">
+								<div id="badge_title"><xsl:value-of select="$badge_text"/></div>
+							</xsl:if>
 						</div>
 						<div class='concave'>
 							<div class='extTop'>
