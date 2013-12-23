@@ -695,7 +695,8 @@ $( function() {
             if($("#image_elem").css('display')=="none"){
 			    $("#image_elem").show();
 			    $("#image_fade").show();
-			    $("#image_tool").show();
+			    if(!$('#left_header').hasClass('menuClosed'))
+			    	$("#image_tool").show();
 			    $("#thumb_cont").hide();
 		    } else{
 			    $("#image_elem").hide();
@@ -946,16 +947,15 @@ $( function() {
 		if($('#left_header').hasClass('menuClosed')){
 			// Modifico le dimensioni del testo di sinistra per riempire il box
 			noMenu_height = $('#image_cont').height();
-			$('#text_cont-add').animate({
+			$('#text_cont-add, #thumb_cont').animate({
 				top: "-42px",
 				height: noMenu_height
 			});
 		} else {
 			// altrimenti (se ho appena aperto il menu sx)
 			// Risistemo il box del testo a sinistra
-			$('#text_cont-add').animate({
-				top: "0px",
-				height: "100%"
+			$('#text_cont-add, #thumb_cont').animate({
+				top: "0px"
 			});
 		}
 
@@ -968,9 +968,12 @@ $( function() {
 			});
 		} else {
 			noMenu_height = $('#image_cont').height()+42;
-			$('#text_cont, #text_cont-add').animate({
+			/*$('#text_cont, #text_cont-add').animate({
 				height: "calc(100% - 42px)"
-			});
+			});*/
+			$('#text_cont, #text_cont-add, #thumb_cont')
+				.css('height', '100%')
+				.css('height', '-=42px');
 		}
 
 		// Modifico lo stile e la posizione dell'icona
@@ -986,7 +989,6 @@ $( function() {
 			}
 			$('#header_collapse').removeClass('fa-caret-up').addClass('fa-caret-down');
 		} else {
-			$('#text_cont').css('height', '100%').css('height', '-=42px');
 			if($(".closeFullScreen:visible").length>0){
 				$('#header_collapse').animate({
 					top: "-39px"
