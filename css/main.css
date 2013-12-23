@@ -87,7 +87,7 @@ footer{
 	color: #3c322c;
 	/*color: #f5ead4;*/
 	font-weight: bold;
-	#width: 380px;
+	width: 389px;
 }
 
 #badge_title{
@@ -1093,7 +1093,7 @@ footer{
 	-ms-box-shadow:none;
     box-shadow:none;
     background: #F5EAD4;
-    cursor:not-allowed;
+    #cursor:not-allowed;
 }
 
 #radio_edition, #radio_edition-add{
