@@ -191,6 +191,199 @@ function Initialize(){
     }
 }
 
+function UnHighlight(){
+/* Hide all area borders on the image, and unhighlight area list items, assuming they aren't the currently selected item.  */
+     for (var i=0; i<Areas.length; i++){
+         if (Areas[i] != null){
+             if (Areas[i].className != 'SelectedArea'){
+                 Areas[i].className = 'Area';
+            }
+         }
+      }
+      for (var i=0; i<AnnMenuItems.length; i++){
+         if (AnnMenuItems[i] != null) {
+             if (AnnMenuItems[i].className != 'SelectedAnnMenuItem'){
+                 AnnMenuItems[i].className = 'AnnMenuItem';
+            }
+         }
+     }
+}
+
+function Deselect(){
+    if (ITLon == false){return;}
+    
+/* Deselect the currently-selected elements  */
+     for (var i=0; i<Areas.length; i++){
+        if (Areas[i] != null){
+            Areas[i].className = 'Area';
+        }
+     }
+     for (var i=0; i<AnnMenuItems.length; i++){
+        if (AnnMenuItems[i] != null){
+            AnnMenuItems[i].className= 'AnnMenuItem';
+        }
+     }
+     /*for (i=0; i<Anns.length; i++){
+         if (Anns[i] != null){
+             Anns[i].style.display = 'none';
+         }
+     }*/
+}
+
+function Highlight(ItemId){
+    if (ITLon == false){return;}
+    UnHighlight();
+    
+    var El = document.getElementById('Area_' + ItemId);
+    if (El != null){
+        if (El.className != 'SelectedArea'){
+            El.className = 'HighlightedArea';
+        }
+    }
+    
+    El = document.getElementById('MenuItem_' + ItemId);
+    if (El != null){
+        if (El.className != 'SelectedAnnMenuItem'){
+            El.className = 'HighlightedAnnMenuItem';
+/* The following lines can be uncommented if you want to make the 
+menu expand itself automatically to reveal hidden items when their 
+counterpart areas in the image are moused-over. */
+//            if (El.parentNode.style.display != 'block'){
+//                El.parentNode.style.display = 'block';
+//            }
+        }
+    }
+}
+
+/*function ShowCategory(El){
+    if (ITLon == true){return;}
+    var AnnList = El.parentNode.getElementsByTagName('ul');
+    if (AnnList.length > 0){
+        if (AnnList[0].style.display != 'block'){
+            AnnList[0].style.display = 'block';
+        }
+        else{
+            AnnList[0].style.display = 'none';
+        }
+    }  
+}*/
+// #3 Serve per aprire e chiudere la cetegoria quando clicco sul titolo della cat
+
+function JumpTo(ItemId){
+	if (ITLon == false){return;}
+	Deselect();
+    
+    var TheArea = document.getElementById('Area_' + ItemId);
+    if (TheArea != null){
+        TheArea.className = 'SelectedArea';
+    }
+
+    var TheMenuItem = document.getElementById('MenuItem_' + ItemId);
+    if (TheMenuItem != null){
+        if (TheMenuItem.parentNode.style.display != 'block'){
+            TheMenuItem.parentNode.style.display = 'block';
+        }    
+       TheMenuItem.className = 'SelectedAnnMenuItem';
+    }
+    
+//ShowAnn(ItemId);
+//The following line commented out to stop unnecessary jumping around. It removes the option 
+//of bookmarking a specific annotation, though :-(
+//    document.location.hash='Area_' + ItemId;
+
+//Now we need to scroll the annotation into view:
+
+/* For dismally crappy old IE6 which doesn't support position: fixed,
+move the menu so it doesn't scroll out of view. */
+   /* if (isOldIE == true){
+        document.getElementById('AnnMenuContainer').style.top = (HeightOffset + GetScrollTop()) + 'px';
+    }*/
+}
+
+function ShowAnn(ItemId){
+    if (click==false){return;}
+    Deselect();
+
+    var TheArea = document.getElementById('Area_' + ItemId);
+        if (TheArea != null){
+        TheArea.className = 'SelectedArea';
+        //TheArea.scrollIntoView();
+        /*if (parseInt(TheArea.style.top) < GetScrollTop()){
+            window.scrollBy(0, (parseInt(TheArea.style.top) - GetScrollTop()));
+        } 
+        var AreaBottom = parseInt(TheArea.style.top) + parseInt(TheArea.style.height);
+        if ((GetScrollTop() + GetViewportHeight()) < AreaBottom){
+            window.scrollTo(0, parseInt(TheArea.style.top));
+        }*/
+    }
+    
+    var TheMenuItem = document.getElementById('MenuItem_' + ItemId);
+    if (TheMenuItem != null){
+        if (TheMenuItem.parentNode.style.display != 'block'){
+            TheMenuItem.parentNode.style.display = 'block';
+        }    
+       TheMenuItem.className = 'SelectedAnnMenuItem';
+       //scroll it
+       $('#text_cont').animate({ scrollTop: TheMenuItem.offsetTop-5 }); //Add by JK for EVT-builder
+        
+//Now try to scroll it into view
+        //TheMenuItem.scrollIntoView();
+    }
+    
+    /*var TheAnnotation = document.getElementById('Ann_' + ItemId);
+//Position the Ann div (try to keep it on the image itself)
+    if (TheAnnotation != null){
+
+//if the user has previously dragged a div, use the same position
+        if ((DroppedX > -1)&&(DroppedY > -1)){
+            if (isOldIE == false){
+                TheAnnotation.style.position = 'fixed';
+            }
+            TheAnnotation.style.left = DroppedX + 'px';
+            TheAnnotation.style.top = DroppedY + 'px';
+            TheAnnotation.style.display = 'block';
+            return;
+        }
+	
+//Otherwise, figure out the best place to show it:
+//First, set it to absolute positioning
+        TheAnnotation.style.position = 'absolute';
+	
+//Horizontal position
+        var ALeft = parseInt(TheArea.style.left);
+
+//Show the Ann so we can position it afterwards
+        TheAnnotation.style.left = ALeft + 'px';
+        TheAnnotation.style.display = 'block';
+        if (ALeft + parseInt(TheAnnotation.offsetWidth) > ImgRight){
+            ALeft = ImgRight - parseInt(TheAnnotation.offsetWidth);
+        }
+        TheAnnotation.style.left = ALeft + 'px';
+//Vertical position
+        var ATop = parseInt(TheArea.style.top) + parseInt(TheArea.offsetHeight);
+        if (ATop + parseInt(TheAnnotation.offsetHeight) > ImgBottom){
+            ATop = parseInt(TheArea.style.top) - parseInt(TheAnnotation.offsetHeight);
+        }
+        TheAnnotation.style.top = ATop  + 'px';
+//Handle the problem of disappearing off the top
+        if (parseInt(TheAnnotation.offsetTop) < HeightOffset){
+            TheAnnotation.style.top = HeightOffset + 'px';
+            TheAnnotation.style.left = '0px';
+        }
+    }
+*/
+}
+
+/*function HideAnn(AnnId){
+    var El = document.getElementById(AnnId);
+    if (El != null){
+	El.style.display = 'none';
+	El.style.position = 'absolute';
+    }
+    DroppedX = -1;
+    DroppedY = -1;
+}*/
+
 /*ADD BY JK: */
 function ReInitialize(){
     //alert("ReInitialize()");
@@ -276,8 +469,8 @@ function moveAreas(){
 }
 
 function switchIMT(){
-    if ((magnifierON==true)&&(bigImage==true)){}
-	else if (ITLon == false){
+	if (ITLon == false){
+	   if ((magnifierON==true)&&(bigImage==true)){magOn();}
 	   if (HSon){
 	       UnInitializeHS();
 	       $('#switchHS i ').removeClass('fa fa-dot-circle-o').addClass('fa fa-circle-o'); //Add for FA
@@ -598,8 +791,8 @@ function DeselectHS(){
 }
 
 function switchHS(){
-    if ((magnifierON==true)&&(bigImage==true)){}
-	else if (HSon == false){
+	if (HSon == false){
+	   if ((magnifierON==true)&&(bigImage==true)){magOn();}
 	   if(ITLon){
 	       UnInitialize();
 	       $('#switchITL i ').removeClass('fa-chain').addClass('fa-chain-broken');//Add by CDP for FA
@@ -636,199 +829,6 @@ function switchHS(){
     M.style.maxHeight = (WindowHeight - (HeightOffset + AnnMenuTitleHeight)) + 'px';
 }*/
 /*#1*/
-
-function UnHighlight(){
-/* Hide all area borders on the image, and unhighlight area list items, assuming they aren't the currently selected item.  */
-     for (var i=0; i<Areas.length; i++){
-         if (Areas[i] != null){
-             if (Areas[i].className != 'SelectedArea'){
-                 Areas[i].className = 'Area';
-            }
-         }
-      }
-      for (var i=0; i<AnnMenuItems.length; i++){
-         if (AnnMenuItems[i] != null) {
-             if (AnnMenuItems[i].className != 'SelectedAnnMenuItem'){
-                 AnnMenuItems[i].className = 'AnnMenuItem';
-            }
-         }
-     }
-}
-
-function Deselect(){
-    if (ITLon == false){return;}
-    
-/* Deselect the currently-selected elements  */
-     for (var i=0; i<Areas.length; i++){
-        if (Areas[i] != null){
-            Areas[i].className = 'Area';
-        }
-     }
-     for (var i=0; i<AnnMenuItems.length; i++){
-        if (AnnMenuItems[i] != null){
-            AnnMenuItems[i].className= 'AnnMenuItem';
-        }
-     }
-     /*for (i=0; i<Anns.length; i++){
-         if (Anns[i] != null){
-             Anns[i].style.display = 'none';
-         }
-     }*/
-}
-
-function Highlight(ItemId){
-    if (ITLon == false){return;}
-    UnHighlight();
-    
-    var El = document.getElementById('Area_' + ItemId);
-    if (El != null){
-        if (El.className != 'SelectedArea'){
-            El.className = 'HighlightedArea';
-        }
-    }
-    
-    El = document.getElementById('MenuItem_' + ItemId);
-    if (El != null){
-        if (El.className != 'SelectedAnnMenuItem'){
-            El.className = 'HighlightedAnnMenuItem';
-/* The following lines can be uncommented if you want to make the 
-menu expand itself automatically to reveal hidden items when their 
-counterpart areas in the image are moused-over. */
-//            if (El.parentNode.style.display != 'block'){
-//                El.parentNode.style.display = 'block';
-//            }
-        }
-    }
-}
-
-/*function ShowCategory(El){
-    if (ITLon == true){return;}
-    var AnnList = El.parentNode.getElementsByTagName('ul');
-    if (AnnList.length > 0){
-        if (AnnList[0].style.display != 'block'){
-            AnnList[0].style.display = 'block';
-        }
-        else{
-            AnnList[0].style.display = 'none';
-        }
-    }  
-}*/
-// #3 Serve per aprire e chiudere la cetegoria quando clicco sul titolo della cat
-
-function JumpTo(ItemId){
-	if (ITLon == false){return;}
-	Deselect();
-    
-    var TheArea = document.getElementById('Area_' + ItemId);
-    if (TheArea != null){
-        TheArea.className = 'SelectedArea';
-    }
-
-    var TheMenuItem = document.getElementById('MenuItem_' + ItemId);
-    if (TheMenuItem != null){
-        if (TheMenuItem.parentNode.style.display != 'block'){
-            TheMenuItem.parentNode.style.display = 'block';
-        }    
-       TheMenuItem.className = 'SelectedAnnMenuItem';
-    }
-    
-//ShowAnn(ItemId);
-//The following line commented out to stop unnecessary jumping around. It removes the option 
-//of bookmarking a specific annotation, though :-(
-//    document.location.hash='Area_' + ItemId;
-
-//Now we need to scroll the annotation into view:
-
-/* For dismally crappy old IE6 which doesn't support position: fixed,
-move the menu so it doesn't scroll out of view. */
-   /* if (isOldIE == true){
-        document.getElementById('AnnMenuContainer').style.top = (HeightOffset + GetScrollTop()) + 'px';
-    }*/
-}
-
-function ShowAnn(ItemId){
-    if (click==false){return;}
-    Deselect();
-
-    var TheArea = document.getElementById('Area_' + ItemId);
-        if (TheArea != null){
-        TheArea.className = 'SelectedArea';
-        //TheArea.scrollIntoView();
-        /*if (parseInt(TheArea.style.top) < GetScrollTop()){
-            window.scrollBy(0, (parseInt(TheArea.style.top) - GetScrollTop()));
-        } 
-        var AreaBottom = parseInt(TheArea.style.top) + parseInt(TheArea.style.height);
-        if ((GetScrollTop() + GetViewportHeight()) < AreaBottom){
-            window.scrollTo(0, parseInt(TheArea.style.top));
-        }*/
-    }
-    
-    var TheMenuItem = document.getElementById('MenuItem_' + ItemId);
-    if (TheMenuItem != null){
-        if (TheMenuItem.parentNode.style.display != 'block'){
-            TheMenuItem.parentNode.style.display = 'block';
-        }    
-       TheMenuItem.className = 'SelectedAnnMenuItem';
-       //scroll it
-       $('#text_cont').animate({ scrollTop: TheMenuItem.offsetTop-5 }); //Add by JK for EVT-builder
-        
-//Now try to scroll it into view
-        //TheMenuItem.scrollIntoView();
-    }
-    
-    /*var TheAnnotation = document.getElementById('Ann_' + ItemId);
-//Position the Ann div (try to keep it on the image itself)
-    if (TheAnnotation != null){
-
-//if the user has previously dragged a div, use the same position
-        if ((DroppedX > -1)&&(DroppedY > -1)){
-            if (isOldIE == false){
-                TheAnnotation.style.position = 'fixed';
-            }
-            TheAnnotation.style.left = DroppedX + 'px';
-            TheAnnotation.style.top = DroppedY + 'px';
-            TheAnnotation.style.display = 'block';
-            return;
-        }
-	
-//Otherwise, figure out the best place to show it:
-//First, set it to absolute positioning
-        TheAnnotation.style.position = 'absolute';
-	
-//Horizontal position
-        var ALeft = parseInt(TheArea.style.left);
-
-//Show the Ann so we can position it afterwards
-        TheAnnotation.style.left = ALeft + 'px';
-        TheAnnotation.style.display = 'block';
-        if (ALeft + parseInt(TheAnnotation.offsetWidth) > ImgRight){
-            ALeft = ImgRight - parseInt(TheAnnotation.offsetWidth);
-        }
-        TheAnnotation.style.left = ALeft + 'px';
-//Vertical position
-        var ATop = parseInt(TheArea.style.top) + parseInt(TheArea.offsetHeight);
-        if (ATop + parseInt(TheAnnotation.offsetHeight) > ImgBottom){
-            ATop = parseInt(TheArea.style.top) - parseInt(TheAnnotation.offsetHeight);
-        }
-        TheAnnotation.style.top = ATop  + 'px';
-//Handle the problem of disappearing off the top
-        if (parseInt(TheAnnotation.offsetTop) < HeightOffset){
-            TheAnnotation.style.top = HeightOffset + 'px';
-            TheAnnotation.style.left = '0px';
-        }
-    }
-*/
-}
-
-/*function HideAnn(AnnId){
-    var El = document.getElementById(AnnId);
-    if (El != null){
-	El.style.display = 'none';
-	El.style.position = 'absolute';
-    }
-    DroppedX = -1;
-    DroppedY = -1;
-}*/
 
 var DeltaX;
 var DeltaY;
