@@ -146,6 +146,10 @@ span.facs-reg {
 	padding: 0.4%;
 	margin-top: 30px; }
 
+span.facs-reg span{
+	background: transparent;
+ }
+	
 span.facs-choice_popup:hover span.facs-reg {
 	display: inline;
 	min-width: 20px;
