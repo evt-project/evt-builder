@@ -39,6 +39,7 @@ function magnifierReady(){
         setTimeout(function(){magON(); },1000);
     }
 }
+
 function setMagHeight(){;
     left_headerHeight = $("#left_header").height();
     if($('#left_header').hasClass('menuClosed')){
@@ -71,8 +72,6 @@ function magOn(){
         $('#switchMag').addClass('active');//Add by CDP for FA
         $('#switchMag i').removeClass('fa fa-search').addClass('fa fa-search-plus');
         //$('#switchITL').removeClass('inactive');//Add by CDP for FA
-        disableITLbutton();
-        disableHSbutton();
         magnifierON = true;
     } else {
         /*IT: rendo visibile il div dello dello zoom e invisibile quello del magnifier*/
