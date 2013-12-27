@@ -473,7 +473,9 @@ function switchIMT(){
 	   if ((magnifierON==true)&&(bigImage==true)){magOn();}
 	   if (HSon){
 	       UnInitializeHS();
-	       $('#switchHS i ').removeClass('fa fa-dot-circle-o').addClass('fa fa-circle-o'); //Add for FA
+	   }
+	   if ($('#switchHS i ').hasClass('fa-dot-circle-o')){
+	       $('#switchHS i ').removeClass('fa-dot-circle-o').addClass('fa-circle-o'); //Add for FA
 	       $('#switchHS').removeClass('active'); //Add for FA
 	   }
        Initialize();
@@ -795,8 +797,10 @@ function switchHS(){
 	   if ((magnifierON==true)&&(bigImage==true)){magOn();}
 	   if(ITLon){
 	       UnInitialize();
+	   }
+	   if ($('#switchITL i ').hasClass('fa-chain')){
 	       $('#switchITL i ').removeClass('fa-chain').addClass('fa-chain-broken');//Add by CDP for FA
-           $('#switchITL').removeClass('active'); //Add by CDP
+           $('#switchITL').removeClass('active'); //Add by CDP	       
 	   }
 	   InitializeHS();
 	   $('#switchHS').addClass('active');
