@@ -461,7 +461,10 @@ $( function() {
 	}
 
 	function goFullScreenLeft(){
+	    //Se ITL è attivo, disattivalo. Disabilita il pulsante.
 		if (ITLon){UnInitialize();}
+		disableITLbutton();
+		
 		$('.zoomWindow').hide();
         $('.zoomPup').hide();
 		if($('#header_collapse').hasClass('fa-caret-down')) 
@@ -558,7 +561,9 @@ $( function() {
 	            fitFrame();
 			});
 			$('#switchITL').show();
+			//Se ITL è impostato su attivo, attiva il collegamento. Abilita il pulsante.
 			if ($('#switchITL i ').hasClass('fa fa-chain')){Initialize();} //Add by JK for ITL
+			enableITLbutton();
 		}
 
 		//$('#span_dd_select').hide();
