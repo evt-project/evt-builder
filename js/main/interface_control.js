@@ -490,6 +490,7 @@ $( function() {
 			$('#left_header .closeFullScreen').toggle();
 			$('.zoomWindow').show(0); //Add for mag
 			//$('#header_collapse').animate({opacity: 1});
+			fitFrame();
 		});
 		$('.go-full-left').toggle();
 		//$('#switchITL:visible').hide();
@@ -512,6 +513,7 @@ $( function() {
 				}
 			});
 		}
+
 	}
 
 	function closeFullScreenLeft(){
@@ -535,6 +537,7 @@ $( function() {
 				//Add for Mag
 				setMagHeight();
 	            $('.zoomWindow').show();
+	            fitFrame();
 			});
 		} else {
 			$('#main_left_frame').animate({
@@ -552,11 +555,12 @@ $( function() {
 				setMagHeight();
 	            $('.zoomWindow').show();
 	            checkAnnPosHS(); //Add for HS
+	            fitFrame();
 			});
 			$('#switchITL').show();
 			if ($('#switchITL i ').hasClass('fa fa-chain')){Initialize();} //Add by JK for ITL
 		}
-	    
+
 		//$('#span_dd_select').hide();
 	}
 
@@ -581,6 +585,7 @@ $( function() {
 				right:margin_right,
 				minWidth: "1021px"
 			}, 700, function(){
+				fitFrame();
 				$('#right_header .closeFullScreen').toggle();
 			});
 			$("#main_right_frame").css('position', 'absolute');
@@ -603,11 +608,13 @@ $( function() {
 				right:margin_right,
 				minWidth: "1021px"
 			}, 700, function(){
+				fitFrame();
 				$('#right_header .closeFullScreen').toggle();
 			});
 			
 			$('.go-full-right').toggle();
 		}
+
 	} 
 
 	function closeFullScreenRight(){
@@ -623,6 +630,7 @@ $( function() {
 				right: "0px", 
 				minWidth: "0px",
 			}, 700, function(){
+				fitFrame();
 				$('#main_right_frame').removeAttr("style");
 				$('#right_header .closeFullScreen, #header_collapse').toggle();
 				$('#main_right_frame').toggleClass("full");
@@ -637,12 +645,14 @@ $( function() {
 				left: "0px", 
 				minWidth: "0px",
 			}, 700, function(){
+				fitFrame();
 				$('#main_right_frame').removeAttr("style");
 				$('#right_header .closeFullScreen,  #header_collapse').toggle();
 				$('#main_right_frame').toggleClass("full");
 				$('.go-full-right').toggle();
 			});
 		}
+
 	}
 
 	function fitFrame(){

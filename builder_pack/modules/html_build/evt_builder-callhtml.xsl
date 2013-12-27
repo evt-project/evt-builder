@@ -37,6 +37,8 @@
 						href="{$html_path}/css/ImageTextLink.css"/>
 					<link rel="stylesheet" type="text/css"
 						href="{$html_path}/css/jquery.jqzoom.css"/>
+					<link rel="stylesheet" type="text/css"
+						href="{$html_path}/css/font-awesome.min.css" />
 				</xsl:when>
 				<xsl:otherwise>
 					<link rel="stylesheet" type="text/css" href="{$html_path}/css/page_data-include-{$output}.css"/>
@@ -55,30 +57,28 @@
 				<xsl:comment>/main lib</xsl:comment>
 
 				<xsl:comment>keydown</xsl:comment>
-				<script src="js/plugin/jquery.rafmas-keydown.js"/>
+				<script src="{$html_path}/js/plugin/jquery.rafmas-keydown.js"/>
 				<xsl:comment>/keydown</xsl:comment>
 
 				<xsl:comment>iViewer</xsl:comment>
-				<script type="text/javascript" src="js/plugin/jquery_iviewer/jquery.mousewheel.min.js"/>
-				<script type="text/javascript" src="js/plugin/jquery_iviewer/jquery.iviewer.js"/>
-				<script type="text/javascript" src="js/plugin_settings/iviewer_config.js"/>
+				<script type="text/javascript" src="{$html_path}/js/plugin/jquery_iviewer/jquery.mousewheel.min.js"/>
+				<script type="text/javascript" src="{$html_path}/js/plugin/jquery_iviewer/jquery.iviewer.js"/>
+				<script type="text/javascript" src="{$html_path}/js/plugin_settings/iviewer_config.js"/>
 				<xsl:comment>/iViewer</xsl:comment>
 
 				<xsl:comment>magnifier</xsl:comment>
-				<script type="text/javascript" src="js/plugin/jquery.jqzoom-core.js"/>
-				<script type="text/javascript" src="js/main/switchZM.js"/>
+				<script type="text/javascript" src="{$html_path}/js/plugin/jquery.jqzoom-core.js"/>
+				<script type="text/javascript" src="{$html_path}/js/main/switchZM.js"/>
 				<xsl:comment>/magnifier</xsl:comment>
 				
 				<xsl:comment>hashchange</xsl:comment>
-				<script src="js/plugin/jquery.ba-bbq.js"/>
+				<script src="{$html_path}/js/plugin/jquery.ba-bbq.js"/>
 				<xsl:comment>/hashchange</xsl:comment>
 				
 				<xsl:comment>image text link</xsl:comment>
-				<script type="text/javascript" src="js/main/ImageTextLink.js"/>
+				<script type="text/javascript" src="{$html_path}/js/main/ImageTextLink.js"/>
 				<xsl:comment>/image text link</xsl:comment>
-
 			</xsl:if>
-			<link rel="stylesheet" href="css/font-awesome.min.css" />
 		</head>
 	</xsl:template>
 
