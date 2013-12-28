@@ -528,7 +528,7 @@ $(function() {
 			UnInitialize();
 		}
 		disableITLbutton();
-		
+
 		$('.zoomWindow').hide();
         $('.zoomPup').hide();
 		if($('#header_collapse').hasClass('fa-caret-down')){
@@ -1029,6 +1029,8 @@ $(function() {
 			$('#switchITL').hide();
 			$('#switchHS').hide();
 			//$('#thumb_elem').hide();
+
+			fitFrame();
 		}
 		if(!$('#span_dd_select').hasClass('widthChanged')){
 			$('#span_dd_select').addClass('widthChanged');
