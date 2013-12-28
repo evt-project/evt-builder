@@ -83,8 +83,8 @@ function magOn(){
         //document.getElementById("switchMag").setAttribute('src','images/magOff.png');
         $('#switchMag').removeClass('active');//Add by CDP for FA
         $('#switchMag i').removeClass('fa fa-search-plus').addClass('fa fa-search');
-        if(areaInThisPage){enableITLbutton();}
-        if(areaHSInThisPage){enableHSbutton();}
+        if ($("#text .Area").length >0){enableITLbutton();} //@Julia, sicura che questo passaggio serva? O.O
+        if ($("#text .AreaHS").length >0){enableHSbutton();}
         magnifierON = false;
     }
 }
