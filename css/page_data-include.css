@@ -112,11 +112,13 @@ SPAN.facs-add {
 	background-color: rgba(0,128,0, 0.8); 
 }
 
-SPAN.facs-sup { 
+SPAN.facs-orig SPAN.facs-sup {
+    line-height: 20px;
 	vertical-align: 20%; 
 }
 
-SPAN.facs-under { 
+SPAN.facs-orig SPAN.facs-under {
+    line-height: 20px;
 	vertical-align: -20%; 
 }
 
@@ -125,7 +127,8 @@ SPAN.facs-damage {
 }
 
 span.facs-choice_popup { 
-	display: inline; 
+	display: inline-block;
+    white-space: nowrap;
 }
 
 span.facs-reg:before {
@@ -217,7 +220,8 @@ SPAN.dipl-ex {
 }
 
 span.dipl-choice_popup { 
-	display: inline; 
+    display: inline-block;
+    white-space: nowrap;
 }
 
 	span.dipl-choice_popup span.dipl-orig:before {
