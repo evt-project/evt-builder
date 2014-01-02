@@ -155,7 +155,7 @@
 		</xsl:choose>
 	</xsl:template>
 	
-	<xsl:template match="tei:abbr//tei:g | tei:sic//tei:g | tei:choice//tei:orig//tei:g" mode="dipl">
+	<xsl:template match="tei:choice/tei:orig//tei:g" mode="dipl">
 		<xsl:variable name="id" select="substring-after(@ref,'#')"/>
 		<xsl:apply-templates select="if($root//tei:charDecl//tei:glyph[@xml:id=$id]/tei:mapping[@type='diplomatic']) then($root//tei:charDecl//tei:glyph[@xml:id=$id]/tei:mapping[@type='diplomatic']) else($root//tei:charDecl//tei:char[@xml:id=$id]/tei:mapping[@type='diplomatic'])" mode="#current"/>
 	</xsl:template>
