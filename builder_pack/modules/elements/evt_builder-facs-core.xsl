@@ -79,6 +79,9 @@
 				<xsl:when test="tei:sic">
 					<xsl:apply-templates select="tei:sic" mode="#current"> </xsl:apply-templates>
 				</xsl:when>
+				<xsl:when test="tei:abbr">
+					<xsl:apply-templates select="tei:abbr" mode="#current"> </xsl:apply-templates>
+				</xsl:when>	
 				<xsl:when test="tei:orig">
 					<xsl:choose>
 						<xsl:when test="tei:reg[normalize-space()]"><!-- escludi i reg vuoti usati per la punteggiatura -->
