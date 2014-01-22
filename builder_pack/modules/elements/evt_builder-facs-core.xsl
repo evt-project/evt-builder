@@ -110,8 +110,8 @@
 			<xsl:attribute name="class">
 				<xsl:value-of>facs-<xsl:value-of select="name()"/></xsl:value-of>
 			</xsl:attribute>
-			<xsl:apply-templates select="tei:add" mode="#current"> </xsl:apply-templates>
 			<xsl:apply-templates select="tei:del" mode="#current"> </xsl:apply-templates>
+			<xsl:apply-templates select="tei:add" mode="#current"> </xsl:apply-templates>
 		</xsl:element>
 	</xsl:template>
 
