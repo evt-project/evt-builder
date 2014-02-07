@@ -19,157 +19,115 @@
 	</xd:doc>
 
 
-	<!-- MULTI PHASE TRASFORMATION -->
+	<!-- MULTI PHASE TRANSFORMATION -->
 	
 	<!-- EN: Close and open back elements when you find a pb or an lb -->
 	<!-- IT: Chiudi e riapri i tag quando trovi un pb o un lb -->
-	<xsl:template match="node()[name()=$start_split]/node()" mode="splitZero">
-		<xsl:choose>
-			<xsl:when test="lb|pb">
-				<xsl:for-each-group select="node()" group-starting-with="lb|pb">
-					<!-- EN: copy lb/pb if present in this group -->
-					<!-- IT: copia lb/pb se presente nel gruppo -->
-					<xsl:if test="current-group()/(descendant-or-self::lb|descendant-or-self::pb)">
-						<xsl:sequence select="current-group()/(descendant-or-self::lb|descendant-or-self::pb)"/>
-					</xsl:if>
-					<!-- Copies the elements in the group except lb/pb -->
-					<xsl:element name="{parent::node()/name()}" xmlns="http://www.tei-c.org/ns/1.0">
-						<xsl:copy-of select="parent::node()/@* except (parent::node()/@part)"/>
-						<xsl:attribute name="part" select="position()"></xsl:attribute>
-						<xsl:sequence select="current-group()[not(self::lb|self::pb)]"/>
-					</xsl:element>
-				</xsl:for-each-group>
-			</xsl:when>
-			<xsl:otherwise>
-				<xsl:sequence select="."/>
-			</xsl:otherwise>
-		</xsl:choose>
+	<xsl:template match="node()[name()=$start_split]/node()[lb|pb]" mode="splitZero">
+		<xsl:for-each-group select="node()" group-starting-with="lb|pb">
+			<!-- EN: copy lb/pb if present in this group -->
+			<!-- IT: copia lb/pb se presente nel gruppo -->
+			<xsl:if test="current-group()/(descendant-or-self::lb|descendant-or-self::pb)">
+				<xsl:sequence select="current-group()/(descendant-or-self::lb|descendant-or-self::pb)"/>
+			</xsl:if>
+			<!-- Copies the elements in the group except lb/pb -->
+			<xsl:element name="{parent::node()/name()}" xmlns="http://www.tei-c.org/ns/1.0">
+				<xsl:copy-of select="parent::node()/@* except (parent::node()/@part)"/>
+				<xsl:attribute name="part" select="position()"></xsl:attribute>
+				<xsl:sequence select="current-group()[not(self::lb|self::pb)]"/>
+			</xsl:element>
+		</xsl:for-each-group>	
 	</xsl:template>
 	
 	<!-- EN: Close and open back elements when you find a pb or an lb -->
 	<!-- IT: Chiudi e riapri i tag quando trovi un pb o un lb -->
-	<xsl:template match="node()[name()=$start_split]/node()/node()" mode="split-1">
-		<xsl:choose>
-			<xsl:when test="lb|pb">
-				<xsl:for-each-group select="node()" group-starting-with="lb|pb">
-					<!-- IT: copia lb/pb se presente nel gruppo -->
-					<xsl:if test="current-group()/(descendant-or-self::lb|descendant-or-self::pb)">
-						<xsl:sequence select="current-group()/(descendant-or-self::lb|descendant-or-self::pb)"/>
-					</xsl:if>
-					<!-- Copies all elements in the group except lb/pb -->
-					<xsl:element name="{parent::node()/name()}" xmlns="http://www.tei-c.org/ns/1.0">
-						<xsl:copy-of select="parent::node()/@* except (parent::node()/@part)"/>
-						<xsl:attribute name="part" select="position()"></xsl:attribute>
-						<xsl:sequence select="current-group()[not(self::lb|self::pb)]"/>
-					</xsl:element>
-				</xsl:for-each-group>
-			</xsl:when>
-			<xsl:otherwise>
-				<xsl:sequence select="."/>
-			</xsl:otherwise>
-		</xsl:choose>
+	<xsl:template match="node()[name()=$start_split]/node()/node()[lb|pb]" mode="split-1">
+		<xsl:for-each-group select="node()" group-starting-with="lb|pb">
+			<!-- IT: copia lb/pb se presente nel gruppo -->
+			<xsl:if test="current-group()/(descendant-or-self::lb|descendant-or-self::pb)">
+				<xsl:sequence select="current-group()/(descendant-or-self::lb|descendant-or-self::pb)"/>
+			</xsl:if>
+			<!-- Copies all elements in the group except lb/pb -->
+			<xsl:element name="{parent::node()/name()}" xmlns="http://www.tei-c.org/ns/1.0">
+				<xsl:copy-of select="parent::node()/@* except (parent::node()/@part)"/>
+				<xsl:attribute name="part" select="position()"></xsl:attribute>
+				<xsl:sequence select="current-group()[not(self::lb|self::pb)]"/>
+			</xsl:element>
+		</xsl:for-each-group>
 	</xsl:template>
 	
 	<!-- EN: Close and open back elements when you find a pb or an lb -->
 	<!-- IT: Chiudi e riapri i tag quando trovi un pb o un lb -->
-	<xsl:template match="node()[name()=$start_split]/node()/node()/node()" mode="split-2">
-		<xsl:choose>
-			<xsl:when test="lb|pb">
-				<xsl:for-each-group select="node()" group-starting-with="lb|pb">
-					<!-- IT: copia lb/pb se presente nel gruppo -->
-					<xsl:if test="current-group()/(descendant-or-self::lb|descendant-or-self::pb)">
-						<xsl:sequence select="current-group()/(descendant-or-self::lb|descendant-or-self::pb)"/>
-					</xsl:if>
-					<!-- Copies all elements in the group except lb/pb -->
-					<xsl:element name="{parent::node()/name()}" xmlns="http://www.tei-c.org/ns/1.0">
-						<xsl:copy-of select="parent::node()/@* except (parent::node()/@part)"/>
-						<xsl:attribute name="part" select="position()"></xsl:attribute>
-						<xsl:sequence select="current-group()[not(self::lb|self::pb)]"/>
-					</xsl:element>
-				</xsl:for-each-group>
-			</xsl:when>
-			<xsl:otherwise>
-				<xsl:sequence select="."/>
-			</xsl:otherwise>
-		</xsl:choose>
+	<xsl:template match="node()[name()=$start_split]/node()/node()/node()[lb|pb]" mode="split-2">
+		<xsl:for-each-group select="node()" group-starting-with="lb|pb">
+			<!-- IT: copia lb/pb se presente nel gruppo -->
+			<xsl:if test="current-group()/(descendant-or-self::lb|descendant-or-self::pb)">
+				<xsl:sequence select="current-group()/(descendant-or-self::lb|descendant-or-self::pb)"/>
+			</xsl:if>
+			<!-- Copies all elements in the group except lb/pb -->
+			<xsl:element name="{parent::node()/name()}" xmlns="http://www.tei-c.org/ns/1.0">
+				<xsl:copy-of select="parent::node()/@* except (parent::node()/@part)"/>
+				<xsl:attribute name="part" select="position()"></xsl:attribute>
+				<xsl:sequence select="current-group()[not(self::lb|self::pb)]"/>
+			</xsl:element>
+		</xsl:for-each-group>		
 	</xsl:template>
 	
 	<!-- EN: Close and open back elements when you find a pb or an lb -->
 	<!-- IT: Chiudi e riapri i tag quando trovi un pb o un lb -->
-	<xsl:template match="node()[name()=$start_split]/node()/node()/node()/node()" mode="split-3">
-		<xsl:choose>
-			<xsl:when test="lb|pb">
-				<xsl:for-each-group select="node()" group-starting-with="lb|pb">
-					<!-- IT: copia lb/pb se presente nel gruppo -->
-					<xsl:if test="current-group()/(descendant-or-self::lb|descendant-or-self::pb)">
-						<xsl:sequence select="current-group()/(descendant-or-self::lb|descendant-or-self::pb)"/>
-					</xsl:if>
-					<!-- Copies all elements in the group except lb/pb -->
-					<xsl:element name="{parent::node()/name()}" xmlns="http://www.tei-c.org/ns/1.0">
-						<xsl:copy-of select="parent::node()/@* except (parent::node()/@part)"/>
-						<xsl:attribute name="part" select="position()"></xsl:attribute>
-						<xsl:sequence select="current-group()[not(self::lb|self::pb)]"/>
-					</xsl:element>
-				</xsl:for-each-group>
-			</xsl:when>
-			<xsl:otherwise>
-				<xsl:sequence select="."/>
-			</xsl:otherwise>
-		</xsl:choose>
+	<xsl:template match="node()[name()=$start_split]/node()/node()/node()/node()[lb|pb]" mode="split-3">
+		<xsl:for-each-group select="node()" group-starting-with="lb|pb">
+			<!-- IT: copia lb/pb se presente nel gruppo -->
+			<xsl:if test="current-group()/(descendant-or-self::lb|descendant-or-self::pb)">
+				<xsl:sequence select="current-group()/(descendant-or-self::lb|descendant-or-self::pb)"/>
+			</xsl:if>
+			<!-- Copies all elements in the group except lb/pb -->
+			<xsl:element name="{parent::node()/name()}" xmlns="http://www.tei-c.org/ns/1.0">
+				<xsl:copy-of select="parent::node()/@* except (parent::node()/@part)"/>
+				<xsl:attribute name="part" select="position()"></xsl:attribute>
+				<xsl:sequence select="current-group()[not(self::lb|self::pb)]"/>
+			</xsl:element>
+		</xsl:for-each-group>
 	</xsl:template>
 	
 	<!-- EN: Close and open back elements when you find a pb or an lb -->
 	<!-- IT: Chiudi e riapri i tag quando trovi un pb o un lb -->
-	<xsl:template match="node()[name()=$start_split]/node()/node()/node()/node()/node()" mode="split-4">
-		<xsl:choose>
-			<xsl:when test="lb|pb">
-				<xsl:for-each-group select="node()" group-starting-with="lb|pb">
-					<!-- IT: copia lb/pb se presente nel gruppo -->
-					<xsl:if test="current-group()/(descendant-or-self::lb|descendant-or-self::pb)">
-						<xsl:sequence select="current-group()/(descendant-or-self::lb|descendant-or-self::pb)"/>
-					</xsl:if>
-					<!-- Copies all elements in the group except lb/pb -->
-					<xsl:element name="{parent::node()/name()}" xmlns="http://www.tei-c.org/ns/1.0">
-						<xsl:copy-of select="parent::node()/@* except (parent::node()/@part)"/>
-						<xsl:attribute name="part" select="position()"></xsl:attribute>
-						<xsl:sequence select="current-group()[not(self::lb|self::pb)]"/>
-					</xsl:element>
-				</xsl:for-each-group>
-			</xsl:when>
-			<xsl:otherwise>
-				<xsl:sequence select="."/>
-			</xsl:otherwise>
-		</xsl:choose>
+	<xsl:template match="node()[name()=$start_split]/node()/node()/node()/node()/node()[lb|pb]" mode="split-4">
+		<xsl:for-each-group select="node()" group-starting-with="lb|pb">
+			<!-- IT: copia lb/pb se presente nel gruppo -->
+			<xsl:if test="current-group()/(descendant-or-self::lb|descendant-or-self::pb)">
+				<xsl:sequence select="current-group()/(descendant-or-self::lb|descendant-or-self::pb)"/>
+			</xsl:if>
+			<!-- Copies all elements in the group except lb/pb -->
+			<xsl:element name="{parent::node()/name()}" xmlns="http://www.tei-c.org/ns/1.0">
+				<xsl:copy-of select="parent::node()/@* except (parent::node()/@part)"/>
+				<xsl:attribute name="part" select="position()"></xsl:attribute>
+				<xsl:sequence select="current-group()[not(self::lb|self::pb)]"/>
+			</xsl:element>
+		</xsl:for-each-group>
 	</xsl:template>
 	
 	<!-- EN: Close and open back elements when you find a pb or an lb -->
 	<!-- IT: Chiudi e riapri i tag quando trovi un pb o un lb -->
-	<xsl:template match="node()[name()=$start_split]/node()/node()/node()/node()/node()/node()" mode="split-5">
-		<xsl:choose>
-			<xsl:when test="lb|pb">
-				<xsl:for-each-group select="node()" group-starting-with="lb|pb">
-					<!-- IT: copia lb/pb se presente nel gruppo -->
-					<xsl:if test="current-group()/(descendant-or-self::lb|descendant-or-self::pb)">
-						<xsl:sequence select="current-group()/(descendant-or-self::lb|descendant-or-self::pb)"/>
-					</xsl:if>
-					<!-- Copies all elements in the group except lb/pb -->
-					<xsl:element name="{parent::node()/name()}" xmlns="http://www.tei-c.org/ns/1.0">
-						<xsl:copy-of select="parent::node()/@* except (parent::node()/@part)"/>
-						<xsl:attribute name="part" select="position()"></xsl:attribute>
-						<xsl:sequence select="current-group()[not(self::lb|self::pb)]"/>
-					</xsl:element>
-				</xsl:for-each-group>
-			</xsl:when>
-			<xsl:otherwise>
-				<xsl:sequence select="."/>
-			</xsl:otherwise>
-		</xsl:choose>
+	<xsl:template match="node()[name()=$start_split]/node()/node()/node()/node()/node()/node()[lb|pb]" mode="split-5">
+		<xsl:for-each-group select="node()" group-starting-with="lb|pb">
+			<!-- IT: copia lb/pb se presente nel gruppo -->
+			<xsl:if test="current-group()/(descendant-or-self::lb|descendant-or-self::pb)">
+				<xsl:sequence select="current-group()/(descendant-or-self::lb|descendant-or-self::pb)"/>
+			</xsl:if>
+			<!-- Copies all elements in the group except lb/pb -->
+			<xsl:element name="{parent::node()/name()}" xmlns="http://www.tei-c.org/ns/1.0">
+				<xsl:copy-of select="parent::node()/@* except (parent::node()/@part)"/>
+				<xsl:attribute name="part" select="position()"></xsl:attribute>
+				<xsl:sequence select="current-group()[not(self::lb|self::pb)]"/>
+			</xsl:element>
+		</xsl:for-each-group>
 	</xsl:template>
 	
 	<!-- ADD NEW STEP PART 1 -->
-	<!-- EN: to add a new level copy the previous template and add a "node()" to the match pattern, f.i.: match="tei:body/node()/node()/node()/node()/node()/node()/node()"
+	<!-- EN: to add a new level copy the previous template and add a "node()" to the match pattern, f.i.: match="tei:body/node()/node()/node()/node()/node()/node()/node()[lb|pb]"
 	and decrease the mode value by 1, f.i.: mode="split-6"-->
-	<!-- IT: per aggiungere un nuovo livello, copiare il template precedente e aggiungere un "node()" al pattern del match es: match="tei:body/node()/node()/node()/node()/node()/node()/node()"
+	<!-- IT: per aggiungere un nuovo livello, copiare il template precedente e aggiungere un "node()" al pattern del match es: match="tei:body/node()/node()/node()/node()/node()/node()/node()[lb|pb]"
 	e decrementare di 1 il valore del mode es: mode="split-6"-->
 	
 
@@ -225,7 +183,7 @@
 		</xsl:variable>
 	-->
 	
-	<!-- END OF MULTI PHASE TRASFORMATION -->
+	<!-- END OF MULTI PHASE TRANSFORMATION -->
 	
 	<xsl:template match="*" mode="file4search">
 		<!-- IT: Per ogni pagina, genera le corrispettive edizioni. Il template data_structure si trova in html_build/evt_builder-callhtml.xsl -->
