@@ -23,69 +23,28 @@
 	
 	<!-- EN: Close and open back elements when you find a pb or an lb -->
 	<!-- IT: Chiudi e riapri i tag quando trovi un pb o un lb -->
-	<xsl:template match="node()[name()=$start_split]/node()[lb|pb]" mode="splitZero">
+	<xsl:template match="node()[name()=$start_split]//node()[lb|pb]" mode="splitZero split-1 split-2 split-3 split-4 split-5">
+		<!-- ADD NEW STEP PART 1 -->
+		<!-- EN: To add a new level add here a new mode increased by one, f.i.: mode="split-6" -->
+		<!-- IT: Per aggiungere un nuovo livello aggiungere qui un nuovo mode incrementando di 1 il precedente es: mode="split-6" -->
 		<xsl:for-each-group select="node()" group-starting-with="lb|pb">
 			<xsl:call-template name="group"></xsl:call-template>
 		</xsl:for-each-group>	
 	</xsl:template>
-	
-	<!-- EN: Close and open back elements when you find a pb or an lb -->
-	<!-- IT: Chiudi e riapri i tag quando trovi un pb o un lb -->
-	<xsl:template match="node()[name()=$start_split]/node()/node()[lb|pb]" mode="split-1">
-		<xsl:for-each-group select="node()" group-starting-with="lb|pb">
-			<xsl:call-template name="group"></xsl:call-template>
-		</xsl:for-each-group>
-	</xsl:template>
-	
-	<!-- EN: Close and open back elements when you find a pb or an lb -->
-	<!-- IT: Chiudi e riapri i tag quando trovi un pb o un lb -->
-	<xsl:template match="node()[name()=$start_split]/node()/node()/node()[lb|pb]" mode="split-2">
-		<xsl:for-each-group select="node()" group-starting-with="lb|pb">
-			<xsl:call-template name="group"></xsl:call-template>
-		</xsl:for-each-group>		
-	</xsl:template>
-	
-	<!-- EN: Close and open back elements when you find a pb or an lb -->
-	<!-- IT: Chiudi e riapri i tag quando trovi un pb o un lb -->
-	<xsl:template match="node()[name()=$start_split]/node()/node()/node()/node()[lb|pb]" mode="split-3">
-		<xsl:for-each-group select="node()" group-starting-with="lb|pb">
-			<xsl:call-template name="group"></xsl:call-template>
-		</xsl:for-each-group>
-	</xsl:template>
-	
-	<!-- EN: Close and open back elements when you find a pb or an lb -->
-	<!-- IT: Chiudi e riapri i tag quando trovi un pb o un lb -->
-	<xsl:template match="node()[name()=$start_split]/node()/node()/node()/node()/node()[lb|pb]" mode="split-4">
-		<xsl:for-each-group select="node()" group-starting-with="lb|pb">
-			<xsl:call-template name="group"></xsl:call-template>
-		</xsl:for-each-group>
-	</xsl:template>
-	
-	<!-- EN: Close and open back elements when you find a pb or an lb -->
-	<!-- IT: Chiudi e riapri i tag quando trovi un pb o un lb -->
-	<xsl:template match="node()[name()=$start_split]/node()/node()/node()/node()/node()/node()[lb|pb]" mode="split-5">
-		<xsl:for-each-group select="node()" group-starting-with="lb|pb">
-			<xsl:call-template name="group"></xsl:call-template>
-		</xsl:for-each-group>
-	</xsl:template>
-	
-	<!-- ADD NEW STEP PART 1 -->
-	<!-- EN: to add a new level copy the previous template and add a "node()" to the match pattern, f.i.: match="tei:body/node()/node()/node()/node()/node()/node()/node()[lb|pb]"
-	and decrease the mode value by 1, f.i.: mode="split-6"-->
-	<!-- IT: per aggiungere un nuovo livello, copiare il template precedente e aggiungere un "node()" al pattern del match es: match="tei:body/node()/node()/node()/node()/node()/node()/node()[lb|pb]"
-	e decrementare di 1 il valore del mode es: mode="split-6"-->
-	
+
+
 
 	<!-- EN: Copy all -->
 	<!-- IT: Copia tutto -->
 	<xsl:template match="@*|node()" mode="splitZero split-1 split-2 split-3 split-4 split-5">
 		<!-- ADD NEW STEP PART 2 -->
 		<!-- EN: To add a new level add here the mode increased by one, f.i.: mode="split-6" -->
-		<!-- IT: Per aggiungere un nuovo livello aggiungere qui il mode incrementato di 1 es: mode="split-6" -->
+		<!-- IT: Per aggiungere un nuovo livello aggiungere qui un nuovo mode incrementando di 1 il precedente es: mode="split-6" -->
 		<xsl:copy>
 			<xsl:apply-templates select="@*|node()" mode="#current"/>
 		</xsl:copy>
 	</xsl:template>
+
 
 	
 	<!-- EN: Recursive calls on variables to close and open all elements broken by lb/pb -->
