@@ -23,7 +23,7 @@
 	
 	<!-- EN: Close and open back elements when you find a pb or an lb -->
 	<!-- IT: Chiudi e riapri i tag quando trovi un pb o un lb -->
-	<xsl:template match="node()[name()=$start_split]//node()[lb|pb]" mode="splitZero split-1 split-2 split-3 split-4 split-5">
+	<xsl:template match="node()[name()=$start_split]//node()[lb|pb][not(descendant::node()[lb|pb])]" mode="splitZero split-1 split-2 split-3 split-4 split-5">
 		<!-- ADD NEW STEP PART 1 -->
 		<!-- EN: To add a new level add here a new mode increased by one, f.i.: mode="split-6" -->
 		<!-- IT: Per aggiungere un nuovo livello aggiungere qui un nuovo mode incrementando di 1 il precedente es: mode="split-6" -->
