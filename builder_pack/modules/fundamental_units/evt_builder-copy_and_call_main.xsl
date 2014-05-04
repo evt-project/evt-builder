@@ -28,7 +28,7 @@
 		<!-- EN: To add a new level add here a new mode increased by one, f.i.: mode="split-6" -->
 		<!-- IT: Per aggiungere un nuovo livello aggiungere qui un nuovo mode incrementando di 1 il precedente es: mode="split-6" -->
 		<xsl:for-each-group select="node()" group-starting-with="lb|pb">
-			<xsl:call-template name="group"></xsl:call-template>
+			<xsl:call-template name="group"/>
 		</xsl:for-each-group>	
 	</xsl:template>
 
@@ -96,6 +96,7 @@
 		<xsl:element name="{parent::node()/name()}" xmlns="http://www.tei-c.org/ns/1.0">
 			<xsl:copy-of select="parent::node()/@* except (parent::node()/@part)"/>
 			<xsl:attribute name="part" select="position()"></xsl:attribute>
+			<xsl:attribute name="id" select="generate-id(parent::node())"></xsl:attribute>
 			<xsl:sequence select="current-group()[not(self::lb|self::pb)]"/>
 		</xsl:element>
 	</xsl:template>
