@@ -78,6 +78,10 @@
 				<xsl:comment>image text link</xsl:comment>
 				<script type="text/javascript" src="{$html_path}/js/main/ImageTextLink.js"/>
 				<xsl:comment>/image text link</xsl:comment>
+				
+				<xsl:comment>page data</xsl:comment>
+				<script type="text/javascript" src="{$html_path}/js/main/page_data-include.js"/>
+				<xsl:comment>/page data</xsl:comment>
 			</xsl:if>
 		</head>
 	</xsl:template>

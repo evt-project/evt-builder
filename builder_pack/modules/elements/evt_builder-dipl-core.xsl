@@ -5,19 +5,19 @@
 	xmlns:xd="http://www.pnp-software.com/XSLTdoc" xmlns:fn="http://www.w3.org/2005/xpath-functions"
 	xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns="http://www.w3.org/1999/xhtml"
 	exclude-result-prefixes="#all">
-
+	
 	<xd:doc type="stylesheet">
 		<xd:short>
 			EN: Templates used to process the TEI elements of the CORE module.
 			IT: I template per la trasformazione degli elementi TEI del modulo CORE.
 		</xd:short>
 	</xd:doc>
-
-
+	
+	
 	<!--             -->
 	<!-- Page layout -->
 	<!--             -->
-
+	
 	<!-- P Paragraphs -->
 	<xsl:template match="tei:p" mode="dipl">
 		<xsl:element name="span">
@@ -25,7 +25,7 @@
 			<xsl:apply-templates mode="#current"> </xsl:apply-templates>
 		</xsl:element>
 	</xsl:template>
-
+	
 	<!-- L Verse line-->
 	<xsl:template match="tei:l" mode="dipl">
 		<xsl:apply-templates mode="#current"/> 
@@ -52,7 +52,7 @@
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>-->
-
+	
 	<!-- Line break -->
 	<!-- IT: Ignora i lb che hanno xml:id che termina con 'o' e riporta quelli che hanno xml:id che termina con 'r' eliminando quest'ultimo carattere -->
 	<xsl:template match="tei:lb" mode="dipl">
@@ -79,13 +79,13 @@
 		</xsl:choose>
 	</xsl:template>
 	
-
+	
 	<!-- Page break -->
 	<xsl:template match="tei:pb" mode="dipl">
 		<xsl:copy-of select="."/>
 	</xsl:template>
 	
-
+	
 	<!--               -->
 	<!-- Transcription -->
 	<!--               -->
@@ -93,18 +93,48 @@
 	<!-- Choice -->
 	<xsl:template match="tei:choice" mode="dipl" priority="3">
 		<xsl:choose>
-			<xsl:when test="@part=1 or @part=2 or @part=3">
-				<xsl:apply-templates select="reg" mode="#current"/>
-				<!--<xsl:variable name="reg2" select="following::tei:choice[@part=2][1]/tei:reg"/>
-				<xsl:element name="span">
-					<xsl:attribute name="class">
-						<xsl:value-of>dipl-choice_popup</xsl:value-of>
-					</xsl:attribute>
-					<xsl:if test="tei:orig"><xsl:apply-templates select="tei:orig" mode="#current"/>
-						<xsl:sequence select="' '"/></xsl:if>
-					<xsl:apply-templates select="$reg2" mode="#current"> </xsl:apply-templates>
-				</xsl:element>-->
+			<xsl:when test="@id">
+				<xsl:variable name="choiceId" select="@id"/>
+				<!--IT: Controlla che il nodo contenga qualcosa oltre a ORIG, se c'è solo ORIG non viene fatto niente-->
+				<xsl:if test="*[not(self::orig)]">
+					<xsl:choose>
+						<!-- IT: Questo è per la prima parte di CHOICE che contine un el REG, la parte che dovrà contenere la tooltip -->
+						<xsl:when test="@part and boolean(./ancestor::node()[parent::node()[name()=$start_split]]//preceding-sibling::node()[not(self::lb)][1]//tei:choice[@id=$choiceId and not(tei:reg)])"><xsl:element name="span">
+							<xsl:attribute name="class"><xsl:value-of>dipl-choice_popup</xsl:value-of></xsl:attribute>
+							<xsl:if test="@id">
+								<xsl:variable name="vApos">'</xsl:variable>
+								<xsl:attribute name="class"><xsl:value-of>dipl-choice_popup </xsl:value-of> <xsl:value-of select="@id"/></xsl:attribute>
+								<xsl:attribute name="onmouseover" select="'overChoice(',$vApos,@id,$vApos,')'" separator=""/>
+								<xsl:attribute name="onmouseout" select="'outChoice(',$vApos,@id,$vApos,')'" separator=""/>
+							</xsl:if>
+							<xsl:element name="span">
+								<xsl:attribute name="class" select="'dipl-orig'"></xsl:attribute>
+								<xsl:apply-templates select="orig/ancestor::node()[parent::node()[name()=$start_split]]/preceding-sibling::node()[not(self::lb)][position() lt 2]//tei:choice[@id=$choiceId]//tei:orig/node(), 
+									orig/ancestor::node()[parent::node()[name()=$start_split]]//tei:choice[@id=$choiceId]//tei:orig/node(),
+									orig/ancestor::node()[parent::node()[name()=$start_split]]/following-sibling::node()[not(self::lb)][position() lt 3]//tei:choice[@id=$choiceId]//tei:orig/node()"
+									mode="#current"/>
+							</xsl:element>
+							<xsl:sequence select="' '"/>
+							<xsl:apply-templates select="tei:reg" mode="#current"> </xsl:apply-templates>
+						</xsl:element>
+						</xsl:when>
+						<!-- IT: Questo è per le altre parti, che dovranno contenere solo REG -->
+						<xsl:otherwise>
+							<xsl:element name="span">
+								<xsl:attribute name="class"><xsl:value-of>dipl-choice_popup</xsl:value-of></xsl:attribute>
+								<xsl:if test="@id">
+									<xsl:variable name="vApos">'</xsl:variable>
+									<xsl:attribute name="class"><xsl:value-of>dipl-choice_popup </xsl:value-of> <xsl:value-of select="@id"/></xsl:attribute>
+									<xsl:attribute name="onmouseover" select="'overChoice(',$vApos,@id,$vApos,')'" separator=""/>
+									<xsl:attribute name="onmouseout" select="'outChoice(',$vApos,@id,$vApos,')'" separator=""/>
+								</xsl:if>
+								<xsl:apply-templates select="tei:reg" mode="#current"/>
+							</xsl:element>
+						</xsl:otherwise>
+					</xsl:choose>
+				</xsl:if>
 			</xsl:when>
+			<!-- IT: Questo viene usato quando CHOICE non è suddiviso in più parti -->
 			<xsl:otherwise>
 				<xsl:choose>
 					<xsl:when test="tei:sic">
@@ -188,17 +218,17 @@
 				<xsl:otherwise>
 					<xsl:choose>
 						<xsl:when test="@place='sup'">\<xsl:element name="span">
-								<xsl:attribute name="class">
-									<xsl:value-of>dipl-<xsl:value-of select="@place"/></xsl:value-of>
-								</xsl:attribute>
-								<xsl:apply-templates mode="#current"> </xsl:apply-templates>
-							</xsl:element>/</xsl:when>
+							<xsl:attribute name="class">
+								<xsl:value-of>dipl-<xsl:value-of select="@place"/></xsl:value-of>
+							</xsl:attribute>
+							<xsl:apply-templates mode="#current"> </xsl:apply-templates>
+						</xsl:element>/</xsl:when>
 						<xsl:when test="@place='sub'">/<xsl:element name="span">
-								<xsl:attribute name="class">
-									<xsl:value-of>dipl-<xsl:value-of select="@place"/></xsl:value-of>
-								</xsl:attribute>
-								<xsl:apply-templates mode="#current"> </xsl:apply-templates>
-							</xsl:element>\</xsl:when>
+							<xsl:attribute name="class">
+								<xsl:value-of>dipl-<xsl:value-of select="@place"/></xsl:value-of>
+							</xsl:attribute>
+							<xsl:apply-templates mode="#current"> </xsl:apply-templates>
+						</xsl:element>\</xsl:when>
 						<xsl:otherwise>
 							<xsl:apply-templates mode="#current"> </xsl:apply-templates>
 						</xsl:otherwise>
@@ -208,7 +238,7 @@
 		</xsl:element>
 	</xsl:template>
 	
-
+	
 	<!--EXPAN expansion
 		DAMAGE Damage
 		EX editorial expansion
@@ -236,7 +266,7 @@
 				<xsl:value-of>dipl-<xsl:value-of select="name()"/></xsl:value-of>
 			</xsl:attribute>[[<xsl:apply-templates mode="#current"/>]]</xsl:element>
 	</xsl:template>
-
+	
 	<!-- HI Highlighted text -->
 	<xsl:template match="tei:hi" mode="dipl">
 		<xsl:choose>
@@ -254,5 +284,5 @@
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
-
+	
 </xsl:stylesheet>
