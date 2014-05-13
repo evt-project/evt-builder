@@ -125,7 +125,10 @@
 					</xsl:when>	
 					<xsl:when test="tei:orig">
 						<xsl:choose>
-							<xsl:when test="tei:reg[normalize-space()]"><!-- escludi i reg vuoti usati per la punteggiatura -->
+							<!-- IT: 1. escludi i choice che contengono reg vuoti (che contengono solo white-spaces) usati per la punteggiatura
+									 2. escludi i choice che contengono reg che contengono solo punteggiatura-->
+							<xsl:when test="tei:reg[not(descendant::tei:pc)][normalize-space()] or
+											(tei:reg[descendant::tei:pc] and tei:reg/node()[not(self::tei:pc)]/normalize-space())">
 								<xsl:element name="span">
 									<xsl:attribute name="class"><xsl:value-of>facs-choice_popup</xsl:value-of></xsl:attribute>
 									<xsl:apply-templates select="tei:reg" mode="#current"> </xsl:apply-templates>
