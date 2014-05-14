@@ -225,7 +225,7 @@ SPAN.dipl-ex {
 	font-style: italic; 
 }
 
-span.dipl-choice_popup { 
+span.dipl-choice_popup, span.dipl-choice_popup_corr{ 
     display: inline-block;
     /*white-space: nowrap;*/
 }
@@ -295,11 +295,13 @@ span.dipl-choice_popup span.dipl-reg.hover, span.dipl-choice_popup_corr span.dip
 	color: #561c0a; /*background-color: rgba(255,255,204,0.8);*/ 
 }
 
-span.dipl-choice_popup SPAN.dipl-sup { 
+span.dipl-choice_popup SPAN.dipl-sup {
+    line-height: 20px;
 	vertical-align: 20%; 
 }
 
-span.dipl-choice_popup SPAN.dipl-under { 
+span.dipl-choice_popup SPAN.dipl-under {
+    line-height: 20px;
 	vertical-align: -20%; 
 }
 
