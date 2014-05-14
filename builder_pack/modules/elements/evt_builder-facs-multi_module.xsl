@@ -22,13 +22,13 @@
 		<xsl:choose>
 			<xsl:when test="@place='top-middle'">
 				<xsl:element name="span">
-					<xsl:attribute name="class">facs-center</xsl:attribute>
+					<xsl:attribute name="class" select="$ed_name1,'center'" separator="-"/>
 					<xsl:apply-templates mode="#current"> </xsl:apply-templates>
 				</xsl:element>
 			</xsl:when>
 			<xsl:when test="@place='top-right'">
 				<xsl:element name="span">
-					<xsl:attribute name="class">facs-right</xsl:attribute>
+					<xsl:attribute name="class" select="$ed_name1,'right'" separator="-"/>
 					<xsl:apply-templates mode="#current"> </xsl:apply-templates>
 				</xsl:element>
 			</xsl:when>
@@ -42,7 +42,7 @@
 
 	<xsl:template match="tei:ab" mode="facs" priority="2">
 		<xsl:element name="span">
-			<xsl:attribute name="class">facs-<xsl:value-of select="name()"/></xsl:attribute>
+			<xsl:attribute name="class" select="$ed_name1, name()"/>
 			<xsl:apply-templates mode="#current"> </xsl:apply-templates>
 		</xsl:element>
 	</xsl:template>
