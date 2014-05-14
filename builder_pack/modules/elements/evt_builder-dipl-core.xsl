@@ -21,7 +21,7 @@
 	<!-- P Paragraphs -->
 	<xsl:template match="tei:p" mode="dipl">
 		<xsl:element name="span">
-			<xsl:attribute name="class"><xsl:value-of>dipl-<xsl:value-of select="name()"/></xsl:value-of></xsl:attribute>
+			<xsl:attribute name="class" select="$ed_name2,name()" separator="-"/>
 			<xsl:apply-templates mode="#current"> </xsl:apply-templates>
 		</xsl:element>
 	</xsl:template>
@@ -100,15 +100,15 @@
 					<xsl:choose>
 						<!-- IT: Questo è per la prima parte di CHOICE che contine un el REG, la parte che dovrà contenere la tooltip -->
 						<xsl:when test="@part and boolean(./ancestor::node()[parent::node()[name()=$start_split]]//preceding-sibling::node()[not(self::lb)][1]//tei:choice[@id=$choiceId and not(tei:reg)])"><xsl:element name="span">
-							<xsl:attribute name="class"><xsl:value-of>dipl-choice_popup</xsl:value-of></xsl:attribute>
+							<xsl:attribute name="class" select="$ed_name2,'choice_popup'" separator="-"/>
 							<xsl:if test="@id">
 								<xsl:variable name="vApos">'</xsl:variable>
-								<xsl:attribute name="class"><xsl:value-of>dipl-choice_popup </xsl:value-of> <xsl:value-of select="@id"/></xsl:attribute>
+								<xsl:attribute name="class" select="$ed_name2,'-choice_popup ',@id" separator=""/>
 								<xsl:attribute name="onmouseover" select="'overChoice(',$vApos,@id,$vApos,')'" separator=""/>
 								<xsl:attribute name="onmouseout" select="'outChoice(',$vApos,@id,$vApos,')'" separator=""/>
 							</xsl:if>
 							<xsl:element name="span">
-								<xsl:attribute name="class" select="'dipl-orig'"></xsl:attribute>
+								<xsl:attribute name="class" select="$ed_name2,'orig'" separator="'-'"/>
 								<xsl:apply-templates select="orig/ancestor::node()[parent::node()[name()=$start_split]]/preceding-sibling::node()[not(self::lb)][position() lt 2]//tei:choice[@id=$choiceId]//tei:orig/node(), 
 									orig/ancestor::node()[parent::node()[name()=$start_split]]//tei:choice[@id=$choiceId]//tei:orig/node(),
 									orig/ancestor::node()[parent::node()[name()=$start_split]]/following-sibling::node()[not(self::lb)][position() lt 3]//tei:choice[@id=$choiceId]//tei:orig/node()"
@@ -121,10 +121,10 @@
 						<!-- IT: Questo è per le altre parti, che dovranno contenere solo REG -->
 						<xsl:otherwise>
 							<xsl:element name="span">
-								<xsl:attribute name="class"><xsl:value-of>dipl-choice_popup</xsl:value-of></xsl:attribute>
+								<xsl:attribute name="class" select="$ed_name2,'choice_popup'" separator="-"/>
 								<xsl:if test="@id">
 									<xsl:variable name="vApos">'</xsl:variable>
-									<xsl:attribute name="class"><xsl:value-of>dipl-choice_popup </xsl:value-of> <xsl:value-of select="@id"/></xsl:attribute>
+									<xsl:attribute name="class" select="$ed_name2,'-choice_popup ',@id" separator=""/>
 									<xsl:attribute name="onmouseover" select="'overChoice(',$vApos,@id,$vApos,')'" separator=""/>
 									<xsl:attribute name="onmouseout" select="'outChoice(',$vApos,@id,$vApos,')'" separator=""/>
 								</xsl:if>
@@ -139,12 +139,10 @@
 				<xsl:choose>
 					<xsl:when test="tei:sic">
 						<xsl:element name="span">
-							<xsl:attribute name="class">
-								<xsl:value-of>dipl-choice_popup_corr</xsl:value-of>
-							</xsl:attribute>
+							<xsl:attribute name="class" select="$ed_name2,'choice_popup_corr'" separator="-"/>
 							<xsl:if test="tei:corr">
 								<xsl:element name="span">
-									<xsl:attribute name="class" select="'dipl-corr'"/>
+									<xsl:attribute name="class" select="$ed_name2,'corr'" separator="-"/>
 									<!--<xsl:element name="span"><xsl:attribute name="class" select="'dipl-corr-resp'"/>
 										<xsl:value-of select="tei:corr/@resp"/>
 									</xsl:element><xsl:text>&#xA0;</xsl:text>-->
@@ -153,7 +151,7 @@
 								</xsl:element>
 							</xsl:if>
 							<xsl:element name="span">
-								<xsl:attribute name="class" select="'dipl-sic'"></xsl:attribute>
+								<xsl:attribute name="class" select="$ed_name2,'sic'" separator="-"/>
 								<xsl:apply-templates select="tei:sic[not(child::node())]"/>
 								<xsl:apply-templates select="tei:sic/node()" mode="#current"/>
 							</xsl:element>
@@ -161,7 +159,7 @@
 						
 					</xsl:when>
 					<xsl:when test="tei:expan">
-						<xsl:apply-templates select="tei:expan" mode="#current"> </xsl:apply-templates>
+						<xsl:apply-templates select="tei:expan" mode="#current"/> 
 					</xsl:when>
 					<xsl:when test="tei:reg">
 						<xsl:choose>
@@ -170,9 +168,7 @@
 							<xsl:when test="tei:reg[not(descendant::tei:pc)][normalize-space()] or
 										   (tei:reg[descendant::tei:pc] and tei:reg/node()[not(self::tei:pc)]/normalize-space())">
 								<xsl:element name="span">
-									<xsl:attribute name="class">
-										<xsl:value-of>dipl-choice_popup</xsl:value-of>
-									</xsl:attribute>
+									<xsl:attribute name="class" select="$ed_name2,'choice_popup'" separator="-"/>
 									<xsl:if test="tei:orig"><xsl:apply-templates select="tei:orig" mode="#current"/>
 										<xsl:sequence select="' '"/><!--important--></xsl:if>
 									<xsl:apply-templates select="tei:reg" mode="#current"> </xsl:apply-templates>
@@ -196,44 +192,35 @@
 	<!-- SUBST substitution -->
 	<xsl:template match="tei:subst" mode="dipl" priority="3">
 		<xsl:element name="span">
-			<xsl:attribute name="class">
-				<xsl:value-of>dipl-<xsl:value-of select="name()"/></xsl:value-of>
-			</xsl:attribute>
+			<xsl:attribute name="class" select="$ed_name2,name()" separator="-"/>
 			<xsl:apply-templates select="tei:del" mode="#current"></xsl:apply-templates>|<xsl:apply-templates select="tei:add" mode="#current"></xsl:apply-templates>|</xsl:element>
 	</xsl:template>
 	
 	<!-- ADD Addition -->
 	<xsl:template match="tei:add" mode="dipl" priority="2">
 		<xsl:element name="span">
-			<xsl:attribute name="class">
-				<xsl:value-of>dipl-<xsl:value-of select="name()"/></xsl:value-of>
-			</xsl:attribute>
+			<xsl:attribute name="class" select="$ed_name2,name()" separator="-"/>
 			<xsl:choose>
 				<xsl:when test="ancestor::orig">
 					<xsl:element name="span">
-						<xsl:attribute name="class">
-							<xsl:value-of>dipl-<xsl:value-of select="name()"/></xsl:value-of>
-							<xsl:if test="@place"><xsl:value-of> dipl-<xsl:value-of select="@place"/></xsl:value-of></xsl:if>
-						</xsl:attribute>
-						<xsl:apply-templates mode="#current"> </xsl:apply-templates>
+						<!-- if @place then "ed_name-add ed_name-@place" else "ed_name-add" -->
+						<xsl:attribute name="class" select="if(@place) then($ed_name2,concat(name(),' ',$ed_name2),@place) else($ed_name2,name())" separator="-"/>
+						<xsl:apply-templates mode="#current"/>
 					</xsl:element>
 				</xsl:when>
 				<xsl:otherwise>
 					<xsl:choose>
 						<xsl:when test="@place='sup'">\<xsl:element name="span">
-							<xsl:attribute name="class">
-								<xsl:value-of>dipl-<xsl:value-of select="@place"/></xsl:value-of>
-							</xsl:attribute>
-							<xsl:apply-templates mode="#current"> </xsl:apply-templates>
+							<xsl:attribute name="class" select="$ed_name2,concat(name(),' ',$ed_name2),@place" separator="-"/>
+							<xsl:apply-templates mode="#current"/> 
 						</xsl:element>/</xsl:when>
 						<xsl:when test="@place='sub'">/<xsl:element name="span">
-							<xsl:attribute name="class">
-								<xsl:value-of>dipl-<xsl:value-of select="@place"/></xsl:value-of>
-							</xsl:attribute>
-							<xsl:apply-templates mode="#current"> </xsl:apply-templates>
+							<xsl:attribute name="class" select="$ed_name2,concat(name(),' ',$ed_name2),@place" separator="-"/>
+							<xsl:apply-templates mode="#current"/> 
 						</xsl:element>\</xsl:when>
 						<xsl:otherwise>
-							<xsl:apply-templates mode="#current"> </xsl:apply-templates>
+							<xsl:attribute name="class" select="$ed_name2,name()" separator="-"/>
+							<xsl:apply-templates mode="#current"/>
 						</xsl:otherwise>
 					</xsl:choose>
 				</xsl:otherwise>
@@ -251,9 +238,7 @@
 	-->
 	<xsl:template match="tei:expan|tei:damage|tei:ex|tei:corr|tei:reg|tei:orig|tei:abbr" mode="dipl">
 		<xsl:element name="span">
-			<xsl:attribute name="class">
-				<xsl:value-of>dipl-<xsl:value-of select="name()"/></xsl:value-of>
-			</xsl:attribute>
+			<xsl:attribute name="class" select="$ed_name2,name()" separator="-"/>
 			<xsl:apply-templates mode="#current"/> 
 		</xsl:element>
 	</xsl:template>
@@ -265,27 +250,16 @@
 	<!-- DEL Deletions -->
 	<xsl:template match="tei:del" mode="dipl">
 		<xsl:element name="span">
-			<xsl:attribute name="class">
-				<xsl:value-of>dipl-<xsl:value-of select="name()"/></xsl:value-of>
-			</xsl:attribute>[[<xsl:apply-templates mode="#current"/>]]</xsl:element>
+			<xsl:attribute name="class" select="$ed_name2,name()" separator="-"/>[[<xsl:apply-templates mode="#current"/>]]</xsl:element>
 	</xsl:template>
 	
 	<!-- HI Highlighted text -->
 	<xsl:template match="tei:hi" mode="dipl">
-		<xsl:choose>
-			<xsl:when test="@rend='red'">
-				<xsl:element name="span">
-					<xsl:attribute name="class"><xsl:value-of>dipl-<xsl:value-of select="@rend"/></xsl:value-of></xsl:attribute>
-					<xsl:apply-templates mode="#current"> </xsl:apply-templates>
-				</xsl:element>
-			</xsl:when>
-			<xsl:otherwise>
-				<xsl:element name="span">
-					<xsl:attribute name="class">dipl-hi-<xsl:value-of select="translate(@rend, '.', '_')"/></xsl:attribute>
-					<xsl:apply-templates mode="#current"> </xsl:apply-templates>
-				</xsl:element>
-			</xsl:otherwise>
-		</xsl:choose>
+		<xsl:element name="span">
+			<!-- Aggiungi il valore di @rend alla classe. Se in @rend è presente un '.' viene sostituito con un '_' -->
+			<xsl:attribute name="class" select="$ed_name2,name(),translate(@rend, '.', '_')" separator="-"/>
+			<xsl:apply-templates mode="#current"/> 
+		</xsl:element>
 	</xsl:template>
 	
 </xsl:stylesheet>

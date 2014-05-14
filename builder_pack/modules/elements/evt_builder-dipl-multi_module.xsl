@@ -22,19 +22,19 @@
 		<xsl:choose>
 			<xsl:when test="@place='top-middle'">
 				<xsl:element name="span">
-					<xsl:attribute name="class">dipl-center</xsl:attribute>
-					<xsl:apply-templates mode="#current"> </xsl:apply-templates>
+					<xsl:attribute name="class" select="$ed_name2,'center'" separator="-"/>
+					<xsl:apply-templates mode="#current"/> 
 				</xsl:element>
 			</xsl:when>
 			<xsl:when test="@place='top-right'">
 				<xsl:element name="span">
-					<xsl:attribute name="class">dipl-right</xsl:attribute>
-					<xsl:apply-templates mode="#current"> </xsl:apply-templates>
+					<xsl:attribute name="class" select="$ed_name2,'right'" separator="-"/>
+					<xsl:apply-templates mode="#current"/> 
 				</xsl:element>
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:element name="span">
-					<xsl:apply-templates mode="#current"> </xsl:apply-templates>
+					<xsl:apply-templates mode="#current"/> 
 				</xsl:element>
 			</xsl:otherwise>
 		</xsl:choose>
@@ -42,8 +42,8 @@
 	
 	<xsl:template match="tei:ab" mode="dipl" priority="2">
 		<xsl:element name="span">
-			<xsl:attribute name="class">dipl-<xsl:value-of select="name()"/></xsl:attribute>
-			<xsl:apply-templates mode="#current"> </xsl:apply-templates>
+			<xsl:attribute name="class" select="$ed_name2,name()" separator="-"/>
+			<xsl:apply-templates mode="#current"/> 
 		</xsl:element>
 	</xsl:template>
 
