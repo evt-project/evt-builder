@@ -1096,6 +1096,31 @@ footer{
     #cursor:not-allowed;
 }
 
+.likeInactive i, .likeInactive span{
+	text-shadow:none;	
+	color: #786E64;
+	-moz-box-shadow:none;
+	-webkit-box-shadow:none;
+	-o-box-shadow:none;
+	-khtml-box-shadow:none;
+	-ms-box-shadow:none;
+    box-shadow:none;
+    text-shadow:none !important;
+}
+
+.likeInactive:hover, .likeInactive{
+	color: #786E64;
+	cursor: default;
+	-moz-box-shadow:none;
+	-webkit-box-shadow:none;
+	-o-box-shadow:none;
+	-khtml-box-shadow:none;
+	-ms-box-shadow:none;
+    box-shadow:none;
+    background: #F5EAD4;
+    cursor:pointer;
+}
+
 #radio_edition, #radio_edition-add{
 	position: absolute;
 	right: 225px;

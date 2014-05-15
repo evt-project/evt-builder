@@ -76,11 +76,14 @@ function magOn() {
 		UnInitialize(); //Add by JK for ITL
 		$('#switchITL i').removeClass('fa fa-chain').addClass('fa fa-chain-broken');
 		$('#switchITL').removeClass('active'); //Add by CDP
+		if($('#switchITL').hasClass('likeInactive')) disableITLbutton();
+
 
 		/*IT: Se gli HotSpot sono attivi, li disattivo*/
 		UnInitializeHS(); //Add by JK for HS
 		$('#switchHS i').removeClass('fa fa-dot-circle-o').addClass('fa fa-circle-o');
-		$('#switchHS').removeClass('active')
+		$('#switchHS').removeClass('active');
+		if($('#switchHS').hasClass('likeInactive')) disableHSbutton();
 
 		/*IT: rendo visibile il div del magnifier e invisibile quello dello zoom*/
 		$("#mag_image_elem").fadeIn();
@@ -123,27 +126,33 @@ function magOn() {
 }
 
 function disableITLbutton() {
-	//document.getElementById("switchITL").setAttribute('src','images/ITLdis.png');//Add by JK for ITL
+	if($('#switchITL').hasClass('likeInactive')) $('#switchITL').removeClass('likeInactive');
 	$('#switchITL').addClass('inactive'); //Add by CDP for FA
 	$('#switchITL').removeAttr("onclick");
+	$('#switchHS').attr('title', 'Image-Text link non disponibile');
 	//$('#switchITL i').removeClass('fa-chain').addClass('fa-chain-broken'); //Add by CDP for FA
 }
 
 function enableITLbutton() {
-	$('#switchITL').removeClass('inactive');
+	if($('#switchITL').hasClass('inactive')) $('#switchITL').removeClass('inactive');
+	if($('#switchITL').hasClass('likeInactive')) $('#switchITL').removeClass('likeInactive');
 	$('#switchITL').attr('onclick', 'switchIMT()');
+	$('#switchHS').removeAttr('title').attr('title', 'Image-Text link');
 }
 
 function disableHSbutton() {
-	//document.getElementById("switchITL").setAttribute('src','images/ITLdis.png');//Add by JK for ITL
+	if($('#switchHS').hasClass('likeInactive')) $('#switchHS').removeClass('likeInactive');
 	$('#switchHS').addClass('inactive'); //Add by CDP for FA
-	$('#switchHS').removeAttr("onclick");
+	$('#switchHS').removeAttr('onclick');
+	$('#switchHS').attr('title', 'Hot spot non disponibili');
 	//$('#switchHS i').removeClass('fa fa-dot-circle-o').addClass('fa fa-dot-circle-o'); //Add by CDP for FA
 }
 
 function enableHSbutton() {
-	$('#switchHS').removeClass('inactive');
+	if($('#switchHS').hasClass('inactive')) $('#switchHS').removeClass('inactive');
+	if($('#switchHS').hasClass('likeInactive')) $('#switchHS').removeClass('likeInactive');
 	$('#switchHS').attr('onclick', 'switchHS()');
+	$('#switchHS').removeAttr('title').attr('title', 'Hot spot');
 }
 
 /*function zoomOn(){
