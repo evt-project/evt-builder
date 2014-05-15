@@ -284,7 +284,7 @@ $(function() {
 						UnInitialize(); //Add by JK for ITL
 						UnInitializeHS(); //Add by JK for HS
 						gotopage(current_page, "none");
-						chooseZoomMag(); // Add by JK for Mag
+						chooseZoomMag(); // Add by JK for Mag						
 					} else{
 						//alert(!checkdd);
 						if ($("#imgd_link").attr("class") !== "current_mode"){
@@ -324,24 +324,24 @@ $(function() {
 		$(".main_pp_select .label_selected").text(pp_val).trigger("change");
 		$('#text_elem').load("data/output_data/"+edition+"/page_"+pp_val+"_"+edition+".html #text_frame", function(){
 			//IT: controlla se la pagine ha gli elementi necessari allo strumento ITL
-			if ($("#text .Area").length >0){
+			if ($('#text_elem .Annotation').length){
 				// areaInThisPage = true;
-				if($('#switchITL').hasClass('inactive')){
+				if($('#switchITL').hasClass('inactive') || $('#switchITL').hasClass('likeInactive')){
 					enableITLbutton();
 				}
 			} else {
-				//areaInThisPage = false; 
-				disableITLbutton();
+				if($('#switchITL i ').hasClass('fa-circle-o')) disableITLbutton();
+			     else $('#switchITL').addClass('likeInactive');
 			}
 			//IT: controlla se la pagine ha gli elementi necessari allo strumento HS
-			if ($("#text .AreaHS").length >0){
+			if ($('#text_elem .Annotation').length){
 				//areaHSInThisPage = true;
-				if($('#switchHS').hasClass('inactive')){
+				if($('#switchHS').hasClass('inactive') || $('#switchHS').hasClass('likeInactive')){
 					enableHSbutton();
 				}
 			} else {
-				//areaHSInThisPage = false; 
-				disableHSbutton();
+			     if($('#switchHS i ').hasClass('fa-circle-o')) disableHSbutton();
+			     else $('#switchHS').addClass('likeInactive');
 			}
 		});
 		

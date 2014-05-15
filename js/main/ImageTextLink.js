@@ -477,16 +477,20 @@ function switchIMT(){
 	   if ($('#switchHS i ').hasClass('fa-dot-circle-o')){
 	       $('#switchHS i ').removeClass('fa-dot-circle-o').addClass('fa-circle-o'); //Add for FA
 	       $('#switchHS').removeClass('active'); //Add for FA
+	       if($('#switchHS').hasClass('likeInactive')) disableHSbutton();
+	        
 	   }
        Initialize();
        $('#switchITL').addClass('active'); //Add by CDP
     }
 	else {
+	   if($('#switchITL').hasClass('likeInactive')) disableITLbutton();
 	   UnInitialize();
        $('#switchITL i ').removeClass('fa-chain').addClass('fa-chain-broken');//Add by CDP for FA
        $('#switchITL').removeClass('active'); //Add by CDP
 	}
 }
+
 
 /*HOT SPOT*/
 function InitializeHS(){
@@ -703,8 +707,7 @@ function moveAreasHS(){
 }
 
 function UnInitializeHS(keep){
-	if (HSon == true){
-    //alert("UnInitializeHS");
+	if (HSon == true || $('#switchHS').hasClass('likeInactive')){
 	keep = keep | false;
 	
 	if (keep){
@@ -736,7 +739,7 @@ function UnInitializeHS(keep){
     }
     
     AreasHS = [];
-    Anns = [];
+    AnnsHS = [];
 	/*AnnMenuItems = [];*/
 	
 	HeightOffsetHS=0;
@@ -800,12 +803,14 @@ function switchHS(){
 	   }
 	   if ($('#switchITL i ').hasClass('fa-chain')){
 	       $('#switchITL i ').removeClass('fa-chain').addClass('fa-chain-broken');//Add by CDP for FA
-           $('#switchITL').removeClass('active'); //Add by CDP	       
+           $('#switchITL').removeClass('active'); //Add by CDP
+           if($('#switchITL').hasClass('likeInactive')) disableITLbutton();
 	   }
 	   InitializeHS();
-	   $('#switchHS').addClass('active');
+	   //$('#switchHS').addClass('active');
     }
 	else {
+       if($('#switchHS').hasClass('likeInactive')) disableHSbutton();
 	   UnInitializeHS();
 	   $('#switchHS i ').removeClass('fa fa-dot-circle-o').addClass('fa fa-circle-o'); //Add for FA
 	   $('#switchHS').removeClass('active'); //Add for FA
