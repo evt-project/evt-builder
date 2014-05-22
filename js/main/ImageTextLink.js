@@ -470,15 +470,17 @@ function moveAreas(){
 
 function switchIMT(){
 	if (ITLon == false){
-	   if ((magnifierON==true)&&(bigImage==true)){magOn();}
-	   if (HSon){
-	       UnInitializeHS();
+	   //if ((magnifierON==true)&&(bigImage==true)){magOn();}
+	   if (magnifierON){magOn();}
+	   if($('#switchMag').hasClass('likeInactive')){
+	       $('#switchMag').removeAttr('onclick').removeClass('likeInactive').addClass('inactive');
+	       $('#switchMag i').removeClass('fa fa-search-plus').addClass('fa fa-search');
 	   }
+	   if (HSon){UnInitializeHS();}
 	   if ($('#switchHS i ').hasClass('fa-dot-circle-o')){
 	       $('#switchHS i ').removeClass('fa-dot-circle-o').addClass('fa-circle-o'); //Add for FA
 	       $('#switchHS').removeClass('active'); //Add for FA
 	       if($('#switchHS').hasClass('likeInactive')) disableHSbutton();
-	        
 	   }
        Initialize();
        $('#switchITL').addClass('active'); //Add by CDP
@@ -797,10 +799,13 @@ function DeselectHS(){
 
 function switchHS(){
 	if (HSon == false){
-	   if ((magnifierON==true)&&(bigImage==true)){magOn();}
-	   if(ITLon){
-	       UnInitialize();
+	   //if ((magnifierON==true)&&(bigImage==true)){magOn();}
+	   if (magnifierON){magOn();}
+   	   if($('#switchMag').hasClass('likeInactive')){
+	       $('#switchMag').removeAttr('onclick').removeClass('likeInactive').addClass('inactive');
+	       $('#switchMag i').removeClass('fa fa-search-plus').addClass('fa fa-search');
 	   }
+	   if(ITLon){UnInitialize();}
 	   if ($('#switchITL i ').hasClass('fa-chain')){
 	       $('#switchITL i ').removeClass('fa-chain').addClass('fa-chain-broken');//Add by CDP for FA
            $('#switchITL').removeClass('active'); //Add by CDP

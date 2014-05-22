@@ -38,15 +38,24 @@ $( function() {
 		                                    $.ajax({
                                                     url: current_url,
                                                     success: function(data){
-                                                        if ($("#switchMag").attr("title")){$("#switchMag").removeAttr("title").removeClass('inactive'); $("#switchMag").attr("onclick", "magOn()");}
-                                                        bigImage=true; 
                                                         magnifierReady();
                                                         chooseZoomMag();
+                                                        if ($("#switchMag").attr("title")){
+                                                            $("#switchMag").removeAttr("title");
+                                                            if($("#switchMag").hasClass('inactive')) $("#switchMag").removeClass('inactive');
+                                                            if($("#switchMag").hasClass('likeInactive')) $("#switchMag").removeClass('likeInactive');
+                                                            $("#switchMag").attr("onclick", "magOn()");
+                                                        }
+                                                        //bigImage=true; 
+                                                        
                                                     },
                                                     error: function(data){
                                                         $("#switchMag").attr("title", "no big image");
-                                                        $("#switchMag").removeAttr("onclick").removeClass('active').addClass('inactive');
-                                                        bigImage=false;
+                                                        $("#switchMag").removeClass('active');
+                                                        if($("#switchMag i").hasClass('fa-search-plus')){$("#switchMag").addClass('likeInactive');}
+                                                        else{$("#switchMag").removeAttr("onclick").addClass('inactive');}
+                                                        //bigImage=false;
+                                                        if (magnifierON) {magnifierON=false;}
                                                         //if ($('#switchITL').hasClass('inactive')){$('#switchITL i ').removeClass('fa-chain').addClass('fa-chain-broken');}//Add by JK for ITL
                                                         //if ($("#switchHS").hasClass('inactive')){$("#switchHS i").removeClass('fa-chain').addClass('fa-chain-broken');}//Add by JK for HS
                                                         chooseZoomMag();

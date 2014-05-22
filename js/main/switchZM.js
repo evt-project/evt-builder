@@ -6,7 +6,7 @@
  **/
 
 var magnifierON = false;
-var bigImage;
+//var bigImage;
 
 function magnifierReady() {
 	$("#mag_image_elem").empty();
@@ -72,31 +72,35 @@ function setMagHeight() {;
 
 function magOn() {
 	if (magnifierON == false) {
-		/*IT: Se il collegamento testo immagine è attivo, lo disattivo*/
-		UnInitialize(); //Add by JK for ITL
-		$('#switchITL i').removeClass('fa fa-chain').addClass('fa fa-chain-broken');
-		$('#switchITL').removeClass('active'); //Add by CDP
-		if($('#switchITL').hasClass('likeInactive')) disableITLbutton();
-
-
-		/*IT: Se gli HotSpot sono attivi, li disattivo*/
-		UnInitializeHS(); //Add by JK for HS
-		$('#switchHS i').removeClass('fa fa-dot-circle-o').addClass('fa fa-circle-o');
-		$('#switchHS').removeClass('active');
-		if($('#switchHS').hasClass('likeInactive')) disableHSbutton();
-
-		/*IT: rendo visibile il div del magnifier e invisibile quello dello zoom*/
-		$("#mag_image_elem").fadeIn();
-		$("#image_elem, #image_tool, #image_fade").css({
-			'display': 'none'
-		});
-		//$('#image_tool').addClass('menuClosed'); //Add by CDP per gestire la scomparsa del menu
-		//document.getElementById("switchZoom").setAttribute('src','images/zoomOff.png');
-		//document.getElementById("switchMag").setAttribute('src','images/mag.png');
-		$('#switchMag').addClass('active'); //Add by CDP for FA
-		$('#switchMag i').removeClass('fa fa-search').addClass('fa fa-search-plus');
-		//$('#switchITL').removeClass('inactive');//Add by CDP for FA
-		magnifierON = true;
+	   if($('#switchMag').hasClass('likeInactive')){
+	       $('#switchMag').removeAttr('onclick').removeClass('likeInactive').addClass('inactive');
+	       $('#switchMag i').removeClass('fa fa-search-plus').addClass('fa fa-search');
+	   }
+	   else{
+      		/*IT: Se il collegamento testo immagine è attivo, lo disattivo*/
+      		UnInitialize(); //Add by JK for ITL
+      		$('#switchITL i').removeClass('fa fa-chain').addClass('fa fa-chain-broken');
+      		$('#switchITL').removeClass('active'); //Add by CDP
+      		if($('#switchITL').hasClass('likeInactive')) disableITLbutton();
+      
+      		/*IT: Se gli HotSpot sono attivi, li disattivo*/
+      		UnInitializeHS(); //Add by JK for HS
+      		$('#switchHS i').removeClass('fa fa-dot-circle-o').addClass('fa fa-circle-o');
+      		$('#switchHS').removeClass('active');
+      		if($('#switchHS').hasClass('likeInactive')) disableHSbutton();
+      
+      		/*IT: rendo visibile il div del magnifier e invisibile quello dello zoom*/
+      		$("#mag_image_elem").fadeIn();
+      		$("#image_elem, #image_tool, #image_fade").css({
+      			'display': 'none'
+      		});
+      		//$('#image_tool').addClass('menuClosed'); //Add by CDP per gestire la scomparsa del menu
+      		$('#switchMag').addClass('active'); //Add by CDP for FA
+      		$('#switchMag i').removeClass('fa fa-search').addClass('fa fa-search-plus');
+      		//$('#switchITL').removeClass('inactive');//Add by CDP for FA
+      		
+      		magnifierON = true;
+      	}
 	} else {
 		/*IT: rendo visibile il div dello dello zoom e invisibile quello del magnifier*/
 		$("#image_elem, #image_fade").css({
@@ -108,18 +112,8 @@ function magOn() {
 			"overflow": "hidden"
 		}); //Add by CDP per gestire la scomparsa del menu
 		$("#mag_image_elem").fadeOut();
-		//  document.getElementById("switchZoom").setAttribute('src','images/zoom.png');
-		//document.getElementById("switchMag").setAttribute('src','images/magOff.png');
 		$('#switchMag').removeClass('active'); //Add by CDP for FA
 		$('#switchMag i').removeClass('fa fa-search-plus').addClass('fa fa-search');
-
-		//@Julia, sicura che questo passaggio serva? O.O
-		if ($("#text .Area").length > 0) {
-			enableITLbutton();
-		}
-		if ($("#text .AreaHS").length > 0) {
-			enableHSbutton();
-		}
 
 		magnifierON = false;
 	}
@@ -155,22 +149,9 @@ function enableHSbutton() {
 	$('#switchHS').removeAttr('title').attr('title', 'Hot spot');
 }
 
-/*function zoomOn(){
-    if (magnifierON==true){
-        $("#image_elem").css({"display" : "block",    "overflow": "hidden" });
-        document.getElementById("mag_image_elem").setAttribute('style', 'display:none;');
-        document.getElementById("switchZoom").setAttribute('src','images/zoom.png');
-        //document.getElementById("switchMag").setAttribute('src','images/magOff.png');
-        $('#switchMag').removeClass('active');//Add by CDP for FA
-        $("#image_elem, #image_tool, #image_fade").show();
-        //document.getElementById("switchITL").setAttribute('src','images/ITLoff.png');//Add by JK for ITL
-        $('#switchITL').removeClass('inactive'); //Add by CDP for FA
-        magnifierON = false;
-    }
-}*/
-
 function chooseZoomMag() {
-	if ((magnifierON == true) && (bigImage == true)) {
+	//if ((magnifierON == true) && (bigImage == true)) 
+	if (magnifierON) {
 		/*IT: rendo visibile il div del magnifier e invisibile quello dello zoom*/
 		$("#image_elem, #image_tool, #image_fade, #thumb_cont").css('display', 'none');
 		$("#mag_image_elem").css('display', 'none').fadeIn(1000);
@@ -178,7 +159,9 @@ function chooseZoomMag() {
 		//document.getElementById("switchMag").setAttribute('src','images/mag.png');
 		$('#switchMag').removeClass('inactive'); //Add by CDP for FA
 		//document.getElementById("#image_tool").setAttribute('style', 'display:none;');
-	} else if ((magnifierON == false) || ((magnifierON == true) && (bigImage == false))) {
+	}
+	//else if ((magnifierON == false) || ((magnifierON == true) && (bigImage == false))) {
+	else{
 		/*IT: rendo visibile il div dello dello zoom e invisibile quello del magnifier*/
 		magnifierON == false;
 		$("#mag_image_elem, #thumb_cont").css({
@@ -192,7 +175,6 @@ function chooseZoomMag() {
 			"display": "block",
 			"overflow": "hidden"
 		}); //Add by CDP per gestire la scomparsa del menu
-		//$("#switchMag").attr('src','images/magOff.png');
 	}
 }
 

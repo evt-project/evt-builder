@@ -283,8 +283,10 @@ $(function() {
 					if(hash && (checkpp !== "") && ($("#imgd_link").attr("class") !== "current_mode")){
 						UnInitialize(); //Add by JK for ITL
 						UnInitializeHS(); //Add by JK for HS
+						$("#mag_image_elem").empty(); // Add by JK for Mag
+						if($('#switchMag i').hasClass('fa-search-plus')){magnifierON=true;}
 						gotopage(current_page, "none");
-						chooseZoomMag(); // Add by JK for Mag						
+						//chooseZoomMag(); // Add by JK for Mag				
 					} else{
 						//alert(!checkdd);
 						if ($("#imgd_link").attr("class") !== "current_mode"){
@@ -317,15 +319,13 @@ $(function() {
 
 	// IT: Gestisce il cambio pagina e gli eventi correlati
 	function gotopage(pp_val, state){
-		var edition, edition_add; //, areaInThisPage, areaHSInThisPage;
-
+		var edition, edition_add; 
 		//N.B. i caricamenti delle immagini si attivano grazie agli eventi change dei label_selected in iviewer_config
 		edition = $("#span_ee_select .main_ee_select .label_selected").text().toLowerCase();
 		$(".main_pp_select .label_selected").text(pp_val).trigger("change");
 		$('#text_elem').load("data/output_data/"+edition+"/page_"+pp_val+"_"+edition+".html #text_frame", function(){
 			//IT: controlla se la pagine ha gli elementi necessari allo strumento ITL
 			if ($('#text_elem .Area').length){
-				// areaInThisPage = true;
 				if($('#switchITL').hasClass('inactive') || $('#switchITL').hasClass('likeInactive')){
 					enableITLbutton();
 				}
@@ -335,7 +335,6 @@ $(function() {
 			}
 			//IT: controlla se la pagine ha gli elementi necessari allo strumento HS
 			if ($('#text_elem .Annotation').length){
-				//areaHSInThisPage = true;
 				if($('#switchHS').hasClass('inactive') || $('#switchHS').hasClass('likeInactive')){
 					enableHSbutton();
 				}
