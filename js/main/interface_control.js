@@ -324,7 +324,7 @@ $(function() {
 		$(".main_pp_select .label_selected").text(pp_val).trigger("change");
 		$('#text_elem').load("data/output_data/"+edition+"/page_"+pp_val+"_"+edition+".html #text_frame", function(){
 			//IT: controlla se la pagine ha gli elementi necessari allo strumento ITL
-			if ($('#text_elem .Annotation').length){
+			if ($('#text_elem .Area').length){
 				// areaInThisPage = true;
 				if($('#switchITL').hasClass('inactive') || $('#switchITL').hasClass('likeInactive')){
 					enableITLbutton();
