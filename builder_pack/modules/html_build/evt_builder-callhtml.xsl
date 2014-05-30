@@ -250,14 +250,31 @@
 									<input id="dimFit" type="hidden" value=""/>
 									<input id="imgTit" type="hidden" value=""/>
 									<div id="thumb_cont">
-										<xsl:for-each select="//tei:pb">
-											<figure class="thumb_single" id="{@n}_small">
-												<img src="data/input_data/images/single/{@n}_small.jpg"/>
-												<figcaption>
-													<xsl:value-of select="@n"/>
-												</figcaption>
-											</figure>
-										</xsl:for-each>
+										<!-- CDP:embedded -->
+										<xsl:choose>
+											<xsl:when test="$root//tei:sourceDoc">
+												<!-- Found the node(s) for embedded transcription-->
+												<xsl:for-each select="//tei:surface">
+													<figure class="thumb_single" id="{@n}_small">
+														<img src="data/input_data/images/single/{@n}_small.jpg"/>
+														<figcaption>
+															<xsl:value-of select="@n"/>
+														</figcaption>
+													</figure>
+												</xsl:for-each>
+											</xsl:when>
+											<xsl:otherwise>
+												<!-- Found no node(s) for embedded transcription-->
+												<xsl:for-each select="//tei:pb">
+													<figure class="thumb_single" id="{@n}_small">
+														<img src="data/input_data/images/single/{@n}_small.jpg"/>
+														<figcaption>
+															<xsl:value-of select="@n"/>
+														</figcaption>
+													</figure>
+												</xsl:for-each>
+											</xsl:otherwise>
+										</xsl:choose>
 									</div>									
 								</div>
 							</div>

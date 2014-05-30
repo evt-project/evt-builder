@@ -55,4 +55,81 @@
         </xsl:result-document>
     </xsl:template>
     
+    <!-- CDP:embedded -->
+    <xsl:template match="*" mode="structure_generation4embedded">
+        <xsl:result-document method="xml" href="{$filePrefix}/data/output_data/structure.xml" indent="yes">
+            <xml>
+                <editions>
+                    <xsl:for-each select="$edition_array">
+                        <edition><xsl:value-of select="."/></edition>
+                    </xsl:for-each>
+                </editions>
+                <textpage>
+                    <xsl:for-each select="$root//tei:sourceDoc">
+                        <text>
+                            <xsl:attribute name="n" select="@xml:id"></xsl:attribute>
+                            <xsl:for-each select="current()/child::node()">
+                                <xsl:if test="self::tei:surface">
+                                    <pb><xsl:value-of select="@n"></xsl:value-of></pb>    
+                                </xsl:if>
+                                <xsl:if test="self::tei:surfaceGrp">
+                                    <xsl:for-each select="current()/child::node()"><!-- gestisco due livelli di annidamento di <surfaceGrp> -->
+                                        <xsl:if test="self::tei:surface">
+                                            <xsl:for-each select="current()">
+                                                <pb><xsl:value-of select="@n"></xsl:value-of></pb>
+                                            </xsl:for-each>
+                                        </xsl:if>
+                                        <xsl:if test="self::tei:surfaceGrp"><!-- primo livello di annidamento <surfaceGrp> -->
+                                            <xsl:for-each select="current()/child::tei:surface">
+                                                <pb><xsl:value-of select="@n"></xsl:value-of></pb>
+                                            </xsl:for-each>
+                                        </xsl:if>
+                                        
+                                    </xsl:for-each>
+                                </xsl:if>
+                            </xsl:for-each>
+                        </text>
+                    </xsl:for-each>
+                </textpage>
+                <pages>
+                    <xsl:for-each select="$root//tei:sourceDoc">
+                        <xsl:for-each select="child::node()">
+                            <xsl:if test="self::tei:surface">
+                                <xsl:call-template name="surfaceStructure" />
+                            </xsl:if>
+                            <xsl:if test="self::tei:surfaceGrp">
+                                <xsl:for-each select="current()/child::node()"><!-- gestisco due livelli di annidamento di <surfaceGrp> -->
+                                    <xsl:if test="self::tei:surface">
+                                        <xsl:call-template name="surfaceStructure" />
+                                    </xsl:if>
+                                    <xsl:if test="self::tei:surfaceGrp">
+                                        <xsl:for-each select="current()/tei:surface">
+                                            <xsl:call-template name="surfaceStructure" />
+                                        </xsl:for-each>
+                                    </xsl:if>
+                                </xsl:for-each>
+                            </xsl:if>
+                        </xsl:for-each>
+                    </xsl:for-each>
+                </pages>
+            </xml>
+        </xsl:result-document>
+    </xsl:template>
+    
+    <xsl:template name="surfaceStructure">
+        <!-- per gestire i casi in cui la prima pagina è il recto, ovvero quella di destra -->
+        <xsl:if test="(ends-with(@n, 'r')) and not(current()/preceding-sibling::tei:surface[1][ends-with(@n, 'v')])">
+            <pair>
+                <pb><xsl:value-of select="@n" /></pb>
+            </pair>
+        </xsl:if>
+        <xsl:if test="ends-with(@n, 'v')">
+            <pair>
+                <pb><xsl:value-of select="@n"></xsl:value-of></pb>
+                <xsl:if test="current()/following-sibling::tei:surface[1][ends-with(@n, 'r')]">
+                    <pb><xsl:value-of select="current()/following-sibling::tei:surface[1]/@n"></xsl:value-of></pb>
+                </xsl:if>
+            </pair>
+        </xsl:if> 
+    </xsl:template>
 </xsl:stylesheet>
