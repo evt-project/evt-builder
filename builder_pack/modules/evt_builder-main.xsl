@@ -34,9 +34,11 @@
 
 	<xsl:variable name="root" select="/"/>
 	<xsl:template match="/" priority="1">
-		<xsl:choose>
-			<xsl:when test="tei:TEI/tei:sourceDoc">
-				<!-- Found the node(s) for embedded transcription-->
+			<!-- Found the node(s) for embedded transcription-->
+			<!-- 
+			<xsl:choose>
+				<xsl:when test="tei:TEI/tei:sourceDoc">
+				
 				<xsl:apply-templates select="." mode="splitPages4embedded"></xsl:apply-templates>
 				<xsl:apply-templates select="." mode="structure_generation4embedded"></xsl:apply-templates>
 			</xsl:when>
@@ -45,7 +47,16 @@
 				<xsl:apply-templates select="$step0" mode="file4search"></xsl:apply-templates>
 				<xsl:apply-templates select="$step0" mode="structure_generation"></xsl:apply-templates>
 			</xsl:otherwise>
-		</xsl:choose>
+		</xsl:choose>-->
+		<xsl:if test="tei:TEI/tei:sourceDoc">
+			<xsl:apply-templates select="." mode="splitPages4embedded"></xsl:apply-templates>
+		</xsl:if>
+		<xsl:if test="tei:TEI/tei:text">
+			<xsl:apply-templates select="$step0" mode="splitPages"></xsl:apply-templates>
+			<xsl:apply-templates select="$step0" mode="file4search"></xsl:apply-templates>
+		</xsl:if>
+		<xsl:call-template name="index"></xsl:call-template>
+		<xsl:apply-templates select="." mode="structure_generation"></xsl:apply-templates>
 	</xsl:template>
 	
 	<xsl:template name="index">

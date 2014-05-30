@@ -120,7 +120,7 @@
 		</xsl:for-each-group>
 		<!--EN: Calls the template that generates the index -->
 		<!--IT: Chiama il template per la generazione della index -->
-		<xsl:call-template name="index"></xsl:call-template>
+		<!--<xsl:call-template name="index"></xsl:call-template>-->
 	</xsl:template>
 	
 	<!--CDP:embedded -->
@@ -136,12 +136,12 @@
 				<xsl:for-each-group select="current-group()/child::tei:surfaceGrp" group-by="@xml:id"><!-- primo livello di annidamento <surfaceGrp> -->
 					<xsl:call-template name="surfaceGrp" />
 				</xsl:for-each-group>
-				<xsl:call-template name="surfaceGrp" />				
+				<xsl:call-template name="surfaceGrp"/>			
 			</xsl:for-each-group>
 		</xsl:for-each-group>
 		<!--EN: Calls the template that generates the index -->
 		<!--IT: Chiama il template per la generazione della index -->
-		<xsl:call-template name="index"></xsl:call-template>
+		<!--<xsl:call-template name="index"></xsl:call-template>-->
 	</xsl:template>
 	
 	<xsl:template name="surfaceGrp">
