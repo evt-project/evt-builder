@@ -36,17 +36,28 @@
 	<!-- LINE Verse line-->
 	<xsl:template match="tei:line" mode="dipl">
 		<xsl:if test="current()[not((string-length(normalize-space()))= 0)]">
-			<xsl:if test="@n">
-				<xsl:element name="span">
-					<xsl:attribute name="class" select="'dipl-lineN'"/>
-					<xsl:value-of select="if(string-length(@n) &gt; 1) then(@n) else(concat('&#xA0;&#xA0;',@n))"/><xsl:text>&#xA0;&#xA0;</xsl:text>
-				</xsl:element>
-			</xsl:if>
-			<xsl:apply-templates mode="#current"/>
-			<xsl:if test="following-sibling::*[1][self::tei:line]">
-				<xsl:value-of disable-output-escaping="yes">&lt;br/&gt;</xsl:value-of>
-			</xsl:if>
-			<xsl:text> </xsl:text><!--important-->
+			<xsl:element name="span">
+				<!-- Aggiungi il valore di @rend alla classe. Se in @rend è presente un '.' viene sostituito con un '_' -->
+				<xsl:choose>
+					<xsl:when test="@rend">
+						<xsl:attribute name="class" select="$ed_name1, translate(@rend, '.', '_')" separator="-"/>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:attribute name="class" select="$ed_name1"/>
+					</xsl:otherwise>
+				</xsl:choose>	
+				<xsl:if test="@n">
+					<xsl:element name="span">
+						<xsl:attribute name="class" select="'dipl-lineN'"/>
+						<xsl:value-of select="if(string-length(@n) &gt; 1) then(@n) else(concat('&#xA0;&#xA0;',@n))"/><xsl:text>&#xA0;&#xA0;</xsl:text>
+					</xsl:element>
+				</xsl:if>
+				<xsl:apply-templates mode="#current"/>
+				<xsl:if test="following-sibling::*[1][self::tei:line]">
+					<xsl:value-of disable-output-escaping="yes">&lt;br/&gt;</xsl:value-of>
+				</xsl:if>
+				<xsl:text> </xsl:text><!--important-->
+			</xsl:element>
 		</xsl:if>
 	</xsl:template>
 	
