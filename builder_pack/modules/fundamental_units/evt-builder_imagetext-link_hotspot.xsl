@@ -176,21 +176,32 @@
 										</xsl:when>
 										<!-- altrimenti vuol dire che i <line> sono all'interno di <zone> stesso -->
 										<xsl:otherwise>
-											<xsl:variable name="CurrAnnId" select="if(@xml:id) then(@xml:id) else(generate-id())"/>
-											<xsl:element name="span">
-												<xsl:attribute name="style">list-style:none;</xsl:attribute>
-												<xsl:attribute name="class">AnnMenuItem</xsl:attribute>
-												<xsl:attribute name="id">MenuItem_<xsl:value-of select="$CurrAnnId"/></xsl:attribute>
-												<xsl:attribute name="onclick">JumpTo('<xsl:value-of select="$CurrAnnId"/>')</xsl:attribute>
-												<xsl:attribute name="onmouseover">Highlight('<xsl:value-of select="$CurrAnnId"/>')</xsl:attribute>
-												<xsl:attribute name="onmouseout">UnHighlight()</xsl:attribute>
-												<xsl:if test="$edition_level='facs'">
-													<xsl:apply-templates select="current()" mode="facs"></xsl:apply-templates>
-												</xsl:if>
-												<xsl:if test="$edition_level='dipl'">
-													<xsl:apply-templates select="current()" mode="dipl"></xsl:apply-templates>
-												</xsl:if>
-											</xsl:element>	
+											<xsl:choose>
+												<!-- se il figlio di zone è un <graohic> devo trattare zone come HS -->
+												<xsl:when test="current()//tei:graphic">
+													<xsl:call-template name="Area">
+														<xsl:with-param name="suffix" select="'HS'"/>
+													</xsl:call-template>
+												</xsl:when>
+												<!-- altrimenti creo semplicemente il collegamento testo immagine -->
+												<xsl:otherwise>
+													<xsl:variable name="CurrAnnId" select="if(@xml:id) then(@xml:id) else(generate-id())"/>
+													<xsl:element name="span">
+														<xsl:attribute name="style">list-style:none;</xsl:attribute>
+														<xsl:attribute name="class">AnnMenuItem</xsl:attribute>
+														<xsl:attribute name="id">MenuItem_<xsl:value-of select="$CurrAnnId"/></xsl:attribute>
+														<xsl:attribute name="onclick">JumpTo('<xsl:value-of select="$CurrAnnId"/>')</xsl:attribute>
+														<xsl:attribute name="onmouseover">Highlight('<xsl:value-of select="$CurrAnnId"/>')</xsl:attribute>
+														<xsl:attribute name="onmouseout">UnHighlight()</xsl:attribute>
+														<xsl:if test="$edition_level='facs'">
+															<xsl:apply-templates select="current()" mode="facs"></xsl:apply-templates>
+														</xsl:if>
+														<xsl:if test="$edition_level='dipl'">
+															<xsl:apply-templates select="current()" mode="dipl"></xsl:apply-templates>
+														</xsl:if>
+													</xsl:element>
+												</xsl:otherwise>
+											</xsl:choose>
 										</xsl:otherwise>
 									</xsl:choose>
 								</xsl:when>
@@ -214,13 +225,14 @@
 			<xsl:for-each select="current-group()/tei:zone">
 				<!-- EN: Creates a div for area annotations -->
 				<!-- IT: Crea un div per area annotations -->
-				<xsl:variable name="CurrClass"><xsl:value-of select="if(@rendition) then(@rendition) else('Zone')"/></xsl:variable>
+				<xsl:variable name="CurrClass"><xsl:value-of select="if(@rendition) then(@rendition) else ('Zone')"/></xsl:variable>
 				<xsl:choose>
 					<!-- se hotspot allora HS altrimenti quello che facciamo nel line-->
-					<xsl:when test="$CurrClass='HotSpot'">
-						<xsl:variable name="idL" select="@xml:id"/>
+					<xsl:when test="($CurrClass='HotSpot')or(current()//tei:graphic)"><!-- se lo zone ha un figlio <graphic> viene trattato come HS -->
+						<xsl:variable name="idL" select="if(@xml:id) then (@xml:id) else (generate-id())"/>
 						<!-- IT: crea un div areaHS solo se esiste un div corrispondente alla zona corrente -->
-						<xsl:if test="//tei:div[@type='hotspot']/tei:div/translate(@facs, '#', '')=$idL">
+						<xsl:if test="current()/tei:graphic/@url"><xsl:call-template name="embeddedHS"/></xsl:if><!-- se zone ha un figlio <graphic> devo richiamare il template embeddedHS -->
+						<xsl:if test="(//tei:div[@type='hotspot']/tei:div/translate(@facs, '#', '')=$idL) or (current()//tei:graphic/@url)">
 							<xsl:call-template name="Area">
 								<xsl:with-param name="suffix" select="'HS'"/>
 							</xsl:call-template>
@@ -233,46 +245,54 @@
 							<xsl:call-template name="Area"></xsl:call-template>
 						</xsl:if>
 					</xsl:when>
-					
 					<xsl:otherwise>
 					</xsl:otherwise>
 				</xsl:choose>
+				<!-- genero ora gli HS per gli elementi zone interni ad altri zone -->
+				<xsl:for-each select="current()//tei:zone">
+					<xsl:call-template name="embeddedHS"/>
+					<!-- L'HS in questo caso viene generato solo se l'elemento ha figli o se ha un collegamento con un elemento esterno -->
+					<!-- Il testo dei nodi figli o dell'elemento cui risulta collegato diventa il testo nel box dell'HS-->
+					<xsl:if test="(current()[not((string-length(normalize-space()))= 0)])or(concat('#', @xml:id)=following-sibling::tei:line/@facs)">
+						<xsl:call-template name="Area">
+							<xsl:with-param name="suffix" select="'HS'"/>
+						</xsl:call-template>
+					</xsl:if>					
+				</xsl:for-each>
 			</xsl:for-each>
 		</xsl:element>
-		
-		<!-- Now the actual annotation data itself (which will be hidden until called up). -->  
-		<!--<xsl:for-each select="$root//tei:back//tei:div[if(@facs)then(translate(@facs, '#', '')=$root//tei:surface[@xml:id=concat('surf_',$n)]//tei:zone[@rendition='HotSpot']/@xml:id) else(translate(@corresp, '#', '')=$root//tei:surface[@xml:id=concat('surf_',$n)]//tei:zone[@rendition='HotSpot']/@xml:id)]">-->
-			<!-- Find out the id it's linked to, whether it happens to use @facs or @corresp to point to it. -->
-			<!--<xsl:variable name="linkId" select="if(@facs) then(translate(@facs, '#', '')) else(translate(@corresp, '#', ''))"/>
+	</xsl:template>
+	
+	<xsl:template name="embeddedHS">
+		<xsl:variable name="linkId" select="if(@xml:id) then(@xml:id) else(generate-id())"/>
+		<xsl:element name="div">
+			<xsl:attribute name="id">Ann_<xsl:value-of select="$linkId"></xsl:value-of></xsl:attribute>
+			<xsl:attribute name="class">Annotation</xsl:attribute>
 			<xsl:element name="div">
-				<xsl:attribute name="id">Ann_<xsl:value-of select="$linkId"></xsl:value-of></xsl:attribute>
-				<xsl:attribute name="class">Annotation</xsl:attribute>
+				<xsl:attribute name="class">AnnTitlebar</xsl:attribute>
 				<xsl:element name="div">
-					<xsl:attribute name="class">AnnTitlebar</xsl:attribute>
-					<xsl:element name="div">
-						<xsl:attribute name="class">PopupCloser</xsl:attribute>
-						<xsl:attribute name="onclick">HideAnnHS('Ann_<xsl:value-of select="$linkId"></xsl:value-of>')</xsl:attribute>X</xsl:element>
-					<xsl:element name="div">
-						<xsl:attribute name="class">AnnTitle</xsl:attribute>
-						<xsl:attribute name="onmousedown">BeginDragHS(this.parentNode.parentNode, event)</xsl:attribute>-->
-						<!--<xsl:apply-templates select="tei:head"/>-->
-						<!--<xsl:text>   </xsl:text>
-					</xsl:element>
-				</xsl:element>
+					<xsl:attribute name="class">PopupCloser</xsl:attribute>
+					<xsl:attribute name="onclick">HideAnnHS('Ann_<xsl:value-of select="$linkId"></xsl:value-of>')</xsl:attribute>X</xsl:element>
 				<xsl:element name="div">
-					<xsl:attribute name="class">AnnText</xsl:attribute>
-					<xsl:attribute name="onmousedown">doNothingHS(this, event)</xsl:attribute>
-					<xsl:if test="tei:figure/tei:graphic/@url">
-						<img alt="HotSpot_{$linkId}">
-							<xsl:attribute name="src">data/input_data/images/hotspot/<xsl:value-of select="tei:figure/tei:graphic/@url"/></xsl:attribute>
-						</img>
-					</xsl:if>
-					<xsl:for-each select="tei:p">
-						<xsl:apply-templates select="."></xsl:apply-templates>
-					</xsl:for-each>
+					<xsl:attribute name="class">AnnTitle</xsl:attribute>
+					<xsl:attribute name="onmousedown">BeginDragHS(this.parentNode.parentNode, event)</xsl:attribute>
+					<!--<xsl:apply-templates select="tei:head"/>-->
+					<xsl:text>   </xsl:text>
 				</xsl:element>
-			</xsl:element>   
-		</xsl:for-each>-->
+			</xsl:element>
+			<xsl:element name="div">
+				<xsl:attribute name="class">AnnText</xsl:attribute>
+				<xsl:attribute name="onmousedown">doNothingHS(this, event)</xsl:attribute>
+				<xsl:if test="(tei:figure/tei:graphic/@url)or(current()//tei:graphic)">
+					<img alt="HotSpot_{$linkId}">
+						<xsl:attribute name="src">data/input_data/images/hotspot/<xsl:value-of select="if(current()/tei:graphic) then(current()/tei:graphic/@url) else (tei:figure/tei:graphic/@url)"/></xsl:attribute>
+					</img>
+				</xsl:if>
+				<xsl:for-each select="current()">
+					<xsl:apply-templates select="."></xsl:apply-templates>
+				</xsl:for-each>
+			</xsl:element>
+		</xsl:element>   
 	</xsl:template>
 	
 	<xsl:template name="Area">
