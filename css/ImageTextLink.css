@@ -140,6 +140,11 @@ div.AnnText{
 	border: 1px solid #b99562;
     color: #000000;
 }
+/* CDP provvisorio */
+.HighlightedAnnMenuItem span.facs-right, .HighlightedAnnMenuItem span.facs-center, .HighlightedAnnMenuItem span.dipl-right, .HighlightedAnnMenuItem span.dipl-center,
+.SelectedAnnMenuItem span.facs-right, .SelectedAnnMenuItem span.facs-center, .SelectedAnnMenuItem span.dipl-right, .SelectedAnnMenuItem span.dipl-center{
+    background-color: transparent;
+}
 
 div.AreaHS{
     border: 1px solid #4c2f2f;

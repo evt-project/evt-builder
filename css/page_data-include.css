@@ -84,18 +84,30 @@ TR {valign: top}*/
 
 /**EDIZIONE DIPLOMATICA**/
 SPAN.facs-center {
-	margin-left: 0.5cm;
+	/*margin-left: 0.5cm;
 	margin-right: 0.5cm;
 	text-indent: 0.5cm;
 	text-align: center;
-	display: block; }
+	display: block; 
+	*/
+    text-align: center;
+    width: 92%;
+    display: inline-block;
+    background:#FFF;
+}
 
 SPAN.facs-right {
-	margin-left: 0.5cm;
+	/*margin-left: 0.5cm;
 	margin-right: 0.5cm;
 	text-indent: 0.5cm;
 	text-align: right;
-	display: block; }
+	display: block; 
+    */
+    text-align: right;
+    width: 92%;
+    display: inline-block;
+    background:#FFF;
+}
 
 SPAN.facs-lineN {
 	color: grey;
@@ -201,19 +213,31 @@ SPAN.facs-hi-double {
 /**EDIZIONE INTERPRETATIVA**/
 
 SPAN.dipl-center {
-	margin-left: 0.5cm;
+	/*margin-left: 0.5cm;
 	margin-right: 0.5cm;
 	text-indent: 0.5cm;
 	text-align: center;
-	display: block; 
+	display: block;
+	*/
+	/*CDP*/
+	text-align: center;
+    width: 92%;
+    display: inline-block;
+    background:#FFF;
 }
 
 SPAN.dipl-right {
-	margin-left: 0.5cm;
+	/*margin-left: 0.5cm;
 	margin-right: 0.5cm;
 	text-indent: 0.5cm;
 	text-align: right;
-	display: block; 
+	display: block;
+	*/
+	/*CDP*/
+	text-align: right;
+    width: 92%;
+    display: inline-block;
+    background:#FFF; 
 }
 
 SPAN.dipl-lineN {
