@@ -36,7 +36,7 @@
 	<!-- LINE Verse line-->
 	<xsl:template match="tei:line" mode="facs">
 		<xsl:if test="current()[not((string-length(normalize-space()))= 0)]"><!-- Escludo elementi <line> vuoti -->
-			<xsl:element name="span">
+			<xsl:element name="div">
 				<xsl:attribute name="class" select="$ed_name1"/>
 				<xsl:if test="@n">
 					<xsl:element name="span">
@@ -44,11 +44,9 @@
 						<xsl:value-of select="if(string-length(@n) &gt; 1) then(@n) else(concat('&#xA0;&#xA0;',@n))"/><xsl:text>&#xA0;&#xA0;</xsl:text>
 					</xsl:element>
 				</xsl:if>
-				<xsl:element name="span">
+				<xsl:element name="div">
 					<!-- Aggiungi il valore di @rend alla classe. Se in @rend è presente un '.' viene sostituito con un '_' -->					
-						<xsl:if test="@rend">
-							<xsl:attribute name="class" select="$ed_name1, translate(@rend, '.', '_')" separator="-"/>
-						</xsl:if>
+					<xsl:attribute name="class" select="if(@rend) then ($ed_name1, translate(@rend, '.', '_')) else ($ed_name1, 'left')" separator="-"/>
 					<xsl:apply-templates mode="#current"/>
 					<xsl:if test="(following-sibling::*[1][self::tei:line])">
 						<xsl:value-of disable-output-escaping="yes">&lt;br/&gt;</xsl:value-of>
