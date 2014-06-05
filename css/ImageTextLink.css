@@ -121,6 +121,8 @@ div.AnnText{
     /*cursor: pointer;*/
     color: #000000;
     background-color: #ffffff;
+    /*margin:1px 0px;*/
+    border:1px solid #fff;
 }
 
 .HighlightedAnnMenuItem{
@@ -141,8 +143,8 @@ div.AnnText{
     color: #000000;
 }
 /* CDP provvisorio */
-.HighlightedAnnMenuItem span.facs-right, .HighlightedAnnMenuItem span.facs-center, .HighlightedAnnMenuItem span.dipl-right, .HighlightedAnnMenuItem span.dipl-center,
-.SelectedAnnMenuItem span.facs-right, .SelectedAnnMenuItem span.facs-center, .SelectedAnnMenuItem span.dipl-right, .SelectedAnnMenuItem span.dipl-center{
+.HighlightedAnnMenuItem div.facs-right, .HighlightedAnnMenuItem div.facs-center, .HighlightedAnnMenuItem div.dipl-right, .HighlightedAnnMenuItem div.dipl-center,
+.SelectedAnnMenuItem div.facs-right, .SelectedAnnMenuItem div.facs-center, .SelectedAnnMenuItem div.dipl-right, .SelectedAnnMenuItem div.dipl-center{
     background-color: transparent;
 }
 

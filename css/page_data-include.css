@@ -83,7 +83,7 @@ TR {valign: top}*/
 /*SPAN.abbr {color: purple}*/
 
 /**EDIZIONE DIPLOMATICA**/
-SPAN.facs-center {
+DIV.facs-center, SPAN.facs-center {
 	/*margin-left: 0.5cm;
 	margin-right: 0.5cm;
 	text-indent: 0.5cm;
@@ -92,11 +92,11 @@ SPAN.facs-center {
 	*/
     text-align: center;
     width: 92%;
-    display: inline-block;
+    display: inline-table;
     background:#FFF;
 }
 
-SPAN.facs-right {
+DIV.facs-right, SPAN.facs-right {
 	/*margin-left: 0.5cm;
 	margin-right: 0.5cm;
 	text-indent: 0.5cm;
@@ -105,13 +105,19 @@ SPAN.facs-right {
     */
     text-align: right;
     width: 92%;
-    display: inline-block;
+    display: inline-table;
     background:#FFF;
+}
+
+DIV.facs-left{
+    width: 92%;
+    display: inline-table;
 }
 
 SPAN.facs-lineN {
 	color: grey;
-	font-size: 0.8em; }
+	font-size: 0.8em; 
+	}
 
 SPAN.facs-subst { 
 	text-decoration: underline; 
@@ -238,6 +244,11 @@ SPAN.dipl-right {
     width: 92%;
     display: inline-block;
     background:#FFF; 
+}
+
+SPAN.dipl-left{
+    width: 92%;
+    display: inline-block;
 }
 
 SPAN.dipl-lineN {

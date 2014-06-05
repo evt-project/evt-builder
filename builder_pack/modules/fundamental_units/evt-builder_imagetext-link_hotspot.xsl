@@ -40,29 +40,27 @@
 					<xsl:attribute name="onclick">ShowCategory(this)</xsl:attribute>
 					<xsl:value-of select="$CurrCategory"/>
 					</xsl:element>-->
-				<xsl:element name="ul">
+				<xsl:element name="div">
 					<xsl:attribute name="class">AnnSubmenu</xsl:attribute>
 					<xsl:for-each-group select="node()" group-starting-with="//tei:lb">
 						<xsl:if test="current-group()[not((string-length(normalize-space()))= 0)]"><!--IT: non considera le righe vuote-->
-							<xsl:element name="li">
-								<xsl:choose>
-									<xsl:when test="if(@facs) then(translate(@facs, '#', '')=$root//tei:surface[@xml:id=concat('surf_',$n)]//tei:zone[@rendition='Line']/@xml:id) else(translate(@corresp, '#', '')=$root//tei:surface[@xml:id=concat('surf_',$n)]//tei:zone/@xml:id)">
-										<xsl:variable name="CurrAnnId" select="if(@facs) then(translate(@facs, '#', '')) else(translate(@corresp, '#', ''))"/>
-										<xsl:element name="span">
-											<xsl:attribute name="style">list-style:none;</xsl:attribute>
-											<xsl:attribute name="class">AnnMenuItem</xsl:attribute>
-											<xsl:attribute name="id">MenuItem_<xsl:value-of select="$CurrAnnId"/></xsl:attribute>
-											<xsl:attribute name="onclick">JumpTo('<xsl:value-of select="$CurrAnnId"/>')</xsl:attribute>
-											<xsl:attribute name="onmouseover">Highlight('<xsl:value-of select="$CurrAnnId"/>')</xsl:attribute>
-											<xsl:attribute name="onmouseout">UnHighlight()</xsl:attribute>
-											<xsl:copy-of select="current-group()[not(self::tei:lb|self::tei:pb)]"/>
-										</xsl:element>
-									</xsl:when>
-									<xsl:otherwise>
+							<xsl:choose>
+								<xsl:when test="if(@facs) then(translate(@facs, '#', '')=$root//tei:surface[@xml:id=concat('surf_',$n)]//tei:zone[@rendition='Line']/@xml:id) else(translate(@corresp, '#', '')=$root//tei:surface[@xml:id=concat('surf_',$n)]//tei:zone/@xml:id)">
+									<xsl:variable name="CurrAnnId" select="if(@facs) then(translate(@facs, '#', '')) else(translate(@corresp, '#', ''))"/>
+									<xsl:element name="div">
+										<xsl:attribute name="style">list-style:none;</xsl:attribute>
+										<xsl:attribute name="class">AnnMenuItem</xsl:attribute>
+										<xsl:attribute name="id">MenuItem_<xsl:value-of select="$CurrAnnId"/></xsl:attribute>
+										<xsl:attribute name="onclick">JumpTo('<xsl:value-of select="$CurrAnnId"/>')</xsl:attribute>
+										<xsl:attribute name="onmouseover">Highlight('<xsl:value-of select="$CurrAnnId"/>')</xsl:attribute>
+										<xsl:attribute name="onmouseout">UnHighlight()</xsl:attribute>
 										<xsl:copy-of select="current-group()[not(self::tei:lb|self::tei:pb)]"/>
-									</xsl:otherwise>
-								</xsl:choose>
-							</xsl:element>
+									</xsl:element>
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:copy-of select="current-group()[not(self::tei:lb|self::tei:pb)]"/>
+								</xsl:otherwise>
+							</xsl:choose>
 						</xsl:if>
 					</xsl:for-each-group>
 				</xsl:element>
@@ -143,78 +141,76 @@
 			<xsl:variable name="CurrCategory">Line</xsl:variable>
 			<xsl:element name="div">
 				<xsl:attribute name="class" separator="" select="'AnnSubmenu_',$CurrCategory"></xsl:attribute>
-				<xsl:element name="ul">
+				<xsl:element name="div">
 					<xsl:attribute name="class">AnnSubmenu</xsl:attribute>
 					<xsl:for-each select="current-group()/tei:zone"><!-- per ogni zone -->
-						<xsl:element name="li">
-							<xsl:choose>
-								<xsl:when test="current()[@lrx][@lry][@ulx][@uly]"><!-- Verifico se in <zone> ci sono le coordinate -->
-									<xsl:choose>
-										<!-- se <zone> e' vuoto devo creare un collegamento tra lui e i <line> corrispondenti-->
-										<xsl:when test="current()[((string-length(normalize-space()))= 0)]">
-											<xsl:choose>
-												<!-- Controllo se esiste una <line> con l'id cui la <zone> fa riferimento -->
-												<xsl:when test="concat('#', @xml:id)=following-sibling::tei:line/@facs">
-													<xsl:variable name="CurrAnnId" select="@xml:id"/>
-													<xsl:element name="span">
-														<xsl:attribute name="style">list-style:none;</xsl:attribute>
-														<xsl:attribute name="class">AnnMenuItem</xsl:attribute>
-														<xsl:attribute name="id">MenuItem_<xsl:value-of select="$CurrAnnId"/></xsl:attribute>
-														<xsl:attribute name="onclick">JumpTo('<xsl:value-of select="$CurrAnnId"/>')</xsl:attribute>
-														<xsl:attribute name="onmouseover">Highlight('<xsl:value-of select="$CurrAnnId"/>')</xsl:attribute>
-														<xsl:attribute name="onmouseout">UnHighlight()</xsl:attribute>
-														<xsl:if test="$edition_level='facs'">
-															<xsl:apply-templates select="//node()[@facs=concat('#', $CurrAnnId)]" mode="facs"></xsl:apply-templates>
-														</xsl:if>
-														<xsl:if test="$edition_level='dipl'">
-															<xsl:apply-templates select="//node()[@facs=concat('#', $CurrAnnId)]" mode="dipl"></xsl:apply-templates>
-														</xsl:if>
-													</xsl:element>	
-												</xsl:when>
-												<xsl:otherwise />
-											</xsl:choose>
-										</xsl:when>
-										<!-- altrimenti vuol dire che i <line> sono all'interno di <zone> stesso -->
-										<xsl:otherwise>
-											<xsl:choose>
-												<!-- se il figlio di zone è un <graohic> devo trattare zone come HS -->
-												<xsl:when test="current()//tei:graphic">
-													<xsl:call-template name="Area">
-														<xsl:with-param name="suffix" select="'HS'"/>
-													</xsl:call-template>
-												</xsl:when>
-												<!-- altrimenti creo semplicemente il collegamento testo immagine -->
-												<xsl:otherwise>
-													<xsl:variable name="CurrAnnId" select="if(@xml:id) then(@xml:id) else(generate-id())"/>
-													<xsl:element name="span">
-														<xsl:attribute name="style">list-style:none;</xsl:attribute>
-														<xsl:attribute name="class">AnnMenuItem</xsl:attribute>
-														<xsl:attribute name="id">MenuItem_<xsl:value-of select="$CurrAnnId"/></xsl:attribute>
-														<xsl:attribute name="onclick">JumpTo('<xsl:value-of select="$CurrAnnId"/>')</xsl:attribute>
-														<xsl:attribute name="onmouseover">Highlight('<xsl:value-of select="$CurrAnnId"/>')</xsl:attribute>
-														<xsl:attribute name="onmouseout">UnHighlight()</xsl:attribute>
-														<xsl:if test="$edition_level='facs'">
-															<xsl:apply-templates select="current()" mode="facs"></xsl:apply-templates>
-														</xsl:if>
-														<xsl:if test="$edition_level='dipl'">
-															<xsl:apply-templates select="current()" mode="dipl"></xsl:apply-templates>
-														</xsl:if>
-													</xsl:element>
-												</xsl:otherwise>
-											</xsl:choose>
-										</xsl:otherwise>
-									</xsl:choose>
-								</xsl:when>
-								<xsl:otherwise><!-- se in <zone> non ci sono le coordinate -->
-									<xsl:if test="$edition_level='facs'">
-										<xsl:apply-templates select="current()" mode="facs"></xsl:apply-templates>
-									</xsl:if>
-									<xsl:if test="$edition_level='dipl'">
-										<xsl:apply-templates select="current()" mode="dipl"></xsl:apply-templates>
-									</xsl:if>
-								</xsl:otherwise>
-							</xsl:choose>
-						</xsl:element>
+						<xsl:choose>
+							<xsl:when test="current()[@lrx][@lry][@ulx][@uly]"><!-- Verifico se in <zone> ci sono le coordinate -->
+								<xsl:choose>
+									<!-- se <zone> e' vuoto devo creare un collegamento tra lui e i <line> corrispondenti-->
+									<xsl:when test="current()[((string-length(normalize-space()))= 0)]">
+										<xsl:choose>
+											<!-- Controllo se esiste una <line> con l'id cui la <zone> fa riferimento -->
+											<xsl:when test="concat('#', @xml:id)=following-sibling::tei:line/@facs">
+												<xsl:variable name="CurrAnnId" select="@xml:id"/>
+												<xsl:element name="div">
+													<xsl:attribute name="style">list-style:none;</xsl:attribute>
+													<xsl:attribute name="class">AnnMenuItem</xsl:attribute>
+													<xsl:attribute name="id">MenuItem_<xsl:value-of select="$CurrAnnId"/></xsl:attribute>
+													<xsl:attribute name="onclick">JumpTo('<xsl:value-of select="$CurrAnnId"/>')</xsl:attribute>
+													<xsl:attribute name="onmouseover">Highlight('<xsl:value-of select="$CurrAnnId"/>')</xsl:attribute>
+													<xsl:attribute name="onmouseout">UnHighlight()</xsl:attribute>
+													<xsl:if test="$edition_level='facs'">
+														<xsl:apply-templates select="//node()[@facs=concat('#', $CurrAnnId)]" mode="facs"></xsl:apply-templates>
+													</xsl:if>
+													<xsl:if test="$edition_level='dipl'">
+														<xsl:apply-templates select="//node()[@facs=concat('#', $CurrAnnId)]" mode="dipl"></xsl:apply-templates>
+													</xsl:if>
+												</xsl:element>	
+											</xsl:when>
+											<xsl:otherwise />
+										</xsl:choose>
+									</xsl:when>
+									<!-- altrimenti vuol dire che i <line> sono all'interno di <zone> stesso -->
+									<xsl:otherwise>
+										<xsl:choose>
+											<!-- se il figlio di zone è un <graohic> devo trattare zone come HS -->
+											<xsl:when test="current()//tei:graphic">
+												<xsl:call-template name="Area">
+													<xsl:with-param name="suffix" select="'HS'"/>
+												</xsl:call-template>
+											</xsl:when>
+											<!-- altrimenti creo semplicemente il collegamento testo immagine -->
+											<xsl:otherwise>
+												<xsl:variable name="CurrAnnId" select="if(@xml:id) then(@xml:id) else(generate-id())"/>
+												<xsl:element name="div">
+													<xsl:attribute name="style">list-style:none;</xsl:attribute>
+													<xsl:attribute name="class">AnnMenuItem</xsl:attribute>
+													<xsl:attribute name="id">MenuItem_<xsl:value-of select="$CurrAnnId"/></xsl:attribute>
+													<xsl:attribute name="onclick">JumpTo('<xsl:value-of select="$CurrAnnId"/>')</xsl:attribute>
+													<xsl:attribute name="onmouseover">Highlight('<xsl:value-of select="$CurrAnnId"/>')</xsl:attribute>
+													<xsl:attribute name="onmouseout">UnHighlight()</xsl:attribute>
+													<xsl:if test="$edition_level='facs'">
+														<xsl:apply-templates select="current()" mode="facs"></xsl:apply-templates>
+													</xsl:if>
+													<xsl:if test="$edition_level='dipl'">
+														<xsl:apply-templates select="current()" mode="dipl"></xsl:apply-templates>
+													</xsl:if>
+												</xsl:element>
+											</xsl:otherwise>
+										</xsl:choose>
+									</xsl:otherwise>
+								</xsl:choose>
+							</xsl:when>
+							<xsl:otherwise><!-- se in <zone> non ci sono le coordinate -->
+								<xsl:if test="$edition_level='facs'">
+									<xsl:apply-templates select="current()" mode="facs"></xsl:apply-templates>
+								</xsl:if>
+								<xsl:if test="$edition_level='dipl'">
+									<xsl:apply-templates select="current()" mode="dipl"></xsl:apply-templates>
+								</xsl:if>
+							</xsl:otherwise>
+						</xsl:choose>
 					</xsl:for-each>
 				</xsl:element>
 			</xsl:element>
