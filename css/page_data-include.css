@@ -232,7 +232,7 @@ SPAN.dipl-center {
     background:#FFF;
 }
 
-SPAN.dipl-right {
+DIV.dipl-right, SPAN.dipl-right {
 	/*margin-left: 0.5cm;
 	margin-right: 0.5cm;
 	text-indent: 0.5cm;
@@ -246,7 +246,7 @@ SPAN.dipl-right {
     background:#FFF; 
 }
 
-SPAN.dipl-left{
+DIV.dipl-left, SPAN.dipl-left{
     width: 92%;
     display: inline-block;
 }
