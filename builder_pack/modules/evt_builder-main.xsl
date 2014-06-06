@@ -97,7 +97,7 @@
 					<!--<xsl:copy-of select="current-group()"/> --><!-- <-use this to find split errors -->
 					<xsl:variable name="text"><xsl:apply-templates select="current-group()" mode="facs"/></xsl:variable>
 					<xsl:apply-templates select="$text" mode="ITLembedded">
-						<xsl:with-param name="edition_level">facs</xsl:with-param>
+						<xsl:with-param name="edition_level" select="$ed_name1"/>
 					</xsl:apply-templates>
 				</xsl:when>
 				<!-- IT: Se c'è il surface viene creato un albero temporaneo che corrisponde al gruppo corrente trasformato in base al livello di edizione;
@@ -105,12 +105,26 @@
 				<xsl:when test="$root//tei:facsimile/tei:surface[substring(@xml:id, string-length(@xml:id)-3)=$pb_n]//tei:zone[@rendition='Line']">
 					<!--<xsl:copy-of select="current-group()"/>--> <!-- <-use this to find split errors -->
 					<xsl:variable name="text"><xsl:apply-templates select="current-group()" mode="facs"/></xsl:variable>
-					<xsl:apply-templates select="$text" mode="ITL"/>
+					<!-- IT: aggiungi elementi div per linee di testo -->
+					<xsl:variable name="text2">
+						<xsl:call-template name="divLine">
+							<xsl:with-param name="text" select="$text"/>
+							<xsl:with-param name="ed_name" select="$ed_name1"/>
+						</xsl:call-template>
+					</xsl:variable>
+					<!-- IT: trasforma el per ITL e HS-->
+					<xsl:apply-templates select="$text2" mode="ITL"/>
 				</xsl:when>
 				<!-- EN: If the surface element is not present only the facsimile edition templates are applied -->
 				<!-- IT: Se non c'è il surface devo applicare direttamente i templates per l'edizione facsimile -->
 				<xsl:otherwise>
-					<xsl:apply-templates select="current-group()" mode="facs"/>
+					<xsl:variable name="text"><xsl:apply-templates select="current-group()" mode="facs"/></xsl:variable>
+					<!-- IT: aggiungi elementi div per linee di testo -->
+					<xsl:call-template name="divLine">
+						<xsl:with-param name="text" select="$text"/>
+						<xsl:with-param name="ed_name" select="$ed_name1"/>
+					</xsl:call-template>
+
 				</xsl:otherwise>
 			</xsl:choose>
 		</xsl:if>
@@ -123,7 +137,7 @@
 					<!--<xsl:copy-of select="current-group()"/>--> <!-- <-use this to find split errors -->
 					<xsl:variable name="text"><xsl:apply-templates select="current-group()" mode="dipl"/></xsl:variable>
 					<xsl:apply-templates select="$text" mode="ITLembedded">
-						<xsl:with-param name="edition_level">dipl</xsl:with-param>
+						<xsl:with-param name="edition_level" select="$ed_name2"/>
 					</xsl:apply-templates>
 				</xsl:when>
 				<!-- IT: Se c'è il surface viene creato un albero temporaneo che corrisponde al gruppo corrente trasformato in base al livello di edizione;
@@ -131,12 +145,22 @@
 				<xsl:when test="$root//tei:facsimile/tei:surface[substring(@xml:id, string-length(@xml:id)-3)=$pb_n]//tei:zone[@rendition='Line']">
 					<!--<xsl:copy-of select="current-group()"/>--> <!-- <-use this to find split errors -->
 					<xsl:variable name="text"><xsl:apply-templates select="current-group()" mode="dipl"/></xsl:variable>
-					<xsl:apply-templates select="$text" mode="ITL"/>
+					<xsl:variable name="text2">
+						<xsl:call-template name="divLine">
+							<xsl:with-param name="text" select="$text"/>
+							<xsl:with-param name="ed_name" select="$ed_name2"/>
+						</xsl:call-template>
+					</xsl:variable>
+					<xsl:apply-templates select="$text2" mode="ITL"/>
 				</xsl:when>
 				<!-- EN: If the surface element is not present only the diplomatic edition templates are applied -->
 				<!-- IT: Se non c'è il surface devo applicare direttamente i templates per l'edizione diplomatica-->
 				<xsl:otherwise>
-					<xsl:apply-templates select="current-group()" mode="dipl"/>
+					<xsl:variable name="text"><xsl:apply-templates select="current-group()" mode="dipl"/></xsl:variable>
+					<xsl:call-template name="divLine">
+						<xsl:with-param name="text" select="$text"/>
+						<xsl:with-param name="ed_name" select="$ed_name2"/>
+					</xsl:call-template>
 				</xsl:otherwise>
 			</xsl:choose>
 		</xsl:if>
