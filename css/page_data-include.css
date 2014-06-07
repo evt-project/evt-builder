@@ -248,7 +248,7 @@ DIV.dipl-right, SPAN.dipl-right {
 
 DIV.dipl-left, SPAN.dipl-left{
     width: 92%;
-    display: inline-block;
+    display: inline-table;
 }
 
 SPAN.dipl-lineN {
