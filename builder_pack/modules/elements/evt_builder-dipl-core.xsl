@@ -48,9 +48,6 @@
 					<!-- Aggiungi il valore di @rend alla classe. Se in @rend è presente un '.' viene sostituito con un '_' -->					
 					<xsl:attribute name="class" select="if(@rend) then ($ed_name1, translate(@rend, '.', '_')) else ($ed_name1, 'left')" separator="-"/>
 					<xsl:apply-templates mode="#current"/>
-					<xsl:if test="(following-sibling::*[1][self::tei:line])">
-						<xsl:value-of disable-output-escaping="yes">&lt;br/&gt;</xsl:value-of>
-					</xsl:if>
 					<xsl:text> </xsl:text><!--important-->
 				</xsl:element>
 			</xsl:element>
@@ -60,10 +57,18 @@
 	<!-- ZONE -->
 	<xsl:template match="tei:zone" mode="dipl">
 		<xsl:if test="current()[not((string-length(normalize-space()))= 0)]"><!-- Escludo elementi <line> vuoti -->
-			<xsl:apply-templates mode="#current"/>
-			<xsl:if test="not(current()[@lrx][@lry][@ulx][@uly])"><!-- in questo modo se non c'e' collegamento testo immagine le zone vengono separate -->
-				<xsl:value-of disable-output-escaping="yes">&lt;br/&gt;</xsl:value-of>
-			</xsl:if>
+			<xsl:choose>
+				<xsl:when test="not(current()[@lrx][@lry][@ulx][@uly])"><!-- in questo modo se non c'e' collegamento testo immagine le zone vengono separate -->
+					<xsl:element name="div">
+						<xsl:attribute name="class"><xsl:value-of select="$ed_name1, 'zone'" separator="-" /></xsl:attribute>
+						<xsl:apply-templates mode="#current"/>
+						<xsl:text> </xsl:text><!--important-->
+					</xsl:element>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:apply-templates mode="#current"/>
+				</xsl:otherwise>
+			</xsl:choose>
 			<xsl:text> </xsl:text><!--important-->
 		</xsl:if>
 	</xsl:template>

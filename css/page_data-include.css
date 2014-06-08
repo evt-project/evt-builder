@@ -83,6 +83,10 @@ TR {valign: top}*/
 /*SPAN.abbr {color: purple}*/
 
 /**EDIZIONE DIPLOMATICA**/
+DIV.facs-zone{
+    margin-bottom: 5px; 
+}
+
 DIV.facs-center, SPAN.facs-center {
 	/*margin-left: 0.5cm;
 	margin-right: 0.5cm;
@@ -218,7 +222,12 @@ SPAN.facs-hi-double {
 
 /**EDIZIONE INTERPRETATIVA**/
 
-SPAN.dipl-center {
+DIV.dipl-zone{
+    margin-bottom: 5px; 
+}
+
+
+DIV.dipl-center, SPAN.dipl-center {
 	/*margin-left: 0.5cm;
 	margin-right: 0.5cm;
 	text-indent: 0.5cm;
@@ -228,7 +237,7 @@ SPAN.dipl-center {
 	/*CDP*/
 	text-align: center;
     width: 92%;
-    display: inline-block;
+    display: inline-table;
     background:#FFF;
 }
 
@@ -242,7 +251,7 @@ DIV.dipl-right, SPAN.dipl-right {
 	/*CDP*/
 	text-align: right;
     width: 92%;
-    display: inline-block;
+    display: inline-table;
     background:#FFF; 
 }
 
