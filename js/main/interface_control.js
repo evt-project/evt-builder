@@ -878,29 +878,29 @@ $(function() {
 
 			fitFrame();
 			
+			$('#header_collapse').animate({
+     			left: "50%",
+     			marginLeft: "-10px"
+     		});
+     
+     		if(! $('.go-full-right').is(':visible')){
+     			$('.go-full-right').show();
+     		}
+     		if ($("#switchITL i").hasClass('fa fa-chain')){
+     			if(!$("#switchITL").hasClass('inactive')){
+     				Initialize();
+     			}
+             }/*Add by JK for ITL*/
+     		if ($("#switchHS i").hasClass('fa fa-dot-circle-o')){
+                 if(!$("#switchHS").hasClass('inactive')){
+     				InitializeHS();
+                 }
+             }/*Add by JK for HS*/
+             
+             if($('.go-full-left').hasClass('onWhite')){
+     			$('.go-full-left').removeClass('onWhite');
+             }
 		}
-
-		$('#header_collapse').animate({
-			left: "50%",
-			marginLeft: "-10px"
-		});
-
-		if(! $('.go-full-right').is(':visible')){
-			$('.go-full-right').show();
-		}
-		if ($("#switchITL i").hasClass('fa fa-chain')){
-			if(!$("#switchITL").hasClass('inactive')){
-				Initialize();
-			}
-        }/*Add by JK for ITL*/
-		if ($("#switchHS i").hasClass('fa fa-dot-circle-o')){
-            if(!$("#switchHS").hasClass('inactive')){
-				InitializeHS();
-            }
-        }/*Add by JK for HS*/
-        if($('.go-full-left').hasClass('onWhite')){
-			$('.go-full-left').removeClass('onWhite');
-        }
 	});
 	/*$("#imgimg_link").click(function(){
 		if($(this).attr("class")!="current_mode"){
@@ -980,27 +980,28 @@ $(function() {
 			}
 
 			fitFrame();
-		}
-		if(!$('#span_ee_select-add').hasClass('widthChanged')){
-			$('#span_ee_select-add').addClass('widthChanged');
-			$('#span_ee_select-add .option_container').removeAttr('style');
-
-			$('#span_ee_select-add').each(function(){updateSelectLength(this);});
-		}
-		$('#header_collapse').animate({
-			left: "50%",
-			marginLeft: "-10px"
-		});
-		if(! $('.go-full-right').is(':visible')){
-			$('.go-full-right').show();
-		}
-		if($('#left_header').hasClass('menuClosed')){
-			noMenu_height = $('#image_cont').height()+42;
-			$('#image_cont, #text_cont-add').css({
-				"top": "-42px",
-				"height": noMenu_height
-			});
-			$('.go-full-left').addClass('onWhite');
+			
+			if(!$('#span_ee_select-add').hasClass('widthChanged')){
+    			$('#span_ee_select-add').addClass('widthChanged');
+    			$('#span_ee_select-add .option_container').removeAttr('style');
+    
+    			$('#span_ee_select-add').each(function(){updateSelectLength(this);});
+    		}
+    		$('#header_collapse').animate({
+    			left: "50%",
+    			marginLeft: "-10px"
+    		});
+    		if(! $('.go-full-right').is(':visible')){
+    			$('.go-full-right').show();
+    		}
+    		if($('#left_header').hasClass('menuClosed')){
+    			noMenu_height = $('#image_cont').height()+42;
+    			$('#image_cont, #text_cont-add').css({
+    				"top": "-42px",
+    				"height": noMenu_height
+    			});
+    			$('.go-full-left').addClass('onWhite');
+    		}
 		}
 	});
 
@@ -1040,21 +1041,22 @@ $(function() {
 			//$('#thumb_elem').hide();
 
 			fitFrame();
+			
+			if(!$('#span_dd_select').hasClass('widthChanged')){
+    			$('#span_dd_select').addClass('widthChanged');
+    			$('#span_dd_select .option_container').removeAttr('style');
+    
+    			$('#span_dd_select').each(function(){ updateSelectLength(this);});
+    		}
+    		$('#header_collapse').animate({
+    			left: "100%",
+    			marginLeft: "-30px"
+    		});
+    		$('.go-full-right').hide();
+    		if($('.go-full-left').hasClass('onWhite')){
+    			$('.go-full-left').removeClass('onWhite');
+            }
 		}
-		if(!$('#span_dd_select').hasClass('widthChanged')){
-			$('#span_dd_select').addClass('widthChanged');
-			$('#span_dd_select .option_container').removeAttr('style');
-
-			$('#span_dd_select').each(function(){ updateSelectLength(this);});
-		}
-		$('#header_collapse').animate({
-			left: "100%",
-			marginLeft: "-30px"
-		});
-		$('.go-full-right').hide();
-		if($('.go-full-left').hasClass('onWhite')){
-			$('.go-full-left').removeClass('onWhite');
-        }
 	});
 	// /MODE -
 
