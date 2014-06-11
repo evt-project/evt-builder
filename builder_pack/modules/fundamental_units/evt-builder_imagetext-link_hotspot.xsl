@@ -131,9 +131,8 @@
 		</xsl:for-each>
 	</xsl:template>
 	
-	<xsl:template match="/" mode="ITLembedded">
+	<xsl:template match="." mode="ITLembedded">
 		<xsl:param name="edition_level"/>
-		<xsl:variable name="n" select="//@n"/>
 		<!-- EN: The menu of categories and annotations. -->
 		<!-- IT: Il menu di categorie e associazioni. -->
 		<xsl:element name="div">
@@ -162,12 +161,13 @@
 															<xsl:attribute name="onclick">JumpTo('<xsl:value-of select="$CurrAnnId"/>')</xsl:attribute>
 															<xsl:attribute name="onmouseover">Highlight('<xsl:value-of select="$CurrAnnId"/>')</xsl:attribute>
 															<xsl:attribute name="onmouseout">UnHighlight()</xsl:attribute>
-															<xsl:if test="$edition_level='facs'">
+															<xsl:copy-of select="//node()[@facs=concat('#', $CurrAnnId)]" />
+															<!--<xsl:if test="$edition_level='facs'">
 																<xsl:apply-templates select="//node()[@facs=concat('#', $CurrAnnId)]" mode="facs"></xsl:apply-templates>
 															</xsl:if>
 															<xsl:if test="$edition_level='dipl'">
 																<xsl:apply-templates select="//node()[@facs=concat('#', $CurrAnnId)]" mode="dipl"></xsl:apply-templates>
-															</xsl:if>
+															</xsl:if>-->
 														</xsl:element>	
 													</xsl:when>
 													<xsl:otherwise />
@@ -192,12 +192,13 @@
 															<xsl:attribute name="onclick">JumpTo('<xsl:value-of select="$CurrAnnId"/>')</xsl:attribute>
 															<xsl:attribute name="onmouseover">Highlight('<xsl:value-of select="$CurrAnnId"/>')</xsl:attribute>
 															<xsl:attribute name="onmouseout">UnHighlight()</xsl:attribute>
-															<xsl:if test="$edition_level='facs'">
+															<xsl:copy-of select="current()" />
+															<!--<xsl:if test="$edition_level='facs'">
 																<xsl:apply-templates select="current()" mode="facs"></xsl:apply-templates>
 															</xsl:if>
 															<xsl:if test="$edition_level='dipl'">
 																<xsl:apply-templates select="current()" mode="dipl"></xsl:apply-templates>
-															</xsl:if>
+															</xsl:if>-->
 														</xsl:element>
 													</xsl:otherwise>
 												</xsl:choose>
@@ -205,22 +206,24 @@
 										</xsl:choose>
 									</xsl:when>
 									<xsl:otherwise><!-- se in <zone> non ci sono le coordinate -->
-										<xsl:if test="$edition_level='facs'">
+										<xsl:copy-of select="current()" />
+										<!--<xsl:if test="$edition_level='facs'">
 											<xsl:apply-templates select="current()" mode="facs"></xsl:apply-templates>
 										</xsl:if>
 										<xsl:if test="$edition_level='dipl'">
 											<xsl:apply-templates select="current()" mode="dipl"></xsl:apply-templates>
-										</xsl:if>
+										</xsl:if>-->
 									</xsl:otherwise>
 								</xsl:choose>
 							</xsl:when>
-							<xsl:when test="not (self::tei:line/translate(@facs, '#', '')=//tei:zone/@xml:id)">
-								<xsl:if test="$edition_level='facs'">
+							<xsl:when test="self::tei:line[not (translate(@facs, '#', '')=//tei:zone/@xml:id)]">
+								<xsl:copy-of select="current()" />
+								<!--<xsl:if test="$edition_level='facs'">
 									<xsl:apply-templates select="current()" mode="facs"></xsl:apply-templates>
 								</xsl:if>
 								<xsl:if test="$edition_level='dipl'">
 									<xsl:apply-templates select="current()" mode="dipl"></xsl:apply-templates>
-								</xsl:if>
+								</xsl:if>-->
 							</xsl:when>
 						</xsl:choose>
 					</xsl:for-each>

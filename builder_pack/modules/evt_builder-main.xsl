@@ -95,10 +95,11 @@
 					viene attivata la trasformazione per il collegamento testo immagine -->
 				<xsl:when test="($root//tei:sourceDoc)and(current-group()/tei:zone[@lrx][@lry][@ulx][@uly])">
 					<!--<xsl:copy-of select="current-group()"/> --><!-- <-use this to find split errors -->
-					<xsl:variable name="text"><xsl:apply-templates select="current-group()" mode="facs"/></xsl:variable>
-					<xsl:apply-templates select="$text" mode="ITLembedded">
+					<!--<xsl:variable name="text"><xsl:apply-templates select="current-group()" mode="facs"/></xsl:variable>-->
+					<xsl:variable name="text"><xsl:apply-templates select="current-group()" mode="ITLembedded">
 						<xsl:with-param name="edition_level" select="$ed_name1"/>
-					</xsl:apply-templates>
+					</xsl:apply-templates></xsl:variable>
+					<xsl:apply-templates select="$text" mode="facs" />
 				</xsl:when>
 				<!-- IT: Se c'è il surface viene creato un albero temporaneo che corrisponde al gruppo corrente trasformato in base al livello di edizione;
 										 a questo viene applicato il template per il collegamento testo-immagine-->
@@ -135,10 +136,11 @@
 					viene attivata la trasformazione per il collegamento testo immagine -->
 				<xsl:when test="($root//tei:sourceDoc)and(current-group()/tei:zone[@lrx][@lry][@ulx][@uly])">
 					<!--<xsl:copy-of select="current-group()"/>--> <!-- <-use this to find split errors -->
-					<xsl:variable name="text"><xsl:apply-templates select="current-group()" mode="dipl"/></xsl:variable>
-					<xsl:apply-templates select="$text" mode="ITLembedded">
+					<!--<xsl:variable name="text"><xsl:apply-templates select="current-group()" mode="dipl"/></xsl:variable>-->
+					<xsl:variable name="text"><xsl:apply-templates select="current-group()" mode="ITLembedded">
 						<xsl:with-param name="edition_level" select="$ed_name2"/>
-					</xsl:apply-templates>
+					</xsl:apply-templates></xsl:variable>
+					<xsl:apply-templates select="$text" mode="dipl" />
 				</xsl:when>
 				<!-- IT: Se c'è il surface viene creato un albero temporaneo che corrisponde al gruppo corrente trasformato in base al livello di edizione;
 										 a questo viene applicato il template per il collegamento testo-immagine-->

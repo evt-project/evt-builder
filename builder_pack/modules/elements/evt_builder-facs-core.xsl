@@ -303,4 +303,16 @@
 		</xsl:element>
 	</xsl:template>
 	
+	<!-- For Embedded  Transcription -->
+	<xsl:template match="node()[name()='div'][@id='areaAnnotations']" mode="facs">
+		<xsl:copy-of select="." />
+	</xsl:template>
+	
+	<xsl:template match="node()[name()='div'][@id='AnnMenu' or @class='AnnMenuItem']|node()[name()='div'][contains(@class, 'AnnSubmenu')]" mode="facs">
+		<xsl:element name="{name()}">
+			<xsl:copy-of select="@*"/>
+			<xsl:apply-templates mode="#current" />
+		</xsl:element>
+	</xsl:template>
+	
 </xsl:stylesheet>
