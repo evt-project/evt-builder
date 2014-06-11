@@ -63,9 +63,9 @@
         });
         //BASE IMAGE
         var img = $("img:eq(0)", el);
-        el.title = $(el).attr('title');
-        el.imagetitle = img.attr('title');
-        var zoomtitle = ($.trim(el.title).length > 0) ? el.title : el.imagetitle;
+        //el.title = $(el).attr('title');
+        //el.imagetitle = img.attr('title');
+        //var zoomtitle = ($.trim(el.title).length > 0) ? el.title : el.imagetitle;
         var smallimage = new Smallimage(img);
         var lens = new Lens();
         var stage = new Stage();
@@ -217,8 +217,8 @@
                     //nothing or lens.setcenter();
                     break;
                 default:
-                    img.attr('title', el.imagetitle);
-                    $(el).attr('title', el.title);
+                    //img.attr('title', el.imagetitle);
+                    //$(el).attr('title', el.title);
                     if (settings.alwaysOn) {
                         lens.setcenter();
                     } else {
