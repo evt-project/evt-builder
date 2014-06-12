@@ -136,20 +136,25 @@
 							</div>
 							<div class='botleftconcave'></div>
 						</div>
-						<xsl:if test="$image_frame=true()">
-							<div id="mode_switch">
+						<div id="mode_switch">
+							<xsl:if test="$image_frame=false()">
+								<a href="javascript:void(0);" id="txt_single" class="current_mode"
+									title="Single Text mode"> <img src="images/txt-single.png" class="mainHeaderimg"></img> </a>
+							</xsl:if>
+							<xsl:if test="$image_frame=true()">
 								<a href="javascript:void(0);" id="txtimg_link" class="current_mode"
 									title="Image|Text mode"> <img src="images/img-txt.png" class="mainHeaderimg"></img></a>
 								<!--<a href="javascript:void(0);" id="imgimg_link" title="image/image mode"> [I|I] </a>-->
+							</xsl:if>
+							<xsl:if test="count($edition_array) &gt; 1">
 								<a href="javascript:void(0);" id="txttxt_link"
 									title="Text|Text mode"> <img src="images/txt-txt.png" class="mainHeaderimg"></img> </a>
-								<xsl:if test="$double_view=true()">
-									<a href="javascript:void(0);" id="imgd_link"
-										title="Bookreader mode"> <img src="images/double-view.png" class="mainHeaderimg"></img> </a>
-								</xsl:if>
-							</div>
-						</xsl:if>
-						
+							</xsl:if>
+							<xsl:if test="$image_frame=true() and $double_view=true()">
+								<a href="javascript:void(0);" id="imgd_link"
+									title="Bookreader mode"> <img src="images/double-view.png" class="mainHeaderimg"></img> </a>
+							</xsl:if>
+						</div>
 						<div id="cont_fullscreen">
 							<a href="javascript:void(0);" id="main_fullscreen" title="Fullscreen"><i class="fa fa-expand"></i></a>
 						</div>
@@ -158,8 +163,9 @@
 						<i class="fa fa-caret-up" id="header_collapse" title="Toggle menu"></i>
 						<div id="main_left_arrow" onclick="UnInitialize()" title="Previous"/>
 						<div id="main_right_arrow" title="Next"/>
-						<xsl:if test="$image_frame=true()">
-							<div id="main_left_frame">
+						<xsl:if test="$image_frame=true() or count($edition_array) &gt; 1">
+							<xsl:variable name="viewStatus" select="if($image_frame=false()) then 'width:0px; border-left-width:0px; border-right-width:0px;' else ''"/>
+							<div id="main_left_frame" style="{$viewStatus}">
 								<i class="fa fa-caret-up go-full-left" id="goFullScreenLeft" title="Expand frame"></i>
 								<!--
 								<div id="main_left_menu">
@@ -176,90 +182,98 @@
 								<header id="left_header">
 									<i class="fa fa-times-circle closeFullScreen" id="closeFullScreenLeft"></i>
 									<div id="left_menu">
-										<span id="span_dd_select" class="like_select">
-											<xsl:call-template name="div_select_build">
-												<xsl:with-param name="html_div_class"
-													select="'main_dd_select'"/>
-											</xsl:call-template>
-										</span>
-										<span id="span_ee_select-add" class="like_select">
-											<xsl:call-template name="div_select_build">
-												<xsl:with-param name="html_div_class"
-													select="'main_ee_select'"/>
-											</xsl:call-template>
-										</span>
-										<span id="thumb_elem-add" class="iconButtons">
-											<a href="javascript:void(0);" class="thumb_link"><i class="fa fa-th"></i></a>
-										</span>
-										<div id="image_menu">
-											<span class="imageTopTool mainButtons" id="switchMag" value="mag" onclick="magOn()" title="Magnifying lens">
-												<span>Magnifier</span>
-												<i class="fa fa-search"></i>
+										<xsl:if test="$double_view=true()">
+											<span id="span_dd_select" class="like_select">
+												<xsl:call-template name="div_select_build">
+													<xsl:with-param name="html_div_class"
+														select="'main_dd_select'"/>
+												</xsl:call-template>
 											</span>
-											<span class="imageTopTool mainButtons" id="switchHS" value="HS" title="Hot spot" onclick="switchHS()">
-												<span>HotSpot</span>
-												<i class="fa fa-circle-o"></i>
-											</span>
-											<span class="imageTopTool mainButtons" id="switchITL" value="turn ITL on" title="Image-Text link" onclick="switchIMT()">
-												<span>TextLink</span>
-												<i class="fa fa-chain-broken"></i>
-											</span>
-											<span id="thumb_elem" class="iconButtons" title="Thumbnails">
+											<span id="thumb_elem-add" class="iconButtons">
 												<a href="javascript:void(0);" class="thumb_link"><i class="fa fa-th"></i></a>
 											</span>
-										</div>
+										</xsl:if>
+										<xsl:if test="count($edition_array) &gt; 1">
+											<span id="span_ee_select-add" class="like_select">
+												<xsl:call-template name="div_select_build">
+													<xsl:with-param name="html_div_class"
+														select="'main_ee_select'"/>
+												</xsl:call-template>
+											</span>
+										</xsl:if>
+										<xsl:if test="$image_frame=true()">
+											<div id="image_menu">
+												<span class="imageTopTool mainButtons" id="switchMag" value="mag" onclick="magOn()" title="Magnifying lens">
+													<span>Magnifier</span>
+													<i class="fa fa-search"></i>
+												</span>
+												<span class="imageTopTool mainButtons" id="switchHS" value="HS" title="Hot spot" onclick="switchHS()">
+													<span>HotSpot</span>
+													<i class="fa fa-circle-o"></i>
+												</span>
+												<span class="imageTopTool mainButtons" id="switchITL" value="turn ITL on" title="Image-Text link" onclick="switchIMT()">
+													<span>TextLink</span>
+													<i class="fa fa-chain-broken"></i>
+												</span>
+												<span id="thumb_elem" class="iconButtons" title="Thumbnails">
+													<a href="javascript:void(0);" class="thumb_link"><i class="fa fa-th"></i></a>
+												</span>
+											</div>
+										</xsl:if>
 										<!--<input type="image" src="images/zoom.png" id="switchZoom" class="top_image_tools" value="zoom" onclick="zoomOn()"/>-->
 										<!--<input type="image" src="images/magOff.png" id="switchMag" class="top_image_tools" value="mag" onclick="magOn()"/>-->
 										<!--<input type="image" src="images/ITLoff.png" id="switchITL" class="top_image_tools" value="turn ITL on" title="Image text link" onclick="switchIMT()"/>-->
 									</div>
 								</header>
-								<div id="image_cont">
-									<div id="image_fade">
-										<div id="image_elem">
-											<!--<img id="iviewerImage" src="images/null.jpg" />-->
-										</div>
-									</div>
-									<div id="image_loading">
-										<i class="fa fa-refresh fa-spin"></i>
-									</div>
-									<div id="mag_image_elem"></div>
-									
-									<div id="image_tool">
-										<div id="spb">
-											<a id="zoom_orig" class="zoom_btn"
-												href="javascript:void(0);" title="100%"><i class="icona">1:1</i></a>
-											<a id="zoom_fit" class="zoom_btn"
-												href="javascript:void(0);" title="Fit to frame"
-												><i class="fa fa-arrows-v"></i></a>
-											<a id="zoom_out" href="javascript:void(0);" title="Zoom out"><i class="fa fa-minus-circle"></i></a>
-											<div id="spb_cont">
-												<div id="slider"/>
+								<xsl:if test="$image_frame=true()">
+									<div id="image_cont">
+										<div id="image_fade">
+											<div id="image_elem">
+												<!--<img id="iviewerImage" src="images/null.jpg" />-->
 											</div>
-											<a id="zoom_in" href="javascript:void(0);" title="Zoom in"><i class="fa fa-plus-circle"></i></a>
 										</div>
-										<div id="zval">
-											<xsl:if test="$image_frame=true()">
-												<span id="zvalint"><span id="val">0</span>%</span>
-												<span id="zvalopz"/>
-											</xsl:if>
-											<xsl:if test="$image_frame=false()">
-												<span>No image</span>
-											</xsl:if>
+										<div id="image_loading">
+											<i class="fa fa-refresh fa-spin"></i>
 										</div>
+										<div id="mag_image_elem"></div>
+										
+										<div id="image_tool">
+											<div id="spb">
+												<a id="zoom_orig" class="zoom_btn"
+													href="javascript:void(0);" title="100%"><i class="icona">1:1</i></a>
+												<a id="zoom_fit" class="zoom_btn"
+													href="javascript:void(0);" title="Fit to frame"
+													><i class="fa fa-arrows-v"></i></a>
+												<a id="zoom_out" href="javascript:void(0);" title="Zoom out"><i class="fa fa-minus-circle"></i></a>
+												<div id="spb_cont">
+													<div id="slider"/>
+												</div>
+												<a id="zoom_in" href="javascript:void(0);" title="Zoom in"><i class="fa fa-plus-circle"></i></a>
+											</div>
+											<div id="zval">
+												<xsl:if test="$image_frame=true()">
+													<span id="zvalint"><span id="val">0</span>%</span>
+													<span id="zvalopz"/>
+												</xsl:if>
+												<xsl:if test="$image_frame=false()">
+													<span>No image</span>
+												</xsl:if>
+											</div>
+										</div>
+										<input id="dimFit" type="hidden" value=""/>
+										<input id="imgTit" type="hidden" value=""/>
+										<div id="thumb_cont">
+											<xsl:for-each select="//tei:pb">
+												<figure class="thumb_single" id="{@n}_small">
+													<img src="data/input_data/images/single/{@n}_small.jpg"/>
+													<figcaption>
+														<xsl:value-of select="@n"/>
+													</figcaption>
+												</figure>
+											</xsl:for-each>
+										</div>									
 									</div>
-									<input id="dimFit" type="hidden" value=""/>
-									<input id="imgTit" type="hidden" value=""/>
-									<div id="thumb_cont">
-										<xsl:for-each select="//tei:pb">
-											<figure class="thumb_single" id="{@n}_small">
-												<img src="data/input_data/images/single/{@n}_small.jpg"/>
-												<figcaption>
-													<xsl:value-of select="@n"/>
-												</figcaption>
-											</figure>
-										</xsl:for-each>
-									</div>									
-								</div>
+								</xsl:if>
 							</div>
 						</xsl:if>
 						
