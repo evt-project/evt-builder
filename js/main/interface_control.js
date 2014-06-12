@@ -996,7 +996,7 @@ $(function() {
     		}
     		if($('#left_header').hasClass('menuClosed')){
     			noMenu_height = $('#image_cont').height()+42;
-    			$('#image_cont, #text_cont-add').css({
+    			$('#text_cont, #text_cont-add').css({
     				"top": "-42px",
     				"height": noMenu_height
     			});
