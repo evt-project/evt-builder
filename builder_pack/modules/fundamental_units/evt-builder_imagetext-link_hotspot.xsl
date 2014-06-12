@@ -72,6 +72,11 @@
 		
 		<xsl:element name="div">
 			<xsl:attribute name="id">areaAnnotations</xsl:attribute>
+			<xsl:element name="div">
+				<xsl:attribute name="id" select="'realImageWidth'"/>
+				<xsl:attribute name="style" select="'display:none;'"></xsl:attribute>
+				<xsl:value-of select="$root//tei:facsimile/tei:surface[substring(@xml:id, string-length(@xml:id)-3)=$n]/tei:graphic/@width"/>
+			</xsl:element>
 			<xsl:for-each select="$root//tei:facsimile/tei:surface[substring(@xml:id, string-length(@xml:id)-3)=$n]/tei:zone">
 				<!-- EN: Creates a div for area annotations -->
 				<!-- IT: Crea un div per area annotations -->

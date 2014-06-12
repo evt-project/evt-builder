@@ -42,7 +42,9 @@ var isIE = (navigator.userAgent.indexOf('MSIE') > -1);
 var Areas = new Array();
 //var Anns = new Array();
 var AnnMenuItems = new Array();
-/*IMT variabili*/
+var realImageWidth = 1000;
+
+/*ITL variabili*/
 var HeightOffset;
 var selectedAreaHeightOffset;
 var ImgLeft;
@@ -97,7 +99,8 @@ function Initialize(){
     if($('#switchITL i ').hasClass('fa-chain-broken')){$('#switchITL i ').removeClass('fa-chain-broken').addClass('fa-chain');}
     //var L = document.getElementById('AnnMenuContainer');
     //ViewWidth = parseInt(L.parentNode.offsetWidth);
-    var ratio = (($("#iviewerImage").width())/1200);
+    realImageWidth = parseInt($('#realImageWidth').text());
+    var ratio = (($("#iviewerImage").width())/realImageWidth);
     Ratio = ratio;
     var NList = $('.Area');
     for (var i=0; i<NList.length; i++){
@@ -389,8 +392,9 @@ function ReInitialize(){
     //alert("ReInitialize()");
     if (ITLon == true){
         newImgTop = parseInt(document.getElementById('iviewerImage').offsetTop) +parseInt($('#iviewerImage').css('padding-top')) + parseInt($('#iviewerImage').css('margin-top'));
-        newImgLeft = parseInt(document.getElementById('iviewerImage').offsetLeft);    
-        var newRatio = $("#iviewerImage").width()/1200;
+        newImgLeft = parseInt(document.getElementById('iviewerImage').offsetLeft);
+        realImageWidth = parseInt($('#realImageWidth').text());
+        var newRatio = $("#iviewerImage").width()/realImageWidth;
         
         var NList = document.getElementsByTagName('div');
         for (var i=0; i<NList.length; i++){
@@ -422,8 +426,9 @@ function UnInitialize(keep){
 	}
 	
     Deselect();
-        
-    var ratio = (($("#iviewerImage").width())/1200);	
+    
+    realImageWidth = parseInt($('#realImageWidth').text());
+    var ratio = (($("#iviewerImage").width())/realImageWidth);	
     for (var i=0; i<Areas.length; i++){
         Areas[i].style.left = ((parseFloat(Areas[i].style.left)) - ImgLeft)/ratio + 'px';
         Areas[i].style.top = ((parseFloat(Areas[i].style.top)) - imgTop)/ratio + 'px';
@@ -512,7 +517,8 @@ function InitializeHS(){
     
     if($('#switchHS i ').hasClass('fa-circle-o')){$('#switchHS i ').removeClass('fa-circle-o').addClass('fa-dot-circle-o');}
 
-    ratioHS = $("#iviewerImage").width()/1200;
+    realImageWidth = parseInt($('#realImageWidth').text());
+    ratioHS = $("#iviewerImage").width()/realImageWidth;
     RatioHS = ratioHS
     var NList = $('.AreaHS');
     for (var i=0; i<NList.length; i++){
@@ -674,7 +680,8 @@ function ReInitializeHS(){
     if (HSon == true){
         newImgTopHS = parseInt(document.getElementById('iviewerImage').offsetTop) +parseInt($('#iviewerImage').css('padding-top')) + parseInt($('#iviewerImage').css('margin-top'));
         newImgLeftHS = parseInt(document.getElementById('iviewerImage').offsetLeft);
-        var newRatioHS = (($("#iviewerImage").width())/1200);
+        realImageWidth = parseInt($('#realImageWidth').text());
+        var newRatioHS = (($("#iviewerImage").width())/realImageWidth);
         
         var NList = document.getElementsByTagName('div');
         for (var i=0; i<NList.length; i++){
@@ -724,7 +731,8 @@ function UnInitializeHS(keep){
 	
     DeselectHS();
 
-    var ratioHS = (($("#iviewerImage").width())/1200);	
+    realImageWidth = parseInt($('#realImageWidth').text());
+    var ratioHS = (($("#iviewerImage").width())/realImageWidth);	
     for (var i=0; i<AreasHS.length; i++){
         AreasHS[i].style.left = ((parseFloat(AreasHS[i].style.left)) - ImgLeftHS)/ratioHS + 'px';
         AreasHS[i].style.top = ((parseFloat(AreasHS[i].style.top)) - imgTopHS)/ratioHS + 'px';
