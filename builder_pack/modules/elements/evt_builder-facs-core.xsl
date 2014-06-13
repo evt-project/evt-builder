@@ -125,7 +125,7 @@
 							<!-- IT: 1. escludi i choice che contengono reg vuoti (che contengono solo white-spaces) usati per la punteggiatura
 									 2. escludi i choice che contengono reg che contengono solo punteggiatura-->
 							<xsl:when test="tei:reg[not(descendant::tei:pc)][normalize-space()] or
-											(tei:reg[descendant::tei:pc] and tei:reg/node()[not(self::tei:pc)]/normalize-space())">
+											tei:reg[descendant::tei:pc][node()[not(self::tei:pc)][normalize-space()]]">
 								<xsl:element name="span">
 									<xsl:attribute name="class" select="$ed_name1,'choice_popup'" separator="-"/>
 									<xsl:apply-templates select="tei:reg" mode="#current"> </xsl:apply-templates>
