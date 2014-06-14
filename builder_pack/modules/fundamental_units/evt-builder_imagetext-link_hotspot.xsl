@@ -233,6 +233,12 @@
 		
 		<xsl:element name="div"><!-- Div vuoti per il collegamento -->
 			<xsl:attribute name="id">areaAnnotations</xsl:attribute>
+			<xsl:element name="div">
+				<xsl:attribute name="id" select="'realImageWidth'"/>
+				<xsl:attribute name="style" select="'display:none;'"></xsl:attribute>
+				<xsl:value-of select="current-group()/tei:graphic/@width"/>
+			</xsl:element>
+			
 			<xsl:for-each select="current-group()/tei:zone">
 				<!-- EN: Creates a div for area annotations -->
 				<!-- IT: Crea un div per area annotations -->
