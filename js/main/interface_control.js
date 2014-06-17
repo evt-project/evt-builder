@@ -824,16 +824,19 @@ $(function() {
 	});
 
 	$(".thumb_single").click(function(){
-		$("#image_elem").show();
-		$("#image_fade").show();
-		window.location.hash = $(this).attr('id').replace( '_small', '' );
-		
-		if ($("#imgd_link").attr("class") === "current_mode"){
-			$(".main_dd_select").trigger("imgd_thumb");
-		}
+		if(magnifierON){
+			window.location.hash = $(this).attr('id').replace( '_small', '' );
+		} else{
+			$("#image_elem").show();
+			$("#image_fade").show();
+			window.location.hash = $(this).attr('id').replace( '_small', '' );
+			
+			if ($("#imgd_link").attr("class") === "current_mode"){
+				$(".main_dd_select").trigger("imgd_thumb");
+			}
 
-		$(".thumb_link").trigger('click');
-		
+			$(".thumb_link").trigger('click');
+		}
 	});	
 	
 	// MODE -
