@@ -155,9 +155,7 @@ function chooseZoomMag() {
 		/*IT: rendo visibile il div del magnifier e invisibile quello dello zoom*/
 		$("#image_elem, #image_tool, #image_fade, #thumb_cont").css('display', 'none');
 		$("#mag_image_elem").css('display', 'none').fadeIn(1000);
-		// document.getElementById("switchZoom").setAttribute('src','images/zoomOff.png');
-		//document.getElementById("switchMag").setAttribute('src','images/mag.png');
-		$('#switchMag').removeClass('inactive'); //Add by CDP for FA
+		$('#switchMag').removeClass('inactive').addClass('active'); //Add by CDP for FA
 		//document.getElementById("#image_tool").setAttribute('style', 'display:none;');
 	}
 	//else if ((magnifierON == false) || ((magnifierON == true) && (bigImage == false))) {

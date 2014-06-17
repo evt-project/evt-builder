@@ -840,7 +840,7 @@ function switchHS(){
            if($('#switchITL').hasClass('likeInactive')) disableITLbutton();
 	   }
 	   InitializeHS();
-	   //$('#switchHS').addClass('active');
+	   $('#switchHS').addClass('active');
     }
 	else {
        if($('#switchHS').hasClass('likeInactive')) disableHSbutton();
