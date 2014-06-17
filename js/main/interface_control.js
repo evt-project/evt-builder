@@ -383,7 +383,7 @@ $(function() {
 		]);
 
 		// IT: Se ci si trova nella modalit Thumb, chiude la schermata e visualizza l'immagine
-		if($("#image_elem").css('display') === "none"){
+		if($("#thumb_cont").css('display') === "block"){
 			$(".thumb_link").trigger('click');
 		}
 	}
