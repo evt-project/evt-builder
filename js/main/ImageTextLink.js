@@ -474,6 +474,16 @@ function moveAreas(){
 }
 
 function switchIMT(){
+    if($("#thumb_cont").css('display') === "block"){
+	   	   if($("#image_elem").css('display') === "none"){
+				$("#image_elem").show();
+				$("#image_fade").show();
+				if(!$('#left_header').hasClass('menuClosed')){
+					$("#image_tool").show();
+				}
+			}
+			$("#thumb_cont").hide();
+	}
 	if (ITLon == false){
 	   //if ((magnifierON==true)&&(bigImage==true)){magOn();}
 	   if (magnifierON){magOn();}
@@ -806,6 +816,16 @@ function DeselectHS(){
 }
 
 function switchHS(){
+    if($("#thumb_cont").css('display') === "block"){
+   	   if($("#image_elem").css('display') === "none"){
+			$("#image_elem").show();
+			$("#image_fade").show();
+			if(!$('#left_header').hasClass('menuClosed')){
+				$("#image_tool").show();
+			}
+		}
+		$("#thumb_cont").hide();
+	}
 	if (HSon == false){
 	   //if ((magnifierON==true)&&(bigImage==true)){magOn();}
 	   if (magnifierON){magOn();}
