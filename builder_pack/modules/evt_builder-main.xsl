@@ -69,7 +69,7 @@
 
 	<xsl:template name="page">
 		<!-- CDP:embedded -->	
-		<xsl:variable name="pb_n" select="if(self::tei:pb) then(self::tei:pb/@n) else (@n)" />	
+		<xsl:variable name="pb_n" select="if(self::tei:pb) then(self::tei:pb/@xml:id) else (@xml:id)" />	
 		<!-- IT: Per ogni pagina, genera le corrispettive edizioni. Il template data_structure si trova in html_build/evt_builder-callhtml.xsl -->
 		<xsl:for-each select="$edition_array">
 			<xsl:if test=".!=''">

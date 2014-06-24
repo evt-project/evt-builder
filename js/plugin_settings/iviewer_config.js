@@ -104,11 +104,11 @@ $( function() {
 			//iv1.iviewer('loadImage', "data/input_data/images/"+$(this).text()+".jpg");
 			
 			if (firstload){
-				iv1.iviewer('loadImage', "data/input_data/images/single/"+$(this).text()+".jpg");
+				iv1.iviewer('loadImage', "data/input_data/images/single/"+$(this).attr("id_value")+".jpg");
 				firstload = false;
 			}
 			else {
-				var curr_src = "data/input_data/images/single/"+$(this).text()+".jpg";
+				var curr_src = "data/input_data/images/single/"+$(this).attr("id_value")+".jpg";
 				$('#image_fade').fadeOut(600, function(){
 				//$('#iviewerImage').fadeOut(600);		
 					$('#image_loading').show();		
@@ -122,11 +122,11 @@ $( function() {
 			//iv1.iviewer('loadImage', "data/input_data/images/double/"+$(this).text()+".jpg");
 
 			if (firstload){
-				iv1.iviewer('loadImage', "data/input_data/images/double/"+$(this).text()+".jpg");
+				iv1.iviewer('loadImage', "data/input_data/images/double/"+$(this).attr("id_value")+".jpg");
 				firstload = false;
 			}
 			else {
-				var curr_src = "data/input_data/images/double/"+$(this).text()+".jpg";
+				var curr_src = "data/input_data/images/double/"+$(this).attr("id_value")+".jpg";
 				$('#image_fade').fadeOut(600, function(){
 				//$('#iviewerImage').fadeOut(600);
 					$('#image_loading').show();

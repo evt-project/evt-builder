@@ -18,28 +18,28 @@ $(document).keydown(function(e){
 	function arrow(toward){
 		if ($("#imgd_link").attr("class") != "current_mode"){
 			if (toward=="left"){
-				if($('.main_pp_select .option_container .option.selected').prev().text()){
-					window.location.hash = $('.main_pp_select .option_container .option.selected').prev().text();
+				if($('.main_pp_select .option_container .option.selected').prev().attr("id").substr(6)){
+					window.location.hash = $('.main_pp_select .option_container .option.selected').prev().attr("id").substr(6);
 				}
 			}
 			if (toward=="right"){
-				if($('.main_pp_select .option_container .option.selected').next().text()){
-					window.location.hash = $('.main_pp_select .option_container .option.selected').next().text();
+				if($('.main_pp_select .option_container .option.selected').next().attr("id").substr(6)){
+					window.location.hash = $('.main_pp_select .option_container .option.selected').next().attr("id").substr(6);
 				}
 			}
 		} else {
 			if (toward=="left"){
-				if($('.main_dd_select .option_container .option.selected').prev().text()){
-					var d_page = $('.main_dd_select .option_container .option.selected').prev().text();
+				if($('.main_dd_select .option_container .option.selected').prev().attr("id").substr(6)){
+					var d_page = $('.main_dd_select .option_container .option.selected').prev().attr("id").substr(6);
 					$(".main_dd_select .label_selected").text(d_page).trigger("change");
-					//window.location.hash = $('.main_dd_select .option_container .option.selected').prev().text();
+					//window.location.hash = $('.main_dd_select .option_container .option.selected').prev().attr("id").substr(6);
 				}
 			}
 			if (toward=="right"){
-				if($('.main_dd_select .option_container .option.selected').next().text()){
-					var d_page = $('.main_dd_select .option_container .option.selected').next().text();
+				if($('.main_dd_select .option_container .option.selected').next().attr("id").substr(6)){
+					var d_page = $('.main_dd_select .option_container .option.selected').next().attr("id").substr(6);
 					$(".main_dd_select .label_selected").text(d_page).trigger("change");
-					//window.location.hash = $('.main_dd_select .option_container .option.selected').next().text();
+					//window.location.hash = $('.main_dd_select .option_container .option.selected').next().attr("id").substr(6);
 				}
 			}
 		}				
