@@ -333,8 +333,8 @@ $(function() {
 					} else{
 						// alert(!checkdd);
 						if ($("#imgd_link").attr("class") !== "current_mode"){
-							if(checkdd){
-								newhash = hash.match('.*(?=-)');
+							newhash = hash.match('.*(?=-)');
+							if(newhash !== null){
 								window.location.hash = newhash;
 							}
 							else{
