@@ -15,34 +15,37 @@
 //Pressione tasti
 $(document).keydown(function(e){
 
-	function arrow(toward){
-		if ($("#imgd_link").attr("class") != "current_mode"){
-			if (toward=="left"){
+	function arrow(toward){ //duplicata da interface_control.js temporaneamente
+		var d_page, l_page;
+		if ($("#imgd_link").attr("class") !== "current_mode"){
+			if (toward === "left"){
 				if($('.main_pp_select .option_container .option.selected').prev().attr("id").substr(6)){
 					window.location.hash = $('.main_pp_select .option_container .option.selected').prev().attr("id").substr(6);
 				}
 			}
-			if (toward=="right"){
+			if (toward === "right"){
 				if($('.main_pp_select .option_container .option.selected').next().attr("id").substr(6)){
 					window.location.hash = $('.main_pp_select .option_container .option.selected').next().attr("id").substr(6);
 				}
 			}
 		} else {
-			if (toward=="left"){
+			if (toward === "left"){
 				if($('.main_dd_select .option_container .option.selected').prev().attr("id").substr(6)){
-					var d_page = $('.main_dd_select .option_container .option.selected').prev().attr("id").substr(6);
-					$(".main_dd_select .label_selected").text(d_page).trigger("change");
+					d_page = $('.main_dd_select .option_container .option.selected').prev().attr("id").substr(6);
+					l_page = $('.main_dd_select .option_container .option.selected').prev().text();
+					$(".main_dd_select .label_selected").text(l_page).attr("id_value", d_page).trigger("change");
 					//window.location.hash = $('.main_dd_select .option_container .option.selected').prev().attr("id").substr(6);
 				}
 			}
-			if (toward=="right"){
+			if (toward === "right"){
 				if($('.main_dd_select .option_container .option.selected').next().attr("id").substr(6)){
-					var d_page = $('.main_dd_select .option_container .option.selected').next().attr("id").substr(6);
-					$(".main_dd_select .label_selected").text(d_page).trigger("change");
+					d_page = $('.main_dd_select .option_container .option.selected').next().attr("id").substr(6);
+					l_page = $('.main_dd_select .option_container .option.selected').next().text();
+					$(".main_dd_select .label_selected").text(l_page).attr("id_value", d_page).trigger("change");
 					//window.location.hash = $('.main_dd_select .option_container .option.selected').next().attr("id").substr(6);
 				}
 			}
-		}				
+		}
 	}
 
 
