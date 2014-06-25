@@ -151,7 +151,7 @@ SPAN.facs-damage {
 }
 
 span.facs-choice_popup { 
-	display: inline-block;
+	display: inline-table;
     /*white-space: nowrap;*/
 }
 
@@ -270,7 +270,7 @@ SPAN.dipl-ex {
 }
 
 span.dipl-choice_popup, span.dipl-choice_popup_corr{ 
-    display: inline-block;
+    display: inline-table;
     /*white-space: nowrap;*/
 }
 
