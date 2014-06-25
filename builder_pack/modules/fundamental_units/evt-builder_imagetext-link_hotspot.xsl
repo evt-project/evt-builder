@@ -216,7 +216,7 @@
 									</xsl:otherwise>
 								</xsl:choose>
 							</xsl:when>
-							<xsl:when test="self::tei:line[not (translate(@facs, '#', '')=//tei:zone/@xml:id)]">
+							<xsl:when test="not(self::tei:line) or self::tei:line[not (translate(@facs, '#', '')=//tei:zone/@xml:id)]">
 								<xsl:copy-of select="current()" />
 								<!--<xsl:if test="$edition_level='facs'">
 									<xsl:apply-templates select="current()" mode="facs"></xsl:apply-templates>
