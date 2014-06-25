@@ -255,8 +255,8 @@
 											<xsl:when test="$root//tei:sourceDoc">
 												<!-- Found the node(s) for embedded transcription-->
 												<xsl:for-each select="//tei:surface">
-													<figure class="thumb_single" id="{@n}_small">
-														<img src="data/input_data/images/single/{@n}_small.jpg"/>
+													<figure class="thumb_single" id="{@xml:id}_small">
+														<img src="data/input_data/images/single/{@xml:id}_small.jpg"/>
 														<figcaption>
 															<xsl:value-of select="@n"/>
 														</figcaption>
@@ -266,8 +266,8 @@
 											<xsl:otherwise>
 												<!-- Found no node(s) for embedded transcription-->
 												<xsl:for-each select="//tei:pb">
-													<figure class="thumb_single" id="{@n}_small">
-														<img src="data/input_data/images/single/{@n}_small.jpg"/>
+													<figure class="thumb_single" id="{@xml:id}_small">
+														<img src="data/input_data/images/single/{@xml:id}_small.jpg"/>
 														<figcaption>
 															<xsl:value-of select="@n"/>
 														</figcaption>
