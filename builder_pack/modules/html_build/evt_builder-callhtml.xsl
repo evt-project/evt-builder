@@ -251,30 +251,28 @@
 									<input id="imgTit" type="hidden" value=""/>
 									<div id="thumb_cont">
 										<!-- CDP:embedded -->
-										<xsl:choose>
-											<xsl:when test="$root//tei:sourceDoc">
-												<!-- Found the node(s) for embedded transcription-->
-												<xsl:for-each select="//tei:surface">
-													<figure class="thumb_single" id="{@xml:id}_small">
-														<img src="data/input_data/images/single/{@xml:id}_small.jpg"/>
-														<figcaption>
-															<xsl:value-of select="@n"/>
-														</figcaption>
-													</figure>
-												</xsl:for-each>
-											</xsl:when>
-											<xsl:otherwise>
-												<!-- Found no node(s) for embedded transcription-->
-												<xsl:for-each select="//tei:pb">
-													<figure class="thumb_single" id="{@xml:id}_small">
-														<img src="data/input_data/images/single/{@xml:id}_small.jpg"/>
-														<figcaption>
-															<xsl:value-of select="@n"/>
-														</figcaption>
-													</figure>
-												</xsl:for-each>
-											</xsl:otherwise>
-										</xsl:choose>
+										<xsl:if test="$root//tei:sourceDoc">
+											<!-- Found the node(s) for embedded transcription-->
+											<xsl:for-each select="$root//tei:sourceDoc//tei:surface[not(ancestor::tei:zone)]">
+												<figure class="thumb_single" id="{@xml:id}_small">
+													<img src="data/input_data/images/single/{@xml:id}_small.jpg"/>
+													<figcaption>
+														<xsl:value-of select="@n"/>
+													</figcaption>
+												</figure>
+											</xsl:for-each>
+										</xsl:if>
+										<xsl:if test="$root//tei:text">
+											<!-- Found no node(s) for embedded transcription-->
+											<xsl:for-each select="$root//tei:text//tei:pb">
+												<figure class="thumb_single" id="{@xml:id}_small">
+													<img src="data/input_data/images/single/{@xml:id}_small.jpg"/>
+													<figcaption>
+														<xsl:value-of select="@n"/>
+													</figcaption>
+												</figure>
+											</xsl:for-each>
+										</xsl:if>
 									</div>									
 								</div>
 							</div>
