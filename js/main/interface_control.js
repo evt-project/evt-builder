@@ -137,7 +137,7 @@ $(function() {
 			/* Gestione eventi */
 
 			$(".label_selected").on('change',function(){
-				var current_id, current_lab;
+				var current_id;
 				current_id = $(this).attr("id_value");
 				current_id = current_id.replace(/\s+/g, '');
 				current_id = current_id.replace(/\./g, '\\.');
@@ -223,7 +223,7 @@ $(function() {
 			$(".main_dd_select").on('imgd_mode',function(){
 				var temp_pp, first_page, second_page, newhash;
 				var first_page_lab, second_page_lab, newlab;
-				temp_pp = $(".main_pp_select .label_selected").text();
+				temp_pp = $(".main_pp_select .label_selected").attr("id_value");
 				first_page = $(xml)
 					.find('pair:contains('+temp_pp+')')
 					.children()
@@ -287,8 +287,9 @@ $(function() {
 						$(this).parent().prev().prev().text(newText).attr("id_value", newText).trigger('change'); // .label_selected
 					}
 					else{
+						// WTF: main_dd_select
 						if ($(this).parent().parent().attr("class") !== "main_pp_select"){
-							$(this).parent().prev().prev().text(newPage).attr("id_value", newPage).trigger('change'); // .label_selected
+							$(this).parent().prev().prev().text(newText).attr("id_value", newPage).trigger('change'); // .label_selected
 						}
 					}
 					$(this).parent().animate({height:"toggle"}, 400);
@@ -311,14 +312,17 @@ $(function() {
 			/* HASH CHANGE - ba.bbq plugin */
 				// IT: Associa un evento a windows.onhashchange; quando l'hash cambia, ottiene il suo valore per usarlo in diverse funzioni
 				$(window).hashchange( function(){
-					var hash, newhash, current_page, checkpp, checkdd, pp_lab;
+					var hash, newhash, current_page, checkpp, checkdd, pp_lab, dd_lab;
 					hash = location.hash;
 					current_page = hash.replace( /^#/, '' );
 					//var checkpp = $(xml).find('text pb:contains('+current_page+')').text();
 					checkpp = $(xml).find('pages pb:contains('+current_page+')').text();
 					pp_lab = $(xml).find('pages pb:contains('+current_page+')').attr("n");
-					// TODO: leggere non il contenuto degli option, ma l'id
-					checkdd = $(".main_dd_select").find('.option:contains('+current_page+')').text();
+
+
+					var dd_page = current_page.replace(/\./g, '\\.');
+					var temp_search = "value_"+dd_page;
+					checkdd = $(".main_dd_select").find(".option[id*="+temp_search+"]"); // .attr("id").substr(6)
 					if(hash && (checkpp !== "") && ($("#imgd_link").attr("class") !== "current_mode")){
 						UnInitialize(); //Add by JK for ITL
 						UnInitializeHS(); //Add by JK for HS
@@ -330,9 +334,9 @@ $(function() {
 						// alert(!checkdd);
 						if ($("#imgd_link").attr("class") !== "current_mode"){
 							if(checkdd){
-									newhash = hash.match('.*(?=-)');
-									window.location.hash = newhash;
-								}
+								newhash = hash.match('.*(?=-)');
+								window.location.hash = newhash;
+							}
 							else{
 								window.location.hash = $(".main_pp_select .label_selected").attr("id_value");
 							}
