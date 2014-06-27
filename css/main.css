@@ -1425,7 +1425,7 @@ div.botleftconcave {
 	cursor: pointer;
 }
 
-#iviewerImage{
+#iviewerImage, .zoomWindow{
 	cursor: move;
 }
 
