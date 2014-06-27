@@ -75,6 +75,10 @@
 	<xsl:variable name="ed_name2">dipl</xsl:variable>
 	
 	<!-- Variable -->
+
+	<!-- Thumb image -->
+	<xsl:variable name="fb_thumb">thumb_fb.jpg</xsl:variable>
+
 	<!--
 	<xsl:variable name="title" select="teiHeader/fileDesc/titleStmt/title" />
     <xsl:variable name="author" select="teiHeader/fileDesc/titleStmt/author" />

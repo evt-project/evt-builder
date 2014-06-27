@@ -21,6 +21,9 @@
 		<head>
 			<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
+			<meta property="og:title" content="{$root//tei:titleStmt/tei:title}"/>
+			<meta property="og:image" content="{$html_path}/data/input_data/images/{$fb_thumb}"/>
+
 			<title>
 				<xsl:value-of select="$root//tei:titleStmt/tei:title"/>
 				<!-- <xsl:value-of select="normalize-space(//tei:titleStmt/tei:title)"/> -->
