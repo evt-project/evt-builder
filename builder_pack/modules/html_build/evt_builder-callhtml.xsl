@@ -336,12 +336,12 @@
 						</div>
 					</section>
 					<section id="central_button">
-						<div id="edval">
+						<!-- <div id="edval">
 							<span>Edition</span>
 						</div>
 						<div id="central_page_number">
 							<span>Folio: </span>
-						</div>
+						</div> -->
 						<input id="folio_page_number" type="hidden" value=""/>
 					</section>
 					
