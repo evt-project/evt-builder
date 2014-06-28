@@ -33,6 +33,8 @@ $(function() {
 
 	//IT: Setting variabili generiche
 	var keycount, fulltogg;
+	var first_pp, last_pp;
+	var first_dd, last_dd;
 	keycount = 0;
 	fulltogg = false;
 	//var pp_temp_val=$(".main_pp_select").val();
@@ -67,6 +69,19 @@ $(function() {
 			$('.main_ee_select .label_selected')
 				.text($('.main_ee_select .option_container div:first').text())
 				.attr("id_value", $('.main_ee_select .option_container div:first').text());
+
+
+			first_pp = $(xml).find('pages pair pb').first().text();
+			last_pp = $(xml).find('pages pair pb').last().text();
+
+			var f_pair, l_pair;
+			f_pair = $(xml).find('pages pair').first().children('pb').eq(0).text();
+			l_pair = $(xml).find('pages pair').first().children('pb').eq(1).text()
+			first_dd = f_pair + "-" + l_pair;
+
+			f_pair = $(xml).find('pages pair').last().children('pb').eq(0).text();
+			l_pair = $(xml).find('pages pair').last().children('pb').eq(1).text()
+			last_dd = f_pair + "-" + l_pair;
 
 			//Page
 			$(xml).find('pages pair pb').each(function(){
@@ -313,16 +328,29 @@ $(function() {
 				// IT: Associa un evento a windows.onhashchange; quando l'hash cambia, ottiene il suo valore per usarlo in diverse funzioni
 				$(window).hashchange( function(){
 					var hash, newhash, current_page, checkpp, checkdd, pp_lab, dd_lab;
+					var dd_page, temp_search;
+
 					hash = location.hash;
 					current_page = hash.replace( /^#/, '' );
 					//var checkpp = $(xml).find('text pb:contains('+current_page+')').text();
 					checkpp = $(xml).find('pages pb:contains('+current_page+')').text();
 					pp_lab = $(xml).find('pages pb:contains('+current_page+')').attr("n");
-
-
-					var dd_page = current_page.replace(/\./g, '\\.');
-					var temp_search = "value_"+dd_page;
+					
+					dd_page = current_page.replace(/\./g, '\\.');
+					temp_search = "value_"+dd_page;
 					checkdd = $(".main_dd_select").find(".option[id*="+temp_search+"]"); // .attr("id").substr(6)
+
+					$(".main_left_arrow").removeClass("arrow_left_disable");
+					$(".main_right_arrow").removeClass("arrow_right_disable");
+
+					if((current_page === first_pp) || (current_page === first_dd)){
+						$(".main_left_arrow").addClass("arrow_left_disable");
+					}
+					if((current_page === last_pp) || (current_page === last_dd)){
+						$(".main_right_arrow").addClass("arrow_right_disable");
+					}
+
+					
 					if(hash && (checkpp !== "") && ($("#imgd_link").attr("class") !== "current_mode")){
 						UnInitialize(); //Add by JK for ITL
 						UnInitializeHS(); //Add by JK for HS
@@ -475,19 +503,22 @@ $(function() {
 
 	function arrow(toward){ //duplicata temporaneamente in jquery.rafmas-keydown
 		var d_page, l_page;
+		var current_pp;
 		if ($("#imgd_link").attr("class") !== "current_mode"){
-			if (toward === "left"){
+			current_pp = $('.main_pp_select .option_container .option.selected').attr("id").substr(6);
+			if (toward === "left" && current_pp !== first_pp){
 				if($('.main_pp_select .option_container .option.selected').prev().attr("id").substr(6)){
 					window.location.hash = $('.main_pp_select .option_container .option.selected').prev().attr("id").substr(6);
 				}
 			}
-			if (toward === "right"){
+			if (toward === "right" && current_pp !== last_pp){
 				if($('.main_pp_select .option_container .option.selected').next().attr("id").substr(6)){
 					window.location.hash = $('.main_pp_select .option_container .option.selected').next().attr("id").substr(6);
 				}
 			}
 		} else {
-			if (toward === "left"){
+			current_pp = $('.main_dd_select .option_container .option.selected').attr("id").substr(6);
+			if (toward === "left" && current_pp !== first_dd){
 				if($('.main_dd_select .option_container .option.selected').prev().attr("id").substr(6)){
 					d_page = $('.main_dd_select .option_container .option.selected').prev().attr("id").substr(6);
 					l_page = $('.main_dd_select .option_container .option.selected').prev().text();
@@ -495,7 +526,7 @@ $(function() {
 					//window.location.hash = $('.main_dd_select .option_container .option.selected').prev().attr("id").substr(6);
 				}
 			}
-			if (toward === "right"){
+			if (toward === "right" && current_pp !== last_dd){
 				if($('.main_dd_select .option_container .option.selected').next().attr("id").substr(6)){
 					d_page = $('.main_dd_select .option_container .option.selected').next().attr("id").substr(6);
 					l_page = $('.main_dd_select .option_container .option.selected').next().text();
@@ -803,10 +834,10 @@ $(function() {
 		window.location="index.html";
 	});
 
-	$("#main_left_arrow").click(function(){
+	$(".main_left_arrow").click(function(){
 		arrow("left");
 	});
-	$("#main_right_arrow").click(function(){
+	$(".main_right_arrow").click(function(){
 		arrow("right");
 	});
 	

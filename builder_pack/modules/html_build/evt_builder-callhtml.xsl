@@ -159,8 +159,8 @@
 					</header>
 					<section id="central_wrapper">
 						<i class="fa fa-caret-up" id="header_collapse" title="Toggle menu"></i>
-						<div id="main_left_arrow" onclick="UnInitialize()" title="Previous"/>
-						<div id="main_right_arrow" title="Next"/>
+						<div class="main_left_arrow" onclick="UnInitialize()" title="Previous"/>
+						<div class="main_right_arrow" title="Next"/>
 						<xsl:if test="$image_frame=true()">
 							<div id="main_left_frame">
 								<i class="fa fa-caret-up go-full-left" id="goFullScreenLeft" title="Expand frame"></i>
@@ -173,9 +173,9 @@
 								</div>
 								-->
 								<xsl:if test="$image_frame=false()">
-									<!--<div id="main_left_arrow" onclick="UnInitialize()" title="Previous"/>-->
+									<!--<div class="main_left_arrow" onclick="UnInitialize()" title="Previous"/>-->
 								</xsl:if>
-								<!-- <div id="main_left_arrow" title="Previous"/> -->
+								<!-- <div class="main_left_arrow" title="Previous"/> -->
 								<header id="left_header">
 									<i class="fa fa-times-circle closeFullScreen" id="closeFullScreenLeft"></i>
 									<div id="left_menu">
@@ -303,7 +303,7 @@
 									title="Close menu"> - </a>
 							</div>
 							-->
-							<!--<div id="main_right_arrow" title="Previous"/>-->
+							<!--<div class="main_right_arrow" title="Previous"/>-->
 							<header id="right_header">
 								<div id="right_menu">
 									<span id="span_tt_select" class="like_select" title="Text">
