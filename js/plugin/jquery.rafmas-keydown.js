@@ -15,46 +15,12 @@
 //Pressione tasti
 $(document).keydown(function(e){
 
-	function arrow(toward){ //duplicata da interface_control.js temporaneamente
-		var d_page, l_page;
-		if ($("#imgd_link").attr("class") !== "current_mode"){
-			if (toward === "left"){
-				if($('.main_pp_select .option_container .option.selected').prev().attr("id").substr(6)){
-					window.location.hash = $('.main_pp_select .option_container .option.selected').prev().attr("id").substr(6);
-				}
-			}
-			if (toward === "right"){
-				if($('.main_pp_select .option_container .option.selected').next().attr("id").substr(6)){
-					window.location.hash = $('.main_pp_select .option_container .option.selected').next().attr("id").substr(6);
-				}
-			}
-		} else {
-			if (toward === "left"){
-				if($('.main_dd_select .option_container .option.selected').prev().attr("id").substr(6)){
-					d_page = $('.main_dd_select .option_container .option.selected').prev().attr("id").substr(6);
-					l_page = $('.main_dd_select .option_container .option.selected').prev().text();
-					$(".main_dd_select .label_selected").text(l_page).attr("id_value", d_page).trigger("change");
-					//window.location.hash = $('.main_dd_select .option_container .option.selected').prev().attr("id").substr(6);
-				}
-			}
-			if (toward === "right"){
-				if($('.main_dd_select .option_container .option.selected').next().attr("id").substr(6)){
-					d_page = $('.main_dd_select .option_container .option.selected').next().attr("id").substr(6);
-					l_page = $('.main_dd_select .option_container .option.selected').next().text();
-					$(".main_dd_select .label_selected").text(l_page).attr("id_value", d_page).trigger("change");
-					//window.location.hash = $('.main_dd_select .option_container .option.selected').next().attr("id").substr(6);
-				}
-			}
-		}
-	}
-
-
 	if (e.keyCode == 37) { //left
-		arrow("left");
+		$(".main_left_arrow").trigger('click');
 		return false;
 	}				
 	if (e.keyCode == 39) { //right
-		arrow("right");
+		$(".main_right_arrow").trigger('click');
 		return false;
 	}		
 	if (e.keyCode == 27) { //escape

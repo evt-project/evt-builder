@@ -1199,7 +1199,7 @@ footer{
 	position: absolute;
 }
 
-#main_right_arrow{
+.main_right_arrow{
 	background:url(../images/arrows.png) no-repeat 0 -177px;
     
     cursor:pointer;
@@ -1218,12 +1218,15 @@ footer{
 	margin-top: -29.5px;
 }
 
-#main_right_arrow:hover{
+.main_right_arrow:hover, .arrow_right_disable{
     background-position:0 -118px;
-
+}
+.arrow_right_disable{
+	cursor: default;
+    background-position:0 -118px;
 }
 
-#main_left_arrow{
+.main_left_arrow{
 	background:url(../images/arrows.png) no-repeat 0 -59px;
     
     float: left;
@@ -1242,8 +1245,12 @@ footer{
 	margin-top: -29.5px;
 }
 
-#main_left_arrow:hover{
+.main_left_arrow:hover, .arrow_left_disable{
     background-position:0 0px;
+}
+.arrow_left_disable{
+    background-position:0 0px;
+    cursor: default;
 }
 
 /*Chiara*/
