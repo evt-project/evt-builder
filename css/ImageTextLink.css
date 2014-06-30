@@ -121,6 +121,8 @@ div.AnnText{
     /*cursor: pointer;*/
     color: #000000;
     background-color: #ffffff;
+    /*margin:1px 0px;*/
+    border:1px solid #fff;
 }
 
 .HighlightedAnnMenuItem{
@@ -139,6 +141,11 @@ div.AnnText{
 	filter:alpha(opacity=90);  For IE8 and earlier */
 	border: 1px solid #b99562;
     color: #000000;
+}
+/* CDP provvisorio */
+.HighlightedAnnMenuItem div.facs-right, .HighlightedAnnMenuItem div.facs-center, .HighlightedAnnMenuItem div.dipl-right, .HighlightedAnnMenuItem div.dipl-center,
+.SelectedAnnMenuItem div.facs-right, .SelectedAnnMenuItem div.facs-center, .SelectedAnnMenuItem div.dipl-right, .SelectedAnnMenuItem div.dipl-center{
+    background-color: transparent;
 }
 
 div.AreaHS{

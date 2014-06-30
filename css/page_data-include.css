@@ -83,23 +83,45 @@ TR {valign: top}*/
 /*SPAN.abbr {color: purple}*/
 
 /**EDIZIONE DIPLOMATICA**/
-SPAN.facs-center {
-	margin-left: 0.5cm;
+DIV.facs-zone{
+    margin-bottom: 5px; 
+}
+
+DIV.facs-center, SPAN.facs-center {
+	/*margin-left: 0.5cm;
 	margin-right: 0.5cm;
 	text-indent: 0.5cm;
 	text-align: center;
-	display: block; }
+	display: block; 
+	*/
+    text-align: center;
+    width: 92%;
+    display: inline-table;
+    background:#FFF;
+}
 
-SPAN.facs-right {
-	margin-left: 0.5cm;
+DIV.facs-right, SPAN.facs-right {
+	/*margin-left: 0.5cm;
 	margin-right: 0.5cm;
 	text-indent: 0.5cm;
 	text-align: right;
-	display: block; }
+	display: block; 
+    */
+    text-align: right;
+    width: 92%;
+    display: inline-table;
+    background:#FFF;
+}
+
+DIV.facs-left{
+    width: 92%;
+    display: inline-table;
+}
 
 SPAN.facs-lineN {
 	color: grey;
-	font-size: 0.8em; }
+	font-size: 0.8em; 
+	}
 
 SPAN.facs-subst { 
 	text-decoration: underline; 
@@ -129,7 +151,7 @@ SPAN.facs-damage {
 }
 
 span.facs-choice_popup { 
-	display: inline-block;
+	display: inline-table;
     /*white-space: nowrap;*/
 }
 
@@ -200,20 +222,42 @@ SPAN.facs-hi-double {
 
 /**EDIZIONE INTERPRETATIVA**/
 
-SPAN.dipl-center {
-	margin-left: 0.5cm;
+DIV.dipl-zone{
+    margin-bottom: 5px; 
+}
+
+
+DIV.dipl-center, SPAN.dipl-center {
+	/*margin-left: 0.5cm;
 	margin-right: 0.5cm;
 	text-indent: 0.5cm;
 	text-align: center;
-	display: block; 
+	display: block;
+	*/
+	/*CDP*/
+	text-align: center;
+    width: 92%;
+    display: inline-table;
+    background:#FFF;
 }
 
-SPAN.dipl-right {
-	margin-left: 0.5cm;
+DIV.dipl-right, SPAN.dipl-right {
+	/*margin-left: 0.5cm;
 	margin-right: 0.5cm;
 	text-indent: 0.5cm;
 	text-align: right;
-	display: block; 
+	display: block;
+	*/
+	/*CDP*/
+	text-align: right;
+    width: 92%;
+    display: inline-table;
+    background:#FFF; 
+}
+
+DIV.dipl-left, SPAN.dipl-left{
+    width: 92%;
+    display: inline-table;
 }
 
 SPAN.dipl-lineN {
@@ -226,7 +270,7 @@ SPAN.dipl-ex {
 }
 
 span.dipl-choice_popup, span.dipl-choice_popup_corr{ 
-    display: inline-block;
+    display: inline-table;
     /*white-space: nowrap;*/
 }
 

@@ -120,7 +120,33 @@
 		</xsl:for-each-group>
 		<!--EN: Calls the template that generates the index -->
 		<!--IT: Chiama il template per la generazione della index -->
-		<xsl:call-template name="index"></xsl:call-template>
+		<!--<xsl:call-template name="index"></xsl:call-template>-->
 	</xsl:template>
 	
+	<!--CDP:embedded -->
+	<!--EN: Calls the page template for every page -->
+	<!--IT: Per ogni pagina chiama il template page -->
+	<xsl:template match="*" mode="splitPages4embedded">
+		<!--<xsl:copy-of select="*"></xsl:copy-of>-->
+		<xsl:for-each-group select="$root//tei:sourceDoc" group-by="@xml:id">
+			<xsl:for-each-group select="current-group()/tei:surface" group-by="@xml:id">
+				<xsl:call-template name="page"/> <!-- See: evt_builder-main -->
+			</xsl:for-each-group>
+			<xsl:for-each-group select="current-group()/tei:surfaceGrp" group-by="@xml:id">
+				<xsl:for-each-group select="current-group()/child::tei:surfaceGrp" group-by="@xml:id"><!-- primo livello di annidamento <surfaceGrp> -->
+					<xsl:call-template name="surfaceGrp" />
+				</xsl:for-each-group>
+				<xsl:call-template name="surfaceGrp"/>			
+			</xsl:for-each-group>
+		</xsl:for-each-group>
+		<!--EN: Calls the template that generates the index -->
+		<!--IT: Chiama il template per la generazione della index -->
+		<!--<xsl:call-template name="index"></xsl:call-template>-->
+	</xsl:template>
+	
+	<xsl:template name="surfaceGrp">
+		<xsl:for-each-group select="current-group()/tei:surface" group-by="@xml:id">
+			<xsl:call-template name="page" /> <!-- See: evt_builder-main -->
+		</xsl:for-each-group>
+	</xsl:template>
 </xsl:stylesheet>

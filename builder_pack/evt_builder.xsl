@@ -38,6 +38,7 @@
 	<xsl:include href="modules/html_build/evt_builder-function.xsl"/>
 		
 	<!-- Elements -->
+	<xsl:include href="modules/elements/evt_builder-divLine.xsl"/>
 	
 	<!-- Elements for facsimile version-->
 	<xsl:include href="modules/elements/evt_builder-facs-core.xsl"/>
