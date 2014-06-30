@@ -190,7 +190,7 @@ footer{
 	color:rgb(180,177,170);
 }
 
-#main_right_frame{
+#main_right_frame, #main_right_frame-single{
 	#border: 2px solid #786e64;
 	#border: 2px solid #3c322c;
 	border: 2px solid #362d28;
@@ -202,7 +202,7 @@ footer{
 	overflow: hidden;
 }
 
-#main_right_frame header{
+#main_right_frame header, #main_right_frame-single header{
 	width: 100%;
 	position: absolute;
 	max-height: 42px;
@@ -248,6 +248,9 @@ footer{
 
 	/*Chiara*/
 	float:left;
+}
+#main_left_frame.hidden-for-single{
+    display:none;
 }
 
 #main_left_frame header{
