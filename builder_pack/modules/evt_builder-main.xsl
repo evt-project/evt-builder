@@ -34,9 +34,29 @@
 
 	<xsl:variable name="root" select="/"/>
 	<xsl:template match="/" priority="1">
-		<xsl:apply-templates select="$step0" mode="splitPages"></xsl:apply-templates>
-		<xsl:apply-templates select="$step0" mode="file4search"></xsl:apply-templates>
-		<xsl:apply-templates select="$step0" mode="structure_generation"></xsl:apply-templates>
+			<!-- Found the node(s) for embedded transcription-->
+			<!-- 
+			<xsl:choose>
+				<xsl:when test="tei:TEI/tei:sourceDoc">
+				
+				<xsl:apply-templates select="." mode="splitPages4embedded"></xsl:apply-templates>
+				<xsl:apply-templates select="." mode="structure_generation4embedded"></xsl:apply-templates>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:apply-templates select="$step0" mode="splitPages"></xsl:apply-templates>
+				<xsl:apply-templates select="$step0" mode="file4search"></xsl:apply-templates>
+				<xsl:apply-templates select="$step0" mode="structure_generation"></xsl:apply-templates>
+			</xsl:otherwise>
+		</xsl:choose>-->
+		<xsl:if test="tei:TEI/tei:sourceDoc">
+			<xsl:apply-templates select="." mode="splitPages4embedded"></xsl:apply-templates>
+		</xsl:if>
+		<xsl:if test="tei:TEI/tei:text">
+			<xsl:apply-templates select="$step0" mode="splitPages"></xsl:apply-templates>
+			<xsl:apply-templates select="$step0" mode="file4search"></xsl:apply-templates>
+		</xsl:if>
+		<xsl:call-template name="index"></xsl:call-template>
+		<xsl:apply-templates select="." mode="structure_generation"></xsl:apply-templates>
 	</xsl:template>
 	
 	<xsl:template name="index">
@@ -48,7 +68,8 @@
 	</xsl:template>
 
 	<xsl:template name="page">
-		<xsl:variable name="pb_n" select="self::tei:pb/@n"/>
+		<!-- CDP:embedded -->	
+		<xsl:variable name="pb_n" select="if(self::tei:pb) then(self::tei:pb/@xml:id) else (@xml:id)" />	
 		<!-- IT: Per ogni pagina, genera le corrispettive edizioni. Il template data_structure si trova in html_build/evt_builder-callhtml.xsl -->
 		<xsl:for-each select="$edition_array">
 			<xsl:if test=".!=''">
@@ -69,33 +90,79 @@
 		<xsl:param name="edition_pos"/>
 		<xsl:if test="$edition_pos=1">
 			<xsl:choose>
+				<!-- CDP:embedded -->
+				<!-- Se il file e' codificato in Embedded Transcription e almeno un elemento <zone> presenta le coordinate spaziali 
+					viene attivata la trasformazione per il collegamento testo immagine -->
+				<xsl:when test="($root//tei:sourceDoc)and(current-group()/tei:zone[@lrx][@lry][@ulx][@uly])">
+					<!--<xsl:copy-of select="current-group()"/> --><!-- <-use this to find split errors -->
+					<!--<xsl:variable name="text"><xsl:apply-templates select="current-group()" mode="facs"/></xsl:variable>-->
+					<xsl:variable name="text"><xsl:apply-templates select="current-group()" mode="ITLembedded">
+						<xsl:with-param name="edition_level" select="$ed_name1"/>
+					</xsl:apply-templates></xsl:variable>
+					<xsl:apply-templates select="$text" mode="facs" />
+				</xsl:when>
 				<!-- IT: Se c'è il surface viene creato un albero temporaneo che corrisponde al gruppo corrente trasformato in base al livello di edizione;
 										 a questo viene applicato il template per il collegamento testo-immagine-->
 				<xsl:when test="$root//tei:facsimile/tei:surface[substring(@xml:id, string-length(@xml:id)-3)=$pb_n]//tei:zone[@rendition='Line']">
 					<!--<xsl:copy-of select="current-group()"/>--> <!-- <-use this to find split errors -->
 					<xsl:variable name="text"><xsl:apply-templates select="current-group()" mode="facs"/></xsl:variable>
-					<xsl:apply-templates select="$text" mode="ITL"/>
+					<!-- IT: aggiungi elementi div per linee di testo -->
+					<xsl:variable name="text2">
+						<xsl:call-template name="divLine">
+							<xsl:with-param name="text" select="$text"/>
+							<xsl:with-param name="ed_name" select="$ed_name1"/>
+						</xsl:call-template>
+					</xsl:variable>
+					<!-- IT: trasforma el per ITL e HS-->
+					<xsl:apply-templates select="$text2" mode="ITL"/>
 				</xsl:when>
 				<!-- EN: If the surface element is not present only the facsimile edition templates are applied -->
 				<!-- IT: Se non c'è il surface devo applicare direttamente i templates per l'edizione facsimile -->
 				<xsl:otherwise>
-					<xsl:apply-templates select="current-group()" mode="facs"/>
+					<xsl:variable name="text"><xsl:apply-templates select="current-group()" mode="facs"/></xsl:variable>
+					<!-- IT: aggiungi elementi div per linee di testo -->
+					<xsl:call-template name="divLine">
+						<xsl:with-param name="text" select="$text"/>
+						<xsl:with-param name="ed_name" select="$ed_name1"/>
+					</xsl:call-template>
+
 				</xsl:otherwise>
 			</xsl:choose>
 		</xsl:if>
 		<xsl:if test="$edition_pos=2">
 			<xsl:choose>
+				<!-- CDP:embedded -->
+				<!-- Se il file e' codificato in Embedded Transcription e almeno un elemento <zone> presenta le coordinate spaziali 
+					viene attivata la trasformazione per il collegamento testo immagine -->
+				<xsl:when test="($root//tei:sourceDoc)and(current-group()/tei:zone[@lrx][@lry][@ulx][@uly])">
+					<!--<xsl:copy-of select="current-group()"/>--> <!-- <-use this to find split errors -->
+					<!--<xsl:variable name="text"><xsl:apply-templates select="current-group()" mode="dipl"/></xsl:variable>-->
+					<xsl:variable name="text"><xsl:apply-templates select="current-group()" mode="ITLembedded">
+						<xsl:with-param name="edition_level" select="$ed_name2"/>
+					</xsl:apply-templates></xsl:variable>
+					<xsl:apply-templates select="$text" mode="dipl" />
+				</xsl:when>
 				<!-- IT: Se c'è il surface viene creato un albero temporaneo che corrisponde al gruppo corrente trasformato in base al livello di edizione;
 										 a questo viene applicato il template per il collegamento testo-immagine-->
 				<xsl:when test="$root//tei:facsimile/tei:surface[substring(@xml:id, string-length(@xml:id)-3)=$pb_n]//tei:zone[@rendition='Line']">
 					<!--<xsl:copy-of select="current-group()"/>--> <!-- <-use this to find split errors -->
 					<xsl:variable name="text"><xsl:apply-templates select="current-group()" mode="dipl"/></xsl:variable>
-					<xsl:apply-templates select="$text" mode="ITL"/>
+					<xsl:variable name="text2">
+						<xsl:call-template name="divLine">
+							<xsl:with-param name="text" select="$text"/>
+							<xsl:with-param name="ed_name" select="$ed_name2"/>
+						</xsl:call-template>
+					</xsl:variable>
+					<xsl:apply-templates select="$text2" mode="ITL"/>
 				</xsl:when>
 				<!-- EN: If the surface element is not present only the diplomatic edition templates are applied -->
 				<!-- IT: Se non c'è il surface devo applicare direttamente i templates per l'edizione diplomatica-->
 				<xsl:otherwise>
-					<xsl:apply-templates select="current-group()" mode="dipl"/>
+					<xsl:variable name="text"><xsl:apply-templates select="current-group()" mode="dipl"/></xsl:variable>
+					<xsl:call-template name="divLine">
+						<xsl:with-param name="text" select="$text"/>
+						<xsl:with-param name="ed_name" select="$ed_name2"/>
+					</xsl:call-template>
 				</xsl:otherwise>
 			</xsl:choose>
 		</xsl:if>

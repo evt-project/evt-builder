@@ -33,6 +33,8 @@ $(function() {
 
 	//IT: Setting variabili generiche
 	var keycount, fulltogg;
+	var first_pp, last_pp;
+	var first_dd, last_dd;
 	keycount = 0;
 	fulltogg = false;
 	//var pp_temp_val=$(".main_pp_select").val();
@@ -65,46 +67,54 @@ $(function() {
 			$(".main_ee_select .option_container div:first-child").addClass( "selected" );
 
 			$('.main_ee_select .label_selected')
-				.text($('.main_ee_select .option_container div:first').text());
+				.text($('.main_ee_select .option_container div:first').text())
+				.attr("id_value", $('.main_ee_select .option_container div:first').text());
 
-			//Page
-			$(xml).find('pages pair pb').each(function(){
-				var current_id = $(this).text();
-				$('.main_pp_select .option_container').append(
-					$('<div/>')
-						.attr("id", "value_"+current_id)
-						.addClass('option')
-						.text(current_id)
-				);
-			});
-			$('.main_pp_select .option_container div:first-child').addClass('selected');
-			$('.main_pp_select .label_selected')
-				.text($('.main_pp_select .option_container div:first').text());
+
+			first_pp = $(xml).find('pages pair pb').first().text();
+			last_pp = $(xml).find('pages pair pb').last().text();
+
+			var f_pair, l_pair;
+			f_pair = $(xml).find('pages pair').first().children('pb').eq(0).text();
+			l_pair = $(xml).find('pages pair').first().children('pb').eq(1).text()
+			first_dd = f_pair + "-" + l_pair;
+
+			f_pair = $(xml).find('pages pair').last().children('pb').eq(0).text();
+			l_pair = $(xml).find('pages pair').last().children('pb').eq(1).text()
+			last_dd = f_pair + "-" + l_pair;
 
 			//Page_dd
 			$(xml).find('pages pair').each(function(){
 				var current_id, first_page_d, second_page_d;
+				var current_label, first_label_d, second_label_d;
 				first_page_d = $(this).children('pb').eq(0).text();
+				first_label_d = $(this).children('pb').eq(0).attr("n");
 				second_page_d = $(this).children('pb').eq(1).text();
+				second_label_d = $(this).children('pb').eq(1).attr("n");
 				current_id = "";
+				current_label = "";
 				if (second_page_d !== ""){
 					current_id = first_page_d+"-"+second_page_d;
+					current_label = first_label_d+"-"+second_label_d;
 				}
 				else{
 					current_id = first_page_d+"-";
+					current_label = first_label_d+"-";
 				}
 				$('.main_dd_select .option_container').append(
 					$('<div/>')
 						.attr("id", "value_"+current_id)
 						.addClass('option')
-						.text(current_id)
+						.text(current_label)
 				);
 			});
 			$('.main_dd_select .option_container div:first-child').addClass('selected');
 			$('.main_dd_select .label_selected')
-				.text($('.main_dd_select .option_container div:first').text());
+				.text($('.main_dd_select .option_container div:first').text())
+				.attr("id_value", $('.main_dd_select .option_container div:first').attr("id").substr(6));
 
-			//Text
+
+			//Text and Page
 			$(xml).find('textpage text').each(function(){
 				var current_id, current_label;
 				current_label = $(this).attr("n");
@@ -115,21 +125,49 @@ $(function() {
 						.addClass('option')
 						.text(current_label)
 				);
+				
+				$('.main_pp_select .option_container').append(
+				    $('<div/>')
+    						.attr("id", "optGrp_value_"+current_id)
+    						.addClass('optionGroup')
+    						.append($('<span>').text(current_label))
+				);
+				
+				$(this).find('pb').each(function(){
+    				var page_current_id = $(this).text();
+    				var page_current_label = $(this).attr("n");
+    				// current_id = current_id.replace(/\./g,'\\\\.');
+    				$('.main_pp_select #optGrp_value_'+current_id).append(
+    					$('<div/>')
+    						.attr("id", "value_"+page_current_id)
+    						.addClass('option')
+    						.text(page_current_label)
+    				);
+				})
 			});
 			$('.main_tt_select .option_container div:first-child').addClass('selected');
 			$('.main_tt_select .label_selected')
-				.text($('.main_tt_select .option_container div:first').text());
-
+				.text($('.main_tt_select .option_container div:first').text())
+				.attr("id_value", $('.main_tt_select .option_container div:first').text());
+            
+            $('.main_pp_select .option_container div:first-child').addClass('selected');
+			$('.main_pp_select .label_selected')
+				.text($('.main_pp_select .option_container .optionGroup:first div:first').text())
+				.attr("id_value", $('.main_pp_select .option_container .optionGroup:first div:first').attr("id").substr(6));
+				
 			/* Gestione eventi */
 
 			$(".label_selected").on('change',function(){
-				var current_id, current_lab;
-				current_lab = $(this).text();
-				current_id = current_lab.replace(/\s+/g, '');
+				var current_id;
+				current_id = $(this).attr("id_value");
+				current_id = current_id.replace(/\s+/g, '');
+				current_id = current_id.replace(/\./g, '\\.');
+				
 				$(this).siblings(".option_container")
 					.find("#value_"+current_id)
 					.addClass("selected")
-					.siblings().removeClass('selected');
+					.siblings().removeClass('selected')
+					.parent().siblings().find('.option').removeClass('selected');
 			});
 
 			$(".main_ee_select .label_selected").on('change',function(){
@@ -149,16 +187,16 @@ $(function() {
 				//var tt_val_temp = $(".main_tt_select").find('.option.selected').attr("id").substr(6);
 				var tt_val_temp, pp_val_temp, parent_temp;
 				tt_val_temp = $(".main_tt_select .label_selected").text();
-				pp_val_temp = $('.main_pp_select .label_selected').text();
+				pp_val_temp = $('.main_pp_select .label_selected').attr("id_value");
 				parent_temp = $(xml)
 					.find('text pb:contains('+pp_val_temp+')')
 					.parent()
 					.attr("n");
 				if(!parent_temp){
-					$(".main_tt_select .label_selected").text("(Text)");
+					$(".main_tt_select .label_selected").text("(Text)").attr("id_value", "(Text)");
 				} else
 					if(parent_temp !== tt_val_temp){
-						$(".main_tt_select .label_selected").text(parent_temp);//.trigger("change");
+						$(".main_tt_select .label_selected").text(parent_temp).attr("id_value", parent_temp);//.trigger("change");
 						$(".main_tt_select .label_selected").siblings(".option_container")
 							.find("#value_"+parent_temp.replace(/\s+/g, ''))
 							.addClass("selected")
@@ -167,16 +205,17 @@ $(function() {
 			});
 
 			$(".main_dd_select .label_selected").on('change',function(){
-				window.location.hash = $(this).text();
+				window.location.hash = $(this).attr("id_value");
 			});
 
 			$(".main_pp_select").on('txtimg_mode',function(){
-				var newhash = $(".main_dd_select .label_selected").text().match('.*(?=-)');
+				var newhash = $(".main_dd_select .label_selected").attr("id_value").match('.*(?=-)');
 				window.location.hash = newhash;
 			});
 			
 			$(".main_dd_select").on('imgd_thumb',function(){
 				var hash, temp_pp, first_page, second_page, newhash;
+				var first_page_lab, second_page_lab, newlab;
 				hash = location.hash;
 				temp_pp = hash.replace( /^#/, '' );
 				first_page = $(xml)
@@ -187,26 +226,46 @@ $(function() {
 					.find('pair:contains('+temp_pp+')')
 					.children()
 					.eq(1).text();
+
+				first_page_lab = $(xml)
+					.find('pair:contains('+temp_pp+')')
+					.children()
+					.eq(0).attr("n");
+				second_page_lab = $(xml)
+					.find('pair:contains('+temp_pp+')')
+					.children()
+					.eq(1).attr("n");
 				//alert(first_page+"-"+second_page);
 				newhash = first_page+"-"+second_page;
-				$(".main_dd_select .label_selected").text(newhash).trigger('change');
+				newlab = first_page_lab+"-"+second_page_lab;
+				$(".main_dd_select .label_selected").text(newlab).attr("id_value", newhash).trigger('change');
 				//window.location.hash = newhash;
 			});
 
 			$(".main_dd_select").on('imgd_mode',function(){
 				var temp_pp, first_page, second_page, newhash;
-				temp_pp = $(".main_pp_select .label_selected").text();
+				var first_page_lab, second_page_lab, newlab;
+				temp_pp = $(".main_pp_select .label_selected").attr("id_value");
 				first_page = $(xml)
 					.find('pair:contains('+temp_pp+')')
 					.children()
 					.eq(0).text();
+				first_page_lab = $(xml)
+					.find('pair:contains('+temp_pp+')')
+					.children()
+					.eq(0).attr("n");
 				second_page = $(xml)
 					.find('pair:contains('+temp_pp+')')
 					.children()
 					.eq(1).text();
+				second_page_lab = $(xml)
+					.find('pair:contains('+temp_pp+')')
+					.children()
+					.eq(1).attr("n");
 				//alert(first_page+"-"+second_page);
 				newhash = first_page+"-"+second_page;
-				$(".main_dd_select .label_selected").text(newhash).trigger('change');
+				newlab = first_page_lab+"-"+second_page_lab;
+				$(".main_dd_select .label_selected").text(newlab).attr("id_value", newhash).trigger('change');
 				//window.location.hash = newhash;
 
 			});
@@ -245,16 +304,17 @@ $(function() {
 					var newPage, newText;
 					newPage = $(this).attr('id').substr(6);
 					newText = $(this).text();
-					//alert($(this).parent().parent().attr("class"));
-					if ($(this).parent().parent().attr("class") === "main_tt_select"){
-						$(this).parent().prev().prev().text(newText).trigger('change'); // .label_selected
+					//alert($(this).parents('.option_container').prev().prev().attr("id_value"));
+					if ($(this).parents('.option_container').parent().attr("class") === "main_tt_select"){
+						$(this).parents('.option_container').prev().prev().text(newText).attr("id_value", newText).trigger('change'); // .label_selected
 					}
 					else{
-						if ($(this).parent().parent().attr("class") !== "main_pp_select"){
-							$(this).parent().prev().prev().text(newPage).trigger('change'); // .label_selected
+						// WTF: main_dd_select
+						if ($(this).parents('.option_container').parent().attr("class") !== "main_pp_select"){
+							$(this).parents('.option_container').prev().prev().text(newText).attr("id_value", newPage).trigger('change'); // .label_selected
 						}
 					}
-					$(this).parent().animate({height:"toggle"}, 400);
+					$(this).parents('.option_container').animate({height:"toggle"}, 400);
 					//$("#value_" + newPage).addClass("selected").siblings().removeClass('selected');
 				}
 			});
@@ -274,28 +334,46 @@ $(function() {
 			/* HASH CHANGE - ba.bbq plugin */
 				// IT: Associa un evento a windows.onhashchange; quando l'hash cambia, ottiene il suo valore per usarlo in diverse funzioni
 				$(window).hashchange( function(){
-					var hash, newhash, current_page, checkpp, checkdd;
+					var hash, newhash, current_page, checkpp, checkdd, pp_lab, dd_lab;
+					var dd_page, temp_search;
+
 					hash = location.hash;
 					current_page = hash.replace( /^#/, '' );
 					//var checkpp = $(xml).find('text pb:contains('+current_page+')').text();
 					checkpp = $(xml).find('pages pb:contains('+current_page+')').text();
-					checkdd = $(".main_dd_select").find('.option:contains('+current_page+')').text();
+					pp_lab = $(xml).find('pages pb:contains('+current_page+')').attr("n");
+					
+					dd_page = current_page.replace(/\./g, '\\.');
+					temp_search = "value_"+dd_page;
+					checkdd = $(".main_dd_select").find(".option[id*="+temp_search+"]"); // .attr("id").substr(6)
+
+					$(".main_left_arrow").removeClass("arrow_left_disable");
+					$(".main_right_arrow").removeClass("arrow_right_disable");
+
+					if((current_page === first_pp) || (current_page === first_dd)){
+						$(".main_left_arrow").addClass("arrow_left_disable");
+					}
+					if((current_page === last_pp) || (current_page === last_dd)){
+						$(".main_right_arrow").addClass("arrow_right_disable");
+					}
+
+					
 					if(hash && (checkpp !== "") && ($("#imgd_link").attr("class") !== "current_mode")){
 						UnInitialize(); //Add by JK for ITL
 						UnInitializeHS(); //Add by JK for HS
 						$("#mag_image_elem").empty(); // Add by JK for Mag
 						if($('#switchMag i').hasClass('fa-search-plus')){magnifierON=true;}
-						gotopage(current_page, "none");
+						gotopage(current_page, pp_lab, "none");
 						//chooseZoomMag(); // Add by JK for Mag				
 					} else{
-						//alert(!checkdd);
+						// alert(!checkdd);
 						if ($("#imgd_link").attr("class") !== "current_mode"){
-							if(checkdd){
-									newhash = hash.match('.*(?=-)');
-									window.location.hash = newhash;
-								}
+							newhash = hash.match('.*(?=-)');
+							if(newhash !== null){
+								window.location.hash = newhash;
+							}
 							else{
-								window.location.hash = $(".main_pp_select .label_selected").text();
+								window.location.hash = $(".main_pp_select .label_selected").attr("id_value");
 							}
 						}
 					}
@@ -318,11 +396,11 @@ $(function() {
 	/* Funzioni */
 
 	// IT: Gestisce il cambio pagina e gli eventi correlati
-	function gotopage(pp_val, state){
+	function gotopage(pp_val, pp_lab, state){
 		var edition, edition_add; 
 		//N.B. i caricamenti delle immagini si attivano grazie agli eventi change dei label_selected in iviewer_config
 		edition = $("#span_ee_select .main_ee_select .label_selected").text().toLowerCase();
-		$(".main_pp_select .label_selected").text(pp_val).trigger("change");
+		$(".main_pp_select .label_selected").text(pp_lab).attr("id_value", pp_val).trigger("change");
 		$('#text_elem').load("data/output_data/"+edition+"/page_"+pp_val+"_"+edition+".html #text_frame", function(){
 			//IT: controlla se la pagine ha gli elementi necessari allo strumento ITL
 			if ($('#text_elem .Area').length){
@@ -377,10 +455,10 @@ $(function() {
 		//$("#iviewerImage").attr("src", "images/null.jpg"); // Loading...
 		//$('#folio_page_number').val(pp_val).change(); // IT: Questo attiva l'evento nel file js/plugin/jquery.iviewer config
 		
-		preload([
-			'images/single/'+$('.main_pp_select .option_container .option.selected').prev().text()+'.jpg',
-			'images/single/'+$('.main_pp_select .option_container .option.selected').next().text()+'.jpg'
-		]);
+		// preload([
+		// 	'images/single/'+$('.main_pp_select .option_container .option.selected').prev().text()+'.jpg',
+		// 	'images/single/'+$('.main_pp_select .option_container .option.selected').next().text()+'.jpg'
+		// ]);
 
 		// IT: Se ci si trova nella modalit Thumb, chiude la schermata e visualizza l'immagine
 		if($("#thumb_cont").css('display') === "block"){
@@ -431,31 +509,40 @@ $(function() {
 	}
 
 	function arrow(toward){ //duplicata temporaneamente in jquery.rafmas-keydown
-		var d_page;
+		var d_page, l_page;
+		var current_pp;
 		if ($("#imgd_link").attr("class") !== "current_mode"){
-			if (toward === "left"){
-				if($('.main_pp_select .option_container .option.selected').prev().text()){
-					window.location.hash = $('.main_pp_select .option_container .option.selected').prev().text();
+			current_pp = $('.main_pp_select .option_container .option.selected').attr("id").substr(6);
+			if (toward === "left" && current_pp !== first_pp){
+				if($('.main_pp_select .option_container .option.selected').prev().attr("id")!=undefined){
+					window.location.hash = $('.main_pp_select .option_container .option.selected').prev().attr("id").substr(6);
+				} else if($('.main_pp_select .option_container .option.selected').parent().prev()){
+				    window.location.hash = $('.main_pp_select .option_container .option.selected').parent().prev().find('.option:last').attr("id").substr(6);
 				}
 			}
-			if (toward === "right"){
-				if($('.main_pp_select .option_container .option.selected').next().text()){
-					window.location.hash = $('.main_pp_select .option_container .option.selected').next().text();
+			if (toward === "right" && current_pp !== last_pp){
+				if($('.main_pp_select .option_container .option.selected').next().attr("id")!==undefined){
+					window.location.hash = $('.main_pp_select .option_container .option.selected').next().attr("id").substr(6);
+				} else if($('.main_pp_select .option_container .option.selected').parent().next()){
+				    window.location.hash = $('.main_pp_select .option_container .option.selected').parent().next().find('.option:first').attr("id").substr(6);
 				}
 			}
 		} else {
-			if (toward === "left"){
-				if($('.main_dd_select .option_container .option.selected').prev().text()){
-					d_page = $('.main_dd_select .option_container .option.selected').prev().text();
-					$(".main_dd_select .label_selected").text(d_page).trigger("change");
-					//window.location.hash = $('.main_dd_select .option_container .option.selected').prev().text();
+			current_pp = $('.main_dd_select .option_container .option.selected').attr("id").substr(6);
+			if (toward === "left" && current_pp !== first_dd){
+				if($('.main_dd_select .option_container .option.selected').prev().attr("id").substr(6)){
+					d_page = $('.main_dd_select .option_container .option.selected').prev().attr("id").substr(6);
+					l_page = $('.main_dd_select .option_container .option.selected').prev().text();
+					$(".main_dd_select .label_selected").text(l_page).attr("id_value", d_page).trigger("change");
+					//window.location.hash = $('.main_dd_select .option_container .option.selected').prev().attr("id").substr(6);
 				}
 			}
-			if (toward === "right"){
-				if($('.main_dd_select .option_container .option.selected').next().text()){
-					d_page = $('.main_dd_select .option_container .option.selected').next().text();
-					$(".main_dd_select .label_selected").text(d_page).trigger("change");
-					//window.location.hash = $('.main_dd_select .option_container .option.selected').next().text();
+			if (toward === "right" && current_pp !== last_dd){
+				if($('.main_dd_select .option_container .option.selected').next().attr("id").substr(6)){
+					d_page = $('.main_dd_select .option_container .option.selected').next().attr("id").substr(6);
+					l_page = $('.main_dd_select .option_container .option.selected').next().text();
+					$(".main_dd_select .label_selected").text(l_page).attr("id_value", d_page).trigger("change");
+					//window.location.hash = $('.main_dd_select .option_container .option.selected').next().attr("id").substr(6);
 				}
 			}
 		}
@@ -774,10 +861,10 @@ $(function() {
 		window.location="index.html";
 	});
 
-	$("#main_left_arrow").click(function(){
+	$(".main_left_arrow").click(function(){
 		arrow("left");
 	});
-	$("#main_right_arrow").click(function(){
+	$(".main_right_arrow").click(function(){
 		arrow("right");
 	});
 	
@@ -995,9 +1082,9 @@ $(function() {
 			first_new_edition = $('.main_ee_select .option_container').children('.option').eq(0).text();
 			second_new_edition = $('.main_ee_select .option_container').children('.option').eq(1).text();
 			if (main_text_edition === first_new_edition){
-				$("#span_ee_select-add .main_ee_select .label_selected").text(second_new_edition).trigger("change");
+				$("#span_ee_select-add .main_ee_select .label_selected").text(second_new_edition).attr("id_value", second_new_edition).trigger("change");
 			} else{
-				$("#span_ee_select-add .main_ee_select .label_selected").text(first_new_edition).trigger("change");
+				$("#span_ee_select-add .main_ee_select .label_selected").text(first_new_edition).attr("id_value", first_new_edition).trigger("change");
 			}
 
 			fitFrame();

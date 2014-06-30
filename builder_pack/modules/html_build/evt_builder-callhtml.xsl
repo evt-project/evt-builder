@@ -21,6 +21,9 @@
 		<head>
 			<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
+			<meta property="og:title" content="{$root//tei:titleStmt/tei:title}"/>
+			<meta property="og:image" content="{$html_path}/data/input_data/images/{$fb_thumb}"/>
+
 			<title>
 				<xsl:value-of select="$root//tei:titleStmt/tei:title"/>
 				<!-- <xsl:value-of select="normalize-space(//tei:titleStmt/tei:title)"/> -->
@@ -161,8 +164,8 @@
 					</header>
 					<section id="central_wrapper">
 						<i class="fa fa-caret-up" id="header_collapse" title="Toggle menu"></i>
-						<div id="main_left_arrow" onclick="UnInitialize()" title="Previous"/>
-						<div id="main_right_arrow" title="Next"/>
+						<div class="main_left_arrow" onclick="UnInitialize()" title="Previous"/>
+						<div class="main_right_arrow" title="Next"/>
 						<xsl:if test="$image_frame=true() or count($edition_array) &gt; 1">
 							<xsl:variable name="viewStatus" select="if($image_frame=false()) then 'width:0px; border-left-width:0px; border-right-width:0px;' else ''"/>
 							<div id="main_left_frame" style="{$viewStatus}">
@@ -176,9 +179,9 @@
 								</div>
 								-->
 								<xsl:if test="$image_frame=false()">
-									<!--<div id="main_left_arrow" onclick="UnInitialize()" title="Previous"/>-->
+									<!--<div class="main_left_arrow" onclick="UnInitialize()" title="Previous"/>-->
 								</xsl:if>
-								<!-- <div id="main_left_arrow" title="Previous"/> -->
+								<!-- <div class="main_left_arrow" title="Previous"/> -->
 								<header id="left_header">
 									<i class="fa fa-times-circle closeFullScreen" id="closeFullScreenLeft"></i>
 									<div id="left_menu">
@@ -273,6 +276,33 @@
 											</xsl:for-each>
 										</div>									
 									</div>
+									<input id="dimFit" type="hidden" value=""/>
+									<input id="imgTit" type="hidden" value=""/>
+									<div id="thumb_cont">
+										<!-- CDP:embedded -->
+										<xsl:if test="$root//tei:sourceDoc">
+											<!-- Found the node(s) for embedded transcription-->
+											<xsl:for-each select="$root//tei:sourceDoc//tei:surface[not(ancestor::tei:zone)]">
+												<figure class="thumb_single" id="{@xml:id}_small">
+													<img src="data/input_data/images/single/{@xml:id}_small.jpg"/>
+													<figcaption>
+														<xsl:value-of select="@n"/>
+													</figcaption>
+												</figure>
+											</xsl:for-each>
+										</xsl:if>
+										<xsl:if test="$root//tei:text">
+											<!-- Found no node(s) for embedded transcription-->
+											<xsl:for-each select="$root//tei:text//tei:pb">
+												<figure class="thumb_single" id="{@xml:id}_small">
+													<img src="data/input_data/images/single/{@xml:id}_small.jpg"/>
+													<figcaption>
+														<xsl:value-of select="@n"/>
+													</figcaption>
+												</figure>
+											</xsl:for-each>
+										</xsl:if>
+									</div>									
 								</xsl:if>
 							</div>
 						</xsl:if>
@@ -299,7 +329,7 @@
 									title="Close menu"> - </a>
 							</div>
 							-->
-							<!--<div id="main_right_arrow" title="Previous"/>-->
+							<!--<div class="main_right_arrow" title="Previous"/>-->
 							<header id="right_header">
 								<div id="right_menu">
 									<span id="span_tt_select" class="like_select" title="Text">
@@ -332,12 +362,12 @@
 						</div>
 					</section>
 					<section id="central_button">
-						<div id="edval">
+						<!-- <div id="edval">
 							<span>Edition</span>
 						</div>
 						<div id="central_page_number">
 							<span>Folio: </span>
-						</div>
+						</div> -->
 						<input id="folio_page_number" type="hidden" value=""/>
 					</section>
 					

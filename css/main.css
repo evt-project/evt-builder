@@ -994,6 +994,22 @@ footer{
 	color: #ccc;
 }
 
+.optionGroup span{
+   font-size: 80%;
+   color: #4E443C;
+}
+
+#span_pp_select .option{
+    padding-left:15px;
+    width: -webkit-calc(100% - 10px);
+    width: -moz-calc(100% - 10px);
+    width: calc(100% - 10px);
+}
+
+#span_pp_select .option:last-child{
+    border-bottom: 1.7px solid #4E443C;
+}
+
 .like_select .open_select:hover{
 	border-radius: 2px 2px 0 0;
 }
@@ -1202,7 +1218,7 @@ footer{
 	position: absolute;
 }
 
-#main_right_arrow{
+.main_right_arrow{
 	background:url(../images/arrows.png) no-repeat 0 -177px;
     
     cursor:pointer;
@@ -1221,12 +1237,15 @@ footer{
 	margin-top: -29.5px;
 }
 
-#main_right_arrow:hover{
+.main_right_arrow:hover, .arrow_right_disable{
     background-position:0 -118px;
-
+}
+.arrow_right_disable{
+	cursor: default;
+    background-position:0 -118px;
 }
 
-#main_left_arrow{
+.main_left_arrow{
 	background:url(../images/arrows.png) no-repeat 0 -59px;
     
     float: left;
@@ -1245,8 +1264,12 @@ footer{
 	margin-top: -29.5px;
 }
 
-#main_left_arrow:hover{
+.main_left_arrow:hover, .arrow_left_disable{
     background-position:0 0px;
+}
+.arrow_left_disable{
+    background-position:0 0px;
+    cursor: default;
 }
 
 /*Chiara*/
@@ -1428,7 +1451,7 @@ div.botleftconcave {
 	cursor: pointer;
 }
 
-#iviewerImage{
+#iviewerImage, .zoomWindow{
 	cursor: move;
 }
 
