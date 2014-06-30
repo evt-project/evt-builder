@@ -83,24 +83,6 @@ $(function() {
 			l_pair = $(xml).find('pages pair').last().children('pb').eq(1).text()
 			last_dd = f_pair + "-" + l_pair;
 
-			//Page
-			$(xml).find('pages pair pb').each(function(){
-				var current_id = $(this).text();
-				var current_label = $(this).attr("n");
-				// current_id = current_id.replace(/\./g,'\\\\.');
-				$('.main_pp_select .option_container').append(
-					$('<div/>')
-						.attr("id", "value_"+current_id)
-						.addClass('option')
-						.text(current_label)
-				);
-			});
-
-			$('.main_pp_select .option_container div:first-child').addClass('selected');
-			$('.main_pp_select .label_selected')
-				.text($('.main_pp_select .option_container div:first').text())
-				.attr("id_value", $('.main_pp_select .option_container div:first').attr("id").substr(6));
-
 			//Page_dd
 			$(xml).find('pages pair').each(function(){
 				var current_id, first_page_d, second_page_d;
@@ -132,7 +114,7 @@ $(function() {
 				.attr("id_value", $('.main_dd_select .option_container div:first').attr("id").substr(6));
 
 
-			//Text
+			//Text and Page
 			$(xml).find('textpage text').each(function(){
 				var current_id, current_label;
 				current_label = $(this).attr("n");
@@ -143,12 +125,36 @@ $(function() {
 						.addClass('option')
 						.text(current_label)
 				);
+				
+				$('.main_pp_select .option_container').append(
+				    $('<div/>')
+    						.attr("id", "optGrp_value_"+current_id)
+    						.addClass('optionGroup')
+    						.append($('<span>').text(current_label))
+				);
+				
+				$(this).find('pb').each(function(){
+    				var page_current_id = $(this).text();
+    				var page_current_label = $(this).attr("n");
+    				// current_id = current_id.replace(/\./g,'\\\\.');
+    				$('.main_pp_select #optGrp_value_'+current_id).append(
+    					$('<div/>')
+    						.attr("id", "value_"+page_current_id)
+    						.addClass('option')
+    						.text(page_current_label)
+    				);
+				})
 			});
 			$('.main_tt_select .option_container div:first-child').addClass('selected');
 			$('.main_tt_select .label_selected')
 				.text($('.main_tt_select .option_container div:first').text())
 				.attr("id_value", $('.main_tt_select .option_container div:first').text());
-
+            
+            $('.main_pp_select .option_container div:first-child').addClass('selected');
+			$('.main_pp_select .label_selected')
+				.text($('.main_pp_select .option_container .optionGroup:first div:first').text())
+				.attr("id_value", $('.main_pp_select .option_container .optionGroup:first div:first').attr("id").substr(6));
+				
 			/* Gestione eventi */
 
 			$(".label_selected").on('change',function(){
@@ -160,7 +166,8 @@ $(function() {
 				$(this).siblings(".option_container")
 					.find("#value_"+current_id)
 					.addClass("selected")
-					.siblings().removeClass('selected');
+					.siblings().removeClass('selected')
+					.parent().siblings().find('.option').removeClass('selected');
 			});
 
 			$(".main_ee_select .label_selected").on('change',function(){
@@ -307,7 +314,7 @@ $(function() {
 							$(this).parent().prev().prev().text(newText).attr("id_value", newPage).trigger('change'); // .label_selected
 						}
 					}
-					$(this).parent().animate({height:"toggle"}, 400);
+					$(this).parents('.option_container').animate({height:"toggle"}, 400);
 					//$("#value_" + newPage).addClass("selected").siblings().removeClass('selected');
 				}
 			});
@@ -507,13 +514,17 @@ $(function() {
 		if ($("#imgd_link").attr("class") !== "current_mode"){
 			current_pp = $('.main_pp_select .option_container .option.selected').attr("id").substr(6);
 			if (toward === "left" && current_pp !== first_pp){
-				if($('.main_pp_select .option_container .option.selected').prev().attr("id").substr(6)){
+				if($('.main_pp_select .option_container .option.selected').prev().attr("id")!=undefined){
 					window.location.hash = $('.main_pp_select .option_container .option.selected').prev().attr("id").substr(6);
+				} else if($('.main_pp_select .option_container .option.selected').parent().prev()){
+				    window.location.hash = $('.main_pp_select .option_container .option.selected').parent().prev().find('.option:last').attr("id").substr(6);
 				}
 			}
 			if (toward === "right" && current_pp !== last_pp){
-				if($('.main_pp_select .option_container .option.selected').next().attr("id").substr(6)){
+				if($('.main_pp_select .option_container .option.selected').next().attr("id")!==undefined){
 					window.location.hash = $('.main_pp_select .option_container .option.selected').next().attr("id").substr(6);
+				} else if($('.main_pp_select .option_container .option.selected').parent().next()){
+				    window.location.hash = $('.main_pp_select .option_container .option.selected').parent().next().find('.option:first').attr("id").substr(6);
 				}
 			}
 		} else {

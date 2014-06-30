@@ -991,6 +991,23 @@ footer{
 	color: #ccc;
 }
 
+.optionGroup span{
+   font-size: 80%;
+   font-style: italic;
+   font-weight: bold;
+}
+
+#span_pp_select .option{
+    padding-left:15px;
+    width: -webkit-calc(100% - 10px);
+    width: -moz-calc(100% - 10px);
+    width: calc(100% - 10px);
+}
+
+#span_pp_select .option:last-child{
+    border-bottom:2px solid black;
+}
+
 .like_select .open_select:hover{
 	border-radius: 2px 2px 0 0;
 }
