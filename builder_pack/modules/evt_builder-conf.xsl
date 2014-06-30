@@ -35,7 +35,7 @@
 	<!--<xsl:param name="index_title" select="'Codex Viewer'"/>-->
 	
 	<!-- Hide/Show scans -->
-	<xsl:param name="image_frame" select="false()"/>
+	<xsl:param name="image_frame" select="true()"/>
 
 	<!-- Hide/Show badge -->
 	<xsl:param name="badge" select="true()"/>
