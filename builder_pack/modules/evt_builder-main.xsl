@@ -103,7 +103,7 @@
 				</xsl:when>
 				<!-- IT: Se c'è il surface viene creato un albero temporaneo che corrisponde al gruppo corrente trasformato in base al livello di edizione;
 										 a questo viene applicato il template per il collegamento testo-immagine-->
-				<xsl:when test="$root//tei:facsimile/tei:surface[ends-with(@xml:id, $pb_n)]//tei:zone[@rendition='Line']">
+				<xsl:when test="$root//tei:facsimile/tei:surface[translate(@corresp, '#', '')=$pb_n]//tei:zone[@rendition='Line']">
 					<!--<xsl:copy-of select="current-group()"/>--> <!-- <-use this to find split errors -->
 					<xsl:variable name="text"><xsl:apply-templates select="current-group()" mode="facs"/></xsl:variable>
 					<!-- IT: aggiungi elementi div per linee di testo -->
