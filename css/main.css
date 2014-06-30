@@ -993,8 +993,7 @@ footer{
 
 .optionGroup span{
    font-size: 80%;
-   font-style: italic;
-   font-weight: bold;
+   color: #4E443C;
 }
 
 #span_pp_select .option{
@@ -1005,7 +1004,7 @@ footer{
 }
 
 #span_pp_select .option:last-child{
-    border-bottom:2px solid black;
+    border-bottom: 1.7px solid #4E443C;
 }
 
 .like_select .open_select:hover{
