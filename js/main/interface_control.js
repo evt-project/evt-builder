@@ -304,14 +304,14 @@ $(function() {
 					var newPage, newText;
 					newPage = $(this).attr('id').substr(6);
 					newText = $(this).text();
-					//alert($(this).parent().parent().attr("class"));
-					if ($(this).parent().parent().attr("class") === "main_tt_select"){
-						$(this).parent().prev().prev().text(newText).attr("id_value", newText).trigger('change'); // .label_selected
+					//alert($(this).parents('.option_container').prev().prev().attr("id_value"));
+					if ($(this).parents('.option_container').parent().attr("class") === "main_tt_select"){
+						$(this).parents('.option_container').prev().prev().text(newText).attr("id_value", newText).trigger('change'); // .label_selected
 					}
 					else{
 						// WTF: main_dd_select
-						if ($(this).parent().parent().attr("class") !== "main_pp_select"){
-							$(this).parent().prev().prev().text(newText).attr("id_value", newPage).trigger('change'); // .label_selected
+						if ($(this).parents('.option_container').parent().attr("class") !== "main_pp_select"){
+							$(this).parents('.option_container').prev().prev().text(newText).attr("id_value", newPage).trigger('change'); // .label_selected
 						}
 					}
 					$(this).parents('.option_container').animate({height:"toggle"}, 400);
