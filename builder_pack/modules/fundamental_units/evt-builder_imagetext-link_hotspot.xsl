@@ -26,7 +26,7 @@
 	-->
 
 	<xsl:template match="/" mode="ITL">
-		<xsl:variable name="n" select="tei:pb/@n"/>
+		<xsl:variable name="n" select="tei:pb/@xml:id"/>
 		<!-- EN: The menu of categories and annotations. -->
 		<!-- IT: Il menu di categorie e associazioni. -->
 		<xsl:element name="div">
@@ -45,7 +45,7 @@
 					<xsl:for-each-group select="node()" group-starting-with="//tei:lb">
 						<xsl:if test="current-group()[not((string-length(normalize-space()))= 0)]"><!--IT: non considera le righe vuote-->
 							<xsl:choose>
-								<xsl:when test="if(@facs) then(translate(@facs, '#', '')=$root//tei:surface[@xml:id=concat('surf_',$n)]//tei:zone[@rendition='Line']/@xml:id) else(translate(@corresp, '#', '')=$root//tei:surface[@xml:id=concat('surf_',$n)]//tei:zone/@xml:id)">
+								<xsl:when test="if(@facs) then(translate(@facs, '#', '')=$root//tei:surface[ends-with(@xml:id, $n)]//tei:zone[@rendition='Line']/@xml:id) else(translate(@corresp, '#', '')=$root//tei:surface[@xml:id=concat('surf_',$n)]//tei:zone/@xml:id)">
 									<xsl:variable name="CurrAnnId" select="if(@facs) then(translate(@facs, '#', '')) else(translate(@corresp, '#', ''))"/>
 									<xsl:element name="div">
 										<xsl:attribute name="style">list-style:none;</xsl:attribute>
@@ -72,9 +72,9 @@
 			<xsl:element name="div">
 				<xsl:attribute name="id" select="'realImageWidth'"/>
 				<xsl:attribute name="style" select="'display:none;'"></xsl:attribute>
-				<xsl:value-of select="$root//tei:facsimile/tei:surface[substring(@xml:id, string-length(@xml:id)-3)=$n]/tei:graphic/@width"/>
+				<xsl:value-of select="$root//tei:facsimile/tei:surface[ends-with(@xml:id, $n)]/tei:graphic/@width"/>
 			</xsl:element>
-			<xsl:for-each select="$root//tei:facsimile/tei:surface[substring(@xml:id, string-length(@xml:id)-3)=$n]/tei:zone">
+			<xsl:for-each select="$root//tei:facsimile/tei:surface[ends-with(@xml:id, $n)]/tei:zone">
 				<!-- EN: Creates a div for area annotations -->
 				<!-- IT: Crea un div per area annotations -->
 				<xsl:variable name="CurrClass"><xsl:value-of select="@rendition"/></xsl:variable>
@@ -102,7 +102,7 @@
 		</xsl:element>
 		
 		<!-- Now the actual annotation data itself (which will be hidden until called up). -->  
-		<xsl:for-each select="$root//tei:back//tei:div[if(@facs)then(translate(@facs, '#', '')=$root//tei:surface[@xml:id=concat('surf_',$n)]//tei:zone[@rendition='HotSpot']/@xml:id) else(translate(@corresp, '#', '')=$root//tei:surface[@xml:id=concat('surf_',$n)]//tei:zone[@rendition='HotSpot']/@xml:id)]">
+		<xsl:for-each select="$root//tei:back//tei:div[if(@facs)then(translate(@facs, '#', '')=$root//tei:surface[ends-with(@xml:id, $n)]//tei:zone[@rendition='HotSpot']/@xml:id) else(translate(@corresp, '#', '')=$root//tei:surface[@xml:id=concat('surf_',$n)]//tei:zone[@rendition='HotSpot']/@xml:id)]">
 			<!-- Find out the id it's linked to, whether it happens to use @facs or @corresp to point to it. -->
 			<xsl:variable name="linkId" select="if(@facs) then(translate(@facs, '#', '')) else(translate(@corresp, '#', ''))"/>
 			<xsl:element name="div">
