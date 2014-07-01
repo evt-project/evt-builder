@@ -93,6 +93,22 @@ $(function() {
 				second_label_d = $(this).children('pb').eq(1).attr("n");
 				current_id = "";
 				current_label = "";
+				
+				var text_first_label, text_second_label, text_first_id, text_second_id, label_text, id_text;
+				text_first_label= $(xml).find("text pb").filter(function() {
+                                                                    return $(this).text().trim() == first_page_d;
+                                                            }).parent().attr('n');
+				text_second_label= $(xml).find("text pb").filter(function() {
+                                                                    return $(this).text().trim() == second_page_d;
+                                                            }).parent().attr('n');
+				if(text_first_label!==text_second_label){
+				    label_text = text_first_label+"-"+text_second_label;
+				    id_text = text_first_label.replace(/\s+/g, '')+"-"+text_second_label.replace(/\s+/g, '');;
+				} else {
+				    label_text = text_first_label;
+				    id_text = text_first_label.replace(/\s+/g, '');
+				}
+				
 				if (second_page_d !== ""){
 					current_id = first_page_d+"-"+second_page_d;
 					current_label = first_label_d+"-"+second_label_d;
@@ -101,12 +117,26 @@ $(function() {
 					current_id = first_page_d+"-";
 					current_label = first_label_d+"-";
 				}
-				$('.main_dd_select .option_container').append(
-					$('<div/>')
-						.attr("id", "value_"+current_id)
+				
+				if($('.main_dd_select #optGrp_value_'+id_text).length==0){
+    				$('.main_dd_select .option_container').append(
+    					$('<div/>')
+    						.attr("id", "optGrp_value_"+id_text)
+    						.addClass('optionGroup')
+    						.append($('<span>').text(label_text))
+    				);   
+				}
+				
+				$('.main_dd_select #optGrp_value_'+id_text).append(
+    				$('<div/>')
+    					.attr("id", "value_"+current_id)
 						.addClass('option')
 						.text(current_label)
-				);
+    			);
+
+				
+				
+				
 			});
 			$('.main_dd_select .option_container div:first-child').addClass('selected');
 			$('.main_dd_select .label_selected')
@@ -531,19 +561,29 @@ $(function() {
 		} else {
 			current_pp = $('.main_dd_select .option_container .option.selected').attr("id").substr(6);
 			if (toward === "left" && current_pp !== first_dd){
-				if($('.main_dd_select .option_container .option.selected').prev().attr("id").substr(6)){
+				if($('.main_dd_select .option_container .option.selected').prev().attr("id")!=undefined){
 					d_page = $('.main_dd_select .option_container .option.selected').prev().attr("id").substr(6);
 					l_page = $('.main_dd_select .option_container .option.selected').prev().text();
 					$(".main_dd_select .label_selected").text(l_page).attr("id_value", d_page).trigger("change");
 					//window.location.hash = $('.main_dd_select .option_container .option.selected').prev().attr("id").substr(6);
+				} else {
+				    d_page = $('.main_dd_select .option_container .option.selected').parent().prev().find('.option:last').attr("id").substr(6);
+					l_page = $('.main_dd_select .option_container .option.selected').parent().prev().find('.option:last').text();
+					$(".main_dd_select .label_selected").text(l_page).attr("id_value", d_page).trigger("change");
+				    //window.location.hash = $('.main_pp_select .option_container .option.selected').parent().prev().find('.option:last').attr("id").substr(6);
 				}
 			}
 			if (toward === "right" && current_pp !== last_dd){
-				if($('.main_dd_select .option_container .option.selected').next().attr("id").substr(6)){
+				if($('.main_dd_select .option_container .option.selected').next().attr("id")!=undefined){
 					d_page = $('.main_dd_select .option_container .option.selected').next().attr("id").substr(6);
 					l_page = $('.main_dd_select .option_container .option.selected').next().text();
 					$(".main_dd_select .label_selected").text(l_page).attr("id_value", d_page).trigger("change");
 					//window.location.hash = $('.main_dd_select .option_container .option.selected').next().attr("id").substr(6);
+				} else {
+				    d_page = $('.main_dd_select .option_container .option.selected').parent().next().find('.option:first').attr("id").substr(6);
+					l_page = $('.main_dd_select .option_container .option.selected').parent().next().find('.option:first').text();
+					$(".main_dd_select .label_selected").text(l_page).attr("id_value", d_page).trigger("change");
+				    //window.location.hash = $('.main_pp_select .option_container .option.selected').parent().next().find('.option:first').attr("id").substr(6);
 				}
 			}
 		}
@@ -599,7 +639,7 @@ $(function() {
 			$('#span_dd_select').find('.option_container').removeAttr('style');
 			$('#span_dd_select').css('width', widthEE);
 			$('#span_dd_select').find('.option_container').css('width', optEE+5);
-			$('#span_dd_select').addClass('widthChanged');
+			//$('#span_dd_select').addClass('widthChanged');
 		}
 		
 	}
