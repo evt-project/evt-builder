@@ -377,6 +377,7 @@ $(function() {
 							}
 						}
 					}
+					if($('#txt_single').attr('class')==="current_mode"){ $('#header_collapse').css("left",'15px'); }
 					// IT: Cambia il titolo della pagina in base all'hash
 					//document.title = 'The hash is ' + ( hash.replace( /^#/, '' ) || 'blank' ) + '.';
 				});
@@ -1176,6 +1177,9 @@ $(function() {
 	           borderRightWidth: '0px'
 	       }, function(){
 	          $("#text_cont-add").remove(); 
+	       });
+	       $('#header_collapse').animate({
+	          left: '15px' 
 	       });
 	    }
 	});

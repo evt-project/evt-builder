@@ -147,16 +147,22 @@
 				<xsl:attribute name="class" separator="" select="'AnnSubmenu_',$CurrCategory"></xsl:attribute>
 				<xsl:element name="div">
 					<xsl:attribute name="class">AnnSubmenu</xsl:attribute>
-					<xsl:for-each select="current-group()/child::node()"><!-- per ogni zone -->
+					<!-- EN: there is an iteration on each child node of the current <surface>. This is necessary in order to deal with text outside <zone> elements -->
+					<!-- IT: ciclo sui nodi figli del <surface> corrente, necessario per gestire del testo esterno a <zone> -->
+					<xsl:for-each select="current-group()/child::node()">
 						<xsl:choose>
+							<!-- EN: if the current node is <zone> -->
+							<!-- IT: se il nodo corrente è uno <zone> -->
 							<xsl:when test="self::tei:zone">
 								<xsl:choose>
 									<xsl:when test="current()[@lrx][@lry][@ulx][@uly]"><!-- Verifico se in <zone> ci sono le coordinate -->
 										<xsl:choose>
-											<!-- se <zone> e' vuoto devo creare un collegamento tra lui e i <line> corrispondenti-->
+											<!-- EN: if the <zone> element is empty I need to create an alignment with the corresponding <line>-->
+											<!-- IT: se <zone> e' vuoto devo creare un collegamento tra lui e il <line> corrispondente-->
 											<xsl:when test="current()[((string-length(normalize-space()))= 0)]">
 												<xsl:choose>
-													<!-- Controllo se esiste una <line> con l'id cui la <zone> fa riferimento -->
+													<!-- EN: there is a check on the existence of a <line> element that has @facs equal to @xml:id of the <zone>-->
+													<!-- IT: Controllo se esiste una <line> con l'id cui la <zone> fa riferimento -->
 													<xsl:when test="concat('#', @xml:id)=following-sibling::tei:line/@facs">
 														<xsl:variable name="CurrAnnId" select="@xml:id"/>
 														<xsl:element name="div">
@@ -167,27 +173,24 @@
 															<xsl:attribute name="onmouseover">Highlight('<xsl:value-of select="$CurrAnnId"/>')</xsl:attribute>
 															<xsl:attribute name="onmouseout">UnHighlight()</xsl:attribute>
 															<xsl:copy-of select="//node()[@facs=concat('#', $CurrAnnId)]" />
-															<!--<xsl:if test="$edition_level='facs'">
-																<xsl:apply-templates select="//node()[@facs=concat('#', $CurrAnnId)]" mode="facs"></xsl:apply-templates>
-															</xsl:if>
-															<xsl:if test="$edition_level='dipl'">
-																<xsl:apply-templates select="//node()[@facs=concat('#', $CurrAnnId)]" mode="dipl"></xsl:apply-templates>
-															</xsl:if>-->
 														</xsl:element>	
 													</xsl:when>
 													<xsl:otherwise />
 												</xsl:choose>
 											</xsl:when>
-											<!-- altrimenti vuol dire che i <line> sono all'interno di <zone> stesso -->
+											<!-- EN: if the <zone> element is not empty the corresponding text is inside itself-->
+											<!-- IT: se <zone> non e' vuoto, vuol dire che i <line> sono all'interno di <zone> stesso -->
 											<xsl:otherwise>
 												<xsl:choose>
-													<!-- se il figlio di zone è un <graohic> devo trattare zone come HS -->
+													<!-- EN: if inside a <zone> there is a <graphic> element, this will be transformed as an HS -->
+													<!-- IT: se il figlio di <zone> è un <graphic> questo zone viene trattato come HS -->
 													<xsl:when test="current()//tei:graphic">
 														<xsl:call-template name="Area">
 															<xsl:with-param name="suffix" select="'HS'"/>
 														</xsl:call-template>
 													</xsl:when>
-													<!-- altrimenti creo semplicemente il collegamento testo immagine -->
+													<!-- EN: otherwise the image-text link will be created -->
+													<!-- IT: altrimenti viene semplicemente creato il collegamento testo immagine -->
 													<xsl:otherwise>
 														<xsl:variable name="CurrAnnId" select="if(@xml:id) then(@xml:id) else(generate-id())"/>
 														<xsl:element name="div">
@@ -198,37 +201,23 @@
 															<xsl:attribute name="onmouseover">Highlight('<xsl:value-of select="$CurrAnnId"/>')</xsl:attribute>
 															<xsl:attribute name="onmouseout">UnHighlight()</xsl:attribute>
 															<xsl:copy-of select="current()" />
-															<!--<xsl:if test="$edition_level='facs'">
-																<xsl:apply-templates select="current()" mode="facs"></xsl:apply-templates>
-															</xsl:if>
-															<xsl:if test="$edition_level='dipl'">
-																<xsl:apply-templates select="current()" mode="dipl"></xsl:apply-templates>
-															</xsl:if>-->
 														</xsl:element>
 													</xsl:otherwise>
 												</xsl:choose>
 											</xsl:otherwise>
 										</xsl:choose>
 									</xsl:when>
-									<xsl:otherwise><!-- se in <zone> non ci sono le coordinate -->
+									<!-- EN: if in the current <zone> there aren't any coordinates, the content of element will be simply copied -->
+									<!-- IT: se nello <zone> corrente non ci sono le coordinate, viene semplicemente copiato il contenuto dell'elemento stesso  -->
+									<xsl:otherwise>
 										<xsl:copy-of select="current()" />
-										<!--<xsl:if test="$edition_level='facs'">
-											<xsl:apply-templates select="current()" mode="facs"></xsl:apply-templates>
-										</xsl:if>
-										<xsl:if test="$edition_level='dipl'">
-											<xsl:apply-templates select="current()" mode="dipl"></xsl:apply-templates>
-										</xsl:if>-->
 									</xsl:otherwise>
 								</xsl:choose>
 							</xsl:when>
+							<!-- EN: if the current node is not a <line> or is a <line> but doesn't have linking attributes referring to an existing <zone>, the content of element will be simply copied -->
+							<!-- IT: se il nodo corrente non e' <line> o e' <line> ma non ha attributi di collegamento che fanno riferimento ad uno <zone> esistente, viene semplicemente copiato il contenuto dell'elemento stesso-->
 							<xsl:when test="not(self::tei:line) or self::tei:line[not (translate(@facs, '#', '')=//tei:zone/@xml:id)]">
 								<xsl:copy-of select="current()" />
-								<!--<xsl:if test="$edition_level='facs'">
-									<xsl:apply-templates select="current()" mode="facs"></xsl:apply-templates>
-								</xsl:if>
-								<xsl:if test="$edition_level='dipl'">
-									<xsl:apply-templates select="current()" mode="dipl"></xsl:apply-templates>
-								</xsl:if>-->
 							</xsl:when>
 						</xsl:choose>
 					</xsl:for-each>
@@ -249,10 +238,12 @@
 				<!-- IT: Crea un div per area annotations -->
 				<xsl:variable name="CurrClass"><xsl:value-of select="if(@rendition) then(@rendition) else ('Zone')"/></xsl:variable>
 				<xsl:choose>
-					<!-- se hotspot allora HS altrimenti quello che facciamo nel line-->
-					<xsl:when test="($CurrClass='HotSpot')or(current()//tei:graphic)"><!-- se lo zone ha un figlio <graphic> viene trattato come HS -->
+					<!-- EN: if the current <zone> has @rendition='HotSpot' or has a <graphic> element as a child, the transformation for HS are activated -->
+					<!-- IT: se l'attributo @rendition di <zone> e' 'HotSpot' oppure se lo zone ha un figlio <graphic> vengono attivate le trasformazioni per l'HS-->
+					<xsl:when test="($CurrClass='HotSpot')or(current()//tei:graphic)">
 						<xsl:variable name="idL" select="if(@xml:id) then (@xml:id) else (generate-id())"/>
-						<!-- IT: crea un div areaHS solo se esiste un div corrispondente alla zona corrente -->
+						<!-- EN: a div areaHS will be created only if exists a corresponding div in the current <zone>-->
+						<!-- IT: crea un div areaHS solo se esiste un div corrispondente allo <zone> corrente -->
 						<xsl:if test="current()/tei:graphic/@url"><xsl:call-template name="embeddedHS"/></xsl:if><!-- se zone ha un figlio <graphic> devo richiamare il template embeddedHS -->
 						<xsl:if test="(//tei:div[@type='hotspot']/tei:div/translate(@facs, '#', '')=$idL) or (current()//tei:graphic/@url)">
 							<xsl:call-template name="Area">
@@ -260,7 +251,11 @@
 							</xsl:call-template>
 						</xsl:if>
 					</xsl:when>
+					<!-- EN: otherwise the transformations for ITL areas are activated -->
+					<!-- IT: altrimenti vengono attivare le trasformazioni per la generazione delle aree per l'ITL -->
 					<xsl:when test="$CurrClass!=''">
+						<!-- EN: if <zone> is not empty or his @xml:id does not have a correspondance in any @facs of any <line>
+								 a div AREA corresponding to the current <zone> will be created -->
 						<!-- IT: Se <zone> non e' vuoto o se il suo attributo xml:id ha una corrispondenza nel @facs di un <line>
 								viene creato un div AREA corrispondente alla zona corrente	-->					
 						<xsl:if test="(current()[not((string-length(normalize-space()))= 0)])or(concat('#', @xml:id)=following-sibling::tei:line/@facs)">
@@ -270,11 +265,10 @@
 					<xsl:otherwise>
 					</xsl:otherwise>
 				</xsl:choose>
-				<!-- genero ora gli HS per gli elementi zone interni ad altri zone -->
+				<!-- EN: <zone> elements inside other <zone> elements are treted as HS, where the text is the content of the inner <zone>-->
+				<!-- IT: <zone> interni ad altri zone sono considerati HS, il cui testo e' il contenuto dello <zone> piu' interno-->
 				<xsl:for-each select="current()//tei:zone">
 					<xsl:call-template name="embeddedHS"/>
-					<!-- L'HS in questo caso viene generato solo se l'elemento ha figli o se ha un collegamento con un elemento esterno -->
-					<!-- Il testo dei nodi figli o dell'elemento cui risulta collegato diventa il testo nel box dell'HS-->
 					<xsl:if test="(current()[not((string-length(normalize-space()))= 0)])or(concat('#', @xml:id)=following-sibling::tei:line/@facs)">
 						<xsl:call-template name="Area">
 							<xsl:with-param name="suffix" select="'HS'"/>
