@@ -999,14 +999,14 @@ footer{
    color: #4E443C;
 }
 
-#span_pp_select .option{
+#span_pp_select .option, #span_dd_select .option{
     padding-left:15px;
     width: -webkit-calc(100% - 10px);
     width: -moz-calc(100% - 10px);
     width: calc(100% - 10px);
 }
 
-#span_pp_select .option:last-child{
+#span_pp_select .option:last-child, #span_dd_select .option:last-child{
     border-bottom: 1.7px solid #4E443C;
 }
 
