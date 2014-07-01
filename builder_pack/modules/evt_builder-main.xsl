@@ -48,19 +48,26 @@
 				<xsl:apply-templates select="$step0" mode="structure_generation"></xsl:apply-templates>
 			</xsl:otherwise>
 		</xsl:choose>-->
+		<!-- CDP: Embedded -->
+		<!-- EN: If there is at least a <sourceDoc> element the transformations for embedded are activated -->
+		<!-- IT: Le trasformazioni per l'embedded transcription vengono attivate se nel documento esiste almeno un elemento <sourceDoc> -->
 		<xsl:if test="tei:TEI/tei:sourceDoc">
 			<xsl:apply-templates select="." mode="splitPages4embedded"></xsl:apply-templates>
 		</xsl:if>
+		<!-- EN: If there is at least a <text> element the transformations for parallel transcription are activated -->
+		<!-- IT: Le trasformazioni per la parallel transcription vengono attivate se nel documento esiste almeno un elemento <text> -->
 		<xsl:if test="tei:TEI/tei:text">
 			<xsl:apply-templates select="$step0" mode="splitPages"></xsl:apply-templates>
 			<xsl:apply-templates select="$step0" mode="file4search"></xsl:apply-templates>
 		</xsl:if>
+		<!-- EN: The index and structure generation are the same for both the parallel and the embedded  -->
+		<!-- IT: La generazione dell'index e della struttura sono uguali sia per la parallel sia per l'embedded -->
 		<xsl:call-template name="index"></xsl:call-template>
 		<xsl:apply-templates select="." mode="structure_generation"></xsl:apply-templates>
 	</xsl:template>
 	
 	<xsl:template name="index">
-		<!-- EN: index generation. The index_build template can be found in html_build/evt_builder-callhtml.xsl -->
+		<!-- EN: Index generation. The index_build template can be found in html_build/evt_builder-callhtml.xsl -->
 		<!-- IT: Generazione della index. Il template index_build si trova in html_build/evt_builder-callhtml.xsl -->
 		<xsl:result-document method="html" encoding="UTF-8" media-type="text/plain" href="{$filePrefix}/index.html" indent="yes">
 			<xsl:call-template name="index_build" />			
@@ -70,6 +77,7 @@
 	<xsl:template name="page">
 		<!-- CDP:embedded -->	
 		<xsl:variable name="pb_n" select="if(self::tei:pb) then(self::tei:pb/@xml:id) else (@xml:id)" />	
+		<!-- EN: For every single page, the system generates the corresponding edition. Data_structure template is in html_builder/evt_builder-callhtml.xsl -->
 		<!-- IT: Per ogni pagina, genera le corrispettive edizioni. Il template data_structure si trova in html_build/evt_builder-callhtml.xsl -->
 		<xsl:for-each select="$edition_array">
 			<xsl:if test=".!=''">
@@ -131,8 +139,10 @@
 		<xsl:if test="$edition_pos=2">
 			<xsl:choose>
 				<!-- CDP:embedded -->
-				<!-- Se il file e' codificato in Embedded Transcription e almeno un elemento <zone> presenta le coordinate spaziali 
-					viene attivata la trasformazione per il collegamento testo immagine -->
+				<!-- EN: If the text is encoded in Embedded Transcription and there is at least one <one> element with spatial coordinates
+						 the transformation for the image-text link will be activated -->
+				<!-- IT: Se il file e' codificato in Embedded Transcription e almeno un elemento <zone> presenta le coordinate spaziali 
+						 viene attivata la trasformazione per il collegamento testo immagine -->
 				<xsl:when test="($root//tei:sourceDoc)and(current-group()/tei:zone[@lrx][@lry][@ulx][@uly])">
 					<!--<xsl:copy-of select="current-group()"/>--> <!-- <-use this to find split errors -->
 					<!--<xsl:variable name="text"><xsl:apply-templates select="current-group()" mode="dipl"/></xsl:variable>-->
