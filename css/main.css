@@ -133,7 +133,7 @@ footer{
 	opacity: 1;
 }
 
-#imgd_link .mainHeaderimg{
+#imgd_link .mainHeaderimg, #txt_single .mainHeaderimg{
 	width: 51px;
 } 
 

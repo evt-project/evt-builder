@@ -124,10 +124,12 @@
 	</xsl:template>
 	
 	<!--CDP:embedded -->
-	<!--EN: Calls the page template for every page -->
-	<!--IT: Per ogni pagina chiama il template page -->
+	<!--EN: Calls the page template for every page. The page is identified with the <surface> element inside a <sourceDoc> -->
+	<!--IT: Per ogni pagina chiama il template page. La pagina viene identificata con l'elemento <surface> in <sourceDoc> -->
 	<xsl:template match="*" mode="splitPages4embedded">
 		<!--<xsl:copy-of select="*"></xsl:copy-of>-->
+		<!-- EN: The split in pages is iterated for every single <sourceDoc> element -->
+		<!-- IT: La divisione in pagine viene ripetuta per ogni diverso <sourceDoc> -->
 		<xsl:for-each-group select="$root//tei:sourceDoc" group-by="@xml:id">
 			<xsl:for-each-group select="current-group()/tei:surface" group-by="@xml:id">
 				<xsl:call-template name="page"/> <!-- See: evt_builder-main -->
