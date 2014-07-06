@@ -941,6 +941,7 @@ $(function() {
 
 	$(".thumb_link").click(function(){
 		if (magnifierON == false){  //modalità zoom attivo JK
+            if($("#image_loading").css('display')!=="none"){$("#image_loading").hide()}
             if($("#image_elem").css('display') === "none"){
 				$("#image_elem").show();
 				$("#image_fade").show();

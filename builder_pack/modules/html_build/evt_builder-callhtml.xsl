@@ -266,43 +266,31 @@
 										<input id="dimFit" type="hidden" value=""/>
 										<input id="imgTit" type="hidden" value=""/>
 										<div id="thumb_cont">
-											<xsl:for-each select="//tei:pb">
-												<figure class="thumb_single" id="{@n}_small">
-													<img src="data/input_data/images/single/{@n}_small.jpg"/>
-													<figcaption>
-														<xsl:value-of select="@n"/>
-													</figcaption>
-												</figure>
-											</xsl:for-each>
+											<!-- CDP:embedded -->
+											<xsl:if test="$root//tei:sourceDoc">
+												<!-- Found the node(s) for embedded transcription-->
+												<xsl:for-each select="$root//tei:sourceDoc//tei:surface[not(ancestor::tei:zone)]">
+													<figure class="thumb_single" id="{@xml:id}_small">
+														<img src="data/input_data/images/single/{@xml:id}_small.jpg"/>
+														<figcaption>
+															<xsl:value-of select="@n"/>
+														</figcaption>
+													</figure>
+												</xsl:for-each>
+											</xsl:if>
+											<xsl:if test="$root//tei:text">
+												<!-- Found no node(s) for embedded transcription-->
+												<xsl:for-each select="$root//tei:text//tei:pb">
+													<figure class="thumb_single" id="{@xml:id}_small">
+														<img src="data/input_data/images/single/{@xml:id}_small.jpg"/>
+														<figcaption>
+															<xsl:value-of select="@n"/>
+														</figcaption>
+													</figure>
+												</xsl:for-each>
+											</xsl:if>
 										</div>									
 									</div>
-									<input id="dimFit" type="hidden" value=""/>
-									<input id="imgTit" type="hidden" value=""/>
-									<div id="thumb_cont">
-										<!-- CDP:embedded -->
-										<xsl:if test="$root//tei:sourceDoc">
-											<!-- Found the node(s) for embedded transcription-->
-											<xsl:for-each select="$root//tei:sourceDoc//tei:surface[not(ancestor::tei:zone)]">
-												<figure class="thumb_single" id="{@xml:id}_small">
-													<img src="data/input_data/images/single/{@xml:id}_small.jpg"/>
-													<figcaption>
-														<xsl:value-of select="@n"/>
-													</figcaption>
-												</figure>
-											</xsl:for-each>
-										</xsl:if>
-										<xsl:if test="$root//tei:text">
-											<!-- Found no node(s) for embedded transcription-->
-											<xsl:for-each select="$root//tei:text//tei:pb">
-												<figure class="thumb_single" id="{@xml:id}_small">
-													<img src="data/input_data/images/single/{@xml:id}_small.jpg"/>
-													<figcaption>
-														<xsl:value-of select="@n"/>
-													</figcaption>
-												</figure>
-											</xsl:for-each>
-										</xsl:if>
-									</div>									
 								</xsl:if>
 							</div>
 						</xsl:if>
