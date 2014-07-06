@@ -782,6 +782,11 @@ footer{
 	background: url(../images/opacity.png) repeat-x 0 -50px;
 }
 
+#thumb_cont figure img{
+    height:150px;
+    width:100px; /*da decidere insieme*/
+}
+
 #left_menu, #right_menu{
 	position:absolute; 
 	top:50%; 
