@@ -102,7 +102,7 @@
 		</xsl:element>
 		
 		<!-- Now the actual annotation data itself (which will be hidden until called up). -->  
-		<xsl:for-each select="$root//tei:back//tei:div[if(@facs)then(translate(@facs, '#', '')=$root//tei:surface[ends-with(@xml:id, $n)]//tei:zone[@rendition='HotSpot']/@xml:id) else(translate(@corresp, '#', '')=$root//tei:surface[@xml:id=concat('surf_',$n)]//tei:zone[@rendition='HotSpot']/@xml:id)]">
+		<xsl:for-each select="$root//tei:back//tei:div[if(@facs)then(translate(@facs, '#', '')=$root//tei:surface[ends-with(@corresp, $n)]//tei:zone[@rendition='HotSpot']/@xml:id) else(translate(@corresp, '#', '')=$root//tei:surface[ends-with(@corresp, $n)]//tei:zone[@rendition='HotSpot']/@xml:id)]">
 			<!-- Find out the id it's linked to, whether it happens to use @facs or @corresp to point to it. -->
 			<xsl:variable name="linkId" select="if(@facs) then(translate(@facs, '#', '')) else(translate(@corresp, '#', ''))"/>
 			<xsl:element name="div">
