@@ -200,16 +200,30 @@ $(function() {
 			/* Gestione eventi */
 
 			$(".label_selected").on('change',function(){
-				var current_id;
+				var current_id, ref_id;
 				current_id = $(this).attr("id_value");
 				current_id = current_id.replace(/\s+/g, '');
 				current_id = current_id.replace(/\./g, '\\.');
-				
+
 				$(this).siblings(".option_container")
 					.find("#value_"+current_id)
-					.addClass("selected")
 					.siblings().removeClass('selected')
 					.parent().siblings().find('.option').removeClass('selected');
+
+				$(this).siblings(".option_container")
+					.find('.option')
+					.each(function() {
+						ref_id = $(this).attr('id').substr(6);
+						if (ref_id === current_id){
+							$(this).addClass("selected");
+						}
+					});
+				
+				// $(this).siblings(".option_container")
+				// 	.find("#value_"+current_id)
+				// 	.addClass("selected")
+				// 	.siblings().removeClass('selected')
+				// 	.parent().siblings().find('.option').removeClass('selected');
 			});
 
 			$(".main_ee_select .label_selected").on('change',function(){
