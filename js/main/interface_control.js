@@ -83,59 +83,71 @@ $(function() {
 			l_pair = $(xml).find('pages pair').last().children('pb').eq(1).text()
 			last_dd = f_pair + "-" + l_pair;
 
+			//Group_dd
+			$(xml).find('textpage text').each(function(){
+				var text_ref;
+				var group_elem;
+
+				text_ref = $(this).attr('n').replace(/\s+/g, '');
+				group_elem = $('<div/>')
+								.attr("id", "optGrp_value_"+text_ref)
+								.addClass('optionGroup')
+								.append($('<span>').text(text_ref));
+
+				$('.main_dd_select .option_container').append(group_elem);
+			});
+
 			//Page_dd
 			$(xml).find('pages pair').each(function(){
 				var current_id, first_page_d, second_page_d;
 				var current_label, first_label_d, second_label_d;
+				var first_text_ref, second_text_ref;
+
 				first_page_d = $(this).children('pb').eq(0).text();
 				first_label_d = $(this).children('pb').eq(0).attr("n");
 				second_page_d = $(this).children('pb').eq(1).text();
 				second_label_d = $(this).children('pb').eq(1).attr("n");
 				current_id = "";
 				current_label = "";
+
+				first_text_ref = $(xml)
+					.find('textpage text')
+					.find('pb:contains("'+first_page_d+'")')
+					.parent().attr('n');
+				first_text_ref = first_text_ref.replace(/\s+/g, '');
+
 				
-				var text_first_label, text_second_label, text_first_id, text_second_id, label_text, id_text;
-				text_first_label= $(xml).find("text pb").filter(function() {
-                                                                    return $(this).text().trim() == first_page_d;
-                                                            }).parent().attr('n');
-				text_second_label= $(xml).find("text pb").filter(function() {
-                                                                    return $(this).text().trim() == second_page_d;
-                                                            }).parent().attr('n');
-				if(text_first_label!==text_second_label){
-				    label_text = text_first_label+"-"+text_second_label;
-				    id_text = text_first_label.replace(/\s+/g, '')+"-"+text_second_label.replace(/\s+/g, '');;
-				} else {
-				    label_text = text_first_label;
-				    id_text = text_first_label.replace(/\s+/g, '');
-				}
 				
 				if (second_page_d !== ""){
 					current_id = first_page_d+"-"+second_page_d;
 					current_label = first_label_d+"-"+second_label_d;
+
+					second_text_ref = $(xml)
+					.find('textpage text')
+					.find('pb:contains("'+second_page_d+'")')
+					.parent().attr('n');
+					second_text_ref = second_text_ref.replace(/\s+/g, '');
+
+					if(first_text_ref !== second_text_ref){
+						$('.main_dd_select #optGrp_value_'+second_text_ref).append(
+		    				$('<div/>')
+		    					.attr("id", "value_"+current_id)
+								.addClass('option')
+								.text(current_label)
+		    			);
+	    			}
 				}
 				else{
 					current_id = first_page_d+"-";
 					current_label = first_label_d+"-";
 				}
 				
-				if($('.main_dd_select #optGrp_value_'+id_text).length==0){
-    				$('.main_dd_select .option_container').append(
-    					$('<div/>')
-    						.attr("id", "optGrp_value_"+id_text)
-    						.addClass('optionGroup')
-    						.append($('<span>').text(label_text))
-    				);   
-				}
-				
-				$('.main_dd_select #optGrp_value_'+id_text).append(
+				$('.main_dd_select #optGrp_value_'+first_text_ref).append(
     				$('<div/>')
     					.attr("id", "value_"+current_id)
 						.addClass('option')
 						.text(current_label)
-    			);
-
-				
-				
+    			);			
 				
 			});
 			$('.main_dd_select .option_container div:first-child').addClass('selected');
