@@ -319,6 +319,9 @@ $(function() {
 					.children()
 					.eq(1).attr("n");
 				//alert(first_page+"-"+second_page);
+				if (typeof(second_page_lab) == 'undefined'){
+					second_page_lab = "";
+				}
 				newhash = first_page+"-"+second_page;
 				newlab = first_page_lab+"-"+second_page_lab;
 				$(".main_dd_select .label_selected").text(newlab).attr("id_value", newhash).trigger('change');
