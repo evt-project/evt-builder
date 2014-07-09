@@ -72,7 +72,7 @@
 			<xsl:element name="div">
 				<xsl:attribute name="id" select="'realImageWidth'"/>
 				<xsl:attribute name="style" select="'display:none;'"></xsl:attribute>
-				<xsl:value-of select="$root//tei:facsimile/tei:surface[translate(@corresp, '#', '')=$n]/tei:graphic/@width"/>
+				<xsl:value-of select="$root//tei:facsimile/tei:surface[translate(@corresp, '#', '')=$n]/tei:graphic[1]/@width"/>
 			</xsl:element>
 			<xsl:for-each select="$root//tei:facsimile/tei:surface[translate(@corresp, '#', '')=$n]/tei:zone">
 				<!-- EN: Creates a div for area annotations -->
@@ -230,7 +230,7 @@
 			<xsl:element name="div">
 				<xsl:attribute name="id" select="'realImageWidth'"/>
 				<xsl:attribute name="style" select="'display:none;'"></xsl:attribute>
-				<xsl:value-of select="current-group()/tei:graphic/@width"/>
+				<xsl:value-of select="current-group()/tei:graphic[1]/@width"/>
 			</xsl:element>
 			
 			<xsl:for-each select="current-group()/tei:zone">
