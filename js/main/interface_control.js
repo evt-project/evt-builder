@@ -214,6 +214,8 @@ $(function() {
 					.find('.option')
 					.each(function() {
 						ref_id = $(this).attr('id').substr(6);
+						ref_id = ref_id.replace(/\s+/g, '');
+						ref_id = ref_id.replace(/\./g, '\\.');
 						if (ref_id === current_id){
 							$(this).addClass("selected");
 						}
