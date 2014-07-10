@@ -1223,12 +1223,14 @@ $(function() {
 
 			fitFrame();
 			
-			if(!$('#span_dd_select').hasClass('widthChanged')){
-    			$('#span_dd_select').addClass('widthChanged');
-    			$('#span_dd_select .option_container').removeAttr('style');
-    
-    			$('#span_dd_select').each(function(){ updateSelectLength(this);});
-    		}
+			if(!$('#left_header').hasClass('menuClosed')){
+				if(!$('#span_dd_select').hasClass('widthChanged')){
+	    			$('#span_dd_select').addClass('widthChanged');
+	    			$('#span_dd_select .option_container').removeAttr('style');
+	    			$('#span_dd_select').each(function(){ updateSelectLength(this);});
+	    		}
+			}
+			
     		$('#header_collapse').animate({
     			left: "100%",
     			marginLeft: "-30px"
@@ -1261,6 +1263,8 @@ $(function() {
 		var noMenu_height;
 		if (magnifierON === false){
 			$('#image_tool').slideToggle().toggleClass('menuClosed');
+		} else {
+			$('#image_tool').toggleClass('menuClosed');
 		}
 		// Modifico colore dell'icona .go-full-right che altrimenti non si vedrebbe
 		$('.go-full-right').toggleClass('onWhite');
@@ -1331,12 +1335,14 @@ $(function() {
 			}
 			$('#header_collapse').removeClass('fa-caret-down').addClass('fa-caret-up');
 		}
-		if(!$('#span_ee_select-add').hasClass('widthChanged')){
-			$('#span_ee_select-add').addClass('widthChanged');
-			$('#span_ee_select-add .option_container').removeAttr('style');
-			$('#span_ee_select-add').each(function(){updateSelectLength(this);});
-		}
 		
+		$('.like_select:visible').each(function(){
+										if(!$(this).hasClass('widthChanged')){
+											$(this).addClass('widthChanged');
+											$(this).find('.option_container').removeAttr('style');
+											$(this).each(function(){updateSelectLength(this);});
+										}
+		});
 	});
 	
 	$("#goFullScreenLeft").click(function(){
