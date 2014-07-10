@@ -73,6 +73,13 @@
 	<xsl:template match="tei:desc" mode="facs">
 		<xsl:text> </xsl:text>
 	</xsl:template>
+	
+	<xsl:template match="node()[@attachment]" mode="facs">
+		<xsl:element name="div">
+			<xsl:attribute name="class" select="$ed_name1, 'attachment'" separator="-" />
+			<xsl:apply-templates mode="#current" />
+		</xsl:element>
+	</xsl:template>
 	<!-- CDP:embedded END -->
 	
 	<!-- Line break -->
@@ -99,43 +106,6 @@
 			<xsl:otherwise><xsl:copy-of select="."/></xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
-	
-	<!-- CDP:embedded 
-	<xsl:template match="tei:zone" mode="facs">
-		<xsl:element name="div">
-			<xsl:attribute name="id"><xsl:value-of select="@xml:id"></xsl:value-of></xsl:attribute>
-			<xsl:attribute name="class">Zone</xsl:attribute>
-			<xsl:for-each select="tei:line">
-				<xsl:apply-templates select="current()" mode="#current"></xsl:apply-templates>
-			</xsl:for-each>
-			<xsl:text> </xsl:text>
-		</xsl:element>
-	</xsl:template>
-	
-	<xsl:template match="tei:line" mode="facs">
-		<xsl:if test="current()[not((string-length(normalize-space()))= 0)]">
-			<xsl:element name="div">
-				<xsl:attribute name="class">Line</xsl:attribute>
-				<xsl:if test="@n">
-					<xsl:element name="span">
-						<xsl:attribute name="class" select="'dipl-lineN'"/>
-						<xsl:value-of select="if(string-length(@n) &gt; 1) then(@n) else(concat('&#xA0;&#xA0;',@n))"/><xsl:text>&#xA0;&#xA0;</xsl:text>
-					</xsl:element>
-				</xsl:if>
-				<xsl:apply-templates mode="#current"/> 
-				<xsl:text> </xsl:text>
-			</xsl:element>
-		</xsl:if>
-	</xsl:template>
-	
-	<xsl:template match="tei:note" mode="facs">
-		<xsl:element name="span">
-			<xsl:attribute name="class" select="'nota'" />
-			<xsl:copy-of select="."></xsl:copy-of>
-		</xsl:element>
-	</xsl:template>
-	
-	 CDP:embedded END -->
 	
 	<!-- Page break -->
 	<xsl:template match="tei:pb" mode="facs">
@@ -312,5 +282,4 @@
 			<xsl:apply-templates mode="#current" />
 		</xsl:element>
 	</xsl:template>
-	
 </xsl:stylesheet>

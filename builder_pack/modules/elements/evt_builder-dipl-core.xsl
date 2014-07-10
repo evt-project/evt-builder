@@ -75,6 +75,14 @@
 	<xsl:template match="tei:desc" mode="dipl">
 		<xsl:text> </xsl:text>
 	</xsl:template>
+	
+	<xsl:template match="node()[@attachment]" mode="dipl">
+		<xsl:element name="div">
+			<xsl:attribute name="class" select="$ed_name2, 'attachment'" separator="-" />
+			<xsl:apply-templates mode="#current" />
+		</xsl:element>
+	</xsl:template>
+	
 	<!-- CDP:embedded END -->
 	
 	<!--<xsl:template match="tei:l" mode="dipl">
@@ -125,38 +133,6 @@
 			<xsl:otherwise><xsl:copy-of select="."/></xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
-	
-	<!-- CDP:embedded 
-	<xsl:template match="tei:zone" mode="dipl">
-		<xsl:element name="ul">
-			<xsl:attribute name="class">AnnSubmenu</xsl:attribute>
-			<xsl:for-each select="tei:line">
-				<xsl:apply-templates select="current()" mode="#current"></xsl:apply-templates>
-			</xsl:for-each>
-		</xsl:element>
-	</xsl:template>
-	
-	<xsl:template match="tei:line" mode="dipl">
-		<xsl:element name="li">
-			<xsl:if test="@n">
-				<xsl:element name="span">
-					<xsl:attribute name="class" select="'dipl-lineN'"/>
-					<xsl:value-of select="if(string-length(@n) &gt; 1) then(@n) else(concat('&#xA0;&#xA0;',@n))"/><xsl:text>&#xA0;&#xA0;</xsl:text>
-				</xsl:element>
-			</xsl:if>
-			<xsl:apply-templates mode="#current"/> 
-			<xsl:text> </xsl:text>
-		</xsl:element>
-	</xsl:template>
-	
-	<xsl:template match="tei:note" mode="dipl">
-		<xsl:element name="span">
-			<xsl:attribute name="class" select="'nota'" />
-			<xsl:copy-of select="."></xsl:copy-of>
-		</xsl:element>
-	</xsl:template>
-	
-	 CDP:embedded END -->
 	
 	<!-- Page break -->
 	<xsl:template match="tei:pb" mode="dipl">

@@ -118,6 +118,11 @@ DIV.facs-left{
     display: inline-table;
 }
 
+DIV.facs-attachment{
+    border: 1px solid black;
+    padding: 5px 0px 0px 10px;
+}
+
 SPAN.facs-lineN {
 	color: grey;
 	font-size: 0.8em; 
@@ -258,6 +263,11 @@ DIV.dipl-right, SPAN.dipl-right {
 DIV.dipl-left, SPAN.dipl-left{
     width: 92%;
     display: inline-table;
+}
+
+DIV.dipl-attachment{
+    border: 1px solid black;
+    padding: 5px 0px 0px 10px;
 }
 
 SPAN.dipl-lineN {
