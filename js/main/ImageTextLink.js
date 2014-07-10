@@ -586,17 +586,27 @@ function checkAnnPosHS(){
     if(HSon==true){
         var TheAnnotation = $("#image_elem > .Annotation");
         for(i=0; i<TheAnnotation.length; i++){
+            //IT: evita che il popup esca a destra o a sinistra
             annW = TheAnnotation.width();
             imgW= $("#image_elem").width()
-            rightLimit = $("#image_elem").offset().left + imgW;
+            if (parseInt(TheAnnotation.css('left')) < 0){
+                TheAnnotation.css({left: 10 +'px'});
+            };
+            rightLimit = imgW ;
             if (parseInt(TheAnnotation.css('left')) + annW > rightLimit){
-                TheAnnotation.css({left: imgW -10- annW +'px'});
+                TheAnnotation.css({left: imgW -10 - annW +'px'});
             }
+            //IT: evita che il popup esca in basso o in alto
+            left_headerH = parseInt($("#left_header").css('height'));
+            image_toolH = parseInt($("#image_tool").css('height'));
+            if (parseInt(TheAnnotation.css('top')) < left_headerH){
+                TheAnnotation.css({top: 10 + left_headerH +'px'});
+            };
             annH = TheAnnotation.height();
             imgH= $("#image_elem").height()
-            bottLimit = $("#image_elem").offset().top + imgH;
+            bottLimit = imgH - image_toolH;
             if (parseInt(TheAnnotation.css('top')) + annH > bottLimit){
-                TheAnnotation.css({top: imgH -10- annH +'px'}); //-$("#left_header").height() ?
+                TheAnnotation.css({top: imgH - image_toolH - 10 - annH +'px'}); //-$("#left_header").height() ?
             }
         }
     }
@@ -927,18 +937,19 @@ function MouseUpHandler(e){
             we need to set it to position: fixed, then convert its location relative to the scroll 
             offset. */
             
-            containerWidth = $("#image_elem").width();
+            /*containerWidth = $("#image_elem").width();
             containerHeight = $("#image_elem").height();
-            if(DroppedX<0){DroppedX=0;}
+            if(DroppedX<0){DroppedX=10;}
             //else if (DroppedX > (containerHeight - $(DraggedEl).height())){DroppedX = containerHeight - $(DraggedEl).height()}
-            else if (DroppedX > (containerWidth - $(DraggedEl).width())){DroppedX = containerWidth - $(DraggedEl).width() }
-            if(DroppedY<(0+parseInt($("#iviewerImage").css('padding-top')))){DroppedY=0+parseInt($("#iviewerImage").css('padding-top'))}
+            else if (DroppedX > (containerWidth - $(DraggedEl).width())){DroppedX = containerWidth - $(DraggedEl).width() -10 }
+            if(DroppedY<(0+parseInt($("#iviewerImage").css('padding-top')))){DroppedY=10+parseInt($("#iviewerImage").css('padding-top'))}
             //else if (DroppedY > (containerWidth - $(DraggedEl).width())){DroppedY = containerWidth - $(DraggedEl).width() }
-            else if (DroppedY > (containerHeight - $(DraggedEl).height())){DroppedY = containerHeight - $(DraggedEl).height()}
-            
+            else if (DroppedY > (containerHeight - $(DraggedEl).height())){DroppedY = containerHeight - $(DraggedEl).height() - 10}
+            */
+            checkAnnPosHS();
             DraggedEl.style.position = 'absolute';
-            DraggedEl.style.left = DroppedX + 'px';
-            DraggedEl.style.top = DroppedY + 'px';
+            /*DraggedEl.style.left = DroppedX + 'px';
+            DraggedEl.style.top = DroppedY + 'px';*/
             //DraggedEl.style.position = 'fixed';
         }
     //}
