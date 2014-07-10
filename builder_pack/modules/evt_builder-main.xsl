@@ -58,7 +58,8 @@
 		<!-- IT: Le trasformazioni per la parallel transcription vengono attivate se nel documento esiste almeno un elemento <text> -->
 		<xsl:if test="tei:TEI/tei:text">
 			<xsl:apply-templates select="$step0" mode="splitPages"></xsl:apply-templates>
-			<xsl:apply-templates select="$step0" mode="file4search"></xsl:apply-templates>
+			<!-- TEMP SEARCH -->
+			<!-- <xsl:apply-templates select="$step0" mode="file4search"></xsl:apply-templates> -->
 		</xsl:if>
 		<!-- EN: The index and structure generation are the same for both the parallel and the embedded  -->
 		<!-- IT: La generazione dell'index e della struttura sono uguali sia per la parallel sia per l'embedded -->

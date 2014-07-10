@@ -31,8 +31,8 @@
 	<xsl:param name="dataPrefix" select="'../..'"/> <!-- page -->
 	
 	<!-- Index title -->
-	<xsl:param name="index_title" select="'The Digital Vercelli Book'"/>
-	<!--<xsl:param name="index_title" select="'Codex Viewer'"/>-->
+	<!-- <xsl:param name="index_title" select="'The Digital Vercelli Book'"/> -->
+	<xsl:param name="index_title" select="'Codex Viewer'"/>
 	
 	<!-- Hide/Show scans -->
 	<xsl:param name="image_frame" select="true()"/>
