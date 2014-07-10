@@ -1352,7 +1352,7 @@ $(function() {
 		closeFullScreenRight();
 	});
 	$("#search_link").click(function(){
-		alert("Coming soon in 2014");
+		alert("Coming soon during 2014");
 	});
 	/* / Gestione click */
 	
