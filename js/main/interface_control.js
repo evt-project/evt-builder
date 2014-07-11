@@ -93,7 +93,7 @@ $(function() {
 								.attr("id", "optGrp_value_"+text_ref)
 								.attr("title", text_ref)
 								.addClass('optionGroup')
-								.append($('<span>').text(cropLongTextLabel(text_ref)));
+								.append($('<span>').text(cropLongTextLabel(text_ref, 9)));
 
 				$('.main_dd_select .option_container').append(group_elem);
 			});
@@ -167,7 +167,7 @@ $(function() {
 						.attr("id", "value_"+current_id)
 						.attr("title", current_label)
 						.addClass('option')
-						.text(cropLongTextLabel(current_label))
+						.text(cropLongTextLabel(current_label, 12))
 				);
 				
 				$('.main_pp_select .option_container').append(
@@ -175,7 +175,7 @@ $(function() {
     						.attr("id", "optGrp_value_"+current_id)
     						.attr("title", current_label)
     						.addClass('optionGroup')
-    						.append($('<span>').text(cropLongTextLabel(current_label)))
+    						.append($('<span>').text(cropLongTextLabel(current_label, 9)))
 				);
 				
 				$(this).find('pb').each(function(){
@@ -193,7 +193,7 @@ $(function() {
 			$('.main_tt_select .option_container div:first-child').addClass('selected');
 			$('.main_tt_select .label_selected')
 				.text($('.main_tt_select .option_container div:first').text())
-				.attr("id_value", $('.main_tt_select .option_container div:first').attr('id').substr(6));
+				.attr("id_value", $('.main_tt_select .option_container div:first').attr('title').substr(6));
             
             $('.main_pp_select .option_container div:first-child').addClass('selected');
 			$('.main_pp_select .label_selected')
@@ -247,7 +247,7 @@ $(function() {
 			$(".main_pp_select .label_selected").on('change',function(){
 				//var tt_val_temp = $(".main_tt_select").find('.option.selected').attr("id").substr(6);
 				var tt_val_temp, pp_val_temp, parent_temp;
-				tt_val_temp = $(".main_tt_select .label_selected").attr('id_value');
+				tt_val_temp = $(".main_tt_select .label_selected").attr('title');
 				pp_val_temp = $('.main_pp_select .label_selected').attr("id_value");
 				parent_temp = $(xml)
 					.find('text pb:contains('+pp_val_temp+')')
@@ -257,7 +257,7 @@ $(function() {
 					$(".main_tt_select .label_selected").text("(Text)").attr("id_value", "(Text)");
 				} else
 					if(parent_temp !== tt_val_temp){
-						$(".main_tt_select .label_selected").text(cropLongTextLabel(parent_temp)).attr("id_value", parent_temp);//.trigger("change");
+						$(".main_tt_select .label_selected").text(cropLongTextLabel(parent_temp, 12)).attr("id_value", parent_temp);//.trigger("change");
 						$(".main_tt_select .label_selected").siblings(".option_container")
 							.find("#value_"+parent_temp.replace(/\s+/g, ''))
 							.addClass("selected")
@@ -341,6 +341,8 @@ $(function() {
 					.find('text[n="'+tt_val_temp+'"]')
 					.find(":first-child")
 					.text();
+				//alert(tt_val_temp);
+				//alert(first_page);
 				window.location.hash = first_page;
 				//$(".main_pp_select .label_selected").text(first_page).trigger("change");
 			});
@@ -370,8 +372,8 @@ $(function() {
 					
 					//alert($(this).parents('.option_container').prev().prev().attr("id_value"));
 					if ($(this).parents('.option_container').parent().attr("class") === "main_tt_select"){
-						newText = $(this).attr('id').substr(6);
-						$(this).parents('.option_container').prev().prev().text(cropLongTextLabel(newText)).attr("id_value", newText).trigger('change'); // .label_selected
+						newText = $(this).attr('title');
+						$(this).parents('.option_container').prev().prev().text(cropLongTextLabel(newText, 12)).attr("id_value", newText).trigger('change'); // .label_selected
 					}
 					else{
 						newText = $(this).text();
@@ -927,9 +929,9 @@ $(function() {
 		}
 	}
 
-	function cropLongTextLabel(text_label){
-		if(text_label.length>9){
-			text_label = text_label.substr(0, 9)+"...";
+	function cropLongTextLabel(text_label, min_char_num){
+		if(text_label.length>min_char_num){
+			text_label = text_label.substr(0, min_char_num-3)+"...";
 		}
 		return text_label;
 	}
