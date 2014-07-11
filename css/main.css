@@ -88,6 +88,7 @@ footer{
 	/*color: #f5ead4;*/
 	font-weight: bold;
 	/*width: 389px;*/
+	display:inline;
 }
 
 #badge_title{
