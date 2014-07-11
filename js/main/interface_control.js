@@ -91,6 +91,7 @@ $(function() {
 				text_ref = $(this).attr('n').replace(/\s+/g, '');
 				group_elem = $('<div/>')
 								.attr("id", "optGrp_value_"+text_ref)
+								.attr("title", text_ref)
 								.addClass('optionGroup')
 								.append($('<span>').text(cropLongTextLabel(text_ref)));
 
@@ -164,6 +165,7 @@ $(function() {
 				$('.main_tt_select .option_container').append(
 					$('<div/>')
 						.attr("id", "value_"+current_id)
+						.attr("title", current_label)
 						.addClass('option')
 						.text(cropLongTextLabel(current_label))
 				);
@@ -171,6 +173,7 @@ $(function() {
 				$('.main_pp_select .option_container').append(
 				    $('<div/>')
     						.attr("id", "optGrp_value_"+current_id)
+    						.attr("title", current_label)
     						.addClass('optionGroup')
     						.append($('<span>').text(cropLongTextLabel(current_label)))
 				);
