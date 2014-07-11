@@ -425,11 +425,17 @@ $(function() {
 						UnInitialize(); //Add by JK for ITL
 						UnInitializeHS(); //Add by JK for HS
 						$("#mag_image_elem").empty(); // Add by JK for Mag
-						if($('#switchMag i').hasClass('fa-search-plus')){magnifierON=true;}
+						if($('#switchMag i').hasClass('fa-search-plus')){
+						  magnifierON=true;
+					    }
 						gotopage(current_page, pp_lab, "none");
 						//chooseZoomMag(); // Add by JK for Mag				
 					} else{
 						// alert(!checkdd);
+						$("#mag_image_elem").empty(); // Add by JK for Mag
+						if($('#switchMag i').hasClass('fa-search-plus')){
+						  magnifierON=true;
+						}
 						if ($("#imgd_link").attr("class") !== "current_mode"){
 							newhash = hash.match('.*(?=-)');
 							if(newhash !== null){
