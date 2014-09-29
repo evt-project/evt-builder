@@ -23,10 +23,7 @@
 	
 	<!-- EN: Close and open back elements when you find a pb or an lb -->
 	<!-- IT: Chiudi e riapri i tag quando trovi un pb o un lb -->
-	<xsl:template match="node()[name()=$start_split]//node()[lb|pb][not(descendant::node()[lb|pb])]" mode="splitZero split-1 split-2 split-3 split-4 split-5">
-		<!-- ADD NEW STEP PART 1 -->
-		<!-- EN: To add a new level add here a new mode increased by one, f.i.: mode="split-6" -->
-		<!-- IT: Per aggiungere un nuovo livello aggiungere qui un nuovo mode incrementando di 1 il precedente es: mode="split-6" -->
+	<xsl:template match="node()[name()=$start_split]//node()[lb|pb][not(descendant::node()[lb|pb])]" mode="splitLbPb">
 		<xsl:for-each-group select="node()" group-starting-with="lb|pb">
 			<xsl:call-template name="group"/>
 		</xsl:for-each-group>	
@@ -36,10 +33,7 @@
 
 	<!-- EN: Copy all -->
 	<!-- IT: Copia tutto -->
-	<xsl:template match="@*|node()" mode="splitZero split-1 split-2 split-3 split-4 split-5">
-		<!-- ADD NEW STEP PART 2 -->
-		<!-- EN: To add a new level add here the mode increased by one, f.i.: mode="split-6" -->
-		<!-- IT: Per aggiungere un nuovo livello aggiungere qui un nuovo mode incrementando di 1 il precedente es: mode="split-6" -->
+	<xsl:template match="@*|node()" mode="splitLbPb">
 		<xsl:copy>
 			<xsl:apply-templates select="@*|node()" mode="#current"/>
 		</xsl:copy>
@@ -50,39 +44,39 @@
 	<!-- EN: Recursive calls on variables to close and open all elements broken by lb/pb -->
 	<!-- IT: Chiamate ricorsive sulla variabili per chiudere e aprire tutti i tag spezzati da lb/pb -->
 	<xsl:variable name="step0">
-		<xsl:apply-templates select="$step-1" mode="splitZero"></xsl:apply-templates>
+		<xsl:apply-templates select="$step-1" mode="splitLbPb"></xsl:apply-templates>
 	</xsl:variable>
 	
 	<xsl:variable name="step-1">
-		<xsl:apply-templates select="$step-2" mode="split-1"/>
+		<xsl:apply-templates select="$step-2" mode="splitLbPb"/>
 	</xsl:variable>
 	
 	<xsl:variable name="step-2">
-		<xsl:apply-templates select="$step-3" mode="split-2"/>
+		<xsl:apply-templates select="$step-3" mode="splitLbPb"/>
 	</xsl:variable>
 	
 	<xsl:variable name="step-3">
-		<xsl:apply-templates select="$step-4" mode="split-3"/>
+		<xsl:apply-templates select="$step-4" mode="splitLbPb"/>
 	</xsl:variable>
 	
 	<xsl:variable name="step-4">
-		<xsl:apply-templates select="$step-5" mode="split-4"/>
+		<xsl:apply-templates select="$step-5" mode="splitLbPb"/>
 	</xsl:variable>
 	
 	<xsl:variable name="step-5">
-		<xsl:apply-templates select="//node()[name()=$ed_content]" mode="split-5"/>
+		<xsl:apply-templates select="//node()[name()=$ed_content]" mode="splitLbPb"/>
 	</xsl:variable>
 	
-	<!-- ADD NEW STEP PART 3 -->
+	<!-- ADD NEW STEP -->
 	<!--
 		EN: to add a new level modify the previous variable as follows (increase the select value by one and add the corresponding variable):
 		IT: per aggiungere un nuovo livello modificare la precedente variabile nel seguente modo (incrementare di 1 il valore del select e aggiungere la corrispondente variabile):
 		<xsl:variable name="step-5">
-			<xsl:apply-templates select="step-6" mode="split-5"/>
+			<xsl:apply-templates select="step-6" mode="splitLbPb"/>
 		</xsl:variable>
 		
 		<xsl:variable name="step-6">
-			<xsl:apply-templates select="//tei:TEI" mode="split-6"/>
+			<xsl:apply-templates select="//tei:TEI" mode="splitLbPb"/>
 		</xsl:variable>
 	-->
 	
