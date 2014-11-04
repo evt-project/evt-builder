@@ -77,7 +77,7 @@
 
 	<xsl:template name="page">
 		<!-- CDP:embedded -->	
-		<xsl:variable name="pb_n" select="if(self::tei:pb) then(self::tei:pb/@xml:id) else (@xml:id)" />	
+		<xsl:variable name="pb_n" select="@xml:id" />	
 		<!-- EN: For every single page, the system generates the corresponding edition. Data_structure template is in html_builder/evt_builder-callhtml.xsl -->
 		<!-- IT: Per ogni pagina, genera le corrispettive edizioni. Il template data_structure si trova in html_build/evt_builder-callhtml.xsl -->
 		<xsl:for-each select="$edition_array">
