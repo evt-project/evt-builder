@@ -87,9 +87,11 @@
 	-->
 	
 	<!-- Nodo che contiene il testo da trasformare per ogni livello di edizione -->
-	<xsl:variable name="ed_content" select="//tei:body/name()"></xsl:variable>
+	<!--<xsl:variable name="ed_content" select="//tei:body/name()"></xsl:variable>-->
+	<xsl:variable name="ed_content" select="//tei:text/tei:group[@xml:id='CP_group']/name()"/>
 	<!-- Punto di partenza per la divisione degli elementi contententi pb/lb -->
-	<xsl:variable name="start_split" select="if(//tei:body/tei:div) then(//tei:body/tei:div/name()) else(//tei:body/name())"/>
+	<!--<xsl:variable name="start_split" select="if(//tei:body/tei:div) then(//tei:body/tei:div/name()) else(//tei:body/name())"/>-->
+	<xsl:variable name="start_split" select="if(//tei:text/tei:group[@xml:id='CP_group']) then(//tei:text/tei:group[@xml:id='CP_group']/name()) else(//tei:body/name())"/>
 	
 	<!-- Indica la profondità massima dei pb/lb rispetto all'elemento inserito della variabile $start_split-->
 	<xsl:variable name="start_split_depth" select="//node()[name()=$start_split]/count(ancestor-or-self::node())"/>
