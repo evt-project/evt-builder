@@ -148,33 +148,7 @@
                             <text>
                                 <xsl:attribute name="n" select="@xml:id"></xsl:attribute>
                                 <xsl:for-each select="current()/child::node()">
-                                    <xsl:if test="self::tei:surface">
-                                        <pb>
-                                            <xsl:attribute name="n" select="@n"></xsl:attribute>
-                                            <xsl:value-of select="@xml:id"></xsl:value-of>
-                                        </pb>   
-                                    </xsl:if>
-                                    <xsl:if test="self::tei:surfaceGrp">
-                                        <xsl:for-each select="current()/child::node()"><!-- gestisco due livelli di annidamento di <surfaceGrp> -->
-                                            <xsl:if test="self::tei:surface">
-                                                <xsl:for-each select="current()">
-                                                    <pb>
-                                                        <xsl:attribute name="n" select="@n"></xsl:attribute>
-                                                        <xsl:value-of select="@xml:id"></xsl:value-of>
-                                                    </pb>
-                                                </xsl:for-each>
-                                            </xsl:if>
-                                            <xsl:if test="self::tei:surfaceGrp"><!-- primo livello di annidamento <surfaceGrp> -->
-                                                <xsl:for-each select="current()/child::tei:surface">
-                                                    <pb>
-                                                        <xsl:attribute name="n" select="@n"></xsl:attribute>
-                                                        <xsl:value-of select="@xml:id"></xsl:value-of>
-                                                    </pb>
-                                                </xsl:for-each>
-                                            </xsl:if>
-                                            
-                                        </xsl:for-each>
-                                    </xsl:if>
+                                    <xsl:call-template name="textFromSurceDoc"></xsl:call-template>
                                 </xsl:for-each>
                             </text>
                         </xsl:for-each>
@@ -197,21 +171,7 @@
                     <xsl:if test="$root//tei:sourceDoc">
                         <xsl:for-each select="$root//tei:sourceDoc">
                             <xsl:for-each select="child::node()">
-                                <xsl:if test="self::tei:surface">
-                                    <xsl:call-template name="surfaceStructure" />                                    
-                                </xsl:if>
-                                <xsl:if test="self::tei:surfaceGrp">
-                                    <xsl:for-each select="current()/child::node()"><!-- gestisco due livelli di annidamento di <surfaceGrp> -->
-                                        <xsl:if test="self::tei:surface">
-                                            <xsl:call-template name="surfaceStructure" />
-                                        </xsl:if>
-                                        <xsl:if test="self::tei:surfaceGrp">
-                                            <xsl:for-each select="current()/tei:surface">
-                                                <xsl:call-template name="surfaceStructure" />
-                                            </xsl:for-each>
-                                        </xsl:if>
-                                    </xsl:for-each>
-                                </xsl:if>
+                                <xsl:call-template name="pagesFromSurceDoc"></xsl:call-template>
                             </xsl:for-each>
                         </xsl:for-each>
                         
@@ -241,6 +201,36 @@
         </xsl:result-document>
     </xsl:template>
     
+    <!-- IT: ricorsione per generare correttamente gli elementi di <text> nella ET-->
+    <xsl:template name="textFromSurceDoc">
+        <xsl:if test="self::tei:surface">
+            <xsl:for-each select="current()">
+                <pb>
+                    <xsl:attribute name="n" select="@n"></xsl:attribute>
+                    <xsl:value-of select="@xml:id"></xsl:value-of>
+                </pb>
+            </xsl:for-each>
+        </xsl:if>
+        <xsl:if test="self::tei:surfaceGrp[tei:surface]">
+            <xsl:for-each select="current()/node()">
+                <xsl:call-template name="textFromSurceDoc"></xsl:call-template>
+            </xsl:for-each>
+        </xsl:if>
+    </xsl:template>
+    
+    <!-- IT: ricorsione per generare correttamente gli elementi ti <pages> nella ET-->
+    <xsl:template name="pagesFromSurceDoc">
+        <xsl:if test="self::tei:surface">
+            <xsl:call-template name="surfaceStructure" />
+        </xsl:if>
+        <xsl:if test="self::tei:surfaceGrp[tei:surface]">
+            <xsl:for-each select="current()/node()">
+                <xsl:call-template name="pagesFromSurceDoc" />
+            </xsl:for-each>
+        </xsl:if>
+    </xsl:template>
+    
+    <!-- IT: generazione <pair> nella ET-->
     <xsl:template name="surfaceStructure">
         <xsl:choose>
             <xsl:when test="(ends-with(@n, 'r')) or (ends-with(@n, 'v'))">
