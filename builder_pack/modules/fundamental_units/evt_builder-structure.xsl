@@ -133,6 +133,19 @@
             </pair>
         </xsl:if> 
     </xsl:template>  -->
+    <xsl:template name="getLastPb">
+        <xsl:choose>
+            <xsl:when test="current()/tei:body/descendant::tei:pb">
+                <xsl:attribute name="n" select="current()/descendant::tei:pb[last()]/@n"></xsl:attribute>
+                <xsl:value-of select="current()/descendant::tei:pb[last()]/@xml:id"></xsl:value-of>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:for-each select="current()/preceding-sibling::tei:text[1]">
+                    <xsl:call-template name="getLastPb"></xsl:call-template>
+                </xsl:for-each>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
     
     <xsl:template match="*" mode="structure_generation">
         <xsl:result-document method="xml" href="{$filePrefix}/data/output_data/structure.xml" indent="yes">
@@ -193,21 +206,10 @@
                                                         <xsl:attribute name="n" select="current()/preceding-sibling::tei:text[1]/descendant::tei:pb[last()]/@n"></xsl:attribute>
                                                         <xsl:value-of select="current()/preceding-sibling::tei:text[1]/descendant::tei:pb[last()]/@xml:id"></xsl:value-of>
                                                     </xsl:when>
-                                                    <xsl:when test="not(current()/preceding-sibling::tei:text[1]/descendant::tei:pb) and current()/preceding-sibling::tei:text[2]/descendant::tei:pb">
-                                                        <xsl:attribute name="n" select="current()/preceding-sibling::tei:text[2]/descendant::tei:pb[last()]/@n"></xsl:attribute>
-                                                        <xsl:value-of select="current()/preceding-sibling::tei:text[2]/descendant::tei:pb[last()]/@xml:id"></xsl:value-of>
-                                                    </xsl:when>
-                                                    <xsl:when test="not(current()/preceding-sibling::tei:text[2]/descendant::tei:pb) and current()/preceding-sibling::tei:text[3]/descendant::tei:pb">
-                                                        <xsl:attribute name="n" select="current()/preceding-sibling::tei:text[3]/descendant::tei:pb[last()]/@n"></xsl:attribute>
-                                                        <xsl:value-of select="current()/preceding-sibling::tei:text[3]/descendant::tei:pb[last()]/@xml:id"></xsl:value-of>
-                                                    </xsl:when>
-                                                    <xsl:when test="not(current()/preceding-sibling::tei:text[3]/descendant::tei:pb) and current()/preceding-sibling::tei:text[4]/descendant::tei:pb">
-                                                        <xsl:attribute name="n" select="current()/preceding-sibling::tei:text[4]/descendant::tei:pb[last()]/@n"></xsl:attribute>
-                                                        <xsl:value-of select="current()/preceding-sibling::tei:text[4]/descendant::tei:pb[last()]/@xml:id"></xsl:value-of>
-                                                    </xsl:when>
                                                     <xsl:otherwise>
-                                                        <xsl:attribute name="n" select="current()/preceding-sibling::tei:text[5]/descendant::tei:pb[last()]/@n"></xsl:attribute>
-                                                        <xsl:value-of select="current()/preceding-sibling::tei:text[5]/descendant::tei:pb[last()]/@xml:id"></xsl:value-of>
+                                                        <xsl:for-each select="current()/preceding-sibling::tei:text[1]">
+                                                            <xsl:call-template name="getLastPb"></xsl:call-template>
+                                                        </xsl:for-each>
                                                     </xsl:otherwise>
                                                 </xsl:choose>
                                             </pb>
