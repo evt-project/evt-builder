@@ -148,7 +148,7 @@
                             <text>
                                 <xsl:attribute name="n" select="@xml:id"></xsl:attribute>
                                 <xsl:for-each select="current()/child::node()">
-                                    <xsl:call-template name="textFromSurceDoc"></xsl:call-template>
+                                    <xsl:call-template name="textFromSourceDoc"></xsl:call-template>
                                 </xsl:for-each>
                             </text>
                         </xsl:for-each>
@@ -171,7 +171,7 @@
                     <xsl:if test="$root//tei:sourceDoc">
                         <xsl:for-each select="$root//tei:sourceDoc">
                             <xsl:for-each select="child::node()">
-                                <xsl:call-template name="pagesFromSurceDoc"></xsl:call-template>
+                                <xsl:call-template name="pagesFromSourceDoc"></xsl:call-template>
                             </xsl:for-each>
                         </xsl:for-each>
                         
@@ -202,7 +202,7 @@
     </xsl:template>
     
     <!-- IT: ricorsione per generare correttamente gli elementi di <text> nella ET-->
-    <xsl:template name="textFromSurceDoc">
+    <xsl:template name="textFromSourceDoc">
         <xsl:if test="self::tei:surface">
             <xsl:for-each select="current()">
                 <pb>
@@ -213,19 +213,19 @@
         </xsl:if>
         <xsl:if test="self::tei:surfaceGrp[tei:surface]">
             <xsl:for-each select="current()/node()">
-                <xsl:call-template name="textFromSurceDoc"></xsl:call-template>
+                <xsl:call-template name="textFromSourceDoc"></xsl:call-template>
             </xsl:for-each>
         </xsl:if>
     </xsl:template>
     
     <!-- IT: ricorsione per generare correttamente gli elementi ti <pages> nella ET-->
-    <xsl:template name="pagesFromSurceDoc">
+    <xsl:template name="pagesFromSourceDoc">
         <xsl:if test="self::tei:surface">
             <xsl:call-template name="surfaceStructure" />
         </xsl:if>
         <xsl:if test="self::tei:surfaceGrp[tei:surface]">
             <xsl:for-each select="current()/node()">
-                <xsl:call-template name="pagesFromSurceDoc" />
+                <xsl:call-template name="pagesFromSourceDoc" />
             </xsl:for-each>
         </xsl:if>
     </xsl:template>
