@@ -180,17 +180,61 @@
                         </xsl:for-each>
                     </xsl:if>
                     <xsl:if test="$root//tei:text">
-                        <xsl:for-each select="$root//tei:div[@subtype='edition_text']">
-                            <text>
-                                <xsl:attribute name="n" select="@n"></xsl:attribute>
-                                <xsl:for-each select=".//tei:pb">
-                                    <pb>
-                                        <xsl:attribute name="n" select="@n"></xsl:attribute>
-                                        <xsl:value-of select="@xml:id"></xsl:value-of>
-                                    </pb>
+                        <xsl:choose>
+                            <xsl:when test="$root//tei:text/tei:group">
+                                <!-- Gestione TEXT multipli in tei:group -->
+                                <xsl:for-each select="$root//tei:text/tei:group/tei:text">
+                                    <text>
+                                        <xsl:attribute name="n" select="@xml:id"></xsl:attribute>
+                                        <xsl:if test="not(current()/tei:body/child::*[1][self::tei:pb])">
+                                            <pb>
+                                                <xsl:choose>
+                                                    <xsl:when test="current()/preceding-sibling::tei:text[1]/descendant::tei:pb">
+                                                        <xsl:attribute name="n" select="current()/preceding-sibling::tei:text[1]/descendant::tei:pb[last()]/@n"></xsl:attribute>
+                                                        <xsl:value-of select="current()/preceding-sibling::tei:text[1]/descendant::tei:pb[last()]/@xml:id"></xsl:value-of>
+                                                    </xsl:when>
+                                                    <xsl:when test="not(current()/preceding-sibling::tei:text[1]/descendant::tei:pb) and current()/preceding-sibling::tei:text[2]/descendant::tei:pb">
+                                                        <xsl:attribute name="n" select="current()/preceding-sibling::tei:text[2]/descendant::tei:pb[last()]/@n"></xsl:attribute>
+                                                        <xsl:value-of select="current()/preceding-sibling::tei:text[2]/descendant::tei:pb[last()]/@xml:id"></xsl:value-of>
+                                                    </xsl:when>
+                                                    <xsl:when test="not(current()/preceding-sibling::tei:text[2]/descendant::tei:pb) and current()/preceding-sibling::tei:text[3]/descendant::tei:pb">
+                                                        <xsl:attribute name="n" select="current()/preceding-sibling::tei:text[3]/descendant::tei:pb[last()]/@n"></xsl:attribute>
+                                                        <xsl:value-of select="current()/preceding-sibling::tei:text[3]/descendant::tei:pb[last()]/@xml:id"></xsl:value-of>
+                                                    </xsl:when>
+                                                    <xsl:when test="not(current()/preceding-sibling::tei:text[3]/descendant::tei:pb) and current()/preceding-sibling::tei:text[4]/descendant::tei:pb">
+                                                        <xsl:attribute name="n" select="current()/preceding-sibling::tei:text[4]/descendant::tei:pb[last()]/@n"></xsl:attribute>
+                                                        <xsl:value-of select="current()/preceding-sibling::tei:text[4]/descendant::tei:pb[last()]/@xml:id"></xsl:value-of>
+                                                    </xsl:when>
+                                                    <xsl:otherwise>
+                                                        <xsl:attribute name="n" select="current()/preceding-sibling::tei:text[5]/descendant::tei:pb[last()]/@n"></xsl:attribute>
+                                                        <xsl:value-of select="current()/preceding-sibling::tei:text[5]/descendant::tei:pb[last()]/@xml:id"></xsl:value-of>
+                                                    </xsl:otherwise>
+                                                </xsl:choose>
+                                            </pb>
+                                        </xsl:if>
+                                        <xsl:for-each select=".//tei:pb">
+                                            <pb>
+                                                <xsl:attribute name="n" select="@n"></xsl:attribute>
+                                                <xsl:value-of select="@xml:id"></xsl:value-of>
+                                            </pb>
+                                        </xsl:for-each>
+                                    </text>
                                 </xsl:for-each>
-                            </text>
-                        </xsl:for-each>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:for-each select="$root//tei:div[@subtype='edition_text']">
+                                    <text>
+                                        <xsl:attribute name="n" select="@n"></xsl:attribute>
+                                        <xsl:for-each select=".//tei:pb">
+                                            <pb>
+                                                <xsl:attribute name="n" select="@n"></xsl:attribute>
+                                                <xsl:value-of select="@xml:id"></xsl:value-of>
+                                            </pb>
+                                        </xsl:for-each>
+                                    </text>
+                                </xsl:for-each>
+                            </xsl:otherwise>
+                        </xsl:choose>
                     </xsl:if>
                 </textpage>
                 <pages>
