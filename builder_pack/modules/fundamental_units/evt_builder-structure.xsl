@@ -139,7 +139,7 @@
             <xml>
                 <editions>
                     <xsl:for-each select="$edition_array">
-                        <edition><xsl:value-of select="."/></edition>
+                        <xsl:if test="./normalize-space()"><edition><xsl:value-of select="."/></edition></xsl:if>
                     </xsl:for-each>
                 </editions>
                 <textpage>
