@@ -119,6 +119,48 @@
 		</html>
 	</xsl:template>
 
+	
+	<xsl:template name="doc_regesto">
+		<xsl:param name="doc_id" />
+		<xsl:param name="front" />
+		<html lang="en-US">
+			<xsl:call-template name="html_head">
+				<xsl:with-param name="html_path" select="$dataPrefix"/>
+				<xsl:with-param name="html_tc" select="'datastructure'"/>
+				<xsl:with-param name="output" select="regesto"/>
+			</xsl:call-template>
+			<body>
+				<div id="regesto">
+					<div class="front">
+						<div class='title'>Informazioni sul documento</div>
+						<div class="info">
+							<div class="align-center"><span class="intestazione inline">Numerazione nuova: </span><xsl:value-of select="$front/tei:titlePart[@type='numerazioneNuova']"/></div>
+							<div class="align-center"><span class="intestazione inline">Numerazione originale: </span><xsl:value-of select="$front/tei:titlePart[@type='numerazioneOrig']"/></div>
+							<div class="align-center"><span class="intestazione inline">Data e luogo di erogazione</span>: <xsl:value-of select="$front/tei:docDate"/></div>
+						</div>
+						<div id="reg_text">
+							<xsl:value-of select="$front/tei:div[@type='regesto']"/>
+						</div>
+						<div id="reg_note">
+							<span class="intestazione">Note critiche</span>
+							<p class="bibliografia">
+								<xsl:value-of select="$front//tei:div[@type='orig_doc']"/>
+							</p>
+							<p class="bibliografia">
+								<xsl:for-each select="$front//tei:div[@type='biblio']/tei:p">
+									<xsl:apply-templates/>
+								</xsl:for-each>
+							</p>
+							<p>
+								<xsl:value-of select="tei:front//tei:div[@type='crit_notes']"/>
+							</p>
+						</div>
+					</div>
+				</div>
+			</body>
+		</html>
+	</xsl:template>
+	
 	<xsl:template name="index_build">
 		<html lang="en-US">
 			<xsl:call-template name="html_head">
@@ -344,6 +386,9 @@
 								</div>
 								<i class="fa fa-times-circle closeFullScreen" id="closeFullScreenRight"></i>
 							</header>
+							<xsl:if test="$regesto=true()">
+								<div id="regesto_cont" />
+							</xsl:if>
 							<div id="text_cont">
 								<div id="text_elem"/>
 							</div>
