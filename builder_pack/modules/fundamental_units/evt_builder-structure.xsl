@@ -150,6 +150,9 @@
     <xsl:template match="*" mode="structure_generation">
         <xsl:result-document method="xml" href="{$filePrefix}/data/output_data/structure.xml" indent="yes">
             <xml>
+                <xsl:if test="$regesto=true()">
+                    <regesto active="1" />
+                </xsl:if>
                 <editions>
                     <xsl:for-each select="$edition_array">
                         <edition><xsl:value-of select="."/></edition>
