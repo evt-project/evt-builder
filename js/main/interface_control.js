@@ -64,6 +64,16 @@ $(function() {
 						.text(current_id)
 				);
 			});
+			
+			// Regesto
+			if ( $(xml).find("regesto[active='1']").length > 0 ) {
+			    $('.main_ee_select .option_container').prepend(
+					$('<div/>')
+						.attr("id", "value_regesto")
+						.addClass('option')
+						.text('Regesto')
+				);
+			}
 			$(".main_ee_select .option_container div:first-child").addClass( "selected" );
 
 			$('.main_ee_select .label_selected')
@@ -232,17 +242,24 @@ $(function() {
 			});
 
 			$(".main_ee_select .label_selected").on('change',function(){
-				var temp_frame, temp_parent;
-				temp_frame = "";
-				temp_parent = "";
-				if($(this).parent().parent().attr("id") === "span_ee_select-add"){
-					temp_frame = "text_elem-add";
-					temp_parent = "text_cont-add";
-				} else{
-					temp_frame = "text_elem";
-					temp_parent = "text_cont";
+				if ($(this).attr('id_value')=='regesto') {
+				    if(!$('#regesto_cont').is(':visible')) $('#regesto_cont').show('drop',  {direction: 'up'},'linear');
+				    //if(!$('#regesto_cont').is(':visible')) $('#regesto_cont').show('blind', 'slow');
+				} else {
+				    if($('#regesto_cont').is(':visible')) $('#regesto_cont').hide('drop',  {direction: 'up'}, 'linear');
+				    //if($('#regesto_cont').is(':visible')) $('#regesto_cont').hide('blind', 'slow');
+				    var temp_frame, temp_parent;
+    				temp_frame = "";
+    				temp_parent = "";
+    				if($(this).parent().parent().attr("id") === "span_ee_select-add"){
+    					temp_frame = "text_elem-add";
+    					temp_parent = "text_cont-add";
+    				} else{
+    					temp_frame = "text_elem";
+    					temp_parent = "text_cont";
+    				}
+    				gotoedition(location.hash.replace( /^#/, '' ),$(this).text().toLowerCase(),temp_frame,temp_parent);   
 				}
-				gotoedition(location.hash.replace( /^#/, '' ),$(this).text().toLowerCase(),temp_frame,temp_parent);
 			});
 			$(".main_pp_select .label_selected").on('change',function(){
 				//var tt_val_temp = $(".main_tt_select").find('.option.selected').attr("id").substr(6);
@@ -519,6 +536,12 @@ $(function() {
 				.text($("input[name=edition_r-add]:checked").val())
 				.hide()
 				.fadeIn(200);
+		}
+		
+		// IT: Aggiorna l'indirizzo del frame del regesto
+		if ($("#regesto_cont").length > 0){ 
+			var regesto = $("#span_tt_select .option_container .option.selected").attr('id').substr(6);
+			$('#regesto_cont').load("data/output_data/regesto/doc_"+regesto+".html #regesto");
 		}
 		
 		// IT: Aggiorna le informazioni all'interno delle etichette			

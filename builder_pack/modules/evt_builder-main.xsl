@@ -58,6 +58,12 @@
 		<!-- IT: Le trasformazioni per la parallel transcription vengono attivate se nel documento esiste almeno un elemento <text> -->
 		<xsl:if test="tei:TEI/tei:text">
 			<xsl:apply-templates select="$step0" mode="splitPages"></xsl:apply-templates>
+			
+			<xsl:if test="$regesto=true()">
+				<xsl:for-each select="tei:TEI/tei:text/tei:group/tei:text">
+					<xsl:call-template name="regesto"></xsl:call-template>	
+				</xsl:for-each>
+			</xsl:if>
 			<!-- TEMP SEARCH -->
 			<!-- <xsl:apply-templates select="$step0" mode="file4search"></xsl:apply-templates> -->
 		</xsl:if>
@@ -178,6 +184,17 @@
 		</xsl:if>
 	</xsl:template>
 
+	<xsl:template name="regesto">
+		<xsl:variable name="doc_id" select="@xml:id" />
+		<xsl:result-document method="html" encoding="UTF-8" media-type="text/plain" byte-order-mark="yes" href="{$filePrefix}/data/output_data/regesto/doc_{$doc_id}.html" indent="yes">
+			<xsl:variable name="front" select="current()/tei:front" />
+			<xsl:call-template name="doc_regesto">
+				<xsl:with-param name="doc_id" select="$doc_id"/>
+				<xsl:with-param name="front" select="$front"></xsl:with-param>
+			</xsl:call-template>
+		</xsl:result-document>
+	</xsl:template>
+	
 	<xsl:template name="search_file">
 		<xsl:if test="$edition_array[1]!=''">
 			<xsl:variable name="edition_current" select="lower-case($edition_array[1])" />

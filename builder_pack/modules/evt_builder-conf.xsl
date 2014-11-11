@@ -44,6 +44,9 @@
 
 	<!-- On/Off doubleview -->
 	<xsl:param name="double_view" select="true()"/>
+	
+	<!-- On/Off regesto -->
+	<xsl:param name="regesto" select="true()"/>
 
 	<!-- Edition -->
 	<!-- EN: To use it in your code:

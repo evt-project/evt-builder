@@ -447,12 +447,12 @@ footer{
 	display: inline;
 }
 
-#text_cont, #text_cont-add, #image_cont{
+#text_cont, #text_cont-add, #image_cont, #regesto_cont{
 	height: 100%;
 	text-align: center;
 }	
 /*Chiara  */
-#text_cont, #text_cont-add{
+#text_cont, #text_cont-add, #regesto_cont{
 	background: white;
 	position: relative;
 	/*-moz-box-shadow:-2px 3px 5px -2px rgba(0, 0, 0, 0.8);
@@ -474,7 +474,7 @@ footer{
 	bottom: 0px;
 }
 
-#text_frame, #text_elem-add > div {
+#text_frame, #text_elem-add > div, #regesto{
 	margin-top:auto !important;
 	#overflow-y: scroll;
 }
@@ -501,7 +501,7 @@ footer{
 	background: #000;
 }
 
-#text_elem, #text_elem-add{
+#text_elem, #text_elem-add, #regesto{
 	width: 99.4%;
 	min-height: 456px;
 	overflow-y: auto;
@@ -1478,4 +1478,40 @@ div.botleftconcave {
 
 #thumb_elem-add{
 	display: none;
+}
+
+/* REGESTO */
+#regesto_cont{
+    position: absolute;
+    z-index: 9;
+    top: 0px;
+    right: 0;
+    left: 0;
+}
+#regesto .title, #regesto .align-center{
+    text-align: center;
+}
+#regesto .title{
+    font-weight:bold;
+    font-size:120%;
+    margin-bottom:20px;
+}
+#regesto .info{
+    font-size:90%;
+}
+#regesto .intestazione{
+    display:block;
+    font-weight:bold;
+}
+#regesto .intestazione.inline{
+    display:inline;
+}
+#regesto #reg_text, #regesto .info, #regesto #reg_note{
+    margin-bottom:25px;
+}
+#regesto .bibliografia{
+    margin: 10px 0;
+}
+#value_regesto{
+    border-bottom: 4px double #000;
 }
