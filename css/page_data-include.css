@@ -387,3 +387,47 @@ SPAN.dipl-ex {
 	font-style: italic; 
 }
 
+
+/* Modifiche per Codice Pelavicino */
+span.tooltip:before {
+	content: url("../images/popup_before.png");
+	left: 5%;
+	position: absolute;
+	top: -13px; 
+}
+
+span.tooltip {
+	font-size: 80%;
+	position: absolute;
+	line-height: 16px;
+	display: none;
+	background: #e5dac4;
+	border: 2.5px solid black;
+	border-radius: 3px;
+	box-shadow: 2px 2px 2px #7e7067;
+	padding: 0.4%;
+	margin-top:3px;
+}
+
+span.tooltip span{
+	background: transparent;
+}
+span.popup{
+    display:inline-block;
+}	
+span.popup:hover span.tooltip{
+	display: block;
+	min-width: 20px;
+	text-align: center; 
+}
+
+span.popup span.trigger { 
+	#color: #999966;
+	color: #69513a; /*background-color: rgba(255,255,204,0.8);*/ 
+}
+
+span.facs-choice_popup:hover span.facs-orig,
+span.facs-choice_popup.hover span.facs-orig {
+	color: #561c0a;
+	text-decoration: underline; 
+}

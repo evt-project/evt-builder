@@ -328,4 +328,25 @@
 		</xsl:element>
 	</xsl:template>
 	
+	
+	<!-- TEMPLATES PER CODICE PELAVICINO - DA SPOSTARE IN UN FILE APPROPRIATO -->
+	<xsl:template match="tei:ref[starts-with(@target,'#')]">
+		<span class="popup ref">
+			<span class="trigger">
+				<xsl:apply-templates/>
+			</span>
+			<span class="tooltip">
+				<xsl:for-each select="//tei:bibl[@xml:id=substring-after(current()/@target,'#')]">
+					<xsl:value-of select="./tei:author"/>
+					<xsl:text>, </xsl:text>
+					<xsl:value-of select="./tei:date"/>
+					<xsl:text>, </xsl:text>
+					<xsl:for-each select="./tei:biblScope">
+						<xsl:apply-templates/>
+						<xsl:text> </xsl:text>
+					</xsl:for-each>
+				</xsl:for-each>
+			</span>
+		</span>
+	</xsl:template>
 </xsl:stylesheet>
