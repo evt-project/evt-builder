@@ -374,7 +374,7 @@
 	<xsl:template match="tei:note" mode="dipl">
 		<xsl:element name="span">
 			<xsl:attribute name="class">inline_note</xsl:attribute>
-			<xsl:attribute name="id">note_<xsl:value-of select="count(preceding::*[name() = name(current())])"></xsl:value-of></xsl:attribute>
+			<xsl:attribute name="id">note_<xsl:value-of select="if(@xml:id) then (@xml:id) else (count(preceding::*[name() = name(current())]))"></xsl:value-of></xsl:attribute>
 			<xsl:element name="i">
 				<xsl:attribute name="class">fa fa-circle open_note</xsl:attribute>
 			</xsl:element>
