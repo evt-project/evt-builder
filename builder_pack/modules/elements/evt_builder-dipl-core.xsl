@@ -330,6 +330,7 @@
 	
 	
 	<!-- TEMPLATES PER CODICE PELAVICINO - DA SPOSTARE IN UN FILE APPROPRIATO -->
+	<!-- REF References to additional text -->
 	<xsl:template match="tei:ref[starts-with(@target,'#')]">
 		<xsl:element name="span">
 			<xsl:attribute name="class">popup ref</xsl:attribute>
@@ -353,6 +354,7 @@
 		</xsl:element>
 	</xsl:template>
 	
+	<!-- EMPH emphasized  -->
 	<xsl:template match="tei:emph" mode="dipl">
 		<xsl:element name="span">
 			<xsl:attribute name="class">emph</xsl:attribute>
@@ -360,6 +362,7 @@
 		</xsl:element>
 	</xsl:template>
 	
+	<!-- TERM -->
 	<xsl:template match="tei:term" mode="dipl">
 		<xsl:element name="span">
 			<xsl:attribute name="class">term</xsl:attribute>
@@ -367,6 +370,7 @@
 		</xsl:element>
 	</xsl:template>
 	
+	<!-- NOTE Note or annotation -->
 	<xsl:template match="tei:note" mode="dipl">
 		<xsl:element name="span">
 			<xsl:attribute name="class">inline_note</xsl:attribute>
@@ -382,5 +386,210 @@
 				<xsl:apply-templates mode="#current"/>
 			</xsl:element>
 		</xsl:element>
+	</xsl:template>
+	
+	<!-- DATE -->
+	<xsl:template match="tei:date" mode="dipl">
+		<xsl:choose>
+			<xsl:when test="@when and @when != ''">
+				<xsl:element name="span">
+					<xsl:attribute name="class">popup date</xsl:attribute>
+					<xsl:element name="span">
+						<xsl:attribute name="class">trigger</xsl:attribute>
+						<xsl:apply-templates/>
+					</xsl:element>
+					<xsl:element name="span">
+						<xsl:attribute name="class">tooltip</xsl:attribute>
+						<xsl:text>Data normalizzata: </xsl:text>
+						<xsl:value-of select="@when"/>
+					</xsl:element>
+				</xsl:element>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:element name="span">
+					<xsl:attribute name="class">date</xsl:attribute>
+					<xsl:apply-templates mode="#current"/>
+				</xsl:element>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
+	
+	<!-- PERS NAME personal name -->
+	<xsl:template match="tei:persName[starts-with(@ref,'#')]" mode="dipl">
+		<xsl:choose>
+			<xsl:when test="@ref and @ref!='' and $root//tei:person[@xml:id=substring-after(current()/@ref,'#')]">
+				<xsl:element name="span">
+					<xsl:attribute name="class">popup persName</xsl:attribute>
+					<xsl:element name="span">
+						<xsl:attribute name="class">trigger</xsl:attribute>
+						<xsl:apply-templates/>
+					</xsl:element>
+					<xsl:element name="span">
+						<xsl:attribute name="class">tooltip</xsl:attribute>
+							<xsl:for-each select="$root//tei:person[@xml:id=substring-after(current()/@ref,'#')]">
+								<xsl:call-template name="person"/>
+							</xsl:for-each>
+						<!-- aggiungere riferimento ad entita specifica e relative info  -->
+					</xsl:element>
+				</xsl:element>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:element name="span">
+					<xsl:attribute name="class">persName <xsl:value-of select="substring-after(current()/@ref,'#')" /></xsl:attribute>
+					<xsl:apply-templates mode="#current" />
+				</xsl:element>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
+	
+	<xsl:template name="person">
+		<xsl:choose>
+			<xsl:when test="current()//tei:forename or current()//tei:surname or current()//tei:sex or current()//tei:occupation">
+				<xsl:if test="current()//tei:forename or current()//tei:surname">
+					<xsl:element name="p">
+						<xsl:text>Nome: </xsl:text>
+						<xsl:value-of select="tei:persName//tei:forename"/> <xsl:value-of select="tei:persName//tei:surname"/>
+					</xsl:element>	
+				</xsl:if>
+				<xsl:if test="current()/tei:sex">
+					<xsl:element name="p">
+						<xsl:text>Sesso: </xsl:text>
+						<xsl:value-of select="tei:sex"/>		
+					</xsl:element>
+				</xsl:if>		                    
+				<xsl:if test="current()/tei:occupation">
+					<xsl:element name="p">
+						<xsl:text>Mestiere/i: </xsl:text>
+						<xsl:value-of select="tei:occupation"/>		
+					</xsl:element>
+					<xsl:if test="current()/tei:occupation/@from and current()/tei:occupation/@to">
+						<xsl:element name="p">
+							<xsl:text>. Periodo di attività: </xsl:text>
+							<xsl:value-of select="tei:occupation/@from"/> 
+							<xsl:text> - </xsl:text>
+							<xsl:value-of select="tei:occupation/@to"/>
+						</xsl:element>
+					</xsl:if>
+				</xsl:if>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:element name="p">
+					Nessuna informazione.
+				</xsl:element>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
+	
+	<!-- MEASURE  -->
+	<xsl:template match="tei:measure" mode="dipl">
+		<xsl:choose>
+			<xsl:when test="@type or @quantity or @unit">
+				<xsl:element name="span">
+					<xsl:attribute name="class">popup measure</xsl:attribute>
+					<xsl:element name="span">
+						<xsl:attribute name="class">trigger</xsl:attribute>
+						<xsl:apply-templates/>
+					</xsl:element>
+					<xsl:element name="span">
+						<xsl:attribute name="class">tooltip</xsl:attribute>
+						<xsl:if test="@type!=''">
+							<xsl:element name="p">
+								<xsl:text>Tipo: </xsl:text>
+								<xsl:value-of select="@type"></xsl:value-of>
+							</xsl:element>
+						</xsl:if>
+						<xsl:if test="@quantity!=''">
+							<xsl:element name="p">
+								<xsl:text>Quantità: </xsl:text>
+								<xsl:value-of select="@quantity"></xsl:value-of>
+							</xsl:element>
+						</xsl:if>
+						<xsl:if test="@unit!=''">
+							<xsl:element name="p">
+								<xsl:text>Unità: </xsl:text>
+								<xsl:value-of select="@unit"></xsl:value-of>
+							</xsl:element>
+						</xsl:if>
+					</xsl:element>
+				</xsl:element>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:element name="span">
+					<xsl:attribute name="class">measure</xsl:attribute>
+					<xsl:apply-templates mode="#current"></xsl:apply-templates>
+				</xsl:element>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
+	
+	<!-- ROLE NAME -->
+	<xsl:template match="tei:roleName" mode="dipl">
+		<xsl:element name="span">
+			<xsl:attribute name="class">role</xsl:attribute>
+			<xsl:apply-templates mode="#current"></xsl:apply-templates>
+		</xsl:element>
+	</xsl:template>
+	
+	<!-- PLACE NAME personal name -->
+	<xsl:template match="tei:placeName[starts-with(@ref,'#')]" mode="dipl">
+		<xsl:choose>
+			<xsl:when test="@ref and @ref!='' and $root//tei:place[@xml:id=substring-after(current()/@ref,'#')]">
+				<xsl:element name="span">
+					<xsl:attribute name="class">popup placeName</xsl:attribute>
+					<xsl:element name="span">
+						<xsl:attribute name="class">trigger</xsl:attribute>
+						<xsl:apply-templates/>
+					</xsl:element>
+					<xsl:element name="span">
+						<xsl:attribute name="class">tooltip</xsl:attribute>
+						<xsl:for-each select="$root//tei:place[@xml:id=substring-after(current()/@ref,'#')]">
+							<xsl:call-template name="place"/>
+						</xsl:for-each>
+						<!-- aggiungere riferimento ad entita specifica e relative info  -->
+					</xsl:element>
+				</xsl:element>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:element name="span">
+					<xsl:attribute name="class">placeName <xsl:value-of select="substring-after(current()/@ref,'#')" /></xsl:attribute>
+					<xsl:apply-templates mode="#current" />
+				</xsl:element>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
+	
+	<xsl:template name="place">
+		<xsl:choose>
+			<xsl:when test="current()//tei:settlement or current()//tei:placeName or current()//tei:district">
+				<xsl:if test="current()/tei:settlement">
+					<xsl:element name="p">
+						<xsl:text>Nome: </xsl:text>
+						<xsl:value-of select="tei:settlement"/>
+						<xsl:if test="tei:settlement/@type">
+							<xsl:text> (</xsl:text>
+							<xsl:value-of select="tei:settlement/@type"></xsl:value-of>
+							<xsl:text>)</xsl:text>
+						</xsl:if>
+					</xsl:element>
+				</xsl:if>
+				<xsl:if test="current()/tei:placeName[@type='new']">
+					<xsl:element name="p">
+						<xsl:text>Nome moderno: </xsl:text>
+						<xsl:value-of select="tei:placeName[@type='new']"/>
+					</xsl:element>
+				</xsl:if>
+				<xsl:if test="current()/tei:district[@type='comune']">
+					<xsl:element name="p">
+						<xsl:text>Comune di appartenenza attuale: </xsl:text>
+						<xsl:value-of select="tei:district[@type='comune']"/>	
+					</xsl:element>
+				</xsl:if>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:element name="p">
+					Nessuna informazione.
+				</xsl:element>
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:template>
 </xsl:stylesheet>
