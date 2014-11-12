@@ -354,6 +354,15 @@
 		</xsl:element>
 	</xsl:template>
 	
+	<xsl:template match="tei:front" mode="dipl">
+		<!-- do nothing -->
+	</xsl:template>
+	<xsl:template match="tei:text/tei:body" mode="dipl">
+		<xsl:element name="div">
+			<xsl:attribute name="class">doc_<xsl:value-of select="current()/parent::tei:text/@xml:id"></xsl:value-of></xsl:attribute>
+			<xsl:apply-templates mode="#current"></xsl:apply-templates>
+		</xsl:element>
+	</xsl:template>
 	<!-- EMPH emphasized  -->
 	<xsl:template match="tei:emph" mode="dipl">
 		<xsl:element name="span">
@@ -446,24 +455,28 @@
 		<xsl:choose>
 			<xsl:when test="current()//tei:forename or current()//tei:surname or current()//tei:sex or current()//tei:occupation">
 				<xsl:if test="current()//tei:forename or current()//tei:surname">
-					<xsl:element name="p">
+					<xsl:element name="span">
+						<xsl:attribute name="class">display-block</xsl:attribute>
 						<xsl:text>Nome: </xsl:text>
 						<xsl:value-of select="tei:persName//tei:forename"/> <xsl:value-of select="tei:persName//tei:surname"/>
 					</xsl:element>	
 				</xsl:if>
 				<xsl:if test="current()/tei:sex">
-					<xsl:element name="p">
+					<xsl:element name="span">
+						<xsl:attribute name="class">display-block</xsl:attribute>
 						<xsl:text>Sesso: </xsl:text>
 						<xsl:value-of select="tei:sex"/>		
 					</xsl:element>
 				</xsl:if>		                    
 				<xsl:if test="current()/tei:occupation">
-					<xsl:element name="p">
+					<xsl:element name="span">
+						<xsl:attribute name="class">display-block</xsl:attribute>
 						<xsl:text>Mestiere/i: </xsl:text>
 						<xsl:value-of select="tei:occupation"/>		
 					</xsl:element>
 					<xsl:if test="current()/tei:occupation/@from and current()/tei:occupation/@to">
-						<xsl:element name="p">
+						<xsl:element name="span">
+							<xsl:attribute name="class">display-block</xsl:attribute>
 							<xsl:text>. Periodo di attività: </xsl:text>
 							<xsl:value-of select="tei:occupation/@from"/> 
 							<xsl:text> - </xsl:text>
@@ -473,7 +486,8 @@
 				</xsl:if>
 			</xsl:when>
 			<xsl:otherwise>
-				<xsl:element name="p">
+				<xsl:element name="span">
+					<xsl:attribute name="class">display-block</xsl:attribute>
 					Nessuna informazione.
 				</xsl:element>
 			</xsl:otherwise>
@@ -493,19 +507,22 @@
 					<xsl:element name="span">
 						<xsl:attribute name="class">tooltip</xsl:attribute>
 						<xsl:if test="@type!=''">
-							<xsl:element name="p">
+							<xsl:element name="span">
+								<xsl:attribute name="class">display-block</xsl:attribute>
 								<xsl:text>Tipo: </xsl:text>
 								<xsl:value-of select="@type"></xsl:value-of>
 							</xsl:element>
 						</xsl:if>
 						<xsl:if test="@quantity!=''">
-							<xsl:element name="p">
+							<xsl:element name="span">
+								<xsl:attribute name="class">display-block</xsl:attribute>
 								<xsl:text>Quantità: </xsl:text>
 								<xsl:value-of select="@quantity"></xsl:value-of>
 							</xsl:element>
 						</xsl:if>
 						<xsl:if test="@unit!=''">
-							<xsl:element name="p">
+							<xsl:element name="span">
+								<xsl:attribute name="class">display-block</xsl:attribute>
 								<xsl:text>Unità: </xsl:text>
 								<xsl:value-of select="@unit"></xsl:value-of>
 							</xsl:element>
@@ -562,7 +579,8 @@
 		<xsl:choose>
 			<xsl:when test="current()//tei:settlement or current()//tei:placeName or current()//tei:district">
 				<xsl:if test="current()/tei:settlement">
-					<xsl:element name="p">
+					<xsl:element name="span">
+						<xsl:attribute name="class">display-block</xsl:attribute>
 						<xsl:text>Nome: </xsl:text>
 						<xsl:value-of select="tei:settlement"/>
 						<xsl:if test="tei:settlement/@type">
@@ -573,23 +591,50 @@
 					</xsl:element>
 				</xsl:if>
 				<xsl:if test="current()/tei:placeName[@type='new']">
-					<xsl:element name="p">
+					<xsl:element name="span">
+						<xsl:attribute name="class">display-block</xsl:attribute>
 						<xsl:text>Nome moderno: </xsl:text>
 						<xsl:value-of select="tei:placeName[@type='new']"/>
 					</xsl:element>
 				</xsl:if>
 				<xsl:if test="current()/tei:district[@type='comune']">
-					<xsl:element name="p">
+					<xsl:element name="span">
+						<xsl:attribute name="class">display-block</xsl:attribute>
 						<xsl:text>Comune di appartenenza attuale: </xsl:text>
 						<xsl:value-of select="tei:district[@type='comune']"/>	
 					</xsl:element>
 				</xsl:if>
 			</xsl:when>
 			<xsl:otherwise>
-				<xsl:element name="p">
+				<xsl:element name="span">
+					<xsl:attribute name="class">display-block</xsl:attribute>
 					Nessuna informazione.
 				</xsl:element>
 			</xsl:otherwise>
 		</xsl:choose>
+	</xsl:template>
+	
+	<xsl:template match="tei:ptr" mode="dipl">
+		<xsl:if test="@target">
+			<xsl:element name="span">
+				<xsl:attribute name="class">popup image</xsl:attribute>
+				<xsl:element name="span">
+					<xsl:attribute name="class">trigger</xsl:attribute>
+					<xsl:element name="i">
+						<xsl:attribute name="class">fa fa-picture-o</xsl:attribute>
+					</xsl:element>
+				</xsl:element>
+				<xsl:element name="span">
+					<xsl:attribute name="class">tooltip</xsl:attribute>
+					<xsl:for-each select="$root//tei:item[@xml:id=substring-after(current()/@target,'#')]">
+						<xsl:element name="img">
+							<xsl:attribute name="src">data/input_data/images/hotspot/<xsl:value-of select=".//tei:graphic/@url"/></xsl:attribute>
+							<xsl:attribute name="width">180px</xsl:attribute>
+						</xsl:element>
+					</xsl:for-each>
+					<!-- aggiungere riferimento ad entita specifica e relative info  -->
+				</xsl:element>
+			</xsl:element>
+		</xsl:if>
 	</xsl:template>
 </xsl:stylesheet>
