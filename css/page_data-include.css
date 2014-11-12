@@ -496,3 +496,7 @@ span.role span.trigger{
 span.placeName span.trigger{
     background-color: #c8e6c9;
 }
+
+span.display-block{
+    display:block;
+}
