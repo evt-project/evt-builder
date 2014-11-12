@@ -331,11 +331,14 @@
 	
 	<!-- TEMPLATES PER CODICE PELAVICINO - DA SPOSTARE IN UN FILE APPROPRIATO -->
 	<xsl:template match="tei:ref[starts-with(@target,'#')]">
-		<span class="popup ref">
-			<span class="trigger">
+		<xsl:element name="span">
+			<xsl:attribute name="class">popup ref</xsl:attribute>
+			<xsl:element name="span">
+				<xsl:attribute name="class">trigger</xsl:attribute>
 				<xsl:apply-templates/>
-			</span>
-			<span class="tooltip">
+			</xsl:element>
+			<xsl:element name="span">
+				<xsl:attribute name="class">tooltip</xsl:attribute>
 				<xsl:for-each select="//tei:bibl[@xml:id=substring-after(current()/@target,'#')]">
 					<xsl:value-of select="./tei:author"/>
 					<xsl:text>, </xsl:text>
@@ -346,7 +349,38 @@
 						<xsl:text> </xsl:text>
 					</xsl:for-each>
 				</xsl:for-each>
-			</span>
-		</span>
+			</xsl:element>
+		</xsl:element>
+	</xsl:template>
+	
+	<xsl:template match="tei:emph" mode="dipl">
+		<xsl:element name="span">
+			<xsl:attribute name="class">emph</xsl:attribute>
+			<xsl:apply-templates mode="#current" />
+		</xsl:element>
+	</xsl:template>
+	
+	<xsl:template match="tei:term" mode="dipl">
+		<xsl:element name="span">
+			<xsl:attribute name="class">term</xsl:attribute>
+			<xsl:value-of select="."/>
+		</xsl:element>
+	</xsl:template>
+	
+	<xsl:template match="tei:note" mode="dipl">
+		<xsl:element name="span">
+			<xsl:attribute name="class">inline_note</xsl:attribute>
+			<xsl:attribute name="id">note_<xsl:value-of select="count(preceding::*[name() = name(current())])"></xsl:value-of></xsl:attribute>
+			<xsl:element name="i">
+				<xsl:attribute name="class">fa fa-circle open_note</xsl:attribute>
+			</xsl:element>
+			<xsl:element name="span">
+				<xsl:attribute name="class">text_note</xsl:attribute>
+				<xsl:attribute name="id">
+					<xsl:value-of select="./@xml:id"/>
+				</xsl:attribute>
+				<xsl:apply-templates mode="#current"/>
+			</xsl:element>
+		</xsl:element>
 	</xsl:template>
 </xsl:stylesheet>
