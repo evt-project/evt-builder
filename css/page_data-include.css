@@ -418,7 +418,8 @@ span.popup{
 span.popup:hover span.tooltip{
 	display: block;
 	min-width: 20px;
-	text-align: center; 
+	text-align: left;
+	padding:1%;
 }
 
 span.popup span.trigger, span.open_note .fa{ 
@@ -468,7 +469,8 @@ span.text_note{
 .open_note:hover + span.text_note{
 	display: block;
 	min-width: 20px;
-	text-align: center; 
+	text-align: left;
+	padding:1%;
 }
 span.emph{
     font-style:italic;
@@ -476,4 +478,21 @@ span.emph{
 span.term, span.emph span.term{
     font-weight:bold;
     font-style:normal;
+}
+
+span.persName, span.measure, span.role, span.placeName, span.date
+span.popup.persName, span.popup.measure, span.popup.role, span.popup.placeName, span.popup.date{
+    display:inline-block;
+}
+span.persName span.trigger{
+    background-color: #ffcdd2;
+}
+span.measure span.trigger{
+    background-color: #ffecb3;    
+}
+span.role span.trigger{
+    background-color: #9fa8da;
+}
+span.placeName span.trigger{
+    background-color: #c8e6c9;
 }
