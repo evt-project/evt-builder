@@ -360,6 +360,19 @@ $(function() {
 					.text();
 				//alert(tt_val_temp);
 				//alert(first_page);
+
+				$('#prev_doc, #next_doc').removeClass('disabled');
+				if ($("#span_tt_select").find('.option.selected').prev().length == 0) {
+				    $('#prev_doc').addClass('disabled');
+				}
+				if ($("#span_tt_select").find('.option.selected').next().length == 0) {
+				    $('#next_doc').addClass('disabled');
+				}
+						// IT: Aggiorna l'indirizzo del frame del regesto
+          		if ($("#regesto_cont").length > 0){ 
+          			var regesto = $("#span_tt_select .option_container .option.selected").attr('id').substr(6);
+          			$('#regesto_cont').load("data/output_data/regesto/doc_"+regesto+".html #regesto");
+          		}
 				window.location.hash = first_page;
 				//$(".main_pp_select .label_selected").text(first_page).trigger("change");
 			});
@@ -552,6 +565,10 @@ $(function() {
 				});
 				// IT: L'evento viene attivato quando cambia l'hash della pagina
 				$(window).hashchange();
+				if ($("#regesto_cont").length > 0){ 
+          			var regesto = $("#span_tt_select .option_container .option.selected").attr('id').substr(6);
+          			$('#regesto_cont').load("data/output_data/regesto/doc_"+regesto+".html #regesto");
+          		}
 			/* / HASH CHANGE - ba.bbq plugin */
 		}
 	});
@@ -618,12 +635,6 @@ $(function() {
 				.fadeIn(200);
 		}
 		
-		// IT: Aggiorna l'indirizzo del frame del regesto
-		if ($("#regesto_cont").length > 0){ 
-			var regesto = $("#span_tt_select .option_container .option.selected").attr('id').substr(6);
-			$('#regesto_cont').load("data/output_data/regesto/doc_"+regesto+".html #regesto");
-		}
-		
 		// IT: Aggiorna le informazioni all'interno delle etichette			
 		$('#central_page_number span').text(pp_val);
 		/*$('#edval span')
@@ -685,7 +696,25 @@ $(function() {
 			$('<img/>')[0].src = this;
 		});
 	}
-
+    
+    function navDoc(toward){
+        var current_tt, new_tt, new_tt_id, new_tt_l;
+        current_tt = $('#span_tt_select').find('.option.selected');
+        
+        if (toward === "left") {
+            new_tt = current_tt.prev('.option');
+        } else if (toward === "right"){
+            new_tt = current_tt.next('.option');
+        }
+        new_tt_id = new_tt.attr('id').substr(6);
+        
+        new_tt_l = new_tt.attr('title');        
+        new_tt.addClass('selected');
+        current_tt.removeClass('selected');
+        $('#span_tt_select').find('.label_selected').text(new_tt_l).attr('id_value', new_tt_id).trigger('change');
+        
+    }
+    
 	function arrow(toward){ //duplicata temporaneamente in jquery.rafmas-keydown
 		var d_page, l_page;
 		var current_pp;
@@ -1052,6 +1081,13 @@ $(function() {
 	});
 	$(".main_right_arrow").click(function(){
 		arrow("right");
+	});
+	
+	$("#prev_doc").click(function(){
+	    navDoc("left");
+	});
+	$("#next_doc").click(function(){
+	    navDoc("right");
 	});
 	
 	$("#main_left_menu").click(function(){

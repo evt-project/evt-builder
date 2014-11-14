@@ -416,7 +416,7 @@ span.tooltip span, span.text_note span{
 span.popup{
     display:inline-block;
 }	
-span.popup:hover span.tooltip{
+span.popup:hover > span.tooltip{
 	display: block;
 	min-width: 20px;
 	text-align: left;
