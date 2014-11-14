@@ -1408,6 +1408,7 @@ $(function() {
 
 		// Gestione menu destro: chiudo/apro + aggiungo/tolgo la classe menuClosed
 		$('#right_header').toggle('blind').toggleClass('menuClosed');
+		$('#text_tool').slideToggle().toggleClass('menuClosed');
 		// Se ho appena chiuso il menu di destra
 		if($('#right_header').hasClass('menuClosed')){
 			$('#text_cont, #text_cont-add').animate({
@@ -1420,9 +1421,14 @@ $(function() {
 				height: "-webkit-calc(100% - 42px)",
 				height: "-moz-calc(100% - 42px)"
 			});*/
-			$('#text_cont, #text_cont-add, #thumb_cont')
-				.css('height', '-=42px')
-				.css('height', '100%');
+			if($('#text_tool').length>0){
+			    $('#text_cont, #text_cont-add, #thumb_cont')
+           			.css('height', '-=84px');
+			} else {
+			     $('#text_cont, #text_cont-add, #thumb_cont')
+           			.css('height', '-=42px')
+           			.css('height', '100%');
+           	}   
 		}
 
 		// Modifico lo stile e la posizione dell'icona
