@@ -467,6 +467,11 @@ footer{
 	height: -webkit-calc(100% - 42px);
     height: -moz-calc(100% - 42px);
     height: calc(100% - 42px);
+    /* con bottom menu: */
+    height: 100%;
+	height: -webkit-calc(100% - 84px);
+    height: -moz-calc(100% - 84px);
+    height: calc(100% - 84px);
     min-height: 436.1px;
     overflow: auto;
 }
@@ -546,7 +551,7 @@ footer{
 	top: 100px;
 }
 
-#image_tool{ 
+#image_tool, #text_tool{ 
 	height: 42px;
 	z-index: 10;
 	
@@ -563,6 +568,38 @@ footer{
 	box-shadow:0px -2px 3px -2px rgba(0, 0, 0, 1);
 	background: #362d28;;
 	#opacity: 0.4;
+}
+
+#text_tool{
+    font-size:18px;
+}
+
+#text_tool .like_select{
+	#left:-8px;
+	display: inline-block;
+	margin-top:15px;
+}
+#text_tool span.text-button {
+    position: relative;
+    bottom: 10px;
+    width:1em;
+    margin: 5px;
+    margin-top: 7px;
+}
+#text_tool span.text-button i.fa.big{
+    font-size: 25px; 
+    color: #F5EAD4; 
+    text-shadow: 0px 1px 4px #000; 
+    z-index: 9999999;
+    min-height: 40px;    
+}
+
+#text_tool span.text-button i.fa.small-top{
+    color: #F5EAD4; 
+    left: 11px; 
+    top: -11px; 
+    font-size: 13px; 
+    text-shadow: 0px 1px 4px #000; 
 }
 
 .image_tool-class{
@@ -966,7 +1003,16 @@ footer{
 	top:30px;
 	#position: absolute;
 }
-
+.option_container.up{
+    top: 0px;
+    #height: 24px;
+    -moz-box-shadow:0px 1px 5px rgba(0, 0, 0, 0.7);
+	-webkit-box-shadow:0px 1px 5px rgba(0, 0, 0, 0.7);
+	-o-box-shadow:0px 1px 5px rgba(0, 0, 0, 0.7);
+	-khtml-box-shadow:0px 1px 5px rgba(0, 0, 0, 0.7);
+	-ms-box-shadow:0px 1px 5px rgba(0, 0, 0, 0.7);
+	box-shadow:0px 1px 5px rgba(0, 0, 0, 0.7);
+}
 .like_select.widthChanged .option_container{
 	visibility: visible;
 	display: none;
@@ -993,6 +1039,13 @@ footer{
 .option.selected{
 	color:#CCC;
 	cursor: default;
+}
+.like_select.filter .option.selected, .like_select.filter .option.selected:hover{
+	background: #362D28;
+	color:#fff;
+}
+.like_select.filter .option.selected:hover{
+    cursor:pointer;
 }
 
 .option.selected:hover{

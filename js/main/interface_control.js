@@ -367,9 +367,27 @@ $(function() {
 			$(".open_select").click(function(){
 				if (!($(".option_container").is(':animated'))){
 					if($('.option_container:visible').parents('.like_select').attr('id') !== $(this).parents('.like_select').attr('id')){
-						$('.option_container:visible').animate({height:"toggle"}, 400);
+					   $('.option_container.up:visible').animate({
+					       top: '-5px',
+					       height:"toggle"
+					   }, 400);	
+					   $('.option_container.down:visible').animate({height:"toggle"}, 400);   
 					}
-					$(this).siblings('.option_container').animate({height:"toggle"}, 400);
+					if($(this).hasClass('open_up')){
+					   if ($(this).siblings('.option_container').is(':visible')) {
+					       $(this).siblings('.option_container').animate({
+    					       top: '-5px',
+    					       height:"toggle"
+    					   }, 400);
+					   } else {
+    					   $(this).siblings('.option_container').animate({
+    					       top: '-176px',
+    					       height:"toggle"
+    					   }, 400);
+    				   }
+					} else {
+					    $(this).siblings('.option_container').animate({height:"toggle"}, 400);
+					}
 				}
 			});
 			
@@ -382,8 +400,53 @@ $(function() {
 				}
 				
 			});
+			
+			$(".like_select.filter .option_container .option").click(function(){
+				var classToBeActived, newLabel, filtersActive;
+				
+				classToBeActived = $(this).attr('id').substr(6);
+				if (classToBeActived=='clean') { //pulisci selezione
+				    $(this).siblings('.option').removeClass('selected');
+				    $(this).addClass('selected');
+				    $('.list_active').removeClass('list_active');
+				    // se "pulisci selezione" l'etichetta prende "No selection"
+			        newLabel = "No selection";
+				} else if (classToBeActived=='all') { //seleziona tutto
+				    $(this).addClass('selected');
+				    $(this).siblings('.option').each(function(){
+				        classToBeActived = $(this).attr('id').substr(6);
+				        if(classToBeActived!='clean'){
+				            $(this).addClass('selected');
+				            $("."+classToBeActived).addClass('list_active');
+				        } 
+				        $(this).siblings(".option[id='value_clean']").removeClass('selected');
+				    });
+				    newLabel = "Multi selection";
+				} else {
+				   $(this).toggleClass('selected');
+				   $("."+classToBeActived).toggleClass('list_active');
+				   $(this).siblings(".option[id='value_clean']").removeClass('selected');
+				   $(this).siblings(".option[id='value_all']").removeClass('selected');
+				   
+				   filtersActive = $(this).parents('.option_container').find('.option.selected').length;
+				   switch(filtersActive){
+				       case 1:
+				                newLabel = $(this).parents('.option_container').find('.option.selected').text();
+				                break;
+				       case 0:
+				                newLabel = "No selection";
+				                break;
+				       default:
+				                newLabel = "Multi selection";
+				                break;
+				   }
+				}
+				$(this).parents('.option_container').siblings('.label_selected').text(newLabel);
+				
+			});
+			
 			$(".option").click(function(){
-				if(! $(this).hasClass('selected')){
+				if(! $(this).hasClass('selected') && !$(this).parents('.like_select').hasClass('filter')){
 					var newPage, newText;
 					newPage = $(this).attr('id').substr(6);
 					
@@ -399,7 +462,14 @@ $(function() {
 							$(this).parents('.option_container').prev().prev().text(newText).attr("id_value", newPage).trigger('change'); // .label_selected
 						}
 					}
-					$(this).parents('.option_container').animate({height:"toggle"}, 400);
+					if($(this).parents('.option_container').hasClass('up')){
+				       $(this).parents('.option_container').animate({
+    				       top: '-5px',
+    				       height:"toggle"
+    				   }, 400);
+					} else {
+					    $(this).parents('.option_container').animate({height:"toggle"}, 400);
+					}
 					//$("#value_" + newPage).addClass("selected").siblings().removeClass('selected');
 				}
 			});
@@ -410,7 +480,14 @@ $(function() {
 			
 			$("#global_wrapper").on('mousedown', function (e) {
 				if ( ($(e.target).closest(".like_select").length === 0) && !($(".option_container").is(':animated')) ) {
-					$('.option_container:visible').animate({height:"toggle"}, 400);
+					if($('.option_container:visible').hasClass('up')){
+				       $('.option_container:visible').animate({
+    				       top: '-5px',
+    				       height:"toggle"
+    				   }, 400);
+					} else {
+					    $('.option_container:visible').animate({height:"toggle"}, 400);
+					}
 				}
 			});
 			/* / Gestione eventi */
@@ -471,6 +548,7 @@ $(function() {
 					if($('#txt_single').attr('class')==="current_mode"){ $('#header_collapse').css("left",'15px'); }
 					// IT: Cambia il titolo della pagina in base all'hash
 					//document.title = 'The hash is ' + ( hash.replace( /^#/, '' ) || 'blank' ) + '.';
+				    
 				});
 				// IT: L'evento viene attivato quando cambia l'hash della pagina
 				$(window).hashchange();
@@ -494,6 +572,8 @@ $(function() {
 		edition = $("#span_ee_select .main_ee_select .label_selected").text().toLowerCase();
 		$(".main_pp_select .label_selected").text(pp_lab).attr("id_value", pp_val).trigger("change");
 		$('#text_elem').load("data/output_data/"+edition+"/page_"+pp_val+"_"+edition+".html #text_frame", function(){
+			// Riattiva filtri attivi
+			$('.like_select.filter').find('.option.selected').removeClass('selected').trigger('click');
 			//IT: controlla se la pagine ha gli elementi necessari allo strumento ITL
 			if ($('#text_elem .Area').length){
 				if($('#switchITL').hasClass('inactive') || $('#switchITL').hasClass('likeInactive')){
