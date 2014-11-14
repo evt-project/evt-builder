@@ -336,7 +336,7 @@
 			<xsl:attribute name="class">popup ref</xsl:attribute>
 			<xsl:element name="span">
 				<xsl:attribute name="class">trigger</xsl:attribute>
-				<xsl:apply-templates/>
+				<xsl:apply-templates mode="#current"/>
 			</xsl:element>
 			<xsl:element name="span">
 				<xsl:attribute name="class">tooltip</xsl:attribute>
@@ -346,7 +346,7 @@
 					<xsl:value-of select="./tei:date"/>
 					<xsl:text>, </xsl:text>
 					<xsl:for-each select="./tei:biblScope">
-						<xsl:apply-templates/>
+						<xsl:apply-templates mode="#current"/>
 						<xsl:text> </xsl:text>
 					</xsl:for-each>
 				</xsl:for-each>
@@ -360,7 +360,7 @@
 	<xsl:template match="tei:text/tei:body" mode="dipl">
 		<xsl:element name="div">
 			<xsl:attribute name="class">doc_<xsl:value-of select="current()/parent::tei:text/@xml:id"></xsl:value-of></xsl:attribute>
-			<xsl:apply-templates mode="#current"></xsl:apply-templates>
+			<xsl:apply-templates mode="#current"/>
 		</xsl:element>
 	</xsl:template>
 	<!-- EMPH emphasized  -->
@@ -375,7 +375,7 @@
 	<xsl:template match="tei:term" mode="dipl">
 		<xsl:element name="span">
 			<xsl:attribute name="class">term</xsl:attribute>
-			<xsl:value-of select="."/>
+			<xsl:apply-templates mode="#current" />
 		</xsl:element>
 	</xsl:template>
 	
@@ -405,7 +405,7 @@
 					<xsl:attribute name="class">popup date</xsl:attribute>
 					<xsl:element name="span">
 						<xsl:attribute name="class">trigger</xsl:attribute>
-						<xsl:apply-templates/>
+						<xsl:apply-templates mode="#current"/>
 					</xsl:element>
 					<xsl:element name="span">
 						<xsl:attribute name="class">tooltip</xsl:attribute>
@@ -431,7 +431,7 @@
 					<xsl:attribute name="class">popup persName</xsl:attribute>
 					<xsl:element name="span">
 						<xsl:attribute name="class">trigger</xsl:attribute>
-						<xsl:apply-templates/>
+						<xsl:apply-templates mode="#current"/>
 					</xsl:element>
 					<xsl:element name="span">
 						<xsl:attribute name="class">tooltip</xsl:attribute>
@@ -502,7 +502,7 @@
 					<xsl:attribute name="class">popup measure</xsl:attribute>
 					<xsl:element name="span">
 						<xsl:attribute name="class">trigger</xsl:attribute>
-						<xsl:apply-templates/>
+						<xsl:apply-templates mode="#current"/>
 					</xsl:element>
 					<xsl:element name="span">
 						<xsl:attribute name="class">tooltip</xsl:attribute>
@@ -533,7 +533,7 @@
 			<xsl:otherwise>
 				<xsl:element name="span">
 					<xsl:attribute name="class">measure</xsl:attribute>
-					<xsl:apply-templates mode="#current"></xsl:apply-templates>
+					<xsl:apply-templates mode="#current"/>
 				</xsl:element>
 			</xsl:otherwise>
 		</xsl:choose>
@@ -543,7 +543,7 @@
 	<xsl:template match="tei:roleName" mode="dipl">
 		<xsl:element name="span">
 			<xsl:attribute name="class">role</xsl:attribute>
-			<xsl:apply-templates mode="#current"></xsl:apply-templates>
+			<xsl:apply-templates mode="#current"/>
 		</xsl:element>
 	</xsl:template>
 	
@@ -555,7 +555,7 @@
 					<xsl:attribute name="class">popup placeName</xsl:attribute>
 					<xsl:element name="span">
 						<xsl:attribute name="class">trigger</xsl:attribute>
-						<xsl:apply-templates/>
+						<xsl:apply-templates mode="#current"/>
 					</xsl:element>
 					<xsl:element name="span">
 						<xsl:attribute name="class">tooltip</xsl:attribute>
@@ -614,6 +614,7 @@
 		</xsl:choose>
 	</xsl:template>
 	
+	<!-- PTR Pointer -->
 	<xsl:template match="tei:ptr" mode="dipl">
 		<xsl:if test="@target">
 			<xsl:element name="span">
@@ -636,5 +637,13 @@
 				</xsl:element>
 			</xsl:element>
 		</xsl:if>
+	</xsl:template>
+	
+	<!-- QUOTE Quotes -->
+	<xsl:template match="tei:quote" mode="dipl">
+		<xsl:element name="span">
+			<xsl:attribute name="class">quote</xsl:attribute>
+			&#171;<xsl:apply-templates mode="#current" />&#187;
+		</xsl:element>
 	</xsl:template>
 </xsl:stylesheet>
