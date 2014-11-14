@@ -475,6 +475,10 @@ footer{
     min-height: 436.1px;
     overflow: auto;
 }
+#regesto_cont div.front{
+    width:85%;
+    margin:auto;
+}
 #text_cont-add{
 	bottom: 0px;
 }
@@ -529,7 +533,7 @@ footer{
 	/*Chiara*/
 	height: 100%;
 	overflow-y: hidden;
-	width: 94%;
+	width: 85%;
 	#margin-top: -20px;
 	padding: 10px 10px 30px 20px;
 }
@@ -1332,6 +1336,29 @@ footer{
     cursor: default;
 }
 
+#prev_doc, #next_doc{
+    top: 50%; 
+    position: relative; 
+    z-index: 9;
+    cursor:pointer;  
+    opacity:0.5;
+}
+#prev_doc:hover, #next_doc:hover{
+    opacity:1;
+}
+#prev_doc{
+    margin-left: 15px; 
+    float: left; 
+}
+#next_doc{
+    float: right; 
+    margin-right: 15px;
+}
+
+#prev_doc.disabled, #next_doc.disabled, #prev_doc.disabled:hover, #next_doc.disabled:hover{
+    cursor:default;
+    opacity:0.1;
+}
 /*Chiara*/
 #txtimg_link, #txttxt_link, #txtimg_link:hover, #txtimg_link.current_mode, #txttxt_link:hover, #txttxt_link.current_mode{
 	min-height: 50px;

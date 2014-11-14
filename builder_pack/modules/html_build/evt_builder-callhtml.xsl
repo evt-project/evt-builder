@@ -391,6 +391,8 @@
 								<div id="regesto_cont" />
 							</xsl:if>
 							<div id="text_cont">
+								<span id="prev_doc"><i class="fa fa-chevron-left"></i></span>
+								<span id="next_doc"><i class="fa fa-chevron-right"></i></span>
 								<div id="text_elem"/>
 							</div>
 							<!-- Text frame bottom menu -->
