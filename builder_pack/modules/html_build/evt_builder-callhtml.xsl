@@ -380,6 +380,7 @@
 												select="'main_ee_select'"/>
 										</xsl:call-template>
 									</span>
+									
 									<span id="search_elem" class="iconButtons" title="Search">
 										<a href="javascript:void(0);" id="search_link"><i class="fa fa-search"></i></a>
 									</span>
@@ -391,6 +392,28 @@
 							</xsl:if>
 							<div id="text_cont">
 								<div id="text_elem"/>
+							</div>
+							<!-- Text frame bottom menu -->
+							<div id="text_tool">
+								<span id="span_list_select" class="like_select filter" title="Lists">
+									<div class="main_list_select">
+										<span id_value="none" class="label_selected">
+											No selection
+										</span>
+										<div class="open_select open_up">
+											<i class="fa fa-sort-asc"></i>
+										</div>
+										<div class="option_container up">
+											<div class="option" id="value_persName">Persone</div>
+											<div class="option" id="value_placeName">Luoghi</div>
+											<div class="option" id="value_roleName">Mestieri/Ruoli</div>
+											<div class="option" id="value_measure">Monete</div>
+											<div class="option" id="value_date">Date</div>
+											<div class="option" id="value_all">Seleziona Tutto</div>
+											<div class="option" id="value_clean">Pulisci Selezione</div>
+										</div>
+									</div>
+								</span>
 							</div>
 						</div>
 					</section>

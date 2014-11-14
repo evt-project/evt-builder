@@ -407,6 +407,7 @@ span.tooltip {
 	box-shadow: 2px 2px 2px #7e7067;
 	padding: 0.4%;
 	margin-top:3px;
+	z-index:1;
 }
 
 span.tooltip span, span.text_note span{
@@ -434,6 +435,9 @@ span.popup:hover span.trigger{
 	text-decoration: underline; 
 }
 
+.popup.image .trigger{
+    margin-right:10px;
+}
 
 span.text_note:before {
 	content: url("../images/popup_before.png");
@@ -457,6 +461,7 @@ span.text_note{
 	margin-top:3px;
     margin-left: -13px;
     margin-top: 0px;
+    z-index:1;
 }
 .open_note{
     font-size: 0.5em;
@@ -465,6 +470,7 @@ span.text_note{
     margin: 0px 2px;
     cursor: pointer;
     color: #561c0a;
+    z-index:0;
 }
 .open_note:hover + span.text_note{
 	display: block;
@@ -484,16 +490,16 @@ span.persName, span.measure, span.role, span.placeName, span.date
 span.popup.persName, span.popup.measure, span.popup.role, span.popup.placeName, span.popup.date{
     display:inline-block;
 }
-span.persName span.trigger{
+span.persName.list_active span.trigger{
     background-color: #ffcdd2;
 }
-span.measure span.trigger{
+span.measure.list_active span.trigger{
     background-color: #ffecb3;    
 }
-span.role span.trigger{
+span.role.list_active span.trigger{
     background-color: #9fa8da;
 }
-span.placeName span.trigger{
+span.placeName.list_active span.trigger{
     background-color: #c8e6c9;
 }
 
