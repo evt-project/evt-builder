@@ -391,10 +391,10 @@
 								<div id="regesto_cont" />
 							</xsl:if>
 							<div id="text_cont">
-								<span id="prev_doc"><i class="fa fa-chevron-left"></i></span>
-								<span id="next_doc"><i class="fa fa-chevron-right"></i></span>
 								<div id="text_elem"/>
 							</div>
+							<span id="prev_doc"><i class="fa fa-chevron-left"></i></span>
+							<span id="next_doc"><i class="fa fa-chevron-right"></i></span>
 							<!-- Text frame bottom menu -->
 							<div id="text_tool">
 								<span id="span_list_select" class="like_select filter" title="Lists">
