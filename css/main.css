@@ -1338,7 +1338,7 @@ footer{
 
 #prev_doc, #next_doc{
     top: 50%; 
-    position: relative; 
+    position: absolute; 
     z-index: 9;
     cursor:pointer;  
     opacity:0.5;
@@ -1348,11 +1348,11 @@ footer{
 }
 #prev_doc{
     margin-left: 15px; 
-    float: left; 
+    left:0;
 }
 #next_doc{
-    float: right; 
     margin-right: 15px;
+    right:0;
 }
 
 #prev_doc.disabled, #next_doc.disabled, #prev_doc.disabled:hover, #next_doc.disabled:hover{
