@@ -326,9 +326,9 @@ span.dipl-choice_popup_corr span.dipl-corr {
 
 span.dipl-choice_popup:hover span.dipl-orig, span.dipl-choice_popup_corr:hover span.dipl-corr,
 span.dipl-choice_popup.hover span.dipl-orig, span.dipl-choice_popup_corr.hover span.dipl-corr{
-	display: inline;
-	min-width: 20px;
-	text-align: center; 
+	#display: inline;
+	#min-width: 20px;
+	#text-align: center; 
 }
 
 span.dipl-choice_popup:hover span.dipl-reg, span.dipl-choice_popup_corr:hover span.dipl-sic,
@@ -406,8 +406,9 @@ span.tooltip {
 	border-radius: 3px;
 	box-shadow: 2px 2px 2px #7e7067;
 	padding: 0.4%;
-	margin-top:3px;
+	margin-top:32px;
 	z-index:1;
+	margin-left: -40px;
 }
 
 span.tooltip span, span.text_note span{
@@ -417,10 +418,10 @@ span.popup{
     display:inline-block;
 }	
 span.popup:hover > span.tooltip{
-	display: block;
-	min-width: 20px;
-	text-align: left;
-	padding:1%;
+	#display: block;
+	#min-width: 20px;
+	#text-align: left;
+	#padding:1%;
 }
 
 span.popup span.trigger, span.open_note .fa{ 
@@ -429,9 +430,7 @@ span.popup span.trigger, span.open_note .fa{
 }
 
 span.facs-choice_popup:hover span.facs-orig,
-span.facs-choice_popup.hover span.facs-orig,
-span.popup:hover span.trigger,
-span.popup:hover span.trigger span.trigger{
+span.facs-choice_popup.hover span.facs-orig {
 	color: #561c0a;
 	text-decoration: underline; 
 }
@@ -493,20 +492,24 @@ span.term, span.emph span.term{
 
 span.persName, span.measure, span.role, span.placeName, span.date
 span.popup.persName, span.popup.measure, span.popup.role, span.popup.placeName, span.popup.date{
-    display:inline-block;
+    display:inline;
     cursor:pointer;
 }
-span.persName.list_active span.trigger, span.persName:hover span.trigger{
+span.persName.list_active span.trigger, span.persName.over span.trigger{
     background-color: #ffcdd2;
+    text-decoration:underline;
 }
-span.measure.list_active span.trigger, span.measure:hover span.trigger{
-    background-color: #ffecb3;    
+span.measure.list_active span.trigger, span.measure.over span.trigger{
+    background-color: #ffecb3;
+    text-decoration:underline;    
 }
-span.role.list_active span.trigger, span.role:hover span.trigger{
+span.role.list_active span.trigger, span.role.over > span.trigger{
     background-color: #9fa8da;
+    text-decoration:underline;
 }
-span.placeName.list_active span.trigger, span.placeName:hover span.trigger{
+span.placeName.list_active span.trigger, span.placeName.over > span.trigger{
     background-color: #c8e6c9;
+    text-decoration:underline;
 }
 
 span.display-block{

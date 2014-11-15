@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xpath-default-namespace="http://www.tei-c.org/ns/1.0"
-    xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="2.0"
-    xmlns:xs="http://www.w3.org/2001/XMLSchema" 
-    xmlns:eg="http://www.tei-c.org/ns/Examples"
-    xmlns:xd="http://www.pnp-software.com/XSLTdoc" 
-    xmlns:fn="http://www.w3.org/2005/xpath-functions"
-    xmlns:tei="http://www.tei-c.org/ns/1.0"
-    xmlns="http://www.w3.org/1999/xhtml"
-    exclude-result-prefixes="#all">
-
+	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="2.0"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	xmlns:eg="http://www.tei-c.org/ns/Examples"
+	xmlns:xd="http://www.pnp-software.com/XSLTdoc" 
+	xmlns:fn="http://www.w3.org/2005/xpath-functions"
+	xmlns:tei="http://www.tei-c.org/ns/1.0"
+	xmlns="http://www.w3.org/1999/xhtml"
+	exclude-result-prefixes="#all">
+	
 	<xd:doc type="stylesheet">
 		<xd:short>
 			EN: This file collects parameters and configurable variables used in the other modules.
 			IT: Questo file è una collezione di parametri e variabili configurabili, usati negli altri moduli.
 		</xd:short>
 	</xd:doc>
-       
+	
 	<!-- GLOBAL -->
 	<!-- IT: La variabile globale $root si trova nel file evt_builder-copy_and_call_main.xsl-->
 	
@@ -32,22 +32,23 @@
 	
 	<!-- Index title -->
 	<!-- <xsl:param name="index_title" select="'The Digital Vercelli Book'"/> -->
-	<xsl:param name="index_title" select="'Codex Viewer'"/>
+	<!--<xsl:param name="index_title" select="'Codex Viewer'"/>-->
+	<xsl:param name="index_title" select="'Codice Pelavicino'"/>
 	
 	<!-- Hide/Show scans -->
 	<xsl:param name="image_frame" select="true()"/>
-
+	
 	<!-- Hide/Show badge -->
 	<xsl:param name="badge" select="true()"/>
 	<!-- alpha, beta, stable etc -->
-	<xsl:param name="badge_text" select="'beta'"/>
-
+	<xsl:param name="badge_text" select="'DIGITAL EDITION'"/>
+	
 	<!-- On/Off doubleview -->
 	<xsl:param name="double_view" select="true()"/>
 	
 	<!-- On/Off regesto -->
 	<xsl:param name="regesto" select="true()"/>
-
+	
 	<!-- Edition -->
 	<!-- EN: To use it in your code:
 		<xsl:value-of select="$edition_array[n]" />
@@ -61,13 +62,13 @@
 	-->
 	<xsl:variable name="edition_array" as="element()*">
 		<edition>Diplomatic</edition> 	<!-- EN: For processing in the modules: $edition_array[1] -->
-								<!-- IT: Per l'elaborazione nei moduli: $edition_array[1] -->
+		<!-- IT: Per l'elaborazione nei moduli: $edition_array[1] -->
 		<edition>Interpretative</edition>	<!-- EN: For processing in the modules: $edition_array[2] -->
-								<!-- IT: Per l'elaborazione nei moduli: $edition_array[2] -->					
-	<!-- EN: To add a new edition it is necessary to add a new line here and -forcedly- a declaration concerning output file in the modules/evt_builder-main.xsl file, under the <xsl:if test="$edition_array[2]!=''" condition>
+		<!-- IT: Per l'elaborazione nei moduli: $edition_array[2] -->					
+		<!-- EN: To add a new edition it is necessary to add a new line here and -forcedly- a declaration concerning output file in the modules/evt_builder-main.xsl file, under the <xsl:if test="$edition_array[2]!=''" condition>
 				For instance: <edition>New_edition</edition>
 		-->
-	<!-- IT: Per aggiungere una nuova edizione, bisognerà inserire una nuova riga qui e -necessariamente- la dichiarazione per i file di output nel file modules/evt_builder-main.xsl, sotto la condizione <xsl:if test="$edition_array[2]!=''">
+		<!-- IT: Per aggiungere una nuova edizione, bisognerà inserire una nuova riga qui e -necessariamente- la dichiarazione per i file di output nel file modules/evt_builder-main.xsl, sotto la condizione <xsl:if test="$edition_array[2]!=''">
 				Esempio: <edition>Nuova_edizione</edition>
 		-->    
 	</xsl:variable>
@@ -78,10 +79,10 @@
 	<xsl:variable name="ed_name2">dipl</xsl:variable>
 	
 	<!-- Variable -->
-
+	
 	<!-- Thumb image -->
 	<xsl:variable name="fb_thumb">thumb_fb.jpg</xsl:variable>
-
+	
 	<!--
 	<xsl:variable name="title" select="teiHeader/fileDesc/titleStmt/title" />
     <xsl:variable name="author" select="teiHeader/fileDesc/titleStmt/author" />
