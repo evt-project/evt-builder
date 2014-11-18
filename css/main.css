@@ -447,12 +447,12 @@ footer{
 	display: inline;
 }
 
-#text_cont, #text_cont-add, #image_cont, #regesto_cont{
+#text_cont, #text_cont-add, #image_cont, #regesto_cont, #regesto_cont-add{
 	height: 100%;
 	text-align: center;
 }	
 /*Chiara  */
-#text_cont, #text_cont-add, #regesto_cont{
+#text_cont, #text_cont-add, #regesto_cont, #regesto_cont-add{
 	background: white;
 	position: relative;
 	/*-moz-box-shadow:-2px 3px 5px -2px rgba(0, 0, 0, 0.8);
@@ -475,7 +475,7 @@ footer{
     min-height: 436.1px;
     overflow: auto;
 }
-#regesto_cont div.front{
+#regesto_cont div.front, #regesto_cont-add div.front{
     width:85%;
     margin:auto;
 }
@@ -483,7 +483,7 @@ footer{
 	bottom: 0px;
 }
 
-#text_frame, #text_elem-add > div, #regesto{
+#text_frame, #text_elem-add > div, #regesto, #regesto-add{
 	margin-top:auto !important;
 	#overflow-y: scroll;
 }
@@ -510,7 +510,7 @@ footer{
 	background: #000;
 }
 
-#text_elem, #text_elem-add, #regesto{
+#text_elem, #text_elem-add, #regesto, #regesto-add{
 	width: 99.4%;
 	min-height: 456px;
 	overflow-y: auto;
@@ -555,7 +555,7 @@ footer{
 	top: 100px;
 }
 
-#image_tool, #text_tool{ 
+#image_tool, #text_tool, #text_tool-add{ 
 	height: 42px;
 	z-index: 10;
 	
@@ -574,24 +574,28 @@ footer{
 	#opacity: 0.4;
 }
 
-#text_tool{
+#text_tool,
+#text_tool-add{
     font-size:18px;
     text-align:center;
 }
 
-#text_tool .like_select{
+#text_tool .like_select,
+#text_tool-add .like_select{
 	#left:-8px;
 	display: inline-block;
 	margin-top:15px;
 }
-#text_tool span.text-button {
+#text_tool span.text-button,
+#text_tool-add span.text-button{
     position: relative;
     bottom: 10px;
     width:1em;
     margin: 5px;
     margin-top: 7px;
 }
-#text_tool span.text-button i.fa.big{
+#text_tool span.text-button i.fa.big,
+#text_tool-add span.text-button i.fa.big{
     font-size: 25px; 
     color: #F5EAD4; 
     text-shadow: 0px 1px 4px #000; 
@@ -599,7 +603,8 @@ footer{
     min-height: 40px;    
 }
 
-#text_tool span.text-button i.fa.small-top{
+#text_tool span.text-button i.fa.small-top,
+#text_tool-add span.text-button i.fa.small-top{
     color: #F5EAD4; 
     left: 11px; 
     top: -11px; 
@@ -1336,26 +1341,29 @@ footer{
     cursor: default;
 }
 
-#prev_doc, #next_doc{
+#prev_doc, #next_doc,
+#prev_doc-add, #next_doc-add{
     top: 50%; 
     position: absolute; 
     z-index: 9;
     cursor:pointer;  
     opacity:0.5;
 }
-#prev_doc:hover, #next_doc:hover{
+#prev_doc:hover, #next_doc:hover,
+#prev_doc-add:hover, #next_doc-add:hover{
     opacity:1;
 }
-#prev_doc{
+#prev_doc, #prev_doc-add{
     margin-left: 15px; 
     left:0;
 }
-#next_doc{
+#next_doc, #next_doc-add{
     margin-right: 15px;
     right:0;
 }
 
-#prev_doc.disabled, #next_doc.disabled, #prev_doc.disabled:hover, #next_doc.disabled:hover{
+#prev_doc.disabled, #next_doc.disabled, #prev_doc.disabled:hover, #next_doc.disabled:hover,
+#prev_doc-add.disabled, #next_doc-add.disabled, #prev_doc-add.disabled:hover, #next_doc-add.disabled:hover{
     cursor:default;
     opacity:0.1;
 }
@@ -1562,35 +1570,42 @@ div.botleftconcave {
 }
 
 /* REGESTO */
-#regesto_cont{
+#regesto_cont, #regesto_cont-add{
     position: absolute;
     z-index: 9;
     top: 0px;
     right: 0;
     left: 0;
 }
-#regesto .title, #regesto .align-center{
+#regesto .title, #regesto .align-center,
+#regesto-add .title, #regesto-add .align-center{
     text-align: center;
 }
-#regesto .title{
+#regesto .title,
+#regesto-add .title{
     font-weight:bold;
     font-size:120%;
     margin-bottom:20px;
 }
-#regesto .info{
+#regesto .info,
+#regesto-add .info{
     font-size:90%;
 }
-#regesto .intestazione{
+#regesto .intestazione,
+#regesto-add .intestazione{
     display:block;
     font-weight:bold;
 }
-#regesto .intestazione.inline{
+#regesto .intestazione.inline,
+#regesto-add .intestazione.inline{
     display:inline;
 }
-#regesto #reg_text, #regesto .info, #regesto #reg_note{
+#regesto .reg_text, #regesto .info, #regesto .reg_note,
+#regesto-add .reg_text, #regesto-add .info, #regesto-add .reg_note{
     margin-bottom:25px;
 }
-#regesto .bibliografia{
+#regesto .bibliografia,
+#regesto-add .bibliografia{
     margin: 10px 0;
 }
 #value_regesto{
