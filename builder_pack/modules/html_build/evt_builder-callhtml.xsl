@@ -138,10 +138,10 @@
 							<div class="align-center"><span class="intestazione inline">Numerazione originale: </span><xsl:value-of select="$front/tei:titlePart[@type='numerazioneOrig']"/></div>
 							<div class="align-center"><span class="intestazione inline">Data e luogo di erogazione</span>: <xsl:value-of select="$front/tei:docDate"/></div>
 						</div>
-						<div id="reg_text">
+						<div class="reg_text">
 							<xsl:value-of select="$front/tei:div[@type='regesto']"/>
 						</div>
-						<div id="reg_note">
+						<div class="reg_note">
 							<span class="intestazione">Note critiche</span>
 							<p class="bibliografia">
 								<xsl:value-of select="$front//tei:div[@type='orig_doc']"/>
@@ -271,6 +271,31 @@
 									</div>
 								</header>
 								<xsl:if test="$image_frame=true()">
+									<span id="prev_doc-add"><i class="fa fa-chevron-left"></i></span>
+									<span id="next_doc-add"><i class="fa fa-chevron-right"></i></span>
+									<!-- Text frame bottom menu -->
+									<div id="text_tool-add">
+										<span id="span_list_select-add" class="like_select filter" title="Lists">
+											<div class="main_list_select">
+												<span id_value="none" class="label_selected">
+													No selection
+												</span>
+												<div class="open_select open_up">
+													<i class="fa fa-sort-asc"></i>
+												</div>
+												<div class="option_container up">
+													<div class="option" id="value_persName">Persone</div>
+													<div class="option" id="value_placeName">Luoghi</div>
+													<div class="option" id="value_roleName">Mestieri/Ruoli</div>
+													<div class="option" id="value_measure">Monete</div>
+													<div class="option" id="value_date">Date</div>
+													<div class="option" id="value_all">Seleziona Tutto</div>
+													<div class="option" id="value_clean">Pulisci Selezione</div>
+												</div>
+											</div>
+										</span>
+									</div>
+									
 									<div id="image_cont">
 										<div id="image_fade">
 											<div id="image_elem">
