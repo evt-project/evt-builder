@@ -955,6 +955,9 @@ footer{
 	display:none;
 }
 
+#left_header #span_pp_select{
+	display: inline-block;
+}
 #span_ee_select-add{
 	top: 0px;
 }

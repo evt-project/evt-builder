@@ -359,7 +359,8 @@
 	</xsl:template>
 	<xsl:template match="tei:text/tei:body" mode="dipl">
 		<xsl:element name="div">
-			<xsl:attribute name="class">doc doc_<xsl:value-of select="current()/parent::tei:text/@xml:id"></xsl:value-of></xsl:attribute>
+			<xsl:attribute name="class">doc</xsl:attribute>
+			<xsl:attribute name="data-doc"><xsl:value-of select="current()/parent::tei:text/@xml:id"/></xsl:attribute>
 			<xsl:apply-templates mode="#current"/>
 		</xsl:element>
 	</xsl:template>
