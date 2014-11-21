@@ -941,9 +941,11 @@ footer{
 	#padding: 0px;
 	font-size: 1em;
 	margin:0 4px;
+	#top:-7px;
+}
+#text_tool .like_select, #left_header .like_select, #left_header .mainButtons {
 	top:-7px;
 }
-
 .mainButtons{
 	display: inline-block;
 }
@@ -1099,7 +1101,11 @@ footer{
 	border-radius: 0 2px 2px 0;
 }
 .like_select .open_select .fa{
-		text-shadow:none !important;
+	text-shadow:none !important;
+}
+.like_select .open_select .fa.fa-sort-asc{
+	top:7px;
+	position: relative;
 }
 
 .like_select .open_select:hover{

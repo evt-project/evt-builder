@@ -468,7 +468,7 @@ span.text_note{
     text-decoration:none !important;
 }
 .open_note{
-    font-size: 0.4em;
+    font-size: 0.4em !important;
     top: -10px;
     position: relative;
     margin: 0px 2px;

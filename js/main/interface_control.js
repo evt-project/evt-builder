@@ -65,15 +65,6 @@ $(function() {
 				);
 			});
 			
-			// Regesto
-			if ( $(xml).find("regesto[active='1']").length > 0 ) {
-			    $('.main_ee_select .option_container').prepend(
-					$('<div/>')
-						.attr("data-value", "regesto")
-						.addClass('option')
-						.text('Regesto')
-				);
-			}
 			$(".main_ee_select .option_container div:first-child").addClass( "selected" );
 
 			$('.main_ee_select .label_selected')
@@ -207,9 +198,10 @@ $(function() {
 				.attr("data-value", $('.main_tt_select .option_container div:first').data('value'));
             
             $('.main_pp_select .option_container div:first-child').addClass('selected');
+
 			$('.main_pp_select .label_selected')
-				.text($('.main_pp_select .option_container div:first').text())
-				.attr("data-value", $('.main_pp_select .option_container .optionGroup:first div:first').data("value"));
+				.text($('.main_pp_select .option_container .option:first').text())
+				.attr("data-value", $('.main_pp_select .option_container .option:first').data("value"));
 				
 			/* Gestione eventi */
 
@@ -406,56 +398,53 @@ $(function() {
 			});
 			
 			/* SELECT PAGE */
+			/*
+				
+			*/
 			$(".main_pp_select .option_container .option").click(function(){
 				if(! $(this).hasClass('selected')){
-					var newPage = $(this).data('value');
-					var newDoc = $(this).data('first-doc');
-					//gotopage(newPage, "none");
-					window.location.hash = "doc="+newDoc+"&page="+newPage;
-					//$(this).parent().animate({height:"toggle"}, 400);
-
-					var tt_val_temp, pp_val_temp, parent_temp;
+					var new_pp_val, new_pp_lab, new_tt_val;
 					
-					tt_val_temp = $(".main_tt_select .label_selected").attr("data-value");
-					pp_val_temp = $(this).attr("data-value"); 
-					parent_temp = $(this).attr("data-first-doc");
-					if (!parent_temp) {
-						$(".main_tt_select .label_selected").text("(Text)").attr("data-value", "(Text)");
-						$(".main_tt_select .option_container .option").removeClass('selected');
-					} 
-					else {
-						if(parent_temp !== tt_val_temp){
-							$(".main_tt_select .option_container")
-								.find("[data-value='"+parent_temp+"']")
-								.trigger('click');
-						}
-					}
+					new_pp_val = $(this).data('value'); // id pagina cliccata
+					new_pp_lab = $(this).text(); 
+					new_tt_val = $(this).data('first-doc'); // primo documento contenuto.
+					
+					updatePage(new_pp_val, new_pp_lab, new_tt_val);
+					updateHash(new_tt_val, new_pp_val, "");
+
+					$(this).removeClass('selected');
 				}
-				
 			});
-			
+
 			/* SELECT TEXT */
 			$('.main_tt_select .option_container .option').click(function() {
-				var tt_val_temp, first_page;
-				tt_val_temp = $(this).data('value');
-				first_page = $(this).data('first-page');
+				if(! $(this).hasClass('selected')){
+					var new_tt_opt, new_tt_val, new_tt_first_page;
+					var current_pp_val;
 
-				$('#prev_doc, #next_doc').removeClass('disabled');
-				if ($("#span_tt_select").find('.option.selected').attr('data-value') == first_page ) {
-				    $('#prev_doc').addClass('disabled');
+					var tt_val_temp, first_page;
+					
+					new_tt_opt = $(this);
+					new_tt_val = $(this).data('value');
+					new_tt_first_page = new_tt_opt.data('first-page');
+
+					current_pp_val = $('#span_pp_select .label_selected').data('value');
+					
+					/* Se la prima pagina del documento non è la corrente, 
+						aggiorno il contenuto del frame testuale con quello della pagina in qustione.
+						Altrimenti aggiorno solo le info legate al testo.
+					*/
+					if (current_pp_val != new_tt_first_page) {
+						var new_tt_first_page_lab;
+						new_tt_first_page_lab = $("#span_pp_select .option_container ")
+													.find(".option[data-value='"+new_tt_first_page+"']").text();
+						updatePage(new_tt_first_page, new_tt_first_page_lab, new_tt_val);
+					} else {
+						updateDoc(new_tt_val, new_tt_first_page);
+					}
+					$(this).removeClass('selected');
+					updateHash(new_tt_val, new_tt_first_page, "");
 				}
-				if ($("#span_tt_select").find('.option.selected').next('.option').length == 0) {
-				    $('#next_doc').addClass('disabled');
-				}
-						// IT: Aggiorna l'indirizzo del frame del regesto
-          		if ($("#regesto_cont").length > 0){ 
-          			$('#regesto_cont').load("data/output_data/regesto/doc_"+tt_val_temp+".html #regesto", function(){
-          			    InitializePopup();
-          			});
-          		}
-          		$('.main_tt_select .label_selected').attr('data-value', tt_val_temp);
-				if ($(this).parent('.option_container').is(':visible')) 
-					window.location.hash = "doc="+tt_val_temp+"&page="+first_page;
 			});
 
 			/* SELECT EDITION LEVEL / SWITCH ON/OFF REGESTO */
@@ -465,12 +454,15 @@ $(function() {
 					var this_ee_selected, other_ee_select, other_ee_selected, other_to_select;
 					var this_frame, other_frame;
 					var page, doc;
+					var regesto_button, other_regesto_button;
 
 					this_ee_selected = $(this).data('value').toLowerCase();
 					page = $('#span_pp_select .label_selected').data('value');
 					doc = $('#span_tt_select .label_selected').data('value');
 
 					if ( $(this).parents('.like_select').attr("id") === "span_ee_select-add" ){
+						regesto_button = "#switchReg-add";
+						other_regesto_button = "#switchReg";
 						this_regesto = "#regesto_cont-add";
 						other_regesto = "#regesto_cont";
 
@@ -480,6 +472,8 @@ $(function() {
 						this_frame = "text_elem-add";
 						other_frame = "text_elem";
 					} else {
+						regesto_button = "#switchReg";
+						other_regesto_button = "#switchReg-add";
 						this_regesto = "#regesto_cont";
 						other_regesto = "#regesto_cont-add";
 
@@ -488,49 +482,40 @@ $(function() {
 						
 						this_frame = "text_elem";
 						other_frame = "text_elem-add";
+
+
 					}
 					
-					if ( this_ee_selected == 'regesto' ) { // Ho selezionato regesto
-					    if ( ! $(this_regesto).is(':visible') ) { // Se il regesto non è aperto nel contenitore relativo alla select coinvolta
-					    	if ( $(other_regesto).is(':visible') ) { // Se è aperto nell'altro contenitore, 
-					    		//lo chiudo e seleziono il primo livello di edizione presente nella select dopo regesto
-
-					    		$(other_regesto).hide('drop',  {direction: 'up'}, 'linear');
-						    	
-						    	other_to_select = other_ee_select.find('.option_container .option.selected').next();
-						    	selectOther(other_to_select, other_ee_select, page, doc, other_frame);
-					    	} 
-
-					    	// mostro il regesto nel contenitore relativo alla select coinvolta
-					    	$(this_regesto).show('drop',  {direction: 'up'},'linear');
-					    }
-					    	
-					} 
-					else { // Altrimenti, se non ho selezionato regesto
-					    if ( $(this_regesto).is(':visible') ) {// se questo è aperto nel contenitore relativo alla select coinvolta,
-					    	// lo chiudo
-					    	$(this_regesto).hide('drop',  {direction: 'up'}, 'linear');
-					    }
-					    if ( this_ee_selected == other_ee_selected ) { // Se ho selezionato lo stesso livello di edizione selezionato nell'altro frame
-					    	// devo scambiarli 
-					    	if ( other_ee_select.find(".option_container .option.selected").next().length > 0 ) {
-					    		other_to_select = other_ee_select.find('.option_container .option.selected').next();
-					    	} else {
-					    		other_to_select = other_ee_select.find('.option_container .option.selected').prev();
-					    	}
-					    	selectOther(other_to_select, other_ee_select, page, doc, other_frame);
-					    }
-					    
-	    				gotoedition(page, doc, this_ee_selected, this_frame);
-	    				//gotoedition(page, other_ee_selected.toLowerCase(), other_frame);
-					}
+				    if ( $(this_regesto).is(':visible') ) {// se questo è aperto nel contenitore relativo alla select coinvolta,
+				    	// lo chiudo
+				    	$(this_regesto).hide('drop',  {direction: 'up'}, 'linear');
+				    	$(regesto_button)
+					    		.removeClass('active')
+					    		.find('.fa')
+					    			.removeClass('fa-toggle-on')
+					    			.addClass('fa-toggle-off');
+				    }
+				    if ( this_ee_selected == other_ee_selected ) { // Se ho selezionato lo stesso livello di edizione selezionato nell'altro frame
+				    	// devo scambiarli 
+				    	if ( other_ee_select.find(".option_container .option.selected").next().length > 0 ) {
+				    		other_to_select = other_ee_select.find('.option_container .option.selected').next();
+				    	} else {
+				    		other_to_select = other_ee_select.find('.option_container .option.selected').prev();
+				    	}
+				    	selectOther(other_to_select, other_ee_select, page, doc, other_frame);
+				    }
+    				gotoedition(page, doc, this_ee_selected, this_frame);
+    				//gotoedition(page, other_ee_selected.toLowerCase(), other_frame);
 				}
 			});
 			
+			/* SELECT DOUBLE PAGE NAVIGATION */
 			$('.main_dd_select .option_container .option').click(function(){
 				window.location.hash = "page="+$(this).data("value"); // memorizzare anche il documento???
 			});
 
+
+			/* General event on click on ".option" in a ".filter" ".like_select" */
 			$(".like_select.filter .option_container .option").click(function(){
 				var classToBeActived, newLabel, filtersActive;
 				
@@ -574,8 +559,10 @@ $(function() {
 				$(this).parents('.option_container').siblings('.label_selected').text(newLabel);
 			});
 			
+			/* General event on click on ".option". It select the element clicked and unselect the others. 
+				it closes the ".like_select". If it is a filter, it is possible to select more than one ".option" element. */
 			$(".option").click(function(){
-				if( (!$(this).hasClass('selected')) && (!$(this).parents('.like_select').hasClass('filter'))){
+				if( (!$(this).hasClass('selected')) && (! $(this).parents('.like_select').hasClass('filter'))){
 					var option_sel_value, option_sel_label;
 					option_sel_value = $(this).data('value');
 					option_sel_label = $(this).text();
@@ -598,6 +585,7 @@ $(function() {
 					$(this).addClass('selected')
 						.siblings('.option').removeClass('selected');
 					if ($(this).parents('.option_container').is(':visible')) {
+
 						if($(this).parents('.option_container').hasClass('up')){
 					       $(this).parents('.option_container').animate({
 	    				       top: '-5px',
@@ -681,7 +669,7 @@ $(function() {
 						  magnifierON=true;
 					    }
 						gotopage(current_page, pp_lab, "none");
-						window.location.hash = "doc="+current_doc+"&page="+current_page;
+						//window.location.hash = "doc="+current_doc+"&page="+current_page;
 						//chooseZoomMag(); // Add by JK for Mag				
 					} else {
 						// alert(!checkdd);
@@ -709,6 +697,11 @@ $(function() {
 				$(window).hashchange();
 				if ($("#regesto_cont").length > 0){ 
           			var regesto = $("#span_tt_select .option_container .option.selected").data('value');
+          			$('#switchReg').click(function(event) {
+						$(this).toggleClass('active');
+						$(this).find('.fa').toggleClass('fa-toggle-on').toggleClass('fa-toggle-off');;
+						toggleReg();
+					});
           			$('#regesto_cont').load("data/output_data/regesto/doc_"+regesto+".html #regesto", function(){
           			    InitializePopup();
           			});
@@ -723,16 +716,92 @@ $(function() {
 	// IT: Imposta l'etichetta dell'edizione, al primo caricamento della index
 	//$('#edval span').text($("input[name=edition_r]:checked").val());	
 	
+	function updateHash(tt_val, pp_val, ee_val){
+		window.location.hash = "doc="+tt_val+"&page="+pp_val;
+	}
 	
 	/* Funzioni */
+	function updatePage(new_pp_val, new_pp_lab, new_tt_val){
+		var current_tt_val;
+		
+		$("#span_pp_select .option_container .option[data-value='"+new_pp_val+"']")
+			.addClass('selected')
+			.siblings('.option')
+				.removeClass('selected');
+		$('#span_pp_select .label_selected')
+			.attr('data-value', new_pp_val)
+			.text(new_pp_lab);
+		// #CDP. Aggiungere scroll pp select al valore selezionato
+
+		/* Finché non viene specificato il documento, 
+		al cambio pagina verrà visualizzato il contenuto del primo documento  che compare in essa. */
+		
+		// update hash [nel caso di salvataggio filtri dovrò prima salvarli e poi attaccarli in coda a questo hash]
+		// var current_hash = getCurrentHash(); --> array con valori correnti di hash
+		
+		current_tt_val = $(".main_tt_select .label_selected").attr("data-value"); // memorizzo il valore del testo selezionato al momento
+		// pp_val_temp = $(this).attr("data-value"); 
+		// parent_temp = $(this).attr("data-first-doc");
+
+		/* se esiste una option della select dei testi con value uguale a quello della pp selezionata, 
+		   la seleziono, deselezionando quelle al momento selezionate. 
+		   Altrimenti cambio la label della select del testo in "(Text)" deselezionando tutte le option della select dei testi. */
+		if (! $(".main_tt_select .option_container .option[data-value='"+new_tt_val+"']")) {
+			$(".main_tt_select .label_selected").text("(Text)").attr("data-value", "(Text)");
+			$(".main_tt_select .option_container .option").removeClass('selected');
+		} 
+		else {
+			if(current_tt_val !== new_tt_val){
+				updateDoc(new_tt_val, new_pp_val);
+			}
+		}
+		//gotopage(new_pp_val, new_pp_lab, "none");
+	}
+	function updateDoc(tt_val, first_page_tt){
+		// #CDP. Mettere qui update hash?!
+		var tt_opt, tt_lab;
+		tt_opt = $(".main_tt_select .option_container")
+					.find(".option[data-value='"+tt_val+"']");
+		tt_opt
+			.addClass('selected')
+			.siblings('.selected').removeClass('selected');
+
+		// #CDP. Aggiungere scroll tt select al valore selezionato
+		
+		tt_lab = tt_opt.text();
+		$('#span_tt_select .label_selected')
+			.attr('data-value', tt_val)
+			.text(tt_lab);
+
+		// Update Navigation Doc arrows
+		$('#prev_doc, #next_doc').removeClass('disabled');
+		if ($("#span_tt_select").find('.option.selected').attr('data-value') == first_page_tt ) {
+		    $('#prev_doc').addClass('disabled');
+		}
+		if ($("#span_tt_select").find('.option.selected').next('.option').length == 0) {
+		    $('#next_doc').addClass('disabled');
+		}
+
+		// Update regesto
+		if ($("#regesto_cont").length > 0){ 
+  			$('#regesto_cont').load("data/output_data/regesto/doc_"+tt_val+".html #regesto", function(){
+  			    InitializePopup();
+  			});
+  		}
+	}
 
 	// IT: Gestisce il cambio pagina e gli eventi correlati
 	function gotopage(pp_val, pp_lab, state){
 		var edition, edition_add; 
 		//N.B. i caricamenti delle immagini si attivano grazie agli eventi change dei label_selected in iviewer_config
 		edition = $("#span_ee_select .main_ee_select .label_selected").text().toLowerCase();
-		$(".main_pp_select .option_container .option[data-value='"+pp_val+"']").trigger('click');
-		$('#text_elem').load("data/output_data/"+edition+"/page_"+pp_val+"_"+edition+".html #text_frame", function(){
+		if (edition == "regesto") {
+			edition = $("#span_ee_select .option_container .option:last-child").text().toLowerCase();
+		}
+
+		//alert(pp_val+"_"+edition);
+		// $(".main_pp_select .option_container .option[data-value='"+pp_val+"']").trigger('click');
+		$('#text_elem').empty().load("data/output_data/"+edition+"/page_"+pp_val+"_"+edition+".html #text_frame", function( response, status, xhr ){
 			// Riattiva filtri attivi
 			$('.like_select.filter').find('.option.selected').removeClass('selected').trigger('click');
 			//IT: controlla se la pagine ha gli elementi necessari allo strumento ITL
@@ -878,14 +947,23 @@ $(function() {
          $(this).find('> .tooltip').hide();
        });
     }
-    
+
+    function toggleReg(){
+    	if ($("#regesto_cont").is(":visible")) {
+			$("#regesto_cont").hide('drop',  {direction: 'up'}, 'linear');
+		} else {
+			$("#regesto_cont").show('drop',  {direction: 'up'},'linear');
+		}
+    }
+
 	function arrow(toward){ //duplicata temporaneamente in jquery.rafmas-keydown
 		var d_page, l_page;
 		var current_pp;
+		var new_pp_opt;
 		if ($("#imgd_link").attr("class") !== "current_mode"){
 			current_pp = $('.main_pp_select .option_container .option.selected').data("value");
 			if (toward === "left" && current_pp !== first_pp){
-				$('.main_pp_select .option_container .option.selected').prev().trigger('click');
+				new_pp_opt = $('.main_pp_select .option_container .option.selected').prev();
 				/* se pagine sono raggruppate per testo
 				if($('.main_pp_select .option_container .option.selected').prev().data("value")!=undefined){
 					window.location.hash = $('.main_pp_select .option_container .option.selected').prev().data("value");
@@ -894,7 +972,7 @@ $(function() {
 				}*/
 			}
 			if (toward === "right" && current_pp !== last_pp){
-				$('.main_pp_select .option_container .option.selected').next().trigger('click');
+				new_pp_opt = $('.main_pp_select .option_container .option.selected').next();
 				/* se pagine sono raggruppate per testo
 				if($('.main_pp_select .option_container .option.selected').next().data("value")!==undefined){
 					window.location.hash = $('.main_pp_select .option_container .option.selected').next().data("value");
@@ -905,7 +983,7 @@ $(function() {
 		} else {
 			current_pp = $('.main_dd_select .option_container .option.selected').data("value");
 			if (toward === "left" && current_pp !== first_dd){
-				$('.main_dd_select .option_container .option.selected').prev().trigger('click');
+				new_pp_opt = $('.main_dd_select .option_container .option.selected').prev();
 				/* Se le pagine sono raggruppate per testo
 				if($('.main_dd_select .option_container .option.selected').prev().data("value")!=undefined){
 					d_page = $('.main_dd_select .option_container .option.selected').prev().data("value");
@@ -920,7 +998,7 @@ $(function() {
 				}*/
 			}
 			if (toward === "right" && current_pp !== last_dd){
-				$('.main_dd_select .option_container .option.selected').next().trigger('click');
+				new_pp_opt = $('.main_dd_select .option_container .option.selected').next();
 				/* Se le pagine sono raggruppate per testo
 				if($('.main_dd_select .option_container .option.selected').next().attr("id")!=undefined){
 					d_page = $('.main_dd_select .option_container .option.selected').next().data("value");
@@ -935,6 +1013,14 @@ $(function() {
 				}*/
 			}
 		}
+		var new_pp_val, new_pp_lab, new_tt_val;
+					
+		new_pp_val = new_pp_opt.data('value'); // id pagina cliccata
+		new_pp_lab = new_pp_opt.text(); 
+		new_tt_val = new_pp_opt.data('first-doc'); // primo documento contenuto.
+
+		updatePage(new_pp_val, new_pp_lab, new_tt_val);
+		updateHash(new_tt_val, new_pp_val, "");
 	}
 
 	// Simulazione trigger di un evento "click" su option per gestire gli scambi dei livelli di edizione

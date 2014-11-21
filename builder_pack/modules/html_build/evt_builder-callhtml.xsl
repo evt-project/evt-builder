@@ -405,10 +405,12 @@
 												select="'main_ee_select'"/>
 										</xsl:call-template>
 									</span>
-									
-									<span id="search_elem" class="iconButtons" title="Search">
-										<a href="javascript:void(0);" id="search_link"><i class="fa fa-search"></i></a>
-									</span>
+									<xsl:if test="$regesto=true()">
+										<span class="imageTopTool mainButtons active" id="switchReg" value="reg" title="Regesto">
+											<span>Regesto</span>
+											<i class="fa fa-toggle-on"></i>
+										</span>
+									</xsl:if>
 								</div>
 								<i class="fa fa-times-circle closeFullScreen" id="closeFullScreenRight"></i>
 							</header>
@@ -422,6 +424,9 @@
 							<span id="next_doc"><i class="fa fa-chevron-right"></i></span>
 							<!-- Text frame bottom menu -->
 							<div id="text_tool">
+								<span id="search_elem" class="iconButtons" title="Search">
+									<a href="javascript:void(0);" id="search_link"><i class="fa fa-search"></i></a>
+								</span>
 								<span id="span_list_select" class="like_select filter" title="Lists">
 									<div class="main_list_select">
 										<span id_value="none" class="label_selected">
