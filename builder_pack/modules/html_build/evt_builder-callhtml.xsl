@@ -227,6 +227,12 @@
 								<header id="left_header">
 									<i class="fa fa-times-circle closeFullScreen" id="closeFullScreenLeft"></i>
 									<div id="left_menu">
+										<span id="span_pp_select" class="like_select" title="Folio">
+											<xsl:call-template name="div_select_build">
+												<xsl:with-param name="html_div_class"
+													select="'main_pp_select'"/>
+											</xsl:call-template>
+										</span>
 										<xsl:if test="$double_view=true()">
 											<span id="span_dd_select" class="like_select">
 												<xsl:call-template name="div_select_build">
@@ -254,12 +260,6 @@
 										</xsl:if>
 										<xsl:if test="$image_frame=true()">
 											<div id="image_menu">
-												<span id="span_pp_select" class="like_select" title="Folio">
-													<xsl:call-template name="div_select_build">
-														<xsl:with-param name="html_div_class"
-															select="'main_pp_select'"/>
-													</xsl:call-template>
-												</span>
 												<span class="imageTopTool mainButtons" id="switchMag" value="mag" onclick="magOn()" title="Magnifying lens">
 													<span>Magnifier</span>
 													<i class="fa fa-search"></i>
