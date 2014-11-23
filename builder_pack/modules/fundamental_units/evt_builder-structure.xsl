@@ -136,7 +136,7 @@
     <xsl:template name="getLastPb">
         <xsl:choose>
             <xsl:when test="current()/tei:body/descendant::tei:pb">
-                <xsl:attribute name="n" select="current()/descendant::tei:pb[last()]/@n"></xsl:attribute>
+                <xsl:attribute name="n" select="if(current()/descendant::tei:pb[last()]/@n) then(current()/descendant::tei:pb[last()]/@n) else(current()/descendant::tei:pb[last()]/@xml:id)"></xsl:attribute>
                 <xsl:value-of select="current()/descendant::tei:pb[last()]/@xml:id"></xsl:value-of>
             </xsl:when>
             <xsl:otherwise>
@@ -166,7 +166,7 @@
                                 <xsl:for-each select="current()/child::node()">
                                     <xsl:if test="self::tei:surface">
                                         <pb>
-                                            <xsl:attribute name="n" select="@n"></xsl:attribute>
+                                            <xsl:attribute name="n" select="if(@n) then(@n) else(@xml:id)"></xsl:attribute>
                                             <xsl:value-of select="@xml:id"></xsl:value-of>
                                         </pb>   
                                     </xsl:if>
@@ -175,7 +175,7 @@
                                             <xsl:if test="self::tei:surface">
                                                 <xsl:for-each select="current()">
                                                     <pb>
-                                                        <xsl:attribute name="n" select="@n"></xsl:attribute>
+                                                        <xsl:attribute name="n" select="if(@n) then(@n) else(@xml:id)"></xsl:attribute>
                                                         <xsl:value-of select="@xml:id"></xsl:value-of>
                                                     </pb>
                                                 </xsl:for-each>
@@ -183,7 +183,7 @@
                                             <xsl:if test="self::tei:surfaceGrp"><!-- primo livello di annidamento <surfaceGrp> -->
                                                 <xsl:for-each select="current()/child::tei:surface">
                                                     <pb>
-                                                        <xsl:attribute name="n" select="@n"></xsl:attribute>
+                                                        <xsl:attribute name="n" select="if(@n) then(@n) else(@xml:id)"></xsl:attribute>
                                                         <xsl:value-of select="@xml:id"></xsl:value-of>
                                                     </pb>
                                                 </xsl:for-each>
@@ -206,7 +206,7 @@
                                             <pb>
                                                 <xsl:choose>
                                                     <xsl:when test="current()/preceding-sibling::tei:text[1]/descendant::tei:pb">
-                                                        <xsl:attribute name="n" select="current()/preceding-sibling::tei:text[1]/descendant::tei:pb[last()]/@n"></xsl:attribute>
+                                                        <xsl:attribute name="n" select="if(current()/preceding-sibling::tei:text[1]/descendant::tei:pb[last()]/@n) then (current()/preceding-sibling::tei:text[1]/descendant::tei:pb[last()]/@n) else (current()/preceding-sibling::tei:text[1]/descendant::tei:pb[last()]/@xml:id)"></xsl:attribute>
                                                         <xsl:value-of select="current()/preceding-sibling::tei:text[1]/descendant::tei:pb[last()]/@xml:id"></xsl:value-of>
                                                     </xsl:when>
                                                     <xsl:otherwise>
@@ -219,7 +219,7 @@
                                         </xsl:if>
                                         <xsl:for-each select=".//tei:pb">
                                             <pb>
-                                                <xsl:attribute name="n" select="@n"></xsl:attribute>
+                                                <xsl:attribute name="n" select="if(@n) then(@n) else(@xml:id)"></xsl:attribute>
                                                 <xsl:value-of select="@xml:id"></xsl:value-of>
                                             </pb>
                                         </xsl:for-each>
@@ -232,7 +232,7 @@
                                         <xsl:attribute name="n" select="@n"></xsl:attribute>
                                         <xsl:for-each select=".//tei:pb">
                                             <pb>
-                                                <xsl:attribute name="n" select="@n"></xsl:attribute>
+                                                <xsl:attribute name="n" select="if(@n) then (@n) else (@xml:id)"></xsl:attribute>
                                                 <xsl:value-of select="@xml:id"></xsl:value-of>
                                             </pb>
                                         </xsl:for-each>
