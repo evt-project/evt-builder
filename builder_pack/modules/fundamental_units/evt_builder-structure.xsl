@@ -202,7 +202,7 @@
                                 <xsl:for-each select="$root//tei:text/tei:group/tei:text">
                                     <text>
                                         <xsl:attribute name="n" select="@xml:id"></xsl:attribute>
-                                        <xsl:if test="not(current()/tei:body/child::*[1][self::tei:pb])">
+                                        <xsl:if test="not(current()/tei:body/tei:div/child::*[1][self::tei:pb]) and not(current()/tei:body/tei:div/child::*[1][self::tei:p]/child::*[1][self::tei:pb])">
                                             <pb>
                                                 <xsl:choose>
                                                     <xsl:when test="current()/preceding-sibling::tei:text[1]/descendant::tei:pb">

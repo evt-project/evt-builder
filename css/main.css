@@ -586,6 +586,9 @@ footer{
 	display: inline-block;
 	margin-top:15px;
 }
+#text_tool-add .like_select{
+	margin-top: 7.5px;
+}
 #text_tool span.text-button,
 #text_tool-add span.text-button{
     position: relative;
@@ -943,8 +946,19 @@ footer{
 	margin:0 4px;
 	#top:-7px;
 }
-#text_tool .like_select, #left_header .like_select, #left_header .mainButtons {
+#text_tool .like_select{
 	top:-7px;
+}
+#left_header #image_menu{
+	top: -7px;
+	position: relative;
+}
+#left_header #image_menu .iconButtons{
+	top: 7.3px;
+}
+#left_header .like_select, 
+#left_header .mainButtons {
+
 }
 .mainButtons{
 	display: inline-block;
@@ -1619,4 +1633,8 @@ div.botleftconcave {
 }
 #value_regesto{
     border-bottom: 4px double #000;
+}
+
+#left_menu #switchReg-add{
+	display: none;
 }
