@@ -282,4 +282,73 @@
 			<xsl:apply-templates mode="#current" />
 		</xsl:element>
 	</xsl:template>
+	
+	<!-- TEMPLATES PER CODICE PELAVICINO - DA SPOSTARE IN UN FILE APPROPRIATO -->
+	<!-- REF References to additional text -->
+	<xsl:template match="tei:ref[starts-with(@target,'#')]" mode="facs">
+		<!-- Do nothing -->
+	</xsl:template>
+	
+	<xsl:template match="tei:front" mode="facs">
+		<!-- do nothing -->
+	</xsl:template>
+	<xsl:template match="tei:text/tei:body" mode="facs">
+		<xsl:element name="div">
+			<xsl:attribute name="class">doc</xsl:attribute>
+			<xsl:attribute name="data-doc"><xsl:value-of select="current()/parent::tei:text/@xml:id"/></xsl:attribute>
+			<xsl:apply-templates mode="#current"/>
+		</xsl:element>
+	</xsl:template>
+	<!-- EMPH emphasized  -->
+	<xsl:template match="tei:emph" mode="facs">
+		<xsl:apply-templates mode="#current" />
+	</xsl:template>
+	
+	<!-- TERM -->
+	<xsl:template match="tei:term" mode="facs">
+		<xsl:element name="span">
+			<xsl:attribute name="class">term</xsl:attribute>
+			<xsl:apply-templates mode="#current" />
+		</xsl:element>
+	</xsl:template>
+	
+	<!-- NOTE Note or annotation -->
+	<xsl:template match="tei:note" mode="facs">
+		<!-- Do nothing -->
+	</xsl:template>
+	
+	<!-- DATE -->
+	<xsl:template match="tei:date" mode="facs">
+		<xsl:apply-templates mode="#current"/>
+	</xsl:template>
+	
+	<!-- PERS NAME personal name -->
+	<xsl:template match="tei:persName[starts-with(@ref,'#')]" mode="facs">
+		<xsl:apply-templates mode="#current"/>
+	</xsl:template>
+	
+	<!-- MEASURE  -->
+	<xsl:template match="tei:measure" mode="facs">
+		<xsl:apply-templates mode="#current"/>
+	</xsl:template>
+	
+	<!-- ROLE NAME -->
+	<xsl:template match="tei:roleName" mode="facs">
+		<xsl:apply-templates mode="#current"/>
+	</xsl:template>
+	
+	<!-- PLACE NAME personal name -->
+	<xsl:template match="tei:placeName[starts-with(@ref,'#')]" mode="facs">
+		<xsl:apply-templates mode="#current"/>
+	</xsl:template>
+	
+	<!-- PTR Pointer -->
+	<xsl:template match="tei:ptr" mode="facs">
+		<!-- Do nothing -->
+	</xsl:template>
+	
+	<!-- QUOTE Quotes -->
+	<xsl:template match="tei:quote" mode="facs">
+		<xsl:apply-templates mode="#current"/>
+	</xsl:template>
 </xsl:stylesheet>

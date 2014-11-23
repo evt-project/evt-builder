@@ -331,7 +331,7 @@
 	
 	<!-- TEMPLATES PER CODICE PELAVICINO - DA SPOSTARE IN UN FILE APPROPRIATO -->
 	<!-- REF References to additional text -->
-	<xsl:template match="tei:ref[starts-with(@target,'#')]">
+	<xsl:template match="tei:ref[starts-with(@target,'#')]" mode="dipl">
 		<xsl:element name="span">
 			<xsl:attribute name="class">popup ref</xsl:attribute>
 			<xsl:element name="span">
@@ -456,34 +456,25 @@
 		<xsl:choose>
 			<xsl:when test="current()//tei:forename or current()//tei:surname or current()//tei:sex or current()//tei:occupation">
 				<xsl:if test="current()//tei:forename or current()//tei:surname">
-					<xsl:element name="span">
-						<xsl:attribute name="class">display-block</xsl:attribute>
-						<xsl:text>Nome: </xsl:text>
-						<xsl:value-of select="tei:persName//tei:forename"/> <xsl:value-of select="tei:persName//tei:surname"/>
-					</xsl:element>	
+					<xsl:value-of select="tei:persName//tei:forename"/> <xsl:value-of select="tei:persName//tei:surname"/>
 				</xsl:if>
-				<xsl:if test="current()/tei:sex">
+				<!--<xsl:if test="current()/tei:sex">
 					<xsl:element name="span">
 						<xsl:attribute name="class">display-block</xsl:attribute>
 						<xsl:text>Sesso: </xsl:text>
 						<xsl:value-of select="tei:sex"/>		
 					</xsl:element>
-				</xsl:if>		                    
+				</xsl:if>-->		                    
 				<xsl:if test="current()/tei:occupation">
-					<xsl:element name="span">
-						<xsl:attribute name="class">display-block</xsl:attribute>
-						<xsl:text>Mestiere/i: </xsl:text>
-						<xsl:value-of select="tei:occupation"/>		
-					</xsl:element>
+					<xsl:text> (</xsl:text>
+					<xsl:value-of select="tei:occupation"/>
 					<xsl:if test="current()/tei:occupation/@from and current()/tei:occupation/@to">
-						<xsl:element name="span">
-							<xsl:attribute name="class">display-block</xsl:attribute>
-							<xsl:text>. Periodo di attività: </xsl:text>
-							<xsl:value-of select="tei:occupation/@from"/> 
-							<xsl:text> - </xsl:text>
-							<xsl:value-of select="tei:occupation/@to"/>
-						</xsl:element>
+						<xsl:text>. Periodo di attività: </xsl:text>
+						<xsl:value-of select="tei:occupation/@from"/> 
+						<xsl:text> - </xsl:text>
+						<xsl:value-of select="tei:occupation/@to"/>
 					</xsl:if>
+					<xsl:text>).</xsl:text>
 				</xsl:if>
 			</xsl:when>
 			<xsl:otherwise>
@@ -580,31 +571,23 @@
 		<xsl:choose>
 			<xsl:when test="current()//tei:settlement or current()//tei:placeName or current()//tei:district">
 				<xsl:if test="current()/tei:settlement">
-					<xsl:element name="span">
-						<xsl:attribute name="class">display-block</xsl:attribute>
-						<xsl:text>Nome: </xsl:text>
-						<xsl:value-of select="tei:settlement"/>
-						<xsl:if test="tei:settlement/@type">
-							<xsl:text> (</xsl:text>
-							<xsl:value-of select="tei:settlement/@type"></xsl:value-of>
-							<xsl:text>)</xsl:text>
-						</xsl:if>
-					</xsl:element>
+					<xsl:value-of select="tei:settlement"/>
+					<xsl:if test="tei:settlement/@type">
+						<xsl:text> (</xsl:text>
+						<xsl:value-of select="tei:settlement/@type"></xsl:value-of>
+						<xsl:text>)</xsl:text>
+					</xsl:if>
 				</xsl:if>
 				<xsl:if test="current()/tei:placeName[@type='new']">
-					<xsl:element name="span">
-						<xsl:attribute name="class">display-block</xsl:attribute>
-						<xsl:text>Nome moderno: </xsl:text>
-						<xsl:value-of select="tei:placeName[@type='new']"/>
-					</xsl:element>
+					<xsl:text>, oggi nota come </xsl:text>
+					<xsl:value-of select="tei:placeName[@type='new']"/>	
 				</xsl:if>
 				<xsl:if test="current()/tei:district[@type='comune']">
-					<xsl:element name="span">
-						<xsl:attribute name="class">display-block</xsl:attribute>
-						<xsl:text>Comune di appartenenza attuale: </xsl:text>
-						<xsl:value-of select="tei:district[@type='comune']"/>	
-					</xsl:element>
+					<xsl:text> (comune di </xsl:text>
+					<xsl:value-of select="tei:district[@type='comune']"/>
+					<xsl:text>)</xsl:text>
 				</xsl:if>
+				<xsl:text>.</xsl:text>
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:element name="span">
