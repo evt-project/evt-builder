@@ -16,11 +16,19 @@
 $(document).keydown(function(e){
 
 	if (e.keyCode == 37) { //left
-		$(".main_left_arrow").trigger('click');
+		if($("#regesto_cont").is(":visible")) {
+			$('#prev_doc').trigger('click');
+		} else {
+			$(".main_left_arrow").trigger('click');
+		}
 		return false;
 	}				
 	if (e.keyCode == 39) { //right
-		$(".main_right_arrow").trigger('click');
+		if($("#regesto_cont").is(":visible")) {
+			$('#next_doc').trigger('click');
+		} else {
+			$(".main_right_arrow").trigger('click');
+		}
 		return false;
 	}		
 	if (e.keyCode == 27) { //escape

@@ -439,7 +439,7 @@ span.popup:hover span.trigger span.tooltip, span.popup:hover span.trigger span.i
 } 
 
 .popup.image .trigger{
-    margin-right:10px;
+    margin-right:5px;
 }
 
 span.text_note:before {

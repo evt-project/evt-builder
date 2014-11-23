@@ -971,8 +971,9 @@ footer{
 	display:none;
 }
 
-#left_header #span_pp_select{
+#left_header #span_pp_select, #left_header #span_dd_select{
 	display: inline-block;
+	top: -7px;
 }
 #span_ee_select-add{
 	top: 0px;

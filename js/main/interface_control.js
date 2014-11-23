@@ -633,6 +633,21 @@ $(function() {
 					}
 				}
 			});
+
+			$('.toggleReg').click(function(event) {
+				var regesto_cont;
+				$(this)
+					.toggleClass('active')
+					.find('.fa')
+						.toggleClass('fa-toggle-on')
+						.toggleClass('fa-toggle-off');
+				if ( $(this).attr('id') == "switchReg-add" ) {
+					regesto_cont = "#regesto_cont-add";
+				} else {
+					regesto_cont = "#regesto_cont";
+				}
+				toggleReg(regesto_cont);
+			});
 			/* / Gestione eventi */
 
 
@@ -662,10 +677,13 @@ $(function() {
 					//current_page = hash.replace( /^#/, '' );
 					//var checkpp = $(xml).find('text pb:contains('+current_page+')').text();
 					checkpp = $(xml).find('pages pb:contains('+current_page+')').text();
-					pp_lab = $(xml).find('pages pb:contains('+current_page+')').attr("n");
 					
+					pp_lab = $(xml).find('pages pb:contains('+current_page+')').attr("n") != "" ? $(xml).find('pages pb:contains('+current_page+')').attr("n") : $(xml).find('pages pb:contains('+current_page+')').text();
+
 					dd_page = current_page.replace(/\./g, '\\.');
+
 					temp_search = dd_page;
+					
 					checkdd = $(".main_dd_select").find(".option[data-value*="+temp_search+"]"); // .attr("id").substr(6)
 
 					$(".main_left_arrow").removeClass("arrow_left_disable");
@@ -686,7 +704,11 @@ $(function() {
 						if($('#switchMag i').hasClass('fa-search-plus')){
 						  magnifierON=true;
 					    }
+						
+						selectPP(current_page, pp_lab);
+						selectTT(current_doc);
 						gotopage(current_page, pp_lab, "none");
+
 						//window.location.hash = "doc="+current_doc+"&page="+current_page;
 						//chooseZoomMag(); // Add by JK for Mag				
 					} else {
@@ -706,6 +728,11 @@ $(function() {
 							window.location.hash = newhash;
 						}
 					}
+					if ($("#regesto_cont").length > 0){ 
+          				$('#regesto_cont').load("data/output_data/regesto/doc_"+current_doc+".html #regesto", function(){
+          			    	InitializePopup();
+          				});
+          			}
 					if($('#txt_single').attr('class')==="current_mode"){ $('#header_collapse').css("left",'15px'); }
 					// IT: Cambia il titolo della pagina in base all'hash
 					//document.title = 'The hash is ' + ( hash.replace( /^#/, '' ) || 'blank' ) + '.';
@@ -713,23 +740,6 @@ $(function() {
 				});
 				// IT: L'evento viene attivato quando cambia l'hash della pagina
 				$(window).hashchange();
-				if ($("#regesto_cont").length > 0){ 
-          			var regesto = $("#span_tt_select .option_container .option.selected").data('value');
-          			$('.toggleReg').click(function(event) {
-						var regesto_cont;
-						$(this).toggleClass('active');
-						$(this).find('.fa').toggleClass('fa-toggle-on').toggleClass('fa-toggle-off');;
-						if ( $(this).attr('id') == "switchReg-add" ) {
-							regesto_cont = "#regesto_cont-add";
-						} else {
-							regesto_cont = "#regesto_cont";
-						}
-						toggleReg(regesto_cont);
-					});
-          			$('#regesto_cont').load("data/output_data/regesto/doc_"+regesto+".html #regesto", function(){
-          			    InitializePopup();
-          			});
-          		}
 			/* / HASH CHANGE - ba.bbq plugin */
 		}
 	});
@@ -743,18 +753,31 @@ $(function() {
 	function updateHash(tt_val, pp_val, ee_val){
 		window.location.hash = "doc="+tt_val+"&page="+pp_val;
 	}
+
+	function selectPP(current_page, pp_lab){
+		$('#span_pp_select .label_selected')
+			.attr('data-value', current_page)
+			.text(pp_lab);
+		$("#span_pp_select .option_container .option[data-value='"+current_page+"']")
+			.addClass('selected')
+				.siblings('.selected')
+					.removeClass('selected');
+	}
+	function selectTT(current_doc){
+		$('#span_tt_select .label_selected')
+			.attr('data-value', current_doc)
+			.text(current_doc);
+		$("#span_tt_select .option_container .option[data-value='"+current_doc+"']")
+			.addClass('selected')
+				.siblings('.selected')
+					.removeClass('selected');
+	}
 	
 	/* Funzioni */
 	function updatePage(new_pp_val, new_pp_lab, new_tt_val){
 		var current_tt_val;
 		
-		$("#span_pp_select .option_container .option[data-value='"+new_pp_val+"']")
-			.addClass('selected')
-			.siblings('.option')
-				.removeClass('selected');
-		$('#span_pp_select .label_selected')
-			.attr('data-value', new_pp_val)
-			.text(new_pp_lab);
+		selectPP(new_pp_val, new_pp_lab);
 		// #CDP. Aggiungere scroll pp select al valore selezionato
 
 		/* Finché non viene specificato il documento, 
@@ -783,19 +806,8 @@ $(function() {
 	}
 	function updateDoc(tt_val, first_page_tt){
 		// #CDP. Mettere qui update hash?!
-		var tt_opt, tt_lab;
-		tt_opt = $(".main_tt_select .option_container")
-					.find(".option[data-value='"+tt_val+"']");
-		tt_opt
-			.addClass('selected')
-			.siblings('.selected').removeClass('selected');
-
+		selectTT(tt_val);
 		// #CDP. Aggiungere scroll tt select al valore selezionato
-		
-		tt_lab = tt_opt.text();
-		$('#span_tt_select .label_selected')
-			.attr('data-value', tt_val)
-			.text(tt_lab);
 
 		// Update Navigation Doc arrows
 		$('#prev_doc, #next_doc').removeClass('disabled');
@@ -902,6 +914,8 @@ $(function() {
 	}
 	// IT: Gestisce il cambio edizione nel frame testuale
 	function gotoedition(pp_val, ee_val, pp_el, frame_id){
+		var tt_val;
+		tt_val = $('#span_tt_select .label_selected').data('value');
 		if (ITLon === true){
 			UnInitialize(true);
 		} //Add by JK for ITL
@@ -911,6 +925,8 @@ $(function() {
 		$('#'+pp_el).load("data/output_data/"+ee_val+"/page_"+pp_val+"_"+ee_val+".html #text_frame",
 			function(status) {
 				
+				$("#text_cont .doc[data-doc!='"+tt_val+"']").hide();
+
 				// IT: se il pulsante ITL è attivo e non sono in modalità txttxt, attiva ITL
 				if ($("#switchITL i").hasClass('fa fa-chain')){
 					if(!($('.current_mode').attr('id') === 'txttxt_link')){
@@ -1493,6 +1509,9 @@ $(function() {
 
 			$("#span_dd_select").hide();
 			
+			$('#span_pp_select').show();
+			$('#span_pp_select').css("top", "-7px"); // #CDP. Rimuovere e gestire con css
+
 			$("#main_right_frame").show();
 			$("#main_left_frame").animate({
 				'width': '49.8%'
@@ -1582,7 +1601,10 @@ $(function() {
 			$("#mag").hide();
 			$("#image_cont").hide();
 			$("#span_dd_select").hide();
-			
+
+
+			$('#span_pp_select').show();
+			$('#span_pp_select').css("top", "0px"); // #CDP. Rimuovere e gestire con css
 
 			$("#main_right_frame").show();
 			if($('#right_header').hasClass('menuClosed')){
@@ -1666,8 +1688,9 @@ $(function() {
 
 			//alert($(".main_pp_select .label_selected").text());
 			$(".main_dd_select").trigger("imgd_mode");
-
-
+			$('#span_pp_select').hide();
+			$("#switchReg-add").hide();
+			
 			$("#right_menu").hide();
 			$("#main_left_frame").animate({
 				'width': '99.5%'
