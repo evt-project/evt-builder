@@ -427,6 +427,7 @@ span.popup:hover > span.tooltip{
 span.popup span.trigger, span.open_note .fa{ 
 	#color: #999966;
 	color: #69513a; /*background-color: rgba(255,255,204,0.8);*/ 
+	cursor: pointer;
 }
 
 span.facs-choice_popup:hover span.facs-orig,
@@ -476,12 +477,16 @@ span.text_note{
     color: #561c0a;
     z-index:0;
 }
-.open_note:hover + span.text_note{
+span .text_note{
+	margin-top: 25px;
+	margin-left: -25px;
+}
+/*.open_note:hover + span.text_note{
 	display: block;
 	min-width: 20px;
 	text-align: left;
 	padding:1%;
-}
+}*/
 span.emph{
     font-style:italic;
 }
@@ -495,21 +500,20 @@ span.popup.persName, span.popup.measure, span.popup.role, span.popup.placeName, 
     display:inline;
     cursor:pointer;
 }
-span.persName.list_active span.trigger, span.persName.over span.trigger{
+span.persName.list_active span.trigger, span.persName.over span.trigger, span.persName:hover span.trigger{
     background-color: #ffcdd2;
-    text-decoration:underline;
 }
-span.measure.list_active span.trigger, span.measure.over span.trigger{
-    background-color: #ffecb3;
-    text-decoration:underline;    
+span.measure.list_active span.trigger, span.measure.over span.trigger, span.measure:hover span.trigger{
+    background-color: #ffecb3;    
 }
-span.role.list_active span.trigger, span.role.over > span.trigger{
+span.role.list_active span.trigger, span.role.over > span.trigger, span.role:hover > span.trigger{
     background-color: #9fa8da;
-    text-decoration:underline;
 }
-span.placeName.list_active span.trigger, span.placeName.over > span.trigger{
+span.placeName.list_active span.trigger, span.placeName.over > span.trigger, span.placeName:hover > span.trigger{
     background-color: #c8e6c9;
-    text-decoration:underline;
+}
+span.date.list_active span.trigger, span.date.over > span.trigger, span.date:hover > span.trigger{
+    background-color: #9CD5F2;
 }
 
 span.display-block{

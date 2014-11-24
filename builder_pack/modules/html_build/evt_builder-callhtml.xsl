@@ -252,9 +252,9 @@
 												</xsl:call-template>
 											</span>
 											<xsl:if test="$regesto=true()">
-												<span class="imageTopTool mainButtons active toggleReg" id="switchReg-add" value="reg" title="Regesto">
+												<span class="imageTopTool mainButtons toggleReg" id="switchReg-add" value="reg" title="Regesto">
 													<span>Regesto</span>
-													<i class="fa fa-toggle-on"></i>
+													<i class="fa fa-toggle-off"></i>
 												</span>
 											</xsl:if>
 										</xsl:if>
@@ -346,10 +346,10 @@
 										<input id="imgTit" type="hidden" value=""/>
 										<div id="thumb_cont">
 											<!-- CDP:embedded -->
-											<xsl:if test="$root//tei:sourceDoc">
+											<!-- <xsl:if test="$root//tei:sourceDoc"> -->
 												<!-- Found the node(s) for embedded transcription-->
-												<xsl:for-each select="$root//tei:sourceDoc//tei:surface[not(ancestor::tei:zone)]">
-													<figure class="thumb_single" id="{@xml:id}_small">
+												<!-- <xsl:for-each select="$root//tei:sourceDoc//tei:surface[not(ancestor::tei:zone)]">
+													<figure class="thumb_single" data-value="{@xml:id}">
 														<img src="data/input_data/images/single/{@xml:id}_small.jpg"/>
 														<figcaption>
 															<xsl:value-of select="@n"/>
@@ -357,17 +357,17 @@
 													</figure>
 												</xsl:for-each>
 											</xsl:if>
-											<xsl:if test="$root//tei:text">
+											<xsl:if test="$root//tei:text"> -->
 												<!-- Found no node(s) for embedded transcription-->
-												<xsl:for-each select="$root//tei:text//tei:pb">
-													<figure class="thumb_single" id="{@xml:id}_small">
+												<!-- <xsl:for-each select="$root//tei:text//tei:pb">
+													<figure class="thumb_single" data-value="{@xml:id}">
 														<img src="data/input_data/images/single/{@xml:id}_small.jpg"/>
 														<figcaption>
 															<xsl:value-of select="@n"/>
 														</figcaption>
 													</figure>
 												</xsl:for-each>
-											</xsl:if>
+											</xsl:if>-->
 										</div>									
 									</div>
 								</xsl:if>
