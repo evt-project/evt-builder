@@ -106,17 +106,17 @@ $(function() {
 				var first_text_ref, second_text_ref;
 
 				first_page_d = $(this).children('pb').eq(0).text();
-				first_label_d = $(this).children('pb').eq(0).attr("n");
+				first_label_d = $(this).children('pb').eq(0).attr("n") != "" ? $(this).children('pb').eq(0).attr("n") : first_page_d;
 				second_page_d = $(this).children('pb').eq(1).text();
-				second_label_d = $(this).children('pb').eq(1).attr("n");
+				second_label_d = $(this).children('pb').eq(1).attr("n") != "" ? $(this).children('pb').eq(1).attr("n") : second_page_d;
 				current_id = "";
 				current_label = "";
 
-				/*first_text_ref = $(xml)
+				first_text_ref = $(xml)
 					.find('textpage text')
 					.find('pb:contains("'+first_page_d+'")')
 					.parent().attr('n');
-				first_text_ref = first_text_ref.replace(/\s+/g, '');*/
+				first_text_ref = first_text_ref.replace(/\s+/g, '');
 				
 				if (second_page_d !== ""){
 					current_id = first_page_d+"-"+second_page_d;
@@ -126,32 +126,17 @@ $(function() {
 					.find('textpage text')
 					.find('pb:contains("'+second_page_d+'")')
 					.parent().attr('n');
-					second_text_ref = second_text_ref.replace(/\s+/g, '');
-
-					if(first_text_ref !== second_text_ref){
-						$('.main_dd_select #optGrp_value_'+second_text_ref).append(
-		    				$('<div/>')
-		    					.attr("id", "value_"+current_id)
-								.addClass('option')
-								.text(current_label)
-		    			);
-	    			}*/
+					second_text_ref = second_text_ref.replace(/\s+/g, '');*/
 				}
 				else{
-					current_id = first_page_d+"-(miss)";
+					current_id = first_page_d;
 					current_label = first_label_d+"-(miss)";
 				}
-				
-				/*$('.main_dd_select #optGrp_value_'+first_text_ref).append(
-    				$('<div/>')
-    					.attr("id", "value_"+current_id)
-						.addClass('option')
-						.text(current_label)
-    			);	*/		
 
 				$('.main_dd_select .option_container').append(
     				$('<div/>')
     					.attr("data-value", current_id)
+    					.attr("data-first-page-first-doc", first_text_ref)
 						.addClass('option')
 						.text(current_label)
     			);
@@ -159,7 +144,8 @@ $(function() {
 			$('.main_dd_select .option_container div:first-child').addClass('selected');
 			$('.main_dd_select .label_selected')
 				.text($('.main_dd_select .option_container div:first').text())
-				.attr("data-value", $('.main_dd_select .option_container div:first').data("value"));
+				.attr("data-value", $('.main_dd_select .option_container div:first').data("value"))
+				.attr("data-first-doc", $('.main_dd_select .option_container div:first').data("first-page-first-doc"));
 
 
 			//Text and Page
@@ -190,6 +176,23 @@ $(function() {
 	    						.text(page_current_label)
 	    				);
     				}
+    				if ( $("#thumb_cont figure[data-value='"+page_current_id+"']" ).length <= 0 ) {
+    					
+    					var figure = $('<figure/>')
+		    					.addClass('thumb_single')
+		    					.attr('data-value', page_current_id)
+		    					.attr('data-first-doc', current_id);
+		    			
+		    			$('<img />')
+		    				.attr('src', 'data/input_data/images/single/'+page_current_id+'_small.jpg')
+		    				.appendTo(figure);
+		    			
+		    			$('<figcaption />')
+		    				.text(page_current_label)
+		    				.appendTo(figure);
+
+		    			$('#thumb_cont').append(figure);
+    				}
 				})
 			});
 			$('.main_tt_select .option_container div:first-child').addClass('selected');
@@ -201,7 +204,8 @@ $(function() {
 
 			$('.main_pp_select .label_selected')
 				.text($('.main_pp_select .option_container .option:first').text())
-				.attr("data-value", $('.main_pp_select .option_container .option:first').data("value"));
+				.attr("data-value", $('.main_pp_select .option_container .option:first').data("value"))
+				.attr("data-first-doc", $('.main_pp_select .option_container .option:first').data("first-doc"));
 				
 			/* Gestione eventi */
 
@@ -283,10 +287,26 @@ $(function() {
 			});
 			*/
 			$(".main_dd_select").on('imgd_thumb',function(){
-				var hash, temp_pp, first_page, second_page, newhash;
+				var hash_parts, temp_pp, temp_tt, first_page, second_page, newhash;
 				var first_page_lab, second_page_lab, newlab;
-				hash = location.hash;
-				temp_pp = hash.replace( /^#/, '' );
+				
+				hash_parts = new Array();
+				hash_parts = location.hash.substr(1).split('&');
+				if ( hash_parts != "" ) {
+					for (var i = 0; i < hash_parts.length; i++) {
+					    if(hash_parts[i].indexOf("page") === 0) { //begins with "page"
+					        temp_pp = hash_parts[i].substr(5);
+					    }
+					    else if(hash_parts[i].indexOf("doc") === 0) { //begins with "filter"
+					     	temp_tt = hash_parts[i].substr(4);   
+					    }
+					}
+				} else {
+					temp_pp = $('.main_pp_select .option_container .option:first-child').data('value');
+					temp_tt = $('.main_pp_select .option_container .option:first-child').data('first-doc');
+				}
+
+
 				first_page = $(xml)
 					.find('pair:contains('+temp_pp+')')
 					.children()
@@ -300,21 +320,36 @@ $(function() {
 					.find('pair:contains('+temp_pp+')')
 					.children()
 					.eq(0).attr("n");
+				first_page_lab = first_page_lab != "" ? first_page_lab : first_page;
+
 				second_page_lab = $(xml)
 					.find('pair:contains('+temp_pp+')')
 					.children()
 					.eq(1).attr("n");
-				//alert(first_page+"-"+second_page);
-				newhash = first_page+"-"+second_page;
+				second_page_lab = second_page_lab != "" ? second_page_lab : second_page;
+
+				if (typeof(second_page_lab) == 'undefined'){
+					newhash = first_page;
+					second_page_lab = "(miss)";
+				} else {
+					newhash = first_page+"-"+second_page;
+				}
 				newlab = first_page_lab+"-"+second_page_lab;
-				$(".main_dd_select .label_selected").text(newlab).attr("data-value", newhash).trigger('change');
-				//window.location.hash = newhash;
+				$(".main_dd_select .label_selected")
+					.text(newlab)
+					.attr("data-value", newhash)
+					.attr("data-first-doc", temp_tt)
+					//.trigger('change')
+				;
+				window.location.hash = "doc="+temp_tt+"&page="+newhash;
 			});
 
 			$(".main_dd_select").on('imgd_mode',function(){
-				var temp_pp, first_page, second_page, newhash;
+				var temp_pp, temp_tt, first_page, second_page, newhash;
 				var first_page_lab, second_page_lab, newlab;
 				temp_pp = $(".main_pp_select .label_selected").data("value");
+				temp_tt = $(".main_pp_select .label_selected").data("first-doc");
+
 				first_page = $(xml)
 					.find('pair:contains('+temp_pp+')')
 					.children()
@@ -323,6 +358,8 @@ $(function() {
 					.find('pair:contains('+temp_pp+')')
 					.children()
 					.eq(0).attr("n");
+				first_page_lab = first_page_lab != "" ? first_page_lab : first_page;
+				
 				second_page = $(xml)
 					.find('pair:contains('+temp_pp+')')
 					.children()
@@ -331,14 +368,23 @@ $(function() {
 					.find('pair:contains('+temp_pp+')')
 					.children()
 					.eq(1).attr("n");
+				second_page_lab = second_page_lab != "" ? second_page_lab : second_page;
 				//alert(first_page+"-"+second_page);
 				if (typeof(second_page_lab) == 'undefined'){
-					second_page_lab = "";
+					newhash = first_page;
+					second_page_lab = "(miss)";
+				} else {
+					newhash = first_page+"-"+second_page;
 				}
-				newhash = first_page+"-"+second_page;
-				newlab = first_page_lab+"-"+second_page_lab;
-				$(".main_dd_select .label_selected").text(newlab).attr("data-value", newhash).trigger('change');
-				window.location.hash = "page="+newhash;
+				
+				newlab = first_page_lab+" - "+second_page_lab;
+				$(".main_dd_select .label_selected")
+					.text(newlab)
+					.attr("data-value", newhash)
+					.attr("data-first-doc", temp_tt)
+					//.trigger('change')
+				;
+				window.location.hash = "doc="+temp_tt+"&page="+newhash;
 
 			});
 
@@ -443,7 +489,6 @@ $(function() {
 						updateDoc(new_tt_val, new_tt_first_page);
 						$("#text_cont .doc[data-doc!='"+new_tt_val+"']").hide();
 					}
-					$(this).removeClass('selected');
 					updateHash(new_tt_val, new_tt_first_page, "");
 				}
 			});
@@ -529,7 +574,17 @@ $(function() {
 			
 			/* SELECT DOUBLE PAGE NAVIGATION */
 			$('.main_dd_select .option_container .option').click(function(){
-				window.location.hash = "page="+$(this).data("value"); // memorizzare anche il documento???
+				var pp_val, pp_lab, tt_val, first_page_id;
+				pp_val = $(this).data('value');
+				tt_val = $(this).data('first-page-first-doc');
+				pp_lab = $(this).text();
+				$('#span_dd_select .label_selected')
+					.attr("data-value", pp_val)
+					.attr("data-first-doc", tt_val)
+					.text(pp_lab);
+				first_page_id = pp_val.split('-')[0];
+				$("#span_pp_select .option_container .option[data-value='"+first_page_id+"']").trigger('click');
+				window.location.hash = "doc="+tt_val+"&page="+pp_val // memorizzare anche il documento???
 			});
 
 
@@ -579,13 +634,16 @@ $(function() {
 			
 			/* General event on click on ".option". It select the element clicked and unselect the others. 
 				it closes the ".like_select". If it is a filter, it is possible to select more than one ".option" element. */
-			$(".option").click(function(){
+			$(".like_select .option_container .option").click(function(){
 				if( (!$(this).hasClass('selected')) && (! $(this).parents('.like_select').hasClass('filter'))){
 					var option_sel_value, option_sel_label;
+
 					option_sel_value = $(this).data('value');
 					option_sel_label = $(this).text();
 					$(this).parents('.like_select')
-								.find('.label_selected').attr('data-value', option_sel_value).text(option_sel_label);
+								.find('.label_selected')
+									.attr('data-value', option_sel_value)
+									.text(option_sel_label);
 					
 					//alert($(this).parents('.option_container').prev().prev().attr("id_value"));
 					/*if ($(this).parents('.option_container').parent().attr("class") === "main_tt_select"){
@@ -600,10 +658,11 @@ $(function() {
 						}
 					}*/
 
-					$(this).addClass('selected')
-						.siblings('.option').removeClass('selected');
+					$(this)
+						.addClass('selected')
+						.siblings('.selected')
+							.removeClass('selected');
 					if ($(this).parents('.option_container').is(':visible')) {
-
 						if($(this).parents('.option_container').hasClass('up')){
 					       $(this).parents('.option_container').animate({
 	    				       top: '-5px',
@@ -648,6 +707,27 @@ $(function() {
 				}
 				toggleReg(regesto_cont);
 			});
+
+			/* THUMBNAILS */
+			$(".thumb_single").click(function(){
+				var tt_val, pp_val;
+
+				pp_val = $(this).data('value');
+				tt_val = $(this).data('first-doc');
+				window.location.hash = "doc="+tt_val+"&page="+pp_val;
+				$("#span_pp_select .option_container .option[data-value='"+pp_val+"']").trigger('click');
+				
+				if ( ! magnifierON ){
+					$("#image_elem").show();
+					$("#image_fade").show();
+					
+					if ($("#imgd_link").attr("class") === "current_mode"){
+						$(".main_dd_select").trigger("imgd_thumb");
+					}
+
+					$(".thumb_link").trigger('click');
+				}
+			});	
 			/* / Gestione eventi */
 
 
@@ -695,7 +775,6 @@ $(function() {
 					if((current_page === last_pp) || (current_page === last_dd)){
 						$(".main_right_arrow").addClass("arrow_right_disable");
 					}
-
 					
 					if( (checkpp !== "") && ($("#imgd_link").attr("class") !== "current_mode")){
 						UnInitialize(); //Add by JK for ITL
@@ -705,10 +784,15 @@ $(function() {
 						  magnifierON=true;
 					    }
 						
-						selectPP(current_page, pp_lab);
+						selectPP(current_page, pp_lab, current_doc);
 						selectTT(current_doc);
 						gotopage(current_page, pp_lab, "none");
 
+						if ( $('#span_tt_select .option_container .option:first-child').hasClass('selected') ) {
+							$('#prev_doc, #prev_doc-add').addClass('disabled');
+						} else if ($('#span_tt_select .option_container .option:last-child').hasClass('selected')){
+							$('#next_doc, #next_doc-add').addClass('disabled');
+						}
 						//window.location.hash = "doc="+current_doc+"&page="+current_page;
 						//chooseZoomMag(); // Add by JK for Mag				
 					} else {
@@ -754,9 +838,10 @@ $(function() {
 		window.location.hash = "doc="+tt_val+"&page="+pp_val;
 	}
 
-	function selectPP(current_page, pp_lab){
+	function selectPP(current_page, pp_lab, tt_val){
 		$('#span_pp_select .label_selected')
 			.attr('data-value', current_page)
+			.attr('data-first-doc', tt_val)
 			.text(pp_lab);
 		$("#span_pp_select .option_container .option[data-value='"+current_page+"']")
 			.addClass('selected')
@@ -777,7 +862,7 @@ $(function() {
 	function updatePage(new_pp_val, new_pp_lab, new_tt_val){
 		var current_tt_val;
 		
-		selectPP(new_pp_val, new_pp_lab);
+		selectPP(new_pp_val, new_pp_lab, new_tt_val);
 		// #CDP. Aggiungere scroll pp select al valore selezionato
 
 		/* Finché non viene specificato il documento, 
@@ -971,15 +1056,53 @@ $(function() {
         } else if (toward === "right"){
             new_tt = current_tt.next();
         }
+
 		new_pp = new_tt.data('first-page');
         if (current_pp != new_pp) {
         	$("#span_pp_select .option_container .option[data-value='"+new_pp+"']").trigger('click');
         }
         new_tt.trigger('click');
-        
+        if (new_tt.prev().length <= 0) {
+        	$('#prev_doc, #prev_doc-add').addClass('disabled');
+        } else {
+        	$('#prev_doc, #prev_doc-add').removeClass('disabled');
+        }
+
+        if (new_tt.next().length <= 0) {
+        	$('#next_doc, #next_doc-add').addClass('disabled');
+        } else {
+        	$('#next_doc, #next_doc-add').removeClass('disabled');
+        }
     }
     function InitializePopup(){
-        $('.popup').hover(function(e){
+        $('.popup').click(function(evt){
+        	//evt.stopPropagation();
+        	if ( ! $(this).hasClass('over') ) {
+        		$('.over').removeClass('over');
+        		$('.popup').find('> .tooltip').hide();
+        	}
+        	$(this).toggleClass('over');
+         	if($(this).parent('.popup').find('> .tooltip')){
+           		$(this)
+           			.parent('.popup')
+           			.toggleClass('over');
+           		
+           		$(this)
+           			.parent('.popup')
+           				.find('> .tooltip')
+           					.toggleClass('opened')
+           					.toggle();
+     		}
+         	$(this).find('> .tooltip').toggle();
+        	$(this).focus(); 	
+         	return false;
+       	});
+        $(document).click(function(){
+		    $('.over').removeClass('over');
+        	$('.popup').find('> .tooltip').hide();
+		    $(this).hide();
+		});
+       /* $('.popup').hover(function(e){
          e.stopPropagation();
          $(this).addClass('over');
          if($(this).parents('.popup').find('> .tooltip')){
@@ -994,7 +1117,7 @@ $(function() {
          }
          $(this).removeClass('over');
          $(this).find('> .tooltip').hide();
-       });
+       });*/
     }
 
     function toggleReg(regesto_cont){
@@ -1084,7 +1207,7 @@ $(function() {
 
 	// Gestione lunghezza delle select sulla base della option più lunga
 	function updateSelectLength(elem){
-		var widthSel, widthOpt, widthEE, optEE;
+		var widthSel, widthOpt;
 		// Calcolo la larghezza del div figlio di .like_select
 		widthSel = $(elem).find('div').width();
 		// Calcolo la larghezza del div.option_container, aggiungendo 10 per via del padding 
@@ -1119,12 +1242,22 @@ $(function() {
 		$(elem).find('.option_container').css("display", "none");
 
 		if(elem.id === 'span_ee_select'){
+			var widthEE, optEE;
 			widthEE = $('#span_ee_select').find('div').width();
 			optEE = $('#span_ee_select').find('.option_container').width();
 			$('#span_ee_select-add').find('.option_container').removeAttr('style');
 			$('#span_ee_select-add').css('width', widthEE);
 			$('#span_ee_select-add').find('.option_container').css('width', optEE);
 			$('#span_ee_select-add').addClass('widthChanged');
+		}
+		if(elem.id === 'span_dd_select'){
+			var widthPP, optPP;
+			widthPP = $('#span_pp_select').find('div').width() * 2 - 28;
+			optPP = $('#span_pp_select').find('.option_container').width() * 2 - 18;
+			$('#span_dd_select').find('.option_container').removeAttr('style');
+			$('#span_dd_select').css('width', widthPP);
+			$('#span_dd_select').find('.option_container').css('width', optPP);
+			$('#span_dd_select').addClass('widthChanged');
 		}
 	}
 
@@ -1402,10 +1535,10 @@ $(function() {
 		arrow("right");
 	});
 	
-	$("#prev_doc").click(function(){
+	$("#prev_doc, #prev_doc-add").click(function(){
 	    navDoc("left");
 	});
-	$("#next_doc").click(function(){
+	$("#next_doc, #next_doc-add").click(function(){
 	    navDoc("right");
 	});
 	
@@ -1467,27 +1600,6 @@ $(function() {
 			}
 		}
 	});
-
-	$(".thumb_single").click(function(){
-		var current_doc, current_page;
-		if(magnifierON){
-			current_page = $(this).attr('id').replace( '_small', '' );
-			current_doc = $(".main_pp_select .option_container .option[='"+current_page+"']").data('first-doc');
-			window.location.hash = "doc="+current_doc+"&page="+current_page;
-		} else{
-			$("#image_elem").show();
-			$("#image_fade").show();
-			current_page = $(this).attr('id').replace( '_small', '' );
-			current_doc = $(".main_pp_select .option_container .option[='"+current_page+"']").data('first-doc');
-			window.location.hash = "doc="+current_doc+"&page="+current_page;
-			
-			if ($("#imgd_link").attr("class") === "current_mode"){
-				$(".main_dd_select").trigger("imgd_thumb");
-			}
-
-			$(".thumb_link").trigger('click');
-		}
-	});	
 	
 	// MODE -
 	$("#txtimg_link").click(function(){
@@ -1504,8 +1616,11 @@ $(function() {
 			//$("#image_cont-add").remove();
 			
 			$("#text_cont-add").remove();
+			if($("#regesto_cont-add"))
+				$("#regesto_cont-add").remove();
 			$("#span_ee_select-add").hide();
-			$("#switchReg-add").hide();
+			if($("#switchReg-add"))
+				$("#switchReg-add").hide();
 
 			$("#span_dd_select").hide();
 			
@@ -1525,6 +1640,12 @@ $(function() {
 			$('#switchITL').show();
 			$('#switchHS').show();
 			$("#image_cont").show();
+
+			$('#prev_doc-add, #next_doc-add, #text_tool-add').hide();
+			if($('#prev_doc')){
+				$('#prev_doc').show();
+			}
+
 			if($('#right_header').hasClass('menuClosed')){
 				$('#right_header').hide();
 			}
@@ -1602,7 +1723,7 @@ $(function() {
 			$("#image_cont").hide();
 			$("#span_dd_select").hide();
 
-
+			$('#prev_doc-add, #next_doc-add, #text_tool-add').show();
 			$('#span_pp_select').show();
 			$('#span_pp_select').css("top", "0px"); // #CDP. Rimuovere e gestire con css
 
@@ -1628,6 +1749,9 @@ $(function() {
 				.attr("id", "text_elem-add")
 			;
 
+			if ($('#prev_doc')) {
+				$('#prev_doc, #next_doc-add').hide()
+			}
 			if($('#regesto_cont').length > 0 ) {
 				$('#regesto_cont')
 					.clone()
@@ -1637,6 +1761,11 @@ $(function() {
 				$('#regesto_cont-add>#regesto')
 					.attr("id", "regesto-add")
 				;
+				if ( ! $('#switchReg-add').hasClass('active') ) {
+					$('#regesto_cont-add').hide();
+				} else {
+					$('#regesto_cont-add').show();
+				}
 			}
 
 			//$('#zvalint').hide(); //SISTEMARE
@@ -1645,7 +1774,7 @@ $(function() {
 			$('#switchReg-add').css({display: "inline-block"});
 			//$("#span_ee_select-add").show();
 
-			$('#span_ee_select-add .option_container .option:nth-child(2)').trigger('click');
+			$('#span_ee_select-add .option_container .option:nth-child(1)').trigger('click');
 
 			fitFrame();
 			
@@ -1653,8 +1782,15 @@ $(function() {
     			$('#span_ee_select-add').addClass('widthChanged');
     			$('#span_ee_select-add .option_container').removeAttr('style');
     
-    			$('#span_ee_select-add').each(function(){updateSelectLength(this);});
+    			updateSelectLength($('#span_ee_select-add'));
+    		} 
+    		if(!$('#span_list_select-add').hasClass('widthChanged')){
+    			$('#span_list_select-add').addClass('widthChanged');
+    			$('#span_list_select-add .option_container').removeAttr('style');
+    
+    			updateSelectLength($('#span_list_select-add'));
     		}
+
     		$('#header_collapse').animate({
     			left: "50%",
     			marginLeft: "-10px"
@@ -1719,7 +1855,7 @@ $(function() {
 				if(!$('#span_dd_select').hasClass('widthChanged')){
 	    			$('#span_dd_select').addClass('widthChanged');
 	    			$('#span_dd_select .option_container').removeAttr('style');
-	    			$('#span_dd_select').each(function(){ updateSelectLength(this);});
+	    			updateSelectLength($('#span_dd_select'));
 	    		}
 			}
 			
@@ -1842,7 +1978,7 @@ $(function() {
 										if(!$(this).hasClass('widthChanged')){
 											$(this).addClass('widthChanged');
 											$(this).find('.option_container').removeAttr('style');
-											$(this).each(function(){updateSelectLength(this);});
+											updateSelectLength($(this));
 										}
 		});
 	});

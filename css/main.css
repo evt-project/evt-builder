@@ -579,6 +579,9 @@ footer{
     font-size:18px;
     text-align:center;
 }
+#text_tool-add{
+	display: none;
+}
 
 #text_tool .like_select,
 #text_tool-add .like_select{
@@ -811,6 +814,9 @@ footer{
 
 	overflow: auto;
 	overflow-x: hidden;
+
+	position: absolute;
+	top:0px;
 }
 
 #thumb_cont figure{
@@ -831,6 +837,8 @@ footer{
 	position: relative;
 	margin-top: -52px;
 	background: url(../images/opacity.png) repeat-x 0 -50px;
+	font-size: 0.7em;
+	width: 100px;
 }
 
 #thumb_cont figure img{
@@ -1385,7 +1393,9 @@ footer{
     margin-right: 15px;
     right:0;
 }
-
+#prev_doc-add, #next_doc-add{
+	display: none;
+}
 #prev_doc.disabled, #next_doc.disabled, #prev_doc.disabled:hover, #next_doc.disabled:hover,
 #prev_doc-add.disabled, #next_doc-add.disabled, #prev_doc-add.disabled:hover, #next_doc-add.disabled:hover{
     cursor:default;
@@ -1459,7 +1469,7 @@ div.botleftconcave {
     top: -5px;
 }
 
-#span_dd_select, #span_ee_select-add{
+#left_header #span_dd_select, #span_ee_select-add{
 	display: none;
 }
 
