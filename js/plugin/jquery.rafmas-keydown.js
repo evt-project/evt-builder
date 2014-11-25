@@ -19,7 +19,8 @@ $(document).keydown(function(e){
 		if($("#regesto_cont").is(":visible")) {
 			$('#prev_doc').trigger('click');
 		} else {
-			$(".main_left_arrow").trigger('click');
+			if (!$(".main_left_arrow").hasClass('arrow_left_disable'))
+				$(".main_left_arrow").trigger('click');
 		}
 		return false;
 	}				
@@ -27,7 +28,8 @@ $(document).keydown(function(e){
 		if($("#regesto_cont").is(":visible")) {
 			$('#next_doc').trigger('click');
 		} else {
-			$(".main_right_arrow").trigger('click');
+			if (! $(".main_right_arrow").hasClass('arrow_right_disable'))
+				$(".main_right_arrow").trigger('click');
 		}
 		return false;
 	}		
