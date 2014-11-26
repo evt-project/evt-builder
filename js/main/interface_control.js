@@ -942,14 +942,36 @@ $(function() {
 			.attr('data-value', dd_val)
 			.attr('data-first-doc', dd_first_doc)
 			.text(dd_lab);
+		$('.inPage').removeClass('inPage');
 
+		$("#span_tt_select .option[data-value='"+tt_val+"']").addClass('inPage');
+		// #CDP. Add scroll to elemento
+		$("#span_tt_select .option[data-first-page='"+current_page+"']").addClass('inPage');
+		if ($('.inPage').length > 1) {
+			$('.main_tt_select').animate({
+				'background-color': '#362D28',
+				'color': '#fff'
+			},
+			'50',
+			function() {
+				$(this).animate({
+					'background-color':'#F5EAD4',
+					'color': '#000'
+				}, '50');
+			});
+		}
 	}
 	function selectTT(current_doc){
 		$('#span_tt_select .label_selected')
 			.attr('data-value', current_doc)
 			.text(current_doc);
+		
+		var pp_first_doc_val = $("#span_pp_select .option_container .option.selected").attr('data-first-doc');	
+		$("#span_tt_select .option[data-value='"+pp_first_doc_val+"']").addClass('inPage');
+		
 		$("#span_tt_select .option_container .option[data-value='"+current_doc+"']")
 			.addClass('selected')
+			.addClass('inPage')
 				.siblings('.selected')
 					.removeClass('selected');
 	}
