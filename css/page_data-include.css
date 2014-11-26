@@ -500,19 +500,19 @@ span.popup.persName, span.popup.measure, span.popup.role, span.popup.placeName, 
     display:inline;
     cursor:pointer;
 }
-span.persName.list_active span.trigger, span.persName.over span.trigger, span.persName:hover span.trigger{
+span.persName.list_active span.trigger, span.persName.over span.trigger, span.persName.opened span.trigger{
     background-color: #ffcdd2;
 }
-span.measure.list_active span.trigger, span.measure.over span.trigger, span.measure:hover span.trigger{
+span.measure.list_active span.trigger, span.measure.over span.trigger, span.measure.opened span.trigger{
     background-color: #ffecb3;    
 }
-span.role.list_active span.trigger, span.role.over > span.trigger, span.role:hover > span.trigger{
+span.role.list_active span.trigger, span.role.over > span.trigger, span.role.opened > span.trigger{
     background-color: #9fa8da;
 }
-span.placeName.list_active span.trigger, span.placeName.over > span.trigger, span.placeName:hover > span.trigger{
+span.placeName.list_active span.trigger, span.placeName.over > span.trigger, span.placeName.opened > span.trigger{
     background-color: #c8e6c9;
 }
-span.date.list_active span.trigger, span.date.over > span.trigger, span.date:hover > span.trigger{
+span.date.list_active span.trigger, span.date.over > span.trigger, span.date.opened > span.trigger{
     background-color: #9CD5F2;
 }
 
