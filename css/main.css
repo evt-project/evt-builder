@@ -1073,9 +1073,13 @@ footer{
 	background: rgb(126,108,95);
 	color:#fff;
 }
-
+.option.inPage{
+	background: rgba(126,108,95,0.5);
+}
 .option.selected{
-	color:#CCC;
+	#color:#CCC;
+	color:#fff;
+	background: #362D28;
 	cursor: default;
 }
 .like_select.filter .option.selected, .like_select.filter .option.selected:hover{
@@ -1087,8 +1091,10 @@ footer{
 }
 
 .option.selected:hover{
-	background: #F5EAD4;
-	color: #ccc;
+	#background: #F5EAD4;
+	#color: #ccc;
+	color:#fff;
+	background: #362D28;
 }
 
 .optionGroup span{
