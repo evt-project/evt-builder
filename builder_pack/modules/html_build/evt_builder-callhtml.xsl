@@ -289,20 +289,20 @@
 									<div id="text_tool-add">
 										<span id="span_list_select-add" class="like_select filter" title="Lists">
 											<div class="main_list_select">
-												<span id_value="none" class="label_selected">
+												<span data-value="none" class="label_selected">
 													No selection
 												</span>
 												<div class="open_select open_up">
 													<i class="fa fa-sort-asc"></i>
 												</div>
 												<div class="option_container up">
-													<div class="option" id="value_persName">Persone</div>
-													<div class="option" id="value_placeName">Luoghi</div>
-													<div class="option" id="value_roleName">Mestieri/Ruoli</div>
-													<div class="option" id="value_measure">Monete</div>
-													<div class="option" id="value_date">Date</div>
-													<div class="option" id="value_all">Seleziona Tutto</div>
-													<div class="option" id="value_clean">Pulisci Selezione</div>
+													<div class="option" data-value="persName">Persone</div>
+													<div class="option" data-value="placeName">Luoghi</div>
+													<div class="option" data-value="roleName">Mestieri/Ruoli</div>
+													<div class="option" data-value="measure">Monete</div>
+													<div class="option" data-value="date">Date</div>
+													<div class="option" data-value="all">Seleziona Tutto</div>
+													<div class="option" data-value="clean">Pulisci Selezione</div>
 												</div>
 											</div>
 										</span>
@@ -435,20 +435,20 @@
 								</span>
 								<span id="span_list_select" class="like_select filter" title="Lists">
 									<div class="main_list_select">
-										<span id_value="none" class="label_selected">
+										<span data-value="none" class="label_selected">
 											No selection
 										</span>
 										<div class="open_select open_up">
 											<i class="fa fa-sort-asc"></i>
 										</div>
 										<div class="option_container up">
-											<div class="option" id="value_persName">Persone</div>
-											<div class="option" id="value_placeName">Luoghi</div>
-											<div class="option" id="value_roleName">Mestieri/Ruoli</div>
-											<div class="option" id="value_measure">Monete</div>
-											<div class="option" id="value_date">Date</div>
-											<div class="option" id="value_all">Seleziona Tutto</div>
-											<div class="option" id="value_clean">Pulisci Selezione</div>
+											<div class="option" data-value="persName">Persone</div>
+											<div class="option" data-value="placeName">Luoghi</div>
+											<div class="option" data-value="roleName">Mestieri/Ruoli</div>
+											<div class="option" data-value="measure">Monete</div>
+											<div class="option" data-value="date">Date</div>
+											<div class="option" data-value="all">Seleziona Tutto</div>
+											<div class="option" data-value="clean">Pulisci Selezione</div>
 										</div>
 									</div>
 								</span>
