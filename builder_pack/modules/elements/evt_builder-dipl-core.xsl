@@ -534,7 +534,7 @@
 	<!-- ROLE NAME -->
 	<xsl:template match="tei:roleName" mode="dipl">
 		<xsl:element name="span">
-			<xsl:attribute name="class">role</xsl:attribute>
+			<xsl:attribute name="class">roleName</xsl:attribute>
 			<xsl:apply-templates mode="#current"/>
 		</xsl:element>
 	</xsl:template>

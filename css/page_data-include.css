@@ -495,25 +495,36 @@ span.term, span.emph span.term{
     font-style:normal;
 }
 
-span.persName, span.measure, span.role, span.placeName, span.date
-span.popup.persName, span.popup.measure, span.popup.role, span.popup.placeName, span.popup.date{
+span.persName, span.measure, span.roleName, span.placeName, span.date
+span.popup.persName, span.popup.measure, span.popup.roleName, span.popup.placeName, span.popup.date{
     display:inline;
-    cursor:pointer;
 }
 span.persName.list_active span.trigger, span.persName.over span.trigger, span.persName.opened span.trigger{
     background-color: #ffcdd2;
+    cursor:pointer;
 }
+span.measure.list_active, span.measure.over,
 span.measure.list_active span.trigger, span.measure.over span.trigger, span.measure.opened span.trigger{
     background-color: #ffecb3;    
+    cursor:pointer;
 }
-span.role.list_active span.trigger, span.role.over > span.trigger, span.role.opened > span.trigger{
+
+span.roleName.list_active, 
+span.roleName.list_active span.trigger, span.roleName.over > span.trigger, span.roleName.opened > span.trigger{
     background-color: #9fa8da;
+    cursor:pointer;
+}
+span.roleName.list_active{
+	cursor: default;
 }
 span.placeName.list_active span.trigger, span.placeName.over > span.trigger, span.placeName.opened > span.trigger{
     background-color: #c8e6c9;
+    cursor:pointer;
 }
+span.date.list_active, span.date:hover,
 span.date.list_active span.trigger, span.date.over > span.trigger, span.date.opened > span.trigger{
     background-color: #9CD5F2;
+    cursor:pointer;
 }
 
 span.display-block{
