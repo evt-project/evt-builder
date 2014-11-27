@@ -65,6 +65,11 @@ $(function() {
 				);
 			});
 			
+			if($(xml).find('editions edition').length <= 1){
+				$('#txttxt_link').remove();
+				$('div.concave').css('width', '200px');
+			}
+
 			$(".main_ee_select .option_container div:first-child").addClass( "selected" );
 
 			$('.main_ee_select .label_selected')
@@ -439,7 +444,23 @@ $(function() {
 	    					   }, 400);
 	    				   }
 						} else {
-						    $(this).siblings('.option_container').animate({height:"toggle"}, 400);
+						    /* prova scroll ... sistemare
+						    var height = $(this).siblings('.option_container').find('.option').height();
+							var selected = $(this).siblings('.option_container').find('.option.selected').index();    
+							var scroll = height*selected;
+
+						    $(this).siblings('.option_container').animate({
+						    	height:"toggle"
+						    }, 400, function(){
+						    	if ($(this).scrollTop()+20 != scroll ) {
+						    		$(this).animate({
+									  scrollTop: scroll
+									}, 500);
+						    	}
+						    });*/
+							$(this).siblings('.option_container').animate({
+						    	height:"toggle"
+						    }, 400);
 						}
 					}
 				}
@@ -975,7 +996,6 @@ $(function() {
 				.siblings('.selected')
 					.removeClass('selected');
 	}
-
 	function InitializePopup(){
 		//alert('pop');
         $('.popup').hover(function(e){
@@ -991,6 +1011,7 @@ $(function() {
          	$(this).removeClass('over');
        	});
         $('.popup').click(function(e){
+        	
         	//alert('click');
         	e.stopPropagation();
 
@@ -1012,6 +1033,24 @@ $(function() {
      			.find('> .tooltip')
      				.toggleClass('opened')
      				.toggle();
+
+     		var x = e.clientX;
+	    	var y = e.clientY;
+     		/*var tooltip_right = $(this).find('> .tooltip').offset().left + $(this).find('> .tooltip').width();
+     		var container_right = $('#central_wrapper').offset().left + $('#central_wrapper').width();
+     		var s = (container_right - tooltip_right);
+     		//alert(s);
+     		container_right += $('#text').position().left;
+     		if(s < $('#text').position().left){
+     			x = x - (container_right - tooltip_right);
+     		}*/
+     		if(x+$(this).find('> .tooltip').width() > $('#central_wrapper').width()){
+     			//x = ($('#central_wrapper').width() - $(this).find('> .tooltip').width() - $('#text').position().left);
+     			$(this).find('> .tooltip').css('right', $('#text').position().left);
+     			x = x-($('#text').position().left+10);
+     		}
+     		$(this).find('> .tooltip').offset({ left: x-10, top: y+20 });
+     		$(this).find('> .tooltip::before').offset({ left: (e.clientX-10), top: (e.clientY+20) });
         	$(this).focus(); 	
          	return false;
        	});
