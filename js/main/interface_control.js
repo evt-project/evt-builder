@@ -470,6 +470,37 @@ $(function() {
 			/*
 				
 			*/
+			$('.main_pp_select')
+				.prepend('<span class="option_tooltip"></span>');
+			$(".main_pp_select .option_container .option").hover(function(e) {
+				var first_doc, pp_val, tt_val, temp_tt, docs;
+				pp_val = $(this).attr('data-value');
+				tt_val = $(this).attr('data-first-doc');
+				first_doc = $("#span_tt_select .option_container .option[data-value='"+tt_val+"']").text();
+				docs = "";
+				//alert($(this).offset().top);
+				//alert(e.clientY);
+				$("#span_tt_select .option_container .option[data-first-page='"+pp_val+"']").each(function(){
+					if($(this).attr('data-value') != tt_val){
+						temp_tt = $(this).text();
+						docs += "<br />"+temp_tt;
+					}
+				});
+				if (docs == "") {	
+					docs = "Documento:<br />"+first_doc;
+				} else {
+					docs = "Documenti:<br />"+first_doc+docs;
+				}
+				$("#span_pp_select .option_tooltip")
+					.append(docs)
+					.show()
+					.offset({ top: ($(this).offset().top) });
+			}, function(){
+				$("#span_pp_select .option_tooltip")
+					.empty()
+					.hide()
+				;
+			});
 			$(".main_pp_select .option_container .option").click(function(){
 				if(! $(this).hasClass('selected')){
 					var new_pp_val, new_pp_lab, new_tt_val;
@@ -1467,7 +1498,9 @@ $(function() {
 			$('#span_list_select-add').find('.option_container').css('width', optEE);
 			$('span_list_select-add').addClass('widthChanged');
 		}
-		
+		if ( $(elem).find('.option_tooltip').length > 0 ){
+			$(elem).find('.option_tooltip').css('left', widthOpt+16);
+		}
 	}
 
 	function goFullScreenLeft(){
