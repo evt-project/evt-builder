@@ -389,12 +389,6 @@ SPAN.dipl-ex {
 
 
 /* Modifiche per Codice Pelavicino */
-span.tooltip:before {
-	content: url("../images/popup_before.png");
-	left: 5%;
-	position: absolute;
-	top: -13px; 
-}
 
 span.tooltip {
 	font-size: 80%;
@@ -406,11 +400,20 @@ span.tooltip {
 	border-radius: 3px;
 	box-shadow: 2px 2px 2px #7e7067;
 	padding: 0.4%;
-	margin-top:32px;
-	z-index:1;
-	margin-left: -40px;
+	#margin-top:32px;
+	z-index:99;
+	#margin-left: -40px;
+	#min-width:250px;
+	#width:250px;
 }
-
+span.tooltip span.before{
+	background: url("../images/popup_before.png") repeat scroll 0% 0% transparent;
+	left: 5%;
+	position: absolute;
+	top: -13px;
+	width: 17px;
+	height: 15px;
+}
 span.tooltip span, span.text_note span{
 	background: transparent;
 }

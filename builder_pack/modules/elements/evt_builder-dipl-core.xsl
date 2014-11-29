@@ -340,6 +340,7 @@
 			</xsl:element>
 			<xsl:element name="span">
 				<xsl:attribute name="class">tooltip</xsl:attribute>
+				<xsl:element name="span"><xsl:attribute name="class">before</xsl:attribute></xsl:element>
 				<xsl:for-each select="//tei:bibl[@xml:id=substring-after(current()/@target,'#')]">
 					<xsl:value-of select="./tei:author"/>
 					<xsl:text>, </xsl:text>
@@ -393,6 +394,7 @@
 				<xsl:attribute name="id">
 					<xsl:value-of select="./@xml:id"/>
 				</xsl:attribute>
+				<xsl:element name="span"><xsl:attribute name="class">before</xsl:attribute></xsl:element>
 				<xsl:apply-templates mode="#current"/>
 			</xsl:element>
 		</xsl:element>
@@ -410,6 +412,7 @@
 					</xsl:element>
 					<xsl:element name="span">
 						<xsl:attribute name="class">tooltip</xsl:attribute>
+						<xsl:element name="span"><xsl:attribute name="class">before</xsl:attribute></xsl:element>
 						<xsl:text>Data normalizzata: </xsl:text>
 						<xsl:value-of select="@when"/>
 					</xsl:element>
@@ -436,9 +439,10 @@
 					</xsl:element>
 					<xsl:element name="span">
 						<xsl:attribute name="class">tooltip</xsl:attribute>
-							<xsl:for-each select="$root//tei:person[@xml:id=substring-after(current()/@ref,'#')]">
-								<xsl:call-template name="person"/>
-							</xsl:for-each>
+						<xsl:element name="span"><xsl:attribute name="class">before</xsl:attribute></xsl:element>
+						<xsl:for-each select="$root//tei:person[@xml:id=substring-after(current()/@ref,'#')]">
+							<xsl:call-template name="person"/>
+						</xsl:for-each>
 						<!-- aggiungere riferimento ad entita specifica e relative info  -->
 					</xsl:element>
 				</xsl:element>
@@ -498,6 +502,7 @@
 					</xsl:element>
 					<xsl:element name="span">
 						<xsl:attribute name="class">tooltip</xsl:attribute>
+						<xsl:element name="span"><xsl:attribute name="class">before</xsl:attribute></xsl:element>
 						<xsl:if test="@type!=''">
 							<xsl:element name="span">
 								<xsl:attribute name="class">display-block</xsl:attribute>
@@ -551,6 +556,7 @@
 					</xsl:element>
 					<xsl:element name="span">
 						<xsl:attribute name="class">tooltip</xsl:attribute>
+						<xsl:element name="span"><xsl:attribute name="class">before</xsl:attribute></xsl:element>
 						<xsl:for-each select="$root//tei:place[@xml:id=substring-after(current()/@ref,'#')]">
 							<xsl:call-template name="place"/>
 						</xsl:for-each>
@@ -611,6 +617,7 @@
 				</xsl:element>
 				<xsl:element name="span">
 					<xsl:attribute name="class">tooltip</xsl:attribute>
+					<xsl:element name="span"><xsl:attribute name="class">before</xsl:attribute></xsl:element>
 					<xsl:for-each select="$root//tei:item[@xml:id=substring-after(current()/@target,'#')]">
 						<xsl:element name="img">
 							<xsl:attribute name="src">data/input_data/images/hotspot/<xsl:value-of select=".//tei:graphic/@url"/></xsl:attribute>
