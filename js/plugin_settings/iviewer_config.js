@@ -96,7 +96,6 @@ $( function() {
 		   onStartDrag: function() {click="true";},
 		   onDrag: function (ev, point) {moveAreas(); moveAreasHS()}, //Add by JK for ITL
 		   onStopDrag: function(ev, point) {moveAreas(); moveAreasHS(); onmouseup=clickFalse();} //Add by JK for ITL
-		   
 	  });
 	  
         function clickFalse(){
