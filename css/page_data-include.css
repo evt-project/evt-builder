@@ -503,10 +503,16 @@ span.persName.list_active span.trigger, span.persName.over span.trigger, span.pe
     background-color: #ffcdd2;
     cursor:pointer;
 }
+.option[data-value="persName"] .filter_color{
+	color: #ffcdd2;
+}
 span.measure.list_active, span.measure.over,
 span.measure.list_active span.trigger, span.measure.over span.trigger, span.measure.opened span.trigger{
     background-color: #ffecb3;    
     cursor:pointer;
+}
+.option[data-value="measure"] .filter_color{
+	color: #ffecb3;
 }
 
 span.roleName.list_active, 
@@ -514,17 +520,27 @@ span.roleName.list_active span.trigger, span.roleName.over > span.trigger, span.
     background-color: #9fa8da;
     cursor:pointer;
 }
+.option[data-value="roleName"] .filter_color{
+	color: #9fa8da;
+}
 span.roleName.list_active{
 	cursor: default;
 }
+
 span.placeName.list_active span.trigger, span.placeName.over > span.trigger, span.placeName.opened > span.trigger{
     background-color: #c8e6c9;
     cursor:pointer;
+}
+.option[data-value="placeName"] .filter_color{
+	color: #c8e6c9;
 }
 span.date.list_active, span.date:hover,
 span.date.list_active span.trigger, span.date.over > span.trigger, span.date.opened > span.trigger{
     background-color: #9CD5F2;
     cursor:pointer;
+}
+.option[data-value="date"] .filter_color{
+	color: #9CD5F2;
 }
 
 span.display-block{

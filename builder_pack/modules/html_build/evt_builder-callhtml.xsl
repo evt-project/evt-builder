@@ -296,11 +296,16 @@
 													<i class="fa fa-sort-asc"></i>
 												</div>
 												<div class="option_container up">
-													<div class="option" data-value="persName">Persone</div>
-													<div class="option" data-value="placeName">Luoghi</div>
-													<div class="option" data-value="roleName">Mestieri/Ruoli</div>
-													<div class="option" data-value="measure">Monete</div>
-													<div class="option" data-value="date">Date</div>
+													<xsl:for-each select="$lists">
+														<xsl:if test="./normalize-space()">
+															<xsl:element name="div">
+																<xsl:attribute name="class">option </xsl:attribute>
+																<xsl:attribute name="data-value"><xsl:value-of select="name(.)"/></xsl:attribute>
+																<i class="fa fa-circle filter_color"></i>
+																<xsl:value-of select="."/>
+															</xsl:element>
+														</xsl:if>
+													</xsl:for-each>
 													<div class="option" data-value="all">Seleziona Tutto</div>
 													<div class="option" data-value="clean">Pulisci Selezione</div>
 												</div>
@@ -442,13 +447,24 @@
 											<i class="fa fa-sort-asc"></i>
 										</div>
 										<div class="option_container up">
-											<div class="option" data-value="persName">Persone</div>
-											<div class="option" data-value="placeName">Luoghi</div>
-											<div class="option" data-value="roleName">Mestieri/Ruoli</div>
-											<div class="option" data-value="measure">Monete</div>
-											<div class="option" data-value="date">Date</div>
-											<div class="option" data-value="all">Seleziona Tutto</div>
-											<div class="option" data-value="clean">Pulisci Selezione</div>
+											<xsl:for-each select="$lists">
+												<xsl:if test="./normalize-space()">
+													<xsl:element name="div">
+														<xsl:attribute name="class">option</xsl:attribute>
+														<xsl:attribute name="data-value"><xsl:value-of select="name(.)"/></xsl:attribute>
+														<i class="fa fa-circle filter_color"></i>
+														<xsl:value-of select="."/>
+													</xsl:element>
+												</xsl:if>
+											</xsl:for-each>
+											<div class="option" data-value="all">
+												<i class="fa fa-circle filter_color"></i>
+												Seleziona Tutto
+											</div>
+											<div class="option" data-value="clean">
+												<i class="fa fa-circle-o filter_color"></i>
+												Pulisci Selezione
+											</div>
 										</div>
 									</div>
 								</span>

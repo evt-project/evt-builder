@@ -90,6 +90,24 @@
     <xsl:variable name="pubdate" select="teiHeader/fileDesc/publicationStmt/date" />
 	-->
 	
+	<!-- EN: It is possibile to personalize the elements in the filter select element that will select and highlight particular (groups of) words.
+			 In order to change the label it is necessary to change the text inside the corresponding element.
+			 In order to remove an elemento from the list in the application it is possibile both to remove the element itself or to delete the text inside it.
+			 In order to add a new element to the list you simply need to know that the tag corresponds to the class name that has be given to the html element referring to the particular words to be selected.
+	-->
+	<!-- IT: E' possibile personalizzare gli elementi che compariranno nell'elenco dei filtri che selezionano particolari paroli o gruppi di parole. 
+			 Per cambiare l'etichetta basta cambiare il testo dentro l'elemento corrispondente. 
+			 Per rimuovere un elemento basta eliminare o tutto l'elemento di interesse o anche solo il testo al suo interno.
+			 Per aggiungere un elemento alla lista basta sapere che il tag fa riferimento alla classe data all'elemento html con il quale sono state marcate le parole "particolari" da selezionare. 
+	-->
+	<xsl:variable name="lists" as="element()*">
+		<persName>Persone</persName>
+		<placeName>Luoghi</placeName>
+		<roleName>Mestieri/Ruoli</roleName>
+		<measure>Monete</measure>
+		<date>Date</date>
+	</xsl:variable>
+	
 	<!-- Nodo che contiene il testo da trasformare per ogni livello di edizione -->
 	<!--<xsl:variable name="ed_content" select="//tei:body/name()"></xsl:variable>-->
 	<xsl:variable name="ed_content" select="//tei:text/tei:group[@xml:id='CP_group']/name()"/>

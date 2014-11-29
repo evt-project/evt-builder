@@ -197,6 +197,13 @@ $(function() {
 		    				.appendTo(figure);
 
 		    			$('#thumb_cont').append(figure);
+
+		    			$("img").error(function () {
+						  $(this)
+						  	.unbind("error")
+						  	.attr("src", "images/no-image.png")
+						  	.css('opacity', '0.3');
+						});
     				}
 				})
 			});
@@ -211,7 +218,12 @@ $(function() {
 				.text($('.main_pp_select .option_container .option:first').text())
 				.attr("data-value", $('.main_pp_select .option_container .option:first').data("value"))
 				.attr("data-first-doc", $('.main_pp_select .option_container .option:first').data("first-doc"));
-				
+			
+			$(".like_select.filter").each(function(){
+				if ( $(this).find('.option_container .option').length <= 2 ) { // ci sono solo gli elementi "Seleziona tutto" e "Pulisci selezione"
+					$(this).remove();
+				}
+			});
 			/* Gestione eventi */
 
 			/*$(".label_selected").on('change',function(){
@@ -438,8 +450,9 @@ $(function() {
 	    					       height:"toggle"
 	    					   }, 400);
 						   } else {
-	    					   $(this).siblings('.option_container').animate({
-	    					       top: '-176px',
+						   		var top = "-" + $(this).siblings('.option_container').attr('data-toggle-top') + "px";
+	    					   	$(this).siblings('.option_container').animate({
+	    					       top: top,
 	    					       height:"toggle"
 	    					   }, 400);
 	    				   }
@@ -470,8 +483,11 @@ $(function() {
 			/*
 				
 			*/
-			$('.main_pp_select')
-				.prepend('<span class="option_tooltip"></span>');
+			// #CDP - Aggiungere controllo per avere il tooltip solo se esiste almeno un caso di pagina con più doc sopra
+			$('<span/>')
+				.addClass('option_tooltip')
+				.prependTo('.main_pp_select');
+
 			$(".main_pp_select .option_container .option").hover(function(e) {
 				var first_doc, pp_val, tt_val, temp_tt, docs;
 				pp_val = $(this).attr('data-value');
@@ -498,8 +514,7 @@ $(function() {
 			}, function(){
 				$("#span_pp_select .option_tooltip")
 					.empty()
-					.hide()
-				;
+					.hide();
 			});
 			$(".main_pp_select .option_container .option").click(function(){
 				if(! $(this).hasClass('selected')){
@@ -782,6 +797,17 @@ $(function() {
 					//$("#value_" + newPage).addClass("selected").siblings().removeClass('selected');
 				}
 			});
+			
+			$('.like_select .option_container .option').hover(function(){
+				var parent_title = $(this).parents('.like_select').attr('title');
+					$(this).parents('.like_select').attr('data-title', parent_title);
+					$(this).parents('.like_select').attr('title', '');
+			}, function(){
+				var old_parent_title = $(this).parents('.like_select').attr('data-title');
+				$(this).parents('.like_select')
+								.attr('title', old_parent_title)
+								.removeAttr('data-title');
+			});
 
 			$('.like_select').each(function(){
 				updateSelectLength(this);
@@ -997,9 +1023,15 @@ $(function() {
 		$('.inPage').removeClass('inPage');
 
 		$("#span_tt_select .option[data-value='"+tt_val+"']").addClass('inPage');
+		
 		// #CDP. Add scroll to elemento
+		
 		$("#span_tt_select .option[data-first-page='"+current_page+"']").addClass('inPage');
+		
 		if ($('.inPage').length > 1) {
+			var actual_label = $('.main_tt_select .label_selected').text();
+			$('.main_tt_select .label_selected').text(actual_label + " *");
+			/* Animazione forse un po' troppo sfarfallante e invasiva
 			$('.main_tt_select').animate({
 				'background-color': '#362D28',
 				'color': '#fff'
@@ -1010,8 +1042,8 @@ $(function() {
 					'background-color':'#F5EAD4',
 					'color': '#000'
 				}, '50');
-			});
-		}
+			});*/
+		} 
 	}
 	function selectTT(current_doc){
 		$('#span_tt_select .label_selected')
@@ -1026,6 +1058,10 @@ $(function() {
 			.addClass('inPage')
 				.siblings('.selected')
 					.removeClass('selected');
+		if ($('.inPage').length > 1) {
+			var actual_label = $('.main_tt_select .label_selected').text();
+			$('.main_tt_select .label_selected').text(actual_label + " *");
+		}
 	}
 	function InitializePopup(){
 		//alert('pop');
@@ -1041,49 +1077,59 @@ $(function() {
          	}
          	$(this).removeClass('over');
        	});
+        
         $('.popup').click(function(e){
         	
         	//alert('click');
         	e.stopPropagation();
 
-        	$('.tooltip.opened')
-        		.removeClass('opened')
-        		.toggle();
-        	$('.popup.opened')
-        		.removeClass('opened');
-         	
-         	if($(this).parent('.popup').find('> .tooltip')){
-           		$(this)
-           			.parent('.popup')
-           				.find('> .tooltip')
-           					.removeClass('opened')
-           					.toggle();
-     		}
-     		$(this).toggleClass('opened');
-         	$(this)
-     			.find('> .tooltip')
-     				.toggleClass('opened')
-     				.toggle();
+        	if ( $(this).find('> .tooltip').hasClass('opened') ) {
+     			$(this).removeClass('opened');
+     			$(this)
+	     			.find('> .tooltip')
+	     				.removeClass('opened')
+	     				.hide();
+     		} else {
+     			$('.tooltip.opened')
+	        		.removeClass('opened')
+	        		.toggle();
+	        	$('.popup.opened')
+	        		.removeClass('opened');
+	         	
+	         	if($(this).parent('.popup').find('> .tooltip')){
+	           		$(this)
+	           			.parent('.popup')
+	           				.find('> .tooltip')
+	           					.removeClass('opened')
+	           					.toggle();
+	     		}
+     		 
+     			$(this).addClass('opened');
+     			$(this)
+	     			.find('> .tooltip')
+	     				.addClass('opened')
+	     				.show();
 
-     		var x = e.clientX;
-	    	var y = e.clientY;
-     		/*var tooltip_right = $(this).find('> .tooltip').offset().left + $(this).find('> .tooltip').width();
-     		var container_right = $('#central_wrapper').offset().left + $('#central_wrapper').width();
-     		var s = (container_right - tooltip_right);
-     		//alert(s);
-     		container_right += $('#text').position().left;
-     		if(s < $('#text').position().left){
-     			x = x - (container_right - tooltip_right);
-     		}*/
-     		if(x+$(this).find('> .tooltip').width() > $('#central_wrapper').width()){
-     			//x = ($('#central_wrapper').width() - $(this).find('> .tooltip').width() - $('#text').position().left);
-     			$(this).find('> .tooltip').css('right', $('#text').position().left);
-     			x = x-($('#text').position().left+10);
-     		}
-     		$(this).find('> .tooltip').offset({ left: x-10, top: y+20 });
-     		$(this).find('> .tooltip::before').offset({ left: (e.clientX-10), top: (e.clientY+20) });
-        	$(this).focus(); 	
-         	return false;
+	     		var x = e.clientX;
+		    	var y = e.clientY;
+	     		/*var tooltip_right = $(this).find('> .tooltip').offset().left + $(this).find('> .tooltip').width();
+	     		var container_right = $('#central_wrapper').offset().left + $('#central_wrapper').width();
+	     		var s = (container_right - tooltip_right);
+	     		//alert(s);
+	     		container_right += $('#text').position().left;
+	     		if(s < $('#text').position().left){
+	     			x = x - (container_right - tooltip_right);
+	     		}*/
+	     		if(x+$(this).find('> .tooltip').width() > $('#central_wrapper').width()){
+	     			//x = ($('#central_wrapper').width() - $(this).find('> .tooltip').width() - $('#text').position().left);
+	     			$(this).find('> .tooltip').css('right', $('#text').position().left);
+	     			x = x-($('#text').position().left+10);
+	     		}
+	     		$(this).find('> .tooltip').offset({ left: x-10, top: y+20 });
+	     		$(this).find('> .tooltip::before').offset({ left: (e.clientX-10), top: (e.clientY+20) });
+	        	$(this).focus(); 	
+	         	return false;
+	        }
        	});
         $(document).click(function(){
 		    $('.over').removeClass('over');
@@ -1199,6 +1245,13 @@ $(function() {
 			InitializePopup();
 			var current_tt = $('#span_tt_select .option_container .option.selected').data('value');
 			$("#text_cont .doc[data-doc!='"+current_tt+"']").hide();
+
+			$("img").error(function () {
+			  $(this)
+			  	.unbind("error")
+			  	.attr("src", "images/no-image.png")
+			  	.css('opacity', '0.3');
+			});
 		});
 		
 		$('#text_cont').animate({
@@ -1295,6 +1348,7 @@ $(function() {
 			$('#edval span').text(pp_el_upp);
 		}*/
 	}
+
 	// IT: Un preload basilare per la navigazione delle immagini
 	function preload(arrayOfImages) {
 		$(arrayOfImages).each(function(){
@@ -1470,6 +1524,12 @@ $(function() {
 		$(elem).find('.option_container').css("position", "absolute");
 		$(elem).find('.option_container').css("visibility", "visible");
 		$(elem).find('.option_container').css("display", "none");
+
+		if ( $(elem).find('.option_container').hasClass('up') ) {
+			var height;
+			height = $(elem).find('.option_container').height()+6;
+			$(elem).find('.option_container').attr('data-toggle-top', height);
+		}
 
 		if(elem.id === 'span_ee_select'){
 			var widthEE, optEE;
