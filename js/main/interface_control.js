@@ -1087,6 +1087,7 @@ $(function() {
      			$(this).removeClass('opened');
      			$(this)
 	     			.find('> .tooltip')
+	     				.removeAttr('style')
 	     				.removeClass('opened')
 	     				.hide();
      		} else {
@@ -1120,17 +1121,42 @@ $(function() {
 	     		if(s < $('#text').position().left){
 	     			x = x - (container_right - tooltip_right);
 	     		}*/
-	     		if(x+$(this).find('> .tooltip').width() > $('#central_wrapper').width()){
+	     		if(x + 250 > $('#central_wrapper').width()){
 	     			//x = ($('#central_wrapper').width() - $(this).find('> .tooltip').width() - $('#text').position().left);
-	     			$(this).find('> .tooltip').css('right', $('#text').position().left);
-	     			x = x-($('#text').position().left+10);
+	     			//alert( $(this).find('> .tooltip').width() );
+	     			//alert( $('#text').position().left );
+	     			$(this).find('> .tooltip').css({
+	     				'right': $('#text').position().left
+	     			});
+	     			x = x - ($('#text').position().left+10);
 	     		}
-	     		$(this).find('> .tooltip').offset({ left: x-10, top: y+20 });
-	     		$(this).find('> .tooltip::before').offset({ left: (e.clientX-10), top: (e.clientY+20) });
+	     		
+	     		// Apertura in alto --> #CDP sistemare
+	     		if ( y > $('#text_tool').offset().top-100 ){
+	     			var p = $(window).height() - y + 15;
+	     			$(this).find('> .tooltip').offset({ left: x-10 }).css('bottom', p+"px");
+	     			var height_tooltip = $('.tooltip:visible').offset().top + $('.tooltip:visible').height()+6;
+	     			$(this)
+	     				.find('> .tooltip .before')
+	     					.offset({
+	     						top: height_tooltip
+	     					})
+	     					.css({
+	     						'transform': 'rotate(180deg)'
+	     					});
+	     		} else {
+	     			$(this).find('> .tooltip').offset({ left: x-10, top: y+20 });
+	     		}
+
+	     		$(this).find('> .tooltip .before').offset({ left: (e.clientX) });
 	        	$(this).focus(); 	
+	        	if ( $(this).find('> .tooltip').width() > 200 ){
+     				$(this).find('> .tooltip').css('width', "250px");
+     			}
 	         	return false;
 	        }
        	});
+
         $(document).click(function(){
 		    $('.over').removeClass('over');
 		    $('.opened').removeClass('opened');
@@ -1247,10 +1273,15 @@ $(function() {
 			$("#text_cont .doc[data-doc!='"+current_tt+"']").hide();
 
 			$("img").error(function () {
-			  $(this)
-			  	.unbind("error")
-			  	.attr("src", "images/no-image.png")
-			  	.css('opacity', '0.3');
+			  	$(this)
+				  	.unbind("error")
+				  	.attr("src", "images/no-image.png")
+				  	.css('opacity', '0.3');
+				if ( $(this).parent('.tooltip') ){
+					$(this).css({
+						'width': '100px'
+					});
+				}
 			});
 		});
 		
