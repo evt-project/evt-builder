@@ -1131,7 +1131,6 @@ $(function() {
 	     			x = x - ($('#text').position().left+10);
 	     		}
 	     		
-	     		// Apertura in alto --> #CDP sistemare
 	     		if ( y > $('#text_tool').offset().top-100 ){
 	     			var p = $(window).height() - y + 15;
 	     			$(this).find('> .tooltip').offset({ left: x-10 }).css('bottom', p+"px");
