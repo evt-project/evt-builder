@@ -67,7 +67,8 @@ $(function() {
 			
 			if($(xml).find('editions edition').length <= 1){
 				$('#txttxt_link').remove();
-				$('div.concave').css('width', '200px');
+				$('div.concave, div.extTop').css('width', '200px');
+				$('div.botleftconcave').css('width', '176px');
 			}
 
 			$(".main_ee_select .option_container div:first-child").addClass( "selected" );
@@ -89,21 +90,7 @@ $(function() {
 			l_pair = $(xml).find('pages pair').last().children('pb').eq(1).text()
 			last_dd = f_pair + "-" + l_pair;
 
-			//Group_dd
-			/*$(xml).find('textpage text').each(function(){
-				var text_ref;
-				var group_elem;
-
-				text_ref = $(this).attr('n').replace(/\s+/g, '');
-				group_elem = $('<div/>')
-								.attr("id", "optGrp_value_"+text_ref)
-								.attr("title", text_ref)
-								.addClass('optionGroup')
-								.append($('<span>').text(cropLongTextLabel(text_ref, 9)));
-
-				$('.main_dd_select .option_container').append(group_elem);
-			});*/
-
+			
 			//Page_dd
 			$(xml).find('pages pair').each(function(){
 				var current_id, first_page_d, second_page_d;
@@ -114,6 +101,7 @@ $(function() {
 				first_label_d = $(this).children('pb').eq(0).attr("n") != "" ? $(this).children('pb').eq(0).attr("n") : first_page_d;
 				second_page_d = $(this).children('pb').eq(1).text();
 				second_label_d = $(this).children('pb').eq(1).attr("n") != "" ? $(this).children('pb').eq(1).attr("n") : second_page_d;
+				
 				current_id = "";
 				current_label = "";
 
@@ -126,12 +114,6 @@ $(function() {
 				if (second_page_d !== ""){
 					current_id = first_page_d+"-"+second_page_d;
 					current_label = first_label_d+"-"+second_label_d;
-
-					/*second_text_ref = $(xml)
-					.find('textpage text')
-					.find('pb:contains("'+second_page_d+'")')
-					.parent().attr('n');
-					second_text_ref = second_text_ref.replace(/\s+/g, '');*/
 				}
 				else{
 					current_id = first_page_d;
@@ -149,8 +131,8 @@ $(function() {
 			$('.main_dd_select .option_container div:first-child').addClass('selected');
 			$('.main_dd_select .label_selected')
 				.text($('.main_dd_select .option_container div:first').text())
-				.attr("data-value", $('.main_dd_select .option_container div:first').data("value"))
-				.attr("data-first-doc", $('.main_dd_select .option_container div:first').data("first-page-first-doc"));
+				.attr("data-value", $('.main_dd_select .option_container div:first').attr("data-value"))
+				.attr("data-first-doc", $('.main_dd_select .option_container div:first').attr("data-first-page-first-doc"));
 
 
 			//Text and Page
@@ -171,7 +153,6 @@ $(function() {
 				$(this).find('pb').each(function(){
     				var page_current_id = $(this).text();
     				var page_current_label = $(this).attr("n");
-    				// current_id = current_id.replace(/\./g,'\\\\.');
     				if( $(".main_pp_select .option_container .option[data-value='"+page_current_id+"']").length <= 0){
     					$('.main_pp_select .option_container').append(
 	    					$('<div/>')
@@ -210,99 +191,27 @@ $(function() {
 			$('.main_tt_select .option_container div:first-child').addClass('selected');
 			$('.main_tt_select .label_selected')
 				.text($('.main_tt_select .option_container div:first').text())
-				.attr("data-value", $('.main_tt_select .option_container div:first').data('value'));
+				.attr("data-value", $('.main_tt_select .option_container div:first').attr('data-value'));
             
             $('.main_pp_select .option_container div:first-child').addClass('selected');
 
 			$('.main_pp_select .label_selected')
 				.text($('.main_pp_select .option_container .option:first').text())
-				.attr("data-value", $('.main_pp_select .option_container .option:first').data("value"))
-				.attr("data-first-doc", $('.main_pp_select .option_container .option:first').data("first-doc"));
+				.attr("data-value", $('.main_pp_select .option_container .option:first').attr("data-value"))
+				.attr("data-first-doc", $('.main_pp_select .option_container .option:first').attr("data-first-doc"));
 			
 			$(".like_select.filter").each(function(){
 				if ( $(this).find('.option_container .option').length <= 2 ) { // ci sono solo gli elementi "Seleziona tutto" e "Pulisci selezione"
 					$(this).remove();
 				}
 			});
+
 			/* Gestione eventi */
 
-			/*$(".label_selected").on('change',function(){
-				var current_id, ref_id;
-				current_id = $(this).data("value");
-				current_id = current_id.replace(/\s+/g, '');
-				current_id = current_id.replace(/\./g, '\\.');
-				$(this).siblings(".option_container")
-					.find(".option[data-value='"+current_id+"']")
-					.siblings().removeClass('selected')
-					.parent().siblings().find('.option').removeClass('selected');
-				
-				$(this).siblings(".option_container")
-					.find('.option')
-					.each(function() {
-						ref_id = $(this).data('value');
-						ref_id = ref_id.replace(/\s+/g, '');
-						ref_id = ref_id.replace(/\./g, '\\.');
-						if (ref_id === current_id){
-							$(this).addClass("selected");
-						}
-					});
-				
-				// $(this).siblings(".option_container")
-				// 	.find("#value_"+current_id)
-				// 	.addClass("selected")
-				// 	.siblings().removeClass('selected')
-				// 	.parent().siblings().find('.option').removeClass('selected');
-			});
-			*/
-			/*$(".main_ee_select .label_selected").on('change',function(){
-				if ($(this).data('value')=='regesto') {
-				    if(!$('#regesto_cont').is(':visible')) $('#regesto_cont').show('drop',  {direction: 'up'},'linear');
-				    //if(!$('#regesto_cont').is(':visible')) $('#regesto_cont').show('blind', 'slow');
-				} else {
-				    if($('#regesto_cont').is(':visible')) $('#regesto_cont').hide('drop',  {direction: 'up'}, 'linear');
-				    //if($('#regesto_cont').is(':visible')) $('#regesto_cont').hide('blind', 'slow');
-				    var temp_frame, temp_parent;
-    				temp_frame = "";
-    				temp_parent = "";
-    				if($(this).parent().parent().attr("id") === "span_ee_select-add"){
-    					temp_frame = "text_elem-add";
-    					temp_parent = "text_cont-add";
-    				} else{
-    					temp_frame = "text_elem";
-    					temp_parent = "text_cont";
-    				}
-    				gotoedition(location.hash.replace( /^#/, '' ),$(this).text().toLowerCase(),temp_frame,temp_parent);   
-				}
-			});*/
-			/*$(".main_pp_select .label_selected").on('change',function(){
-				var tt_val_temp, pp_val_temp, parent_temp;
-				tt_val_temp = $(".main_tt_select .label_selected").attr('title');
-				pp_val_temp = $('.main_pp_select .label_selected').data("value");
-				parent_temp = $(xml)
-					.find('text pb:contains('+pp_val_temp+')')
-					.parent()
-					.attr("n");
-				if(!parent_temp){
-					$(".main_tt_select .label_selected").text("(Text)").attr("data-value", "(Text)");
-				} else
-					if(parent_temp !== tt_val_temp){
-						$(".main_tt_select .label_selected").text(cropLongTextLabel(parent_temp, 12)).attr("data-value", parent_temp);//.trigger("change");
-						$(".main_tt_select .label_selected").siblings(".option_container")
-							.find("[data-value='"+parent_temp.replace(/\s+/g, '')+"']")
-							.addClass("selected")
-							.siblings().removeClass('selected');
-					}
-			});
-			*/
-			/*$(".main_dd_select .label_selected").on('change',function(){
-				window.location.hash = $(this).data("value");
-			});
-			*/
-			/*$(".main_pp_select").on('txtimg_mode',function(){
-				var newhash = $(".main_dd_select .label_selected").data("value").match('.*(?=-)');
-				window.location.hash = newhash;
-			});
-			*/
+			/* Lanciato dal click sulla thumbnail */
+			/* Recupera l'identificativo della pagina di sx e di quella di dx dall'hash se impostato 
+			   (altrimenti dal selettore delle pagine singole)
+			   e aggiorna l'hash che poi provocherà il caricamento della nuova immagine */
 			$(".main_dd_select").on('imgd_thumb',function(){
 				var hash_parts, temp_pp, temp_tt, first_page, second_page, newhash;
 				var first_page_lab, second_page_lab, newlab;
@@ -311,34 +220,34 @@ $(function() {
 				hash_parts = location.hash.substr(1).split('&');
 				if ( hash_parts != "" ) {
 					for (var i = 0; i < hash_parts.length; i++) {
-					    if(hash_parts[i].indexOf("page") === 0) { //begins with "page"
+					    if(hash_parts[i].indexOf("page") === 0) {
 					        temp_pp = hash_parts[i].substr(5);
 					    }
-					    else if(hash_parts[i].indexOf("doc") === 0) { //begins with "filter"
+					    else if(hash_parts[i].indexOf("doc") === 0) {
 					     	temp_tt = hash_parts[i].substr(4);   
 					    }
 					}
 				} else {
-					temp_pp = $('.main_pp_select .option_container .option:first-child').data('value');
-					temp_tt = $('.main_pp_select .option_container .option:first-child').data('first-doc');
+					temp_pp = $('.main_pp_select .option_container .option:first-child').attr('data-value');
+					temp_tt = $('.main_pp_select .option_container .option:first-child').attr('data-first-doc');
 				}
 
-
+				// first page of bookreader
 				first_page = $(xml)
 					.find('pair:contains('+temp_pp+')')
 					.children()
 					.eq(0).text();
-				second_page = $(xml)
-					.find('pair:contains('+temp_pp+')')
-					.children()
-					.eq(1).text();
-
 				first_page_lab = $(xml)
 					.find('pair:contains('+temp_pp+')')
 					.children()
 					.eq(0).attr("n");
 				first_page_lab = first_page_lab != "" ? first_page_lab : first_page;
 
+				// second page of bookreader
+				second_page = $(xml)
+					.find('pair:contains('+temp_pp+')')
+					.children()
+					.eq(1).text();
 				second_page_lab = $(xml)
 					.find('pair:contains('+temp_pp+')')
 					.children()
@@ -355,38 +264,41 @@ $(function() {
 				$(".main_dd_select .label_selected")
 					.text(newlab)
 					.attr("data-value", newhash)
-					.attr("data-first-doc", temp_tt)
-					//.trigger('change')
-				;
+					.attr("data-first-doc", temp_tt);
+
 				window.location.hash = "doc="+temp_tt+"&page="+newhash;
 			});
-
+			
+			/* Lanciato sul click della modalità bookreader */
+			/* Recupera l'identificativo della pagina di sx e di quella di dx dal selettore delle pagine singole
+			   e aggiorna l'hash che poi provocherà il caricamento della nuova immagine */
 			$(".main_dd_select").on('imgd_mode',function(){
 				var temp_pp, temp_tt, first_page, second_page, newhash;
 				var first_page_lab, second_page_lab, newlab;
-				temp_pp = $(".main_pp_select .label_selected").data("value");
-				temp_tt = $(".main_pp_select .label_selected").data("first-doc");
+				temp_pp = $(".main_pp_select .label_selected").attr("data-value");
+				temp_tt = $(".main_pp_select .label_selected").attr("data-first-doc");
 
+				// first page of bookreader
 				first_page = $(xml)
 					.find('pair:contains('+temp_pp+')')
-					.children()
-					.eq(0).text();
+						.children()
+							.eq(0).text();
 				first_page_lab = $(xml)
 					.find('pair:contains('+temp_pp+')')
-					.children()
-					.eq(0).attr("n");
+						.children()
+							.eq(0).attr("n");
 				first_page_lab = first_page_lab != "" ? first_page_lab : first_page;
 				
+				// second page of bookreader
 				second_page = $(xml)
 					.find('pair:contains('+temp_pp+')')
-					.children()
-					.eq(1).text();
+						.children()
+							.eq(1).text();
 				second_page_lab = $(xml)
 					.find('pair:contains('+temp_pp+')')
-					.children()
-					.eq(1).attr("n");
+						.children()
+							.eq(1).attr("n");
 				second_page_lab = second_page_lab != "" ? second_page_lab : second_page;
-				//alert(first_page+"-"+second_page);
 				if (typeof(second_page_lab) == 'undefined'){
 					newhash = first_page;
 					second_page_lab = "(miss)";
@@ -399,40 +311,11 @@ $(function() {
 					.text(newlab)
 					.attr("data-value", newhash)
 					.attr("data-first-doc", temp_tt)
-					//.trigger('change')
-				;
-				window.location.hash = "doc="+temp_tt+"&page="+newhash;
-
+					.attr('data-last-hash-txtimg', location.hash.substr(1));;
+				updateHash(temp_tt, newhash);
 			});
 
-			/*$(".main_tt_select .label_selected").on('change',function(){
-				var tt_val_temp, first_page;
-				tt_val_temp = $(this).data('value');
-				first_page = $(xml)
-					.find('text[n="'+tt_val_temp+'"]')
-					.find(":first-child")
-					.text();
-				//alert(tt_val_temp);
-				//alert(first_page);
-
-				$('#prev_doc, #next_doc').removeClass('disabled');
-				if ($("#span_tt_select").find('.option.selected').prev().length == 0) {
-				    $('#prev_doc').addClass('disabled');
-				}
-				if ($("#span_tt_select").find('.option.selected').next().length == 0) {
-				    $('#next_doc').addClass('disabled');
-				}
-						// IT: Aggiorna l'indirizzo del frame del regesto
-          		if ($("#regesto_cont").length > 0){ 
-          			var regesto = $("#span_tt_select .option_container .option.selected").attr('id').substr(6);
-          			$('#regesto_cont').load("data/output_data/regesto/doc_"+regesto+".html #regesto", function(){
-          			    InitializePopup();
-          			});
-          		}
-				window.location.hash = first_page;
-				//$(".main_pp_select .label_selected").text(first_page).trigger("change");
-			}); */
-
+			/* Apertura option container dei selettori a tendina */
 			$(".open_select").click(function(){
 				if ( !$(this).parents('.like_select').hasClass('not_active') ){
 					if (!($(".option_container").is(':animated'))){
@@ -478,24 +361,24 @@ $(function() {
 					}
 				}
 			});
+
+			/* APERTURA TOOLTIP PAGE */
+			/* Recupera gli identificativi della pagina selezionata e del primo documento in essa contenuto. 
+			   Ricerca gli altri testi che iniziano sulla stessa pagina 
+			   e aggiorna il contenuto del tooltip con tale elenco. */
 			
-			/* SELECT PAGE */
-			/*
-				
-			*/
 			// #CDP - Aggiungere controllo per avere il tooltip solo se esiste almeno un caso di pagina con più doc sopra
 			$('<span/>')
 				.addClass('option_tooltip')
-				.prependTo('.main_pp_select');
-
+				.prependTo('.main_pp_select');			
+			
 			$(".main_pp_select .option_container .option").hover(function(e) {
 				var first_doc, pp_val, tt_val, temp_tt, docs;
+				
 				pp_val = $(this).attr('data-value');
 				tt_val = $(this).attr('data-first-doc');
 				first_doc = $("#span_tt_select .option_container .option[data-value='"+tt_val+"']").text();
 				docs = "";
-				//alert($(this).offset().top);
-				//alert(e.clientY);
 				$("#span_tt_select .option_container .option[data-first-page='"+pp_val+"']").each(function(){
 					if($(this).attr('data-value') != tt_val){
 						temp_tt = $(this).text();
@@ -516,17 +399,30 @@ $(function() {
 					.empty()
 					.hide();
 			});
+
+			/* SELECT PAGE */
+			/* Recupera gli identificativi (e la label) della pagina selezionata e del primo documento in essa contenuto.  
+			   Aggiorna l'hash che provoca il reload della pagina.
+			*/
 			$(".main_pp_select .option_container .option").click(function(){
 				if(! $(this).hasClass('selected')){
 					var new_pp_val, new_pp_lab, new_tt_val;
+					var current_tt_val, current_tt_first_page;
 					
-					new_pp_val = $(this).data('value'); // id pagina cliccata
+					new_pp_val = $(this).attr('data-value'); // id pagina cliccata
 					new_pp_lab = $(this).text(); 
-					new_tt_val = $(this).data('first-doc'); // primo documento contenuto.
+					new_tt_val = $(this).attr('data-first-doc'); // primo documento contenuto.
 					
-					updatePage(new_pp_val, new_pp_lab, new_tt_val);
-					updateHash(new_tt_val, new_pp_val, "");
-
+					/* Se il documento correntemente selezionato (current_tt_val) è contenuto nella pagina in questione, 
+				   	   aggiorno il contenuto testuale non con il primo documento della pagina, ma con quello corrispondente current_tt_val.
+				   	   Altrimenti aggiorno con il primo documento della pagina. */
+					current_tt_val = $(".main_tt_select .label_selected").attr("data-value"); 
+					current_tt_first_page = $(".main_tt_select .option_container .option.selected").attr('data-first-page');
+					if(current_tt_first_page === new_pp_val){
+						updateHash(current_tt_val, new_pp_val, "");
+					} else {
+						updateHash(new_tt_val, new_pp_val, "");
+					}
 					$(this).removeClass('selected');
 				}
 			});
@@ -540,10 +436,10 @@ $(function() {
 					var tt_val_temp, first_page;
 					
 					new_tt_opt = $(this);
-					new_tt_val = $(this).data('value');
-					new_tt_first_page = new_tt_opt.data('first-page');
+					new_tt_val = $(this).attr('data-value');
+					new_tt_first_page = new_tt_opt.attr('data-first-page');
 
-					current_pp_val = $('#span_pp_select .label_selected').data('value');
+					current_pp_val = $('#span_pp_select .label_selected').attr('data-value');
 					
 					/* Se la prima pagina del documento non è la corrente, 
 						aggiorno il contenuto del frame testuale con quello della pagina in qustione.
@@ -553,9 +449,7 @@ $(function() {
 						var new_tt_first_page_lab;
 						new_tt_first_page_lab = $("#span_pp_select .option_container ")
 													.find(".option[data-value='"+new_tt_first_page+"']").text();
-						updatePage(new_tt_first_page, new_tt_first_page_lab, new_tt_val);
 					} else {
-						updateDoc(new_tt_val, new_tt_first_page);
 						$("#text_cont .doc[data-doc!='"+new_tt_val+"']").hide();
 					}
 					updateHash(new_tt_val, new_tt_first_page, "");
@@ -574,8 +468,8 @@ $(function() {
 					var pp_val, ee_val;
     				var tt_val;
     				
-    				pp_val = $('#span_pp_select .label_selected').data('value');
-    				tt_val = $('#span_pp_select .label_selected').data('first-doc');
+    				pp_val = $('#span_pp_select .label_selected').attr('data-value');
+    				tt_val = $('#span_pp_select .label_selected').attr('data-first-doc');
     				ee_val = $(this).text().toLowerCase();
 
     				temp_frame = "";
@@ -654,7 +548,7 @@ $(function() {
     					} else {
     						other_ee_elem = $(other_ee_select).find('.option.selected').prev();
     					}
-    					other_ee_val = other_ee_elem.data('value').toLowerCase();
+    					other_ee_val = other_ee_elem.attr('data-value').toLowerCase();
     					other_ee_elem
     						.addClass('selected')
     						.siblings('.selected')
@@ -691,20 +585,21 @@ $(function() {
 			/* SELECT DOUBLE PAGE NAVIGATION */
 			$('.main_dd_select .option_container .option').click(function(){
 				var pp_val, pp_lab, tt_val, first_page_id;
-				pp_val = $(this).data('value');
-				tt_val = $(this).data('first-page-first-doc');
+				pp_val = $(this).attr('data-value');
+				tt_val = $(this).attr('data-first-page-first-doc');
 				pp_lab = $(this).text();
 				$('#span_dd_select .label_selected')
 					.attr("data-value", pp_val)
 					.attr("data-first-doc", tt_val)
+					.attr('data-last-hash-txtimg', '')
 					.text(pp_lab);
 				first_page_id = pp_val.split('-')[0];
-				$("#span_pp_select .option_container .option[data-value='"+first_page_id+"']").trigger('click');
-				window.location.hash = "doc="+tt_val+"&page="+pp_val // memorizzare anche il documento???
+				$("#span_pp_select .option_container .option[data-value='"+first_page_id+"']").trigger('click');				
+				updateHash(tt_val, pp_val, "");
 				$(this).removeClass('selected');
 			});
 
-
+			/* CLICK SU OPTION IN SELECT */
 			/* General event on click on ".option" in a ".filter" ".like_select" */
 			$(".like_select.filter .option_container .option").click(function(){
 				var classToBeActived, newLabel, newLabelVal, filtersActive;
@@ -760,14 +655,13 @@ $(function() {
 				if( (!$(this).hasClass('selected')) && (! $(this).parents('.like_select').hasClass('filter'))){
 					var option_sel_value, option_sel_label;
 
-					option_sel_value = $(this).data('value');
+					option_sel_value = $(this).attr('data-value');
 					option_sel_label = $(this).text();
 					$(this).parents('.like_select')
 								.find('.label_selected')
 									.attr('data-value', option_sel_value)
 									.text(option_sel_label);
 					
-					//alert($(this).parents('.option_container').prev().prev().attr("id_value"));
 					/*if ($(this).parents('.option_container').parent().attr("class") === "main_tt_select"){
 						newText = $(this).attr('title');
 						$(this).parents('.option_container').prev().prev().text(cropLongTextLabel(newText, 12)).attr("data-value", newText).trigger('change'); // .label_selected
@@ -794,7 +688,6 @@ $(function() {
 						    $(this).parents('.option_container').animate({height:"toggle"}, 400);
 						}
 					}
-					//$("#value_" + newPage).addClass("selected").siblings().removeClass('selected');
 				}
 			});
 			
@@ -826,31 +719,22 @@ $(function() {
 				}
 			});
 
-			$('.toggleReg').click(function(event) {
-				var regesto_cont;
-				$(this)
-					.toggleClass('active')
-					.find('.fa')
-						.toggleClass('fa-toggle-on')
-						.toggleClass('fa-toggle-off');
-				if ( $(this).attr('id') == "switchReg-add" ) {
-					regesto_cont = "#regesto_cont-add";
-				} else {
-					regesto_cont = "#regesto_cont";
-				}
-				toggleReg(regesto_cont);
-
-			});
-
-			/* THUMBNAILS */
+			/* CLICK SU THUMBNAILS */
 			$(".thumb_single").click(function(){
 				var tt_val, pp_val;
-
-				pp_val = $(this).data('value');
-				tt_val = $(this).data('first-doc');
-				window.location.hash = "doc="+tt_val+"&page="+pp_val;
-				$("#span_pp_select .option_container .option[data-value='"+pp_val+"']").trigger('click');
+				var current_tt_val, current_tt_first_page;
+				pp_val = $(this).attr('data-value');
+				tt_val = $(this).attr('data-first-doc');
 				
+				current_tt_val = $(".main_tt_select .label_selected").attr("data-value"); 
+				current_tt_first_page = $(".main_tt_select .option_container .option.selected").attr('data-first-page');
+				
+				if(current_tt_first_page === pp_val){
+					updateHash(current_tt_val, pp_val, "");
+				} else {
+					updateHash(tt_val, pp_val, "");
+				}
+
 				if ( ! magnifierON ){
 					$("#image_elem").show();
 					$("#image_fade").show();
@@ -858,11 +742,11 @@ $(function() {
 					if ($("#imgd_link").attr("class") === "current_mode"){
 						$(".main_dd_select").trigger("imgd_thumb");
 					}
-
 					$(".thumb_link").trigger('click');
 				}
 			});	
-			/* / Gestione eventi */
+			
+			/* Fine Gestione eventi */
 
 
 			/* HASH CHANGE - ba.bbq plugin */
@@ -887,8 +771,8 @@ $(function() {
 						    }
 						}
 					} else {
-						current_page = $('.main_pp_select .option_container .option:first-child').data('value');
-						current_doc = $('.main_pp_select .option_container .option:first-child').data('first-doc');
+						current_page = $('.main_pp_select .option_container .option:first-child').attr('data-value');
+						current_doc = $('.main_pp_select .option_container .option:first-child').attr('data-first-doc');
 					}
 
 					if ($("#regesto_cont").length > 0){ 
@@ -986,7 +870,9 @@ $(function() {
 		}
 	});
 
+	
 
+	/* Funzioni */
 	//---
 	
 	// IT: Imposta l'etichetta dell'edizione, al primo caricamento della index
@@ -996,8 +882,14 @@ $(function() {
 		window.location.hash = "doc="+tt_val+"&page="+pp_val;
 	}
 
+	/* Selezione pagina:
+	   – aggiornamento della label del selettore delle pagine singole e selezione della option corrispondente
+	   - aggiornamento della label del selettore delle pagine doppie e selezione della option corrispondente
+	   - aggiunta della classe "inPage" alle option dei documenti contenuti nella pagina selezionata
+	 */
 	function selectPP(current_page, pp_lab, tt_val){
 		var dd_opt, dd_val, dd_lab, dd_first_doc;
+		
 		$('#span_pp_select .label_selected')
 			.attr('data-value', current_page)
 			.attr('data-first-doc', tt_val)
@@ -1007,14 +899,15 @@ $(function() {
 			.addClass('selected')
 				.siblings('.selected')
 					.removeClass('selected');
+		
 		dd_opt = $('#span_dd_select .option_container .option:contains("'+pp_lab+'")');
 		dd_opt
 			.addClass('selected')
 				.siblings('.selected')
 					.removeClass('selected');
-		dd_val = dd_opt.data('value');
+		dd_val = dd_opt.attr('data-value');
 		dd_lab = dd_opt.text();
-		dd_first_doc = dd_opt.data('first-page-first-doc');
+		dd_first_doc = tt_val;
 
 		$('#span_dd_select .label_selected')
 			.attr('data-value', dd_val)
@@ -1031,21 +924,14 @@ $(function() {
 		if ($('.inPage').length > 1) {
 			var actual_label = $('.main_tt_select .label_selected').text();
 			$('.main_tt_select .label_selected').text(actual_label + " *");
-			/* Animazione forse un po' troppo sfarfallante e invasiva
-			$('.main_tt_select').animate({
-				'background-color': '#362D28',
-				'color': '#fff'
-			},
-			'50',
-			function() {
-				$(this).animate({
-					'background-color':'#F5EAD4',
-					'color': '#000'
-				}, '50');
-			});*/
 		} 
 	}
+
+	/* Selezione documento: 
+	   - aggiornamento della label del selettore dei documenti
+	*/
 	function selectTT(current_doc){
+		//alert(current_doc);
 		$('#span_tt_select .label_selected')
 			.attr('data-value', current_doc)
 			.text(current_doc);
@@ -1063,6 +949,8 @@ $(function() {
 			$('.main_tt_select .label_selected').text(actual_label + " *");
 		}
 	}
+
+	/* Inizializzazione Popup (note inline, dettagli elementi liste, ...) */
 	function InitializePopup(){
 		//alert('pop');
         $('.popup').hover(function(e){
@@ -1126,7 +1014,7 @@ $(function() {
 	     			//alert( $(this).find('> .tooltip').width() );
 	     			//alert( $('#text').position().left );
 	     			$(this).find('> .tooltip').css({
-	     				'right': $('#text').position().left
+	     				'margin-right': $('#text').position().left
 	     			});
 	     			x = x - ($('#text').position().left+10);
 	     		}
@@ -1149,9 +1037,9 @@ $(function() {
 
 	     		$(this).find('> .tooltip .before').offset({ left: (e.clientX) });
 	        	$(this).focus(); 	
-	        	if ( $(this).find('> .tooltip').width() > 200 ){
+	        	/*if ( $(this).find('> .tooltip').width() > 200 ){
      				$(this).find('> .tooltip').css('width', "250px");
-     			}
+     			}*/
 	         	return false;
 	        }
        	});
@@ -1179,59 +1067,6 @@ $(function() {
          $(this).find('> .tooltip').hide();
        });*/
     }
-	/* Funzioni */
-	function updatePage(new_pp_val, new_pp_lab, new_tt_val){
-		var current_tt_val;
-		selectPP(new_pp_val, new_pp_lab, new_tt_val);
-		// #CDP. Aggiungere scroll pp select al valore selezionato
-
-		/* Finché non viene specificato il documento, 
-		al cambio pagina verrà visualizzato il contenuto del primo documento  che compare in essa. */
-		
-		// update hash [nel caso di salvataggio filtri dovrò prima salvarli e poi attaccarli in coda a questo hash]
-		// var current_hash = getCurrentHash(); --> array con valori correnti di hash
-		
-		current_tt_val = $(".main_tt_select .label_selected").attr("data-value"); // memorizzo il valore del testo selezionato al momento
-		// pp_val_temp = $(this).attr("data-value"); 
-		// parent_temp = $(this).attr("data-first-doc");
-
-		/* se esiste una option della select dei testi con value uguale a quello della pp selezionata, 
-		   la seleziono, deselezionando quelle al momento selezionate. 
-		   Altrimenti cambio la label della select del testo in "(Text)" deselezionando tutte le option della select dei testi. */
-		if (! $(".main_tt_select .option_container .option[data-value='"+new_tt_val+"']")) {
-			$(".main_tt_select .label_selected").text("(Text)").attr("data-value", "(Text)");
-			$(".main_tt_select .option_container .option").removeClass('selected');
-		} 
-		else {
-			if(current_tt_val !== new_tt_val){
-				updateDoc(new_tt_val, new_pp_val);
-			}
-		}
-		//gotopage(new_pp_val, new_pp_lab, "none");
-	}
-	function updateDoc(tt_val, first_page_tt){
-		// #CDP. Mettere qui update hash?!
-		selectTT(tt_val);
-		// #CDP. Aggiungere scroll tt select al valore selezionato
-
-		// Update Navigation Doc arrows
-		$('#prev_doc, #next_doc').removeClass('disabled');
-		if ($("#span_tt_select").find('.option.selected').attr('data-value') == first_page_tt ) {
-		    $('#prev_doc').addClass('disabled');
-		}
-		if ($("#span_tt_select").find('.option.selected').next('.option').length == 0) {
-		    $('#next_doc').addClass('disabled');
-		}
-
-		// Update regesto
-		if ($("#regesto_cont").length > 0){ 
-  			$('#regesto_cont').load("data/output_data/regesto/doc_"+tt_val+".html #regesto");
-  		}
-  		// Update regesto
-		if ($("#regesto_cont-add").length > 0){ 
-  			$('#regesto_cont-add').load("data/output_data/regesto/doc_"+tt_val+".html #regesto");
-  		}
-	}
 
 	// IT: Gestisce il cambio pagina e gli eventi correlati
 	function gotopage(pp_val, pp_lab, state){
@@ -1268,7 +1103,7 @@ $(function() {
 			     else $('#switchHS').addClass('likeInactive');
 			}
 			InitializePopup();
-			var current_tt = $('#span_tt_select .option_container .option.selected').data('value');
+			var current_tt = $('#span_tt_select .option_container .option.selected').attr('data-value');
 			$("#text_cont .doc[data-doc!='"+current_tt+"']").hide();
 
 			$("img").error(function () {
@@ -1330,7 +1165,7 @@ $(function() {
 	// IT: Gestisce il cambio edizione nel frame testuale
 	function gotoedition(pp_val, ee_val, pp_el, frame_id){
 		var tt_val;
-		tt_val = $('#span_tt_select .label_selected').data('value');
+		tt_val = $('#span_tt_select .label_selected').attr('data-value');
 		if (ITLon === true){
 			UnInitialize(true);
 		} //Add by JK for ITL
@@ -1386,10 +1221,11 @@ $(function() {
 		});
 	}
     
+    /* Navigazione per documento */
     function navDoc(toward){
         var current_tt, new_tt, current_pp, new_pp;
         current_tt = $('#span_tt_select').find('.option.selected');
-        current_pp = $('#span_pp_select').find('.option.selected').data('value');
+        current_pp = $('#span_pp_select').find('.option.selected').attr('data-value');
 
         if (toward === "left") {
             new_tt = current_tt.prev();
@@ -1397,7 +1233,7 @@ $(function() {
             new_tt = current_tt.next();
         }
 
-		new_pp = new_tt.data('first-page');
+		new_pp = new_tt.attr('data-first-page');
         new_tt.trigger('click');
         if (new_tt.prev().length <= 0) {
         	$('#prev_doc, #prev_doc-add').addClass('disabled');
@@ -1412,11 +1248,12 @@ $(function() {
         }
     }
 
+    /* Apertura/chiusura regesto */
     function toggleReg(regesto_cont){
     	if ($(regesto_cont).is(":visible")) {
 			$(regesto_cont).hide('drop',  {direction: 'up'}, 'linear', function(){
 				var ee_val;
-				ee_val = $(regesto_cont).parents("div[id*='frame']").find('.main_ee_select .label_selected').data('value');
+				ee_val = $(regesto_cont).parents("div[id*='frame']").find('.main_ee_select .label_selected').attr('data-value');
 				if ( ee_val.toLowerCase() != 'diplomatic' ) {
 					$(regesto_cont)
 						.parents("div[id*='frame']")
@@ -1437,85 +1274,56 @@ $(function() {
 		}
     }
 
+    /* Navigazione per pagine */
 	function arrow(toward){ //duplicata temporaneamente in jquery.rafmas-keydown
 		var d_page, l_page;
 		var current_pp, current_opt;
 		var new_pp_opt;
 		var new_pp_val, new_pp_lab, new_tt_val;
+		var current_tt_val, current_tt_first_page;
 
 		if ($("#imgd_link").attr("class") !== "current_mode"){
 			current_opt = $('.main_pp_select .option_container .option.selected');
-			current_pp = current_opt.data("value")
+			current_pp = current_opt.attr("data-value")
 			if (toward === "left" && ! $(current_opt).is(":first-child")){
 				new_pp_opt = $('.main_pp_select .option_container .option.selected').prev();
-				/* se pagine sono raggruppate per testo
-				if($('.main_pp_select .option_container .option.selected').prev().data("value")!=undefined){
-					window.location.hash = $('.main_pp_select .option_container .option.selected').prev().data("value");
-				} else if($('.main_pp_select .option_container .option.selected').parent().prev()){
-				    window.location.hash = $('.main_pp_select .option_container .option.selected').parent().prev().find('.option:last').data("value");
-				}*/
 			}
 			if (toward === "right" && ! $(current_opt).is(":last-child")){
 				new_pp_opt = $('.main_pp_select .option_container .option.selected').next();
-				/* se pagine sono raggruppate per testo
-				if($('.main_pp_select .option_container .option.selected').next().data("value")!==undefined){
-					window.location.hash = $('.main_pp_select .option_container .option.selected').next().data("value");
-				} else if($('.main_pp_select .option_container .option.selected').parent().next()){
-				    window.location.hash = $('.main_pp_select .option_container .option.selected').parent().next().find('.option:first').data("value");
-				}*/
 			}
-			new_tt_val = new_pp_opt.data('first-doc'); // primo documento contenuto.
+			new_tt_val = new_pp_opt.attr('data-first-doc'); // primo documento contenuto.
 		} else {
+			$('#span_dd_select .label_selected').attr('data-last-hash-txtimg', '');
 			current_opt = $('.main_dd_select .option_container .option.selected');
-			current_pp = current_opt.data('value');
+			current_pp = current_opt.attr('data-value');
 			if (toward === "left" && ! $(current_opt).is(":first-child")){
 				new_pp_opt = $('.main_dd_select .option_container .option.selected').prev();
-				/* Se le pagine sono raggruppate per testo
-				if($('.main_dd_select .option_container .option.selected').prev().data("value")!=undefined){
-					d_page = $('.main_dd_select .option_container .option.selected').prev().data("value");
-					l_page = $('.main_dd_select .option_container .option.selected').prev().text();
-					$(".main_dd_select .label_selected").text(l_page).attr("data-value", d_page).trigger("change");
-					//window.location.hash = $('.main_dd_select .option_container .option.selected').prev().attr("id").substr(6);
-				} else {
-				    d_page = $('.main_dd_select .option_container .option.selected').parent().prev().find('.option:last').data("value");
-					l_page = $('.main_dd_select .option_container .option.selected').parent().prev().find('.option:last').text();
-					$(".main_dd_select .label_selected").text(l_page).attr("data-value", d_page).trigger("change");
-				    //window.location.hash = $('.main_pp_select .option_container .option.selected').parent().prev().find('.option:last').attr("id").substr(6);
-				}*/
 			}
 			if (toward === "right" && ! $(current_opt).is(":last-child")){
 				new_pp_opt = $('.main_dd_select .option_container .option.selected').next();
-				/* Se le pagine sono raggruppate per testo
-				if($('.main_dd_select .option_container .option.selected').next().attr("id")!=undefined){
-					d_page = $('.main_dd_select .option_container .option.selected').next().data("value");
-					l_page = $('.main_dd_select .option_container .option.selected').next().text();
-					$(".main_dd_select .label_selected").text(l_page).attr("data-value", d_page).trigger("change");
-					//window.location.hash = $('.main_dd_select .option_container .option.selected').next().attr("id").substr(6);
-				} else {
-				    d_page = $('.main_dd_select .option_container .option.selected').parent().next().find('.option:first').data("value");
-					l_page = $('.main_dd_select .option_container .option.selected').parent().next().find('.option:first').text();
-					$(".main_dd_select .label_selected").text(l_page).attr("data-value", d_page).trigger("change");
-				    //window.location.hash = $('.main_pp_select .option_container .option.selected').parent().next().find('.option:first').attr("id").substr(6);
-				}*/
 			}
-			new_tt_val = new_pp_opt.data('first-page-first-doc'); // primo documento contenuto.	
+			new_tt_val = new_pp_opt.attr('data-first-page-first-doc'); // primo documento contenuto.	
 		}
 					
-		new_pp_val = new_pp_opt.data('value'); // id pagina cliccata
+		new_pp_val = new_pp_opt.attr('data-value'); // id pagina cliccata
 		new_pp_lab = new_pp_opt.text(); 
 		
-
-		//updatePage(new_pp_val, new_pp_lab, new_tt_val);
-		updateHash(new_tt_val, new_pp_val, "");
+		current_tt_val = $(".main_tt_select .label_selected").attr("data-value"); 
+		current_tt_first_page = $(".main_tt_select .option_container .option.selected").attr('data-first-page');
+		if(current_tt_first_page === new_pp_val){
+			updateHash(current_tt_val, new_pp_val, "");
+		} else {
+			updateHash(new_tt_val, new_pp_val, "");
+		}
 	}
 
 	// Simulazione trigger di un evento "click" su option per gestire gli scambi dei livelli di edizione
 	function selectOther(other_to_select, other_ee_select, page, doc, other_frame){
-		gotoedition(page, doc, other_to_select.data('value').toLowerCase(), other_frame);
+		gotoedition(page, doc, other_to_select.attr('data-value').toLowerCase(), other_frame);
     	other_to_select.addClass('selected')
     						.siblings('.option').removeClass('selected');
     	other_ee_select.find('.label_selected')
-    						.attr('data-value', other_to_select.data('value').toLowerCase())
+    						.attr('data-value', other_to_select.attr('data-value').toLowerCase())
     						.text(other_to_select.text());
 	}
 
@@ -1933,12 +1741,46 @@ $(function() {
 		}
 	});
 	
+	/* APRI/CHIUDI REGESTO */
+	$('.toggleReg').click(function(event) {
+		var regesto_cont;
+		$(this)
+			.toggleClass('active')
+			.find('.fa')
+				.toggleClass('fa-toggle-on')
+				.toggleClass('fa-toggle-off');
+		if ( $(this).attr('id') == "switchReg-add" ) {
+			regesto_cont = "#regesto_cont-add";
+		} else {
+			regesto_cont = "#regesto_cont";
+		}
+		toggleReg(regesto_cont);
+
+	});
+
 	// MODE -
 	$("#txtimg_link").click(function(){
 		if($(this).attr("class") !== "current_mode"){
 			
-			updateHash($('#span_pp_select .label_selected').attr('data-first-doc'), 
+			if ( $("#span_dd_select .label_selected").attr('data-last-hash-txtimg') != "" ) {
+				var hash_parts, temp_pp, temp_tt; 
+				hash_parts = new Array();
+				hash_parts = $("#span_dd_select .label_selected").attr('data-last-hash-txtimg').split('&');
+				if ( hash_parts != "" ) {
+					for (var i = 0; i < hash_parts.length; i++) {
+					    if(hash_parts[i].indexOf("page") === 0) {
+					        temp_pp = hash_parts[i].substr(5);
+					    }
+					    else if(hash_parts[i].indexOf("doc") === 0) {
+					     	temp_tt = hash_parts[i].substr(4);   
+					    }
+					}
+				}
+				updateHash(temp_tt, temp_pp);
+			} else {
+				updateHash($('#span_tt_select .label_selected').attr('data-value'), 
 					   $('#span_pp_select .label_selected').attr('data-value'), "");
+			}
 
 			$("#txtimg_link")
 				.addClass("current_mode")
@@ -2041,7 +1883,7 @@ $(function() {
 			UnInitialize();//Add by JK for ITL
 			UnInitializeHS();//Add by JK for HS
 			
-			updateHash($('#span_pp_select .label_selected').data('first-doc'), $('#span_pp_select .label_selected').data('value'), "");
+			updateHash($('#span_pp_select .label_selected').attr('data-first-doc'), $('#span_pp_select .label_selected').attr('data-value'), "");
 			
 			$("#txttxt_link").addClass("current_mode").siblings().removeClass("current_mode");
 			//$("#imgd_link").removeClass("current_mode");
@@ -2155,8 +1997,6 @@ $(function() {
 		if($(this).attr("class") !== "current_mode"){
 			UnInitialize(); //Add by JK for ITL
 			UnInitializeHS(); //Add by JK for HS
-			
-			$('#span_dd_select .label_selected').trigger('change');
 			
 			$("#imgd_link").addClass("current_mode").siblings().removeClass("current_mode");
 			//$("#txtimg_link").removeClass("current_mode");
