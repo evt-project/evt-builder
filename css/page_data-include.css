@@ -446,12 +446,6 @@ span.popup:hover span.trigger span.tooltip, span.popup:hover span.trigger span.i
     margin-right:5px;
 }
 
-span.text_note:before {
-	content: url("../images/popup_before.png");
-	left: 10px;
-	position: absolute;
-	top: -13px; 
-}
 span.inline_note{
     display:inline-block;
 }

@@ -28,9 +28,9 @@ $( function() {
 		}
 	} else {
 		if ($('.current_mode').attr('id') == 'imgd_link'){
-			current_pp = $('.main_dd_select .option_container .option:first-child').data('value');
+			current_pp = $('.main_dd_select .option_container .option:first-child').attr('data-value');
 		} else {
-			current_pp = $('.main_pp_select .option_container .option:first-child').data('value');
+			current_pp = $('.main_pp_select .option_container .option:first-child').attr('data-value');
 		}
 	}
 	 var cpns="data/input_data/images/single/"+current_pp+".jpg";
