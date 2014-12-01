@@ -65,7 +65,7 @@ $(function() {
 				);
 			});
 			
-			if($(xml).find('editions edition').length <= 1){
+			if( $(xml).find('editions edition').length <= 1 && $(xml).find('regesto').length < 1){
 				$('#txttxt_link').remove();
 				$('div.concave, div.extTop').css('width', '200px');
 				$('div.botleftconcave').css('width', '176px');
@@ -1397,7 +1397,7 @@ $(function() {
 			$('span_list_select-add').addClass('widthChanged');
 		}
 		if ( $(elem).find('.option_tooltip').length > 0 ){
-			$(elem).find('.option_tooltip').css('left', widthOpt+16);
+			$(elem).find('.option_tooltip').css('right', widthOpt+16);
 		}
 	}
 
@@ -1762,7 +1762,8 @@ $(function() {
 	$("#txtimg_link").click(function(){
 		if($(this).attr("class") !== "current_mode"){
 			
-			if ( $("#span_dd_select .label_selected").attr('data-last-hash-txtimg') != "" ) {
+			if ( $("#span_dd_select .label_selected").attr('data-last-hash-txtimg') != null && 
+				 $("#span_dd_select .label_selected").attr('data-last-hash-txtimg') != "" ) {
 				var hash_parts, temp_pp, temp_tt; 
 				hash_parts = new Array();
 				hash_parts = $("#span_dd_select .label_selected").attr('data-last-hash-txtimg').split('&');
@@ -1800,7 +1801,6 @@ $(function() {
 			$("#span_dd_select").hide();
 			
 			$('#span_pp_select').show();
-			$('#span_pp_select').css("top", "-7px"); // #CDP. Rimuovere e gestire con css
 
 			$("#main_right_frame").show();
 			$("#main_left_frame").animate({
