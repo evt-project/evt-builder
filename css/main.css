@@ -958,7 +958,7 @@ footer{
 	top:-7px;
 }
 #left_header #image_menu{
-	top: -7px;
+	#top: -7px;
 	position: relative;
 }
 #left_header #image_menu .iconButtons{
@@ -981,7 +981,7 @@ footer{
 
 #left_header #span_pp_select, #left_header #span_dd_select{
 	display: inline-block;
-	top: -7px;
+	#top: -7px;
 }
 #span_ee_select-add{
 	top: 0px;
@@ -1109,7 +1109,7 @@ footer{
 	top: 55px;
 	z-index: 999;
 	font-size: 0.9em;
-	box-shadow: 2px 1px 4px rgba(0,0,0,0.7);
+	box-shadow: -2px 1px 4px rgba(0,0,0,0.7);
 	opacity: .8;
 }
 .option.selected:hover{

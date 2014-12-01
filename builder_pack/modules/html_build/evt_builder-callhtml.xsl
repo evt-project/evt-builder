@@ -227,6 +227,26 @@
 								<header id="left_header">
 									<i class="fa fa-times-circle closeFullScreen" id="closeFullScreenLeft"></i>
 									<div id="left_menu">
+										<xsl:if test="$image_frame=true()">
+											<div id="image_menu">
+												<span class="imageTopTool mainButtons" id="switchMag" value="mag" onclick="magOn()" title="Magnifying lens">
+													<span>Magnifier</span>
+													<i class="fa fa-search"></i>
+												</span>
+												<span class="imageTopTool mainButtons" id="switchHS" value="HS" title="Hot spot" onclick="switchHS()">
+													<span>HotSpot</span>
+													<i class="fa fa-circle-o"></i>
+												</span>
+												<span class="imageTopTool mainButtons" id="switchITL" value="turn ITL on" title="Image-Text link" onclick="switchIMT()">
+													<span>TextLink</span>
+													<i class="fa fa-chain-broken"></i>
+												</span>
+												<span class="imageTopTool mainButtons thumb_link" id="thumb_elem" value="th" title="Thumbnails">
+													<span>Thumbs</span>
+													<i class="fa fa-th"></i>
+												</span>
+											</div>
+										</xsl:if>
 										<span id="span_pp_select" class="like_select" title="Folio">
 											<xsl:call-template name="div_select_build">
 												<xsl:with-param name="html_div_class"
@@ -257,25 +277,6 @@
 													<i class="fa fa-toggle-off"></i>
 												</span>
 											</xsl:if>
-										</xsl:if>
-										<xsl:if test="$image_frame=true()">
-											<div id="image_menu">
-												<span class="imageTopTool mainButtons" id="switchMag" value="mag" onclick="magOn()" title="Magnifying lens">
-													<span>Magnifier</span>
-													<i class="fa fa-search"></i>
-												</span>
-												<span class="imageTopTool mainButtons" id="switchHS" value="HS" title="Hot spot" onclick="switchHS()">
-													<span>HotSpot</span>
-													<i class="fa fa-circle-o"></i>
-												</span>
-												<span class="imageTopTool mainButtons" id="switchITL" value="turn ITL on" title="Image-Text link" onclick="switchIMT()">
-													<span>TextLink</span>
-													<i class="fa fa-chain-broken"></i>
-												</span>
-												<span id="thumb_elem" class="iconButtons" title="Thumbnails">
-													<a href="javascript:void(0);" class="thumb_link"><i class="fa fa-th"></i></a>
-												</span>
-											</div>
 										</xsl:if>
 										<!--<input type="image" src="images/zoom.png" id="switchZoom" class="top_image_tools" value="zoom" onclick="zoomOn()"/>-->
 										<!--<input type="image" src="images/magOff.png" id="switchMag" class="top_image_tools" value="mag" onclick="magOn()"/>-->
