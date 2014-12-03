@@ -903,6 +903,7 @@ $(function() {
 	   				$(regesto_cont).find('.showHide_regesto').css('top', '0px');
 	   				$(regesto).hide();
 	   			});
+	   		$('.like_select.filter').css('opacity', '1').removeClass('not_active'); ;
 		} else {
 			old_height = $(regesto_cont).attr('data-old-height');
 			$(regesto_cont)
@@ -918,6 +919,7 @@ $(function() {
 		   		});
 		   	$(regesto).show();
 			$(regesto_cont).scrollTop(0);
+			$('.like_select.filter').css('opacity', '.5').addClass('not_active'); ;
 		}
 	}
 
@@ -1013,7 +1015,6 @@ $(function() {
        	});
         
         $('.popup').click(function(e){
-        	
         	//alert('click');
         	e.stopPropagation();
 
@@ -1044,7 +1045,17 @@ $(function() {
 	     			.find('> .tooltip')
 	     				.addClass('opened')
 	     				.show();
-
+				
+				var triggerHeight, triggerTop, triggerLeft, triggerWidth;
+				triggerHeight = $(this).find('.trigger').css('font-size').substr(0,2)*1+1;
+				
+				triggerTop = $(this).find('.trigger').offset().top;
+				triggerLeft = $(this).find('.trigger').position().left;
+				triggerWidth = $(this).find('.trigger').width();
+				
+				var tooltipTop = $(this).find('> .tooltip').offset().top;
+				//$(this).find('> .tooltip').offset({ top: tooltipTop+triggerHeight });
+	     		//$(this).find('> .tooltip').show();
 	     		var x = e.clientX;
 		    	var y = e.clientY;
 	     		/*var tooltip_right = $(this).find('> .tooltip').offset().left + $(this).find('> .tooltip').width();
@@ -1055,7 +1066,61 @@ $(function() {
 	     		if(s < $('#text').position().left){
 	     			x = x - (container_right - tooltip_right);
 	     		}*/
-	     		if(x + 250 > $('#central_wrapper').width()){
+	     		var tooltipRealWidth, tooltipRealHeight;
+	     		$(this).find('> .tooltip').css('position', 'relative');	
+	     		tooltipRealWidth = $(this).find('> .tooltip').width();
+	     		if( tooltipRealWidth > 200 ){
+	     			$(this).find('> .tooltip').css({
+	     				'width': '200px',
+	     				'max-width': '200px'
+	     			});
+	     		} 
+	     		$(this).find('> .tooltip').css({
+	     				'position': 'absolute'
+	     		});
+	     		tooltipRealWidth = $(this).find('> .tooltip').width();
+	     		tooltipRealHeight = $(this).find('> .tooltip').height();
+
+	     		var containerWidth = $('#text').width();
+	     		var tooltipLeft = $(this).find('.tooltip').position().left;
+	     		var marginRightText = $('#text').position().left;
+	     		if (tooltipLeft + tooltipRealWidth > containerWidth){
+	     			$(this).find('> .tooltip').css({
+	     				'right': marginRightText+"px"
+	     			});
+	     		}
+	     		tooltipRealWidth = $(this).find('> .tooltip').width();	
+	     		if( tooltipRealWidth > 170 ){
+	     			$(this).find('> .tooltip').css({
+	     				'width': '200px',
+	     				'max-width': '200px'
+	     			});
+	     		} 
+	     		$(this).find('> .tooltip').css({
+	     				'position': 'absolute'
+	     		});
+	     		tooltipRealWidth = $(this).find('> .tooltip').width();
+	     		var left = x - (tooltipRealWidth/2);
+	     		$(this).find('> .tooltip')
+     					.offset({
+     						//top: triggerTop+triggerHeight+10,
+     						top: y+20,
+     						left: left
+     					});
+     			var tooltipNewLeft = $(this).find('> .tooltip').position().left;
+     			
+     			if( tooltipNewLeft + tooltipRealWidth > containerWidth ) {
+     				var diff = (tooltipNewLeft + tooltipRealWidth) - containerWidth;
+     				//var newLeft = $(this).find('> .tooltip').offset().left - diff + marginRightText;
+     				var newLeft = left - diff + marginRightText;
+     				$(this).find('> .tooltip')
+     					.offset({
+     						left: newLeft
+     					});
+     			}	
+	     		//alert(tooltipRealHeight + " x " + tooltipRealWidth);
+
+	     		/*if( x + 250 > $('#central_wrapper').width() ){
 	     			//x = ($('#central_wrapper').width() - $(this).find('> .tooltip').width() - $('#text').position().left);
 	     			//alert( $(this).find('> .tooltip').width() );
 	     			//alert( $('#text').position().left );
@@ -1063,9 +1128,9 @@ $(function() {
 	     				'margin-right': $('#text').position().left
 	     			});
 	     			x = x - ($('#text').position().left+10);
-	     		}
+	     		}*/
 	     		
-	     		if ( y > $('#text_tool').offset().top-100 ){
+	     		/*if ( y > $('#text_tool').offset().top-100 ){
 	     			var p = $(window).height() - y + 15;
 	     			$(this).find('> .tooltip').offset({ left: x-10 }).css('bottom', p+"px");
 	     			var height_tooltip = $('.tooltip:visible').offset().top + $('.tooltip:visible').height()+6;
@@ -1079,7 +1144,7 @@ $(function() {
 	     					});
 	     		} else {
 	     			$(this).find('> .tooltip').offset({ left: x-10, top: y+20 });
-	     		}
+	     		}*/
 
 	     		$(this).find('> .tooltip .before').offset({ left: (e.clientX) });
 	        	$(this).focus(); 	
