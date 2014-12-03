@@ -31,7 +31,7 @@ hr {
 	visibility: hidden;
 	margin-bottom: -1px; }
 
-#text_frame, #regesto, #regesto-add {
+#text_frame{
 	background: white;
 	margin-top: -30px;
 	max-width: 600px;
@@ -39,8 +39,18 @@ hr {
 	margin: 10px auto;
 	text-align: left;
 	line-height: 28px;
-	font-size: 19px; }
+	font-size: 19px;
+}
 
+#regesto, #regesto-add {
+	padding-left: 0px;
+	margin-top: -30px;
+	max-width: 600px;
+	margin: 10px auto;
+	text-align: left;
+	line-height: 28px;
+	font-size: 19px;
+}
 .right {
 	position: absolute;
 	float: right; }

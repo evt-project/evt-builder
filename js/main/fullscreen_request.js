@@ -46,7 +46,7 @@
     }
 	
 	var viewFullScreenII = document.getElementById("view-fullscreenII");
-    if (viewFullScreenII) {
+    if (viewFullScreenII != null) {
         viewFullScreenII.addEventListener("click", function () {
 			if(viewFullScreenII.title=="Fullscreen"){
 				var docElm = document.documentElement;
@@ -80,21 +80,22 @@
 	document.addEventListener("mozfullscreenchange", function(e) {
 		if(viewFullScreen.title=="Fullscreen"){
 			viewFullScreen.title="close";
-			viewFullScreenII.title="close";
+			if (viewFullScreenII != null) viewFullScreenII.title="close";
 			return false;
 		}
 		if(viewFullScreen.title=="close")
 			viewFullScreen.title="Fullscreen";	
-			viewFullScreenII.title="Fullscreen";	
+			if (viewFullScreenII != null) viewFullScreenII.title="Fullscreen";	
 	},false);
 	document.addEventListener("webkitfullscreenchange", function(e) {
 		if(viewFullScreen.title=="Fullscreen"){
 			viewFullScreen.title="close";
-			viewFullScreenII.title="close";
+			if (viewFullScreenII != null) viewFullScreenII.title="close";
 			return false;
 		}
 		if(viewFullScreen.title=="close")
 			viewFullScreen.title="Fullscreen";	
-			viewFullScreenII.title="Fullscreen";	},false);
+			if (viewFullScreenII != null) viewFullScreenII.title="Fullscreen";	
+		},false);
 
 })();

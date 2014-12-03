@@ -777,6 +777,17 @@ $(function() {
 
 					if ($("#regesto_cont").length > 0){ 
           				$('#regesto_cont').load("data/output_data/regesto/doc_"+current_doc+".html #regesto", function(){
+          			    	$('<div />')
+          			    		.attr('id', "showHide_regesto")
+          			    		.addClass('showHide_regesto')
+          			    		.append("<i class='fa fa-chevron-down'></i></div>")	
+          			    		.click(function(){showHide_regesto("#regesto_cont", "#regesto");})
+          			    		.appendTo('#regesto_cont');
+
+          			    	if($("#regesto_cont").hasClass('hidden')){
+          			    		$('#showHide_regesto').css('top', '0px');
+	   							$("#regesto").hide();
+          			    	}
           			    	if ( ($('#span_ee_select .label_selected').attr('data-value') != 'diplomatic') &&
           			    		 (!$('#switchReg').hasClass('active')) ){
           			    		$("#main_right_frame").find('.like_select.filter')
@@ -797,7 +808,7 @@ $(function() {
 									.css('opacity', "0.5")
 									.addClass('not_active'); 
           			    	}
-          			    		
+
           				});
           			}
 
@@ -875,6 +886,41 @@ $(function() {
 	/* Funzioni */
 	//---
 	
+	function showHide_regesto(regesto_cont, regesto){
+		var old_height;
+		if (!$(regesto_cont).hasClass('hidden')) {
+			old_height = $(regesto_cont).height();
+			
+			$(regesto_cont).css('overflow', 'visible');
+			$(regesto_cont)
+				.attr('data-old-height', old_height)
+				.addClass('hidden')
+				.animate({
+			       	'top': '0px',
+			       	'min-height': '0px',
+			       	'height':"0px"
+			   	}, 400, function(){
+	   				$(regesto_cont).find('.showHide_regesto').css('top', '0px');
+	   				$(regesto).hide();
+	   			});
+		} else {
+			old_height = $(regesto_cont).attr('data-old-height');
+			$(regesto_cont)
+				.attr('data-old-height', '')
+				.removeClass('hidden')
+				.animate({
+		       		'top': '0px',
+		       		'min-height': '436.1px',
+		       		'height': old_height+"px"
+		   		}, 400, function(){
+		   			$(regesto_cont).removeAttr('style');
+		   			$(regesto_cont).find('.showHide_regesto').removeAttr('style');
+		   		});
+		   	$(regesto).show();
+			$(regesto_cont).scrollTop(0);
+		}
+	}
+
 	// IT: Imposta l'etichetta dell'edizione, al primo caricamento della index
 	//$('#edval span').text($("input[name=edition_r]:checked").val());	
 	
@@ -1262,7 +1308,9 @@ $(function() {
 								.removeClass('not_active'); 
 				}
 			});
+			
 		} else {
+
 			$(regesto_cont).show('drop',  {direction: 'up'}, 'linear', function(){
 				// Disattivare filtri liste nell'edizione diplomatica
 				$(regesto_cont)
@@ -1270,6 +1318,7 @@ $(function() {
 						.find('.like_select.filter')
 							.css('opacity', "0.5")
 							.addClass('not_active');
+				
 			});
 		}
     }
@@ -2189,7 +2238,7 @@ $(function() {
 	$(window).bind('resize', function(e){
 		var height_full, width_full, leftCss, newLeft, rightR, leftR;
 		window.resizeEvt;
-		if($('.full')){
+		if ($('.full') != null) {
 			height_full = ($(window).height()>$("body").height()) ? $(window).height()-4 : $("body").height();
 			width_full = $(window).width()-4;
 			$('.full').css({
@@ -2198,14 +2247,24 @@ $(function() {
 			});
 			setMagHeight();
 			$(window).resize(function(){
+				if($('#left_header').width() < 550){
+					$('.mainButtons')
+						.addClass('small')
+						.find('span').hide();
+				} else {
+					$('.mainButtons')
+						.removeClass('small')
+						.find('span').show();
+				}
 				clearTimeout(window.resizeEvt);
 				fitFrame();
 				window.resizeEvt = setTimeout(function()
 				{
-					leftCss = $('.full').css("left").replace(/[^-\d\.]/g, '');
-					newLeft = leftCss - ($('.full').offset().left);
-					$('.full').css("left", newLeft);
-
+					if ($('.full').length > 0) {
+						leftCss = $('.full').css("left").replace(/[^-\d\.]/g, '');
+						newLeft = leftCss - ($('.full').offset().left);
+						$('.full').css("left", newLeft);
+					}
 					if($('#main_right_frame').hasClass('full')){
 						rightR = -(($('.go-full-right').offset().left)-($('.go-full-right').position().left));
 						$('.go-full-right').css("right", rightR);
