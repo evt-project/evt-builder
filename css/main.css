@@ -519,6 +519,11 @@ footer{
 	top: 51px;
 	overflow-x: hidden;
 }
+#regesto, #regesto-add{
+	width: 98%;
+	min-height: 100%;
+	min-height: calc(100%-82px);
+}
 /*Chiara
 #text_cont{
 	overflow-y:hidden;
@@ -564,12 +569,12 @@ footer{
 	bottom:-0.4px;
 	border: none;
 	width:100%;
-	-moz-box-shadow:0px -2px 3px -2px rgba(0, 0, 0, 1);
-	-webkit-box-shadow:0px -2px 3px -2px rgba(0, 0, 0, 1);
-	-o-box-shadow:0px -2px 3px -2px rgba(0, 0, 0, 1);
-	-khtml-box-shadow:0px -2px 3px -2px rgba(0, 0, 0, 1);
-	-ms-box-shadow:0px -2px 3px -2px rgba(0, 0, 0, 1);
-	box-shadow:0px -2px 3px -2px rgba(0, 0, 0, 1);
+	-moz-box-shadow:0px 0px 1px 0px rgba(0, 0, 0, 1);
+	-webkit-box-shadow:0px 0px 1px 0px rgba(0, 0, 0, 1);
+	-o-box-shadow:0px 0px 1px 0px rgba(0, 0, 0, 1);
+	-khtml-box-shadow:0px 0px 1px 0px rgba(0, 0, 0, 1);
+	-ms-box-shadow:0px 0px 1px 0px rgba(0, 0, 0, 1);
+	box-shadow:0px 0px 1px 0px rgba(0, 0, 0, 1);
 	background: #362d28;;
 	#opacity: 0.4;
 }
@@ -964,12 +969,14 @@ footer{
 #left_header #image_menu .iconButtons{
 	top: 7.3px;
 }
-#left_header .like_select, 
-#left_header .mainButtons {
 
-}
 .mainButtons{
 	display: inline-block;
+}
+.mainButtons.small{
+	min-width: 28px;
+	border-radius: 3px;
+	text-align: center;
 }
 #right_header .like_select{
 	#left:-8px;
@@ -1019,6 +1026,7 @@ footer{
 .mainButtons i{
 	right: 0px;
 	margin-right: 4px;
+	top:4px;
 }
 .like_select .option_container{
 	position: relative;
@@ -1414,7 +1422,7 @@ footer{
     position: absolute; 
     z-index: 9;
     cursor:pointer;  
-    opacity:0.5;
+    opacity:0.2;
 }
 #prev_doc:hover, #next_doc:hover,
 #prev_doc-add:hover, #next_doc-add:hover{
@@ -1434,7 +1442,7 @@ footer{
 #prev_doc.disabled, #next_doc.disabled, #prev_doc.disabled:hover, #next_doc.disabled:hover,
 #prev_doc-add.disabled, #next_doc-add.disabled, #prev_doc-add.disabled:hover, #next_doc-add.disabled:hover{
     cursor:default;
-    opacity:0.1;
+    opacity:0;
 }
 /*Chiara*/
 #txtimg_link, #txttxt_link, #txtimg_link:hover, #txtimg_link.current_mode, #txttxt_link:hover, #txttxt_link.current_mode{
@@ -1646,6 +1654,10 @@ div.botleftconcave {
     right: 0;
     left: 0;
 }
+#regesto, #regesto-add,
+#regesto_cont, #regesto_cont-add{
+	background: #f5efe4;
+}
 #regesto .title, #regesto .align-center,
 #regesto-add .title, #regesto-add .align-center{
     text-align: center;
@@ -1676,6 +1688,19 @@ div.botleftconcave {
 #regesto .bibliografia,
 #regesto-add .bibliografia{
     margin: 10px 0;
+}
+#showHide_regesto{
+    position: relative;
+    text-align: center;
+    font-size: 12px;
+    height: 15px;
+    top: 26px;
+    background: rgba(54, 45, 40, .2);
+    box-shadow: 0px 2px 5px -4px rgb(0, 0, 0) inset;
+    cursor: pointer;
+}
+#showHide_regesto:hover{
+	background: rgba(54, 45, 40, .3);
 }
 #value_regesto{
     border-bottom: 4px double #000;
