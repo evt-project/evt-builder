@@ -409,12 +409,13 @@ span.tooltip {
 	border: 2.5px solid black;
 	border-radius: 3px;
 	box-shadow: 2px 2px 2px #7e7067;
-	padding: 0.4%;
+	padding: 5px;
 	#margin-top:32px;
 	z-index:99;
 	#margin-left: -40px;
 	#min-width:250px;
 	#width:250px;
+	text-align: center;
 }
 span.tooltip span.before{
 	background: url("../images/popup_before.png") repeat scroll 0% 0% transparent;
