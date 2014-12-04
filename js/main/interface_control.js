@@ -2138,7 +2138,7 @@ $(function() {
     			});
     			$('.go-full-left').addClass('onWhite');
     		}
-    		//InitializePopup();
+    		InitializePopup();
 		}
 	});
 
