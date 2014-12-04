@@ -881,8 +881,16 @@ $(function() {
 		}
 	});
 
-	
-
+	/* Ridimensiono pulsanti se la finestra è troppo stretta */
+	if($('#left_header').width() < 550){
+		$('.mainButtons')
+			.addClass('small')
+			.find('span').hide();
+	} else {
+		$('.mainButtons')
+			.removeClass('small')
+			.find('span').show();
+	}
 	/* Funzioni */
 	//---
 	
@@ -2326,7 +2334,6 @@ $(function() {
 	/*$("#text_copy").live("click", function(){
 		..codice qui..
 	});*/
-
 	$(window).bind('resize', function(e){
 		var height_full, width_full, leftCss, newLeft, rightR, leftR;
 		window.resizeEvt;
