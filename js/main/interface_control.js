@@ -1024,11 +1024,15 @@ $(function() {
 	     			.find('> .tooltip')
 	     				.removeAttr('style')
 	     				.removeClass('opened')
-	     				.hide();
+	     				.hide()
+	     				.find('> .before')
+	     					.removeAttr('style');
      		} else {
      			$('.tooltip.opened')
 	        		.removeClass('opened')
-	        		.toggle();
+	        		.toggle()
+	        		.find('> .before')
+	     				.removeAttr('style');
 	        	$('.popup.opened')
 	        		.removeClass('opened');
 	         	
@@ -1037,7 +1041,9 @@ $(function() {
 	           			.parent('.popup')
 	           				.find('> .tooltip')
 	           					.removeClass('opened')
-	           					.toggle();
+	           					.toggle()
+	           					.find('> .before')
+	     							.removeAttr('style');
 	     		}
      		 
      			$(this).addClass('opened');
@@ -1081,9 +1087,11 @@ $(function() {
 	     		tooltipRealWidth = $(this).find('> .tooltip').width();
 	     		tooltipRealHeight = $(this).find('> .tooltip').height();
 
-	     		var containerWidth = $('#text').width();
-	     		var tooltipLeft = $(this).find('.tooltip').position().left;
-	     		var marginRightText = $('#text').position().left;
+	     		var containerWidth, tooltipLeft, marginRightText;
+	     		containerWidth = $('#text').width();
+	     		tooltipLeft = $(this).find('.tooltip').position().left;
+	     		marginRightText = $('#text').position().left;
+	     		
 	     		if (tooltipLeft + tooltipRealWidth > containerWidth){
 	     			$(this).find('> .tooltip').css({
 	     				'right': marginRightText+"px"
@@ -1100,57 +1108,76 @@ $(function() {
 	     				'position': 'absolute'
 	     		});
 	     		tooltipRealWidth = $(this).find('> .tooltip').width();
-	     		var left = x - (tooltipRealWidth/2);
+	     		
+	     		// Sposto il tooltip, prima allineando la metà al punto in cui ho cliccato
+	     		// poi spostandolo a sinistra se supera il margine destro del contenitore
+	     		// o a destra se supera il margine sinistro.
+	     		var left, tooltipNewLeft;
+	     		left = x - (tooltipRealWidth/2);
 	     		$(this).find('> .tooltip')
      					.offset({
-     						//top: triggerTop+triggerHeight+10,
      						top: y+20,
      						left: left
      					});
-     			var tooltipNewLeft = $(this).find('> .tooltip').position().left;
      			
-     			if( tooltipNewLeft + tooltipRealWidth > containerWidth ) {
+     			// Se supera a destra il margine destro del contenitore....
+     			tooltipNewLeft = $(this).find('> .tooltip').position().left;
+     			if ( tooltipNewLeft + tooltipRealWidth > containerWidth ) {
      				var diff = (tooltipNewLeft + tooltipRealWidth) - containerWidth;
      				//var newLeft = $(this).find('> .tooltip').offset().left - diff + marginRightText;
-     				var newLeft = left - diff + marginRightText;
+     				tooltipNewLeft = left - diff + marginRightText;
      				$(this).find('> .tooltip')
      					.offset({
-     						left: newLeft
+     						left: tooltipNewLeft
      					});
-     			}	
-	     		//alert(tooltipRealHeight + " x " + tooltipRealWidth);
+     			}
 
-	     		/*if( x + 250 > $('#central_wrapper').width() ){
-	     			//x = ($('#central_wrapper').width() - $(this).find('> .tooltip').width() - $('#text').position().left);
-	     			//alert( $(this).find('> .tooltip').width() );
-	     			//alert( $('#text').position().left );
-	     			$(this).find('> .tooltip').css({
-	     				'margin-right': $('#text').position().left
-	     			});
-	     			x = x - ($('#text').position().left+10);
-	     		}*/
+     			// Se supera a sinistra il margine sinistro del contenitore...
+     			var offsetLeftText;
+     			offsetLeftText = $('#text').offset().left;
+     			if ( left < offsetLeftText ) {
+     				$(this).find('> .tooltip')
+     					.offset({
+     						left: offsetLeftText
+     					});
+     			}
+
+ 				// Riposiziono l'elemento .before
+	     		var beforeWidth, beforeNewLeft;
+	     		var beforeMarginRight, tooltipMarginRight;
+	     		beforeNewLeft = x;
+	     		beforeWidth = $(this).find('> .tooltip .before').width();
+				beforeMarginRight = x+beforeWidth;
+				tooltipMarginRight = $(this).find('> .tooltip').offset().left + $(this).find('> .tooltip').width();
+	     		if ( beforeMarginRight > tooltipMarginRight){
+					var diff = (beforeMarginRight - tooltipMarginRight );
+					beforeNewLeft = x - diff;
+				}
+	     		$(this).find('> .tooltip .before').offset({ left: beforeNewLeft });
+
+     			// Riposizionamento se supera il margine inferiore del contenitore
+     			var tooltipOffsetBottom, containerHeight;
+     			tooltipOffsetBottom = $(this).find('> .tooltip').offset().top + $(this).find('> .tooltip').height();
+     			containerHeight = $('#text_cont').offset().top + $('#text_cont').height() - 42;
+
+     			if ( tooltipOffsetBottom > containerHeight ){
+     				var tooltipMoveToTop = (triggerHeight*2) + $(this).find('> .tooltip').height() + ($(this).find('> .before').height()*3);
+     				var tooltipNewTop = $(this).find('> .tooltip .before').offset().top - tooltipMoveToTop;
+     				$(this).find('> .tooltip')
+     					.offset({
+     						top: tooltipNewTop
+     					});
+ 					
+ 					var beforeNewTop = $(this).find('> .tooltip').height() + 8;
+					$(this).find('> .tooltip .before').css({
+						"top": beforeNewTop+"px",
+						"transform": "rotate(180deg)"
+					});
+     			}
 	     		
-	     		/*if ( y > $('#text_tool').offset().top-100 ){
-	     			var p = $(window).height() - y + 15;
-	     			$(this).find('> .tooltip').offset({ left: x-10 }).css('bottom', p+"px");
-	     			var height_tooltip = $('.tooltip:visible').offset().top + $('.tooltip:visible').height()+6;
-	     			$(this)
-	     				.find('> .tooltip .before')
-	     					.offset({
-	     						top: height_tooltip
-	     					})
-	     					.css({
-	     						'transform': 'rotate(180deg)'
-	     					});
-	     		} else {
-	     			$(this).find('> .tooltip').offset({ left: x-10, top: y+20 });
-	     		}*/
-
-	     		$(this).find('> .tooltip .before').offset({ left: (e.clientX) });
+	     		
 	        	$(this).focus(); 	
-	        	/*if ( $(this).find('> .tooltip').width() > 200 ){
-     				$(this).find('> .tooltip').css('width', "250px");
-     			}*/
+
 	         	return false;
 	        }
        	});
