@@ -17,7 +17,7 @@ $(document).keydown(function(e){
 
 	if (e.keyCode == 37) { //left
 		if($("#regesto_cont").is(":visible")) {
-			$('#prev_doc').trigger('click');
+			$('#inside_left_arrow').trigger('click');
 		} else {
 			if (!$(".main_left_arrow").hasClass('arrow_left_disable'))
 				$(".main_left_arrow").trigger('click');
@@ -26,7 +26,7 @@ $(document).keydown(function(e){
 	}				
 	if (e.keyCode == 39) { //right
 		if($("#regesto_cont").is(":visible")) {
-			$('#next_doc').trigger('click');
+			$('#inside_right_arrow').trigger('click');
 		} else {
 			if (! $(".main_right_arrow").hasClass('arrow_right_disable'))
 				$(".main_right_arrow").trigger('click');

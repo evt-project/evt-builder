@@ -284,8 +284,8 @@
 									</div>
 								</header>
 								<xsl:if test="$image_frame=true()">
-									<span id="prev_doc-add"><i class="fa fa-chevron-left"></i></span>
-									<span id="next_doc-add"><i class="fa fa-chevron-right"></i></span>
+									<span id="inside_left_arrow-add"><i class="fa fa-chevron-left"></i></span>
+									<span id="inside_right_arrow-add"><i class="fa fa-chevron-right"></i></span>
 									<!-- Text frame bottom menu -->
 									<div id="text_tool-add">
 										<span id="span_list_select-add" class="like_select filter" title="Lists">
@@ -432,8 +432,8 @@
 							<div id="text_cont">
 								<div id="text_elem"/>
 							</div>
-							<span id="prev_doc"><i class="fa fa-chevron-left"></i></span>
-							<span id="next_doc"><i class="fa fa-chevron-right"></i></span>
+							<span id="inside_left_arrow"><i class="fa fa-chevron-left"></i></span>
+							<span id="inside_right_arrow"><i class="fa fa-chevron-right"></i></span>
 							<!-- Text frame bottom menu -->
 							<div id="text_tool">
 								<span id="search_elem" class="iconButtons" title="Search">
