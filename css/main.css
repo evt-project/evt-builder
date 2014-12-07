@@ -1416,31 +1416,31 @@ footer{
     cursor: default;
 }
 
-#prev_doc, #next_doc,
-#prev_doc-add, #next_doc-add{
+#inside_left_arrow, #inside_right_arrow,
+#inside_left_arrow-add, #inside_right_arrow-add{
     top: 50%; 
     position: absolute; 
     z-index: 9;
     cursor:pointer;  
     opacity:0.2;
 }
-#prev_doc:hover, #next_doc:hover,
-#prev_doc-add:hover, #next_doc-add:hover{
+#inside_left_arrow:hover, #inside_right_arrow:hover,
+#inside_left_arrow-add:hover, #inside_right_arrow-add:hover{
     opacity:1;
 }
-#prev_doc, #prev_doc-add{
+#inside_left_arrow, #inside_left_arrow-add{
     margin-left: 15px; 
     left:0;
 }
-#next_doc, #next_doc-add{
+#inside_right_arrow, #inside_right_arrow-add{
     margin-right: 15px;
     right:0;
 }
-#prev_doc-add, #next_doc-add{
+#inside_left_arrow-add, #inside_right_arrow-add{
 	display: none;
 }
-#prev_doc.disabled, #next_doc.disabled, #prev_doc.disabled:hover, #next_doc.disabled:hover,
-#prev_doc-add.disabled, #next_doc-add.disabled, #prev_doc-add.disabled:hover, #next_doc-add.disabled:hover{
+#inside_left_arrow.disabled, #inside_right_arrow.disabled, #inside_left_arrow.disabled:hover, #inside_right_arrow.disabled:hover,
+#inside_left_arrow-add.disabled, #inside_right_arrow-add.disabled, #inside_left_arrow-add.disabled:hover, #inside_right_arrow-add.disabled:hover{
     cursor:default;
     opacity:0;
 }
@@ -1693,7 +1693,7 @@ div.botleftconcave {
     position: relative;
     text-align: center;
     font-size: 12px;
-    height: 15px;
+    height: 16px;
     top: 26px;
     background: rgba(54, 45, 40, .2);
     box-shadow: 0px 2px 5px -4px rgb(0, 0, 0) inset;
