@@ -1026,6 +1026,7 @@ $(function() {
 		}
 	}
 
+
 	/* Inizializzazione Popup (note inline, dettagli elementi liste, ...) */
 	function InitializePopup(){
 		//alert('pop');
@@ -1045,16 +1046,20 @@ $(function() {
         $('.popup').click(function(e){
         	//alert('click');
         	e.stopPropagation();
-
-        	if ( $(this).find('> .tooltip').hasClass('opened') ) {
-     			$(this).removeClass('opened');
-     			$(this)
-	     			.find('> .tooltip')
-	     				.removeAttr('style')
-	     				.removeClass('opened')
-	     				.hide()
-	     				.find('> .before')
-	     					.removeAttr('style');
+        	var popup, trigger, tooltip, before;
+        	popup = $(this);
+        	trigger = popup.find('.trigger');
+        	tooltip = popup.find('> .tooltip');
+        	before = tooltip.find('> .before');
+        	
+        	if ( tooltip.hasClass('opened') ) {
+     			popup.removeClass('opened');
+     			tooltip
+     				.removeAttr('style')
+     				.removeClass('opened')
+     				.hide()
+     				.find('> .before')
+     					.removeAttr('style');
      		} else {
      			$('.tooltip.opened')
 	        		.removeClass('opened')
@@ -1074,88 +1079,77 @@ $(function() {
 	     							.removeAttr('style');
 	     		}
      		 
-     			$(this).addClass('opened');
-     			$(this)
-	     			.find('> .tooltip')
-	     				.addClass('opened')
-	     				.show();
+     			popup.addClass('opened');
+     			tooltip
+     				.addClass('opened')
+     				.show();
 				
 				var triggerHeight, triggerTop, triggerLeft, triggerWidth;
-				triggerHeight = $(this).find('.trigger').css('font-size').substr(0,2)*1+1;
+				triggerHeight = trigger.css('font-size').substr(0,2)*1+1;
 				
-				triggerTop = $(this).find('.trigger').offset().top;
-				triggerLeft = $(this).find('.trigger').position().left;
-				triggerWidth = $(this).find('.trigger').width();
+				triggerTop = trigger.offset().top;
+				triggerLeft = trigger.position().left;
+				triggerWidth = trigger.width();
 				
-				var tooltipTop = $(this).find('> .tooltip').offset().top;
-				//$(this).find('> .tooltip').offset({ top: tooltipTop+triggerHeight });
-	     		//$(this).find('> .tooltip').show();
+				var tooltipTop = tooltip.offset().top;
+				
 	     		var x = e.clientX;
 		    	var y = e.clientY;
-	     		/*var tooltip_right = $(this).find('> .tooltip').offset().left + $(this).find('> .tooltip').width();
-	     		var container_right = $('#central_wrapper').offset().left + $('#central_wrapper').width();
-	     		var s = (container_right - tooltip_right);
-	     		//alert(s);
-	     		container_right += $('#text').position().left;
-	     		if(s < $('#text').position().left){
-	     			x = x - (container_right - tooltip_right);
-	     		}*/
+	     		
 	     		var tooltipRealWidth, tooltipRealHeight;
-	     		$(this).find('> .tooltip').css('position', 'relative');	
-	     		tooltipRealWidth = $(this).find('> .tooltip').width();
+	     		tooltip.css('position', 'relativitive');	
+	     		tooltipRealWidth = tooltip.width();
 	     		if( tooltipRealWidth > 200 ){
-	     			$(this).find('> .tooltip').css({
+	     			tooltip.css({
 	     				'width': '200px',
 	     				'max-width': '200px'
 	     			});
 	     		} 
-	     		$(this).find('> .tooltip').css({
-	     				'position': 'absolute'
+	     		tooltip.css({
+     				'position': 'absolute'
 	     		});
-	     		tooltipRealWidth = $(this).find('> .tooltip').width();
-	     		tooltipRealHeight = $(this).find('> .tooltip').height();
+	     		tooltipRealWidth = tooltip.width();
+	     		tooltipRealHeight = tooltip.height();
 
 	     		var containerWidth, tooltipLeft, marginRightText;
 	     		containerWidth = $('#text').width();
-	     		tooltipLeft = $(this).find('.tooltip').position().left;
+	     		tooltipLeft = tooltip.position().left;
 	     		marginRightText = $('#text').position().left;
 	     		
 	     		if (tooltipLeft + tooltipRealWidth > containerWidth){
-	     			$(this).find('> .tooltip').css({
+	     			tooltip.css({
 	     				'right': marginRightText+"px"
 	     			});
 	     		}
-	     		tooltipRealWidth = $(this).find('> .tooltip').width();	
+	     		tooltipRealWidth = tooltip.width();	
 	     		if( tooltipRealWidth > 170 ){
-	     			$(this).find('> .tooltip').css({
+	     			tooltip.css({
 	     				'width': '200px',
 	     				'max-width': '200px'
 	     			});
 	     		} 
-	     		$(this).find('> .tooltip').css({
-	     				'position': 'absolute'
+	     		tooltip.css({
+     				'position': 'absolute'
 	     		});
-	     		tooltipRealWidth = $(this).find('> .tooltip').width();
+	     		tooltipRealWidth = tooltip.width();
 	     		
 	     		// Sposto il tooltip, prima allineando la metà al punto in cui ho cliccato
 	     		// poi spostandolo a sinistra se supera il margine destro del contenitore
 	     		// o a destra se supera il margine sinistro.
 	     		var left, tooltipNewLeft;
 	     		left = x - (tooltipRealWidth/2);
-	     		$(this).find('> .tooltip')
-     					.offset({
-     						top: y+20,
-     						left: left
-     					});
+	     		tooltip.offset({
+ 						top: y+20,
+ 						left: left
+ 					});
      			
      			// Se supera a destra il margine destro del contenitore....
-     			tooltipNewLeft = $(this).find('> .tooltip').position().left;
+     			tooltipNewLeft = tooltip.position().left;
      			if ( tooltipNewLeft + tooltipRealWidth > containerWidth ) {
      				var diff = (tooltipNewLeft + tooltipRealWidth) - containerWidth;
      				//var newLeft = $(this).find('> .tooltip').offset().left - diff + marginRightText;
      				tooltipNewLeft = left - diff + marginRightText;
-     				$(this).find('> .tooltip')
-     					.offset({
+     				tooltip.offset({
      						left: tooltipNewLeft
      					});
      			}
@@ -1164,8 +1158,7 @@ $(function() {
      			var offsetLeftText;
      			offsetLeftText = $('#text').offset().left;
      			if ( left < offsetLeftText ) {
-     				$(this).find('> .tooltip')
-     					.offset({
+     				tooltip.offset({
      						left: offsetLeftText
      					});
      			}
@@ -1174,33 +1167,36 @@ $(function() {
 	     		var beforeWidth, beforeNewLeft;
 	     		var beforeMarginRight, tooltipMarginRight;
 	     		beforeNewLeft = x;
-	     		beforeWidth = $(this).find('> .tooltip .before').width();
+	     		beforeWidth = before.width();
 				beforeMarginRight = x+beforeWidth;
-				tooltipMarginRight = $(this).find('> .tooltip').offset().left + $(this).find('> .tooltip').width();
+				tooltipMarginRight = tooltip.offset().left + tooltip.width();
 	     		if ( beforeMarginRight > tooltipMarginRight){
 					var diff = (beforeMarginRight - tooltipMarginRight );
 					beforeNewLeft = x - diff;
 				}
-	     		$(this).find('> .tooltip .before').offset({ left: beforeNewLeft });
+	     		before.offset({ left: beforeNewLeft-5});
 
      			// Riposizionamento se supera il margine inferiore del contenitore
      			var tooltipOffsetBottom, containerHeight;
-     			tooltipOffsetBottom = $(this).find('> .tooltip').offset().top + $(this).find('> .tooltip').height();
+     			tooltipOffsetBottom = tooltip.offset().top + tooltip.height();
      			containerHeight = $('#text_cont').offset().top + $('#text_cont').height() - 42;
 
      			if ( tooltipOffsetBottom > containerHeight ){
-     				var tooltipMoveToTop = (triggerHeight*2) + $(this).find('> .tooltip').height() + ($(this).find('> .before').height()*3);
-     				var tooltipNewTop = $(this).find('> .tooltip .before').offset().top - tooltipMoveToTop;
-     				$(this).find('> .tooltip')
-     					.offset({
+     				var tooltipMoveToTop = triggerHeight + tooltip.height() + before.height() + 8;
+     				var tooltipNewTop = before.offset().top - tooltipMoveToTop;
+     				tooltip.offset({
      						top: tooltipNewTop
      					});
  					
- 					var beforeNewTop = $(this).find('> .tooltip').height() + 8;
-					$(this).find('> .tooltip .before').css({
-						"top": beforeNewTop+"px",
-						"transform": "rotate(180deg)"
-					});
+ 					var beforeNewTop = tooltip.height() + 8;
+					before
+						.offset({
+							left: beforeNewLeft-10
+						})
+						.css({
+							"top": beforeNewTop+"px",
+							"transform": "rotate(180deg)"
+						});
      			}
 	     		
 	     		
@@ -1966,6 +1962,7 @@ $(function() {
 				$('.like_select.filter').removeClass('not_active');
 			}
 			
+			// Nascondo pulsanti visibili solo nelle altre modalità
 			$("#text_cont-add").remove();
 			$("#span_ee_select-add").hide();
 
@@ -1974,15 +1971,19 @@ $(function() {
 
 			if($("#switchReg-add"))
 				$("#switchReg-add").hide();
-
 			$("#span_dd_select").hide();
 			
+			// Risistemo gli eventuali selettori spostati precedentemente
 			if ( $("#left_menu").find("#span_pp_select").length == 0 ) {
 				$('#span_pp_select').detach().appendTo('#left_menu');
 				$('#span_pp_select').find('.option_tooltip').css({'opacity': '0.8'});
 			}
+
 			if ( $("#right_menu").find("#span_tt_select").length == 0 ) {
 				$('#span_tt_select').detach().prependTo('#right_menu');
+			}
+			if ( $("#right_menu").find("#span_ee_select").length == 0 ) {
+				$('#span_ee_select').detach().insertAfter('#span_tt_select');
 			}
 
 			if ( !$('#span_tt_select').is(':visible') ){
@@ -1991,11 +1992,22 @@ $(function() {
 			if ( !$('#span_pp_select').is(':visible') ) {
 				$('#span_pp_select').show();
 			}
-
-			if ( !$('#switchReg').is(':visible') ) {
-				$('#switchReg').show();
+			// Risistemo pulsante REGESTO
+			var switchReg_button = $('#switchReg');
+			if ( !switchReg_button.is(':visible') ) {
+				switchReg_button.show();
 			}
-
+			// ...se il pulsante del regesto era stato trasformato in etichetta
+			if ( switchReg_button.hasClass('label') ) {
+				InitializePopup();
+				switchReg_button
+					.removeAttr('style')
+					.removeClass('inactive')
+					.removeClass('label')
+					.find('span').removeAttr('stle')
+					.siblings('.fa').show();
+			}
+			$('#showHide_regesto').show();
 			if ( !$('#regesto_cont').is(':visible') && $('#switchReg').hasClass('active')) {
 				$('#regesto_cont').show('drop',  {direction: 'up'}, 'linear');
 			}
@@ -2188,11 +2200,6 @@ $(function() {
 				$('#regesto_cont-add>#showHide_regesto')
 					.attr("id", "showHide_regesto-add")
 				;
-				/*if ( ! $('#switchReg-add').hasClass('active') ) {
-					$('#regesto_cont-add').hide();
-				} else {
-					$('#regesto_cont-add').show();
-				}*/
 
 				// Se ho un solo livello di edizione... 
 				// (e quindi ho trasformato il selettore delle edizioni in una semplice etichetta senza .option)
@@ -2247,16 +2254,39 @@ $(function() {
 							.click(function(){
 							$(".main_right_arrow").trigger('click');
 						});*/
-
-
+					} 
+					// Se nel box di sinistra il regesto era aperto
+					else {
+						// Apro il testo (con livello di edizione unico) nel box di destra
+						$('#regesto_cont-add').hide();
+						// Non mostro il pulsante del regesto a sinistra e aggiorno l'etichetta del selettore edizioni di sinistra
+						// Visto che c'è un solo livello di edizione posso semplicemente mostrarla
+						$('#span_ee_select')
+							.detach()
+							.appendTo('#left_menu')
+							.css({'display': 'inline-block'});
+						InitializePopup();
+						// Trasformo il pulsante del regesto in un'etichetta
+						$('#switchReg')
+							.css({
+								'background': 'rgb(245, 234, 212)',
+								'color': '#000'
+							})
+							.addClass('inactive')
+							.addClass('label')
+							.find('span').css({'color':'#000'})
+							.siblings('.fa').hide();	
+						// Nascondo il pulsante per chiudere il regesto
+						$('#showHide_regesto').hide();
 					}
 				} else {
 					if ($('#inside_left_arrow')) {
 						$('#inside_left_arrow, #inside_right_arrow-add').hide()
 					}
 				}
-
-			} else {
+			} 
+			// Se ho più livelli di edizione... 
+			else {
 				//$('#zvalint').hide(); //SISTEMARE
 				//$('#zvalopz').text($("input[name=edition_r]:checked").val());			
 				$('#span_ee_select-add').css({display: "inline-block"});
@@ -2286,7 +2316,6 @@ $(function() {
     			});
     			$('.go-full-left').addClass('onWhite');
     		}
-    		InitializePopup();
 		}
 	});
 
