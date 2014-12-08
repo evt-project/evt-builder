@@ -521,8 +521,8 @@ footer{
 }
 #regesto, #regesto-add{
 	width: 98%;
-	min-height: 100%;
-	min-height: calc(100%-82px);
+	min-height: 91.7%;
+	min-height: calc(100%-98px);
 }
 /*Chiara
 #text_cont{
@@ -1552,7 +1552,7 @@ div.botleftconcave {
 	top: 0px;
 	right: 0px;
 	margin-top: -16.2px;
-	margin-right: 12.4px;
+	margin-right: 10.7px;
 	text-shadow: none !important;
 	font-weight: lighter !important;
 	color:rgb(245, 234, 212);

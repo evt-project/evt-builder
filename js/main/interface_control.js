@@ -606,13 +606,13 @@ $(function() {
 				classToBeActived = $(this).attr('data-value');
 				if (classToBeActived == 'clean') { //pulisci selezione
 				    $(this).siblings('.option').removeClass('selected');
-				    $(this).addClass('selected');
+				    //$(this).addClass('selected');
 				    $(this).parents("div[id*='frame']").find('.list_active').removeClass('list_active');
 				    // se "pulisci selezione" l'etichetta prende "No selection"
 			        newLabel = "No selection";
 			        newLabelVal = "clean";
 				} else if (classToBeActived == 'all') { //seleziona tutto
-				    $(this).addClass('selected');
+				    //$(this).addClass('selected');
 				    $(this).siblings('.option').each(function(){
 				        classToBeActived = $(this).attr('data-value');
 				        if (classToBeActived != 'clean') {
@@ -1097,8 +1097,9 @@ $(function() {
 		    	var y = e.clientY;
 	     		
 	     		var tooltipRealWidth, tooltipRealHeight;
-	     		tooltip.css('position', 'relativitive');	
+	     		tooltip.css('position', 'relative');	
 	     		tooltipRealWidth = tooltip.width();
+
 	     		if( tooltipRealWidth > 200 ){
 	     			tooltip.css({
 	     				'width': '200px',
@@ -1111,28 +1112,7 @@ $(function() {
 	     		tooltipRealWidth = tooltip.width();
 	     		tooltipRealHeight = tooltip.height();
 
-	     		var containerWidth, tooltipLeft, marginRightText;
-	     		containerWidth = $('#text').width();
-	     		tooltipLeft = tooltip.position().left;
-	     		marginRightText = $('#text').position().left;
-	     		
-	     		if (tooltipLeft + tooltipRealWidth > containerWidth){
-	     			tooltip.css({
-	     				'right': marginRightText+"px"
-	     			});
-	     		}
-	     		tooltipRealWidth = tooltip.width();	
-	     		if( tooltipRealWidth > 170 ){
-	     			tooltip.css({
-	     				'width': '200px',
-	     				'max-width': '200px'
-	     			});
-	     		} 
-	     		tooltip.css({
-     				'position': 'absolute'
-	     		});
-	     		tooltipRealWidth = tooltip.width();
-	     		
+
 	     		// Sposto il tooltip, prima allineando la metà al punto in cui ho cliccato
 	     		// poi spostandolo a sinistra se supera il margine destro del contenitore
 	     		// o a destra se supera il margine sinistro.
@@ -1142,6 +1122,25 @@ $(function() {
  						top: y+20,
  						left: left
  					});
+	     		
+	     		var containerWidth, tooltipLeft, marginRightText;
+	     		if ( popup.parents("div[id*='frame']").hasClass('full') ){
+	     			containerWidth = $('#text_cont').width();
+	     			marginRightText = 50;
+	     		} else {
+	     			containerWidth = $('#text').width();	
+	     			marginRightText = $('#text').position().left;
+	     		}
+	     		tooltipLeft = tooltip.position().left;
+	     		
+	     		if (tooltipLeft + tooltipRealWidth > containerWidth){
+	     			tooltip.css({
+	     				'right': marginRightText+"px"
+	     			});
+	     		}
+	     		tooltipRealWidth = tooltip.width();	
+	     		
+	     		
      			
      			// Se supera a destra il margine destro del contenitore....
      			tooltipNewLeft = tooltip.position().left;
@@ -1156,7 +1155,11 @@ $(function() {
 
      			// Se supera a sinistra il margine sinistro del contenitore...
      			var offsetLeftText;
-     			offsetLeftText = $('#text').offset().left;
+     			if ( popup.parents("div[id*='frame']").hasClass('full') ){
+	     			offsetLeftText = $('#text_cont').offset().left;
+	     		} else {
+	     			offsetLeftText = $('#text').offset().left;
+	     		}
      			if ( left < offsetLeftText ) {
      				tooltip.offset({
      						left: offsetLeftText
@@ -1198,7 +1201,13 @@ $(function() {
 							"transform": "rotate(180deg)"
 						});
      			}
-	     		
+     			tooltipRealWidth = tooltip.width();
+	     		if( tooltipRealWidth > 200 ){
+	     			tooltip.css({
+	     				'width': '200px',
+	     				'max-width': '200px'
+	     			});
+	     		} 
 	     		
 	        	$(this).focus(); 	
 
@@ -1240,8 +1249,6 @@ $(function() {
 			edition = $("#span_ee_select .option_container .option:last-child").text().toLowerCase();
 		}
 
-		//alert(pp_val+"_"+edition);
-		// $(".main_pp_select .option_container .option[data-value='"+pp_val+"']").trigger('click');
 		$('#text_elem').empty().load("data/output_data/"+edition+"/page_"+pp_val+"_"+edition+".html #text_frame", function( response, status, xhr ){
 			
 			// Riattiva filtri attivi
@@ -1264,7 +1271,6 @@ $(function() {
 			     if($('#switchHS i ').hasClass('fa-circle-o')) disableHSbutton();
 			     else $('#switchHS').addClass('likeInactive');
 			}
-			InitializePopup();
 			var current_tt = $('#span_tt_select .option_container .option.selected').attr('data-value');
 			$("#text_cont .doc[data-doc!='"+current_tt+"']").hide();
 
@@ -1279,6 +1285,18 @@ $(function() {
 					});
 				}
 			});
+
+			if ($('#text_cont-add').is(':visible')) {
+				$('#text_cont')
+					.clone()
+					.attr("id", "text_cont-add")
+					.insertAfter("#left_header")
+				;
+				$('#text_cont-add>#text_elem')
+					.attr("id", "text_elem-add")
+				;
+			}
+			InitializePopup();
 		});
 		
 		$('#text_cont').animate({
@@ -1808,18 +1826,17 @@ $(function() {
 	function fitFrame(){
 		var noMenu_height;
 		noMenu_height = $('#image_cont').height();
-		if($('#left_header').hasClass('menuClosed')){
-			$('#text_cont, #text_cont-add, #regesto_cont-add, #thumb_cont')
+		if( $('#left_header').hasClass('menuClosed')){
+			$('#text_cont, #text_cont-add, #regesto_cont, #regesto_cont-add, #thumb_cont')
 				.css('height', noMenu_height);
 			if ( !$('#regesto_cont').hasClass('hidden') ) {
 				$('#regesto_cont').css('height', noMenu_height);
 			}
 		} else {
-			noMenu_height -=84;
 			$('#text_cont, #text_cont-add, #regesto_cont-add, #thumb_cont')
-				.css('height', noMenu_height)
+				.css('height', noMenu_height+12);
 			if ( !$('#regesto_cont').hasClass('hidden') ) {
-				$('#regesto_cont').css('height', noMenu_height);
+				$('#regesto_cont').css('height', noMenu_height+12);
 			}
 		}
 	}
@@ -2240,7 +2257,7 @@ $(function() {
 						// ...e quello dei testi a sinistra
 						if ( $('#left_menu').find('#span_tt_select').length == 0 ){
 							$('#span_tt_select').detach().prependTo('#left_menu').css({'display':'inline-block'});
-						}
+						} 
 
 						$('#inside_left_arrow, #inside_right_arrow').hide()
 						// Aggiorno l'evento sul click delle frecce del box di destra per navigare per pagina
@@ -2266,6 +2283,10 @@ $(function() {
 							.appendTo('#left_menu')
 							.css({'display': 'inline-block'});
 						InitializePopup();
+						
+						if ( !$('#span_tt_select').is(':visible') ){
+							$('#span_tt_select').show();
+						}
 						// Trasformo il pulsante del regesto in un'etichetta
 						$('#switchReg')
 							.css({
