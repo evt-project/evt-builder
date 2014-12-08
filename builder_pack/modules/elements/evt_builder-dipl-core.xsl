@@ -503,7 +503,14 @@
 					<xsl:element name="span">
 						<xsl:attribute name="class">tooltip</xsl:attribute>
 						<xsl:element name="span"><xsl:attribute name="class">before</xsl:attribute></xsl:element>
-						<xsl:if test="@type!=''">
+						<xsl:value-of select="@quantity"/>
+						<xsl:text> </xsl:text>
+						<xsl:value-of select="@unit"/>
+						<xsl:text> </xsl:text>
+						<xsl:value-of select="@type"/>
+						<xsl:text> </xsl:text>
+						
+						<!--<xsl:if test="@type!=''">
 							<xsl:element name="span">
 								<xsl:attribute name="class">display-block</xsl:attribute>
 								<xsl:text>Tipo: </xsl:text>
@@ -523,7 +530,7 @@
 								<xsl:text>Unità: </xsl:text>
 								<xsl:value-of select="@unit"></xsl:value-of>
 							</xsl:element>
-						</xsl:if>
+						</xsl:if>-->
 					</xsl:element>
 				</xsl:element>
 			</xsl:when>
