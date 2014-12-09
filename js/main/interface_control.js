@@ -1287,13 +1287,11 @@ $(function() {
 			});
 
 			if ($('#text_cont-add').is(':visible')) {
-				$('#text_cont')
+				$('#text_elem-add').remove();
+				$('#text_elem')
 					.clone()
-					.attr("id", "text_cont-add")
-					.insertAfter("#left_header")
-				;
-				$('#text_cont-add>#text_elem')
 					.attr("id", "text_elem-add")
+					.appendTo('#text_cont-add')
 				;
 			}
 			InitializePopup();
@@ -1830,13 +1828,14 @@ $(function() {
 			$('#text_cont, #text_cont-add, #regesto_cont, #regesto_cont-add, #thumb_cont')
 				.css('height', noMenu_height);
 			if ( !$('#regesto_cont').hasClass('hidden') ) {
-				$('#regesto_cont').css('height', noMenu_height);
+				//$('#regesto_cont').css('height', noMenu_height);
 			}
 		} else {
 			$('#text_cont, #text_cont-add, #regesto_cont-add, #thumb_cont')
-				.css('height', noMenu_height+12);
+				//.css('height', noMenu_height+12)
+			;
 			if ( !$('#regesto_cont').hasClass('hidden') ) {
-				$('#regesto_cont').css('height', noMenu_height+12);
+				//$('#regesto_cont').css('height', noMenu_height+12);
 			}
 		}
 	}
