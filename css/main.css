@@ -475,6 +475,12 @@ footer{
     min-height: 436.1px;
     overflow: auto;
 }
+#right_header.menuClosed + #text_cont, 
+#right_header.menuClosed +  #regesto_cont,
+#left_header.menuClosed + #text_cont-add, 
+#left_header.menuClosed + #regesto_cont-add{
+	#margin-top: 0px;
+}
 #regesto_cont div.front, #regesto_cont-add div.front{
     width:85%;
     margin:auto;
