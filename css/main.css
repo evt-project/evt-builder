@@ -1695,7 +1695,7 @@ div.botleftconcave {
 #regesto-add .bibliografia{
     margin: 10px 0;
 }
-#showHide_regesto{
+#hide_regesto{
     position: relative;
     text-align: center;
     font-size: 12px;
@@ -1705,7 +1705,7 @@ div.botleftconcave {
     box-shadow: 0px 2px 5px -4px rgb(0, 0, 0) inset;
     cursor: pointer;
 }
-#showHide_regesto:hover{
+#hide_regesto:hover{
 	background: rgba(54, 45, 40, .3);
 }
 #value_regesto{
@@ -1714,4 +1714,8 @@ div.botleftconcave {
 
 #left_menu #switchReg-add{
 	display: none;
+}
+
+div.doc.not_current{
+	opacity: .3;
 }
