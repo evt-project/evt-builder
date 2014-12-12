@@ -783,16 +783,12 @@ $(function() {
 					if ($("#regesto_cont").length > 0){ 
           				$('#regesto_cont').load("data/output_data/regesto/doc_"+current_doc+".html #regesto", function(){
           			    	$('<div />')
-          			    		.attr('id', "showHide_regesto")
-          			    		.addClass('showHide_regesto')
-          			    		.append("<i class='fa fa-chevron-down'></i></div>")	
-          			    		.click(function(){showHide_regesto("#regesto_cont", "#regesto");})
+          			    		.attr('id', "hide_regesto")
+          			    		.addClass('hide_regesto')
+          			    		.append("<i class='fa fa-chevron-up'></i></div>")	
+          			    		.click(function(){hide_regesto("#regesto_cont", "#regesto");})
           			    		.appendTo('#regesto_cont');
 
-          			    	if($("#regesto_cont").hasClass('hidden')){
-          			    		$('#showHide_regesto').css('top', '0px');
-	   							$("#regesto").hide();
-          			    	}
           			    	if ( ($('#span_ee_select .label_selected').attr('data-value') != 'diplomatic') &&
           			    		 (!$('#switchReg').hasClass('active')) ){
           			    		$("#main_right_frame").find('.like_select.filter')
@@ -900,7 +896,7 @@ $(function() {
 	/* Funzioni */
 	//---
 	
-	function hide_regesto(regesto_container, regesto){
+	/*function hide_regesto(regesto_container, regesto){
 		var old_height;
 		old_height = $(regesto_container).height();
 			
@@ -918,7 +914,7 @@ $(function() {
    			});
    		$(regesto_container).parents("div[id*='frame']").find('.like_select.filter').css('opacity', '1').removeClass('not_active');
 	}
-
+	*/
 	function show_regesto(regesto_container, regesto){
 		var old_height;
 		old_height = $(regesto_container).attr('data-old-height');
@@ -942,13 +938,21 @@ $(function() {
 		$(regesto_container).scrollTop(0);
 		$(regesto_container).parents("div[id*='frame']").find('.like_select.filter').css('opacity', '.5').addClass('not_active');
 	}
-
-	function showHide_regesto(regesto_cont, regesto){
-		if (!$(regesto_cont).hasClass('hidden')) {
-			hide_regesto(regesto_cont, regesto);
+	function hide_regesto(regesto_cont, regesto){
+		if ( $(this).attr('id') == "hide_regesto-add" ) {
+			$("#switchReg-add")
+				.toggleClass('active')
+				.find('.fa')
+					.toggleClass('fa-toggle-on')
+					.toggleClass('fa-toggle-off');
 		} else {
-			show_regesto(regesto_cont, regesto);
+			$("#switchReg")
+				.toggleClass('active')
+				.find('.fa')
+					.toggleClass('fa-toggle-on')
+					.toggleClass('fa-toggle-off');
 		}
+		toggleReg(regesto_cont);
 	}
 
 	// IT: Imposta l'etichetta dell'edizione, al primo caricamento della index
@@ -1031,188 +1035,194 @@ $(function() {
 	function InitializePopup(){
 		//alert('pop');
         $('.popup').hover(function(e){
-	        e.stopPropagation();
-	        $(this).addClass('over');
-	        if($(this).parents('.popup').length > 0){
-	          $(this).parents('.popup').removeClass('over');
-	        }
+	        if ( $(this).parents('.doc').hasClass('current') ) {
+	        	e.stopPropagation();
+		        $(this).addClass('over');
+		        if($(this).parents('.popup').length > 0){
+		          $(this).parents('.popup').removeClass('over');
+		        }
+		    }
        	}, function(){
-         	if($(this).parents('.popup').length > 0){
-           		$(this).parents('.popup').addClass('over');
-         	}
-         	$(this).removeClass('over');
+         	if ( $(this).parents('.doc').hasClass('current') ) {
+	         	if($(this).parents('.popup').length > 0){
+	           		$(this).parents('.popup').addClass('over');
+	         	}
+	         	$(this).removeClass('over');
+	         }
        	});
         
         $('.popup').click(function(e){
-        	//alert('click');
-        	e.stopPropagation();
-        	var popup, trigger, tooltip, before;
-        	popup = $(this);
-        	trigger = popup.find('.trigger');
-        	tooltip = popup.find('> .tooltip');
-        	before = tooltip.find('> .before');
-        	
-        	if ( tooltip.hasClass('opened') ) {
-     			popup.removeClass('opened');
-     			tooltip
-     				.removeAttr('style')
-     				.removeClass('opened')
-     				.hide()
-     				.find('> .before')
-     					.removeAttr('style');
-     		} else {
-     			$('.tooltip.opened')
-	        		.removeClass('opened')
-	        		.toggle()
-	        		.find('> .before')
-	     				.removeAttr('style');
-	        	$('.popup.opened')
-	        		.removeClass('opened');
-	         	
-	         	if($(this).parent('.popup').find('> .tooltip')){
-	           		$(this)
-	           			.parent('.popup')
-	           				.find('> .tooltip')
-	           					.removeClass('opened')
-	           					.toggle()
-	           					.find('> .before')
-	     							.removeAttr('style');
-	     		}
-     		 
-     			popup.addClass('opened');
-     			tooltip
-     				.addClass('opened')
-     				.show();
-				
-				var triggerHeight, triggerTop, triggerLeft, triggerWidth;
-				triggerHeight = trigger.css('font-size').substr(0,2)*1+1;
-				
-				triggerTop = trigger.offset().top;
-				triggerLeft = trigger.position().left;
-				triggerWidth = trigger.width();
-				
-				var tooltipTop = tooltip.offset().top;
-				
-	     		var x = e.clientX;
-		    	var y = e.clientY;
-	     		
-	     		var tooltipRealWidth, tooltipRealHeight;
-	     		tooltip.css('position', 'relative');	
-	     		tooltipRealWidth = tooltip.width();
-
-	     		if( tooltipRealWidth > 200 ){
-	     			tooltip.css({
-	     				'width': '200px',
-	     				'max-width': '200px'
-	     			});
-	     		} 
-	     		tooltip.css({
-     				'position': 'absolute'
-	     		});
-	     		tooltipRealWidth = tooltip.width();
-	     		tooltipRealHeight = tooltip.height();
-
-
-	     		// Sposto il tooltip, prima allineando la metà al punto in cui ho cliccato
-	     		// poi spostandolo a sinistra se supera il margine destro del contenitore
-	     		// o a destra se supera il margine sinistro.
-	     		var left, tooltipNewLeft;
-	     		left = x - (tooltipRealWidth/2);
-	     		tooltip.offset({
- 						top: y+20,
- 						left: left
- 					});
-	     		
-	     		var containerWidth, tooltipLeft, marginRightText;
-	     		if ( popup.parents("div[id*='frame']").hasClass('full') ){
-	     			containerWidth = $('#text_cont').width();
-	     			marginRightText = 50;
+        	if ( $(this).parents('.doc').hasClass('current') ) {
+        		//alert('click');
+	        	e.stopPropagation();
+	        	var popup, trigger, tooltip, before;
+	        	popup = $(this);
+	        	trigger = popup.find('.trigger');
+	        	tooltip = popup.find('> .tooltip');
+	        	before = tooltip.find('> .before');
+	        	
+	        	if ( tooltip.hasClass('opened') ) {
+	     			popup.removeClass('opened');
+	     			tooltip
+	     				.removeAttr('style')
+	     				.removeClass('opened')
+	     				.hide()
+	     				.find('> .before')
+	     					.removeAttr('style');
 	     		} else {
-	     			containerWidth = $('#text').width();	
-	     			marginRightText = $('#text').position().left;
-	     		}
-	     		tooltipLeft = tooltip.position().left;
-	     		
-	     		if (tooltipLeft + tooltipRealWidth > containerWidth){
-	     			tooltip.css({
-	     				'right': marginRightText+"px"
-	     			});
-	     		}
-	     		tooltipRealWidth = tooltip.width();	
-	     		
-	     		
-     			
-     			// Se supera a destra il margine destro del contenitore....
-     			tooltipNewLeft = tooltip.position().left;
-     			if ( tooltipNewLeft + tooltipRealWidth > containerWidth ) {
-     				var diff = (tooltipNewLeft + tooltipRealWidth) - containerWidth;
-     				//var newLeft = $(this).find('> .tooltip').offset().left - diff + marginRightText;
-     				tooltipNewLeft = left - diff + marginRightText;
-     				tooltip.offset({
-     						left: tooltipNewLeft
-     					});
-     			}
+	     			$('.tooltip.opened')
+		        		.removeClass('opened')
+		        		.toggle()
+		        		.find('> .before')
+		     				.removeAttr('style');
+		        	$('.popup.opened')
+		        		.removeClass('opened');
+		         	
+		         	if($(this).parent('.popup').find('> .tooltip')){
+		           		$(this)
+		           			.parent('.popup')
+		           				.find('> .tooltip')
+		           					.removeClass('opened')
+		           					.toggle()
+		           					.find('> .before')
+		     							.removeAttr('style');
+		     		}
+	     		 
+	     			popup.addClass('opened');
+	     			tooltip
+	     				.addClass('opened')
+	     				.show();
+					
+					var triggerHeight, triggerTop, triggerLeft, triggerWidth;
+					triggerHeight = trigger.css('font-size').substr(0,2)*1+1;
+					
+					triggerTop = trigger.offset().top;
+					triggerLeft = trigger.position().left;
+					triggerWidth = trigger.width();
+					
+					var tooltipTop = tooltip.offset().top;
+					
+		     		var x = e.clientX;
+			    	var y = e.clientY;
+		     		
+		     		var tooltipRealWidth, tooltipRealHeight;
+		     		tooltip.css('position', 'relative');	
+		     		tooltipRealWidth = tooltip.width();
 
-     			// Se supera a sinistra il margine sinistro del contenitore...
-     			var offsetLeftText;
-     			if ( popup.parents("div[id*='frame']").hasClass('full') ){
-	     			offsetLeftText = $('#text_cont').offset().left;
-	     		} else {
-	     			offsetLeftText = $('#text').offset().left;
-	     		}
-     			if ( left < offsetLeftText ) {
-     				tooltip.offset({
-     						left: offsetLeftText
-     					});
-     			}
+		     		if( tooltipRealWidth > 200 ){
+		     			tooltip.css({
+		     				'width': '200px',
+		     				'max-width': '200px'
+		     			});
+		     		} 
+		     		tooltip.css({
+	     				'position': 'absolute'
+		     		});
+		     		tooltipRealWidth = tooltip.width();
+		     		tooltipRealHeight = tooltip.height();
 
- 				// Riposiziono l'elemento .before
-	     		var beforeWidth, beforeNewLeft;
-	     		var beforeMarginRight, tooltipMarginRight;
-	     		beforeNewLeft = x;
-	     		beforeWidth = before.width();
-				beforeMarginRight = x+beforeWidth;
-				tooltipMarginRight = tooltip.offset().left + tooltip.width();
-	     		if ( beforeMarginRight > tooltipMarginRight){
-					var diff = (beforeMarginRight - tooltipMarginRight );
-					beforeNewLeft = x - diff;
-				}
-	     		before.offset({ left: beforeNewLeft-5});
 
-     			// Riposizionamento se supera il margine inferiore del contenitore
-     			var tooltipOffsetBottom, containerHeight;
-     			tooltipOffsetBottom = tooltip.offset().top + tooltip.height();
-     			containerHeight = $('#text_cont').offset().top + $('#text_cont').height() - 42;
+		     		// Sposto il tooltip, prima allineando la metà al punto in cui ho cliccato
+		     		// poi spostandolo a sinistra se supera il margine destro del contenitore
+		     		// o a destra se supera il margine sinistro.
+		     		var left, tooltipNewLeft;
+		     		left = x - (tooltipRealWidth/2);
+		     		tooltip.offset({
+	 						top: y+20,
+	 						left: left
+	 					});
+		     		
+		     		var containerWidth, tooltipLeft, marginRightText;
+		     		if ( popup.parents("div[id*='frame']").hasClass('full') ){
+		     			containerWidth = $('#text_cont').width();
+		     			marginRightText = 50;
+		     		} else {
+		     			containerWidth = $('#text').width();	
+		     			marginRightText = $('#text').position().left;
+		     		}
+		     		tooltipLeft = tooltip.position().left;
+		     		
+		     		if (tooltipLeft + tooltipRealWidth > containerWidth){
+		     			tooltip.css({
+		     				'right': marginRightText+"px"
+		     			});
+		     		}
+		     		tooltipRealWidth = tooltip.width();	
+		     		
+		     		
+	     			
+	     			// Se supera a destra il margine destro del contenitore....
+	     			tooltipNewLeft = tooltip.position().left;
+	     			if ( tooltipNewLeft + tooltipRealWidth > containerWidth ) {
+	     				var diff = (tooltipNewLeft + tooltipRealWidth) - containerWidth;
+	     				//var newLeft = $(this).find('> .tooltip').offset().left - diff + marginRightText;
+	     				tooltipNewLeft = left - diff + marginRightText;
+	     				tooltip.offset({
+	     						left: tooltipNewLeft
+	     					});
+	     			}
 
-     			if ( tooltipOffsetBottom > containerHeight ){
-     				var tooltipMoveToTop = triggerHeight + tooltip.height() + before.height() + 8;
-     				var tooltipNewTop = before.offset().top - tooltipMoveToTop;
-     				tooltip.offset({
-     						top: tooltipNewTop
-     					});
- 					
- 					var beforeNewTop = tooltip.height() + 8;
-					before
-						.offset({
-							left: beforeNewLeft-10
-						})
-						.css({
-							"top": beforeNewTop+"px",
-							"transform": "rotate(180deg)"
-						});
-     			}
-     			tooltipRealWidth = tooltip.width();
-	     		if( tooltipRealWidth > 200 ){
-	     			tooltip.css({
-	     				'width': '200px',
-	     				'max-width': '200px'
-	     			});
-	     		} 
-	     		
-	        	$(this).focus(); 	
+	     			// Se supera a sinistra il margine sinistro del contenitore...
+	     			var offsetLeftText;
+	     			if ( popup.parents("div[id*='frame']").hasClass('full') ){
+		     			offsetLeftText = $('#text_cont').offset().left;
+		     		} else {
+		     			offsetLeftText = $('#text').offset().left;
+		     		}
+	     			if ( left < offsetLeftText ) {
+	     				tooltip.offset({
+	     						left: offsetLeftText
+	     					});
+	     			}
 
-	         	return false;
-	        }
+	 				// Riposiziono l'elemento .before
+		     		var beforeWidth, beforeNewLeft;
+		     		var beforeMarginRight, tooltipMarginRight;
+		     		beforeNewLeft = x;
+		     		beforeWidth = before.width();
+					beforeMarginRight = x+beforeWidth;
+					tooltipMarginRight = tooltip.offset().left + tooltip.width();
+		     		if ( beforeMarginRight > tooltipMarginRight){
+						var diff = (beforeMarginRight - tooltipMarginRight );
+						beforeNewLeft = x - diff;
+					}
+		     		before.offset({ left: beforeNewLeft-5});
+
+	     			// Riposizionamento se supera il margine inferiore del contenitore
+	     			var tooltipOffsetBottom, containerHeight;
+	     			tooltipOffsetBottom = tooltip.offset().top + tooltip.height();
+	     			containerHeight = $('#text_cont').offset().top + $('#text_cont').height() - 42;
+
+	     			if ( tooltipOffsetBottom > containerHeight ){
+	     				var tooltipMoveToTop = triggerHeight + tooltip.height() + before.height() + 8;
+	     				var tooltipNewTop = before.offset().top - tooltipMoveToTop;
+	     				tooltip.offset({
+	     						top: tooltipNewTop
+	     					});
+	 					
+	 					var beforeNewTop = tooltip.height() + 8;
+						before
+							.offset({
+								left: beforeNewLeft-10
+							})
+							.css({
+								"top": beforeNewTop+"px",
+								"transform": "rotate(180deg)"
+							});
+	     			}
+	     			tooltipRealWidth = tooltip.width();
+		     		if( tooltipRealWidth > 200 ){
+		     			tooltip.css({
+		     				'width': '200px',
+		     				'max-width': '200px'
+		     			});
+		     		} 
+		     		
+		        	$(this).focus(); 	
+
+		         	return false;
+		        }
+        	}
        	});
 
         $(document).click(function(){
@@ -1272,7 +1282,22 @@ $(function() {
 			     else $('#switchHS').addClass('likeInactive');
 			}
 			var current_tt = $('#span_tt_select .option_container .option.selected').attr('data-value');
-			$("#text_cont .doc[data-doc!='"+current_tt+"']").hide();
+			$("#text_cont .doc[data-doc!='"+current_tt+"']").addClass('not_current');
+			$("#text_cont .doc[data-doc='"+current_tt+"']").addClass('current');
+
+			$("#text_cont .doc").click(function(){
+				if ( $(this).parents("div[id*='frame']").find('.doc').length > 1 && $(this).hasClass('not_current') ){
+					$(".doc.current").removeClass('current').addClass('not_current');
+					$(this).removeClass('not_current').addClass('current');
+					var tt_val = $(this).attr('data-doc');
+					var tt_lab = $("#span_tt_select .option[data-value='"+tt_val+"']").text();
+					$("#span_tt_select .option.selected").removeClass('selected');
+					$("#span_tt_select .option[data-value='"+tt_val+"']").addClass('selected');
+					$("#span_tt_select .label_selected")
+						.attr("data-value", tt_val)
+						.text(tt_lab + "*");
+				}
+			});
 
 			$("img").error(function () {
 			  	$(this)
@@ -1442,7 +1467,6 @@ $(function() {
 			});
 			
 		} else {
-
 			$(regesto_cont).show('drop',  {direction: 'up'}, 'linear', function(){
 				// Disattivare filtri liste nell'edizione diplomatica
 				$(regesto_cont)
@@ -1827,16 +1851,10 @@ $(function() {
 		if( $('#left_header').hasClass('menuClosed')){
 			$('#text_cont, #text_cont-add, #regesto_cont, #regesto_cont-add, #thumb_cont')
 				.css('height', noMenu_height);
-			if ( !$('#regesto_cont').hasClass('hidden') ) {
-				//$('#regesto_cont').css('height', noMenu_height);
-			}
 		} else {
 			$('#text_cont, #text_cont-add, #regesto_cont-add, #thumb_cont')
 				//.css('height', noMenu_height+12)
 			;
-			if ( !$('#regesto_cont').hasClass('hidden') ) {
-				//$('#regesto_cont').css('height', noMenu_height+12);
-			}
 		}
 	}
 
@@ -2023,7 +2041,7 @@ $(function() {
 					.find('span').removeAttr('stle')
 					.siblings('.fa').show();
 			}
-			$('#showHide_regesto').show();
+			$('#hide_regesto').show();
 			if ( !$('#regesto_cont').is(':visible') && $('#switchReg').hasClass('active')) {
 				$('#regesto_cont').show('drop',  {direction: 'up'}, 'linear');
 			}
@@ -2213,15 +2231,15 @@ $(function() {
 				$('#regesto_cont-add>#regesto')
 					.attr("id", "regesto-add")
 				;
-				$('#regesto_cont-add>#showHide_regesto')
-					.attr("id", "showHide_regesto-add")
+				$('#regesto_cont-add>#hide_regesto')
+					.attr("id", "hide_regesto-add")
 				;
 
 				// Se ho un solo livello di edizione... 
 				// (e quindi ho trasformato il selettore delle edizioni in una semplice etichetta senza .option)
 				if ( $("#span_ee_select").find('.option').length == 0 ){
 					// Se il regesto nel box di destra era chiuso o disattivato...
-					if ( ! $("#switchReg").hasClass('active') || $('#regesto_cont').hasClass('hidden')){
+					if ( ! $("#switchReg").hasClass('active')){
 						// ...nascondo il pulsante del Regesto dal menu di destra
 						$('#switchReg').hide();
 						// ... e il regesto a sinistra
@@ -2231,8 +2249,7 @@ $(function() {
 						$('#regesto_cont').hide('drop',  {direction: 'up'}, 'linear');
 						$('#regesto_cont-add').show();
 						
-						$('#showHide_regesto-add').hide();
-						show_regesto('#regesto_cont-add', '#regesto-add');
+						$('#hide_regesto-add').hide();
 						// ...mostro il regesto nelbox di sinistra
 						
 						// ...nascondo il pulsante del Regesto dal menu di sinistra e il toggle in fondo al regesto di sinistra
@@ -2297,7 +2314,7 @@ $(function() {
 							.find('span').css({'color':'#000'})
 							.siblings('.fa').hide();	
 						// Nascondo il pulsante per chiudere il regesto
-						$('#showHide_regesto').hide();
+						$('#hide_regesto').hide();
 					}
 				} else {
 					if ($('#inside_left_arrow')) {

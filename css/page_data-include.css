@@ -438,7 +438,7 @@ span.popup:hover > span.tooltip{
 	#padding:1%;
 }
 
-span.popup span.trigger, span.open_note .fa{ 
+.doc.current span.popup span.trigger, .doc.current span.open_note .fa{ 
 	#color: #999966;
 	color: #69513a; /*background-color: rgba(255,255,204,0.8);*/ 
 	cursor: pointer;
@@ -507,15 +507,20 @@ span.persName, span.measure, span.roleName, span.placeName, span.date
 span.popup.persName, span.popup.measure, span.popup.roleName, span.popup.placeName, span.popup.date{
     display:inline;
 }
-span.persName.list_active span.trigger, span.persName.over span.trigger, span.persName.opened span.trigger{
+.doc.current span.persName.list_active span.trigger, 
+.doc.current span.persName.over span.trigger, 
+.doc.current span.persName.opened span.trigger{
     background-color: #ffcdd2;
     cursor:pointer;
 }
 .option[data-value="persName"] .filter_color{
 	color: #ffcdd2;
 }
-span.measure.list_active, span.measure.over,
-span.measure.list_active span.trigger, span.measure.over span.trigger, span.measure.opened span.trigger{
+.doc.current span.measure.list_active, 
+.doc.current span.measure.over,
+.doc.current span.measure.list_active span.trigger, 
+.doc.current span.measure.over span.trigger, 
+.doc.current span.measure.opened span.trigger{
     background-color: #ffecb3;    
     cursor:pointer;
 }
@@ -523,8 +528,10 @@ span.measure.list_active span.trigger, span.measure.over span.trigger, span.meas
 	color: #ffecb3;
 }
 
-span.roleName.list_active, 
-span.roleName.list_active span.trigger, span.roleName.over > span.trigger, span.roleName.opened > span.trigger{
+.doc.current span.roleName.list_active, 
+.doc.current span.roleName.list_active span.trigger, 
+.doc.current span.roleName.over > span.trigger, 
+.doc.current span.roleName.opened > span.trigger{
     background-color: #9fa8da;
     cursor:pointer;
 }
@@ -535,15 +542,20 @@ span.roleName.list_active{
 	cursor: default;
 }
 
-span.placeName.list_active span.trigger, span.placeName.over > span.trigger, span.placeName.opened > span.trigger{
+.doc.current span.placeName.list_active span.trigger, 
+.doc.current span.placeName.over > span.trigger, 
+.doc.current span.placeName.opened > span.trigger{
     background-color: #c8e6c9;
     cursor:pointer;
 }
 .option[data-value="placeName"] .filter_color{
 	color: #c8e6c9;
 }
-span.date.list_active, span.date:hover,
-span.date.list_active span.trigger, span.date.over > span.trigger, span.date.opened > span.trigger{
+.doc.current span.date.list_active, 
+.doc.current span.date:hover,
+.doc.current span.date.list_active span.trigger, 
+.doc.current span.date.over > span.trigger, 
+.doc.current span.date.opened > span.trigger{
     background-color: #9CD5F2;
     cursor:pointer;
 }
