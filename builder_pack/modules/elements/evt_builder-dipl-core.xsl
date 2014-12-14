@@ -21,8 +21,10 @@
 	<!-- P Paragraphs -->
 	<xsl:template match="tei:p" mode="dipl">
 		<xsl:element name="span">
-			<xsl:attribute name="class" select="$ed_name2,name()" separator="-"/>
-			<xsl:apply-templates mode="#current"> </xsl:apply-templates>
+			<xsl:if test="current()[not((string-length(normalize-space()))= 0)]">
+				<xsl:attribute name="class" select="$ed_name2,name()" separator="-"/>
+				<xsl:apply-templates mode="#current"> </xsl:apply-templates>
+			</xsl:if>
 		</xsl:element>
 	</xsl:template>
 	
@@ -359,12 +361,14 @@
 		<!-- do nothing -->
 	</xsl:template>
 	<xsl:template match="tei:text/tei:body" mode="dipl">
-		<xsl:element name="div">
-			<xsl:attribute name="class">doc</xsl:attribute>
-			<xsl:attribute name="data-doc"><xsl:value-of select="current()/parent::tei:text/@xml:id"/></xsl:attribute>
-			<xsl:attribute name="title">Documento <xsl:value-of select="current()/parent::tei:text/@xml:id"/></xsl:attribute>
-			<xsl:apply-templates mode="#current"/>
-		</xsl:element>
+		<xsl:if test="current()[not((string-length(normalize-space()))= 0)]">
+			<xsl:element name="div">
+				<xsl:attribute name="class">doc</xsl:attribute>
+				<xsl:attribute name="data-doc"><xsl:value-of select="current()/parent::tei:text/@xml:id"/></xsl:attribute>
+				<xsl:attribute name="title">Documento <xsl:value-of select="current()/parent::tei:text/@xml:id"/></xsl:attribute>
+				<xsl:apply-templates mode="#current"/>
+			</xsl:element>
+		</xsl:if>
 	</xsl:template>
 	<!-- EMPH emphasized  -->
 	<xsl:template match="tei:emph" mode="dipl">

@@ -1435,8 +1435,9 @@ footer{
     opacity:1;
 }
 #inside_left_arrow, #inside_left_arrow-add{
-    margin-left: 15px; 
-    left:0;
+    margin-right: 15px; 
+    right:0;
+    margin-top: -42px;
 }
 #inside_right_arrow, #inside_right_arrow-add{
     margin-right: 15px;

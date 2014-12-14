@@ -14,25 +14,44 @@
 
 //Pressione tasti
 $(document).keydown(function(e){
-
 	if (e.keyCode == 37) { //left
-		if($("#regesto_cont").is(":visible")) {
-			$('#inside_left_arrow').trigger('click');
-		} else {
-			if (!$(".main_left_arrow").hasClass('arrow_left_disable'))
-				$(".main_left_arrow").trigger('click');
-		}
+		if (!$(".main_left_arrow").hasClass('arrow_left_disable'))
+			$(".main_left_arrow").trigger('click');
 		return false;
 	}				
 	if (e.keyCode == 39) { //right
-		if($("#regesto_cont").is(":visible")) {
-			$('#inside_right_arrow').trigger('click');
-		} else {
-			if (! $(".main_right_arrow").hasClass('arrow_right_disable'))
-				$(".main_right_arrow").trigger('click');
+		if (! $(".main_right_arrow").hasClass('arrow_right_disable'))
+			$(".main_right_arrow").trigger('click');
+		return false;
+	}	
+	if (e.keyCode == 38) { //up
+		if (!$('#inside_left_arrow').hasClass('disabled')){
+			$('#inside_left_arrow').trigger('click');
+			$('#inside_left_arrow').animate({
+				opacity: 1
+			},
+				100, function() {
+					$('#inside_left_arrow').animate({
+						opacity: 0.2
+					}, 100);
+			});
 		}
 		return false;
-	}		
+	}				
+	if (e.keyCode == 40) { //down
+		if (!$('#inside_right_arrow').hasClass('disabled')){
+			$('#inside_right_arrow').trigger('click');
+			$('#inside_right_arrow').animate({
+				opacity: 1
+			},
+				100, function() {
+					$('#inside_right_arrow').animate({
+						opacity: 0.2
+					}, 100);
+			});
+		}
+		return false;
+	}	
 	if (e.keyCode == 27) { //escape
 		if ($('#header_collapse').hasClass('fa-caret-down'))
 			$("#header_collapse").trigger('click');
