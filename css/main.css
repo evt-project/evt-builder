@@ -43,6 +43,8 @@ footer, header, hgroup, menu, nav, section {
     font-weight: normal;
     font-style: italic;
 }
+
+@charset "UTF-8";
 	
 html, body {
 	/*padding: 20px 0 40px 0;*/
@@ -1719,4 +1721,8 @@ div.botleftconcave {
 
 div.doc.not_current{
 	opacity: .3;
+}
+div.doc.not_current:hover{
+	cursor: pointer;
+	opacity: .6;
 }
