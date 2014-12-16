@@ -136,19 +136,19 @@
 						<div class="info">
 							<div class="align-center"><span class="intestazione inline">Numerazione nuova: </span><xsl:value-of select="$front/tei:titlePart[@type='numerazioneNuova']"/></div>
 							<div class="align-center"><span class="intestazione inline">Numerazione originale: </span><xsl:value-of select="$front/tei:titlePart[@type='numerazioneOrig']"/></div>
-							<div class="align-center"><span class="intestazione inline">Data e luogo di erogazione</span>: <xsl:value-of select="$front/tei:docDate"/></div>
+							<div class="align-center"><span class="intestazione inline"><xsl:value-of select="$front/tei:docDate"/></span></div>
 						</div>
 						<div class="reg_text">
 							<xsl:value-of select="$front/tei:div[@type='regesto']"/>
 						</div>
 						<div class="reg_note">
-							<span class="intestazione">Note critiche</span>
+							<hr/>
 							<p class="bibliografia">
 								<xsl:value-of select="$front//tei:div[@type='orig_doc']"/>
 							</p>
 							<p class="bibliografia">
 								<xsl:for-each select="$front//tei:div[@type='biblio']/tei:p">
-									<xsl:apply-templates/>
+									<xsl:apply-templates mode='dipl'/>
 								</xsl:for-each>
 							</p>
 							<p>
@@ -233,14 +233,18 @@
 													<span>Magnifier</span>
 													<i class="fa fa-search"></i>
 												</span>
-												<span class="imageTopTool mainButtons" id="switchHS" value="HS" title="Hot spot" onclick="switchHS()">
-													<span>HotSpot</span>
-													<i class="fa fa-circle-o"></i>
-												</span>
-												<span class="imageTopTool mainButtons" id="switchITL" value="turn ITL on" title="Image-Text link" onclick="switchIMT()">
-													<span>TextLink</span>
-													<i class="fa fa-chain-broken"></i>
-												</span>
+												<xsl:if test="$txtimg_link_button=true()">
+													<span class="imageTopTool mainButtons" id="switchHS" value="HS" title="Hot spot" onclick="switchHS()">
+														<span>HotSpot</span>
+														<i class="fa fa-circle-o"></i>
+													</span>
+												</xsl:if>
+												<xsl:if test="$hs_button=true()">
+													<span class="imageTopTool mainButtons" id="switchITL" value="turn ITL on" title="Image-Text link" onclick="switchIMT()">
+														<span>TextLink</span>
+														<i class="fa fa-chain-broken"></i>
+													</span>
+												</xsl:if>
 												<span class="imageTopTool mainButtons thumb_link" id="thumb_elem" value="th" title="Thumbnails">
 													<span>Thumbs</span>
 													<i class="fa fa-th"></i>

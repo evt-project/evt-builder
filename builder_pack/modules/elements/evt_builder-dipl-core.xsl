@@ -344,14 +344,7 @@
 				<xsl:attribute name="class">tooltip</xsl:attribute>
 				<xsl:element name="span"><xsl:attribute name="class">before</xsl:attribute></xsl:element>
 				<xsl:for-each select="//tei:bibl[@xml:id=substring-after(current()/@target,'#')]">
-					<xsl:value-of select="./tei:author"/>
-					<xsl:text>, </xsl:text>
-					<xsl:value-of select="./tei:date"/>
-					<xsl:text>, </xsl:text>
-					<xsl:for-each select="./tei:biblScope">
-						<xsl:apply-templates mode="#current"/>
-						<xsl:text> </xsl:text>
-					</xsl:for-each>
+					<xsl:apply-templates mode="#current"/>
 				</xsl:for-each>
 			</xsl:element>
 		</xsl:element>

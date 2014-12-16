@@ -29,8 +29,12 @@
 hr {
 	height: 1px;
 	visibility: hidden;
-	margin-bottom: -1px; }
-
+	margin-bottom: -1px; 
+}
+div[id*='regesto'] hr{
+	visibility: visible;
+	color: #eee;
+}
 #text_frame{
 	background: white;
 	margin-top: -30px;
@@ -240,7 +244,9 @@ SPAN.facs-hi-double {
 DIV.dipl-zone{
     margin-bottom: 5px; 
 }
-
+.dipl-p{
+	display: block;
+}
 
 DIV.dipl-center, SPAN.dipl-center {
 	/*margin-left: 0.5cm;
@@ -507,9 +513,14 @@ span.persName, span.measure, span.roleName, span.placeName, span.date
 span.popup.persName, span.popup.measure, span.popup.roleName, span.popup.placeName, span.popup.date{
     display:inline;
 }
+div[id*='regesto'] span.trigger:hover, div[id*='regesto'] .popup.opened span.trigger{
+	cursor: pointer;
+	text-shadow:0px 0px 1px #000;
+}
 .doc.current span.persName.list_active span.trigger, 
 .doc.current span.persName.over span.trigger, 
-.doc.current span.persName.opened span.trigger{
+.doc.current span.persName.opened span.trigger
+{
     background-color: #ffcdd2;
     cursor:pointer;
 }
