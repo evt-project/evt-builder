@@ -142,7 +142,7 @@ function disableITLbutton() {
 	if($('#switchITL').hasClass('likeInactive')) $('#switchITL').removeClass('likeInactive');
 	$('#switchITL').addClass('inactive'); //Add by CDP for FA
 	$('#switchITL').removeAttr("onclick");
-	$('#switchHS').attr('title', 'Image-Text link non disponibile');
+	$('#switchITL').attr('title', 'Image-Text link non disponibile');
 	//$('#switchITL i').removeClass('fa-chain').addClass('fa-chain-broken'); //Add by CDP for FA
 }
 
@@ -150,7 +150,7 @@ function enableITLbutton() {
 	if($('#switchITL').hasClass('inactive')) $('#switchITL').removeClass('inactive');
 	if($('#switchITL').hasClass('likeInactive')) $('#switchITL').removeClass('likeInactive');
 	$('#switchITL').attr('onclick', 'switchIMT()');
-	$('#switchHS').removeAttr('title').attr('title', 'Image-Text link');
+	$('#switchITL').removeAttr('title').attr('title', 'Image-Text link');
 }
 
 function disableHSbutton() {

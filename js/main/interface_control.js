@@ -78,8 +78,10 @@ $(function() {
 				.attr("data-value", $('.main_ee_select .option_container div:first').text());
 
 			// Nascond oetichetta edizione PER CP (Decidere se renderlo generico)
-			if($(xml).find('editions edition').length<=1){
-				$('#span_ee_select').hide();
+			if($(xml).find('editions edition').length <= 1){
+				$('#span_ee_select, #span_ee_select-add').addClass('hidden').hide();
+				$('#span_ee_select, #span_ee_select-add').find('.option_container').remove();
+				$('#span_ee_select, #span_ee_select-add').find('.open_select').remove();
 			}
 
 			first_pp = $(xml).find('pages pair pb').first().text();
@@ -145,6 +147,7 @@ $(function() {
 				current_label = $(this).attr("n");
 				current_id = current_label.replace(/\s+/g, '');
 				first_page_id = $(this).find(":first-child").text();
+				current_label = parseCPtextID(current_label); // Solo per Pelavicino
 				$('.main_tt_select .option_container').append(
 					$('<div/>')
 						.attr("data-value", current_id)
@@ -153,7 +156,7 @@ $(function() {
 						.addClass('option')
 						// GENERAL COMMAND .text(cropLongTextLabel(current_label, 12))
 						// SOLO X PELAVICINO
-						.text(parseCPtextID(current_label))
+						.text(cropLongTextLabel(current_label, 12))
 				);
 				
 				$(this).find('pb').each(function(){
@@ -706,12 +709,7 @@ $(function() {
 			});
 
 			$('.like_select').each(function(){
-				if ( $(this).find('.option_container .option').length <= 1 ) {
-					$(this).find('.open_select').remove();
-					$(this).find('.option_container').remove();
-				} else {
-					updateSelectLength(this);
-				}
+				updateSelectLength(this);
 			});
 			
 			$("#global_wrapper").on('mousedown', function (e) {
@@ -821,7 +819,7 @@ $(function() {
 						$('#inside_right_arrow').attr('title', '');
 					}
 
-					if( (checkpp !== "") && ($("#imgd_link").attr("class") !== "current_mode")){
+					if( (checkpp !== "") && ($("#imgd_link").attr("class") !== "current_mode") ){
 						UnInitialize(); //Add by JK for ITL
 						UnInitializeHS(); //Add by JK for HS
 						$("#mag_image_elem").empty(); // Add by JK for Mag
@@ -830,8 +828,8 @@ $(function() {
 					    }
 
 						if ( current_page != $('#text_elem').attr('data-page') ){
-							gotopage(current_page, pp_lab, "none");
-						}
+							gotopage(current_page, pp_lab, "none"); //necessario per la navigazione per documenti in una stessa pagina
+						}	
 						//window.location.hash = "doc="+current_doc+"&page="+current_page;
 						//chooseZoomMag(); // Add by JK for Mag				
 					} else {
@@ -1290,9 +1288,7 @@ $(function() {
 		//N.B. i caricamenti delle immagini si attivano grazie agli eventi change dei label_selected in iviewer_config
 		edition = $("#span_ee_select .main_ee_select .label_selected").text().toLowerCase();
 		$('#span_pp_select .label_selected').trigger('change');
-		if (edition == "regesto") {
-			edition = $("#span_ee_select .option_container .option:last-child").text().toLowerCase();
-		}
+		
 		$('#text_elem').attr('data-page', pp_val);
 		$('#text_elem').empty().load("data/output_data/"+edition+"/page_"+pp_val+"_"+edition+".html #text_frame", function( response, status, xhr ){
 			
@@ -1685,7 +1681,7 @@ $(function() {
 			$('span_list_select-add').addClass('widthChanged');
 		}
 		if ( $(elem).find('.option_tooltip').length > 0 ){
-			$(elem).find('.option_tooltip').css('right', widthOpt+16);
+			$(elem).find('.option_tooltip').css('left', widthOpt+16);
 		}
 	}
 
@@ -1953,8 +1949,8 @@ $(function() {
 		var label_parts, numOrig, numNuova;
 		var newLabel;
 		label_parts = label.split('_');
-		numOrig = label_parts[1];
-		numNuova = label_parts[2];
+		numOrig = label_parts[0];
+		numNuova = label_parts[1];
 		if (numOrig.indexOf("bis") >= 0) { 
 		// Convenzione decisa con la Salvatori: se nella numerazione originale e' presente la scritta bis vuol dire che non c'e' numerazione originale
 			newLabel = numNuova+" (--)";
@@ -2090,14 +2086,14 @@ $(function() {
 			
 			// Risistemo gli eventuali selettori spostati precedentemente
 			if ( $("#left_menu").find("#span_pp_select").length == 0 ) {
-				$('#span_pp_select').detach().appendTo('#left_menu');
+				$('#span_pp_select').detach().prependTo('#left_menu');
 				$('#span_pp_select').find('.option_tooltip').css({'opacity': '0.8'});
 			}
 
 			if ( $("#right_menu").find("#span_tt_select").length == 0 ) {
 				$('#span_tt_select').detach().prependTo('#right_menu');
 			}
-			if ( $("#right_menu").find("#span_ee_select").length == 0 ) {
+			if ( $("#right_menu").find("#span_ee_select").length == 0 && $("#span_ee_select").find('.option').length > 0) {
 				$('#span_ee_select').detach().insertAfter('#span_tt_select');
 			}
 
@@ -2355,7 +2351,8 @@ $(function() {
 						if ( $('#left_menu').find('#span_tt_select').length == 0 ){
 							$('#span_tt_select').detach().prependTo('#left_menu').css({'display':'inline-block'});
 						} 
-						$('#inside_left_arrow, #inside_right_arrow').hide()
+						$('#inside_left_arrow, #inside_right_arrow').hide();
+						$('#inside_left_arrow-add, #inside_right_arrow-add').show();
 					} 
 					// Se nel box di sinistra il regesto era aperto
 					else {
@@ -2363,10 +2360,6 @@ $(function() {
 						$('#regesto_cont-add').hide();
 						// Non mostro il pulsante del regesto a sinistra e aggiorno l'etichetta del selettore edizioni di sinistra
 						// Visto che c'è un solo livello di edizione posso semplicemente mostrarla
-						$('#span_ee_select')
-							.detach()
-							.appendTo('#left_menu')
-							.css({'display': 'inline-block'});
 						
 						if ( !$('#span_tt_select').is(':visible') ){
 							$('#span_tt_select').show();
@@ -2610,7 +2603,7 @@ $(function() {
 		closeFullScreenRight();
 	});
 	$("#search_link").click(function(){
-		alert("Coming soon during 2014");
+		alert("Coming soon");
 	});
 	/* / Gestione click */
 	
