@@ -1125,7 +1125,7 @@ footer{
 	top: 55px;
 	z-index: 999;
 	font-size: 0.9em;
-	box-shadow: -2px 1px 4px rgba(0,0,0,0.7);
+	box-shadow: 2px 1px 4px rgba(0,0,0,0.7);
 	opacity: .8;
 }
 .option.selected:hover{

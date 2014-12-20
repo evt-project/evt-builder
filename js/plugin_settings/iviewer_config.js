@@ -63,7 +63,7 @@ $( function() {
                                                         magnifierReady();
                                                         chooseZoomMag();
                                                         if ($("#switchMag").attr("title")){
-                                                            $("#switchMag").removeAttr("title");
+                                                            //$("#switchMag").removeAttr("title");
                                                             if($("#switchMag").hasClass('inactive')) $("#switchMag").removeClass('inactive');
                                                             if($("#switchMag").hasClass('likeInactive')) $("#switchMag").removeClass('likeInactive');
                                                             $("#switchMag").attr("onclick", "magOn()");
@@ -72,7 +72,7 @@ $( function() {
                                                         
                                                     },
                                                     error: function(data){
-                                                        $("#switchMag").attr("title", "no big image");
+                                                        $("#switchMag").attr("title", "No big image");
                                                         $("#switchMag").removeClass('active');
                                                         if($("#switchMag i").hasClass('fa-search-plus')){$("#switchMag").addClass('likeInactive');}
                                                         else{$("#switchMag").removeAttr("onclick").addClass('inactive');}
@@ -178,11 +178,14 @@ $( function() {
 			} else {
 				curr_src = "data/input_data/images/single/"+current_pp+".jpg";
 			}
+			//alert(curr_src);
 			if (firstload){
 				iv1.iviewer('loadImage', "data/input_data/images/single/"+current_pp+".jpg");
 				firstload = false;
 			}
-			else if ( $('#text_elem').attr('data-page') != current_pp ){
+			else if ( $('#text_elem').attr('data-page') != current_pp || $('#iviewerImage').attr('src') != curr_src ||
+					  (($('#iviewerImage').attr('src') == curr_src) && ($('#image_loading').is(':visible')) ) 
+					){
 				$('#image_fade').fadeOut(600, function(){
 				//$('#iviewerImage').fadeOut(600);		
 					$('#image_loading').show();		

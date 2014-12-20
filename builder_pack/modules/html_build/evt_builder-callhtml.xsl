@@ -227,30 +227,6 @@
 								<header id="left_header">
 									<i class="fa fa-times-circle closeFullScreen" id="closeFullScreenLeft"></i>
 									<div id="left_menu">
-										<xsl:if test="$image_frame=true()">
-											<div id="image_menu">
-												<span class="imageTopTool mainButtons" id="switchMag" value="mag" onclick="magOn()" title="Magnifying lens">
-													<span>Magnifier</span>
-													<i class="fa fa-search"></i>
-												</span>
-												<xsl:if test="$txtimg_link_button=true()">
-													<span class="imageTopTool mainButtons" id="switchHS" value="HS" title="Hot spot" onclick="switchHS()">
-														<span>HotSpot</span>
-														<i class="fa fa-circle-o"></i>
-													</span>
-												</xsl:if>
-												<xsl:if test="$hs_button=true()">
-													<span class="imageTopTool mainButtons" id="switchITL" value="turn ITL on" title="Image-Text link" onclick="switchIMT()">
-														<span>TextLink</span>
-														<i class="fa fa-chain-broken"></i>
-													</span>
-												</xsl:if>
-												<span class="imageTopTool mainButtons thumb_link" id="thumb_elem" value="th" title="Thumbnails">
-													<span>Thumbs</span>
-													<i class="fa fa-th"></i>
-												</span>
-											</div>
-										</xsl:if>
 										<span id="span_pp_select" class="like_select" title="Folio">
 											<xsl:call-template name="div_select_build">
 												<xsl:with-param name="html_div_class"
@@ -282,13 +258,37 @@
 												</span>
 											</xsl:if>
 										</xsl:if>
+										<xsl:if test="$image_frame=true()">
+											<div id="image_menu">
+												<span class="imageTopTool mainButtons thumb_link" id="thumb_elem" value="th" title="Thumbnails">
+													<span>Thumbs</span>
+													<i class="fa fa-th"></i>
+												</span>
+												<span class="imageTopTool mainButtons" id="switchMag" value="mag" onclick="magOn()" title="Magnifying lens">
+													<span>Magnifier</span>
+													<i class="fa fa-search"></i>
+												</span>
+												<xsl:if test="$txtimg_link_button=true()">
+													<span class="imageTopTool mainButtons" id="switchHS" value="HS" title="Hot spot" onclick="switchHS()">
+														<span>HotSpot</span>
+														<i class="fa fa-circle-o"></i>
+													</span>
+												</xsl:if>
+												<xsl:if test="$hs_button=true()">
+													<span class="imageTopTool mainButtons" id="switchITL" value="turn ITL on" title="Image-Text link" onclick="switchIMT()">
+														<span>TextLink</span>
+														<i class="fa fa-chain-broken"></i>
+													</span>
+												</xsl:if>
+											</div>
+										</xsl:if>
 										<!--<input type="image" src="images/zoom.png" id="switchZoom" class="top_image_tools" value="zoom" onclick="zoomOn()"/>-->
 										<!--<input type="image" src="images/magOff.png" id="switchMag" class="top_image_tools" value="mag" onclick="magOn()"/>-->
 										<!--<input type="image" src="images/ITLoff.png" id="switchITL" class="top_image_tools" value="turn ITL on" title="Image text link" onclick="switchIMT()"/>-->
 									</div>
 								</header>
 								<xsl:if test="$image_frame=true()">
-									<span id="inside_left_arrow-add"><i class="fa fa-chevron-top"></i></span>
+									<span id="inside_left_arrow-add"><i class="fa fa-chevron-up"></i></span>
 									<span id="inside_right_arrow-add"><i class="fa fa-chevron-down"></i></span>
 									<!-- Text frame bottom menu -->
 									<div id="text_tool-add">
