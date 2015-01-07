@@ -66,7 +66,13 @@
 			</xsl:if>
 			
 			<xsl:if test="$list_person=true()">
-				<xsl:call-template name="listPerson"></xsl:call-template>
+				<xsl:result-document method="html" encoding="UTF-8" media-type="text/plain" byte-order-mark="yes" href="{$filePrefix}/data/output_data/liste/listPerson.html" indent="yes">
+					<xsl:element name="div">
+						<xsl:attribute name="id">listPerson</xsl:attribute>
+						<xsl:call-template name="listPerson"></xsl:call-template>
+						<xsl:apply-templates select="$step0" mode="listPersonOccurences"></xsl:apply-templates>
+					</xsl:element>
+				</xsl:result-document>
 			</xsl:if>
 			<!-- TEMP SEARCH -->
 			<!-- <xsl:apply-templates select="$step0" mode="file4search"></xsl:apply-templates> -->
@@ -200,7 +206,17 @@
 	</xsl:template>
 	
 	<xsl:template name="listPerson">
-		
+			<xsl:element name="ul">
+				<xsl:attribute name="id">ul_listPerson</xsl:attribute>
+				<xsl:attribute name="class">ul_list</xsl:attribute>
+				<xsl:for-each select="$root//tei:listPerson/person">
+					<xsl:element name="li">
+						<xsl:attribute name="id"><xsl:value-of select="@xml:id" /></xsl:attribute>
+						<xsl:attribute name="class">list_element</xsl:attribute>
+						<xsl:call-template name="person" />
+					</xsl:element>
+				</xsl:for-each>
+			</xsl:element>
 	</xsl:template>
 	
 	<xsl:template name="search_file">

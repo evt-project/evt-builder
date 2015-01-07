@@ -443,6 +443,12 @@
 								<span id="search_elem" class="iconButtons" title="Search">
 									<a href="javascript:void(0);" id="search_link"><i class="fa fa-search"></i></a>
 								</span>
+								<xsl:if test="$list_person=true()">
+									<span id="list_link" class="mainButtons" title="Liste">
+										<span>Liste</span>
+										<i class="fa fa-list"></i>
+									</span>
+								</xsl:if>
 								<span id="span_list_select" class="like_select filter" title="Lists">
 									<div class="main_list_select">
 										<span data-value="none" class="label_selected">

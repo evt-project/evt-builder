@@ -431,6 +431,7 @@
 			<xsl:when test="@ref and @ref!='' and $root//tei:person[@xml:id=substring-after(current()/@ref,'#')]">
 				<xsl:element name="span">
 					<xsl:attribute name="class">popup persName</xsl:attribute>
+					<xsl:attribute name="data-ref"><xsl:value-of select="translate(@ref, '#', '')" /></xsl:attribute>
 					<xsl:element name="span">
 						<xsl:attribute name="class">trigger</xsl:attribute>
 						<xsl:apply-templates mode="#current"/>
@@ -441,7 +442,6 @@
 						<xsl:for-each select="$root//tei:person[@xml:id=substring-after(current()/@ref,'#')]">
 							<xsl:call-template name="person"/>
 						</xsl:for-each>
-						<!-- aggiungere riferimento ad entita specifica e relative info  -->
 					</xsl:element>
 				</xsl:element>
 			</xsl:when>
@@ -549,7 +549,7 @@
 		</xsl:element>
 	</xsl:template>
 	
-	<!-- PLACE NAME personal name -->
+	<!-- PLACE NAME place name -->
 	<xsl:template match="tei:placeName[starts-with(@ref,'#')]" mode="dipl">
 		<xsl:choose>
 			<xsl:when test="@ref and @ref!='' and $root//tei:place[@xml:id=substring-after(current()/@ref,'#')]">
