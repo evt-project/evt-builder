@@ -1711,6 +1711,10 @@ div.botleftconcave {
 #hide_regesto:hover{
 	background: rgba(54, 45, 40, .3);
 }
+
+#main_left_frame #hide_regesto{
+	display: none;
+}
 #value_regesto{
     border-bottom: 4px double #000;
 }

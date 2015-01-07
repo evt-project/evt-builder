@@ -524,6 +524,7 @@ div[id*='regesto'] span.trigger:hover, div[id*='regesto'] .popup.opened span.tri
     background-color: #ffcdd2;
     cursor:pointer;
 }
+
 .option[data-value="persName"] .filter_color{
 	color: #ffcdd2;
 }
@@ -574,6 +575,9 @@ span.roleName.list_active{
 	color: #9CD5F2;
 }
 
+.doc.current span.opened > span.trigger{
+	text-shadow:0px 0px 1px rgba(0,0,0,0.8);
+}
 span.display-block{
     display:block;
 }

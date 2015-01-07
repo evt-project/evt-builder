@@ -64,6 +64,10 @@
 					<xsl:call-template name="regesto"></xsl:call-template>	
 				</xsl:for-each>
 			</xsl:if>
+			
+			<xsl:if test="$list_person=true()">
+				<xsl:call-template name="listPerson"></xsl:call-template>
+			</xsl:if>
 			<!-- TEMP SEARCH -->
 			<!-- <xsl:apply-templates select="$step0" mode="file4search"></xsl:apply-templates> -->
 		</xsl:if>
@@ -193,6 +197,10 @@
 				<xsl:with-param name="front" select="$front"></xsl:with-param>
 			</xsl:call-template>
 		</xsl:result-document>
+	</xsl:template>
+	
+	<xsl:template name="listPerson">
+		
 	</xsl:template>
 	
 	<xsl:template name="search_file">
