@@ -49,6 +49,9 @@
 	<!-- On/Off regesto -->
 	<xsl:param name="regesto" select="true()"/>
 	
+	<!-- On/Off persons list -->
+	<xsl:param name="list_person" select="true()"/>
+	
 	<!-- Mostra/Nascondi pulsante Txt/Img Link in interfaccia -->
 	<xsl:param name="txtimg_link_button" select="false()"/>
 	<!-- Mostra/Nascondi pulsante Hotspot in interfaccia-->

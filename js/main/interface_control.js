@@ -156,7 +156,7 @@ $(function() {
 						.addClass('option')
 						// GENERAL COMMAND .text(cropLongTextLabel(current_label, 12))
 						// SOLO X PELAVICINO
-						.text(cropLongTextLabel(current_label, 12))
+						.text(cropLongTextLabel(current_label, 15))
 				);
 				
 				$(this).find('pb').each(function(){
@@ -1255,7 +1255,7 @@ $(function() {
 	    		.addClass('hide_regesto')
 	    		.append("<i class='fa fa-chevron-up'></i></div>")	
 	    		.click(function(){hide_regesto(id_regesto_cont, id_regesto);})
-	    		.appendTo('#regesto_cont');
+	    		.appendTo(id_regesto_cont); // solo nel box di destra
 
 	    	if ( ($('#span_ee_select .label_selected').attr('data-value') != 'diplomatic') &&
 	    		 (!$('#switchReg').hasClass('active')) ){
@@ -2077,11 +2077,24 @@ $(function() {
 			$("#text_cont-add").remove();
 			$("#span_ee_select-add").hide();
 
-			if($("#regesto_cont-add"))
-				$("#regesto_cont-add").remove();
-
-			if($("#switchReg-add"))
-				$("#switchReg-add").hide();
+			// Se il regesto è nel box di sinistra, lo sposto a destra
+			if ( $('#main_left_frame').find('#regesto_cont') ){
+				$('#regesto_cont')
+					.detach()
+					.insertAfter("#right_header")
+				;	
+			}
+			$('#switchReg').show();
+			
+			if ( $('#switchReg').hasClass('active') ){
+				if ( !$('#regesto_cont').is(':visible') ) {
+					//$('#regesto_cont').show('drop',  {direction: 'up'}, 'linear');
+					$('#regesto_cont').show();
+				}
+			} else {
+				$('#regesto_cont').hide();
+			}
+			
 			$("#span_dd_select").hide();
 			
 			// Risistemo gli eventuali selettori spostati precedentemente
@@ -2103,25 +2116,6 @@ $(function() {
 			if ( !$('#span_pp_select').is(':visible') ) {
 				$('#span_pp_select').show();
 			}
-			// Risistemo pulsante REGESTO
-			var switchReg_button = $('#switchReg');
-			if ( !switchReg_button.is(':visible') ) {
-				switchReg_button.show();
-			}
-			// ...se il pulsante del regesto era stato trasformato in etichetta
-			if ( switchReg_button.hasClass('label') ) {
-				InitializePopup();
-				switchReg_button
-					.removeAttr('style')
-					.removeClass('inactive')
-					.removeClass('label')
-					.find('span').removeAttr('stle')
-					.siblings('.fa').show();
-			}
-			$('#hide_regesto').show();
-			if ( !$('#regesto_cont').is(':visible') && $('#switchReg').hasClass('active')) {
-				$('#regesto_cont').show('drop',  {direction: 'up'}, 'linear');
-			}
 
 			$("#main_right_frame").show();
 			$("#main_left_frame").animate({
@@ -2137,7 +2131,8 @@ $(function() {
 			$('#switchHS').show();
 			$("#image_cont").show();
 
-			$('#inside_left_arrow-add, #inside_right_arrow-add, #text_tool-add').hide();
+			$('#text_tool-add').hide();
+			
 			$("#inside_left_arrow")
 				.off('click')
 				.click(function(){
@@ -2234,7 +2229,7 @@ $(function() {
 			$("#span_dd_select").hide();
 
 
-			$('#inside_left_arrow-add, #inside_right_arrow-add').show();
+			//$('#inside_left_arrow-add, #inside_right_arrow-add').show();
 			
 			$('#span_pp_select').show();
 			$('#span_pp_select').css("top", "0px"); // #CDP. Rimuovere e gestire con css
@@ -2298,92 +2293,57 @@ $(function() {
 
 			// Se ho il REGESTO
 			if ($('#regesto_cont').length > 0 ) {
-				// Clono il contenuto del regesto nel box di sinistra
-				// aggiungengo "-add" all'identificativo dell'elemento
-				$('#regesto_cont')
-					.clone()
-					.attr("id", "regesto_cont-add")
-					.insertAfter("#left_header")
-				;
-				$('#regesto_cont-add>#regesto')
-					.attr("id", "regesto-add")
-				;
-				$('#regesto_cont-add>#hide_regesto')
-					.attr("id", "hide_regesto-add")
-				;
+				if ( ! $('#regesto_cont').is(':visible') ){
+					$('#regesto_cont').show();		
+				}
+				// Se il contanitore del regesto non è nel box di sinistra lo sposto da destra a sinistra
+				if ( $('#main_left_frame').find('#regesto_cont').length <= 0 ){
+					$('#regesto_cont')
+						.detach()
+						.insertAfter("#left_header")
+					;
+				}
 
 				// Se ho un solo livello di edizione... 
 				// (e quindi ho trasformato il selettore delle edizioni in una semplice etichetta senza .option)
 				if ( $("#span_ee_select").find('.option').length == 0 ){
-					// Se il regesto nel box di destra era chiuso o disattivato...
-					if ( ! $("#switchReg").hasClass('active')){
-						// ...nascondo il pulsante del Regesto dal menu di destra
-						$('#switchReg').hide();
-						// ... e il regesto a sinistra
-						if ( $("#switchReg").hasClass('active') ) {
-							//$('#switchReg').trigger('click').addClass('active');
-						}
-						$('#regesto_cont').hide('drop',  {direction: 'up'}, 'linear');
-						$('#regesto_cont-add').show();
-						
-						$('#hide_regesto-add').hide();
-						// ...mostro il regesto nelbox di sinistra
-						
-						// ...nascondo il pulsante del Regesto dal menu di sinistra e il toggle in fondo al regesto di sinistra
-						$('#switchReg-add').hide();
 
-						// ...aggiorno l'etichetta nel menu di sinistra col testo "Regesto"
-						$('#span_ee_select-add')
-							.css({display: "inline-block"})
-							.find('.label_selected')
-								.attr('data-value', 'regesto')
-								.text('Regesto');
-						// ...disattivo il selettore dei filtri nel menu di sinistra
-						$('#span_list_select-add').addClass('not_active').css('opacity', '0.5');
-						
-						// Sposto il selettore delle pagine a destra...
-						if ( $('#right_menu').find('#span_pp_select').length == 0 ){
-							$('#span_pp_select')
-								.detach().prependTo('#right_menu')
-								.find('.option_tooltip').css({'opacity':'1'});
-						}
-						// ...e quello dei testi a sinistra
-						if ( $('#left_menu').find('#span_tt_select').length == 0 ){
-							$('#span_tt_select').detach().prependTo('#left_menu').css({'display':'inline-block'});
-						} 
-						$('#inside_left_arrow, #inside_right_arrow').hide();
-						$('#inside_left_arrow-add, #inside_right_arrow-add').show();
-					} 
-					// Se nel box di sinistra il regesto era aperto
-					else {
-						// Apro il testo (con livello di edizione unico) nel box di destra
-						$('#regesto_cont-add').hide();
-						// Non mostro il pulsante del regesto a sinistra e aggiorno l'etichetta del selettore edizioni di sinistra
-						// Visto che c'è un solo livello di edizione posso semplicemente mostrarla
-						
+					// ...nascondo il pulsante del Regesto dal menu di destra
+					$('#switchReg').hide();
+					// ... e il regesto a sinistra
+					if ( $("#switchReg").hasClass('active') ) {
+						//$('#switchReg').trigger('click').addClass('active');
+					}
+					//$('#regesto_cont').hide('drop',  {direction: 'up'}, 'linear');
+					
+					// ...nascondo il pulsante del Regesto dal menu di sinistra e il toggle in fondo al regesto di sinistra
+					$('#switchReg-add').hide();
+
+					// ...aggiorno l'etichetta nel menu di sinistra col testo "Regesto"
+					$('#span_ee_select-add')
+						.css({display: "none"})
+						.find('.label_selected')
+							.attr('data-value', 'regesto')
+							.text('Regesto');
+					// ...disattivo il selettore dei filtri nel menu di sinistra
+					$('#span_list_select-add').addClass('not_active').css('opacity', '0');
+					$('#span_list_select').removeClass('not_active').css('opacity', '1');
+
+					// Sposto il selettore dei testi a sinistra
+					if ( $('#left_menu').find('#span_tt_select').length == 0 ){
+						$('#span_tt_select').detach().prependTo('#left_menu').css({'display':'inline-block'});
+					} else {
 						if ( !$('#span_tt_select').is(':visible') ){
 							$('#span_tt_select').show();
 						}
-						// Trasformo il pulsante del regesto in un'etichetta
-						$('#switchReg')
-							.css({
-								'background': 'rgb(245, 234, 212)',
-								'color': '#000'
-							})
-							.addClass('inactive')
-							.addClass('label')
-							.find('span').css({'color':'#000'})
-							.siblings('.fa').hide();	
-						// Nascondo il pulsante per chiudere il regesto
-						$('#hide_regesto').hide();
 					}
+					//$('#inside_left_arrow, #inside_right_arrow').hide();
+					//$('#inside_left_arrow-add, #inside_right_arrow-add').show();
+
 				} else {
-					if ($('#inside_left_arrow')) {
-						$('#inside_left_arrow, #inside_right_arrow-add').hide()
-					}
+					// Se ho più livelli di edizione...  GESTIRE!
 				}
 			} 
-			// Se ho più livelli di edizione... 
 			else {
 				//$('#zvalint').hide(); //SISTEMARE
 				//$('#zvalopz').text($("input[name=edition_r]:checked").val());			
@@ -2431,7 +2391,11 @@ $(function() {
 			//alert($(".main_pp_select .label_selected").text());
 			$(".main_dd_select").trigger("imgd_mode");
 			$('#span_pp_select, #span_tt_select').hide();
-			$("#switchReg-add, #text_tool-add, #regesto_cont-add").hide();
+
+			if ( $('#main_left_frame').find('#regesto_cont') ){
+				$('#regesto_cont').hide();	
+			}
+			$("#switchReg-add, #text_tool-add").hide();
 			
 			$("#right_menu").hide();
 			$("#main_left_frame").animate({
