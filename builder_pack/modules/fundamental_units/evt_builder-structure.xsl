@@ -153,6 +153,11 @@
                 <xsl:if test="$regesto=true()">
                     <regesto active="1" />
                 </xsl:if>
+                <liste>
+                    <xsl:if test="$list_person=true()">
+                        <listPerson active="1" />
+                    </xsl:if>
+                </liste>
                 <editions>
                     <xsl:for-each select="$edition_array">
                         <xsl:if test="./normalize-space()"><edition><xsl:value-of select="."/></edition></xsl:if>

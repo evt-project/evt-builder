@@ -215,6 +215,99 @@ $(function() {
 				}
 			});
 
+
+			// LISTE - CP
+			if( $(xml).find('liste').children().length > 0 ){
+				$('<div />')
+					.attr('id', 'lists_cont')
+					.insertAfter('#text_cont');
+				$('<div />')
+					.attr('id','list_header')
+					.click(function(){
+						if ( $('#lists_cont').hasClass('closed') ) {
+							$('#lists_cont').animate({
+	    					       top: '0px'
+	    					}, 400);
+	    					$('#lists_cont').removeClass('closed');
+						}
+					})
+					.appendTo('#lists_cont');
+				$(xml).find('liste').children().each(function(){
+					var listName;
+					listName = $(this).get(0).tagName;
+					$('<div />')
+						.attr('id', listName)
+						.addClass('list')
+						.appendTo('#lists_cont')
+					;
+					$('#'+listName).load("data/output_data/liste/"+listName+".html #"+listName, function(){
+						$('<span />')
+							.addClass('labelList')
+							.text(listName)
+							.appendTo('#list_header');
+
+						$('.list_element').each(function(){
+							var list_ref, list_occ;
+							list_ref = $(this).attr('id');
+							list_occ = $("<div/>").addClass('occurences');
+							$('#'+listName)
+								.find('#occorrenze')
+									.find("span[data-ref='"+list_ref+"']").each(function(){
+										var pb;
+										pb = $(this).attr('data-pb');
+										if ( $(list_occ).find("span[data-pb='"+pb+"']").length > 0 ) {
+											var occ;
+											occ = $(list_occ).find("span[data-pb='"+pb+"']").attr('data-occ')*1;
+											occ++;
+											$(list_occ)
+												.find("span[data-pb='"+pb+"']")
+												.attr('data-occ', occ)
+												.attr('title', occ+" occorrenze");
+											$(this).remove();
+										} else {
+											var doc;
+											doc = $("#span_pp_select .option_container .option[data-value='"+pb+"']").attr('data-first-doc');
+											$(this)
+												.attr('data-occ', '1')
+												.click(function(){
+													if ( $('#regesto_cont').is(':visible') ){
+														hide_regesto('#regesto_cont', '#regesto');
+													}
+													updateHash(doc, pb, "");
+													var sub_menu_text_top, sub_menu_text_height, lists_cont_header_height;
+													var newTop;
+													sub_menu_text_top = $('#text_tool').position().top;
+													sub_menu_text_height = $('#text_tool').height();
+													lists_cont_header_height = $('#list_header').height()+4;
+													newTop = sub_menu_text_top - sub_menu_text_height - lists_cont_header_height;
+													$('#lists_cont')
+														.addClass('closed')
+														.animate({
+							    					       top: newTop+'px'
+							    					}, 400);
+
+												})
+												.detach()
+												.appendTo(list_occ);
+										}
+									});
+							if ($(list_occ).children().length == 0) {
+								$(list_occ).text('Nessuna corrispondenza trovata.');
+							}
+							$(this).append(list_occ);
+						});
+						$('.list_element').click(function(){
+							$('#'+listName).find('.occurences:visible').hide();
+							$('#'+listName).find('.list_element_opened').removeClass('list_element_opened');
+							$(this)
+								.addClass('list_element_opened')
+								.find('.occurences')
+									.toggle();
+						});
+					});
+				});
+			}
+
 			/* Gestione eventi */
 
 			/* Lanciato dal click sulla thumbnail */
@@ -1292,8 +1385,17 @@ $(function() {
 		$('#text_elem').attr('data-page', pp_val);
 		$('#text_elem').empty().load("data/output_data/"+edition+"/page_"+pp_val+"_"+edition+".html #text_frame", function( response, status, xhr ){
 			
-			// Riattiva filtri attivi
+			// Attiva occorrenza in lista -- CP
+			if ( $('.list').length > 0 && $('.list_element.list_element_opened').length > 0 ) {
+				$('.list_element_opened').each(function() {
+					var ref;
+					ref = $(this).attr('id');
+					$("#text span[data-ref='"+ref+"']").addClass('list_active');
+				});
+			}
+			// Riattiva filtri attivi -- CP
 			$('.like_select.filter').find('.option.selected').removeClass('selected').trigger('click');
+
 			//IT: controlla se la pagine ha gli elementi necessari allo strumento ITL
 			if ($('#text_elem .Area').length){
 				if($('#switchITL').hasClass('inactive') || $('#switchITL').hasClass('likeInactive')){
@@ -2055,6 +2157,18 @@ $(function() {
 			regesto_cont = "#regesto_cont";
 		}
 		toggleReg(regesto_cont);
+
+	});
+
+	/* APRI/CHIUDI LISTE */
+	$('#list_link').click(function(event) {
+		if ($('#lists_cont').is(":visible")) {
+			$(this).removeClass('active');
+			$('#lists_cont').hide('slide',  {direction: 'down'}, 'linear', 'slow');
+		} else {
+			$(this).addClass('active');
+			$('#lists_cont').show('slide',  {direction: 'down'}, 'linear', 'slow');
+		}
 
 	});
 

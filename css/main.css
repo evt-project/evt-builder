@@ -449,12 +449,12 @@ footer{
 	display: inline;
 }
 
-#text_cont, #text_cont-add, #image_cont, #regesto_cont, #regesto_cont-add{
+#text_cont, #text_cont-add, #image_cont, #regesto_cont, #regesto_cont-add, #lists_cont{
 	height: 100%;
 	text-align: center;
 }	
 /*Chiara  */
-#text_cont, #text_cont-add, #regesto_cont, #regesto_cont-add{
+#text_cont, #text_cont-add, #regesto_cont, #regesto_cont-add, #lists_cont{
 	background: white;
 	position: relative;
 	/*-moz-box-shadow:-2px 3px 5px -2px rgba(0, 0, 0, 0.8);
@@ -985,6 +985,9 @@ footer{
 	min-width: 28px;
 	border-radius: 3px;
 	text-align: center;
+}
+#text_tool .mainButtons{
+	top:-7px;
 }
 #right_header .like_select{
 	#left:-8px;
@@ -1729,4 +1732,83 @@ div.doc.not_current{
 div.doc.not_current:hover{
 	cursor: pointer;
 	opacity: .6;
+}
+
+/* LISTE */
+#lists_cont{
+	text-align: left;
+	font-size: 15pt;
+	margin-top: 42px;
+	margin-bottom: 42px;
+	display: none;
+	position: absolute;
+    z-index: 10;
+    bottom: 0px;
+    right: 0;
+    left: 0;
+    overflow: hidden;
+}
+#lists_cont h2{
+	margin: 20px auto;
+	overflow: hidden;
+}
+#list_header{
+	display: block;
+	color: rgb(245, 234, 212);
+	background: none repeat scroll 0% 0% rgb(54, 45, 40);
+	position: absolute;
+	padding: 0px 20px;
+	padding-top: 2px;
+	left: 1px;
+	margin-top: 1px;
+	right: 1px;
+	box-shadow: 0px 1px 3px -1px #000;
+	height: 30px;
+}
+#lists_cont.closed #list_header{
+	cursor: pointer;
+}
+
+#lists_cont .list{
+	overflow: scroll;
+	height: 100%;
+	position: relative;
+	top: 33px;
+	padding: 0px 30px;
+	padding-top: 30px;
+}
+#lists_cont.closed .list{
+	top: 40px;
+}
+ul.ul_list li{
+	list-style-type: none;
+	padding: 5px 0;
+	border-bottom: 1px solid #ccc;
+	cursor: pointer;
+}
+ul.ul_list li:hover, ul.ul_list li.list_element_opened{
+	background: rgba(185, 170, 153, .1);
+}
+ul.ul_list li.list_element_opened{
+	cursor: default;
+}
+.list_element .more_info{
+	display: none;
+}
+#occorrenze{
+	display: none;
+}
+.occurences{
+	display: none;
+}
+.occurences span{
+	cursor:pointer;
+	border-radius: 4px;
+	#background: rgb(245, 234, 212);
+	padding: 3px;
+    margin: 5px;
+    display: inline-block;
+}
+.occurences span:hover{
+	text-shadow:0px 0px 1px #000;
 }
