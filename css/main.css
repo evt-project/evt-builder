@@ -1759,24 +1759,62 @@ div.doc.not_current:hover{
 	position: absolute;
 	padding: 0px 20px;
 	padding-top: 2px;
+	padding-left: 25px;
 	left: 1px;
 	margin-top: 1px;
 	right: 1px;
 	box-shadow: 0px 1px 3px -1px #000;
-	height: 30px;
+	height: 30px;	
 }
+
 #lists_cont.closed #list_header{
 	cursor: pointer;
 }
 
+#list_header #toggle_list_cont{
+	min-width: 0;
+	left: -2px;
+	position: absolute;
+	border-radius: 0px;
+}
+
+#list_header .labelList{
+	cursor: pointer;
+	padding-top: 2px;
+	position: relative;
+	border-right: 1px solid;
+	padding-right: 15px;
+	padding-left: 15px;
+	top: -1px;
+	min-height: 28px;
+	display: inline-block;
+}
+
+#list_header .labelList:hover{
+	background: rgba(227, 200, 156, .5)
+}
+#list_header .labelList.active:hover{
+	background: rgba(227, 200, 156, 1);
+	cursor: default;
+}
+
 #lists_cont .list{
 	overflow: scroll;
-	height: 100%;
+	height: 90%;
+	height: -webkit-calc(100% - 64px);
+    height: -moz-calc(100% - 64px);
+    height: calc(100% - 64px);
+
 	position: relative;
 	top: 33px;
 	padding: 0px 30px;
 	padding-top: 30px;
 }
+
+#lists_cont .list{
+	display: none;
+}
+
 #lists_cont.closed .list{
 	top: 40px;
 }
@@ -1804,11 +1842,34 @@ ul.ul_list li.list_element_opened{
 .occurences span{
 	cursor:pointer;
 	border-radius: 4px;
-	#background: rgb(245, 234, 212);
-	padding: 3px;
-    margin: 5px;
+	padding: 3px 10px;
     display: inline-block;
+    border: 1px solid #ccc;	
+	margin-right: 5px;
+	font-size: 85%;
+	margin-bottom: 5px;
+}
+
+.occurences span.no_occ{
+	border:none;
+	color: #ccc;
 }
 .occurences span:hover{
 	text-shadow:0px 0px 1px #000;
+	background: rgba(204, 204, 204,0.4);
+}
+
+.occurences span.no_occ:hover{
+	text-shadow:none;
+	background:transparent;	
+	color: #ccc;
+}
+#text span.popup.selected_from_list .trigger{
+	background: #ffc !important;
+	text-shadow:0px 0px 1px #000;
+}
+
+.small-note{
+	font-size: 90%;
+	display: block;
 }

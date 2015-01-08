@@ -74,6 +74,15 @@
 					</xsl:element>
 				</xsl:result-document>
 			</xsl:if>
+			<xsl:if test="$list_place=true()">
+				<xsl:result-document method="html" encoding="UTF-8" media-type="text/plain" byte-order-mark="yes" href="{$filePrefix}/data/output_data/liste/listPlace.html" indent="yes">
+					<xsl:element name="div">
+						<xsl:attribute name="id">listPlace</xsl:attribute>
+						<xsl:call-template name="listPlace"></xsl:call-template>
+						<xsl:apply-templates select="$step0" mode="listPlaceOccurences"></xsl:apply-templates>
+					</xsl:element>
+				</xsl:result-document>
+			</xsl:if>
 			<!-- TEMP SEARCH -->
 			<!-- <xsl:apply-templates select="$step0" mode="file4search"></xsl:apply-templates> -->
 		</xsl:if>
@@ -217,6 +226,20 @@
 					</xsl:element>
 				</xsl:for-each>
 			</xsl:element>
+	</xsl:template>
+	
+	<xsl:template name="listPlace">
+		<xsl:element name="ul">
+			<xsl:attribute name="id">ul_listPlace</xsl:attribute>
+			<xsl:attribute name="class">ul_list</xsl:attribute>
+			<xsl:for-each select="$root//tei:listPlace/place">
+				<xsl:element name="li">
+					<xsl:attribute name="id"><xsl:value-of select="@xml:id" /></xsl:attribute>
+					<xsl:attribute name="class">list_element</xsl:attribute>
+					<xsl:call-template name="place" />
+				</xsl:element>
+			</xsl:for-each>
+		</xsl:element>
 	</xsl:template>
 	
 	<xsl:template name="search_file">
