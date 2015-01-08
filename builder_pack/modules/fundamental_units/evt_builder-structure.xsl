@@ -157,6 +157,9 @@
                     <xsl:if test="$list_person=true()">
                         <listPerson active="1" />
                     </xsl:if>
+                    <xsl:if test="$list_place=true()">
+                        <listPlace active="1" />
+                    </xsl:if>
                 </liste>
                 <editions>
                     <xsl:for-each select="$edition_array">

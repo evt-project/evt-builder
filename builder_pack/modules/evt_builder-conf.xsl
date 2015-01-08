@@ -49,8 +49,11 @@
 	<!-- On/Off regesto -->
 	<xsl:param name="regesto" select="true()"/>
 	
+	<!-- CP LISTE -->
 	<!-- On/Off persons list -->
 	<xsl:param name="list_person" select="true()"/>
+	<!-- On/Off places list -->
+	<xsl:param name="list_place" select="true()"/>
 	
 	<!-- Mostra/Nascondi pulsante Txt/Img Link in interfaccia -->
 	<xsl:param name="txtimg_link_button" select="false()"/>

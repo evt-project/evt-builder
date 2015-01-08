@@ -457,8 +457,11 @@
 	<xsl:template name="person">
 		<xsl:choose>
 			<xsl:when test="current()//tei:forename or current()//tei:surname or current()//tei:sex or current()//tei:occupation">
-				<xsl:if test="current()//tei:forename or current()//tei:surname">
-					<xsl:value-of select="tei:persName//tei:forename"/> <xsl:value-of select="tei:persName//tei:surname"/>
+				<xsl:if test="current()//tei:forename">
+					<xsl:value-of select="tei:persName//tei:forename"/>
+				</xsl:if>
+				<xsl:if test="current()//tei:surname">
+					<xsl:text>&#xA0;</xsl:text><xsl:value-of select="tei:persName//tei:surname"/>
 				</xsl:if>
 				<!--<xsl:if test="current()/tei:sex">
 					<xsl:element name="span">
@@ -477,6 +480,9 @@
 						<xsl:value-of select="tei:occupation/@to"/>
 					</xsl:if>
 					<xsl:text>).</xsl:text>
+				</xsl:if>
+				<xsl:if test="current()/tei:note and current()/tei:note != ''">
+					<span class='small-note'>[<xsl:value-of select="current()/tei:note"/>]</span>
 				</xsl:if>
 			</xsl:when>
 			<xsl:otherwise>
@@ -555,6 +561,7 @@
 			<xsl:when test="@ref and @ref!='' and $root//tei:place[@xml:id=substring-after(current()/@ref,'#')]">
 				<xsl:element name="span">
 					<xsl:attribute name="class">popup placeName</xsl:attribute>
+					<xsl:attribute name="data-ref"><xsl:value-of select="translate(@ref, '#', '')" /></xsl:attribute>
 					<xsl:element name="span">
 						<xsl:attribute name="class">trigger</xsl:attribute>
 						<xsl:apply-templates mode="#current"/>
