@@ -1033,7 +1033,6 @@ $(function() {
 			
 		$(regesto_container).css('overflow', 'visible');
 		$(regesto_container)
-			.attr('data-old-height', old_height)
 			.addClass('hidden')
 			.animate({
 		       	'top': '0px',
@@ -1082,26 +1081,33 @@ $(function() {
 				.animate({height: mainContainerHeight+'px'}, 'fast');
 		} else {
 			old_container_height = $('#main_left_frame').height()-$('#left_header').height()-$('#image_tool').height();
-			new_container_height = mainContainerHeight - ($('#right_header').height()*2);
+			new_container_height = mainContainerHeight - listHeaderHeight - ($('#right_header').height()*2);
 		}
 
 		$('#text_cont, #regesto_cont')
-			.attr('data-old-height', old_container_height)
 			//.css('height', new_container_height+'px')
 			.animate({height: new_container_height+'px'}, 'fast')
 		;
 	}
 
 	function show_regesto(regesto_container, regesto){
-		var old_height;
-		old_height = $(regesto_container).attr('data-old-height');
+		var height;
+		height = $('#central_wrapper').height();
+		
+		if ( ! $('#main_right_frame').hasClass('menuClosed') && !$('#main_left_frame').hasClass('menuClosed') ) {
+			height = height - ($('#main_right_frame').height() * 2);
+		}
+
+		if ( $('#lists_cont') && $('#list_header').is(':visible') ) {
+			height = height - $('#list_header').height() + 4;
+		}
+		
 		$(regesto_container)
-			.attr('data-old-height', '')
 			.removeClass('hidden')
 			.animate({
 	       		'top': '0px',
 	       		'min-height': '436.1px',
-	       		'height': old_height+"px"
+	       		'height': height+"px"
 	   		}, 400, function(){
 	   			$(regesto_container).removeAttr('style');
 	   			if ( $(regesto_cont).parents("div[id*='frame']").attr('id') == 'main_left_frame' && 
@@ -2266,7 +2272,7 @@ $(function() {
 			// chiudo il box delle liste
 			$(this).removeClass('active');
 			$('#lists_cont').hide('slide',  {direction: 'down'}, 'linear', speed);
-			var old_container_height = $('#text_cont').attr('data-old-height');
+			var old_container_height = $('#text_cont').height() + $('#list_header').height() + 4;
 			$('#text_cont, #regesto_cont').css('height', old_container_height+'px');
 			
 			$('#text_cont')
@@ -2310,13 +2316,23 @@ $(function() {
 			}
 			$('#switchReg').show();
 			
-			if ( $('#switchReg').hasClass('active') ){
-				if ( !$('#regesto_cont').is(':visible') ) {
-					//$('#regesto_cont').show('drop',  {direction: 'up'}, 'linear');
-					$('#regesto_cont').show();
+			if($('#regesto_cont')){
+
+				if ($('#lists_cont') && $('#lists_cont').is(':visible')) {
+					var testo_cont_height;
+					testo_cont_height = $('#text_cont').height();
+
+					$('#regesto_cont').css('height', testo_cont_height+'px');
 				}
-			} else {
-				$('#regesto_cont').hide();
+
+				if ( $('#switchReg').hasClass('active') ){
+					if ( !$('#regesto_cont').is(':visible') ) {
+						//$('#regesto_cont').show('drop',  {direction: 'up'}, 'linear');
+						$('#regesto_cont').show();
+					}
+				} else {
+					$('#regesto_cont').hide();
+				}
 			}
 			
 			$("#span_dd_select").hide();
@@ -2517,9 +2533,18 @@ $(function() {
 
 			// Se ho il REGESTO
 			if ($('#regesto_cont').length > 0 ) {
+				if ($('#lists_cont') && $('#lists_cont').is(':visible')) {
+					var header_list_height, regesto_height;
+					header_list_height = $('#list_header').height() + 4;
+					regesto_height = $('#regesto_cont').height();
+
+					$('#regesto_cont').css('height', (header_list_height+regesto_height)+'px');
+				}
+
 				if ( ! $('#regesto_cont').is(':visible') ){
 					$('#regesto_cont').show();		
 				}
+				
 				// Se il contanitore del regesto non è nel box di sinistra lo sposto da destra a sinistra
 				if ( $('#main_left_frame').find('#regesto_cont').length <= 0 ){
 					$('#regesto_cont')
@@ -2683,13 +2708,13 @@ $(function() {
 
 	$("#header_collapse").click(function(){
 		var noMenu_height, withMenu_height;
-		var list_frame_visible;
+		var list_frame;
 		if (magnifierON === false){
 			$('#image_tool').slideToggle().toggleClass('menuClosed');
 		} else {
 			$('#image_tool').toggleClass('menuClosed');
 		}
-		list_frame_visible = ($('#lists_cont'));
+		list_frame = ($('#lists_cont') && $('#lists_cont').is(':visible'));
 
 		// Modifico colore dell'icona .go-full-right che altrimenti non si vedrebbe
 		$('.go-full-right').toggleClass('onWhite');
@@ -2709,7 +2734,8 @@ $(function() {
 			// Modifico le dimensioni del testo di sinistra per riempire il box
 			noMenu_height = $('#image_cont').height();
 			// Se il frame delle liste è presente e visibile lo sposto in basso dell'altezza occupata precedentemente dal menu in basso
-			if(list_frame_visible){
+			if(list_frame){
+				var noMenu_height_with_list;
 				if($('#lists_cont').hasClass('closed')){
 					var old_top_frame, bottom_menu_height, new_top_frame;
 					old_top_frame = $('#lists_cont').position().top;
@@ -2724,21 +2750,33 @@ $(function() {
 					});
 				}
 				
-				noMenu_height = noMenu_height - ($('#list_header').height() + 4);
+				noMenu_height_with_list = noMenu_height - ($('#list_header').height() + 4);
+				$('#main_right_frame #regesto_cont').animate({
+					top: "-42px",
+					height: noMenu_height_with_list
+				});
+				$( '#main_left_frame #text_cont-add, #main_left_frame #regesto_cont-add, #main_left_frame #regesto_cont, #main_left_frame #thumb_cont')
+					.animate({
+						top: "-42px",
+						height: noMenu_height
+					});
 
 				var mainContainerHeight, listHeaderHeight;
 				mainContainerHeight = $('#central_wrapper').height();
-				listHeaderHeight = $('#list_header').height() + 4;
+
 				$('#lists_cont')
 					.css({height: mainContainerHeight+'px'});
+				
+			} else {
+				$('#text_cont-add, #regesto_cont-add, #regesto_cont, #thumb_cont').animate({
+					top: "-42px",
+					height: noMenu_height
+				});
 			}
-			$('#text_cont-add, #regesto_cont-add, #regesto_cont, #thumb_cont').animate({
-				top: "-42px",
-				height: noMenu_height
-			});
 		} else {
 			withMenu_height = noMenu_height - 84;
-			if(list_frame_visible){
+			if(list_frame){
+				var withMenu_height_with_list;
 				if($('#lists_cont').hasClass('closed')){
 					var old_top_frame, bottom_menu_height, new_top_frame;
 					old_top_frame = $('#lists_cont').position().top;
@@ -2753,20 +2791,31 @@ $(function() {
 					});
 				}
 				
-				withMenu_height = withMenu_height - ($('#list_header').height() + 4);
+				withMenu_height_with_list = withMenu_height - ($('#list_header').height() + 4);
+				$('#main_right_frame #regesto_cont').animate({
+					top: "0px",
+					height: withMenu_height_with_list
+				});
+				$( '#main_left_frame #text_cont-add, #main_left_frame #regesto_cont-add, #main_left_frame #regesto_cont, #main_left_frame #thumb_cont')
+					.animate({
+						top: "0px",
+						height: withMenu_height
+					});
 
 				var mainContainerHeight, bottomMenuHeight;
 				mainContainerHeight = $('#central_wrapper').height();
 				bottomMenuHeight = $('#text_tool').height()*2;
 				$('#lists_cont')
 					.animate({height: (mainContainerHeight-bottomMenuHeight)+'px'});
+
+			} else {
+				// altrimenti (se ho appena aperto il menu sx)
+				// Risistemo il box del testo a sinistra
+				$('#text_cont-add, #regesto_cont-add, #regesto_cont, #thumb_cont').animate({
+					top: "0px",
+					height: withMenu_height
+				});
 			}
-			// altrimenti (se ho appena aperto il menu sx)
-			// Risistemo il box del testo a sinistra
-			$('#text_cont-add, #regesto_cont-add, #regesto_cont, #thumb_cont').animate({
-				top: "0px",
-				height: withMenu_height
-			});
 		}
 
 		// Gestione menu destro: chiudo/apro + aggiungo/tolgo la classe menuClosed
@@ -2775,22 +2824,45 @@ $(function() {
 		noMenu_height = $('#image_cont').height();
 		// Se ho appena chiuso il menu di destra
 		if($('#right_header').hasClass('menuClosed')){
-			if(list_frame_visible){
-				noMenu_height = noMenu_height - ($('#list_header').height() + 4);
+			if(list_frame){
+				var noMenu_height_with_list;
+				noMenu_height_with_list = noMenu_height - ($('#list_header').height() + 4);
+				
+				$( '#main_right_frame #text_cont, #main_right_frame #regesto_cont').animate({
+			    	//marginTop: "-42px",
+			    	height: noMenu_height_with_list	
+		    	});
+				$( '#main_left_frame #text_cont-add, #main_left_frame #regesto_cont, #main_left_frame #regesto_cont-add, #main_left_frame #thumb_cont')
+					.animate({
+				    	//marginTop: "-42px",
+				    	height: noMenu_height	
+			    	});
+			} else {
+				$('#text_cont, #text_cont-add, #regesto_cont, #regesto_cont-add, #thumb_cont').animate({
+			    	//marginTop: "-42px",
+			    	height: noMenu_height	
+		    	});
 			}
-			$('#text_cont, #text_cont-add, #regesto_cont, #regesto_cont-add, #thumb_cont').animate({
-		    	//marginTop: "-42px",
-		    	height: noMenu_height	
-	    	});
 		} else {
 			withMenu_height = noMenu_height - 84;
-			if(list_frame_visible){
-				withMenu_height = withMenu_height - ($('#list_header').height() + 4);
+			if(list_frame){
+				var withMenu_height_with_list;
+				withMenu_height_with_list = withMenu_height - ($('#list_header').height() + 4);
+				$( '#main_right_frame #text_cont, #main_right_frame #regesto_cont').animate({
+			    	//marginTop: "0px",
+			    	height: withMenu_height_with_list	
+		    	});
+				$( '#main_left_frame #text_cont-add, #main_left_frame #regesto_cont, #main_left_frame #regesto_cont-add, #main_left_frame #thumb_cont')
+					.animate({
+				    	//marginTop: "0px",
+				    	height: withMenu_height	
+			    	});
+			} else {
+				$('#text_cont, #text_cont-add, #regesto_cont, #regesto_cont-add').animate({
+					//marginTop: "42px",
+					height: withMenu_height
+				});
 			}
-			$('#text_cont, #text_cont-add, #regesto_cont, #regesto_cont-add').animate({
-				//marginTop: "42px",
-				height: withMenu_height
-			});
 		}
 
 		// Modifico lo stile e la posizione dell'icona
