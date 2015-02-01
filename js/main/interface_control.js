@@ -1434,7 +1434,9 @@ $(function() {
     		id_regesto_cont = "#regesto_cont-add";
     		id_regesto = "#regesto-add";
     	}
+
     	$(id_regesto_cont).load("data/output_data/regesto/doc_"+current_doc+".html #regesto", function(){
+	    	
 	    	$('<div />')
 	    		.attr('id', "hide_regesto")
 	    		.addClass('hide_regesto')
