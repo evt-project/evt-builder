@@ -1234,12 +1234,17 @@ $(function() {
 	         }
        	});
         
-        $('.popup').unbind( "click" ).click(function(e){
+        $('.tooltip').click(function(e){
+        	if($(this).hasClass('opened')) {
+        		e.stopPropagation();
+        	}
+        });
+        $('.trigger').unbind( "click" ).click(function(e){
         	if ( $(this).parents('.doc').hasClass('current') || $(this).parents("div[id*='regesto_cont']").length>0 ) {
         		// alert('click');
 	        	e.stopPropagation();
 	        	var popup, trigger, tooltip, before;
-	        	popup = $(this);
+	        	popup = $(this).parent('.popup');
 	        	trigger = popup.find('.trigger');
 	        	tooltip = popup.find('> .tooltip');
 	        	before = tooltip.find('> .before');
@@ -1352,6 +1357,7 @@ $(function() {
 		     		} else {
 		     			offsetLeftText = $('#text').offset().left;
 		     		}
+
 	     			if ( left < offsetLeftText ) {
 	     				tooltip.offset({
 	     						left: offsetLeftText
@@ -1407,29 +1413,15 @@ $(function() {
 		        }
         	}
        	});
-
+		
+        
         $(document).click(function(){
 		    $('.over').removeClass('over');
 		    $('.opened').removeClass('opened');
         	$('.popup').find('> .tooltip').hide();
 		    $(this).hide();
 		});
-       /* $('.popup').hover(function(e){
-         e.stopPropagation();
-         $(this).addClass('over');
-         if($(this).parents('.popup').find('> .tooltip')){
-           $(this).parents('.popup').removeClass('over');
-           $(this).parents('.popup').find('> .tooltip').hide();
-         }
-         $(this).find('> .tooltip').show();
-       }, function(){
-         if($(this).parents('.popup').find('> .tooltip')){
-           $(this).parents('.popup').addClass('over');
-           $(this).parents('.popup').find('> .tooltip').show();
-         }
-         $(this).removeClass('over');
-         $(this).find('> .tooltip').hide();
-       });*/
+       
     }
 
     function updateRegestoContent(current_doc){
@@ -1588,6 +1580,11 @@ $(function() {
 					.attr("id", "text_elem-add")
 					.appendTo('#text_cont-add')
 				;
+				$('#text_elem-add')
+					.find('#text_frame')
+						.attr('id', 'text_frame-add')
+						.find('#text')
+							.attr('#text-add');
 			}
 			InitializePopup();
 		});
@@ -2510,6 +2507,11 @@ $(function() {
 			$('#text_cont-add>#text_elem')
 				.attr("id", "text_elem-add")
 			;
+			$('#text_elem-add')
+					.find('#text_frame')
+						.attr('id', 'text_frame-add')
+						.find('#text')
+							.attr('id', '#text-add');
 
 			// Aggiorno (eventualmente) le dimensioni del selettore delle edizioni nel menu di sinistra
 			if (!$('#left_header').hasClass('menuClosed')) {
