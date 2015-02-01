@@ -422,6 +422,7 @@ span.tooltip {
 	#min-width:250px;
 	#width:250px;
 	text-align: center;
+	cursor: text !important;
 }
 span.tooltip span.before{
 	background: url("../images/popup_before.png") repeat scroll 0% 0% transparent;
@@ -502,11 +503,14 @@ span .text_note{
 	padding:1%;
 }*/
 span.emph{
-    font-style:italic;
+    font-weight:bold;
+}
+span.italic{
+	font-style:italic;
 }
 span.term, span.emph span.term{
-    font-weight:bold;
-    font-style:normal;
+    #font-weight:bold;
+    #font-style:normal;
 }
 
 span.persName, span.measure, span.roleName, span.placeName, span.date

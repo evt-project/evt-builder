@@ -373,10 +373,20 @@
 	
 	<!-- TERM -->
 	<xsl:template match="tei:term" mode="dipl">
-		<xsl:element name="span">
-			<xsl:attribute name="class">term</xsl:attribute>
-			<xsl:apply-templates mode="#current" />
-		</xsl:element>
+		<xsl:choose>
+			<xsl:when test="ancestor::tei:front">
+				<xsl:element name="span">
+					<xsl:attribute name="class">term italic</xsl:attribute>
+					<xsl:apply-templates mode="#current" />
+				</xsl:element>	
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:element name="span">
+					<xsl:attribute name="class">term</xsl:attribute>
+					<xsl:apply-templates mode="#current" />
+				</xsl:element>
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:template>
 	
 	<!-- NOTE Note or annotation -->
