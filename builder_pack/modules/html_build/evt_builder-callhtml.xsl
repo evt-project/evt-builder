@@ -139,20 +139,24 @@
 							<div class="align-center"><span class="intestazione inline"><xsl:value-of select="$front/tei:docDate"/></span></div>
 						</div>
 						<div class="reg_text">
-							<xsl:value-of select="$front/tei:div[@type='regesto']"/>
+							<!--<xsl:value-of select="$front/tei:div[@type='regesto']"/>-->
+							<xsl:apply-templates select="$front/tei:div[@type='regesto']" mode="dipl"/>
 						</div>
 						<div class="reg_note">
 							<hr/>
 							<p class="bibliografia">
-								<xsl:value-of select="$front//tei:div[@type='orig_doc']"/>
+								<!--<xsl:value-of select="$front//tei:div[@type='orig_doc']"/>-->
+								<xsl:apply-templates select="$front//tei:div[@type='orig_doc']" mode="dipl"></xsl:apply-templates>
 							</p>
 							<p class="bibliografia">
 								<xsl:for-each select="$front//tei:div[@type='biblio']/tei:p">
 									<xsl:apply-templates mode='dipl'/>
 								</xsl:for-each>
 							</p>
-							<p>
-								<xsl:value-of select="tei:front//tei:div[@type='crit_notes']"/>
+							<p class="crit_notes">
+								<xsl:for-each select="tei:front//tei:div[@type='crit_notes']/tei:note">
+									<xsl:apply-templates mode="dipl"/>
+								</xsl:for-each>
 							</p>
 						</div>
 					</div>
