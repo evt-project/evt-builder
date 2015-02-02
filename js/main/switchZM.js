@@ -136,6 +136,7 @@ function magOn() {
 
 		magnifierON = false;
 	}
+	$('#thumb_cont').css('display', 'none');
 }
 
 function disableITLbutton() {
