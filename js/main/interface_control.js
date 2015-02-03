@@ -1215,6 +1215,71 @@ $(function() {
 		}
 	}
 
+	function showItemInList(id_ref){
+		var speed;
+		if($('#lists_cont').hasClass('closed')){
+			speed = 'fast';
+		} else {
+			speed = 'slow';
+		}
+		scrollDownListContainer(0);
+		$('#lists_cont').show(0);
+		var top, mainContainerHeight;
+		top = 0;
+		mainContainerHeight = $('#central_wrapper').height();
+		if($('#right_header').hasClass('menuClosed')){
+			top = -$('#right_header').height();
+			$('#lists_cont').css('height', mainContainerHeight+'px');
+		}
+		$('#lists_cont').animate({
+		       top: top+'px'
+		}, 200, function(){
+			$('#list_listPerson').animate({
+				scrollTop: 0
+			}, function(){
+				$('#'+id_ref).trigger('click');
+				$('#list_listPerson').animate({
+				    scrollTop: ($('#'+id_ref).position().top-($('#'+id_ref).height()/2))
+				},0);	
+			});
+		});
+		$('#toggle_list_cont').find('.fa').removeClass('fa-angle-double-up').addClass('fa-angle-double-down');
+
+		if ( $('#lists_cont').is(':visible') && $('#lists_cont').hasClass('closed') ) {
+			
+		} else {
+			/*$('#lists_cont').show(0, function(){
+				$('#lists_cont').animate({
+				       top: top+'px'
+				}, 100, function(){
+					$('#list_listPerson').animate({
+					    scrollTop: ($('.list_element#'+id_ref).position().top-($('.list_element#'+id_ref).height()/2))
+					},0);
+					$('#'+id_ref).trigger('click');
+				});
+			});*/
+			
+			/*$('#lists_cont').show('slide',  {direction: 'down'}, 'linear', 0, function(){
+				$('#'+id_ref).parent('.list').animate({
+				    scrollTop: ($('.list_element#'+id_ref).position().top-30)
+				},0);
+				$('#'+id_ref).trigger('click');
+			});*/
+		}
+		$('#list_link').addClass('active');
+		updateTextContHeight();
+		$('#lists_cont').removeClass('closed');
+	}
+	function InitializeLinkTextList(){
+		$('span.tooltip span.entity_name').click(function() {
+			var id_ref;
+			$(this).parent('.tooltip').siblings('.trigger').trigger('click');
+			id_ref = $(this).parent('.tooltip').parent('.popup').attr('data-ref');
+			
+			showItemInList(id_ref);
+		});
+	}
+
 	/* Inizializzazione Popup (note inline, dettagli elementi liste, ...) */
 	function InitializePopup(){
 		//alert('pop');
@@ -1423,6 +1488,8 @@ $(function() {
 		    $(this).hide();
 		});
        
+
+       	InitializeLinkTextList();
     }
 
     function updateRegestoContent(current_doc){

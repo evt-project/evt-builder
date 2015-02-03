@@ -467,12 +467,15 @@
 	<xsl:template name="person">
 		<xsl:choose>
 			<xsl:when test="current()//tei:forename or current()//tei:surname or current()//tei:sex or current()//tei:occupation">
-				<xsl:if test="current()//tei:forename">
-					<xsl:value-of select="tei:persName//tei:forename"/>
-				</xsl:if>
-				<xsl:if test="current()//tei:surname">
-					<xsl:text>&#xA0;</xsl:text><xsl:value-of select="tei:persName//tei:surname"/>
-				</xsl:if>
+				<xsl:element name="span">
+					<xsl:attribute name="class">entity_name</xsl:attribute>
+					<xsl:if test="current()//tei:forename">
+						<xsl:value-of select="tei:persName//tei:forename"/>
+					</xsl:if>
+					<xsl:if test="current()//tei:surname">
+						<xsl:text>&#xA0;</xsl:text><xsl:value-of select="tei:persName//tei:surname"/>
+					</xsl:if>
+				</xsl:element>
 				<!--<xsl:if test="current()/tei:sex">
 					<xsl:element name="span">
 						<xsl:attribute name="class">display-block</xsl:attribute>
