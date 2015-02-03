@@ -589,3 +589,8 @@ span.display-block{
 span.quote{
     font-style:italic;
 }
+
+span.tooltip span.entity_name{
+	text-decoration: underline;
+	cursor: pointer;
+}
