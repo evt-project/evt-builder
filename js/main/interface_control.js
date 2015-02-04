@@ -238,13 +238,22 @@ $(function() {
 							$(this).find('.fa').removeClass('fa-angle-double-down').addClass('fa-angle-double-up');
 						}
 					});
-				$('.list_filter').click(function(event) {
+				$('.list_filter').click(function() {
+					
 					var filterType, filterValue;
 					filterType = $(this).attr('data-filter-type');
 					filterValue = $(this).attr('data-value');
+					$('.occurences:visible').hide();
+					$('.list_element_opened').removeClass('list_element_opened');
+
 					$('.list_element').hide();
 					$(".list_element[data-order-list='"+filterValue.toLowerCase()+"']").show();
 					$(".list_element[data-order-list='"+filterValue.toUpperCase()+"']").show();
+					
+					$("div[id*='list_']").animate({
+						scrollTop: 0
+					}, 0);
+
 				});
 				$(xml).find('liste').children().each(function(){
 					var listName, listLabel;
@@ -1228,10 +1237,12 @@ $(function() {
 		list = $('#'+id_ref).parent().parent();
 		list_id = list.attr('id');
 		if ( ! 	list.hasClass('list_opened') ) {
+			$('.occurences:visible').hide();
+			$('.list_element_opened').removeClass('list_element_opened');
+			
 			$('.list_opened').hide();
 			$('.labelList.active').removeClass('active');
 			$("#header_"+list_id).addClass('active');
-			$('.list.list_opened').hide();
 			$('#list_'+list_id).addClass('list_opened').show();
 		}
 		// Open the letter of the element
@@ -1295,6 +1306,7 @@ $(function() {
 	function InitializeLinkTextList(){
 		$('span.tooltip span.entity_name').click(function() {
 			var id_ref, order_list;
+
 			$(this).parent('.tooltip').siblings('.trigger').trigger('click');
 			id_ref = $(this).parent('.tooltip').parent('.popup').attr('data-ref');
 			
