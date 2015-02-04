@@ -52,8 +52,13 @@
 	<!-- CP LISTE -->
 	<!-- On/Off persons list -->
 	<xsl:param name="list_person" select="true()"/>
+	<!-- Customize person list label -->
+	<xsl:param name="list_person_label" select="'Lista Persone'"/>
+	
 	<!-- On/Off places list -->
 	<xsl:param name="list_place" select="true()"/>
+	<!-- Customize places list label -->
+	<xsl:param name="list_place_label" select="'Lista Luoghi'"/>
 	
 	<!-- Mostra/Nascondi pulsante Txt/Img Link in interfaccia -->
 	<xsl:param name="txtimg_link_button" select="false()"/>

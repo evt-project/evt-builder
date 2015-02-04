@@ -602,7 +602,10 @@
 		<xsl:choose>
 			<xsl:when test="current()//tei:settlement or current()//tei:placeName or current()//tei:district">
 				<xsl:if test="current()/tei:settlement">
-					<xsl:value-of select="tei:settlement"/>
+					<xsl:element name="span">
+						<xsl:attribute name="class">entity_name</xsl:attribute>
+						<xsl:value-of select="tei:settlement"/>
+					</xsl:element>
 					<xsl:if test="tei:settlement/@type">
 						<xsl:text> (</xsl:text>
 						<xsl:value-of select="tei:settlement/@type"></xsl:value-of>

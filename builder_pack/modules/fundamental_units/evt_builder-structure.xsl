@@ -155,10 +155,14 @@
                 </xsl:if>
                 <liste>
                     <xsl:if test="$list_person=true()">
-                        <listPerson active="1" />
+                        <listPerson active="1">
+                            <xsl:value-of select="$list_person_label"></xsl:value-of>
+                        </listPerson>
                     </xsl:if>
                     <xsl:if test="$list_place=true()">
-                        <listPlace active="1" />
+                        <listPlace active="1" >
+                            <xsl:value-of select="$list_place_label"></xsl:value-of>
+                        </listPlace>
                     </xsl:if>
                 </liste>
                 <editions>

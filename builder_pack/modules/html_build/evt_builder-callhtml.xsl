@@ -447,27 +447,27 @@
 									</span>
 								</div>
 								<div id="list_letters">
-									<span class="list_filter" data-filter-type="first_letter" data-value="a">A</span>
-									<span class="list_filter" data-filter-type="first_letter" data-value="b">B</span>
-									<span class="list_filter" data-filter-type="first_letter" data-value="c">C</span>
-									<span class="list_filter" data-filter-type="first_letter" data-value="d">D</span>
-									<span class="list_filter" data-filter-type="first_letter" data-value="e">E</span>
-									<span class="list_filter" data-filter-type="first_letter" data-value="f">F</span>
-									<span class="list_filter" data-filter-type="first_letter" data-value="g">G</span>
-									<span class="list_filter" data-filter-type="first_letter" data-value="h">H</span>
-									<span class="list_filter" data-filter-type="first_letter" data-value="i">I</span>
-									<span class="list_filter" data-filter-type="first_letter" data-value="l">L</span>
-									<span class="list_filter" data-filter-type="first_letter" data-value="m">M</span>
-									<span class="list_filter" data-filter-type="first_letter" data-value="n">N</span>
-									<span class="list_filter" data-filter-type="first_letter" data-value="o">O</span>
-									<span class="list_filter" data-filter-type="first_letter" data-value="p">P</span>
-									<span class="list_filter" data-filter-type="first_letter" data-value="q">Q</span>
-									<span class="list_filter" data-filter-type="first_letter" data-value="r">R</span>
-									<span class="list_filter" data-filter-type="first_letter" data-value="s">S</span>
-									<span class="list_filter" data-filter-type="first_letter" data-value="t">T</span>
-									<span class="list_filter" data-filter-type="first_letter" data-value="u">U</span>
-									<span class="list_filter" data-filter-type="first_letter" data-value="v">V</span>
-									<span class="list_filter" data-filter-type="first_letter" data-value="z">Z</span>
+									<span class="list_filter" data-filter-type="first_letter" data-value="A">A</span>
+									<span class="list_filter" data-filter-type="first_letter" data-value="B">B</span>
+									<span class="list_filter" data-filter-type="first_letter" data-value="C">C</span>
+									<span class="list_filter" data-filter-type="first_letter" data-value="D">D</span>
+									<span class="list_filter" data-filter-type="first_letter" data-value="E">E</span>
+									<span class="list_filter" data-filter-type="first_letter" data-value="F">F</span>
+									<span class="list_filter" data-filter-type="first_letter" data-value="G">G</span>
+									<span class="list_filter" data-filter-type="first_letter" data-value="H">H</span>
+									<span class="list_filter" data-filter-type="first_letter" data-value="I">I</span>
+									<span class="list_filter" data-filter-type="first_letter" data-value="L">L</span>
+									<span class="list_filter" data-filter-type="first_letter" data-value="M">M</span>
+									<span class="list_filter" data-filter-type="first_letter" data-value="N">N</span>
+									<span class="list_filter" data-filter-type="first_letter" data-value="O">O</span>
+									<span class="list_filter" data-filter-type="first_letter" data-value="P">P</span>
+									<span class="list_filter" data-filter-type="first_letter" data-value="Q">Q</span>
+									<span class="list_filter" data-filter-type="first_letter" data-value="R">R</span>
+									<span class="list_filter" data-filter-type="first_letter" data-value="S">S</span>
+									<span class="list_filter" data-filter-type="first_letter" data-value="T">T</span>
+									<span class="list_filter" data-filter-type="first_letter" data-value="U">U</span>
+									<span class="list_filter" data-filter-type="first_letter" data-value="V">V</span>
+									<span class="list_filter" data-filter-type="first_letter" data-value="Z">Z</span>
 									
 									
 								</div>
