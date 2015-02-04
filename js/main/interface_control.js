@@ -243,12 +243,13 @@ $(function() {
 					filterType = $(this).attr('data-filter-type');
 					filterValue = $(this).attr('data-value');
 					$('.list_element').hide();
-					$(".list_element[data-order-list='"+filterValue+"']").show();
+					$(".list_element[data-order-list='"+filterValue.toLowerCase()+"']").show();
 					$(".list_element[data-order-list='"+filterValue.toUpperCase()+"']").show();
 				});
 				$(xml).find('liste').children().each(function(){
-					var listName;
+					var listName, listLabel;
 					listName = $(this).get(0).tagName;
+					listLabel = $(this).text();
 					$('<div />')
 						.attr('id', 'list_'+listName)
 						.addClass('list')
@@ -259,7 +260,7 @@ $(function() {
 						$('<span />')
 							.addClass('labelList')
 							.attr('id', 'header_'+listName)
-							.text(listName)
+							.text(listLabel)
 							.click(function(){
 								if ( $('#lists_cont').hasClass('closed') ) {
 									$('#toggle_list_cont').trigger('click');
@@ -273,77 +274,82 @@ $(function() {
 
 						$('#list_'+listName)
 							.find('.list_element').click(function(){
-								if($(this).find('.occurences').length<=0){
-									var occ_ref;
-									var list_ref, list_occ;
-									list_ref = $(this).attr('id');
-									list_occ = $("<div/>").addClass('occurences');
-									occ_ref = $('#'+listName)
-													.find('#occorrenze')
-														.find("span[data-ref='"+list_ref+"']");
-									if(occ_ref.length > 0){
-										occ_ref.each(function(){
-											var pb, doc, pb_n;
-											var doc_lab;
-											pb = $(this).attr('data-pb');
-											pb_n = $(this).attr('data-pb-n');
-											doc = $(this).attr('data-doc');
-											doc_lab = $("#span_tt_select .option_container .option[data-value='"+doc+"']").attr('title');
-											if ( $(list_occ).find("span[data-pb='"+pb+"'][data-doc='"+doc+"']").length > 0 ) {
-												var occ;
-												occ = $(list_occ).find("span[data-pb='"+pb+"'][data-doc='"+doc+"']").attr('data-occ')*1;
-												occ++;
-												$(list_occ)
-													.find("span[data-pb='"+pb+"'][data-pb='"+doc+"']")
-													.attr('data-occ', occ)
-													.attr('title', occ+" occorrenze");
-												$(this).remove();
-											} else {
-												$(this)
-													.attr('data-occ', '1')
-													.attr('title', "1 occorrenza")
-													.text("Fol. "+pb_n+" - Doc. "+doc_lab)
-													.click(function(){
-														var current_pp, current_tt;
-														if ( $('#regesto_cont').is(':visible') ){
-															hide_regesto('#regesto_cont', '#regesto');
-														}
-														current_pp = $('#span_pp_select .label_selected').attr('data-value');
-														current_tt = $('#span_tt_select .label_selected').attr('data-value');
-														if (pb != current_pp) {
-															updateHash(doc, pb, "");
-														} else {
-															if (doc != current_tt) {
-																$("#text .doc[data-doc='"+doc+"']").trigger('click');
+								if($(this).hasClass('list_element_opened')){
+									$(this).find('.occurences').toggle();
+								} 
+								else {
+									if($(this).find('.occurences').length<=0){
+										var occ_ref;
+										var list_ref, list_occ;
+										list_ref = $(this).attr('id');
+										list_occ = $("<div/>").addClass('occurences');
+										occ_ref = $('#'+listName)
+														.find('#occorrenze')
+															.find("span[data-ref='"+list_ref+"']");
+										if(occ_ref.length > 0){
+											occ_ref.each(function(){
+												var pb, doc, pb_n;
+												var doc_lab;
+												pb = $(this).attr('data-pb');
+												pb_n = $(this).attr('data-pb-n');
+												doc = $(this).attr('data-doc');
+												doc_lab = $("#span_tt_select .option_container .option[data-value='"+doc+"']").attr('title');
+												if ( $(list_occ).find("span[data-pb='"+pb+"'][data-doc='"+doc+"']").length > 0 ) {
+													var occ;
+													occ = $(list_occ).find("span[data-pb='"+pb+"'][data-doc='"+doc+"']").attr('data-occ')*1;
+													occ++;
+													$(list_occ)
+														.find("span[data-pb='"+pb+"'][data-pb='"+doc+"']")
+														.attr('data-occ', occ)
+														.attr('title', occ+" occorrenze");
+													$(this).remove();
+												} else {
+													$(this)
+														.attr('data-occ', '1')
+														.attr('title', "1 occorrenza")
+														.text("Fol. "+pb_n+" - Doc. "+doc_lab)
+														.click(function(){
+															var current_pp, current_tt;
+															if ( $('#regesto_cont').is(':visible') ){
+																hide_regesto('#regesto_cont', '#regesto');
 															}
-															// Attiva occorrenza in lista -- CP
-															if ( $('.list').length > 0 && $('.list_element.list_element_opened').length > 0 ) {
-																$('.selected_from_list').removeClass('selected_from_list');
-																$('.list_element_opened').each(function() {
-																	var ref;
-																	ref = $(this).attr('id');
-																	$("#text span[data-ref='"+ref+"']").addClass('selected_from_list');
-																});
+															current_pp = $('#span_pp_select .label_selected').attr('data-value');
+															current_tt = $('#span_tt_select .label_selected').attr('data-value');
+															if (pb != current_pp) {
+																updateHash(doc, pb, "");
+															} else {
+																if (doc != current_tt) {
+																	$("#text .doc[data-doc='"+doc+"']").trigger('click');
+																}
+																// Attiva occorrenza in lista -- CP
+																if ( $('.list').length > 0 && $('.list_element.list_element_opened').length > 0 ) {
+																	$('.selected_from_list').removeClass('selected_from_list');
+																	$('.list_element_opened').each(function() {
+																		var ref;
+																		ref = $(this).attr('id');
+																		$("#text span[data-ref='"+ref+"']").addClass('selected_from_list');
+																	});
+																}
 															}
-														}
-														$('#toggle_list_cont').trigger('click');
+															$('#toggle_list_cont').trigger('click');
 
-													})
-													.detach()
-													.appendTo(list_occ);
-											}
-										});
-									} else {
-										$(list_occ).append("<span class='no_occ'>Nessuna corrispondenza trovata.</span>");
+														})
+														.detach()
+														.appendTo(list_occ);
+												}
+											});
+										} else {
+											$(list_occ).append("<span class='no_occ'>Nessuna corrispondenza trovata.</span>");
+										}
+										$(this).append(list_occ);
 									}
-									$(this).append(list_occ);
+									$(this).parents('.list').find('.occurences:visible').hide();
+									$(this).parents('.list').find('.list_element_opened').removeClass('list_element_opened');
+									$(this)
+										.addClass('list_element_opened')
+										.find('.occurences')
+											.toggle();
 								}
-								$(this).parents('.list').find('.occurences:visible').hide();
-								$(this).parents('.list').find('.list_element_opened').removeClass('list_element_opened');
-								$(this)
-									.addClass('list_element_opened')
-									.find('.occurences')
-										.toggle();
 							});
 						$('#lists_cont').find('.list').first().addClass('list_opened').show();
 						$('#lists_cont').find('.labelList').first().addClass('active');
@@ -1214,6 +1220,25 @@ $(function() {
 
 	function showItemInList(id_ref){
 		var speed;
+		var top, mainContainerHeight;
+		var list_filter_type, list_filter_pos;
+		var list, list_id;
+		
+		// Open the list where there is the element
+		list = $('#'+id_ref).parent().parent();
+		list_id = list.attr('id');
+		if ( ! 	list.hasClass('list_opened') ) {
+			$('.list_opened').hide();
+			$('.labelList.active').removeClass('active');
+			$("#header_"+list_id).addClass('active');
+			$('.list.list_opened').hide();
+			$('#list_'+list_id).addClass('list_opened').show();
+		}
+		// Open the letter of the element
+		list_filter_pos = $('#'+id_ref).attr('data-order-list');
+		$(".list_filter[data-value='"+list_filter_pos.toUpperCase()+"']").trigger('click');
+
+
 		if($('#lists_cont').hasClass('closed')){
 			speed = 'fast';
 		} else {
@@ -1221,7 +1246,7 @@ $(function() {
 		}
 		scrollDownListContainer(0);
 		$('#lists_cont').show(0);
-		var top, mainContainerHeight;
+		
 		top = 0;
 		mainContainerHeight = $('#central_wrapper').height();
 		if($('#right_header').hasClass('menuClosed')){
@@ -1231,12 +1256,12 @@ $(function() {
 		$('#lists_cont').animate({
 		       top: top+'px'
 		}, 200, function(){
-			$('#list_listPerson').animate({
+			$('#list_'+list_id).animate({
 				scrollTop: 0
 			}, function(){
 				$('#'+id_ref).trigger('click');
-				$('#list_listPerson').animate({
-				    scrollTop: ($('#'+id_ref).position().top-($('#'+id_ref).height()/2))
+				$('#list_'+list_id).animate({
+				    scrollTop: ($('#'+id_ref).position().top)
 				},0);	
 			});
 		});
@@ -1269,7 +1294,7 @@ $(function() {
 	}
 	function InitializeLinkTextList(){
 		$('span.tooltip span.entity_name').click(function() {
-			var id_ref;
+			var id_ref, order_list;
 			$(this).parent('.tooltip').siblings('.trigger').trigger('click');
 			id_ref = $(this).parent('.tooltip').parent('.popup').attr('data-ref');
 			

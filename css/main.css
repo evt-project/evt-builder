@@ -1845,7 +1845,7 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 	background: rgba(185, 170, 153, .1);
 }
 ul.ul_list li.list_element_opened{
-	cursor: default;
+	#cursor: default;
 }
 .list_element .more_info{
 	display: none;
