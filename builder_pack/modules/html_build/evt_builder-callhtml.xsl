@@ -440,6 +440,38 @@
 							<div id="text_cont">
 								<div id="text_elem"/>
 							</div>
+							<div id="lists_cont">
+								<div id="list_header">
+									<span id="toggle_list_cont" class="mainButtons" title="Apri/Chiudi Liste">
+										<i class='fa fa-angle-double-down'></i>
+									</span>
+								</div>
+								<div id="list_letters">
+									<span class="list_filter" data-filter-type="first_letter" data-value="a">A</span>
+									<span class="list_filter" data-filter-type="first_letter" data-value="b">B</span>
+									<span class="list_filter" data-filter-type="first_letter" data-value="c">C</span>
+									<span class="list_filter" data-filter-type="first_letter" data-value="d">D</span>
+									<span class="list_filter" data-filter-type="first_letter" data-value="e">E</span>
+									<span class="list_filter" data-filter-type="first_letter" data-value="f">F</span>
+									<span class="list_filter" data-filter-type="first_letter" data-value="g">G</span>
+									<span class="list_filter" data-filter-type="first_letter" data-value="h">H</span>
+									<span class="list_filter" data-filter-type="first_letter" data-value="i">I</span>
+									<span class="list_filter" data-filter-type="first_letter" data-value="l">L</span>
+									<span class="list_filter" data-filter-type="first_letter" data-value="m">M</span>
+									<span class="list_filter" data-filter-type="first_letter" data-value="n">N</span>
+									<span class="list_filter" data-filter-type="first_letter" data-value="o">O</span>
+									<span class="list_filter" data-filter-type="first_letter" data-value="p">P</span>
+									<span class="list_filter" data-filter-type="first_letter" data-value="q">Q</span>
+									<span class="list_filter" data-filter-type="first_letter" data-value="r">R</span>
+									<span class="list_filter" data-filter-type="first_letter" data-value="s">S</span>
+									<span class="list_filter" data-filter-type="first_letter" data-value="t">T</span>
+									<span class="list_filter" data-filter-type="first_letter" data-value="u">U</span>
+									<span class="list_filter" data-filter-type="first_letter" data-value="v">V</span>
+									<span class="list_filter" data-filter-type="first_letter" data-value="z">Z</span>
+									
+									
+								</div>
+							</div>
 							<span id="inside_left_arrow"><i class="fa fa-chevron-up"></i></span>
 							<span id="inside_right_arrow"><i class="fa fa-chevron-down"></i></span>
 							<!-- Text frame bottom menu -->

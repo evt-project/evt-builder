@@ -222,6 +222,7 @@
 					<xsl:element name="li">
 						<xsl:attribute name="id"><xsl:value-of select="@xml:id" /></xsl:attribute>
 						<xsl:attribute name="class">list_element</xsl:attribute>
+						<xsl:attribute name="data-order-list"><xsl:value-of select="substring(@xml:id, 1, 1)"></xsl:value-of></xsl:attribute>
 						<xsl:call-template name="person" />
 					</xsl:element>
 				</xsl:for-each>
@@ -236,6 +237,7 @@
 				<xsl:element name="li">
 					<xsl:attribute name="id"><xsl:value-of select="@xml:id" /></xsl:attribute>
 					<xsl:attribute name="class">list_element</xsl:attribute>
+					<xsl:attribute name="data-order-list"><xsl:value-of select="substring(@xml:id, 1, 1)"></xsl:value-of></xsl:attribute>
 					<xsl:call-template name="place" />
 				</xsl:element>
 			</xsl:for-each>

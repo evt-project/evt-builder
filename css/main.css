@@ -1778,6 +1778,24 @@ div.doc.not_current:hover{
 	border-radius: 0px;
 }
 
+#lists_cont #list_letters{
+	top: 50px;
+	position: relative;
+	margin: auto;
+	padding-left: 30px;
+	text-align: center;
+}
+
+#lists_cont #list_letters span{
+	margin-right: 10px;
+	color: #999;
+}
+
+#lists_cont #list_letters span:hover{
+	cursor: pointer;
+	color:#000;
+}
+
 #list_header .labelList{
 	cursor: pointer;
 	padding-top: 2px;
@@ -1800,15 +1818,14 @@ div.doc.not_current:hover{
 
 #lists_cont .list{
 	overflow: scroll;
-	height: 90%;
-	height: -webkit-calc(100% - 64px);
-    height: -moz-calc(100% - 64px);
-    height: calc(100% - 64px);
+	height: 80%;
+	height: -webkit-calc(100% - 90px);
+    height: -moz-calc(100% - 90px);
+    height: calc(100% - 90px);
 
 	position: relative;
-	top: 33px;
+	top: 63px;
 	padding: 0px 30px;
-	padding-top: 30px;
 }
 
 #lists_cont .list{
@@ -1820,7 +1837,7 @@ div.doc.not_current:hover{
 }
 ul.ul_list li{
 	list-style-type: none;
-	padding: 5px 0;
+	padding: 5px;
 	border-bottom: 1px solid #ccc;
 	cursor: pointer;
 }

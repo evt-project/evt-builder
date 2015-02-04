@@ -218,18 +218,7 @@ $(function() {
 
 			// LISTE - CP
 			if( $(xml).find('liste').children().length > 0 ){
-				$('<div />')
-					.attr('id', 'lists_cont')
-					.insertAfter('#text_cont');
-				$('<div />')
-					.attr('id','list_header')
-					.appendTo('#lists_cont');
-				
-				$('<span />')
-					.attr('id', 'toggle_list_cont')
-					.addClass('mainButtons')
-					.attr('title', 'Apri/Chiudi Liste')
-					.append("<i class='fa fa-angle-double-down'>")
+				$('#toggle_list_cont')
 					.click(function(){
 						if ( $('#lists_cont').hasClass('closed') ) {
 							var top, mainContainerHeight;
@@ -248,9 +237,15 @@ $(function() {
 							scrollDownListContainer(400);
 							$(this).find('.fa').removeClass('fa-angle-double-down').addClass('fa-angle-double-up');
 						}
-					})
-					.appendTo('#list_header');
-
+					});
+				$('.list_filter').click(function(event) {
+					var filterType, filterValue;
+					filterType = $(this).attr('data-filter-type');
+					filterValue = $(this).attr('data-value');
+					$('.list_element').hide();
+					$(".list_element[data-order-list='"+filterValue+"']").show();
+					$(".list_element[data-order-list='"+filterValue.toUpperCase()+"']").show();
+				});
 				$(xml).find('liste').children().each(function(){
 					var listName;
 					listName = $(this).get(0).tagName;
@@ -352,6 +347,8 @@ $(function() {
 							});
 						$('#lists_cont').find('.list').first().addClass('list_opened').show();
 						$('#lists_cont').find('.labelList').first().addClass('active');
+
+						$('.list_filter').first().trigger('click');
 					});
 				});
 			}
