@@ -286,94 +286,13 @@ $(function() {
 							.attr('id', 'header_'+listName)
 							.text(listLabel)
 							.click(function(){
-								if ( $('#lists_cont').hasClass('closed') ) {
-									$('#toggle_list_cont').trigger('click');
-								}
-								$('.labelList.active').removeClass('active');
-								$(this).addClass('active');
-								$('.list.list_opened').hide();
-								$('#list_'+listName).addClass('list_opened').show();
+								openList(this, listName);
 							})
 							.appendTo('#list_header');
 
 						$('#list_'+listName)
 							.find('.list_element').click(function(){
-								if($(this).hasClass('list_element_opened')){
-									$(this).find('.occurences').toggle();
-								} 
-								else {
-									if($(this).find('.occurences').length<=0){
-										var occ_ref;
-										var list_ref, list_occ;
-										list_ref = $(this).attr('id');
-										list_occ = $("<div/>").addClass('occurences');
-										occ_ref = $('#'+listName)
-														.find('#occorrenze')
-															.find("span[data-ref='"+list_ref+"']");
-										if(occ_ref.length > 0){
-											occ_ref.each(function(){
-												var pb, doc, pb_n;
-												var doc_lab;
-												pb = $(this).attr('data-pb');
-												pb_n = $(this).attr('data-pb-n');
-												doc = $(this).attr('data-doc');
-												doc_lab = $("#span_tt_select .option_container .option[data-value='"+doc+"']").attr('title');
-												if ( $(list_occ).find("span[data-pb='"+pb+"'][data-doc='"+doc+"']").length > 0 ) {
-													var occ;
-													occ = $(list_occ).find("span[data-pb='"+pb+"'][data-doc='"+doc+"']").attr('data-occ')*1;
-													occ++;
-													$(list_occ)
-														.find("span[data-pb='"+pb+"'][data-pb='"+doc+"']")
-														.attr('data-occ', occ)
-														.attr('title', occ+" occorrenze");
-													$(this).remove();
-												} else {
-													$(this)
-														.attr('data-occ', '1')
-														.attr('title', "1 occorrenza")
-														.text("Fol. "+pb_n+" - Doc. "+doc_lab)
-														.click(function(){
-															var current_pp, current_tt;
-															if ( $('#regesto_cont').is(':visible') ){
-																hide_regesto('#regesto_cont', '#regesto');
-															}
-															current_pp = $('#span_pp_select .label_selected').attr('data-value');
-															current_tt = $('#span_tt_select .label_selected').attr('data-value');
-															if (pb != current_pp) {
-																updateHash(doc, pb, "");
-															} else {
-																if (doc != current_tt) {
-																	$("#text .doc[data-doc='"+doc+"']").trigger('click');
-																}
-																// Attiva occorrenza in lista -- CP
-																if ( $('.list').length > 0 && $('.list_element.list_element_opened').length > 0 ) {
-																	$('.selected_from_list').removeClass('selected_from_list');
-																	$('.list_element_opened').each(function() {
-																		var ref;
-																		ref = $(this).attr('id');
-																		$("#text span[data-ref='"+ref+"']").addClass('selected_from_list');
-																	});
-																}
-															}
-															$('#toggle_list_cont').trigger('click');
-
-														})
-														.detach()
-														.appendTo(list_occ);
-												}
-											});
-										} else {
-											$(list_occ).append("<span class='no_occ'>Nessuna corrispondenza trovata.</span>");
-										}
-										$(this).append(list_occ);
-									}
-									$(this).parents('.list').find('.occurences:visible').hide();
-									$(this).parents('.list').find('.list_element_opened').removeClass('list_element_opened');
-									$(this)
-										.addClass('list_element_opened')
-										.find('.occurences')
-											.toggle();
-								}
+								showListElementOccurrences(this, listName);
 							});
 						$('#lists_cont').find('.list').first().addClass('list_opened').show();
 						$('#lists_cont').find('.labelList').first().addClass('active');
@@ -1073,6 +992,98 @@ $(function() {
    		$(regesto_container).parents("div[id*='frame']").find('.like_select.filter').css('opacity', '1').removeClass('not_active');
 	}
 	*/
+
+	function openList(elem, listName){
+		if ( $('#lists_cont').hasClass('closed') ) {
+			$('#toggle_list_cont').trigger('click');
+		}
+		$('.labelList.active').removeClass('active');
+		$(elem).addClass('active');
+		$('.list.list_opened').hide();
+		$('#list_'+listName).addClass('list_opened').show();
+	}
+
+	function showListElementOccurrences(elem, listName){
+		if($(elem).hasClass('list_element_opened')){
+			$(elem).find('.occurences').toggle();
+		} 
+		else {
+			if($(elem).find('.occurences').length<=0){
+				var occ_ref;
+				var list_ref, list_occ;
+				list_ref = $(elem).attr('id');
+				list_occ = $("<div/>").addClass('occurences');
+				occ_ref = $('#'+listName)
+								.find('#occorrenze')
+									.find("span[data-ref='"+list_ref+"']");
+				if(occ_ref.length > 0){
+					occ_ref.each(function(){
+						var pb, doc, pb_n;
+						var doc_lab;
+						pb = $(this).attr('data-pb');
+						pb_n = $(this).attr('data-pb-n');
+						doc = $(this).attr('data-doc');
+						doc_lab = $("#span_tt_select .option_container .option[data-value='"+doc+"']").attr('title');
+						if ( $(list_occ).find("span[data-pb='"+pb+"'][data-doc='"+doc+"']").length > 0 ) {
+							var occ;
+							occ = $(list_occ).find("span[data-pb='"+pb+"'][data-doc='"+doc+"']").attr('data-occ')*1;
+							occ++;
+							$(list_occ)
+								.find("span[data-pb='"+pb+"'][data-pb='"+doc+"']")
+								.attr('data-occ', occ)
+								.attr('title', occ+" occorrenze");
+							$(this).remove();
+						} else {
+							$(this)
+								.attr('data-occ', '1')
+								.attr('title', "1 occorrenza")
+								.text("Fol. "+pb_n+" - Doc. "+doc_lab)
+								.click(function(){
+									goToOccurrencePage(this, pb, doc);
+								})
+								.detach()
+								.appendTo(list_occ);
+						}
+					});
+				} else {
+					$(list_occ).append("<span class='no_occ'>Nessuna corrispondenza trovata.</span>");
+				}
+				$(elem).append(list_occ);
+			}
+			$(elem).parents('.list').find('.occurences:visible').hide();
+			$(elem).parents('.list').find('.list_element_opened').removeClass('list_element_opened');
+			$(elem)
+				.addClass('list_element_opened')
+				.find('.occurences')
+					.toggle();
+		}
+	}
+
+	function goToOccurrencePage(elem, pb, doc){
+		var current_pp, current_tt;
+		if ( $('#regesto_cont').is(':visible') ){
+			hide_regesto('#regesto_cont', '#regesto');
+		}
+		current_pp = $('#span_pp_select .label_selected').attr('data-value');
+		current_tt = $('#span_tt_select .label_selected').attr('data-value');
+		if (pb != current_pp) {
+			updateHash(doc, pb, "");
+		} else {
+			if (doc != current_tt) {
+				$("#text .doc[data-doc='"+doc+"']").trigger('click');
+			}
+			// Attiva occorrenza in lista -- CP
+			if ( $('.list').length > 0 && $('.list_element.list_element_opened').length > 0 ) {
+				$('.selected_from_list').removeClass('selected_from_list');
+				$('.list_element_opened').each(function() {
+					var ref;
+					ref = $(elem).attr('id');
+					$("#text span[data-ref='"+ref+"']").addClass('selected_from_list');
+				});
+			}
+		}
+		$('#toggle_list_cont').trigger('click');
+	}
 
 	function scrollDownListContainer(speed){
 		var newTop;
