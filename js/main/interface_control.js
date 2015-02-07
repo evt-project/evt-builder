@@ -239,10 +239,12 @@ $(function() {
 						}
 					});
 				$('.list_filter').click(function() {
-					
 					var filterType, filterValue;
 					filterType = $(this).attr('data-filter-type');
 					filterValue = $(this).attr('data-value');
+					$('.filter_active').removeClass('filter_active');
+					$(this).addClass('filter_active');
+
 					$('.occurences:visible').hide();
 					$('.list_element_opened').removeClass('list_element_opened');
 
@@ -250,6 +252,19 @@ $(function() {
 					$(".list_element[data-order-list='"+filterValue.toLowerCase()+"']").show();
 					$(".list_element[data-order-list='"+filterValue.toUpperCase()+"']").show();
 					
+					if ( $('.ul_list:visible').find(".list_element[data-order-list='"+filterValue.toLowerCase()+"']").length +  
+						 $('.ul_list:visible').find(".list_element[data-order-list='"+filterValue.toUpperCase()+"']").length == 0) {
+						if ( $( '.no_elements' ).length > 0) {
+							$( '.no_elements' ).detach().appendTo('.ul_list:visible').show();
+						} else {
+							$('<li />')
+								.addClass('list_element')
+								.addClass('no_elements')
+								.text("Nessun elemento presente.")
+								.appendTo('.ul_list:visible');
+						}
+					}
+
 					$("div[id*='list_']").animate({
 						scrollTop: 0
 					}, 0);
