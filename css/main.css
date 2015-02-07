@@ -1759,11 +1759,11 @@ div.doc.not_current:hover{
 	position: absolute;
 	padding: 0px 20px;
 	padding-top: 2px;
-	padding-left: 25px;
+	padding-left: 35px;
 	left: 1px;
 	margin-top: 1px;
 	right: 1px;
-	box-shadow: 0px 1px 3px -1px #000;
+	#box-shadow: 0px 1px 3px -1px #000;
 	height: 30px;	
 }
 
@@ -1775,9 +1775,14 @@ div.doc.not_current:hover{
 	min-width: 0;
 	left: -2px;
 	position: absolute;
-	border-radius: 0px;
+	#border-radius: 0px;
+	padding:0px 5px;
+	box-shadow: none;
 }
 
+#list_header #toggle_list_cont:hover{
+	box-shadow:1px 2px 3px rgba(0, 0, 0, 0.7) inset;
+}
 #lists_cont #list_letters{
 	top: 50px;
 	position: relative;
@@ -1796,11 +1801,17 @@ div.doc.not_current:hover{
 	color:#000;
 }
 
+#lists_cont #list_letters span.filter_active, #lists_cont #list_letters span.filter_active:hover{
+	color:#000;
+	font-weight: bold;
+	cursor: default;
+}
+
 #list_header .labelList{
 	cursor: pointer;
 	padding-top: 2px;
 	position: relative;
-	border-right: 1px solid;
+	#border-right: 1px solid rgb(227, 200, 156);
 	padding-right: 15px;
 	padding-left: 15px;
 	top: -1px;
@@ -1809,11 +1820,17 @@ div.doc.not_current:hover{
 }
 
 #list_header .labelList:hover{
+	border-radius: 4px 4px 0px 0px;
 	background: rgba(227, 200, 156, .5)
 }
 #list_header .labelList.active:hover{
 	background: rgba(227, 200, 156, 1);
 	cursor: default;
+}
+
+#list_header .labelList.active{
+	border-radius: 4px 4px 0px 0px;
+	border-bottom: 1px solid rgb(227, 200, 156);
 }
 
 #lists_cont .list{
@@ -1841,8 +1858,11 @@ ul.ul_list li{
 	border-bottom: 1px solid #ccc;
 	cursor: pointer;
 }
-ul.ul_list li:hover, ul.ul_list li.list_element_opened{
+ul.ul_list li:nth-child(odd){
 	background: rgba(185, 170, 153, .1);
+}
+ul.ul_list li:hover, ul.ul_list li.list_element_opened{
+	background: rgba(185, 170, 153, .2);
 }
 ul.ul_list li.list_element_opened{
 	#cursor: default;
