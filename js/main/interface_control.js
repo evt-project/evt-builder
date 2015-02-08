@@ -1080,20 +1080,23 @@ $(function() {
 		}
 		current_pp = $('#span_pp_select .label_selected').attr('data-value');
 		current_tt = $('#span_tt_select .label_selected').attr('data-value');
+		// Se il riferimento punta ad una pagina diversa, aggiorno l'hash e carico la pagina di interesse
 		if (pb != current_pp) {
 			updateHash(doc, pb, "");
-		} else {
+		} 
+		// Altrimneti...
+		else {
+			// Se il riferimento punta ad un documento presente sulla pagina corrente, ma diverso da quello attivo
+			// aggiorno il documento attivo
 			if (doc != current_tt) {
 				$("#text .doc[data-doc='"+doc+"']").trigger('click');
 			}
 			// Attiva occorrenza in lista -- CP
 			if ( $('.list').length > 0 && $('.list_element.list_element_opened').length > 0 ) {
 				$('.selected_from_list').removeClass('selected_from_list');
-				$('.list_element_opened').each(function() {
-					var ref;
-					ref = $(elem).attr('id');
-					$("#text span[data-ref='"+ref+"']").addClass('selected_from_list');
-				});
+				var ref;
+				ref = $('.list_element_opened').attr('id');
+				$("#text span[data-ref='"+ref+"']").addClass('selected_from_list');
 			}
 		}
 		$('#toggle_list_cont').trigger('click');
@@ -1107,7 +1110,7 @@ $(function() {
 		if ( $('#main_right_frame').hasClass('full') ){
 			listHeaderHeight = $('#list_header').height() + 4;	
 		} else {
-			listHeaderHeight = $('#list_header').height() + 3;	
+			listHeaderHeight = $('#list_header').height() + 4;	
 		}
 		
 		if($('#right_header').hasClass('menuClosed')){
@@ -2142,15 +2145,7 @@ $(function() {
 				$('.zoomWindow').show();
 				checkAnnPosHS(); //Add for HS
 				
-				if ( $('#main_left_frame').find('#regesto_cont').length > 0 ) {
-		        	var height_full = $('#main_left_frame').height()-$('#left_header').height();
-		        	if( $('#text_tool').length > 0 ){
-		        		height_full -= $('#text_tool').height()
-		        	}
-		        	$('#regesto_cont').animate({'height': height_full}, 700);
-		        } else {
-		        	fitFrame();
-		        }
+		        fitFrame();
 			});
 			$('#switchITL').show();
 			//Se ITL è impostato su attivo, attiva il collegamento. Abilita il pulsante.
@@ -2348,14 +2343,14 @@ $(function() {
 
 	function fitFrame(){
 		var noMenu_height;
-		if($('.full').length > 0) {
+		if ( $('.full').length > 0 ) {
 			noMenu_height = $('.full').height();
 		} else {
 			noMenu_height = $('#central_wrapper').height();	
 		}
 		
 		// Se menu chiuso
-		if ( $('#left_header').hasClass('menuClosed')){
+		if ( $('#left_header').hasClass('menuClosed') ){
 			$('#lists_cont')
 				.css('height', noMenu_height);
 
@@ -2393,10 +2388,15 @@ $(function() {
 				$('#lists_cont').css('top', noMenu_height);
 			}
 			if($('#txttxt_link').attr("class") === "current_mode"){
-				$('#regesto_cont, #text_cont-add, #regesto_cont-add, #thumb_cont')
-					.css('height', noMenu_height+34);
-				$('#text_cont')
-					.css('height', noMenu_height);
+				if ( $('#lists_cont').is(':visible') ) {
+					$('#regesto_cont, #text_cont-add, #regesto_cont-add, #thumb_cont')
+						.css('height', noMenu_height+34);
+					$('#text_cont')
+						.css('height', noMenu_height);
+				} else {
+					$('#text_cont, #regesto_cont, #text_cont-add, #regesto_cont-add, #thumb_cont')
+						.css('height', noMenu_height);
+				}
 			} else {
 				$('#text_cont, #text_cont-add, #regesto_cont, #regesto_cont-add, #thumb_cont')
 					.css('height', noMenu_height)
