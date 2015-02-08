@@ -55,6 +55,11 @@ div[id*='regesto'] hr{
 	line-height: 28px;
 	font-size: 19px;
 }
+
+.full #text_frame, .full #text_frame-add,
+.full #regesto, .full #regesto-add{
+	max-width: 1000px;
+}
 .right {
 	position: absolute;
 	float: right; }
@@ -189,6 +194,11 @@ span.facs-reg {
 	border: 2.5px solid black;
 	border-radius: 3px;
 	box-shadow: 2px 2px 2px #7e7067;
+	-moz-box-shadow: 2px 2px 2px #7e7067;
+	-webkit-box-shadow: 2px 2px 2px #7e7067;
+	-o-box-shadow: 2px 2px 2px #7e7067;
+	-khtml-box-shadow: 2px 2px 2px #7e7067;
+	-ms-box-shadow: 2px 2px 2px #7e7067;
 	padding: 0.4%;
 	margin-top: 30px; }
 
@@ -323,6 +333,11 @@ span.dipl-choice_popup span.dipl-orig {
 	border: 2.5px solid black;
 	border-radius: 3px;
 	box-shadow: 2px 2px 2px #7e7067;
+	-moz-box-shadow: 2px 2px 2px #7e7067;
+	-webkit-box-shadow: 2px 2px 2px #7e7067;
+	-o-box-shadow: 2px 2px 2px #7e7067;
+	-khtml-box-shadow: 2px 2px 2px #7e7067;
+	-ms-box-shadow: 2px 2px 2px #7e7067;
 	padding: 0.4%;
 	margin-top: 30px; 
 }
@@ -336,6 +351,11 @@ span.dipl-choice_popup_corr span.dipl-corr {
 	border: 2.5px solid black;
 	border-radius: 3px;
 	box-shadow: 2px 2px 2px #7e7067;
+	-moz-box-shadow: 2px 2px 2px #7e7067;
+	-webkit-box-shadow: 2px 2px 2px #7e7067;
+	-o-box-shadow: 2px 2px 2px #7e7067;
+	-khtml-box-shadow: 2px 2px 2px #7e7067;
+	-ms-box-shadow: 2px 2px 2px #7e7067;
 	padding: 0.4%;
 	margin-top: 30px; 
 }
@@ -415,6 +435,11 @@ span.tooltip {
 	border: 2.5px solid black;
 	border-radius: 3px;
 	box-shadow: 2px 2px 2px #7e7067;
+	-moz-box-shadow: 2px 2px 2px #7e7067;
+	-webkit-box-shadow: 2px 2px 2px #7e7067;
+	-o-box-shadow: 2px 2px 2px #7e7067;
+	-khtml-box-shadow: 2px 2px 2px #7e7067;
+	-ms-box-shadow: 2px 2px 2px #7e7067;
 	padding: 5px;
 	#margin-top:32px;
 	z-index:99;
@@ -476,6 +501,11 @@ span.text_note{
 	border: 2.5px solid black;
 	border-radius: 3px;
 	box-shadow: 2px 2px 2px #7e7067;
+	-moz-box-shadow: 2px 2px 2px #7e7067;
+	-webkit-box-shadow: 2px 2px 2px #7e7067;
+	-o-box-shadow: 2px 2px 2px #7e7067;
+	-khtml-box-shadow: 2px 2px 2px #7e7067;
+	-ms-box-shadow: 2px 2px 2px #7e7067;
 	padding: 0.4%;
 	margin-top:3px;
     margin-left: -13px;
@@ -580,7 +610,8 @@ span.roleName.list_active{
 }
 
 .doc.current span.opened > span.trigger{
-	text-shadow:0px 0px 1px rgba(0,0,0,0.8);
+	#text-shadow:0px 0px 1px rgba(0,0,0,0.8);
+	text-shadow:0px 0px 0.3px rgba(0,0,0,0.8);
 }
 span.display-block{
     display:block;

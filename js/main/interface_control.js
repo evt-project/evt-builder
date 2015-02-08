@@ -427,12 +427,12 @@ $(function() {
 				
 				pp_val = $(this).attr('data-value');
 				tt_val = $(this).attr('data-first-doc');
-				first_doc = $("#span_tt_select .option_container .option[data-value='"+tt_val+"']").text();
+				first_doc = "<span>"+$("#span_tt_select .option_container .option[data-value='"+tt_val+"']").text()+"</span>";
 				docs = "";
 				$("#span_tt_select .option_container .option[data-first-page='"+pp_val+"']").each(function(){
 					if($(this).attr('data-value') != tt_val){
 						temp_tt = $(this).text();
-						docs += "<br />"+temp_tt;
+						docs += "<span>"+temp_tt+"</span>";
 					}
 				});
 				if (docs == "") {	
@@ -447,7 +447,8 @@ $(function() {
 			}, function(){
 				$("#span_pp_select .option_tooltip")
 					.empty()
-					.hide();
+					.hide()
+					;
 			});
 
 			/* SELECT PAGE */
@@ -1075,7 +1076,7 @@ $(function() {
 
 	function goToOccurrencePage(elem, pb, doc){
 		var current_pp, current_tt;
-		if ( $('#regesto_cont').is(':visible') ){
+		if ( $('.current_mode').attr('id') === 'txtimg_link' && $('#regesto_cont').is(':visible') ) {
 			hide_regesto('#regesto_cont', '#regesto');
 		}
 		current_pp = $('#span_pp_select .label_selected').attr('data-value');
@@ -1267,12 +1268,12 @@ $(function() {
 	    	if ( ($('#span_ee_select .label_selected').attr('data-value') != 'diplomatic') &&
 	    		 (!$('#switchReg').hasClass('active')) ){
 	    		$("#main_right_frame").find('.like_select.filter')
-				.css('opacity', "1")
-				.removeClass('not_active'); 	 	
+					.css('opacity', "1")
+					.removeClass('not_active'); 	 	
 	    	} else {
 	    		$("#main_right_frame").find('.like_select.filter')
-				.css('opacity', "0.5")
-				.addClass('not_active'); 
+					.css('opacity', "0.5")
+					.addClass('not_active'); 
 	    	}
 	    	if ( $("#span_ee_select").find('.option').length == 0 ) {
 	    		// Se ho un solo livello di edizione, in modalità txt txt nel frame di sx avrò sicuramente il regesto,
@@ -1439,6 +1440,7 @@ $(function() {
 		     		
 		     		var containerWidth, tooltipLeft, marginRightText;
 		     		if ( popup.parents("div[id*='frame']").hasClass('full') ){
+		     			//alert('p');
 		     			containerWidth = $('#text_cont').width();
 		     			marginRightText = 50;
 		     		} else {
