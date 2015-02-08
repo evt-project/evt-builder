@@ -1124,12 +1124,22 @@ footer{
 	padding: 5px 15px; 
 	#left: 94px; 
 	width: auto;
+	min-width: 120px;
 	height: auto;
 	top: 55px;
 	z-index: 999;
 	font-size: 0.9em;
+	-moz-box-shadow: 2px 1px 4px rgba(0,0,0,0.7);
+	-webkit-box-shadow: 2px 1px 4px rgba(0,0,0,0.7);
+	-o-box-shadow: 2px 1px 4px rgba(0,0,0,0.7);
+	-khtml-box-shadow: 2px 1px 4px rgba(0,0,0,0.7);
+	-ms-box-shadow: 2px 1px 4px rgba(0,0,0,0.7);
 	box-shadow: 2px 1px 4px rgba(0,0,0,0.7);
 	opacity: .8;
+}
+.like_select .option_tooltip span{
+	display: inline-block;
+	position: relative;
 }
 .option.selected:hover{
 	#background: #F5EAD4;
@@ -1708,7 +1718,12 @@ div.botleftconcave {
     height: 16px;
     bottom: -35px;
     background: rgba(54, 45, 40, .2);
-    box-shadow: 0px 2px 5px -4px rgb(0, 0, 0) inset;
+    -moz-box-shadow: 0px 2px 5px -4px rgb(0, 0, 0) inset;
+	-webkit-box-shadow: 0px 2px 5px -4px rgb(0, 0, 0) inset;
+	-o-box-shadow: 0px 2px 5px -4px rgb(0, 0, 0) inset;
+	-khtml-box-shadow: 0px 2px 5px -4px rgb(0, 0, 0) inset;
+	-ms-box-shadow: 0px 2px 5px -4px rgb(0, 0, 0) inset;
+	box-shadow: 0px 2px 5px -4px rgb(0, 0, 0) inset;
     cursor: pointer;
 }
 #hide_regesto:hover{
@@ -1777,10 +1792,20 @@ div.doc.not_current:hover{
 	position: absolute;
 	#border-radius: 0px;
 	padding:0px 5px;
+	-moz-box-shadow: none;
+	-webkit-box-shadow: none;
+	-o-box-shadow: none;
+	-khtml-box-shadow: none;
+	-ms-box-shadow: none;
 	box-shadow: none;
 }
 
 #list_header #toggle_list_cont:hover{
+	-moz-box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.7) inset;
+	-webkit-box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.7) inset;
+	-o-box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.7) inset;
+	-khtml-box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.7) inset;
+	-ms-box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.7) inset;
 	box-shadow:1px 2px 3px rgba(0, 0, 0, 0.7) inset;
 }
 #lists_cont #list_letters{
@@ -1863,9 +1888,6 @@ ul.ul_list li:nth-child(odd){
 }
 ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 	background: rgba(185, 170, 153, .2);
-}
-ul.ul_list li.list_element_opened{
-	#cursor: default;
 }
 .list_element .more_info{
 	display: none;
