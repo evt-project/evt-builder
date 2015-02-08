@@ -1437,7 +1437,7 @@ footer{
 }
 #inside_left_arrow:hover, #inside_right_arrow:hover,
 #inside_left_arrow-add:hover, #inside_right_arrow-add:hover{
-    opacity:1;
+    opacity:1 !important;
 }
 #inside_left_arrow, #inside_left_arrow-add{
     margin-right: 15px; 
@@ -1454,7 +1454,7 @@ footer{
 #inside_left_arrow.disabled, #inside_right_arrow.disabled, #inside_left_arrow.disabled:hover, #inside_right_arrow.disabled:hover,
 #inside_left_arrow-add.disabled, #inside_right_arrow-add.disabled, #inside_left_arrow-add.disabled:hover, #inside_right_arrow-add.disabled:hover{
     cursor:default;
-    opacity:0;
+    opacity:0 !important;
 }
 /*Chiara*/
 #txtimg_link, #txttxt_link, #txtimg_link:hover, #txtimg_link.current_mode, #txttxt_link:hover, #txttxt_link.current_mode{

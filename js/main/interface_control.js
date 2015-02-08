@@ -1271,17 +1271,26 @@ $(function() {
 				.css('opacity', "0.5")
 				.addClass('not_active'); 
 	    	}
-	    	if ( ($('#span_ee_select-add .label_selected').attr('data-value') != 'regesto') &&
-	    		 ($('#span_ee_select-add .label_selected').attr('data-value') != 'diplomatic') &&
-	    		 (!$('#switchReg-add').hasClass('active')) ){
+	    	if ( $("#span_ee_select").find('.option').length == 0 ) {
+	    		// Se ho un solo livello di edizione, in modalità txt txt nel frame di sx avrò sicuramente il regesto,
+	    		// quindi non ho bisogno del selettore con i filtri nel menu in basso a sx
 	    		$("#main_left_frame").find('.like_select.filter')
-				.css('opacity', "1")
-				.removeClass('not_active'); 	 	
-	    	} else {
-	    		$("#main_left_frame").find('.like_select.filter')
-				.css('opacity', "0.5")
-				.addClass('not_active'); 
-	    	}
+					.css('opacity', "0")
+					.addClass('not_active'); 
+	    	} else if ($("#span_ee_select").find('.option').length > 0) {
+	    		// ...altrimenti
+	    		if ( $('#span_ee_select-add .label_selected').attr('data-value') != 'regesto' ) {
+	    			// Se nel frame ho il regesto visibile, il selettore dei filtri rimane opacizzato...
+	    			$("#main_left_frame").find('.like_select.filter')
+						.css('opacity', "0.5")
+						.addClass('not_active'); 	 		
+	    		} else {
+    				// altrimenti è funzionante e pienamente visibile
+	    			$("#main_left_frame").find('.like_select.filter')
+						.css('opacity', "1")
+						.removeClass('not_active'); 	 		
+	    		}
+	    	}	
 
 		});
     }
@@ -2132,7 +2141,16 @@ $(function() {
 				setMagHeight();
 				$('.zoomWindow').show();
 				checkAnnPosHS(); //Add for HS
-				fitFrame();
+				
+				if ( $('#main_left_frame').find('#regesto_cont').length > 0 ) {
+		        	var height_full = $('#main_left_frame').height()-$('#left_header').height();
+		        	if( $('#text_tool').length > 0 ){
+		        		height_full -= $('#text_tool').height()
+		        	}
+		        	$('#regesto_cont').animate({'height': height_full}, 700);
+		        } else {
+		        	fitFrame();
+		        }
 			});
 			$('#switchITL').show();
 			//Se ITL è impostato su attivo, attiva il collegamento. Abilita il pulsante.
@@ -2638,12 +2656,12 @@ $(function() {
 		    		navDoc("right");
 		    	}
 			});
-			if( !$("#inside_left_arrow").is(':visible') && 
+			/*if( !$("#inside_left_arrow").is(':visible') && 
 				! $('#disabled').hasClass('selected') ) {
 				if($('#inside_left_arrow')){
 					$('#inside_left_arrow').show();
 				}
-			}
+			}*/
 
 			if($('#right_header').hasClass('menuClosed')){
 				$('#right_header').hide();
@@ -2719,7 +2737,7 @@ $(function() {
 			$("#span_dd_select").hide();
 
 
-			//$('#inside_left_arrow-add, #inside_right_arrow-add').show();
+			$('#inside_left_arrow-add, #inside_right_arrow-add').show();
 			
 			$('#span_pp_select').show();
 			$('#span_pp_select').css("top", "0px"); // #CDP. Rimuovere e gestire con css
