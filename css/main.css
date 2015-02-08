@@ -1905,7 +1905,10 @@ ul.ul_list li.list_element_opened{
 	background: #ffc !important;
 	text-shadow:0px 0px 1px #000;
 }
-
+#text span.popup.selected_from_list .tooltip{
+	background: rgb(229, 218, 196) !important;
+	text-shadow:none !important;
+}
 .small-note{
 	font-size: 90%;
 	display: block;
