@@ -136,7 +136,11 @@
 						<div class="info">
 							<div class="align-center"><span class="intestazione inline">Numerazione nuova: </span><xsl:value-of select="$front/tei:titlePart[@type='numerazioneNuova']"/></div>
 							<div class="align-center"><span class="intestazione inline">Numerazione originale: </span><xsl:value-of select="$front/tei:titlePart[@type='numerazioneOrig']"/></div>
-							<div class="align-center"><span class="intestazione inline"><xsl:value-of select="$front/tei:docDate"/></span></div>
+							<div class="align-center">
+								<span class="intestazione inline">
+									<xsl:apply-templates mode="dipl" select="$front/tei:docDate"/>
+								</span>
+							</div>
 						</div>
 						<div class="reg_text">
 							<!--<xsl:value-of select="$front/tei:div[@type='regesto']"/>-->
