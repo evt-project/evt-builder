@@ -492,7 +492,7 @@
 						<xsl:text> - </xsl:text>
 						<xsl:value-of select="tei:occupation/@to"/>
 					</xsl:if>
-					<xsl:text>).</xsl:text>
+					<xsl:text>)</xsl:text>
 				</xsl:if>
 				<xsl:if test="current()/tei:note and current()/tei:note != ''">
 					<span class='small-note'>[<xsl:value-of select="current()/tei:note"/>]</span>
@@ -621,7 +621,6 @@
 					<xsl:value-of select="tei:district[@type='comune']"/>
 					<xsl:text>)</xsl:text>
 				</xsl:if>
-				<xsl:text>.</xsl:text>
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:element name="span">
