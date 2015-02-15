@@ -543,6 +543,9 @@ span.term, span.emph span.term{
     #font-weight:bold;
     #font-style:normal;
 }
+#regesto span.term, #regesto span.emph, #text span.emph{
+	font-style:italic;
+}
 
 span.persName, span.measure, span.roleName, span.placeName, span.date
 span.popup.persName, span.popup.measure, span.popup.roleName, span.popup.placeName, span.popup.date{
