@@ -533,7 +533,8 @@ span .text_note{
 	padding:1%;
 }*/
 span.emph{
-    font-weight:bold;
+    #font-weight:bold;
+    font-style:italic;
 }
 span.italic{
 	font-style:italic;
