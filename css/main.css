@@ -521,11 +521,10 @@ footer{
 #text_elem, #text_elem-add, #regesto, #regesto-add{
 	width: 99.4%;
 	min-height: 456px;
-	overflow-y: auto;
-	overflow-x: hidden;
+	overflow: visible;
 	position: relative;
 	top: 51px;
-	overflow-x: hidden;
+	#overflow-x: hidden;
 }
 #regesto, #regesto-add{
 	width: 98%;
