@@ -616,10 +616,15 @@
 					<xsl:text>, oggi nota come </xsl:text>
 					<xsl:value-of select="tei:placeName[@type='new']"/>	
 				</xsl:if>
-				<xsl:if test="current()/tei:district[@type='comune']">
-					<xsl:text> (comune di </xsl:text>
-					<xsl:value-of select="tei:district[@type='comune']"/>
+				<xsl:if test="current()/tei:district">
+					<xsl:text> (</xsl:text>
+					<xsl:value-of select="current()/tei:district/@type" />
+					<xsl:text> </xsl:text>
+					<xsl:value-of select="tei:district"/>
 					<xsl:text>)</xsl:text>
+				</xsl:if>
+				<xsl:if test="current()/tei:note and current()/tei:note != ''">
+					<span class='small-note'>[<xsl:value-of select="current()/tei:note"/>]</span>
 				</xsl:if>
 			</xsl:when>
 			<xsl:otherwise>
