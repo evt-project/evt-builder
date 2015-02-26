@@ -9,7 +9,9 @@
  * 
  * @author RafMas 
  * @since 2012
- *
+ * 
+ * @coauthor ChiaraDipi - CDP
+ * @since 2013	
  **/
 
 /*jslint browser: true*/
@@ -817,7 +819,7 @@ $(function() {
 						    		current_page = current_page.substr(0, current_page.indexOf('-'));
 						    	}
 						    }
-						    else if(hash_parts[i].indexOf("doc") === 0) { //begins with "filter"
+						    else if(hash_parts[i].indexOf("doc") === 0) { //begins with "doc"
 						     	current_doc = hash_parts[i].substr(4);   
 						    }
 						}
@@ -913,8 +915,28 @@ $(function() {
 					//document.title = 'The hash is ' + ( hash.replace( /^#/, '' ) || 'blank' ) + '.';
 				    
 				});
-				// IT: L'evento viene attivato quando cambia l'hash della pagina
-				$(window).hashchange();
+				
+				// IT: Al primo caricamento aggiorno l'id della pagina in modo che indichi pagina singola
+				var first_hash_parts = new Array();
+				first_hash_parts = location.hash.substr(1).split('&');
+				if ( first_hash_parts != "" ) {
+					var first_hash_pp, first_hash_doc;
+					for (var i = 0; i < first_hash_parts.length; i++) {
+					    if(first_hash_parts[i].indexOf("page") === 0) { //begins with "page"
+					        first_hash_pp = first_hash_parts[i].substr(5);
+					    	if (first_hash_pp.indexOf('-') > 0) {
+					    		first_hash_pp = first_hash_pp.substr(0, first_hash_pp.indexOf('-'));
+							} 
+					    } else if(first_hash_parts[i].indexOf("doc") === 0) { //begins with "doc"
+					     	first_hash_doc = first_hash_parts[i].substr(4);   
+					    }
+					} 
+					updateHash(first_hash_doc, first_hash_pp, "");
+				} else {
+					// IT: L'evento viene attivato quando cambia l'hash della pagina
+					$(window).hashchange();	
+				}
+				
 			/* / HASH CHANGE - ba.bbq plugin */
 		}
 	});
@@ -1336,7 +1358,7 @@ $(function() {
 	function InitializePopup(){
 		//alert('pop');
         $('.popup').hover(function(e){
-	        if ( $(this).parents('.doc').hasClass('current') ) {
+	        if ( $('.doc').length<0 || $(this).parents('.doc').hasClass('current') ) {
 	        	e.stopPropagation();
 		        $(this).addClass('over');
 		        if($(this).parents('.popup').length > 0){
@@ -1344,7 +1366,7 @@ $(function() {
 		        }
 		    }
        	}, function(){
-         	if ( $(this).parents('.doc').hasClass('current') ) {
+         	if ( $('.doc').length<0 || $(this).parents('.doc').hasClass('current') ) {
 	         	if($(this).parents('.popup').length > 0){
 	           		$(this).parents('.popup').addClass('over');
 	         	}
@@ -1358,7 +1380,7 @@ $(function() {
         	}
         });
         $('.trigger').unbind( "click" ).click(function(e){
-        	if ( $(this).parents('.doc').hasClass('current') || $(this).parents("div[id*='regesto_cont']").length>0 ) {
+        	if ( $('.doc').length<0 || $(this).parents('.doc').hasClass('current') || $(this).parents("div[id*='regesto_cont']").length>0 ) {
         		// alert('click');
 	        	e.stopPropagation();
 	        	var popup, trigger, tooltip, before;
@@ -1672,9 +1694,11 @@ $(function() {
 				.removeAttr('title')
 				.addClass('current');
 
-			$('#text_cont').animate({
-			    scrollTop: ($('.doc.current').position().top)
-			},0);
+			if($('.doc').length > 0) {
+				$('#text_cont').animate({
+				    scrollTop: ($('.doc.current').position().top)
+				},0);
+			}
 
 			$("#text_cont .doc").click(function(){
 				var tt_val, tt_lab, doc_title, current_doc_title, pp_val;

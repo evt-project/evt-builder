@@ -28,26 +28,31 @@ function magnifierReady() {
 	var hash_parts = new Array();
 	hash_parts = location.hash.substr(1).split('&');
 	if ( hash_parts != "" ) {
+		//alert('fromHash');
 		for (var i = 0; i < hash_parts.length; i++) {
 		    if(hash_parts[i].indexOf("page") === 0) { //begins with "page"
 		        current_pp = hash_parts[i].substr(5);
-		    	if (current_pp.indexOf('-') > 0) {
+		    	/*if (current_pp.indexOf('-') > 0) {
 		    		current_pp = current_pp.substr(0, current_pp.indexOf('-'));
-				}
+				}*/
 		    }
 		}
 	} else {
 		if ($('.current_mode').attr('id') == 'imgd_link'){
+			//alert('fromDD');
 			current_pp = $('.main_dd_select .option_container .option:first-child').data('value');	
 		} else {
+			//alert('fromPP');
 			current_pp = $('.main_pp_select .option_container .option:first-child').data('value');
 		}
 	}
 
+	//alert(current_pp);
 	if ($('.current_mode').attr('id') == 'imgd_link')
 		imgB = "data/input_data/images/double/" + current_pp + "_big.jpg";
 	else
 		imgB = "data/input_data/images/single/" + current_pp + "_big.jpg";
+	
 	$("#mag_image_elem").append('<a href="' + imgB + '" class="magnifier" ></a>');
 	$("#mag_image_elem > a").append(img);
 	/*IT: imposto il css della nuova immagine*/
