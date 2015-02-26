@@ -35,7 +35,7 @@ $( function() {
 	}
 	
 	var cpns="data/input_data/images/single/"+current_pp+".jpg";
-	 
+	
 	var iv1 = $("#image_elem").iviewer({
 		   src: cpns, 
 		   update_on_resize: true,
@@ -43,6 +43,7 @@ $( function() {
 		   mousewheel: true,
 		   onMouseMove: function(ev, coords) {clickTrue(); },
 		   onFinishLoad: function(ev, src) {
+		   									
 		   									$('#image_loading').hide();
 		   									$("#iviewerImage").fadeIn(200);
 		   									if (($('.current_mode').attr('id')=='txtimg_link') & (!$('#switchITL').hasClass('inactive')) & ($('#switchITL i').hasClass('fa fa-chain')) ){
@@ -173,6 +174,7 @@ $( function() {
 					current_pp = $('.main_pp_select .option_container .option:first-child').attr('data-value');
 				}
 			}
+
 			if ($('.current_mode').attr('id') == 'imgd_link'){
 				curr_src = "data/input_data/images/double/"+current_pp+".jpg";
 			} else {
