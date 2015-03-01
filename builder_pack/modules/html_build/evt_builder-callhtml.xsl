@@ -42,6 +42,8 @@
 						href="{$html_path}/css/jquery.jqzoom.css"/>
 					<link rel="stylesheet" type="text/css"
 						href="{$html_path}/css/font-awesome.min.css" />
+					<link rel="stylesheet" type="text/css"
+						href="{$html_path}/css/evt-icons.css" />
 				</xsl:when>
 				<xsl:otherwise>
 					<link rel="stylesheet" type="text/css" href="{$html_path}/css/page_data-include-{$output}.css"/>
@@ -274,7 +276,7 @@
 												</span>
 												<span class="imageTopTool mainButtons" id="switchMag" value="mag" onclick="magOn()" title="Magnifying lens">
 													<span>Magnifier</span>
-													<i class="fa fa-search"></i>
+													<i class="fa evt-magnifier"></i>
 												</span>
 												<xsl:if test="$txtimg_link_button=true()">
 													<span class="imageTopTool mainButtons" id="switchHS" value="HS" title="Hot spot" onclick="switchHS()">
@@ -340,15 +342,15 @@
 										<div id="image_tool">
 											<div id="spb">
 												<a id="zoom_orig" class="zoom_btn"
-													href="javascript:void(0);" title="100%"><i class="icona">1:1</i></a>
+													href="javascript:void(0);" title="100%"><i class="evt-zoom1"></i></a>
 												<a id="zoom_fit" class="zoom_btn"
 													href="javascript:void(0);" title="Fit to frame"
-													><i class="fa fa-arrows-v"></i></a>
-												<a id="zoom_out" href="javascript:void(0);" title="Zoom out"><i class="fa fa-minus-circle"></i></a>
+													><i class="fa evt-zoomfit"></i></a>
+												<a id="zoom_out" href="javascript:void(0);" title="Zoom out"><i class="fa evt-zoomminus"></i></a>
 												<div id="spb_cont">
 													<div id="slider"/>
 												</div>
-												<a id="zoom_in" href="javascript:void(0);" title="Zoom in"><i class="fa fa-plus-circle"></i></a>
+												<a id="zoom_in" href="javascript:void(0);" title="Zoom in"><i class="fa evt-zoomplus"></i></a>
 											</div>
 											<div id="zval">
 												<xsl:if test="$image_frame=true()">
