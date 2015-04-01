@@ -3210,8 +3210,20 @@ $(function() {
 	$("#closeFullScreenRight").click(function(){
 		closeFullScreenRight();
 	});
+
 	$("#search_link").click(function(){
 		alert("Coming soon");
+	});
+
+	$('#tipue_search_input').keyup(function (e) {
+		$('#text_elem').unhighlight();
+		var input_text_value = $(this).val();
+		var word_array = input_text_value.split(' ');
+		for (var i = 0; i<word_array.length; i++){
+			$('#text_elem').highlight(word_array[i]);
+		}
+		//$('ul.AnnSubmenu').highlight($(this).val());
+		$("span.highlight").css({ backgroundColor: "#FFFF88" });
 	});
 	/* / Gestione click */
 	
