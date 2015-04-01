@@ -87,6 +87,10 @@
 				<xsl:comment>page data</xsl:comment>
 				<script type="text/javascript" src="{$html_path}/js/main/page_data-include.js"/>
 				<xsl:comment>/page data</xsl:comment>
+
+				<xsl:comment>highlight</xsl:comment>
+				<script type="text/javascript" src="{$html_path}/js/plugin/jquery.highlight_mod.js"/>
+				<xsl:comment>/highlight</xsl:comment>
 			</xsl:if>
 		</head>
 	</xsl:template>
@@ -484,6 +488,7 @@
 							<div id="text_tool">
 								<span id="search_elem" class="iconButtons" title="Search">
 									<a href="javascript:void(0);" id="search_link"><i class="fa fa-search"></i></a>
+									<input type="text" id="tipue_search_input" />
 								</span>
 								<xsl:if test="$list_person=true()">
 									<span id="list_link" class="mainButtons" title="Liste">
