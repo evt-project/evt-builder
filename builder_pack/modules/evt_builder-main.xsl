@@ -84,7 +84,7 @@
 				</xsl:result-document>
 			</xsl:if>
 			<!-- TEMP SEARCH -->
-			<!-- <xsl:apply-templates select="$step0" mode="file4search"></xsl:apply-templates> -->
+			<xsl:apply-templates select="$step0" mode="file4search"></xsl:apply-templates>
 		</xsl:if>
 		<!-- EN: The index and structure generation are the same for both the parallel and the embedded  -->
 		<!-- IT: La generazione dell'index e della struttura sono uguali sia per la parallel sia per l'embedded -->
@@ -323,8 +323,26 @@
 								</xsl:for-each-group>
 							</xsl:when>
 							<xsl:otherwise>
-								<xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:pb)]" mode="dipl"/></xsl:variable>
-								<xsl:copy-of select="$var//text()"></xsl:copy-of>
+								<!--<xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:pb)]" mode="dipl"/></xsl:variable>
+								<xsl:copy-of select="$var//text()"></xsl:copy-of>-->
+								<xsl:for-each-group select="current-group()/body/descendant::p" group-starting-with="//tei:p">
+									<xsl:choose>
+										<xsl:when test="following::p">
+											{ "line" : "<xsl:value-of select="@n" />",
+											"text" : <xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:pb)]" mode="facs"/></xsl:variable>"<xsl:value-of select="fn:normalize-space($var)"></xsl:value-of>",
+											"tag" : "<xsl:value-of select="preceding::text[1]/@xml:id" />",
+											"loc" : "<xsl:value-of select="preceding::pb[1]/@n" />",
+											},
+										</xsl:when>
+										<xsl:otherwise>
+											{ "line" : "<xsl:value-of select="@n" />",
+											"text" : <xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:pb)]" mode="facs"/></xsl:variable>"<xsl:value-of select="fn:normalize-space($var)"></xsl:value-of>",
+											"tag" : "<xsl:value-of select="preceding::text[1]/@xml:id" />",
+											"loc" : "<xsl:value-of select="preceding::pb[1]/@n" />",
+											}
+										</xsl:otherwise>
+									</xsl:choose>
+								</xsl:for-each-group>
 							</xsl:otherwise>
 						</xsl:choose>
 				</xsl:for-each-group>
