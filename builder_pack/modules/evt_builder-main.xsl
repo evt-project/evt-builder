@@ -261,7 +261,7 @@
 												"text" :
 													"<xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:lb)]" mode="facs"/></xsl:variable>
 													<xsl:copy-of select="$var//text()"></xsl:copy-of>",
-												"tag" : "<xsl:value-of select="parent::div[@subtype='edition_text']/@n"/>",
+												"tags" : "<xsl:value-of select="parent::div[@subtype='edition_text']/@n"/>",
 												"loc" : "<xsl:value-of select="if(preceding::pb[1]/@n) then(preceding::pb[1]/@n) else('no_page_info')"/>"
 												},
 											</xsl:when>
@@ -271,7 +271,7 @@
 												"text" :
 												"<xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:lb)]" mode="facs"/></xsl:variable>
 												<xsl:copy-of select="$var//text()"></xsl:copy-of>",
-												"tag" : "<xsl:value-of select="parent::div[@subtype='edition_text']/@n"/>",
+												"tags" : "<xsl:value-of select="parent::div[@subtype='edition_text']/@n"/>",
 												"loc" : "<xsl:value-of select="if(preceding::pb[1]/@n) then(preceding::pb[1]/@n) else('no_page_info')"/>"
 												}
 											</xsl:otherwise>
@@ -304,7 +304,7 @@
 												  "text" :
 													"<xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:lb)]" mode="dipl"/></xsl:variable>
 													<xsl:copy-of select="$var//text()"></xsl:copy-of>",
-												  "tag" : "<xsl:value-of select="parent::div[@subtype='edition_text']/@n"/>",
+												  "tags" : "<xsl:value-of select="parent::div[@subtype='edition_text']/@n"/>",
 												  "loc" : "<xsl:value-of select="if(preceding::pb[1]/@n) then(preceding::pb[1]/@n) else('no_page_info')"/>"
 												},
 											</xsl:when>
@@ -314,7 +314,7 @@
 												"text" :
 												"<xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:lb)]" mode="dipl"/></xsl:variable>
 												<xsl:copy-of select="$var//text()"></xsl:copy-of>",
-												"tag" : "<xsl:value-of select="parent::div[@subtype='edition_text']/@n"/>",
+												"tags" : "<xsl:value-of select="parent::div[@subtype='edition_text']/@n"/>",
 												"loc" : "<xsl:value-of select="if(preceding::pb[1]/@n) then(preceding::pb[1]/@n) else('no_page_info')"/>"
 												}
 											</xsl:otherwise>
@@ -330,15 +330,15 @@
 										<xsl:when test="following::p">
 											{ "line" : "<xsl:value-of select="@n" />",
 											"text" : <xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:pb)]" mode="facs"/></xsl:variable>"<xsl:value-of select="fn:normalize-space($var)"></xsl:value-of>",
-											"tag" : "<xsl:value-of select="preceding::text[1]/@xml:id" />",
-											"loc" : "<xsl:value-of select="preceding::pb[1]/@n" />",
+											"tags" : "<xsl:value-of select="preceding::text[1]/@xml:id" />",
+											"loc" : "<xsl:value-of select="preceding::pb[1]/@n" />"
 											},
 										</xsl:when>
 										<xsl:otherwise>
 											{ "line" : "<xsl:value-of select="@n" />",
 											"text" : <xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:pb)]" mode="facs"/></xsl:variable>"<xsl:value-of select="fn:normalize-space($var)"></xsl:value-of>",
-											"tag" : "<xsl:value-of select="preceding::text[1]/@xml:id" />",
-											"loc" : "<xsl:value-of select="preceding::pb[1]/@n" />",
+											"tags" : "<xsl:value-of select="preceding::text[1]/@xml:id" />",
+											"loc" : "<xsl:value-of select="preceding::pb[1]/@n" />"
 											}
 										</xsl:otherwise>
 									</xsl:choose>
