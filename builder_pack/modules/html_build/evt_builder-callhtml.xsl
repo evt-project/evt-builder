@@ -91,6 +91,16 @@
 				<xsl:comment>highlight</xsl:comment>
 				<script type="text/javascript" src="{$html_path}/js/plugin/jquery.highlight_mod.js"/>
 				<xsl:comment>/highlight</xsl:comment>
+
+				<xsl:comment>TipueSearch</xsl:comment>
+				<script type="text/javascript" src="{$html_path}/js/plugin/tipuesearch/tipuesearch.js"/>
+				<script type="text/javascript" src="./js/plugin/tipuesearch/tipuesearch_content.js" />
+				<script type="text/javascript" src="./js/plugin/tipuesearch/tipuesearch_set.js" />
+				<xsl:comment>/TipueSearch</xsl:comment>
+
+				<xsl:comment>search</xsl:comment>
+				<script type="text/javascript" src="{$html_path}/js/main/search.js"/>
+				<xsl:comment>/search</xsl:comment>
 			</xsl:if>
 		</head>
 	</xsl:template>
@@ -448,6 +458,8 @@
 								<div id="regesto_cont" />
 							</xsl:if>
 							<div id="text_cont">
+								<div id="query"></div>
+								<div id="tipue_search_content"></div>
 								<div id="text_elem"/>
 							</div>
 							<div id="lists_cont">

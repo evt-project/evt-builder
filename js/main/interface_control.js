@@ -3211,9 +3211,9 @@ $(function() {
 		closeFullScreenRight();
 	});
 
-	$("#search_link").click(function(){
+	/*$("#search_link").click(function(){
 		alert("Coming soon");
-	});
+	});*/
 
 	$('#tipue_search_input').keyup(function (e) {
 		$('#text_elem').unhighlight();
