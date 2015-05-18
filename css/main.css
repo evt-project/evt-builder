@@ -449,12 +449,12 @@ footer{
 	display: inline;
 }
 
-#text_cont, #text_cont-add, #image_cont, #regesto_cont, #regesto_cont-add, #lists_cont{
+#text_cont, #text_cont-add, #image_cont, #regesto_cont, #regesto_cont-add, #lists_cont, #search_cont{
 	height: 100%;
 	text-align: center;
 }	
 /*Chiara  */
-#text_cont, #text_cont-add, #regesto_cont, #regesto_cont-add, #lists_cont{
+#text_cont, #text_cont-add, #regesto_cont, #regesto_cont-add, #lists_cont, #search_cont{
 	background: white;
 	position: relative;
 	/*-moz-box-shadow:-2px 3px 5px -2px rgba(0, 0, 0, 0.8);
@@ -1237,7 +1237,7 @@ footer{
 	#background: rgb(187,174,153);
 }
 
-.iconButtons:hover .fa{
+.iconButtons:hover .fa, .iconButtons.active .fa{
 	text-shadow: none !important;
 	color: rgb(187,174,153);
 }
@@ -1252,6 +1252,10 @@ footer{
 
 .active{
 	background: #E3C89C;
+}
+
+.iconButtons.active{
+	background: transparent;
 }
 
 .inactive i, .inactive span{
@@ -1274,7 +1278,7 @@ footer{
 	-o-box-shadow:none;
 	-khtml-box-shadow:none;
 	-ms-box-shadow:none;
-    box-shadow:none;
+    box-shadow:none !important;
     background: #F5EAD4;
     #cursor:not-allowed;
 }
@@ -1749,7 +1753,7 @@ div.doc.not_current:hover{
 }
 
 /* LISTE */
-#lists_cont{
+#lists_cont, #search_cont{
 	text-align: left;
 	font-size: 15pt;
 	margin-top: 42px;
@@ -1762,11 +1766,65 @@ div.doc.not_current:hover{
     left: 0;
     overflow: hidden;
 }
+#search_sub_header {
+	margin-top: 45px;
+}
+#search_cont_results{
+	padding: 20px;
+	overflow: scroll;
+	height: calc(100% - 194px);
+	position: relative;
+}
+#search_query{
+	text-align: center;
+	font-style: italic;
+	margin-bottom: 10px;
+	font-size: 90%;
+}
+#tipue_search_results_count{
+	font-size: 90%;
+	text-align: center;
+	margin-bottom: 10px;
+}
+#tipue_search_foot{
+	text-align: center;
+}
+#search_foot{
+	padding: 8px;
+}
+#tipue_search_foot_boxes li {
+	list-style-type: none;
+	display: inline;
+	margin:0 5px;
+
+}
+#tipue_search_foot_boxes li span{
+	color:rgb(153, 153, 153);
+}
+#tipue_search_foot_boxes li span:hover {
+	cursor: pointer;
+	color:rgb(54, 45, 40);
+}
+.tipue_search_content_text{
+	font-size: 90%;
+}
+.tipue_search_go_to_result{
+	cursor: pointer;
+}
+.tipue_search_go_to_result:hover{
+	text-shadow:0px 0px 1px #000;
+}
+#tipue_search_content hr {
+	visibility: visible;
+	margin: 10px 0px;
+	color: rgb(225, 215, 199) !important;
+}
+
 #lists_cont h2{
 	margin: 20px auto;
 	overflow: hidden;
 }
-#list_header{
+#list_header, #search_header{
 	display: block;
 	color: rgb(245, 234, 212);
 	background: none repeat scroll 0% 0% rgb(54, 45, 40);
@@ -1780,12 +1838,14 @@ div.doc.not_current:hover{
 	#box-shadow: 0px 1px 3px -1px #000;
 	height: 30px;	
 }
-
-#lists_cont.closed #list_header{
+#search_header{
+	padding-right: 1px;
+}
+#lists_cont.closed #list_header, #search_cont.closed #search_header{
 	cursor: pointer;
 }
 
-#list_header #toggle_list_cont{
+#list_header #toggle_list_cont, #search_header #toggle_search_cont{
 	min-width: 0;
 	left: -2px;
 	position: absolute;
@@ -1799,7 +1859,10 @@ div.doc.not_current:hover{
 	box-shadow: none;
 }
 
-#list_header #toggle_list_cont:hover{
+#list_header #toggle_list_cont:hover, 
+#search_header #toggle_search_cont:hover,
+#search_header #keyboard_link:hover,
+#search_header #start_search:hover{
 	-moz-box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.7) inset;
 	-webkit-box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.7) inset;
 	-o-box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.7) inset;
@@ -1807,6 +1870,33 @@ div.doc.not_current:hover{
 	-ms-box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.7) inset;
 	box-shadow:1px 2px 3px rgba(0, 0, 0, 0.7) inset;
 }
+
+#toggle_search_cont {
+	border-top-right-radius: 0px;
+	border-bottom-right-radius: 0px;	
+}
+#keyboard_link {
+	border-radius: 0px;	
+	margin: 0px;
+	box-shadow: none;
+}
+#start_search{
+	border-top-left-radius: 0px;
+	border-bottom-left-radius: 0px;
+	margin:0 1px;
+	box-shadow: none;
+}
+#tipue_search_input{
+	height: 20px;
+	margin: 0px 2px;
+	top: -1px;
+	position: relative;
+	width: -webkit-calc(100% - 81px);
+    width: -moz-calc(100% - 81px);
+    width: calc(100% - 81px);
+	padding-left: 10px;
+}
+
 #lists_cont #list_letters{
 	top: 50px;
 	position: relative;
@@ -1814,7 +1904,9 @@ div.doc.not_current:hover{
 	padding-left: 30px;
 	text-align: center;
 }
-
+.bold_search{
+	font-weight: bold;
+}
 #lists_cont #list_letters span{
 	margin-right: 10px;
 	color: #999;

@@ -458,9 +458,29 @@
 								<div id="regesto_cont" />
 							</xsl:if>
 							<div id="text_cont">
-								<div id="query"></div>
-								<div id="tipue_search_content"></div>
 								<div id="text_elem"/>
+							</div>
+							<div id="search_cont" class="closed">
+								<div id="search_header">
+									<span id="toggle_search_cont" class="mainButtons" title="Apri/Chiudi Ricerca">
+										<i class='fa fa-angle-double-up'></i>
+									</span>
+									<span id="keyboard_link" class="mainButtons small" title="Apri/Chiudi Tastiera">
+										<i class="fa fa-keyboard-o"></i>
+									</span>
+									<input type="text" id="tipue_search_input" />
+									<span id="start_search" class="mainButtons small" title="Avvia Ricerca">
+										<i class='fa fa-search'></i>
+									</span>
+								</div>
+								<div id="search_sub_header">
+									<div id="search_query">Enter your query into the search box above!</div>
+									<div id="search_results"></div>
+								</div>
+								<div id="search_cont_results">
+									<div id="tipue_search_content"></div>
+								</div>
+								<div id="search_foot"></div>
 							</div>
 							<div id="lists_cont">
 								<div id="list_header">
@@ -498,9 +518,8 @@
 							<span id="inside_right_arrow"><i class="fa fa-chevron-down"></i></span>
 							<!-- Text frame bottom menu -->
 							<div id="text_tool">
-								<span id="search_elem" class="iconButtons" title="Search">
-									<a href="javascript:void(0);" id="search_link"><i class="fa fa-search"></i></a>
-									<input type="text" id="tipue_search_input" />
+								<span id="search_link" class="iconButtons" title="Search">
+									<i class="fa fa-search"></i>
 								</span>
 								<xsl:if test="$list_person=true()">
 									<span id="list_link" class="mainButtons" title="Liste">
