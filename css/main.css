@@ -1808,16 +1808,27 @@ div.doc.not_current:hover{
 .tipue_search_content_text{
 	font-size: 90%;
 }
-.tipue_search_go_to_result{
-	cursor: pointer;
-}
-.tipue_search_go_to_result:hover{
-	text-shadow:0px 0px 1px #000;
-}
+
 #tipue_search_content hr {
 	visibility: visible;
 	margin: 10px 0px;
 	color: rgb(225, 215, 199) !important;
+}
+.tipue_search_go_to_result{
+	cursor:pointer;
+	border-radius: 4px;
+	padding: 3px 10px;
+    display: inline-block;
+    border: 1px solid #ccc;	
+	margin-right: 5px;
+	font-size: 85%;
+	margin-bottom: 5px;
+	background: rgba(245, 234, 212, .5);
+	text-decoration: underline;
+}
+.tipue_search_go_to_result:hover {
+	background: rgba(245, 234, 212, 1);
+	text-shadow:0px 0px 1px rgba(0, 0, 0, .5);
 }
 
 #lists_cont h2{

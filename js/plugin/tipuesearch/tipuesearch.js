@@ -146,7 +146,7 @@ http://www.tipue.com/search
 						 	else
 						 	   $('#tipue_search_content').html("<div>Enter your query into the search box above!</div>");
 						}*/
-                         $("#search_link").trigger('click');
+                         $("#start_search").trigger('click');
                     }
                });
 
@@ -272,7 +272,7 @@ http://www.tipue.com/search
                               {
                                    c_c = c.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                                    // out += '<div id="tipue_search_results_count">' + 'We have found ' + c_c + ' results into the ' + $("#span_ee_select .label_selected").text().toLowerCase() + ' edition </div>';
-                                   $('#search_results').html('<div id="tipue_search_results_count">' + 'We have found ' + c_c + ' results into the ' + $("#span_ee_select .label_selected").text().toLowerCase() + ' edition </div>');
+                                   $('#search_results').html('<div id="tipue_search_results_count">' + 'We have found ' + c_c + ' results in the current edition.</div>');
                               }
                               
                               found.sort();
@@ -288,25 +288,43 @@ http://www.tipue.com/search
                                         var t = fo[2];
                                         var t_d = '';
                                         var t_w = t.split(' ');
+
                                         if (t_w.length < set.descriptiveWords)
                                         {
                                              t_d = t;
                                         }
                                         else
                                         {
-                                             for (var f = 0; f < set.descriptiveWords; f++)
-                                             {
-                                                  t_d += t_w[f] + ' '; 	
+                                             var d_index = t.toLowerCase().indexOf(d);
+                                             var pre_text = t.substring(0, d_index);
+                                             var post_text = t.substring(d_index);
+
+                                             var pre_text_w = pre_text.split(' ');
+                                             var post_text_w = post_text.split(' ');
+                                             
+                                             var half_desc_words = (set.descriptiveWords-1)/2;
+                                             var pre_text_stop = pre_text_w.length - (half_desc_words+1);
+
+                                             for (var f = pre_text_w.length-1; (f > 0 && f > pre_text_stop); f--) {
+                                                  t_d = pre_text_w[f]+' '+t_d;
                                              }
+                                             
+                                             for (var f = 0; (f < post_text_w.length && f < half_desc_words); f++) {
+                                                  t_d += post_text_w[f]+' ';
+                                             }
+                                             // for (var f = 0; f < set.descriptiveWords; f++)
+                                             // {
+                                             //      t_d += t_w[f] + ' '; 	
+                                             // }
                                         }
                                         t_d = $.trim(t_d);
                                         if (t_d.charAt(t_d.length - 1) != '.')
                                         {
-                                             t_d += ' ...';
+                                             t_d += '...';
                                         }
 
                                         out += '<div class="tipue_search_content_text">' + t_d + '</div>';
-                                        out += '<div class="tipue_search_found_text">Found in ';
+                                        out += '<div class="tipue_search_found_text">';
                                         out += '<span class="tipue_search_go_to_result" onclick="window.location.hash = \'doc='+fo[4]+'&page='+fo[3]+'\'; $(\'#toggle_search_cont\').trigger(\'click\');">';
                                         out += fo[4] + ' par ' + fo[1] + ' (page ' + fo[3]  + ')</span></div>';
                                         //out += '<p>-</p>';
