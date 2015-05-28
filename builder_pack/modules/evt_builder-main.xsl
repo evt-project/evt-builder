@@ -328,17 +328,19 @@
 								<xsl:for-each-group select="current-group()/body/descendant::p" group-starting-with="//tei:p">
 									<xsl:choose>
 										<xsl:when test="following::p">
-											{ "line" : "<xsl:value-of select="@n" />",
+											{
+											"line" : "<xsl:value-of select="@xml:id" />|<xsl:value-of select="@n" />",
 											"text" : <xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:pb)]" mode="facs"/></xsl:variable>"<xsl:value-of select="fn:normalize-space($var)"></xsl:value-of>",
 											"tags" : "<xsl:value-of select="preceding::text[1]/@xml:id" />",
-											"loc" : "<xsl:value-of select="preceding::pb[1]/@xml:id" />"
+											"loc" : "<xsl:value-of select="preceding::pb[1]/@xml:id" />|<xsl:value-of select="preceding::pb[1]/@n" />"
 											},
 										</xsl:when>
 										<xsl:otherwise>
-											{ "line" : "<xsl:value-of select="@n" />",
+											{
+											"line" : "<xsl:value-of select="@xml:id" />|<xsl:value-of select="@n" />",
 											"text" : <xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:pb)]" mode="facs"/></xsl:variable>"<xsl:value-of select="fn:normalize-space($var)"></xsl:value-of>",
 											"tags" : "<xsl:value-of select="preceding::text[1]/@xml:id" />",
-											"loc" : "<xsl:value-of select="preceding::pb[1]/@xml:id" />"
+											"loc" : "<xsl:value-of select="preceding::pb[1]/@xml:id" />|<xsl:value-of select="preceding::pb[1]/@n" />"
 											}
 										</xsl:otherwise>
 									</xsl:choose>
