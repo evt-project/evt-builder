@@ -49,7 +49,7 @@
 	<!-- On/Off regesto -->
 	<xsl:param name="regesto" select="true()"/>
 	
-	<!-- CP LISTE -->
+	<!-- LISTS -->
 	<!-- On/Off persons list -->
 	<xsl:param name="list_person" select="true()"/>
 	<!-- Customize person list label -->
@@ -60,10 +60,15 @@
 	<!-- Customize places list label -->
 	<xsl:param name="list_place_label" select="'Lista Luoghi'"/>
 	
+	<!-- WEB INTERFACE BUTTONS -->
 	<!-- Mostra/Nascondi pulsante Txt/Img Link in interfaccia -->
 	<xsl:param name="txtimg_link_button" select="false()"/>
 	<!-- Mostra/Nascondi pulsante Hotspot in interfaccia-->
 	<xsl:param name="hs_button" select="false()"/>
+	<!-- Mostra/Nascondi selettore Livello/i Edizione in interfaccia-->
+	<xsl:param name="edition_level_selector" select="false()"/>
+	
+	
 	<!-- Edition -->
 	<!-- EN: To use it in your code:
 		<xsl:value-of select="$edition_array[n]" />
@@ -137,4 +142,8 @@
 		 Profondità massima di un lb rispetto a body: max(//tei:lb/count(ancestor-or-self::node())) - //tei:body/count(ancestor-or-self::node())
 	-->
 	
+	<!-- On/Off defaul Text Label generation from id -->
+	<!-- If false() you need to put your own xslt transformations in modules/elements/evt_builder-generate-text_label.xsl -->
+	<xsl:param name="defaulTextLabel" select="false()"/>
+
 </xsl:stylesheet>

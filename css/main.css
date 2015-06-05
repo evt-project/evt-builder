@@ -2037,3 +2037,7 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 	font-size: 90%;
 	display: block;
 }
+
+.hidden{
+	display: none !important;
+}

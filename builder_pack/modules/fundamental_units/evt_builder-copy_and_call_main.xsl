@@ -113,7 +113,7 @@
 		<!--<xsl:call-template name="index"></xsl:call-template>-->
 	</xsl:template>
 	
-	<!-- CDP Pelavicino Listes -->
+	<!-- CDP: Listes -->
 	<xsl:template match="*" mode="listPersonOccurences">
 		<xsl:element name="div">
 			<xsl:attribute name="id">occorrenze</xsl:attribute>

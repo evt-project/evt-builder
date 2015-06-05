@@ -21,6 +21,8 @@
 	<!-- P Paragraphs -->
 	<xsl:template match="tei:p" mode="dipl">
 		<xsl:element name="span">
+			<xsl:attribute name="data-id" select="@xml:id"/>
+			
 			<xsl:if test="current()[not((string-length(normalize-space()))= 0)]">
 				<xsl:attribute name="class" select="$ed_name2,name()" separator="-"/>
 				<xsl:apply-templates mode="#current"> </xsl:apply-templates>
@@ -331,7 +333,6 @@
 	</xsl:template>
 	
 	
-	<!-- TEMPLATES PER CODICE PELAVICINO - DA SPOSTARE IN UN FILE APPROPRIATO -->
 	<!-- REF References to additional text -->
 	<xsl:template match="tei:ref[starts-with(@target,'#')]" mode="dipl">
 		<xsl:element name="span">
@@ -353,16 +354,24 @@
 	<xsl:template match="tei:front" mode="dipl">
 		<!-- do nothing -->
 	</xsl:template>
+	
 	<xsl:template match="tei:text/tei:body" mode="dipl">
 		<xsl:if test="current()[not((string-length(normalize-space()))= 0)]">
 			<xsl:element name="div">
 				<xsl:attribute name="class">doc</xsl:attribute>
 				<xsl:attribute name="data-doc"><xsl:value-of select="current()/parent::tei:text/@xml:id"/></xsl:attribute>
-				<xsl:attribute name="title">Documento <xsl:value-of select="current()/parent::tei:text/@xml:id"/></xsl:attribute>
+				<xsl:attribute name="title">Doc. 
+					<xsl:call-template name="generateTextLabel">
+						<xsl:with-param name="text_id">
+							<xsl:value-of select="current()/parent::tei:text/@xml:id" />
+						</xsl:with-param>
+					</xsl:call-template>
+				</xsl:attribute>
 				<xsl:apply-templates mode="#current"/>
 			</xsl:element>
 		</xsl:if>
 	</xsl:template>
+	
 	<!-- EMPH emphasized  -->
 	<xsl:template match="tei:emph" mode="dipl">
 		<xsl:element name="span">
@@ -585,7 +594,6 @@
 						<xsl:for-each select="$root//tei:place[@xml:id=substring-after(current()/@ref,'#')]">
 							<xsl:call-template name="place"/>
 						</xsl:for-each>
-						<!-- aggiungere riferimento ad entita specifica e relative info  -->
 					</xsl:element>
 				</xsl:element>
 			</xsl:when>

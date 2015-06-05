@@ -79,13 +79,6 @@ $(function() {
 				.text($('.main_ee_select .option_container div:first').text())
 				.attr("data-value", $('.main_ee_select .option_container div:first').text());
 
-			// Nascond oetichetta edizione PER CP (Decidere se renderlo generico)
-			if($(xml).find('editions edition').length <= 1){
-				$('#span_ee_select, #span_ee_select-add').addClass('hidden').hide();
-				$('#span_ee_select, #span_ee_select-add').find('.option_container').remove();
-				$('#span_ee_select, #span_ee_select-add').find('.open_select').remove();
-			}
-
 			first_pp = $(xml).find('pages pair pb').first().text();
 			last_pp = $(xml).find('pages pair pb').last().text();
 
@@ -145,11 +138,12 @@ $(function() {
 
 			//Text and Page
 			$(xml).find('textpage text').each(function(){
-				var current_id, current_label, first_page_id;
-				current_label = $(this).attr("n");
-				current_id = current_label.replace(/\s+/g, '');
+				var current_n, current_id, current_label, first_page_id;
+				current_n = $(this).attr("n");
+				current_label = $(this).attr("label");
+				current_id = current_n.replace(/\s+/g, '');
 				first_page_id = $(this).find(":first-child").text();
-				current_label = parseCPtextID(current_label); // Solo per Pelavicino
+
 				$('.main_tt_select .option_container').append(
 					$('<div/>')
 						.attr("data-value", current_id)
@@ -218,7 +212,7 @@ $(function() {
 			});
 
 
-			// LISTE - CP
+			// GESTIONE LISTE
 			if( $(xml).find('liste').children().length > 0 ){
 				$('#toggle_list_cont')
 					.click(function(){
@@ -1209,7 +1203,7 @@ $(function() {
 			if (doc != current_tt) {
 				$("#text .doc[data-doc='"+doc+"']").trigger('click');
 			}
-			// Attiva occorrenza in lista -- CP
+			// Attiva occorrenza in lista
 			if ( $('.list').length > 0 && $('.list_element.list_element_opened').length > 0 ) {
 				$('.selected_from_list').removeClass('selected_from_list');
 				var ref;
@@ -1746,7 +1740,7 @@ $(function() {
 		$('#text_elem').attr('data-page', pp_val);
 		$('#text_elem').empty().load("data/output_data/"+edition+"/page_"+pp_val+"_"+edition+".html #text_frame", function( response, status, xhr ){
 			
-			// Attiva occorrenza in lista -- CP
+			//IT: Attiva occorrenza in lista 
 			if ( $('.list').length > 0 && $('.list_element.list_element_opened').length > 0 ) {
 				$('.selected_from_list').removeClass('selected_from_list')
 				$('.list_element_opened').each(function() {
@@ -1755,8 +1749,10 @@ $(function() {
 					$("#text span[data-ref='"+ref+"']").addClass('selected_from_list');
 				});
 			}
-			// Riattiva filtri attivi -- CP
-			$('.like_select.filter').find('.option.selected').removeClass('selected').trigger('click');
+			//IT: Riattiva filtri attivi
+			if ( $('.like_select.filter').length > 0 ) {
+				$('.like_select.filter').find('.option.selected').removeClass('selected').trigger('click');
+			}
 
 			//IT: controlla se la pagine ha gli elementi necessari allo strumento ITL
 			if ($('#text_elem .Area').length){
@@ -2549,22 +2545,6 @@ $(function() {
 			text_label = text_label.substr(0, min_char_num-3)+"...";
 		}
 		return text_label;
-	}
-
-	// SOLO PER PELAVICINO
-	function parseCPtextID(label){
-		var label_parts, numOrig, numNuova;
-		var newLabel;
-		label_parts = label.split('_');
-		numOrig = label_parts[0];
-		numNuova = label_parts[1];
-		if (numOrig.indexOf("bis") >= 0) { 
-		// Convenzione decisa con la Salvatori: se nella numerazione originale e' presente la scritta bis vuol dire che non c'e' numerazione originale
-			newLabel = numNuova+" (--)";
-		} else {
-			newLabel = numNuova+" ("+numOrig+")";
-		}
-		return newLabel;
 	}
 
 	/* / Funzioni */

@@ -283,14 +283,13 @@
 		</xsl:element>
 	</xsl:template>
 	
-	<!-- TEMPLATES PER CODICE PELAVICINO - DA SPOSTARE IN UN FILE APPROPRIATO -->
 	<!-- REF References to additional text -->
 	<xsl:template match="tei:ref[starts-with(@target,'#')]" mode="facs">
 		<!-- Do nothing -->
 	</xsl:template>
 	
 	<xsl:template match="tei:front" mode="facs">
-		<!-- do nothing -->
+		<!-- Do nothing -->
 	</xsl:template>
 	<xsl:template match="tei:text/tei:body" mode="facs">
 		<xsl:element name="div">
@@ -299,6 +298,7 @@
 			<xsl:apply-templates mode="#current"/>
 		</xsl:element>
 	</xsl:template>
+	
 	<!-- EMPH emphasized  -->
 	<xsl:template match="tei:emph" mode="facs">
 		<xsl:apply-templates mode="#current" />
