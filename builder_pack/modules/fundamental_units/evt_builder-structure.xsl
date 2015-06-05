@@ -175,6 +175,11 @@
                         <xsl:for-each select="$root//tei:sourceDoc">
                             <text>
                                 <xsl:attribute name="n" select="@xml:id"></xsl:attribute>
+                                <xsl:attribute name="label">
+                                    <xsl:call-template name="generateTextLabel">
+                                        <xsl:with-param name="text_id"><xsl:value-of select="@n"/></xsl:with-param>
+                                    </xsl:call-template>
+                                </xsl:attribute>
                                 <xsl:for-each select="current()/child::node()">
                                     <xsl:if test="self::tei:surface">
                                         <pb>
@@ -214,6 +219,12 @@
                                 <xsl:for-each select="$root//tei:text/tei:group/tei:text">
                                     <text>
                                         <xsl:attribute name="n" select="@xml:id"></xsl:attribute>
+                                        <xsl:attribute name="label">
+                                            <xsl:call-template name="generateTextLabel">
+                                                <xsl:with-param name="text_id"><xsl:value-of select="@xml:id"/></xsl:with-param>
+                                            </xsl:call-template>
+                                        </xsl:attribute>
+                                        
                                         <xsl:if test="not(current()/tei:body/tei:div/child::*[1][self::tei:pb]) and not(current()/tei:body/tei:div/child::*[1][self::tei:p]/child::*[1][self::tei:pb])">
                                             <pb>
                                                 <xsl:choose>
@@ -242,6 +253,9 @@
                                 <xsl:for-each select="$root//tei:div[@subtype='edition_text']">
                                     <text>
                                         <xsl:attribute name="n" select="@n"></xsl:attribute>
+                                        <xsl:attribute name="label">
+                                            <xsl:value-of select="@n"/>
+                                        </xsl:attribute>
                                         <xsl:for-each select=".//tei:pb">
                                             <pb>
                                                 <xsl:attribute name="n" select="if(@n) then (@n) else (@xml:id)"></xsl:attribute>

@@ -269,12 +269,19 @@
 											</span>
 										</xsl:if>
 										<xsl:if test="count($edition_array) &gt; 1">
-											<span id="span_ee_select-add" class="like_select">
+											<xsl:element name="span">
+												<xsl:attribute name="id">span_ee_select-add</xsl:attribute>
+												<xsl:attribute name="class">
+													like_select
+													<xsl:if test="$edition_level_selector=false()">
+														hidden
+													</xsl:if>
+												</xsl:attribute>
 												<xsl:call-template name="div_select_build">
 													<xsl:with-param name="html_div_class"
 														select="'main_ee_select'"/>
 												</xsl:call-template>
-											</span>
+											</xsl:element>
 											<xsl:if test="$regesto=true()">
 												<span class="imageTopTool mainButtons toggleReg" id="switchReg-add" value="reg" title="Regesto">
 													<span>Regesto</span>
@@ -439,12 +446,20 @@
 												select="'main_tt_select'"/>
 										</xsl:call-template>
 									</span>
-									<span id="span_ee_select" class="like_select" title="Edition level">
+									<xsl:element name="span">
+										<xsl:attribute name="id">span_ee_select</xsl:attribute>
+										<xsl:attribute name="title">Edition level</xsl:attribute>
+										<xsl:attribute name="class">
+											like_select
+											<xsl:if test="$edition_level_selector=false()">
+												hidden
+											</xsl:if>
+										</xsl:attribute>
 										<xsl:call-template name="div_select_build">
 											<xsl:with-param name="html_div_class"
 												select="'main_ee_select'"/>
 										</xsl:call-template>
-									</span>
+									</xsl:element>
 									<xsl:if test="$regesto=true()">
 										<span class="imageTopTool mainButtons active toggleReg" id="switchReg" value="reg" title="Regesto">
 											<span>Regesto</span>

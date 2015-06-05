@@ -278,6 +278,10 @@ http://www.tipue.com/search
                               found.sort();
                               console.log(found);
                               var l_o = 0;
+                              var page, page_id, page_n; 
+                              var text, text_id, text_label;
+                              var pos, pos_id, pos_label;
+
                               for (var i = 0; i < found.length; i++)
                               {
                                    var fo = found[i].split('^');
@@ -322,11 +326,22 @@ http://www.tipue.com/search
                                         {
                                              t_d += '...';
                                         }
+                                        page = fo[3].split('|');
+                                        page_id = page[0];
+                                        page_n = page[1];
+
+                                        text = fo[4].split('|');
+                                        text_id = text[0];
+                                        text_label = text[1];
+
+                                        pos = fo[1].split('|');
+                                        pos_id = pos[0];
+                                        pos_label = pos[1];
 
                                         out += '<div class="tipue_search_content_text">' + t_d + '</div>';
                                         out += '<div class="tipue_search_found_text">';
-                                        out += '<span class="tipue_search_go_to_result" onclick="window.location.hash = \'doc='+fo[4]+'&page='+fo[3]+'\'; $(\'#toggle_search_cont\').trigger(\'click\');">';
-                                        out += fo[4] + ' par ' + fo[1] + ' (page ' + fo[3]  + ')</span></div>';
+                                        out += '<span class="tipue_search_go_to_result" onclick="window.location.hash = \'doc='+text_id+'&page='+page_id+'\'; $(\'#toggle_search_cont\').trigger(\'click\');">';                                        
+                                        out += 'found in ' +text_label + pos_label + ' (page ' + page_n  + ')</span></div>';
                                         //out += '<p>-</p>';
                                         out += '<hr />';
                                         
