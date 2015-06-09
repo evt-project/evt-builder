@@ -92,11 +92,13 @@
 				<script type="text/javascript" src="{$html_path}/js/plugin/jquery.highlight_mod.js"/>
 				<xsl:comment>/highlight</xsl:comment>
 
-				<xsl:comment>TipueSearch</xsl:comment>
-				<script type="text/javascript" src="{$html_path}/js/plugin/tipuesearch/tipuesearch.js"/>
-				<script type="text/javascript" src="./js/plugin/tipuesearch/tipuesearch_content.js" />
-				<script type="text/javascript" src="./js/plugin/tipuesearch/tipuesearch_set.js" />
-				<xsl:comment>/TipueSearch</xsl:comment>
+				<xsl:if test="$search=true()">
+					<xsl:comment>TipueSearch</xsl:comment>
+					<script type="text/javascript" src="{$html_path}/js/plugin/tipuesearch/tipuesearch.js"/>
+					<script type="text/javascript" src="./js/plugin/tipuesearch/tipuesearch_content.js" />
+					<script type="text/javascript" src="./js/plugin/tipuesearch/tipuesearch_set.js" />
+					<xsl:comment>/TipueSearch</xsl:comment>
+				</xsl:if>
 
 				<xsl:comment>search</xsl:comment>
 				<script type="text/javascript" src="{$html_path}/js/main/search.js"/>
@@ -251,12 +253,14 @@
 								<header id="left_header">
 									<i class="fa fa-times-circle closeFullScreen" id="closeFullScreenLeft"></i>
 									<div id="left_menu">
-										<span id="span_pp_select" class="like_select" title="Folio">
-											<xsl:call-template name="div_select_build">
-												<xsl:with-param name="html_div_class"
-													select="'main_pp_select'"/>
-											</xsl:call-template>
-										</span>
+										<xsl:if test="$pp_selector_pos='left'">
+											<span id="span_pp_select" class="like_select left_menu" title="Folio">
+												<xsl:call-template name="div_select_build">
+													<xsl:with-param name="html_div_class"
+														select="'main_pp_select'"/>
+												</xsl:call-template>
+											</span>	
+										</xsl:if>
 										<xsl:if test="$double_view=true()">
 											<span id="span_dd_select" class="like_select">
 												<xsl:call-template name="div_select_build">
@@ -446,6 +450,14 @@
 												select="'main_tt_select'"/>
 										</xsl:call-template>
 									</span>
+									<xsl:if test="$pp_selector_pos='right'">
+										<span id="span_pp_select" class="like_select right_menu" title="Folio">
+											<xsl:call-template name="div_select_build">
+												<xsl:with-param name="html_div_class"
+													select="'main_pp_select'"/>
+											</xsl:call-template>
+										</span>
+									</xsl:if>
 									<xsl:element name="span">
 										<xsl:attribute name="id">span_ee_select</xsl:attribute>
 										<xsl:attribute name="title">Edition level</xsl:attribute>
@@ -475,28 +487,31 @@
 							<div id="text_cont">
 								<div id="text_elem"/>
 							</div>
-							<div id="search_cont" class="closed">
-								<div id="search_header">
-									<span id="toggle_search_cont" class="mainButtons" title="Apri/Chiudi Ricerca">
-										<i class='fa fa-angle-double-up'></i>
-									</span>
-									<span id="keyboard_link" class="mainButtons small" title="Apri/Chiudi Tastiera">
-										<i class="fa fa-keyboard-o"></i>
-									</span>
-									<input type="text" id="tipue_search_input" />
-									<span id="start_search" class="mainButtons small" title="Avvia Ricerca">
-										<i class='fa fa-search'></i>
-									</span>
-								</div>
-								<div id="search_sub_header">
-									<div id="search_query">Enter your query into the search box above!</div>
-									<div id="search_results"></div>
-								</div>
-								<div id="search_cont_results">
-									<div id="tipue_search_content"></div>
-								</div>
-								<div id="search_foot"></div>
-							</div>
+							<xsl:if test="$search=true()">
+								<div id="search_cont" class="closed">
+									<div id="search_header">
+										<span id="toggle_search_cont" class="mainButtons" title="Apri/Chiudi Ricerca">
+											<i class='fa fa-angle-double-up'></i>
+										</span>
+										<span id="keyboard_link" class="mainButtons small" title="Apri/Chiudi Tastiera">
+											<i class="fa fa-keyboard-o"></i>
+										</span>
+										<input type="text" id="tipue_search_input" />
+										<span id="start_search" class="mainButtons small" title="Avvia Ricerca">
+											<i class='fa fa-search'></i>
+										</span>
+									</div>
+									<div id="search_sub_header">
+										<div id="search_query">Enter your query into the search box above!</div>
+										<div id="search_results"></div>
+									</div>
+									<div id="search_cont_results">
+										<div id="tipue_search_content"></div>
+									</div>
+									<div id="search_foot"></div>
+								</div>	
+							</xsl:if>
+							
 							<div id="lists_cont">
 								<div id="list_header">
 									<span id="toggle_list_cont" class="mainButtons" title="Apri/Chiudi Liste">
@@ -525,20 +540,21 @@
 									<span class="list_filter" data-filter-type="first_letter" data-value="U">U</span>
 									<span class="list_filter" data-filter-type="first_letter" data-value="V">V</span>
 									<span class="list_filter" data-filter-type="first_letter" data-value="Z">Z</span>
-									
-									
 								</div>
 							</div>
 							<span id="inside_left_arrow"><i class="fa fa-chevron-up"></i></span>
 							<span id="inside_right_arrow"><i class="fa fa-chevron-down"></i></span>
 							<!-- Text frame bottom menu -->
 							<div id="text_tool">
-								<span id="search_link" class="iconButtons" title="Search">
-									<i class="fa fa-search"></i>
-								</span>
+								<xsl:if test="$search=true()">
+									<span id="search_link" class="mainButtons" title="Search">
+										<span>Search</span>
+										<i class="fa fa-search"></i>
+									</span>
+								</xsl:if>
 								<xsl:if test="$list_person=true()">
 									<span id="list_link" class="mainButtons" title="Liste">
-										<span>Liste</span>
+										<span>Lists</span>
 										<i class="fa fa-list"></i>
 									</span>
 								</xsl:if>
@@ -563,11 +579,11 @@
 											</xsl:for-each>
 											<div class="option" data-value="all">
 												<i class="fa fa-circle filter_color"></i>
-												Seleziona Tutto
+												Select All
 											</div>
 											<div class="option" data-value="clean">
 												<i class="fa fa-circle-o filter_color"></i>
-												Pulisci Selezione
+												Clean Selection
 											</div>
 										</div>
 									</div>

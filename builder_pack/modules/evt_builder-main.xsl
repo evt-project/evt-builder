@@ -83,8 +83,12 @@
 					</xsl:element>
 				</xsl:result-document>
 			</xsl:if>
-			<!-- TEMP SEARCH -->
-			<xsl:apply-templates select="$step0" mode="file4search"></xsl:apply-templates>
+			
+			<!-- SEARCH -->
+			<xsl:if test="$search=true()">
+				<xsl:apply-templates select="$step0" mode="file4search"></xsl:apply-templates>
+			</xsl:if>
+			
 		</xsl:if>
 		<!-- EN: The index and structure generation are the same for both the parallel and the embedded  -->
 		<!-- IT: La generazione dell'index e della struttura sono uguali sia per la parallel sia per l'embedded -->

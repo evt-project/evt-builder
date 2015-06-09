@@ -18,11 +18,13 @@
 	
 	<xsl:template name="generateTextLabel">
 		<xsl:param name="text_id" />
-		<!-- DEFAULT -->
 		<xsl:choose>
+			<!-- DEFAULT -->
 			<xsl:when test="$defaulTextLabel=true()">
 				<xsl:value-of select="translate($text_id, '_', ' ')" />		
 			</xsl:when>
+			
+			<!-- CUSTOMIZE -->
 			<xsl:otherwise>
 				<!-- Custom template for generation of text label -->
 				
@@ -34,7 +36,7 @@
 				<xsl:choose>
 					<xsl:when test="contains($numOrig, 'bis')">
 						<!-- Convenzione decisa con la professoressa Salvatori: 
-				se nella numerazione originale e' presente la scritta 'bis' vuol dire che non c'e' numerazione originale -->
+						     se nella numerazione originale e' presente la scritta 'bis' vuol dire che non c'e' numerazione originale -->
 						<xsl:value-of select="$numNuova"></xsl:value-of>
 						<xsl:value-of select="' (--)'"></xsl:value-of>
 					</xsl:when>
