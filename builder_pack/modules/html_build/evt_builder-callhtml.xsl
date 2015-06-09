@@ -98,11 +98,11 @@
 					<script type="text/javascript" src="./js/plugin/tipuesearch/tipuesearch_content.js" />
 					<script type="text/javascript" src="./js/plugin/tipuesearch/tipuesearch_set.js" />
 					<xsl:comment>/TipueSearch</xsl:comment>
+					
+					<xsl:comment>search</xsl:comment>
+					<script type="text/javascript" src="{$html_path}/js/main/search.js"/>
+					<xsl:comment>/search</xsl:comment>
 				</xsl:if>
-
-				<xsl:comment>search</xsl:comment>
-				<script type="text/javascript" src="{$html_path}/js/main/search.js"/>
-				<xsl:comment>/search</xsl:comment>
 			</xsl:if>
 		</head>
 	</xsl:template>
@@ -323,8 +323,10 @@
 									</div>
 								</header>
 								<xsl:if test="$image_frame=true()">
-									<span id="inside_left_arrow-add"><i class="fa fa-chevron-up"></i></span>
-									<span id="inside_right_arrow-add"><i class="fa fa-chevron-down"></i></span>
+									<xsl:if test="$document_navigation=true()">
+										<span id="inside_left_arrow-add"><i class="fa fa-chevron-up"></i></span>
+										<span id="inside_right_arrow-add"><i class="fa fa-chevron-down"></i></span>
+									</xsl:if>
 									<!-- Text frame bottom menu -->
 									<div id="text_tool-add">
 										<span id="span_list_select-add" class="like_select filter" title="Lists">
@@ -542,8 +544,10 @@
 									<span class="list_filter" data-filter-type="first_letter" data-value="Z">Z</span>
 								</div>
 							</div>
-							<span id="inside_left_arrow"><i class="fa fa-chevron-up"></i></span>
-							<span id="inside_right_arrow"><i class="fa fa-chevron-down"></i></span>
+							<xsl:if test="$document_navigation=true()">
+								<span id="inside_left_arrow"><i class="fa fa-chevron-up"></i></span>
+								<span id="inside_right_arrow"><i class="fa fa-chevron-down"></i></span>
+							</xsl:if>
 							<!-- Text frame bottom menu -->
 							<div id="text_tool">
 								<xsl:if test="$search=true()">

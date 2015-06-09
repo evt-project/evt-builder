@@ -146,6 +146,12 @@
 	<!-- "left" or "right" | Default: "right" -->
 	<xsl:param name="pp_selector_pos" select="'right'"/>
 	
+	<!-- On/Off Search -->
+	<xsl:param name="search" select="false()"/>
+	
+	<!-- On/Off Document Navigation -->
+	<xsl:param name="document_navigation" select="false()"/>
+	
 	<!-- LISTS -->
 	<!-- On/Off persons list -->
 	<xsl:param name="list_person" select="false()"/>
@@ -157,6 +163,4 @@
 	<!-- Customize places list label -->
 	<xsl:param name="list_place_label" select="'Lista Luoghi'"/>
 	
-	<!-- On/Off Search -->
-	<xsl:param name="search" select="false()"/>
 </xsl:stylesheet>
