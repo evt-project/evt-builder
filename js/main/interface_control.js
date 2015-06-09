@@ -851,16 +851,19 @@ $(function() {
 						$(".main_right_arrow").addClass("arrow_right_disable");
 					}
 					current_doc_el = $("#span_tt_select .option[data-value='"+current_doc+"']");
-					if (current_doc_el.prev().text()  != "" ) {
-						$('#inside_left_arrow').attr('title', 'Documento '+current_doc_el.prev().text());
-					} else {
-						$('#inside_left_arrow').attr('title', '');
-					}
-
-					if (current_doc_el.next().text() != ""){
-						$('#inside_right_arrow').attr('title', 'Documento '+current_doc_el.next().text());
-					} else {
-						$('#inside_right_arrow').attr('title', '');
+					
+					if ( $('#inside_left_arrow').length > 0 || $('#inside_right_arrow').length > 0) {
+						if (current_doc_el.prev().text()  != "" ) {
+							$('#inside_left_arrow').attr('title', 'Documento '+current_doc_el.prev().text());
+						} else {
+							$('#inside_left_arrow').attr('title', '');
+						}
+					
+						if (current_doc_el.next().text() != ""){
+							$('#inside_right_arrow').attr('title', 'Documento '+current_doc_el.next().text());
+						} else {
+							$('#inside_right_arrow').attr('title', '');
+						}
 					}
 
 					if( (checkpp !== "") && ($("#imgd_link").attr("class") !== "current_mode") ){
@@ -897,15 +900,17 @@ $(function() {
 					selectPP(current_page, pp_lab, current_doc);
 					selectTT(current_doc);
 					// Aggiorna frecce navigazione per documento
-					if ( $('#span_tt_select .option_container .option:first-child').hasClass('selected') ) {
-						$('#inside_left_arrow, #inside_left_arrow-add').addClass('disabled');
-					} else {
-						$('#inside_left_arrow, #inside_left_arrow-add').removeClass('disabled');
-					}
-					if ($('#span_tt_select .option_container .option:last-child').hasClass('selected')){
-						$('#inside_right_arrow, #inside_right_arrow-add').addClass('disabled');
-					} else {
-						$('#inside_right_arrow, #inside_right_arrow-add').removeClass('disabled');
+					if ( $('#inside_right_arrow').length > 0 || $('#inside_right_arrow').length > 0 ){
+						if ( $('#span_tt_select .option_container .option:first-child').hasClass('selected') ) {
+							$('#inside_left_arrow, #inside_left_arrow-add').addClass('disabled');
+						} else {
+							$('#inside_left_arrow, #inside_left_arrow-add').removeClass('disabled');
+						}	
+						if ($('#span_tt_select .option_container .option:last-child').hasClass('selected')){
+							$('#inside_right_arrow, #inside_right_arrow-add').addClass('disabled');
+						} else {
+							$('#inside_right_arrow, #inside_right_arrow-add').removeClass('disabled');
+						}
 					}
 					if($('#txt_single').attr('class')==="current_mode"){ $('#header_collapse').css("left",'15px'); }
 					// IT: Cambia il titolo della pagina in base all'hash
@@ -1986,16 +1991,19 @@ $(function() {
         } else {
         	new_tt.trigger('click');
         }
-        if (new_tt.prev().length <= 0) {
-        	$('#inside_left_arrow, #inside_left_arrow-add').addClass('disabled');
-        } else {
-        	$('#inside_left_arrow, #inside_left_arrow-add').removeClass('disabled');
-        }
+        
+        if ( $('#inside_right_arrow').length > 0 || $('#inside_right_arrow').length > 0 ) {
+        	if (new_tt.prev().length <= 0) {
+	        	$('#inside_left_arrow, #inside_left_arrow-add').addClass('disabled');
+	        } else {
+	        	$('#inside_left_arrow, #inside_left_arrow-add').removeClass('disabled');
+	        }
 
-        if (new_tt.next().length <= 0) {
-        	$('#inside_right_arrow, #inside_right_arrow-add').addClass('disabled');
-        } else {
-        	$('#inside_right_arrow, #inside_right_arrow-add').removeClass('disabled');
+	        if (new_tt.next().length <= 0) {
+	        	$('#inside_right_arrow, #inside_right_arrow-add').addClass('disabled');
+	        } else {
+	        	$('#inside_right_arrow, #inside_right_arrow-add').removeClass('disabled');
+	        }
         }
     }
 
@@ -2562,12 +2570,14 @@ $(function() {
 		arrow("right");
 	});
 	
-	$("#inside_left_arrow, #inside_left_arrow-add").click(function(){
-	    navDoc("left");
-	});
-	$("#inside_right_arrow, #inside_right_arrow-add").click(function(){
-	    navDoc("right");
-	});
+	if ( $('#inside_right_arrow').length > 0 || $('#inside_right_arrow').length > 0 ) {
+		$("#inside_left_arrow, #inside_left_arrow-add").click(function(){
+		    navDoc("left");
+		});
+		$("#inside_right_arrow, #inside_right_arrow-add").click(function(){
+		    navDoc("right");
+		});
+	}
 	
 	$("#main_left_menu").click(function(){
 		if($("#main_left_menu-openlink").css('display') !== "none"){
@@ -2830,27 +2840,29 @@ $(function() {
 
 			$('#text_tool-add').hide();
 			
-			$("#inside_left_arrow")
-				.off('click')
-				.click(function(){
-			    if( !$(this).hasClass('disabled') ){
-			    	navDoc("left");
-			    }
-			});
-			
-			$("#inside_right_arrow")
-				.off('click')
-				.click(function(){
-		    	if( !$(this).hasClass('disabled') ){
-		    		navDoc("right");
-		    	}
-			});
-			/*if( !$("#inside_left_arrow").is(':visible') && 
-				! $('#disabled').hasClass('selected') ) {
-				if($('#inside_left_arrow')){
-					$('#inside_left_arrow').show();
-				}
-			}*/
+			if ( $('#inside_right_arrow').length > 0 || $('#inside_right_arrow').length > 0 ) {
+				$("#inside_left_arrow")
+					.off('click')
+					.click(function(){
+				    if( !$(this).hasClass('disabled') ){
+				    	navDoc("left");
+				    }
+				});
+				
+				$("#inside_right_arrow")
+					.off('click')
+					.click(function(){
+			    	if( !$(this).hasClass('disabled') ){
+			    		navDoc("right");
+			    	}
+				});
+				/*if( !$("#inside_left_arrow").is(':visible') && 
+					! $('#disabled').hasClass('selected') ) {
+					if($('#inside_left_arrow')){
+						$('#inside_left_arrow').show();
+					}
+				}*/
+			}
 
 			if($('#right_header').hasClass('menuClosed')){
 				$('#right_header').hide();
@@ -2926,7 +2938,9 @@ $(function() {
 			$("#span_dd_select").hide();
 
 
-			$('#inside_left_arrow-add, #inside_right_arrow-add').show();
+			if ( $('#inside_right_arrow').length > 0 || $('#inside_right_arrow').length > 0 ){
+				$('#inside_left_arrow-add, #inside_right_arrow-add').show();
+			}
 			
 			$('#span_pp_select').show();
 			$('#span_pp_select').css("top", "0px"); // #CDP. Rimuovere e gestire con css
