@@ -599,7 +599,7 @@ footer{
 #text_tool-add .like_select{
 	#left:-8px;
 	display: inline-block;
-	margin-top:15px;
+	#margin-top:15px;
 }
 #text_tool-add .like_select{
 	margin-top: 7.5px;
@@ -967,7 +967,7 @@ footer{
 	#top:-7px;
 }
 #text_tool .like_select{
-	top:-7px;
+	top:7px;
 }
 #left_header #image_menu{
 	#top: -7px;
@@ -986,7 +986,7 @@ footer{
 	text-align: center;
 }
 #text_tool .mainButtons{
-	top:-7px;
+	top:7px;
 }
 #right_header .like_select{
 	#left:-8px;

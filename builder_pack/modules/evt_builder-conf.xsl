@@ -49,26 +49,6 @@
 	<!-- On/Off regesto -->
 	<xsl:param name="regesto" select="true()"/>
 	
-	<!-- LISTS -->
-	<!-- On/Off persons list -->
-	<xsl:param name="list_person" select="true()"/>
-	<!-- Customize person list label -->
-	<xsl:param name="list_person_label" select="'Lista Persone'"/>
-	
-	<!-- On/Off places list -->
-	<xsl:param name="list_place" select="true()"/>
-	<!-- Customize places list label -->
-	<xsl:param name="list_place_label" select="'Lista Luoghi'"/>
-	
-	<!-- WEB INTERFACE BUTTONS -->
-	<!-- Mostra/Nascondi pulsante Txt/Img Link in interfaccia -->
-	<xsl:param name="txtimg_link_button" select="false()"/>
-	<!-- Mostra/Nascondi pulsante Hotspot in interfaccia-->
-	<xsl:param name="hs_button" select="false()"/>
-	<!-- Mostra/Nascondi selettore Livello/i Edizione in interfaccia-->
-	<xsl:param name="edition_level_selector" select="false()"/>
-	
-	
 	<!-- Edition -->
 	<!-- EN: To use it in your code:
 		<xsl:value-of select="$edition_array[n]" />
@@ -142,8 +122,41 @@
 		 Profondità massima di un lb rispetto a body: max(//tei:lb/count(ancestor-or-self::node())) - //tei:body/count(ancestor-or-self::node())
 	-->
 	
-	<!-- On/Off defaul Text Label generation from id -->
-	<!-- If false() you need to put your own xslt transformations in modules/elements/evt_builder-generate-text_label.xsl -->
+	<!-- EN: On/Off defaul Text Label generation from id 
+		     If false() you need to put your own xslt transformations in modules/elements/evt_builder-generate-text_label.xsl -->
 	<xsl:param name="defaulTextLabel" select="false()"/>
-
+	
+	
+	<!-- INTERFACE CONTROL -->
+	<!-- BUTTONS -->
+	<!-- EN: Show/Hide Txt/Img Link Button in interface -->
+	<!-- IT: Mostra/Nascondi pulsante Txt/Img Link nell'interfaccia web -->
+	<xsl:param name="txtimg_link_button" select="false()"/>
+	
+	<!-- EN: Show/Hide Hotspot Button in interface -->
+	<!-- IT: Mostra/Nascondi pulsante Hotspot nell'interfaccia web -->
+	<xsl:param name="hs_button" select="false()"/>
+	
+	<!-- EN: Show/Hide Edition level selector in interface -->
+	<!-- IT: Mostra/Nascondi selettore Livello/i Edizione nell'interfaccia web -->
+	<xsl:param name="edition_level_selector" select="false()"/>
+	
+	<!-- IT: Choose page selector position -->
+	<!-- IT: Scegli posizione Selettore pagina -->
+	<!-- "left" or "right" | Default: "right" -->
+	<xsl:param name="pp_selector_pos" select="'right'"/>
+	
+	<!-- LISTS -->
+	<!-- On/Off persons list -->
+	<xsl:param name="list_person" select="false()"/>
+	<!-- Customize person list label -->
+	<xsl:param name="list_person_label" select="'Lista Persone'"/>
+	
+	<!-- On/Off places list -->
+	<xsl:param name="list_place" select="false()"/>
+	<!-- Customize places list label -->
+	<xsl:param name="list_place_label" select="'Lista Luoghi'"/>
+	
+	<!-- On/Off Search -->
+	<xsl:param name="search" select="false()"/>
 </xsl:stylesheet>
