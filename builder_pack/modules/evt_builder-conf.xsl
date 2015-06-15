@@ -60,7 +60,7 @@
 	<!-- EN: On/Off regesto -->
 	<!-- IT: Attiva/Disattiva regesto -->
 	<!-- default: false() -->
-	<xsl:param name="regesto" select="false()"/>
+	<xsl:param name="regesto" select="true()"/>
 	
 	<!-- Edition -->
 	<!-- EN: To use it in your code:
@@ -71,7 +71,7 @@
 	<!-- EN: It is possible to skip production of pages for a specific edition simply removing the textual part of the corresponding item. -->
 	<!-- IT: E' possibile rimuovere la produzione di pagine di una determinata edizione semplicemente rimuovendo la parte testuale dell'item corrispondente. -->
 	<xsl:variable name="edition_array" as="element()*">
-		<edition>Diplomatic</edition> 	
+		<edition></edition> 	
 		<!-- EN: For processing in the modules: $edition_array[1] -->
 		<!-- IT: Per l'elaborazione nei moduli: $edition_array[1] -->
 		
@@ -120,17 +120,17 @@
 	
 	<!-- EN: Indicate the xml node that contains all the text to be transformed for each edition level -->
 	<!-- IT: Indicare il nodo xml che contiene il testo da trasformare per ogni livello di edizione -->
-	<xsl:variable name="ed_content" select="//tei:body/name()"></xsl:variable>
-	<!-- Codice Pelavicino: 
+	<!--<xsl:variable name="ed_content" select="//tei:body/name()"></xsl:variable>-->
+	<!-- Codice Pelavicino:--> 
 		<xsl:variable name="ed_content" select="//tei:text/tei:group[@xml:id='group']/name()"/>
-	-->
+	
 	
 	<!-- EN: Starting point for the split of elements containing pb and lb -->
 	<!-- IT: Punto di partenza per la divisione degli elementi contententi pb/lb -->
-	<xsl:variable name="start_split" select="if(//tei:body/tei:div) then(//tei:body/tei:div/name()) else(//tei:body/name())"/>
-	<!-- Codice Pelavicino:
+	<!--<xsl:variable name="start_split" select="if(//tei:body/tei:div) then(//tei:body/tei:div/name()) else(//tei:body/name())"/>-->
+	<!-- Codice Pelavicino: -->
 		<xsl:variable name="start_split" select="if(//tei:text/tei:group[@xml:id='group']) then(//tei:text/tei:group[@xml:id='group']/name()) else(//tei:body/name())"/>
-	-->
+	
 	
 	<!-- EN: Indicate the maximum depth of pb/lb with relatively to the element stated in the variable $start_split-->
 	<!-- IT: Indica la profondità massima dei pb/lb rispetto all'elemento inserito della variabile $start_split-->
@@ -194,14 +194,14 @@
 	<!-- EN: On/Off Document Navigation -->
 	<!-- IT: Attiva/Disattiva navigazione per documento -->
 	<!-- default: false() -->
-	<xsl:param name="document_navigation" select="false()"/>
+	<xsl:param name="document_navigation" select="true()"/>
 	
 	<!-- LISTS -->
 	
 	<!-- EN: On/Off persons list -->
 	<!-- IT: Attiva/disattiva lista persone -->
 	<!-- default: true() -->
-	<xsl:param name="list_person" select="false()"/>
+	<xsl:param name="list_person" select="true()"/>
 	<!-- EN: Customize persons list label -->
 	<!-- IT: Personalizza etichetta lista persone -->
 	<!-- default: Persons List -->
