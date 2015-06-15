@@ -295,21 +295,25 @@
 										</xsl:if>
 										<xsl:if test="$image_frame=true()">
 											<div id="image_menu">
-												<span class="imageTopTool mainButtons thumb_link" id="thumb_elem" value="th" title="Thumbnails">
-													<span>Thumbs</span>
-													<i class="fa fa-th"></i>
-												</span>
-												<span class="imageTopTool mainButtons" id="switchMag" value="mag" onclick="magOn()" title="Magnifying lens">
-													<span>Magnifier</span>
-													<i class="fa evt-magnifier"></i>
-												</span>
-												<xsl:if test="$txtimg_link_button=true()">
+												<xsl:if test="$thumbs_button=true()">
+													<span class="imageTopTool mainButtons thumb_link" id="thumb_elem" value="th" title="Thumbnails">
+														<span>Thumbs</span>
+														<i class="fa fa-th"></i>
+													</span>
+												</xsl:if>
+												<xsl:if test="$mag_button=true()">
+													<span class="imageTopTool mainButtons" id="switchMag" value="mag" onclick="magOn()" title="Magnifying lens">
+														<span>Magnifier</span>
+														<i class="fa evt-magnifier"></i>
+													</span>
+												</xsl:if>
+												<xsl:if test="$hs_button=true()">
 													<span class="imageTopTool mainButtons" id="switchHS" value="HS" title="Hot spot" onclick="switchHS()">
 														<span>HotSpot</span>
 														<i class="fa fa-circle-o"></i>
 													</span>
 												</xsl:if>
-												<xsl:if test="$hs_button=true()">
+												<xsl:if test="$txtimg_link_button=true()">
 													<span class="imageTopTool mainButtons" id="switchITL" value="turn ITL on" title="Image-Text link" onclick="switchIMT()">
 														<span>TextLink</span>
 														<i class="fa fa-chain-broken"></i>
