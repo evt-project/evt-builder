@@ -125,7 +125,7 @@ http://www.tipue.com/search
                     	// else {
                      //          $('#tipue_search_content').html("<div>Enter your query into the search box above!</div>");
                      //     }
-                         if ( $('#search_cont').hasClass('closed') ) {
+                         if ( $('#search_cont').hasClass('collapsed') ) {
                               $('#toggle_search_cont').trigger('click');
                          }
                          if ( $('#switchReg').hasClass('active') && $('#txtimg_link').hasClass('current_mode') ) {
