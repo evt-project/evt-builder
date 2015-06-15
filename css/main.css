@@ -1448,6 +1448,9 @@ footer{
     cursor:pointer;  
     opacity:0.2;
 }
+#inside_left_arrow-add, #inside_right_arrow-add{
+	display: none !important;
+}
 #inside_left_arrow:hover, #inside_right_arrow:hover,
 #inside_left_arrow-add:hover, #inside_right_arrow-add:hover{
     opacity:1 !important;
