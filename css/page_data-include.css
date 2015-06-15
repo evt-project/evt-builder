@@ -626,7 +626,7 @@ span.quote{
     font-style:italic;
 }
 
-span.tooltip span.entity_name{
+span.tooltip span.entity_name.link_active{
 	text-decoration: underline;
 	cursor: pointer;
 }

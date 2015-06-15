@@ -477,7 +477,10 @@
 		<xsl:choose>
 			<xsl:when test="current()//tei:forename or current()//tei:surname or current()//tei:sex or current()//tei:occupation">
 				<xsl:element name="span">
-					<xsl:attribute name="class">entity_name</xsl:attribute>
+					<xsl:attribute name="class">
+						entity_name 
+						<xsl:if test="$list_person=true()"> link_active</xsl:if>
+					</xsl:attribute>
 					<xsl:if test="current()//tei:forename">
 						<xsl:value-of select="tei:persName//tei:forename"/>
 					</xsl:if>
@@ -611,7 +614,10 @@
 			<xsl:when test="current()//tei:settlement or current()//tei:placeName or current()//tei:district">
 				<xsl:if test="current()/tei:settlement">
 					<xsl:element name="span">
-						<xsl:attribute name="class">entity_name</xsl:attribute>
+						<xsl:attribute name="class">
+							entity_name
+							<xsl:if test="$list_place=true()"> link_active</xsl:if>
+						</xsl:attribute>
 						<xsl:value-of select="tei:settlement"/>
 					</xsl:element>
 					<xsl:if test="tei:settlement/@type">

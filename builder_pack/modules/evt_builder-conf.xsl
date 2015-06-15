@@ -71,7 +71,7 @@
 	<!-- EN: It is possible to skip production of pages for a specific edition simply removing the textual part of the corresponding item. -->
 	<!-- IT: E' possibile rimuovere la produzione di pagine di una determinata edizione semplicemente rimuovendo la parte testuale dell'item corrispondente. -->
 	<xsl:variable name="edition_array" as="element()*">
-		<edition>Diplomatic</edition> 	
+		<edition></edition> 	
 		<!-- EN: For processing in the modules: $edition_array[1] -->
 		<!-- IT: Per l'elaborazione nei moduli: $edition_array[1] -->
 		
@@ -111,26 +111,26 @@
 			 Per rimuovere un elemento basta eliminare o tutto l'elemento di interesse o anche solo il testo al suo interno.
 			 Per aggiungere un elemento alla lista basta sapere che il tag fa riferimento alla classe data all'elemento html con il quale sono state marcate le parole "particolari" da selezionare. -->
 	<xsl:variable name="lists" as="element()*">
-		<!--<persName>Persone</persName>
+		<persName>Persone</persName>
 		<placeName>Luoghi</placeName>
 		<roleName>Mestieri/Ruoli</roleName>
 		<measure>Monete</measure>
-		<date>Date</date>-->
+		<date>Date</date>
 	</xsl:variable>
 	
 	<!-- EN: Indicate the xml node that contains all the text to be transformed for each edition level -->
 	<!-- IT: Indicare il nodo xml che contiene il testo da trasformare per ogni livello di edizione -->
-	<xsl:variable name="ed_content" select="//tei:body/name()"></xsl:variable>
-	<!-- Codice Pelavicino: 
+	<!--<xsl:variable name="ed_content" select="//tei:body/name()"></xsl:variable>-->
+	<!-- Codice Pelavicino: --> 
 		<xsl:variable name="ed_content" select="//tei:text/tei:group[@xml:id='group']/name()"/>
-	-->
+	
 	
 	<!-- EN: Starting point for the split of elements containing pb and lb -->
 	<!-- IT: Punto di partenza per la divisione degli elementi contententi pb/lb -->
-	<xsl:variable name="start_split" select="if(//tei:body/tei:div) then(//tei:body/tei:div/name()) else(//tei:body/name())"/>
-	<!-- Codice Pelavicino:
+	<!--<xsl:variable name="start_split" select="if(//tei:body/tei:div) then(//tei:body/tei:div/name()) else(//tei:body/name())"/>-->
+	<!-- Codice Pelavicino: -->
 		<xsl:variable name="start_split" select="if(//tei:text/tei:group[@xml:id='group']) then(//tei:text/tei:group[@xml:id='group']/name()) else(//tei:body/name())"/>
-	-->
+	
 	
 	<!-- EN: Indicate the maximum depth of pb/lb with relatively to the element stated in the variable $start_split-->
 	<!-- IT: Indica la profondità massima dei pb/lb rispetto all'elemento inserito della variabile $start_split-->
@@ -210,7 +210,7 @@
 	<!-- EN: On/Off places list -->
 	<!-- IT: Attiva/disattiva lista luoghi -->
 	<!-- default: true() -->
-	<xsl:param name="list_place" select="false()"/>
+	<xsl:param name="list_place" select="true()"/>
 	
 	<!-- EN: Customize places list label -->
 	<!-- IT: Personalizza etichetta lista luoghi -->
