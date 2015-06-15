@@ -2844,6 +2844,18 @@ $(function() {
 		toggleSearchCont(this);
 	});
 
+	$('#tipue_search_input').keyup(function(event) {
+		if ( $(this).val() != '' ) {
+			$(this).addClass('clearable');
+		} else {
+			$(this).removeClass('clearable');
+		}
+	});
+
+	$('.clear_input').click(function(event) {
+		$(this).prev().val('').removeClass('clearable');
+	});
+
 	/* APRI/CHIUDI LISTE */
 	$('#list_link').click(function(event) {
 		// if ( $('#search_cont').is(':visible') ) {

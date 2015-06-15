@@ -502,7 +502,10 @@
 										<span id="keyboard_link" class="mainButtons small" title="Apri/Chiudi Tastiera">
 											<i class="fa fa-keyboard-o"></i>
 										</span>
-										<input type="text" id="tipue_search_input" />
+										<div id="tipue_search_input_div">
+											<input type="text" id="tipue_search_input" />
+											<i class="fa fa-close clear_input" title="Clear search"></i>
+										</div>
 										<span id="start_search" class="mainButtons small" title="Avvia Ricerca">
 											<i class='fa fa-search'></i>
 										</span>

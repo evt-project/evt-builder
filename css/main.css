@@ -1900,14 +1900,39 @@ div.doc.not_current:hover{
 	margin:0 1px;
 	box-shadow: none;
 }
+#tipue_search_input_div{
+	width: -webkit-calc(100% - 60px);
+    width: -moz-calc(100% - 60px);
+    width: calc(100% - 60px);
+	display: inline-block;
+}
+.clear_input {
+	position: absolute;
+	right: 38px;
+	top: 8px;
+	vertical-align: middle;
+	text-align: center;
+	color: #4E443C;
+	text-shadow: none;
+	font-size: 80% !important;
+	font-weight: lighter;
+	opacity:0;
+}
+.clearable + .clear_input{
+	opacity: 0.5;
+}
+.clearable + .clear_input:hover{
+	opacity: 1;
+}
+
 #tipue_search_input{
 	height: 20px;
 	margin: 0px 2px;
 	top: -1px;
 	position: relative;
-	width: -webkit-calc(100% - 81px);
-    width: -moz-calc(100% - 81px);
-    width: calc(100% - 81px);
+	width: -webkit-calc(100% - 20px);
+    width: -moz-calc(100% - 20px);
+    width: calc(100% - 20px);
 	padding-left: 10px;
 }
 
