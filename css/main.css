@@ -1852,7 +1852,7 @@ div.doc.not_current:hover{
 #search_header{
 	padding-right: 1px;
 }
-#lists_cont.closed #list_header, #search_cont.closed #search_header{
+#lists_cont.collapsed #list_header, #search_cont.collapsed #search_header{
 	cursor: pointer;
 }
 
@@ -1976,7 +1976,7 @@ div.doc.not_current:hover{
 	display: none;
 }
 
-#lists_cont.closed .list{
+#lists_cont.collapsed .list{
 	top: 40px;
 }
 ul.ul_list li{
