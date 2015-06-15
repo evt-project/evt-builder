@@ -3183,7 +3183,7 @@ $(function() {
 
 				// Se ho un solo livello di edizione... 
 				// (e quindi ho trasformato il selettore delle edizioni in una semplice etichetta senza .option)
-				if ( $("#span_ee_select").find('.option').length == 0 ){
+				if ( $("#span_ee_select").find('.option').length == 1 ){
 
 					// ...nascondo il pulsante del Regesto dal menu di destra
 					$('#switchReg').hide();
