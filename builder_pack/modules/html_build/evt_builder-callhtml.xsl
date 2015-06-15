@@ -250,7 +250,7 @@
 									<!--<div class="main_left_arrow" onclick="UnInitialize()" title="Previous"/>-->
 								</xsl:if>
 								<!-- <div class="main_left_arrow" title="Previous"/> -->
-								<header id="left_header">
+								<header id="left_header" class="top-menu">
 									<i class="fa fa-times-circle closeFullScreen" id="closeFullScreenLeft"></i>
 									<div id="left_menu">
 										<xsl:if test="$pp_selector_pos='left'">
@@ -332,7 +332,7 @@
 										<span id="inside_right_arrow-add"><i class="fa fa-chevron-down"></i></span>
 									</xsl:if>
 									<!-- Text frame bottom menu -->
-									<div id="text_tool-add">
+									<div id="text_tool-add" class="bottom-menu">
 										<span id="span_list_select-add" class="like_select filter" title="Lists">
 											<div class="main_list_select">
 												<span data-value="none" class="label_selected">
@@ -370,7 +370,7 @@
 										</div>
 										<div id="mag_image_elem"></div>
 										
-										<div id="image_tool">
+										<div id="image_tool" class="bottom-menu">
 											<div id="spb">
 												<a id="zoom_orig" class="zoom_btn"
 													href="javascript:void(0);" title="100%"><i class="evt-zoom1"></i></a>
@@ -448,7 +448,7 @@
 							</div>
 							-->
 							<!--<div class="main_right_arrow" title="Previous"/>-->
-							<header id="right_header">
+							<header id="right_header" class="top-menu">
 								<div id="right_menu">
 									<span id="span_tt_select" class="like_select" title="Text">
 										<xsl:call-template name="div_select_build">
@@ -488,13 +488,13 @@
 								<i class="fa fa-times-circle closeFullScreen" id="closeFullScreenRight"></i>
 							</header>
 							<xsl:if test="$regesto=true()">
-								<div id="regesto_cont" class="text_box"/>
+								<div id="regesto_cont" class="text-box"/>
 							</xsl:if>
-							<div id="text_cont" class="text_box">
+							<div id="text_cont" class="text-box">
 								<div id="text_elem"/>
 							</div>
 							<xsl:if test="$search=true()">
-								<div id="search_cont" class="closed bottomBox">
+								<div id="search_cont" class="collapsed bottomBox">
 									<div id="search_header" class="bottomBoxHeader">
 										<span id="toggle_search_cont" class="mainButtons" title="Apri/Chiudi Ricerca">
 											<i class='fa fa-angle-double-up'></i>
@@ -553,7 +553,7 @@
 								<span id="inside_right_arrow"><i class="fa fa-chevron-down"></i></span>
 							</xsl:if>
 							<!-- Text frame bottom menu -->
-							<div id="text_tool">
+							<div id="text_tool" class="bottom-menu">
 								<xsl:if test="$search=true()">
 									<span id="search_link" class="mainButtons" title="Search">
 										<span>Search</span>

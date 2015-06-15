@@ -201,7 +201,7 @@
 	<!-- EN: On/Off persons list -->
 	<!-- IT: Attiva/disattiva lista persone -->
 	<!-- default: true() -->
-	<xsl:param name="list_person" select="true()"/>
+	<xsl:param name="list_person" select="false()"/>
 	<!-- EN: Customize persons list label -->
 	<!-- IT: Personalizza etichetta lista persone -->
 	<!-- default: Persons List -->
