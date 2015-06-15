@@ -46,7 +46,7 @@ div[id*='regesto'] hr{
 	font-size: 19px;
 }
 
-#regesto, #regesto-add {
+#text_frame-add, #regesto, #regesto-add {
 	padding-left: 0px;
 	margin-top: -30px;
 	max-width: 600px;

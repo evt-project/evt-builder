@@ -488,14 +488,14 @@
 								<i class="fa fa-times-circle closeFullScreen" id="closeFullScreenRight"></i>
 							</header>
 							<xsl:if test="$regesto=true()">
-								<div id="regesto_cont" />
+								<div id="regesto_cont" class="text_box"/>
 							</xsl:if>
-							<div id="text_cont">
+							<div id="text_cont" class="text_box">
 								<div id="text_elem"/>
 							</div>
 							<xsl:if test="$search=true()">
-								<div id="search_cont" class="closed">
-									<div id="search_header">
+								<div id="search_cont" class="closed bottomBox">
+									<div id="search_header" class="bottomBoxHeader">
 										<span id="toggle_search_cont" class="mainButtons" title="Apri/Chiudi Ricerca">
 											<i class='fa fa-angle-double-up'></i>
 										</span>
@@ -507,24 +507,24 @@
 											<i class='fa fa-search'></i>
 										</span>
 									</div>
-									<div id="search_sub_header">
+									<div id="search_sub_header" class="bottomBoxSubHeader">
 										<div id="search_query">Enter your query into the search box above!</div>
 										<div id="search_results"></div>
 									</div>
-									<div id="search_cont_results">
+									<div id="search_cont_results" class="bottomBoxContent">
 										<div id="tipue_search_content"></div>
 									</div>
-									<div id="search_foot"></div>
+									<div id="search_foot" class="bottomBoxFooter"></div>
 								</div>	
 							</xsl:if>
 							
-							<div id="lists_cont">
-								<div id="list_header">
+							<div id="lists_cont" class="bottomBox">
+								<div id="list_header" class="bottomBoxHeader">
 									<span id="toggle_list_cont" class="mainButtons" title="Apri/Chiudi Liste">
 										<i class='fa fa-angle-double-down'></i>
 									</span>
 								</div>
-								<div id="list_letters">
+								<div id="list_letters" class="bottomBoxContent">
 									<span class="list_filter" data-filter-type="first_letter" data-value="A">A</span>
 									<span class="list_filter" data-filter-type="first_letter" data-value="B">B</span>
 									<span class="list_filter" data-filter-type="first_letter" data-value="C">C</span>

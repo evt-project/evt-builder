@@ -1029,21 +1029,21 @@ $(function() {
 
 	function scrollDownSearchContainer(speed){
 		var newTop;
-		var mainContainerHeight, listHeaderHeight;
+		var mainContainerHeight, bottomBoxHeaderHeight;
 
 		mainContainerHeight = $('#main_right_frame').height();
 		if ( $('#main_right_frame').hasClass('full') ){
-			listHeaderHeight = $('#search_header').height() + 4;	
+			bottomBoxHeaderHeight = $('#search_header').height() + 4;	
 		} else {
-			listHeaderHeight = $('#search_header').height() + 4;	
+			bottomBoxHeaderHeight = $('#search_header').height() + 4;	
 		}
 		
 		if($('#right_header').hasClass('menuClosed')){
-			newTop = mainContainerHeight - (listHeaderHeight*2) - 8;
+			newTop = mainContainerHeight - (bottomBoxHeaderHeight*2) - 8;
 		} else {
 			var bottomMenuHeight;
 			bottomMenuHeight = $('#text_tool').height();
-			newTop = mainContainerHeight - (bottomMenuHeight*2) - listHeaderHeight;
+			newTop = mainContainerHeight - (bottomMenuHeight*2) - bottomBoxHeaderHeight;
 		}
 		$('#search_cont')
 			.addClass('closed')
@@ -1054,21 +1054,21 @@ $(function() {
 
 	function setSearchClosedPosition(){
 		var newTop;
-		var mainContainerHeight, listHeaderHeight;
+		var mainContainerHeight, bottomBoxHeaderHeight;
 
 		mainContainerHeight = $('#main_right_frame').height();
 		if ( $('#main_right_frame').hasClass('full') ){
-			listHeaderHeight = $('#search_header').height() + 4;	
+			bottomBoxHeaderHeight = $('#search_header').height() + 4;	
 		} else {
-			listHeaderHeight = $('#search_header').height() + 4;	
+			bottomBoxHeaderHeight = $('#search_header').height() + 4;	
 		}
 		
 		if($('#right_header').hasClass('menuClosed')){
-			newTop = mainContainerHeight - (listHeaderHeight*2) - 8;
+			newTop = mainContainerHeight - (bottomBoxHeaderHeight*2) - 8;
 		} else {
 			var bottomMenuHeight;
 			bottomMenuHeight = $('#text_tool').height();
-			newTop = mainContainerHeight - (bottomMenuHeight*2) - listHeaderHeight;
+			newTop = mainContainerHeight - (bottomMenuHeight*2) - bottomBoxHeaderHeight;
 		}
 		$('#search_cont')
 			.addClass('closed')
@@ -1103,7 +1103,7 @@ $(function() {
 		}
 	}
 
-	function openSearchBox(elem, speed) {
+	function openSearchBox(speed) {
 		$('#search_link').addClass('active');
 
 		var openDivSearch = function() {
@@ -1324,21 +1324,21 @@ $(function() {
 
 	function scrollDownListContainer(speed){
 		var newTop;
-		var mainContainerHeight, listHeaderHeight;
+		var mainContainerHeight, bottomBoxHeaderHeight;
 
 		mainContainerHeight = $('#main_right_frame').height();
 		if ( $('#main_right_frame').hasClass('full') ){
-			listHeaderHeight = $('#list_header').height() + 4;	
+			bottomBoxHeaderHeight = $('#list_header').height() + 4;	
 		} else {
-			listHeaderHeight = $('#list_header').height() + 4;	
+			bottomBoxHeaderHeight = $('#list_header').height() + 4;	
 		}
 		
 		if($('#right_header').hasClass('menuClosed')){
-			newTop = mainContainerHeight - (listHeaderHeight*2) - 8;
+			newTop = mainContainerHeight - (bottomBoxHeaderHeight*2) - 8;
 		} else {
 			var bottomMenuHeight;
 			bottomMenuHeight = $('#text_tool').height();
-			newTop = mainContainerHeight - (bottomMenuHeight*2) - listHeaderHeight;
+			newTop = mainContainerHeight - (bottomMenuHeight*2) - bottomBoxHeaderHeight;
 		}
 		$('#lists_cont')
 			.addClass('closed')
@@ -2167,30 +2167,25 @@ $(function() {
 
 	// Gestione altezza contenitore testuale usato quando viene aperto il contenitore delle liste
 	function updateTextContHeight(){
-		var mainContainerHeight, listHeaderHeight;
+		var mainContainer;
+		var mainContainerHeight, bottomBoxHeaderHeight;
 		var new_container_height, old_container_height;
-		
-			mainContainerHeight = $('#main_right_frame').height();
-			listHeaderHeight = $('#list_header').height() + 2;
-
-			if($('#right_header').hasClass('menuClosed')){
-				new_container_height = mainContainerHeight - listHeaderHeight;
-				$('#lists_cont')
-					.animate({height: mainContainerHeight+'px'}, 'fast');
-			} else {
-				//old_container_height = $('#main_left_frame').height()-$('#left_header').height()-$('#image_tool').height();
-				new_container_height = mainContainerHeight - listHeaderHeight - ($('#right_header').height()*2);
-			}
-			if($('#regesto_cont').parents("div[id*='frame']").attr('id') == 'main_left_frame'){
-				$('#regesto_cont').animate({'height': new_container_height+listHeaderHeight+2}, 'fast');	
-			} else {
-				$('#regesto_cont').animate({'height': new_container_height}, 'fast');	
-			}
-			$('#text_cont')
-				//.css('height', new_container_height+'px')
-				.animate({'height': new_container_height}, 'fast')
-			;
-		
+			
+			$('.bottomBoxHeader:visible').each(function(){
+				mainContainer = $(this).parents("div[id*='frame']");
+				mainContainerHeight = mainContainer.height();
+				bottomBoxHeaderHeight = $(this).height() + 2;
+				if(mainContainer.find('header').hasClass('menuClosed')){
+					new_container_height = mainContainerHeight - bottomBoxHeaderHeight;
+					$('.bottomBox:visible')
+						.animate({height: mainContainerHeight+'px'}, 'fast');
+				} else {
+					//old_container_height = $('#main_left_frame').height()-$('#left_header').height()-$('#image_tool').height();
+					new_container_height = mainContainerHeight - bottomBoxHeaderHeight - (mainContainer.find('header').height()*2);
+				}
+				$('.text_box').css({'height': (new_container_height+bottomBoxHeaderHeight+2)+'px'});
+				mainContainer.find('.text_box').animate({'height': new_container_height}, 'fast');
+			});
 	}
 	// Gestione lunghezza delle select sulla base della option più lunga
 	function updateSelectLength(elem){
@@ -3019,6 +3014,10 @@ $(function() {
 							
 		}
 	});*/
+	
+	/* ================= */
+	/* TXT TXT MODE VIEW */
+	
 	$("#txttxt_link").click(function(){
 		var main_text_edition, first_new_edition, second_new_edition, noMenu_height;
 
@@ -3036,7 +3035,6 @@ $(function() {
 			$("#mag").hide();
 			$("#image_cont").hide();
 			$("#span_dd_select").hide();
-
 
 			if ( $('#inside_right_arrow').length > 0 || $('#inside_right_arrow').length > 0 ){
 				$('#inside_left_arrow-add, #inside_right_arrow-add').show();
@@ -3085,7 +3083,7 @@ $(function() {
 					.find('#text_frame')
 						.attr('id', 'text_frame-add')
 						.find('#text')
-							.attr('id', '#text-add');
+							.attr('id', 'text-add');
 
 			// Aggiorno (eventualmente) le dimensioni del selettore delle edizioni nel menu di sinistra
 			if (!$('#left_header').hasClass('menuClosed')) {
@@ -3201,6 +3199,7 @@ $(function() {
     			});
     			$('.go-full-left').addClass('onWhite');
     		}
+    		updateTextContHeight();
 		}
 	});
 
@@ -3324,7 +3323,7 @@ $(function() {
 						height: noMenu_height
 					});
 
-				var mainContainerHeight, listHeaderHeight;
+				var mainContainerHeight, bottomBoxHeaderHeight;
 				mainContainerHeight = $('#central_wrapper').height();
 
 				if ( ! $('#main_right_frame').hasClass('full') ) {
