@@ -1579,7 +1579,7 @@ div.botleftconcave {
 	width: 0px;
 	top: 0px;
 	right: 0px;
-	margin-top: -16.2px;
+	margin-top: -14.2px;
 	margin-right: 10.7px;
 	text-shadow: none !important;
 	font-weight: lighter !important;
@@ -1917,6 +1917,7 @@ div.doc.not_current:hover{
 	font-size: 80% !important;
 	font-weight: lighter;
 	opacity:0;
+	cursor:pointer;
 }
 .clearable + .clear_input{
 	opacity: 0.5;
