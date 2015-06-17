@@ -481,6 +481,9 @@
 						entity_name 
 						<xsl:if test="$list_person=true()"> link_active</xsl:if>
 					</xsl:attribute>
+					<xsl:attribute name="data-ref">
+						<xsl:value-of select="@xml:id" />
+					</xsl:attribute>
 					<xsl:if test="current()//tei:forename">
 						<xsl:value-of select="tei:persName//tei:forename"/>
 					</xsl:if>
@@ -617,6 +620,9 @@
 						<xsl:attribute name="class">
 							entity_name
 							<xsl:if test="$list_place=true()"> link_active</xsl:if>
+						</xsl:attribute>
+						<xsl:attribute name="data-ref">
+							<xsl:value-of select="@xml:id" />
 						</xsl:attribute>
 						<xsl:value-of select="tei:settlement"/>
 					</xsl:element>

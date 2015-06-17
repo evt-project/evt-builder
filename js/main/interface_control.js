@@ -232,27 +232,37 @@ $(function() {
 						.addClass('list')
 						.appendTo('#lists_cont')
 					;
+					$('<span />')
+						.addClass('labelList')
+						.attr('id', 'header_'+listName)
+						.text(listLabel)
+						.click(function(){
+							openList(this, listName);
+						})
+						.appendTo('#list_header');
+					$('#lists_cont').find('.list').first().addClass('list_opened').show();
+					$('#lists_cont').find('.labelList').first().addClass('active');
+					$('.list_filter').first().trigger('click');
+
 					$('#list_'+listName).load("data/output_data/liste/"+listName+".html #"+listName, function(){
 
-						$('<span />')
-							.addClass('labelList')
-							.attr('id', 'header_'+listName)
-							.text(listLabel)
-							.click(function(){
-								openList(this, listName);
-							})
-							.appendTo('#list_header');
+						if ( $('#list_'+listName).find('li').length == 0 ) {
+							$('#list_'+listName).remove();
+							$('#header_'+listName).remove();
 
-						$('#list_'+listName)
-							.find('.list_element').click(function(){
-								showListElementOccurrences(this, listName);
-							});
-						$('#lists_cont').find('.list').first().addClass('list_opened').show();
-						$('#lists_cont').find('.labelList').first().addClass('active');
-
-						$('.list_filter').first().trigger('click');
+							if ( $('#list_header').find('.labelList').length == 0 ) {
+								$('#lists_cont').remove();
+								$('#list_link').remove();
+							}
+						} else {
+							$('#list_'+listName)
+								.find('.list_element').click(function(){
+									showListElementOccurrences(this, listName);
+								});
+						}
 					});
 				});
+				
 			} else {
 				$('#lists_cont').remove();
 				$('#list_link').remove();
@@ -1148,6 +1158,10 @@ $(function() {
 			$(toggler).find('.fa').removeClass('fa-angle-double-up').addClass('fa-angle-double-down');
 			$('#lists_cont').removeClass('collapsed');
 
+			if ( $('.list:visible').find('.list_element_opened').length > 0 ) {
+				$('.list:visible').find('.list_element_opened').find('.occurences').show();
+			}
+
 			if ( $('#span_list_select').length > 0 && !$('#span_list_select').hasClass('not_active')) {
 				$('#span_list_select').addClass('not_active').css('opacity', '0.5');
 			}
@@ -1312,7 +1326,7 @@ $(function() {
 		if (pb != current_pp) {
 			updateHash(doc, pb, "");
 		} 
-		// Altrimneti...
+		// Altrimenti...
 		else {
 			// Se il riferimento punta ad un documento presente sulla pagina corrente, ma diverso da quello attivo
 			// aggiorno il documento attivo
@@ -1417,9 +1431,13 @@ $(function() {
 			var id_ref, order_list;
 
 			$(this).parent('.tooltip').siblings('.trigger').trigger('click');
-			id_ref = $(this).parent('.tooltip').parent('.popup').attr('data-ref');
+			id_ref = $(this).attr('data-ref');
 
-			showItemInList(id_ref);	
+			if ( $('#'+id_ref).length == 0 ) {
+				alert('There was an error in opening the entity reference. Please try later.');
+			} else {
+				showItemInList(id_ref);	
+			}
 		});
 	}
 
