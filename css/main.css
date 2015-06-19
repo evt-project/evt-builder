@@ -1855,6 +1855,10 @@ div.doc.not_current:hover{
 #search_header{
 	padding-right: 1px;
 }
+#search_header .mainButtons.small, #tipue_search_input_div{
+	overflow: hidden;
+	position: relative;
+}
 #lists_cont.collapsed #list_header, #search_cont.collapsed #search_header{
 	cursor: pointer;
 }
@@ -1897,19 +1901,24 @@ div.doc.not_current:hover{
 #start_search{
 	border-top-left-radius: 0px;
 	border-bottom-left-radius: 0px;
-	margin:0 1px;
+	margin:0;
+	min-width: 28.5px;
 	box-shadow: none;
 }
 #tipue_search_input_div{
-	width: -webkit-calc(100% - 60px);
-    width: -moz-calc(100% - 60px);
-    width: calc(100% - 60px);
+	width: -webkit-calc(100% - 63px);
+    width: -moz-calc(100% - 63px);
+    width: calc(100% - 63px);
 	display: inline-block;
+  	display: inline-block;
+  	margin: 0 2px;
+  	height: 28px;
+	background: #fff;
 }
 .clear_input {
 	position: absolute;
-	right: 38px;
-	top: 8px;
+	right: 6px;
+	top: 6px;
 	vertical-align: middle;
 	text-align: center;
 	color: #4E443C;
@@ -1927,14 +1936,23 @@ div.doc.not_current:hover{
 }
 
 #tipue_search_input{
-	height: 20px;
-	margin: 0px 2px;
-	top: -1px;
+	height: 22px;
+	top: -0.5px;
+	background: none;
+	border: 2px solid #fff;
 	position: relative;
-	width: -webkit-calc(100% - 20px);
-    width: -moz-calc(100% - 20px);
-    width: calc(100% - 20px);
+	width: -webkit-calc(100% - 15px);
+    width: -moz-calc(100% - 15px);
+    width: calc(100% - 15px);
 	padding-left: 10px;
+}
+
+#tipue_search_input:focus{
+    outline: 0;
+}
+
+#tipue_search_input:focus{
+	border: 2px solid rgba(245, 234, 212, 1);
 }
 
 #lists_cont #list_letters{
