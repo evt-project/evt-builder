@@ -16,15 +16,20 @@ $(function() {
 			'contentLocation' : jsonLocation
 		});
 	}
-	/*
+	
 	// "Tastiera" per la ricerca
 	// Inizio tastiera virtuale
 	var queryInput = document.getElementById("tipue_search_input");
-    var keyboard = document.getElementById("keyboard");
-    /*queryInput.onfocus = function () {
-        keyboard.style.display = "block";
-    };*/
-    /*
+    var search_box = document.getElementById("search_cont");
+    var keyboard = document.createElement('div');
+    keyboard.setAttribute('id', 'keyboard');
+    keyboard.style.display = "none";
+
+    // var keyboard = document.getElementById("keyboard");
+    // queryInput.onfocus = function () {
+    //     keyboard.style.display = "block";
+    // };
+    
     // Lista caratteri
     var key_list = ['Æ','æ','Ð','ð','Ᵹ','ᵹ','ſ','Þ','þ','Ƿ','ƿ'];
 
@@ -50,6 +55,7 @@ $(function() {
     keys.appendChild(backspace);
     keyboard.appendChild(keys);
     
+    search_box.appendChild(keyboard);
     // Gestione onclick
     function makeOnClick(field, x) {
         return function() {
@@ -58,6 +64,10 @@ $(function() {
             $('#tipue_search_input').keyup();
         };
     }
+    /* Disabilito pulsante TASTIERA VIRTUALE nella ricerca se non presente */
+    if ( document.getElementsByClassName('key').length == 0 ) {
+        document.getElementById('keyboard_link').className += " " + "inactive"
+    }
     // Fine tastiera virtuale
-	*/
+	
 });
