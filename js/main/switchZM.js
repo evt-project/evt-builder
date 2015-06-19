@@ -40,7 +40,7 @@ function magnifierReady() {
 	} else {
 		if ($('.current_mode').attr('id') == 'imgd_link'){
 			//alert('fromDD');
-			current_pp = $('.main_dd_select .option_container .option:first-child').data('value');	
+			current_pp = $('.main_dd_select .option_container .option:first-child').data('value');
 		} else {
 			//alert('fromPP');
 			current_pp = $('.main_pp_select .option_container .option:first-child').data('value');
@@ -49,7 +49,7 @@ function magnifierReady() {
 
 	//alert(current_pp);
 	if ($('.current_mode').attr('id') == 'imgd_link')
-		imgB = "data/input_data/images/double/" + current_pp + "_big.jpg";
+		imgB = "data/input_data/images/double/" + current_pp.replace("+", "-") + "_big.jpg";
 	else
 		imgB = "data/input_data/images/single/" + current_pp + "_big.jpg";
 	
