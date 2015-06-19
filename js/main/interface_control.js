@@ -1197,10 +1197,10 @@ $(function() {
 		$('#lists_cont').addClass('bottomBoxOpened');
 		$('#list_link').addClass('active');
 		var openDivLists = function() {
-			var newSearchContTop = $('#lists_cont').parents("div[id*='main_']").outerHeight() - ($('#text_tool').outerHeight()*2) - $('#search_header').outerHeight() - 6;
-			$('#lists_cont').css({
-				'top': newSearchContTop+'px'
-			});
+			// var newSearchContTop = $('#lists_cont').parents("div[id*='main_']").outerHeight() - ($('#text_tool').outerHeight()*2) - $('#search_header').outerHeight() - 6;
+			// $('#lists_cont').css({
+			// 	'top': newSearchContTop+'px'
+			// });
 
 			if($('#lists_cont').hasClass('collapsed')){
 				return $('#lists_cont').show();
