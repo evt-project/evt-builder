@@ -21,8 +21,8 @@ $( function() {
 		for (var i = 0; i < hash_parts.length; i++) {
 		    if(hash_parts[i].indexOf("page") === 0) { //begins with "page"
 		        current_pp = hash_parts[i].substr(5);
-		    	if (current_pp.indexOf('-') > 0) {
-		    		current_pp = current_pp.substr(0, current_pp.indexOf('-'));
+		    	if (current_pp.indexOf('+') > 0) {
+		    		current_pp = current_pp.substr(0, current_pp.indexOf('+'));
 				}
 		    }
 		}
@@ -54,7 +54,7 @@ $( function() {
 		                                    var current_url = '';
 		                                    
 		                                    if ($('.current_mode').attr('id')=='imgd_link')
-		                                    	current_url = 'data/input_data/images/double/'+current_pp+'_big.jpg';      
+		                                    	current_url = 'data/input_data/images/double/'+current_pp.replace("+", "-")+'_big.jpg';      
 		                                    else
 		                                    	current_url = 'data/input_data/images/single/'+current_pp+'_big.jpg';      
 		                                    
@@ -176,7 +176,7 @@ $( function() {
 			}
 
 			if ($('.current_mode').attr('id') == 'imgd_link'){
-				curr_src = "data/input_data/images/double/"+current_pp+".jpg";
+				curr_src = "data/input_data/images/double/"+current_pp.replace("+", "-")+".jpg";
 			} else {
 				curr_src = "data/input_data/images/single/"+current_pp+".jpg";
 			}

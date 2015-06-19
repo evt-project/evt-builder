@@ -85,11 +85,11 @@ $(function() {
 			var f_pair, l_pair;
 			f_pair = $(xml).find('pages pair').first().children('pb').eq(0).text();
 			l_pair = $(xml).find('pages pair').first().children('pb').eq(1).text()
-			first_dd = f_pair + "-" + l_pair;
+			first_dd = f_pair + "+" + l_pair;
 
 			f_pair = $(xml).find('pages pair').last().children('pb').eq(0).text();
 			l_pair = $(xml).find('pages pair').last().children('pb').eq(1).text()
-			last_dd = f_pair + "-" + l_pair;
+			last_dd = f_pair + "+" + l_pair;
 
 			
 			//Page_dd
@@ -113,8 +113,8 @@ $(function() {
 				first_text_ref = first_text_ref.replace(/\s+/g, '');
 				
 				if (second_page_d !== ""){
-					current_id = first_page_d+"-"+second_page_d;
-					current_label = first_label_d+"-"+second_label_d;
+					current_id = first_page_d+"+"+second_page_d;
+					current_label = first_label_d+" - "+second_label_d;
 				}
 				else{
 					current_id = first_page_d;
@@ -320,9 +320,9 @@ $(function() {
 					newhash = first_page;
 					second_page_lab = "(miss)";
 				} else {
-					newhash = first_page+"-"+second_page;
+					newhash = first_page+"+"+second_page;
 				}
-				newlab = first_page_lab+"-"+second_page_lab;
+				newlab = first_page_lab+" - "+second_page_lab;
 				$(".main_dd_select .label_selected")
 					.text(newlab)
 					.attr("data-value", newhash)
@@ -365,7 +365,7 @@ $(function() {
 					newhash = first_page;
 					second_page_lab = "(miss)";
 				} else {
-					newhash = first_page+"-"+second_page;
+					newhash = first_page+"+"+second_page;
 				}
 				
 				newlab = first_page_lab+" - "+second_page_lab;
@@ -652,7 +652,7 @@ $(function() {
 					.attr("data-first-doc", tt_val)
 					.attr('data-last-hash-txtimg', '')
 					.text(pp_lab);
-				first_page_id = pp_val.split('-')[0];
+				first_page_id = pp_val.split("+")[0];
 				$("#span_pp_select .option_container .option[data-value='"+first_page_id+"']").trigger('click');				
 				updateHash(tt_val, pp_val, "");
 				$(this).removeClass('selected');
@@ -821,8 +821,8 @@ $(function() {
 						for (var i = 0; i < hash_parts.length; i++) {
 						    if(hash_parts[i].indexOf("page") === 0) { //begins with "page"
 						        current_page = hash_parts[i].substr(5);
-						    	if (current_page.indexOf('-') > 0) {
-						    		current_page = current_page.substr(0, current_page.indexOf('-'));
+						    	if (current_page.indexOf("+") > 0) {
+						    		current_page = current_page.substr(0, current_page.indexOf("+"));
 						    	}
 						    }
 						    else if(hash_parts[i].indexOf("doc") === 0) { //begins with "doc"
@@ -848,7 +848,7 @@ $(function() {
 
 					temp_search = dd_page;
 					
-					checkdd = $(".main_dd_select").find(".option[data-value*="+temp_search+"]"); // .attr("id").substr(6)
+					checkdd = $(".main_dd_select").find(".option[data-value*='"+temp_search+"']"); // .attr("id").substr(6)
 
 					$(".main_left_arrow").removeClass("arrow_left_disable");
 					$(".main_right_arrow").removeClass("arrow_right_disable");
@@ -934,8 +934,8 @@ $(function() {
 					for (var i = 0; i < first_hash_parts.length; i++) {
 					    if(first_hash_parts[i].indexOf("page") === 0) { //begins with "page"
 					        first_hash_pp = first_hash_parts[i].substr(5);
-					    	if (first_hash_pp.indexOf('-') > 0) {
-					    		first_hash_pp = first_hash_pp.substr(0, first_hash_pp.indexOf('-'));
+					    	if (first_hash_pp.indexOf("+") > 0) {
+					    		first_hash_pp = first_hash_pp.substr(0, first_hash_pp.indexOf("+"));
 							} 
 					    } else if(first_hash_parts[i].indexOf("doc") === 0) { //begins with "doc"
 					     	first_hash_doc = first_hash_parts[i].substr(4);   
