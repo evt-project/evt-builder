@@ -1013,7 +1013,7 @@ $(function() {
 
 	function toggleSearchCont(toggler){
 		if ( $('#search_cont').hasClass('collapsed') ) {
-			if ( $('#search_query').text() != $('#tipue_search_input').val() ) {
+			if ( $('#tipue_search_input').val() != '' && $('#search_query').text() != $('#tipue_search_input').val() ) {
 				$('#start_search').trigger('click');
 			} else {
 				var top, mainContainerHeight;
