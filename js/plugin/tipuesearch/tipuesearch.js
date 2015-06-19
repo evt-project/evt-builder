@@ -103,8 +103,7 @@ http://www.tipue.com/search
                     $('#tipue_search_input').val(getURLP('q'));
                     getTipueSearch(0, true);
                }                      
-               $('#start_search').click(function()
-               {
+               $('#start_search').click(function() {
 					console.log("RICERCA ON");
 					console.log(set.mode);
 					console.log(set.contentLocation);
@@ -120,8 +119,11 @@ http://www.tipue.com/search
 								$('#keyboard').hide();
                     			     getTipueSearch(0, true);
                     			     $('#search_query').html($('#tipue_search_input').val());
-               		     }
-                    	}
+                                   } 
+                    	     } else {
+                                   $('#search_query').text('Enter your query into the search box above!');
+                                   $('#tipue_search_content').text('');
+                              }
                     	// else {
                      //          $('#tipue_search_content').html("<div>Enter your query into the search box above!</div>");
                      //     }
@@ -130,6 +132,9 @@ http://www.tipue.com/search
                          }
                          if ( $('#switchReg').hasClass('active') && $('#txtimg_link').hasClass('current_mode') ) {
                               $('#switchReg').trigger('click');
+                         }
+                         if ($('#keyboard_link').hasClass('active')) {
+                              $('#keyboard_link').trigger('click');
                          }
                     //}
                });

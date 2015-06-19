@@ -963,14 +963,24 @@ $(function() {
 			.find('span').show();
 	}
 
-	/* Disabilito pulsante TASTIERA VIRTUALE nella ricerca se non presente */
-	if ( $('.key').length == 0 ) {
-		$('#keyboard_link').addClass('inactive');
-	}
-
 	if ( $('#search_cont').length > 0 ) {
 		setSearchClosedPosition();
 	}
+
+	if ( $('#keyboard_link').length > 0 ) {
+		$('#keyboard_link').click(function(){
+			if ( !$(this).hasClass('inactive') && $('#keyboard').length > 0) {
+				if ( !$('#search_cont').hasClass('collapsed') ) {
+					$('#keyboard').addClass('openDown');
+				} else {
+					$('#keyboard').removeClass('openDown');
+				}
+				
+				$('#keyboard').toggle();
+				$(this).toggleClass('active');
+			}
+		});
+	} 
 
 	/* Funzioni */
 	//---
@@ -1003,7 +1013,7 @@ $(function() {
 
 	function toggleSearchCont(toggler){
 		if ( $('#search_cont').hasClass('collapsed') ) {
-			if ( $('#tipue_search_input').val() != '' && $('#search_query').text() != $('#tipue_search_input').val() ) {
+			if ( $('#search_query').text() != $('#tipue_search_input').val() ) {
 				$('#start_search').trigger('click');
 			} else {
 				var top, mainContainerHeight;
@@ -1036,6 +1046,9 @@ $(function() {
 					$('#span_list_select').removeClass('not_active').css('opacity', '1');
 				}
 			}
+		}
+		if ($('#keyboard_link').hasClass('active')) {
+			$('#keyboard_link').trigger('click');
 		}
 	}
 
