@@ -1110,19 +1110,22 @@ $(function() {
 	   	
 	   	$.when( closeDiv() ).done(function() {
 		   	if ( $('#search_cont').hasClass('collapsed') || 
-				 $('#search_query').text() == '' ) {
+				 $('#tipue_search_content').text() == '' ) {
 				setSearchClosedPosition();	
 			}
 		});
 		updateTextContHeight();
 		// var old_container_height = $('#text_cont').height() + $('#list_header').height() + 4;
-	 //   	$('#regesto_cont').css('height', old_container_height);     
-	 //   	$('#text_cont').css('height', old_container_height);
+	 	// $('#regesto_cont').css('height', old_container_height);     
+	 	// $('#text_cont').css('height', old_container_height);
 		
 		if ( $('#tipue_search_input').val() != '' ) {
 			$('#tipue_search_input')
 				.val('')
 				.trigger('keyup');
+		}
+		if ( $('#keyboard').is(':visible') ) {
+			$('#keyboard_link').trigger('click');
 		}
 	}
 
