@@ -121,8 +121,9 @@ http://www.tipue.com/search
                     			     $('#search_query').html($('#tipue_search_input').val());
                                    } 
                     	     } else {
+                                   $('#tipue_search_input').trigger('keyup');
                                    $('#search_query').text('Enter your query into the search box above!');
-                                   $('#tipue_search_content').text('');
+                                   $('#tipue_search_content, #tipue_search_results_count, #search_foot').text('');
                               }
                     	// else {
                      //          $('#tipue_search_content').html("<div>Enter your query into the search box above!</div>");
