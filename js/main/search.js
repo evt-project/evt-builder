@@ -1,14 +1,29 @@
 // [JACOPO] Search startup
 $(function() {
 	var URI = 'data/output_data';
-	var jsonLocation = URI + '/' + "interpretative" + '/' + 'interpretative' + '.json';
+	var jsonLocation = URI + '/' + "diplomatic" + '/' + 'diplomatic' + '.json';
 	console.log(jsonLocation);
 	triggerTipueSearch(jsonLocation);
-	/*$(".main_ee_select .label_selected").on('change',function(){
-		jsonLocation = URI + '/'+$(this).text().toLowerCase()+'/' + $(this).text().toLowerCase() + '.json';
-		console.log(jsonLocation);
-		triggerTipueSearch(jsonLocation);
-	});*/
+	// $("#span_ee_select .label_selected").on('change', function(){
+ //        jsonLocation = URI + '/'+$(this).text().toLowerCase()+'/' + $(this).text().toLowerCase() + '.json';
+	// 	console.log(jsonLocation);
+	// 	triggerTipueSearch(jsonLocation);
+	// });
+    var ee_label = document.getElementById("span_ee_select").children[0].children[0];
+
+    ee_label.addEventListener("DOMAttrModified", function(e) {
+        updateTipueSearchLocation(e.newValue);
+    }, false);
+    // $('.main_ee_select .option_container .option').click(function(){
+    //     var newLocation = $(this).attr('data-value').toLowerCase();
+    //     updateTipueSearchLocation(newLocation);
+    // });
+    function updateTipueSearchLocation(newLocation){
+        jsonLocation = URI + '/'+newLocation+'/' + newLocation + '.json';
+        console.log(jsonLocation);
+        triggerTipueSearch(jsonLocation);
+    }
+
 	function triggerTipueSearch(jsonLocation) {
 		$('#tipue_search_input').tipuesearch({
 			'showURL' : false,

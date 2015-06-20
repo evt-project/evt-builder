@@ -271,7 +271,7 @@ http://www.tipue.com/search
                               if (c == 1)
                               {
                                    //out += '<div id="tipue_search_results_count">1 result</div>';
-                                   $('#search_results').html('<div id="tipue_search_results_count">1 result</div>');
+                                   $('#search_results').html('<div id="tipue_search_results_count">We have found 1 result in the current edition.</div>');
                               }
                               else
                               {
