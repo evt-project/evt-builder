@@ -13,15 +13,37 @@
  **/
 
 $( function() {
-	 var firstload = true;
-	 var cpns="data/input_data/images/"+location.hash.replace( /^#/, '' )+".jpg";
-	 var iv1 = $("#image_elem").iviewer({
+	var firstload = true;
+	var current_pp;
+    var hash_parts = new Array();
+	hash_parts = location.hash.substr(1).split('&');
+	if ( hash_parts != "" ) {
+		for (var i = 0; i < hash_parts.length; i++) {
+		    if(hash_parts[i].indexOf("page") === 0) { //begins with "page"
+		        current_pp = hash_parts[i].substr(5);
+		    	if (current_pp.indexOf('+') > 0) {
+		    		current_pp = current_pp.substr(0, current_pp.indexOf('+'));
+				}
+		    }
+		}
+	} else {
+		if ($('.current_mode').attr('id') == 'imgd_link'){
+			current_pp = $('.main_dd_select .option_container .option:first-child').attr('data-value');
+		} else {
+			current_pp = $('.main_pp_select .option_container .option:first-child').attr('data-value');
+		}
+	}
+	
+	var cpns="data/input_data/images/single/"+current_pp+".jpg";
+	
+	var iv1 = $("#image_elem").iviewer({
 		   src: cpns, 
 		   update_on_resize: true,
 		   zoom_animation: false,
 		   mousewheel: true,
 		   onMouseMove: function(ev, coords) {clickTrue(); },
 		   onFinishLoad: function(ev, src) {
+		   									
 		   									$('#image_loading').hide();
 		   									$("#iviewerImage").fadeIn(200);
 		   									if (($('.current_mode').attr('id')=='txtimg_link') & (!$('#switchITL').hasClass('inactive')) & ($('#switchITL i').hasClass('fa fa-chain')) ){
@@ -30,10 +52,11 @@ $( function() {
 		                                          InitializeHS();} //Add by JK for HS
 
 		                                    var current_url = '';
+		                                    
 		                                    if ($('.current_mode').attr('id')=='imgd_link')
-		                                    	current_url = 'data/input_data/images/double/'+location.hash.replace( /^#/, '' )+'_big.jpg';      
+		                                    	current_url = 'data/input_data/images/double/'+current_pp.replace("+", "-")+'_big.jpg';      
 		                                    else
-		                                    	current_url = 'data/input_data/images/single/'+location.hash.replace( /^#/, '' )+'_big.jpg';      
+		                                    	current_url = 'data/input_data/images/single/'+current_pp+'_big.jpg';      
 		                                    
 		                                    $.ajax({
                                                     url: current_url,
@@ -41,7 +64,7 @@ $( function() {
                                                         magnifierReady();
                                                         chooseZoomMag();
                                                         if ($("#switchMag").attr("title")){
-                                                            $("#switchMag").removeAttr("title");
+                                                            //$("#switchMag").removeAttr("title");
                                                             if($("#switchMag").hasClass('inactive')) $("#switchMag").removeClass('inactive');
                                                             if($("#switchMag").hasClass('likeInactive')) $("#switchMag").removeClass('likeInactive');
                                                             $("#switchMag").attr("onclick", "magOn()");
@@ -50,7 +73,7 @@ $( function() {
                                                         
                                                     },
                                                     error: function(data){
-                                                        $("#switchMag").attr("title", "no big image");
+                                                        $("#switchMag").attr("title", "No big image");
                                                         $("#switchMag").removeClass('active');
                                                         if($("#switchMag i").hasClass('fa-search-plus')){$("#switchMag").addClass('likeInactive');}
                                                         else{$("#switchMag").removeAttr("onclick").addClass('inactive');}
@@ -75,7 +98,6 @@ $( function() {
 		   onStartDrag: function() {click="true";},
 		   onDrag: function (ev, point) {moveAreas(); moveAreasHS()}, //Add by JK for ITL
 		   onStopDrag: function(ev, point) {moveAreas(); moveAreasHS(); onmouseup=clickFalse();} //Add by JK for ITL
-		   
 	  });
 	  
         function clickFalse(){
@@ -95,20 +117,21 @@ $( function() {
 	   $("#zoom_orig").click(function(){ iv1.iviewer('set_zoom', 100); ReInitialize(); ReInitializeHS();}); 
 	   $("#zoom_update").click(function(){ iv1.iviewer('update_container_info'); });
 	  
-	  /*$('select[name=" "]').change( function() {
+	  	/*$('select[name=" "]').change( function() {
 			iv1.iviewer('loadImage', document.getElementById('slideshow-image').getAttribute('src'));
 		});*/
 	
-		$(".main_pp_select .label_selected").on('change',function(){
+		/*$(".main_pp_select .label_selected").on('change',function(){
 			//iv1.iviewer('fit');
 			//iv1.iviewer('loadImage', "data/input_data/images/"+$(this).text()+".jpg");
 			
 			if (firstload){
-				iv1.iviewer('loadImage', "data/input_data/images/single/"+$(this).attr("id_value")+".jpg");
+				iv1.iviewer('loadImage', "data/input_data/images/single/"+$(this).attr("data-value")+".jpg");
 				firstload = false;
 			}
 			else {
-				var curr_src = "data/input_data/images/single/"+$(this).attr("id_value")+".jpg";
+				alert($(this).attr("data-value"));
+				var curr_src = "data/input_data/images/single/"+$(this).attr("data-value")+".jpg";
 				$('#image_fade').fadeOut(600, function(){
 				//$('#iviewerImage').fadeOut(600);		
 					$('#image_loading').show();		
@@ -116,17 +139,16 @@ $( function() {
 				});
 			}
 		});
-
 		$(".main_dd_select .label_selected").on('change',function(){
 		    //iv1.iviewer('fit');
 			//iv1.iviewer('loadImage', "data/input_data/images/double/"+$(this).text()+".jpg");
 
 			if (firstload){
-				iv1.iviewer('loadImage', "data/input_data/images/double/"+$(this).attr("id_value")+".jpg");
+				iv1.iviewer('loadImage', "data/input_data/images/double/"+$(this).attr("data-value")+".jpg");
 				firstload = false;
 			}
 			else {
-				var curr_src = "data/input_data/images/double/"+$(this).attr("id_value")+".jpg";
+				var curr_src = "data/input_data/images/double/"+$(this).attr("data-value")+".jpg";
 				$('#image_fade').fadeOut(600, function(){
 				//$('#iviewerImage').fadeOut(600);
 					$('#image_loading').show();
@@ -134,7 +156,46 @@ $( function() {
 				});
 			}
 		});	
-		
+		*/
+		$(window).hashchange( function(){
+			var curr_src;
+
+			hash_parts = location.hash.substr(1).split('&');
+			if ( hash_parts != "" ) {
+				for (var i = 0; i < hash_parts.length; i++) {
+				    if(hash_parts[i].indexOf("page") === 0) { //begins with "page"
+				        current_pp = hash_parts[i].substr(5);
+				    }
+				}
+			} else {
+				if ($('.current_mode').attr('id') == 'imgd_link'){
+					current_pp = $('.main_dd_select .option_container .option:first-child').attr('data-value');
+				} else {
+					current_pp = $('.main_pp_select .option_container .option:first-child').attr('data-value');
+				}
+			}
+
+			if ($('.current_mode').attr('id') == 'imgd_link'){
+				curr_src = "data/input_data/images/double/"+current_pp.replace("+", "-")+".jpg";
+			} else {
+				curr_src = "data/input_data/images/single/"+current_pp+".jpg";
+			}
+			//alert(curr_src);
+			if (firstload){
+				iv1.iviewer('loadImage', "data/input_data/images/single/"+current_pp+".jpg");
+				firstload = false;
+			}
+			else if ( $('#text_elem').attr('data-page') != current_pp || $('#iviewerImage').attr('src') != curr_src ||
+					  (($('#iviewerImage').attr('src') == curr_src) && ($('#image_loading').is(':visible')) ) 
+					){
+				$('#image_fade').fadeOut(600, function(){
+				//$('#iviewerImage').fadeOut(600);		
+					$('#image_loading').show();		
+					iv1.iviewer('loadImage', curr_src);
+				});
+			}
+
+		});
 
 		$("#slider").slider(
 		{
@@ -152,7 +213,7 @@ $( function() {
 		function showValue(event, ui) {
 		  var curr_val = iv1.iviewer('info', 'zoom');
 		  //if (curr_val>25 && curr_val<140)
-		  $("#val").html(curr_val.toFixed());
+		  $("#val").html(curr_val.toFixed(0));
 		  //console.log(iv1.iviewer('info', 'zoom'));
 		  iv1.iviewer('set_zoom', ui.value);
 		  

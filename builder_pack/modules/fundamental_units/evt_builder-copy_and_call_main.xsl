@@ -113,6 +113,49 @@
 		<!--<xsl:call-template name="index"></xsl:call-template>-->
 	</xsl:template>
 	
+	<!-- CDP: Listes -->
+	<xsl:template match="*" mode="listPersonOccurences">
+		<xsl:element name="div">
+			<xsl:attribute name="id">occorrenze</xsl:attribute>
+			<xsl:for-each-group select="//node()[name()=$ed_content]/descendant-or-self::node()[name()=$start_split]/node()" group-starting-with="//tei:pb">
+				<xsl:if test="self::tei:pb">
+					<xsl:variable name="pb_id" select="@xml:id" />
+					<xsl:variable name="pb_n" select="@n" />
+					<xsl:for-each select="current-group()/descendant::tei:persName[starts-with(@ref,'#')]">
+						<xsl:variable name="doc_id" select="current()/ancestor::tei:text[1]/@xml:id" />
+						<xsl:element name="span">
+							<xsl:attribute name="data-ref"><xsl:value-of select="translate(@ref, '#', '')"/></xsl:attribute>
+							<xsl:attribute name="data-doc"><xsl:value-of select="$doc_id"/></xsl:attribute>
+							<xsl:attribute name="data-pb"><xsl:value-of select="$pb_id"/></xsl:attribute>
+							<xsl:attribute name="data-pb-n"><xsl:value-of select="$pb_n"/></xsl:attribute>
+						</xsl:element>
+					</xsl:for-each>
+				</xsl:if>
+			</xsl:for-each-group>
+		</xsl:element>
+	</xsl:template>
+	
+	<xsl:template match="*" mode="listPlaceOccurences">
+		<xsl:element name="div">
+			<xsl:attribute name="id">occorrenze</xsl:attribute>
+			<xsl:for-each-group select="//node()[name()=$ed_content]/descendant-or-self::node()[name()=$start_split]/node()" group-starting-with="//tei:pb">
+				<xsl:if test="self::tei:pb">
+					<xsl:variable name="pb_id" select="@xml:id" />
+					<xsl:variable name="pb_n" select="@n" />
+					<xsl:for-each select="current-group()/descendant::tei:placeName[starts-with(@ref,'#')]">
+						<xsl:variable name="doc_id" select="current()/ancestor::tei:text[1]/@xml:id" />
+						<xsl:element name="span">
+							<xsl:attribute name="data-ref"><xsl:value-of select="translate(@ref, '#', '')"/></xsl:attribute>
+							<xsl:attribute name="data-doc"><xsl:value-of select="$doc_id"/></xsl:attribute>
+							<xsl:attribute name="data-pb"><xsl:value-of select="$pb_id"/></xsl:attribute>
+							<xsl:attribute name="data-pb-n"><xsl:value-of select="$pb_n"/></xsl:attribute>
+						</xsl:element>
+					</xsl:for-each>
+				</xsl:if>
+			</xsl:for-each-group>
+		</xsl:element>
+	</xsl:template>
+	
 	<!--CDP:embedded -->
 	<!--EN: Calls the page template for every page. The page is identified with the <surface> element inside a <sourceDoc> -->
 	<!--IT: Per ogni pagina chiama il template page. La pagina viene identificata con l'elemento <surface> in <sourceDoc> -->

@@ -29,9 +29,13 @@
 hr {
 	height: 1px;
 	visibility: hidden;
-	margin-bottom: -1px; }
-
-#text_frame {
+	margin-bottom: -1px; 
+}
+div[id*='regesto'] hr{
+	visibility: visible;
+	color: #eee;
+}
+#text_frame{
 	background: white;
 	margin-top: -30px;
 	max-width: 600px;
@@ -39,8 +43,23 @@ hr {
 	margin: 10px auto;
 	text-align: left;
 	line-height: 28px;
-	font-size: 19px; }
+	font-size: 19px;
+}
 
+#text_frame-add, #regesto, #regesto-add {
+	padding-left: 0px;
+	margin-top: -30px;
+	max-width: 600px;
+	margin: 10px auto;
+	text-align: left;
+	line-height: 28px;
+	font-size: 19px;
+}
+
+.full #text_frame, .full #text_frame-add,
+.full #regesto, .full #regesto-add{
+	max-width: 1000px;
+}
 .right {
 	position: absolute;
 	float: right; }
@@ -175,6 +194,11 @@ span.facs-reg {
 	border: 2.5px solid black;
 	border-radius: 3px;
 	box-shadow: 2px 2px 2px #7e7067;
+	-moz-box-shadow: 2px 2px 2px #7e7067;
+	-webkit-box-shadow: 2px 2px 2px #7e7067;
+	-o-box-shadow: 2px 2px 2px #7e7067;
+	-khtml-box-shadow: 2px 2px 2px #7e7067;
+	-ms-box-shadow: 2px 2px 2px #7e7067;
 	padding: 0.4%;
 	margin-top: 30px; }
 
@@ -230,7 +254,9 @@ SPAN.facs-hi-double {
 DIV.dipl-zone{
     margin-bottom: 5px; 
 }
-
+.dipl-p{
+	display: block;
+}
 
 DIV.dipl-center, SPAN.dipl-center {
 	/*margin-left: 0.5cm;
@@ -307,6 +333,11 @@ span.dipl-choice_popup span.dipl-orig {
 	border: 2.5px solid black;
 	border-radius: 3px;
 	box-shadow: 2px 2px 2px #7e7067;
+	-moz-box-shadow: 2px 2px 2px #7e7067;
+	-webkit-box-shadow: 2px 2px 2px #7e7067;
+	-o-box-shadow: 2px 2px 2px #7e7067;
+	-khtml-box-shadow: 2px 2px 2px #7e7067;
+	-ms-box-shadow: 2px 2px 2px #7e7067;
 	padding: 0.4%;
 	margin-top: 30px; 
 }
@@ -320,15 +351,20 @@ span.dipl-choice_popup_corr span.dipl-corr {
 	border: 2.5px solid black;
 	border-radius: 3px;
 	box-shadow: 2px 2px 2px #7e7067;
+	-moz-box-shadow: 2px 2px 2px #7e7067;
+	-webkit-box-shadow: 2px 2px 2px #7e7067;
+	-o-box-shadow: 2px 2px 2px #7e7067;
+	-khtml-box-shadow: 2px 2px 2px #7e7067;
+	-ms-box-shadow: 2px 2px 2px #7e7067;
 	padding: 0.4%;
 	margin-top: 30px; 
 }
 
 span.dipl-choice_popup:hover span.dipl-orig, span.dipl-choice_popup_corr:hover span.dipl-corr,
 span.dipl-choice_popup.hover span.dipl-orig, span.dipl-choice_popup_corr.hover span.dipl-corr{
-	display: inline;
-	min-width: 20px;
-	text-align: center; 
+	#display: inline;
+	#min-width: 20px;
+	#text-align: center; 
 }
 
 span.dipl-choice_popup:hover span.dipl-reg, span.dipl-choice_popup_corr:hover span.dipl-sic,
@@ -387,3 +423,210 @@ SPAN.dipl-ex {
 	font-style: italic; 
 }
 
+
+/* New Release */
+/* CDP */
+
+span.tooltip {
+	font-size: 80%;
+	position: absolute;
+	line-height: 16px;
+	display: none;
+	background: #e5dac4;
+	border: 2.5px solid black;
+	border-radius: 3px;
+	box-shadow: 2px 2px 2px #7e7067;
+	-moz-box-shadow: 2px 2px 2px #7e7067;
+	-webkit-box-shadow: 2px 2px 2px #7e7067;
+	-o-box-shadow: 2px 2px 2px #7e7067;
+	-khtml-box-shadow: 2px 2px 2px #7e7067;
+	-ms-box-shadow: 2px 2px 2px #7e7067;
+	padding: 5px;
+	#margin-top:32px;
+	z-index:99;
+	#margin-left: -40px;
+	#min-width:250px;
+	#width:250px;
+	text-align: center;
+	cursor: text !important;
+}
+span.tooltip span.before{
+	background: url("../images/popup_before.png") repeat scroll 0% 0% transparent;
+	left: 5%;
+	position: absolute;
+	top: -13px;
+	width: 17px;
+	height: 15px;
+}
+span.tooltip span, span.text_note span{
+	background: transparent;
+}
+span.popup{
+    display:inline-block;
+}	
+span.popup:hover > span.tooltip{
+	#display: block;
+	#min-width: 20px;
+	#text-align: left;
+	#padding:1%;
+}
+
+.doc.current span.popup span.trigger, .doc.current span.open_note .fa{ 
+	#color: #999966;
+	color: #69513a; /*background-color: rgba(255,255,204,0.8);*/ 
+	cursor: pointer;
+}
+
+span.facs-choice_popup:hover span.facs-orig,
+span.facs-choice_popup.hover span.facs-orig {
+	color: #561c0a;
+	text-decoration: underline; 
+}
+span.popup:hover span.trigger span.tooltip, span.popup:hover span.trigger span.inline_note, span.popup:hover span.trigger span.text_note{
+    text-decoration:none !important;    
+} 
+
+.popup.image .trigger{
+    margin-right:5px;
+}
+
+span.inline_note{
+    display:inline-block;
+}
+span.text_note{
+    font-size: 80%;
+	position: absolute;
+	line-height: 16px;
+	display: none;
+	background: #e5dac4;
+	border: 2.5px solid black;
+	border-radius: 3px;
+	box-shadow: 2px 2px 2px #7e7067;
+	-moz-box-shadow: 2px 2px 2px #7e7067;
+	-webkit-box-shadow: 2px 2px 2px #7e7067;
+	-o-box-shadow: 2px 2px 2px #7e7067;
+	-khtml-box-shadow: 2px 2px 2px #7e7067;
+	-ms-box-shadow: 2px 2px 2px #7e7067;
+	padding: 0.4%;
+	margin-top:3px;
+    margin-left: -13px;
+    margin-top: 0px;
+    z-index:1;
+    text-decoration:none !important;
+}
+.open_note{
+    font-size: 0.4em !important;
+    top: -10px;
+    position: relative;
+    margin: 0px 2px;
+    cursor: pointer;
+    color: #561c0a;
+    z-index:0;
+}
+span .text_note{
+	margin-top: 25px;
+	margin-left: -25px;
+}
+/*.open_note:hover + span.text_note{
+	display: block;
+	min-width: 20px;
+	text-align: left;
+	padding:1%;
+}*/
+span.emph{
+    #font-weight:bold;
+    font-style:italic;
+}
+span.italic{
+	font-style:italic;
+}
+span.term, span.emph span.term{
+    #font-weight:bold;
+    #font-style:normal;
+}
+#regesto span.term, #regesto span.emph, #text span.emph{
+	font-style:italic;
+}
+
+span.persName, span.measure, span.roleName, span.placeName, span.date
+span.popup.persName, span.popup.measure, span.popup.roleName, span.popup.placeName, span.popup.date{
+    display:inline;
+}
+div[id*='regesto'] span.trigger:hover, div[id*='regesto'] .popup.opened span.trigger{
+	cursor: pointer;
+	text-shadow:0px 0px 1px #000;
+}
+.doc.current span.persName.list_active span.trigger, 
+.doc.current span.persName.over span.trigger, 
+.doc.current span.persName.opened span.trigger
+{
+    background-color: #ffcdd2;
+    cursor:pointer;
+}
+
+.option[data-value="persName"] .filter_color{
+	color: #ffcdd2;
+}
+.doc.current span.measure.list_active, 
+.doc.current span.measure.over,
+.doc.current span.measure.list_active span.trigger, 
+.doc.current span.measure.over span.trigger, 
+.doc.current span.measure.opened span.trigger{
+    background-color: #ffecb3;    
+    cursor:pointer;
+}
+.option[data-value="measure"] .filter_color{
+	color: #ffecb3;
+}
+
+.doc.current span.roleName.list_active, 
+.doc.current span.roleName.list_active span.trigger, 
+.doc.current span.roleName.over > span.trigger, 
+.doc.current span.roleName.opened > span.trigger{
+    background-color: #9fa8da;
+    cursor:pointer;
+}
+.option[data-value="roleName"] .filter_color{
+	color: #9fa8da;
+}
+span.roleName.list_active{
+	cursor: default;
+}
+
+.doc.current span.placeName.list_active span.trigger, 
+.doc.current span.placeName.over > span.trigger, 
+.doc.current span.placeName.opened > span.trigger{
+    background-color: #c8e6c9;
+    cursor:pointer;
+}
+.option[data-value="placeName"] .filter_color{
+	color: #c8e6c9;
+}
+.doc.current span.date.list_active, 
+.doc.current span.date:hover,
+.doc.current span.date.list_active span.trigger, 
+.doc.current span.date.over > span.trigger, 
+.doc.current span.date.opened > span.trigger{
+    background-color: #9CD5F2;
+    cursor:pointer;
+}
+.option[data-value="date"] .filter_color{
+	color: #9CD5F2;
+}
+
+.doc.current span.opened > span.trigger{
+	#text-shadow:0px 0px 1px rgba(0,0,0,0.8);
+	text-shadow:0px 0px 0.3px rgba(0,0,0,0.8);
+}
+span.display-block{
+    display:block;
+}
+
+span.quote{
+    font-style:italic;
+}
+
+span.tooltip span.entity_name.link_active{
+	text-decoration: underline;
+	cursor: pointer;
+}
