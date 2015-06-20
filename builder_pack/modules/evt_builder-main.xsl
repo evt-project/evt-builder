@@ -248,10 +248,61 @@
 		</xsl:element>
 	</xsl:template>
 	
+	<xsl:template match="text()" mode="deleteSpaces">
+		<xsl:choose>
+			<xsl:when
+				test="ancestor::*[@xml:space][1]/@xml:space='preserve'">
+				<xsl:value-of select="."/>
+			</xsl:when>
+			<xsl:otherwise>
+				<!-- Retain one leading space if node isn't first, has
+	     non-space content, and has leading space.-->
+				<xsl:if test="position()!=1 and          matches(.,'^\s') and          normalize-space()!=''">
+					<xsl:text> </xsl:text>
+				</xsl:if>
+				<xsl:value-of select="normalize-space(.)"/>
+				<xsl:choose>
+					<!-- node is an only child, and has content but it's all space -->
+					<xsl:when test="last()=1 and string-length()!=0 and      normalize-space()=''">
+						<xsl:text> </xsl:text>
+					</xsl:when>
+					<!-- node isn't last, isn't first, and has trailing space -->
+					<xsl:when test="position()!=1 and position()!=last() and matches(.,'\s$')">
+						<xsl:text> </xsl:text>
+					</xsl:when>
+					<!-- node isn't last, is first, has trailing space, and has non-space content   -->
+					<xsl:when test="position()=1 and matches(.,'\s$') and normalize-space()!=''">
+						<xsl:text> </xsl:text>
+					</xsl:when>
+				</xsl:choose>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
+	
+	<xsl:template match="@*|node()" mode="delete_el1">
+		<xsl:copy>
+			<xsl:apply-templates select="@*|node()" mode="#current"/>
+		</xsl:copy>
+	</xsl:template>
+	
+	<xsl:template match="node()[name()='span'][@class='facs-choice_popup']/node()[name()='span'][@class='facs-reg']" mode="delete_el1">
+		<!-- DO NOTHING -->
+	</xsl:template>
+	
+	<xsl:template match="@*|node()" mode="delete_el2">
+		<xsl:copy>
+			<xsl:apply-templates select="@*|node()" mode="#current"/>
+		</xsl:copy>
+	</xsl:template>
+	
+	<xsl:template match="node()[name()='span'][@class='dipl-choice_popup']/node()[name()='span'][@class='dipl-orig']|node()[name()='span'][@class='dipl-corr']" mode="delete_el2">
+		<!-- DO NOTHING -->
+	</xsl:template>
+	
 	<xsl:template name="search_file">
 		<xsl:if test="$edition_array[1]!=''">
 			<xsl:variable name="edition_current" select="lower-case($edition_array[1])" />
-			<xsl:result-document method="text" href="{$filePrefix}/data/output_data/{$edition_current}/{$edition_current}.js" indent="no">
+			<xsl:result-document method="text" href="{$filePrefix}/data/output_data/{$edition_current}/{$edition_current}.json" indent="no">
 				{"pages": [
 					<xsl:for-each-group select="//node()[name()=$ed_content]/descendant-or-self::node()[name()=$start_split]/node()" group-starting-with="//tei:pb">
 						<xsl:choose>
@@ -260,23 +311,25 @@
 									<xsl:if test="current-group()[not((string-length(normalize-space()))= 0)]">
 										<xsl:choose>
 											<xsl:when test="following::lb">
-												{ "line" :
-													"<xsl:value-of select="if(self::tei:lb/@n) then(self::tei:lb/@n) else('no line info')" />",
-												"text" :
-													"<xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:lb)]" mode="facs"/></xsl:variable>
-													<xsl:copy-of select="$var//text()"></xsl:copy-of>",
-												"tags" : "<xsl:value-of select="parent::div[@subtype='edition_text']/@n"/>",
-												"loc" : "<xsl:value-of select="if(preceding::pb[1]/@xml:id) then(preceding::pb[1]/@xml:id) else('no_page_info')"/>"
+												{ 
+													"line" : "<xsl:value-of select="if(self::tei:lb/@n) then(concat(self::tei:lb/@n, '| line ',self::tei:lb/@n)) else('no line info | no line info')" />",
+													"text" : "<xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:lb)]" mode="facs"/></xsl:variable>
+															  <xsl:variable name="var1"><xsl:apply-templates select="$var" mode="delete_el1"/></xsl:variable>
+															  <xsl:variable name="var2"><xsl:apply-templates select="$var1//text()[not(ancestor::span)]" mode="deleteSpaces"/></xsl:variable>
+															  <xsl:copy-of select="replace($var2, '(\\|/)', '$1$1')"></xsl:copy-of>",
+													"tags" : "<xsl:value-of select="parent::div[@subtype='edition_text']/@xml:id"/>|<xsl:value-of select="parent::div[@subtype='edition_text']/@n"/>",
+													"loc" : "<xsl:value-of select="if(preceding::pb[1]/@xml:id) then(preceding::pb[1]/@xml:id) else('no_page_info')"/>|<xsl:value-of select="if(preceding::pb[1]/@n) then(preceding::pb[1]/@n) else('no_page_info')"/>"
 												},
 											</xsl:when>
 											<xsl:otherwise>
-												{ "line" :
-												"<xsl:value-of select="if(self::tei:lb/@n) then(self::tei:lb/@n) else('no line info')" />",
-												"text" :
-												"<xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:lb)]" mode="facs"/></xsl:variable>
-												<xsl:copy-of select="$var//text()"></xsl:copy-of>",
-												"tags" : "<xsl:value-of select="parent::div[@subtype='edition_text']/@n"/>",
-												"loc" : "<xsl:value-of select="if(preceding::pb[1]/@xml:id) then(preceding::pb[1]/@xml:id) else('no_page_info')"/>"
+												{ 
+													"line" : "<xsl:value-of select="if(self::tei:lb/@n) then(concat(self::tei:lb/@n, '| line ',self::tei:lb/@n)) else('no line info | no line info')" />",
+													"text" : "<xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:lb)]" mode="facs"/></xsl:variable>
+															  <xsl:variable name="var1"><xsl:apply-templates select="$var" mode="delete_el1"/></xsl:variable>
+															  <xsl:variable name="var2"><xsl:apply-templates select="$var1//text()[not(ancestor::span)]" mode="deleteSpaces"></xsl:apply-templates></xsl:variable>
+															  <xsl:copy-of select="replace($var2, '(\\|/)', '$1$1')"></xsl:copy-of>",
+													"tags" : "<xsl:value-of select="parent::div[@subtype='edition_text']/@xml:id"/>|<xsl:value-of select="parent::div[@subtype='edition_text']/@n"/>",
+													"loc" : "<xsl:value-of select="if(preceding::pb[1]/@xml:id) then(preceding::pb[1]/@xml:id) else('no_page_info')"/>|<xsl:value-of select="if(preceding::pb[1]/@n) then(preceding::pb[1]/@n) else('no_page_info')"/>"
 												}
 											</xsl:otherwise>
 										</xsl:choose>
@@ -303,30 +356,32 @@
 									<xsl:if test="current-group()[not((string-length(normalize-space()))= 0)]">
 										<xsl:choose>
 											<xsl:when test="following::lb">
-												{ "line" :
-													"<xsl:value-of select="if(self::tei:lb/@n) then(self::tei:lb/@n) else('no line info')" />",
-												  "text" :
-													"<xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:lb)]" mode="dipl"/></xsl:variable>
-													<xsl:copy-of select="$var//text()"></xsl:copy-of>",
-												  "tags" : "<xsl:value-of select="parent::div[@subtype='edition_text']/@n"/>",
-												  "loc" : "<xsl:value-of select="if(preceding::pb[1]/@xml:id) then(preceding::pb[1]/@xml:id) else('no_page_info')"/>"
+												{ 
+													"line" : "<xsl:value-of select="if(self::tei:lb/@n) then(concat(self::tei:lb/@n, '| line ',self::tei:lb/@n)) else('no line info | no line info')" />",
+												  	"text" : "<xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:lb)]" mode="dipl"/></xsl:variable>
+															  <xsl:variable name="var1"><xsl:apply-templates select="$var" mode="delete_el2"/></xsl:variable>
+															  <xsl:variable name="var2"><xsl:apply-templates select="$var1//text()[not(ancestor::span)]" mode="deleteSpaces"/></xsl:variable>
+															  <xsl:copy-of select="replace($var2, '(\\|/)', '$1$1')"></xsl:copy-of>",
+													"tags" : "<xsl:value-of select="parent::div[@subtype='edition_text']/@xml:id"/>|<xsl:value-of select="parent::div[@subtype='edition_text']/@n"/>",
+													"loc" : "<xsl:value-of select="if(preceding::pb[1]/@xml:id) then(preceding::pb[1]/@xml:id) else('no_page_info')"/>|<xsl:value-of select="if(preceding::pb[1]/@n) then(preceding::pb[1]/@n) else('no_page_info')"/>"
 												},
 											</xsl:when>
 											<xsl:otherwise>
-												{ "line" :
-												"<xsl:value-of select="if(self::tei:lb/@n) then(self::tei:lb/@n) else('no line info')" />",
-												"text" :
-												"<xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:lb)]" mode="dipl"/></xsl:variable>
-												<xsl:copy-of select="$var//text()"></xsl:copy-of>",
-												"tags" : "<xsl:value-of select="parent::div[@subtype='edition_text']/@n"/>",
-												"loc" : "<xsl:value-of select="if(preceding::pb[1]/@xml:id) then(preceding::pb[1]/@xml:id) else('no_page_info')"/>"
+												{ 
+													"line" : "<xsl:value-of select="if(self::tei:lb/@n) then(concat(self::tei:lb/@n, '| line ',self::tei:lb/@n)) else('no line info | no line info')" />",
+													"text" : "<xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:lb)]" mode="dipl"/></xsl:variable>
+															  <xsl:variable name="var1"><xsl:apply-templates select="$var" mode="delete_el2"/></xsl:variable>
+															  <xsl:variable name="var2"><xsl:apply-templates select="$var1//text()[not(ancestor::span)]" mode="deleteSpaces"/></xsl:variable>
+															  <xsl:copy-of select="replace($var2, '(\\|/)', '$1$1')"></xsl:copy-of>",
+													"tags" : "<xsl:value-of select="parent::div[@subtype='edition_text']/@xml:id"/>|<xsl:value-of select="parent::div[@subtype='edition_text']/@n"/>",
+												"loc" : "<xsl:value-of select="if(preceding::pb[1]/@xml:id) then(preceding::pb[1]/@xml:id) else('no_page_info')"/>|<xsl:value-of select="if(preceding::pb[1]/@n) then(preceding::pb[1]/@n) else('no_page_info')"/>"
 												}
 											</xsl:otherwise>
 										</xsl:choose>
 									</xsl:if>
 								</xsl:for-each-group>
 							</xsl:when>
-							<xsl:otherwise>
+							<xsl:when test="current-group()/(descendant-or-self::p)">
 								<!--<xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:pb)]" mode="dipl"/></xsl:variable>
 								<xsl:copy-of select="$var//text()"></xsl:copy-of>-->
 								<xsl:for-each-group select="current-group()/body/descendant::p" group-starting-with="//tei:p">
@@ -349,6 +404,11 @@
 										</xsl:otherwise>
 									</xsl:choose>
 								</xsl:for-each-group>
+							</xsl:when>
+							<xsl:otherwise>
+								<xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:pb)]" mode="dipl"/></xsl:variable>
+								<xsl:variable name="var1"><xsl:apply-templates select="$var" mode="delete_el2"/></xsl:variable>
+								<xsl:copy-of select="$var1//text()"></xsl:copy-of>
 							</xsl:otherwise>
 						</xsl:choose>
 				</xsl:for-each-group>
