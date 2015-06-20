@@ -53,4 +53,7 @@
 	<!-- Extra -->
 	<xsl:include href="modules/extra/functx-1.0.xsl"/>
 	
+	<!-- Generation of text label from id. -->
+	<xsl:include href="modules/elements/evt_builder-generate-text_label.xsl"/>
+	
 </xsl:stylesheet>

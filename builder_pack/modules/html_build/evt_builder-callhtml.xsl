@@ -42,6 +42,8 @@
 						href="{$html_path}/css/jquery.jqzoom.css"/>
 					<link rel="stylesheet" type="text/css"
 						href="{$html_path}/css/font-awesome.min.css" />
+					<link rel="stylesheet" type="text/css"
+						href="{$html_path}/css/evt-icons.css" />
 				</xsl:when>
 				<xsl:otherwise>
 					<link rel="stylesheet" type="text/css" href="{$html_path}/css/page_data-include-{$output}.css"/>
@@ -85,6 +87,22 @@
 				<xsl:comment>page data</xsl:comment>
 				<script type="text/javascript" src="{$html_path}/js/main/page_data-include.js"/>
 				<xsl:comment>/page data</xsl:comment>
+
+				<xsl:comment>highlight</xsl:comment>
+				<script type="text/javascript" src="{$html_path}/js/plugin/jquery.highlight_mod.js"/>
+				<xsl:comment>/highlight</xsl:comment>
+
+				<xsl:if test="$search=true()">
+					<xsl:comment>TipueSearch</xsl:comment>
+					<script type="text/javascript" src="{$html_path}/js/plugin/tipuesearch/tipuesearch.js"/>
+					<script type="text/javascript" src="./js/plugin/tipuesearch/tipuesearch_content.js" />
+					<script type="text/javascript" src="./js/plugin/tipuesearch/tipuesearch_set.js" />
+					<xsl:comment>/TipueSearch</xsl:comment>
+					
+					<xsl:comment>search</xsl:comment>
+					<script type="text/javascript" src="{$html_path}/js/main/search.js"/>
+					<xsl:comment>/search</xsl:comment>
+				</xsl:if>
 			</xsl:if>
 		</head>
 	</xsl:template>
@@ -119,6 +137,56 @@
 		</html>
 	</xsl:template>
 
+	
+	<xsl:template name="doc_regesto">
+		<xsl:param name="doc_id" />
+		<xsl:param name="front" />
+		<html lang="en-US">
+			<xsl:call-template name="html_head">
+				<xsl:with-param name="html_path" select="$dataPrefix"/>
+				<xsl:with-param name="html_tc" select="'datastructure'"/>
+				<xsl:with-param name="output" select="regesto"/>
+			</xsl:call-template>
+			<body>
+				<div id="regesto">
+					<div class="front">
+						<div class='title'>Informazioni sul documento</div>
+						<div class="info">
+							<div class="align-center"><span class="intestazione inline">Numerazione nuova: </span><xsl:value-of select="$front/tei:titlePart[@type='numerazioneNuova']"/></div>
+							<div class="align-center"><span class="intestazione inline">Numerazione originale: </span><xsl:value-of select="$front/tei:titlePart[@type='numerazioneOrig']"/></div>
+							<div class="align-center">
+								<span class="intestazione inline">
+									<xsl:apply-templates mode="dipl" select="$front/tei:docDate"/>
+								</span>
+							</div>
+						</div>
+						<div class="reg_text">
+							<!--<xsl:value-of select="$front/tei:div[@type='regesto']"/>-->
+							<xsl:apply-templates select="$front/tei:div[@type='regesto']" mode="dipl"/>
+						</div>
+						<div class="reg_note">
+							<hr/>
+							<p class="bibliografia">
+								<!--<xsl:value-of select="$front//tei:div[@type='orig_doc']"/>-->
+								<xsl:apply-templates select="$front//tei:div[@type='orig_doc']" mode="dipl"></xsl:apply-templates>
+							</p>
+							<p class="bibliografia">
+								<xsl:for-each select="$front//tei:div[@type='biblio']/tei:p">
+									<xsl:apply-templates mode='dipl'/>
+								</xsl:for-each>
+							</p>
+							<p class="crit_notes">
+								<xsl:for-each select="tei:front//tei:div[@type='crit_notes']/tei:note">
+									<xsl:apply-templates mode="dipl"/>
+								</xsl:for-each>
+							</p>
+						</div>
+					</div>
+				</div>
+			</body>
+		</html>
+	</xsl:template>
+	
 	<xsl:template name="index_build">
 		<html lang="en-US">
 			<xsl:call-template name="html_head">
@@ -182,9 +250,17 @@
 									<!--<div class="main_left_arrow" onclick="UnInitialize()" title="Previous"/>-->
 								</xsl:if>
 								<!-- <div class="main_left_arrow" title="Previous"/> -->
-								<header id="left_header">
+								<header id="left_header" class="top-menu">
 									<i class="fa fa-times-circle closeFullScreen" id="closeFullScreenLeft"></i>
 									<div id="left_menu">
+										<xsl:if test="$pp_selector_pos='left'">
+											<span id="span_pp_select" class="like_select left_menu" title="Folio">
+												<xsl:call-template name="div_select_build">
+													<xsl:with-param name="html_div_class"
+														select="'main_pp_select'"/>
+												</xsl:call-template>
+											</span>	
+										</xsl:if>
 										<xsl:if test="$double_view=true()">
 											<span id="span_dd_select" class="like_select">
 												<xsl:call-template name="div_select_build">
@@ -197,30 +273,52 @@
 											</span>
 										</xsl:if>
 										<xsl:if test="count($edition_array) &gt; 1">
-											<span id="span_ee_select-add" class="like_select">
+											<xsl:element name="span">
+												<xsl:attribute name="id">span_ee_select-add</xsl:attribute>
+												<xsl:attribute name="class">
+													like_select
+													<xsl:if test="$edition_level_selector=false()">
+														hidden
+													</xsl:if>
+												</xsl:attribute>
 												<xsl:call-template name="div_select_build">
 													<xsl:with-param name="html_div_class"
 														select="'main_ee_select'"/>
 												</xsl:call-template>
-											</span>
+											</xsl:element>
+											<xsl:if test="$regesto=true()">
+												<span class="imageTopTool mainButtons toggleReg" id="switchReg-add" value="reg" title="Regesto">
+													<span>Regesto</span>
+													<i class="fa fa-toggle-off"></i>
+												</span>
+											</xsl:if>
 										</xsl:if>
 										<xsl:if test="$image_frame=true()">
 											<div id="image_menu">
-												<span class="imageTopTool mainButtons" id="switchMag" value="mag" onclick="magOn()" title="Magnifying lens">
-													<span>Magnifier</span>
-													<i class="fa fa-search"></i>
-												</span>
-												<span class="imageTopTool mainButtons" id="switchHS" value="HS" title="Hot spot" onclick="switchHS()">
-													<span>HotSpot</span>
-													<i class="fa fa-circle-o"></i>
-												</span>
-												<span class="imageTopTool mainButtons" id="switchITL" value="turn ITL on" title="Image-Text link" onclick="switchIMT()">
-													<span>TextLink</span>
-													<i class="fa fa-chain-broken"></i>
-												</span>
-												<span id="thumb_elem" class="iconButtons" title="Thumbnails">
-													<a href="javascript:void(0);" class="thumb_link"><i class="fa fa-th"></i></a>
-												</span>
+												<xsl:if test="$thumbs_button=true()">
+													<span class="imageTopTool mainButtons thumb_link" id="thumb_elem" value="th" title="Thumbnails">
+														<span>Thumbs</span>
+														<i class="fa fa-th"></i>
+													</span>
+												</xsl:if>
+												<xsl:if test="$mag_button=true()">
+													<span class="imageTopTool mainButtons" id="switchMag" value="mag" onclick="magOn()" title="Magnifying lens">
+														<span>Magnifier</span>
+														<i class="fa evt-magnifier"></i>
+													</span>
+												</xsl:if>
+												<xsl:if test="$hs_button=true()">
+													<span class="imageTopTool mainButtons" id="switchHS" value="HS" title="Hot spot" onclick="switchHS()">
+														<span>HotSpot</span>
+														<i class="fa fa-circle-o"></i>
+													</span>
+												</xsl:if>
+												<xsl:if test="$txtimg_link_button=true()">
+													<span class="imageTopTool mainButtons" id="switchITL" value="turn ITL on" title="Image-Text link" onclick="switchIMT()">
+														<span>TextLink</span>
+														<i class="fa fa-chain-broken"></i>
+													</span>
+												</xsl:if>
 											</div>
 										</xsl:if>
 										<!--<input type="image" src="images/zoom.png" id="switchZoom" class="top_image_tools" value="zoom" onclick="zoomOn()"/>-->
@@ -229,6 +327,38 @@
 									</div>
 								</header>
 								<xsl:if test="$image_frame=true()">
+									<xsl:if test="$document_navigation=true()">
+										<span id="inside_left_arrow-add"><i class="fa fa-chevron-up"></i></span>
+										<span id="inside_right_arrow-add"><i class="fa fa-chevron-down"></i></span>
+									</xsl:if>
+									<!-- Text frame bottom menu -->
+									<div id="text_tool-add" class="bottom-menu">
+										<span id="span_list_select-add" class="like_select filter" title="Lists">
+											<div class="main_list_select">
+												<span data-value="none" class="label_selected">
+													No selection
+												</span>
+												<div class="open_select open_up">
+													<i class="fa fa-sort-asc"></i>
+												</div>
+												<div class="option_container up">
+													<xsl:for-each select="$lists">
+														<xsl:if test="./normalize-space()">
+															<xsl:element name="div">
+																<xsl:attribute name="class">option </xsl:attribute>
+																<xsl:attribute name="data-value"><xsl:value-of select="name(.)"/></xsl:attribute>
+																<i class="fa fa-circle filter_color"></i>
+																<xsl:value-of select="."/>
+															</xsl:element>
+														</xsl:if>
+													</xsl:for-each>
+													<div class="option" data-value="all">Seleziona Tutto</div>
+													<div class="option" data-value="clean">Pulisci Selezione</div>
+												</div>
+											</div>
+										</span>
+									</div>
+									
 									<div id="image_cont">
 										<div id="image_fade">
 											<div id="image_elem">
@@ -240,18 +370,18 @@
 										</div>
 										<div id="mag_image_elem"></div>
 										
-										<div id="image_tool">
+										<div id="image_tool" class="bottom-menu">
 											<div id="spb">
 												<a id="zoom_orig" class="zoom_btn"
-													href="javascript:void(0);" title="100%"><i class="icona">1:1</i></a>
+													href="javascript:void(0);" title="100%"><i class="evt-zoom1"></i></a>
 												<a id="zoom_fit" class="zoom_btn"
 													href="javascript:void(0);" title="Fit to frame"
-													><i class="fa fa-arrows-v"></i></a>
-												<a id="zoom_out" href="javascript:void(0);" title="Zoom out"><i class="fa fa-minus-circle"></i></a>
+													><i class="fa evt-zoomfit"></i></a>
+												<a id="zoom_out" href="javascript:void(0);" title="Zoom out"><i class="fa evt-zoomminus"></i></a>
 												<div id="spb_cont">
 													<div id="slider"/>
 												</div>
-												<a id="zoom_in" href="javascript:void(0);" title="Zoom in"><i class="fa fa-plus-circle"></i></a>
+												<a id="zoom_in" href="javascript:void(0);" title="Zoom in"><i class="fa evt-zoomplus"></i></a>
 											</div>
 											<div id="zval">
 												<xsl:if test="$image_frame=true()">
@@ -267,10 +397,10 @@
 										<input id="imgTit" type="hidden" value=""/>
 										<div id="thumb_cont">
 											<!-- CDP:embedded -->
-											<xsl:if test="$root//tei:sourceDoc">
+											<!-- <xsl:if test="$root//tei:sourceDoc"> -->
 												<!-- Found the node(s) for embedded transcription-->
-												<xsl:for-each select="$root//tei:sourceDoc//tei:surface[not(ancestor::tei:zone)]">
-													<figure class="thumb_single" id="{@xml:id}_small">
+												<!-- <xsl:for-each select="$root//tei:sourceDoc//tei:surface[not(ancestor::tei:zone)]">
+													<figure class="thumb_single" data-value="{@xml:id}">
 														<img src="data/input_data/images/single/{@xml:id}_small.jpg"/>
 														<figcaption>
 															<xsl:value-of select="@n"/>
@@ -278,17 +408,17 @@
 													</figure>
 												</xsl:for-each>
 											</xsl:if>
-											<xsl:if test="$root//tei:text">
+											<xsl:if test="$root//tei:text"> -->
 												<!-- Found no node(s) for embedded transcription-->
-												<xsl:for-each select="$root//tei:text//tei:pb">
-													<figure class="thumb_single" id="{@xml:id}_small">
+												<!-- <xsl:for-each select="$root//tei:text//tei:pb">
+													<figure class="thumb_single" data-value="{@xml:id}">
 														<img src="data/input_data/images/single/{@xml:id}_small.jpg"/>
 														<figcaption>
 															<xsl:value-of select="@n"/>
 														</figcaption>
 													</figure>
 												</xsl:for-each>
-											</xsl:if>
+											</xsl:if>-->
 										</div>									
 									</div>
 								</xsl:if>
@@ -318,7 +448,7 @@
 							</div>
 							-->
 							<!--<div class="main_right_arrow" title="Previous"/>-->
-							<header id="right_header">
+							<header id="right_header" class="top-menu">
 								<div id="right_menu">
 									<span id="span_tt_select" class="like_select" title="Text">
 										<xsl:call-template name="div_select_build">
@@ -326,26 +456,149 @@
 												select="'main_tt_select'"/>
 										</xsl:call-template>
 									</span>
-									<span id="span_pp_select" class="like_select" title="Folio">
-										<xsl:call-template name="div_select_build">
-											<xsl:with-param name="html_div_class"
-												select="'main_pp_select'"/>
-										</xsl:call-template>
-									</span>
-									<span id="span_ee_select" class="like_select" title="Edition level">
+									<xsl:if test="$pp_selector_pos='right'">
+										<span id="span_pp_select" class="like_select right_menu" title="Folio">
+											<xsl:call-template name="div_select_build">
+												<xsl:with-param name="html_div_class"
+													select="'main_pp_select'"/>
+											</xsl:call-template>
+										</span>
+									</xsl:if>
+									<xsl:element name="span">
+										<xsl:attribute name="id">span_ee_select</xsl:attribute>
+										<xsl:attribute name="title">Edition level</xsl:attribute>
+										<xsl:attribute name="class">
+											like_select
+											<xsl:if test="$edition_level_selector=false()">
+												hidden
+											</xsl:if>
+										</xsl:attribute>
 										<xsl:call-template name="div_select_build">
 											<xsl:with-param name="html_div_class"
 												select="'main_ee_select'"/>
 										</xsl:call-template>
-									</span>
-									<span id="search_elem" class="iconButtons" title="Search">
-										<a href="javascript:void(0);" id="search_link"><i class="fa fa-search"></i></a>
-									</span>
+									</xsl:element>
+									<xsl:if test="$regesto=true()">
+										<span class="imageTopTool mainButtons active toggleReg" id="switchReg" value="reg" title="Regesto">
+											<span>Regesto</span>
+											<i class="fa fa-toggle-on"></i>
+										</span>
+									</xsl:if>
 								</div>
 								<i class="fa fa-times-circle closeFullScreen" id="closeFullScreenRight"></i>
 							</header>
-							<div id="text_cont">
+							<xsl:if test="$regesto=true()">
+								<div id="regesto_cont" class="text-box"/>
+							</xsl:if>
+							<div id="text_cont" class="text-box">
 								<div id="text_elem"/>
+							</div>
+							<xsl:if test="$search=true()">
+								<div id="search_cont" class="collapsed bottomBox">
+									<div id="search_header" class="bottomBoxHeader">
+										<span id="toggle_search_cont" class="mainButtons" title="Apri/Chiudi Ricerca">
+											<i class='fa fa-angle-double-up'></i>
+										</span>
+										<span id="keyboard_link" class="mainButtons small" title="Apri/Chiudi Tastiera">
+											<i class="fa fa-keyboard-o"></i>
+										</span>
+										<div id="tipue_search_input_div">
+											<input type="text" id="tipue_search_input" />
+											<i class="fa fa-close clear_input" title="Clear search"></i>
+										</div>
+										<span id="start_search" class="mainButtons small" title="Avvia Ricerca">
+											<i class='fa fa-search'></i>
+										</span>
+									</div>
+									<div id="search_sub_header" class="bottomBoxSubHeader">
+										<div id="search_query">Enter your query into the search box above!</div>
+										<div id="search_results"></div>
+									</div>
+									<div id="search_cont_results" class="bottomBoxContent">
+										<div id="tipue_search_content"></div>
+									</div>
+									<div id="search_foot" class="bottomBoxFooter"></div>
+								</div>	
+							</xsl:if>
+							
+							<div id="lists_cont" class="bottomBox">
+								<div id="list_header" class="bottomBoxHeader">
+									<span id="toggle_list_cont" class="mainButtons" title="Apri/Chiudi Liste">
+										<i class='fa fa-angle-double-down'></i>
+									</span>
+								</div>
+								<div id="list_letters" class="bottomBoxContent">
+									<span class="list_filter" data-filter-type="first_letter" data-value="A">A</span>
+									<span class="list_filter" data-filter-type="first_letter" data-value="B">B</span>
+									<span class="list_filter" data-filter-type="first_letter" data-value="C">C</span>
+									<span class="list_filter" data-filter-type="first_letter" data-value="D">D</span>
+									<span class="list_filter" data-filter-type="first_letter" data-value="E">E</span>
+									<span class="list_filter" data-filter-type="first_letter" data-value="F">F</span>
+									<span class="list_filter" data-filter-type="first_letter" data-value="G">G</span>
+									<span class="list_filter" data-filter-type="first_letter" data-value="H">H</span>
+									<span class="list_filter" data-filter-type="first_letter" data-value="I">I</span>
+									<span class="list_filter" data-filter-type="first_letter" data-value="L">L</span>
+									<span class="list_filter" data-filter-type="first_letter" data-value="M">M</span>
+									<span class="list_filter" data-filter-type="first_letter" data-value="N">N</span>
+									<span class="list_filter" data-filter-type="first_letter" data-value="O">O</span>
+									<span class="list_filter" data-filter-type="first_letter" data-value="P">P</span>
+									<span class="list_filter" data-filter-type="first_letter" data-value="Q">Q</span>
+									<span class="list_filter" data-filter-type="first_letter" data-value="R">R</span>
+									<span class="list_filter" data-filter-type="first_letter" data-value="S">S</span>
+									<span class="list_filter" data-filter-type="first_letter" data-value="T">T</span>
+									<span class="list_filter" data-filter-type="first_letter" data-value="U">U</span>
+									<span class="list_filter" data-filter-type="first_letter" data-value="V">V</span>
+									<span class="list_filter" data-filter-type="first_letter" data-value="Z">Z</span>
+								</div>
+							</div>
+							<xsl:if test="$document_navigation=true()">
+								<span id="inside_left_arrow"><i class="fa fa-chevron-up"></i></span>
+								<span id="inside_right_arrow"><i class="fa fa-chevron-down"></i></span>
+							</xsl:if>
+							<!-- Text frame bottom menu -->
+							<div id="text_tool" class="bottom-menu">
+								<xsl:if test="$search=true()">
+									<span id="search_link" class="mainButtons" title="Search">
+										<span>Search</span>
+										<i class="fa fa-search"></i>
+									</span>
+								</xsl:if>
+								<xsl:if test="$list_person=true()">
+									<span id="list_link" class="mainButtons" title="Liste">
+										<span>Lists</span>
+										<i class="fa fa-list"></i>
+									</span>
+								</xsl:if>
+								<span id="span_list_select" class="like_select filter" title="Lists">
+									<div class="main_list_select">
+										<span data-value="none" class="label_selected">
+											No selection
+										</span>
+										<div class="open_select open_up">
+											<i class="fa fa-sort-asc"></i>
+										</div>
+										<div class="option_container up">
+											<xsl:for-each select="$lists">
+												<xsl:if test="./normalize-space()">
+													<xsl:element name="div">
+														<xsl:attribute name="class">option</xsl:attribute>
+														<xsl:attribute name="data-value"><xsl:value-of select="name(.)"/></xsl:attribute>
+														<i class="fa fa-circle filter_color"></i>
+														<xsl:value-of select="."/>
+													</xsl:element>
+												</xsl:if>
+											</xsl:for-each>
+											<div class="option" data-value="all">
+												<i class="fa fa-circle filter_color"></i>
+												Select All
+											</div>
+											<div class="option" data-value="clean">
+												<i class="fa fa-circle-o filter_color"></i>
+												Clean Selection
+											</div>
+										</div>
+									</div>
+								</span>
 							</div>
 						</div>
 					</section>

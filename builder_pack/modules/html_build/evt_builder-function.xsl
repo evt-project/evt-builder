@@ -115,8 +115,8 @@
 
 		<div class="{$html_div_class}">
 	     	<span class="label_selected"></span>
-			<div class="open_select" ><i class="fa fa-sort-asc"></i></div>
-	        <div class="option_container"></div>  
+			<div class="open_select" ><i class="fa fa-sort-desc"></i></div>
+	        <div class="option_container down"></div>  
 	    </div>
 	</xsl:template>
 	
