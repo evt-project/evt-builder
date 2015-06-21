@@ -118,7 +118,7 @@ $(function() {
 				}
 				else{
 					current_id = first_page_d;
-					current_label = first_label_d+"-[manca]";
+					current_label = first_label_d+" - (miss)";
 				}
 
 				$('.main_dd_select .option_container').append(
