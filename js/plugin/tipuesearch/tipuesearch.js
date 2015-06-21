@@ -64,7 +64,7 @@ http://www.tipue.com/search
                                         "text": desc,
                                         "tags": cont,
                                         "loc": tipuesearch_pages[i] 
-                                   });    
+                                   });
                               }
                          );
                     }
@@ -72,13 +72,16 @@ http://www.tipue.com/search
 
                if (set.mode == 'json')
                {
-					console.log("SONO IN MODE JSON");
+					// console.log("SONO IN MODE JSON");
 					console.log(set.contentLocation);
                     $.getJSON(set.contentLocation,
                          function(json)
                          {
                               tipuesearch_in = $.extend({}, json);
 							  console.log(tipuesearch_in);
+                              if ( $('#search_link').hasClass('active') && $('#search_query').attr('data-value') != '' ) {
+                                   getTipueSearch(0, true);
+                              }
                          }
                     );
                }
@@ -104,9 +107,9 @@ http://www.tipue.com/search
                     getTipueSearch(0, true);
                }                      
                $('#start_search').click(function() {
-					console.log("RICERCA ON");
-					console.log(set.mode);
-					console.log(set.contentLocation);
+					// console.log("RICERCA ON");
+					// console.log(set.mode);
+					// console.log(set.contentLocation);
                		//if ($('#span_si').is(':visible')) {
                               if ($('#tipue_search_input').val() != "") {
 	 						if ($('#text_elem').is(':visible')) {
@@ -114,20 +117,24 @@ http://www.tipue.com/search
 								//$('#image_cont').css({opacity: "0.3"});
 								getTipueSearch(0, true);
                     			     $('#search_query').html($('#tipue_search_input').val());
+                                        $('#search_query').attr('data-value', $('#tipue_search_input').val());
 	 						}
 	 						else {
 								$('#keyboard').hide();
                     			     getTipueSearch(0, true);
                     			     $('#search_query').html($('#tipue_search_input').val());
+                                        $('#search_query').attr('data-value', $('#tipue_search_input').val());
                                    } 
                     	     } else {
                                    $('#tipue_search_input').trigger('keyup');
                                    $('#search_query').text('Enter your query into the search box above!');
+                                   $('#search_query').attr('data-value', '');
                                    $('#tipue_search_content, #tipue_search_results_count, #search_foot').text('');
                               }
-                    	// else {
-                     //          $('#tipue_search_content').html("<div>Enter your query into the search box above!</div>");
-                     //     }
+                    	//} else {
+                         //   $('#tipue_search_content').html("<div>Enter your query into the search box above!</div>");
+                         //}
+                         
                          if ( $('#search_cont').hasClass('collapsed') ) {
                               $('#toggle_search_cont').trigger('click');
                          }
@@ -221,7 +228,7 @@ http://www.tipue.com/search
 
                          var c = 0;
                          found = new Array();
-						 console.log(tipuesearch_in);
+						 // console.log(tipuesearch_in);
                          for (var i = 0; i < tipuesearch_in.pages.length; i++)
                          {
                               var score = 1000000000;
@@ -282,7 +289,7 @@ http://www.tipue.com/search
                               }
                               
                               found.sort();
-                              console.log(found);
+                              // console.log(found);
                               var l_o = 0;
                               var page, page_id, page_n; 
                               var text, text_id, text_label;
@@ -464,7 +471,6 @@ http://www.tipue.com/search
                          getTipueSearch(parseInt(id_a[0]), id_a[1]);
                     });                                                       
                }          
-          
           });
      };
    
