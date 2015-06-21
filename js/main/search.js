@@ -12,15 +12,13 @@ $(function() {
     var ee_label = document.getElementById("span_ee_select").children[0].children[0];
 
     ee_label.addEventListener("DOMAttrModified", function(e) {
-        updateTipueSearchLocation(e.newValue);
+        updateTipueSearchLocation(e.newValue.toLowerCase());
     }, false);
-    // $('.main_ee_select .option_container .option').click(function(){
-    //     var newLocation = $(this).attr('data-value').toLowerCase();
-    //     updateTipueSearchLocation(newLocation);
-    // });
+    
     function updateTipueSearchLocation(newLocation){
         jsonLocation = URI + '/'+newLocation+'/' + newLocation + '.json';
         console.log(jsonLocation);
+        
         triggerTipueSearch(jsonLocation);
     }
 
