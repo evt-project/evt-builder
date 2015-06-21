@@ -272,13 +272,13 @@ http://www.tipue.com/search
                               if (c == 1)
                               {
                                    //out += '<div id="tipue_search_results_count">1 result</div>';
-                                   $('#search_results').html('<div id="tipue_search_results_count">We have found 1 result in the current edition.</div>');
+                                   $('#search_results').html('<div id="tipue_search_results_count">We have found 1 result into the ' + $("#span_ee_select .label_selected").text().toLowerCase() + ' edition.</div>');
                               }
                               else
                               {
                                    c_c = c.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                                    // out += '<div id="tipue_search_results_count">' + 'We have found ' + c_c + ' results into the ' + $("#span_ee_select .label_selected").text().toLowerCase() + ' edition </div>';
-                                   $('#search_results').html('<div id="tipue_search_results_count">' + 'We have found ' + c_c + ' results in the current edition.</div>');
+                                   $('#search_results').html('<div id="tipue_search_results_count">' + 'We have found ' + c_c + ' results into the ' + $("#span_ee_select .label_selected").text().toLowerCase() + ' edition.</div>');
                               }
                               
                               found.sort();
