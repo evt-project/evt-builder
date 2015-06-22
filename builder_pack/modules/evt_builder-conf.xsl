@@ -104,17 +104,13 @@
 	
 	
 	<!-- EN: Indicate the xml node that contains all the text to be transformed for each edition level -->
-	<!-- IT: Indicare il nodo xml che contiene il testo da trasformare per ogni livello di edizione -->
-	<xsl:variable name="ed_content" select="//tei:body/name()"></xsl:variable>
-	<!-- Codice Pelavicino: -->
-	<!-- <xsl:variable name="ed_content" select="//tei:text/tei:group[@xml:id='group']/name()"/>  -->
-	
-	
-	<!-- EN: Starting point for the split of elements containing pb and lb -->
-	<!-- IT: Punto di partenza per la divisione degli elementi contententi pb/lb -->
-	<xsl:variable name="start_split" select="if(//tei:body/tei:div) then(//tei:body/tei:div/name()) else(//tei:body/name())"/>
-	<!-- Codice Pelavicino: -->
-	<!-- <xsl:variable name="start_split" select="if(//tei:text/tei:group[@xml:id='group']) then(//tei:text/tei:group[@xml:id='group']/name()) else(//tei:body/name())"/> -->
+    <!-- IT: Indicare il nodo xml che contiene il testo da trasformare per ogni livello di edizione -->
+    <xsl:variable name="ed_content" select="if(//tei:text/tei:group[@xml:id='group']) then(//tei:text/tei:group[@xml:id='group']/name()) else ( //tei:body/name() )"/> 
+    
+    
+    <!-- EN: Starting point for the split of elements containing pb and lb -->
+    <!-- IT: Punto di partenza per la divisione degli elementi contententi pb/lb -->
+    <xsl:variable name="start_split" select="if(//tei:text/tei:group[@xml:id='group']) then(//tei:text/tei:group[@xml:id='group']/name()) else( if(//tei:body/tei:div) then(//tei:body/tei:div/name()) else(//tei:body/name()) )"/>
 	
 	
 	<!-- EN: Indicate the maximum depth of pb/lb with relatively to the element stated in the variable $start_split-->
