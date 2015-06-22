@@ -254,12 +254,23 @@
 									<i class="fa fa-times-circle closeFullScreen" id="closeFullScreenLeft"></i>
 									<div id="left_menu">
 										<xsl:if test="$pp_selector_pos='left'">
-											<span id="span_pp_select" class="like_select left_menu" title="Folio">
+											<xsl:element name="span">
+												<xsl:attribute name="id" select="'span_pp_select'"/>
+												<xsl:attribute name="class">
+													<xsl:value-of select="'like_select left_menu'"/>
+													<xsl:if test="$pp_selector_doc_grouping=true()">
+														<xsl:value-of select="' groupByDoc'"/>
+													</xsl:if>
+													<xsl:if test="$pp_selector_doc_tooltip=true()">
+														<xsl:value-of select="' optionDocTooltip'"/>
+													</xsl:if>
+												</xsl:attribute>
+												<xsl:attribute name="title" select="'Folio'"/>
 												<xsl:call-template name="div_select_build">
 													<xsl:with-param name="html_div_class"
 														select="'main_pp_select'"/>
 												</xsl:call-template>
-											</span>	
+											</xsl:element>
 										</xsl:if>
 										<xsl:if test="$double_view=true()">
 											<span id="span_dd_select" class="like_select">
@@ -457,12 +468,23 @@
 										</xsl:call-template>
 									</span>
 									<xsl:if test="$pp_selector_pos='right'">
-										<span id="span_pp_select" class="like_select right_menu" title="Folio">
+										<xsl:element name="span">
+											<xsl:attribute name="id" select="'span_pp_select'"/>
+											<xsl:attribute name="class">
+												<xsl:value-of select="'like_select right_menu'"/>
+												<xsl:if test="$pp_selector_doc_grouping=true()">
+													<xsl:value-of select="' groupByDoc'"/>
+												</xsl:if>
+												<xsl:if test="$pp_selector_doc_tooltip=true()">
+													<xsl:value-of select="' optionDocTooltip'"/>
+												</xsl:if>
+											</xsl:attribute>
+											<xsl:attribute name="title" select="'Folio'"/>
 											<xsl:call-template name="div_select_build">
 												<xsl:with-param name="html_div_class"
 													select="'main_pp_select'"/>
 											</xsl:call-template>
-										</span>
+										</xsl:element>
 									</xsl:if>
 									<xsl:element name="span">
 										<xsl:attribute name="id">span_ee_select</xsl:attribute>

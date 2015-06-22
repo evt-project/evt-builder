@@ -1117,7 +1117,8 @@ footer{
 	margin-right: 6px;
 }
 
-.like_select .option_tooltip {
+.like_select .option_tooltip,
+.like_select .option_tooltip_dd {
 	display: none;
 	position: absolute; 
 	background: rgb(245, 234, 212); 
@@ -1137,8 +1138,10 @@ footer{
 	box-shadow: 2px 1px 4px rgba(0,0,0,0.7);
 	opacity: .8;
 }
-.like_select .option_tooltip span{
-	display: inline-block;
+.like_select .option_tooltip span,
+.like_select .option_tooltip_dd span
+{
+	display: block;
 	position: relative;
 }
 .option.selected:hover{

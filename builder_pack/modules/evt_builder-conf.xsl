@@ -171,6 +171,16 @@
 	<!-- default: right -->
 	<xsl:param name="pp_selector_pos" select="'right'"/>
 	
+	<!-- EN: Choose whether or not to group pages by document in the selector -->
+    <!-- IT: Scegli se raggruppare o meno le pagine per documento nel selettore apposito -->
+    <!-- default: true() -->
+    <xsl:param name="pp_selector_doc_grouping" select="true()"/>
+    
+    <!-- EN: Choose whether or not having a tooltip on pages option showing the belonging document  -->
+    <!-- IT: Scegli se avere un tooltip sulle opzioni delle pagine che mostra il/i documento/i di appartenenza -->
+    <!-- default: false() -->
+    <xsl:param name="pp_selector_doc_tooltip" select="false()"/>
+
 	<!-- EN: On/Off Search -->
 	<!-- IT: Attiva/Disattiva Ricerca -->
 	<!-- default: true() -->
