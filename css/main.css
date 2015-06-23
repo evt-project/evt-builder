@@ -449,12 +449,19 @@ footer{
 	display: inline;
 }
 
-#text_cont, #text_cont-add, #image_cont, #regesto_cont, #regesto_cont-add, #lists_cont, #search_cont{
+#text_cont, #text_cont-add, 
+#image_cont, 
+#regesto_cont, #regesto_cont-add, 
+#lists_cont, 
+#search_cont, #search_cont-add {
 	height: 100%;
 	text-align: center;
 }	
 /*Chiara  */
-#text_cont, #text_cont-add, #regesto_cont, #regesto_cont-add, #lists_cont, #search_cont{
+#text_cont, #text_cont-add, 
+#regesto_cont, #regesto_cont-add, 
+#lists_cont, 
+#search_cont, #search_cont-add {
 	background: white;
 	position: relative;
 	/*-moz-box-shadow:-2px 3px 5px -2px rgba(0, 0, 0, 0.8);
@@ -986,7 +993,7 @@ footer{
 	border-radius: 3px;
 	text-align: center;
 }
-#text_tool .mainButtons{
+#text_tool .mainButtons, #text_tool-add .mainButtons {
 	top:7px;
 }
 #right_header .like_select{
@@ -1760,7 +1767,9 @@ div.doc.not_current:hover{
 }
 
 /* LISTE */
-#lists_cont, #search_cont{
+/* BOX LISTE e RICERCA */
+#lists_cont, 
+#search_cont, #search_cont-add {
 	text-align: left;
 	font-size: 15pt;
 	margin-top: 42px;
@@ -1773,58 +1782,58 @@ div.doc.not_current:hover{
     left: 0;
     overflow: hidden;
 }
-#search_cont{
+#search_cont, #search_cont-add {
 	overflow: visible;
 }
-#search_sub_header {
+#search_sub_header, #search_sub_header-add {
 	margin-top: 45px;
 }
-#search_cont_results{
+#search_cont_results, #search_cont_results-add {
 	padding: 20px;
 	overflow: scroll;
 	height: calc(100% - 194px);
 	position: relative;
 }
-#search_query{
+#search_query, #search_query-add {
 	text-align: center;
 	font-style: italic;
 	margin-bottom: 10px;
 	font-size: 90%;
 }
-#tipue_search_results_count{
+#tipue_search_results_count, #tipue_search_results_count-add {
 	font-size: 90%;
 	text-align: center;
 	margin-bottom: 10px;
 }
-#tipue_search_foot{
+#tipue_search_foot, #tipue_search_foot-add {
 	text-align: center;
 }
-#search_foot{
+#search_foot, #search_foot-add {
 	padding: 8px;
 }
-#tipue_search_foot_boxes li {
+#tipue_search_foot_boxes li, #tipue_search_foot_boxes-add li {
 	list-style-type: none;
 	display: inline;
 	margin:0 5px;
 
 }
-#tipue_search_foot_boxes li span{
+#tipue_search_foot_boxes li span, #tipue_search_foot_boxes-add li span {
 	color:rgb(153, 153, 153);
 }
-#tipue_search_foot_boxes li span:hover {
+#tipue_search_foot_boxes li span:hover, #tipue_search_foot_boxes-add li span:hover {
 	cursor: pointer;
 	color:rgb(54, 45, 40);
 }
-.tipue_search_content_text{
+.tipue_search_content_text {
 	font-size: 90%;
 }
 
-#tipue_search_content hr {
+#tipue_search_content hr, #tipue_search_content-add hr {
 	visibility: visible;
 	margin: 10px 0px;
 	color: rgb(225, 215, 199) !important;
 }
-.tipue_search_go_to_result{
+.tipue_search_go_to_result, .tipue_search_go_to_result-add {
 	cursor:pointer;
 	border-radius: 4px;
 	padding: 3px 10px;
@@ -1836,7 +1845,7 @@ div.doc.not_current:hover{
 	background: rgba(245, 234, 212, .5);
 	text-decoration: underline;
 }
-.tipue_search_go_to_result:hover {
+.tipue_search_go_to_result:hover, .tipue_search_go_to_result-add:hover  {
 	background: rgba(245, 234, 212, 1);
 	text-shadow:0px 0px 1px rgba(0, 0, 0, .5);
 }
@@ -1845,7 +1854,7 @@ div.doc.not_current:hover{
 	margin: 20px auto;
 	overflow: hidden;
 }
-#list_header, #search_header{
+#list_header, #search_header, #search_header-add {
 	display: block;
 	color: rgb(245, 234, 212);
 	background: none repeat scroll 0% 0% rgb(54, 45, 40);
@@ -1859,18 +1868,21 @@ div.doc.not_current:hover{
 	#box-shadow: 0px 1px 3px -1px #000;
 	height: 30px;	
 }
-#search_header{
+#search_header, #search_header-add {
 	padding-right: 1px;
 }
-#search_header .mainButtons.small, #tipue_search_input_div{
+#search_header .mainButtons.small, #search_header-add .mainButtons.small,
+#tipue_search_input_div, #tipue_search_input_div-add {
 	overflow: hidden;
 	position: relative;
 }
-#lists_cont.collapsed #list_header, #search_cont.collapsed #search_header{
+#lists_cont.collapsed #list_header, 
+#search_cont.collapsed #search_header, #search_cont-add.collapsed #search_header-add {
 	cursor: pointer;
 }
 
-#list_header #toggle_list_cont, #search_header #toggle_search_cont{
+#list_header #toggle_list_cont, 
+#search_header #toggle_search_cont, #search_header-add #toggle_search_cont-add {
 	min-width: 0;
 	left: -2px;
 	position: absolute;
@@ -1884,10 +1896,9 @@ div.doc.not_current:hover{
 	box-shadow: none;
 }
 
-#list_header #toggle_list_cont:hover, 
-#search_header #toggle_search_cont:hover,
-#search_header #keyboard_link:hover,
-#search_header #start_search:hover{
+#search_header #toggle_search_cont:hover, #search_header-add #toggle_search_cont-add:hover,
+#search_header #keyboard_link:hover, #search_header-add #keyboard_link-add:hover
+#search_header #start_search:hover, #search_header-add #start_search-add:hover {
 	-moz-box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.7) inset;
 	-webkit-box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.7) inset;
 	-o-box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.7) inset;
@@ -1896,16 +1907,16 @@ div.doc.not_current:hover{
 	box-shadow:1px 2px 3px rgba(0, 0, 0, 0.7) inset;
 }
 
-#toggle_search_cont {
+#toggle_search_cont, #toggle_search_cont-add {
 	border-top-right-radius: 0px;
 	border-bottom-right-radius: 0px;	
 }
-#keyboard_link {
+#keyboard_link, #keyboard_link-add {
 	border-radius: 0px;	
 	margin: 0px;
 	box-shadow: none;
 }
-#keyboard {
+#keyboard, #keyboard-add  {
     display: none;
     position: absolute;
 	top: -64px;
@@ -1915,7 +1926,7 @@ div.doc.not_current:hover{
 	background: #362D28 none repeat scroll 0% 0%;
 	left: 34px;
 }
-#keyboard.openDown {
+#keyboard.openDown, #keyboard-add.openDown {
 	top:32px;
 }
 .key {
@@ -1932,14 +1943,14 @@ div.doc.not_current:hover{
 .key:hover{
 	background: rgba(227, 200, 156, 1);
 }
-#start_search{
+#start_search, #start_search-add {
 	border-top-left-radius: 0px;
 	border-bottom-left-radius: 0px;
 	margin:0;
 	min-width: 28.5px;
 	box-shadow: none;
 }
-#tipue_search_input_div{
+#tipue_search_input_div, #tipue_search_input_div-add{
 	width: -webkit-calc(100% - 63px);
     width: -moz-calc(100% - 63px);
     width: calc(100% - 63px);
@@ -1969,7 +1980,7 @@ div.doc.not_current:hover{
 	opacity: 1;
 }
 
-#tipue_search_input{
+#tipue_search_input, #tipue_search_input-add {
 	height: 22px;
 	top: -0.5px;
 	background: none;
@@ -1981,11 +1992,11 @@ div.doc.not_current:hover{
 	padding-left: 10px;
 }
 
-#tipue_search_input:focus{
+#tipue_search_input:focus, #tipue_search_input-add:focus {
     outline: 0;
 }
 
-#tipue_search_input:focus{
+#tipue_search_input:focus, #tipue_search_input-add:focus {
 	border: 2px solid rgba(245, 234, 212, 1);
 }
 
