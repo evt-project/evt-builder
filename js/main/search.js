@@ -9,24 +9,29 @@ $(function() {
 	// 	console.log(jsonLocation);
 	// 	triggerTipueSearch(jsonLocation);
 	// });
-    var ee_label = document.getElementById("span_ee_select").children[0].children[0];
+	var ee_label_left = document.getElementById("span_ee_select-add").children[0].children[0];
+    var ee_label_right = document.getElementById("span_ee_select").children[0].children[0];
 
-    ee_label.addEventListener("DOMAttrModified", function(e) {
-        updateTipueSearchLocation(e.newValue.toLowerCase());
+    ee_label_left.addEventListener("DOMAttrModified", function(e) {
+        updateTipueSearchLocation(e.newValue.toLowerCase(), '#tipue_search_input-add', '#tipue_search_content-add');
+    }, false);
+	ee_label_right.addEventListener("DOMAttrModified", function(e) {
+        updateTipueSearchLocation(e.newValue.toLowerCase(), '#tipue_search_input', '#tipue_search_content');
     }, false);
     
-    function updateTipueSearchLocation(newLocation){
+    function updateTipueSearchLocation(newLocation, input, output){
         jsonLocation = URI + '/'+newLocation+'/' + newLocation + '.json';
         console.log(jsonLocation);
-        
-        triggerTipueSearch(jsonLocation);
+        triggerTipueSearch(jsonLocation, input, output);
     }
 
-	function triggerTipueSearch(jsonLocation) {
-		$('#tipue_search_input').tipuesearch({
+	function triggerTipueSearch(jsonLocation, input, output) {
+		console.log(input);
+		$(input).tipuesearch({
 			'showURL' : false,
 			'mode' : 'json',
-			'contentLocation' : jsonLocation
+			'contentLocation' : jsonLocation,
+			'outputid' : output
 		});
 	}
 	
@@ -44,7 +49,30 @@ $(function() {
     // };
     
     // Lista caratteri
-    var key_list = ['Æ','æ','Ð','ð','Ᵹ','ᵹ','ſ','Þ','þ','Ƿ','ƿ'];
+	// Questa lista va inserita in un file di configurazione esterna
+	function loadXMLDoc(filename) {
+		if (window.XMLHttpRequest) {
+			xhttp = new XMLHttpRequest();
+		} else {
+			// code for IE5 and IE6
+			xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		xhttp.open("GET",filename,false);
+		xhttp.send();
+		return xhttp.responseXML;
+	}
+	
+	var keyboard_xml = loadXMLDoc('js/main/keyboard_config.xml');
+	var key_group = keyboard_xml.getElementsByTagName('key-group');
+	console.log(key_group.length);
+	var key_list = [];
+	for (var i = 0; i < key_group.length; i++) {
+		var keys = key_group[i].getElementsByTagName('key');
+		for (var j = 0; j < keys.length; j++) {
+			console.log(keys[j].textContent);
+			key_list.push(keys[j].textContent);
+		}
+	}
 
     // Tasti
     var keys = document.createDocumentFragment();
