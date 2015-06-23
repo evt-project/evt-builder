@@ -337,13 +337,42 @@
 										<!--<input type="image" src="images/ITLoff.png" id="switchITL" class="top_image_tools" value="turn ITL on" title="Image text link" onclick="switchIMT()"/>-->
 									</div>
 								</header>
-								<xsl:if test="$image_frame=true()">
-									<xsl:if test="$document_navigation=true()">
-										<span id="inside_left_arrow-add"><i class="fa fa-chevron-up"></i></span>
-										<span id="inside_right_arrow-add"><i class="fa fa-chevron-down"></i></span>
-									</xsl:if>
+								<xsl:if test="$search=true()">
+									<div id="search_cont-add" class="collapsed bottomBox searchContainer">
+										<div id="search_header-add" class="bottomBoxHeader">
+											<span id="toggle_search_cont-add" class="mainButtons toggleSearchButton" data-boxsuffix="-add" title="Apri/Chiudi Ricerca">
+												<i class='fa fa-angle-double-up'></i>
+											</span>
+											<span id="keyboard_link-add" class="mainButtons small searchKeyboardButton" data-boxsuffix="-add" title="Apri/Chiudi Tastiera">
+												<i class="fa fa-keyboard-o"></i>
+											</span>
+											<div id="tipue_search_input_div-add">
+												<input type="text" id="tipue_search_input-add"  class="searchInput" data-boxsuffix="-add"/>
+												<i class="fa fa-close clear_input" title="Clear search"></i>
+											</div>
+											<span id="start_search-add" class="mainButtons small searchStart" data-boxsuffix="-add" title="Avvia Ricerca">
+												<i class='fa fa-search'></i>
+											</span>
+										</div>
+										<div id="search_sub_header-add" class="bottomBoxSubHeader">
+											<div id="search_query-add" class="searchQuery">Enter your query into the search box above!</div>
+											<div id="search_results-add" class="searchResults"></div>
+										</div>
+										<div id="search_cont_results-add" class="bottomBoxContent">
+											<div id="tipue_search_content-add" class="searchResultsContent"></div>
+										</div>
+										<div id="search_foot-add" class="bottomBoxFooter"></div>
+									</div>	
+								</xsl:if>
+								<xsl:if test="count($edition_array) &gt; 1">
 									<!-- Text frame bottom menu -->
 									<div id="text_tool-add" class="bottom-menu">
+										<xsl:if test="$search=true()">
+											<span id="search_link-add" class="mainButtons searchButton" data-boxsuffix="-add" title="Search">
+												<span>Search</span>
+												<i class="fa fa-search"></i>
+											</span>
+										</xsl:if>
 										<span id="span_list_select-add" class="like_select filter" title="Lists">
 											<div class="main_list_select">
 												<span data-value="none" class="label_selected">
@@ -363,12 +392,18 @@
 															</xsl:element>
 														</xsl:if>
 													</xsl:for-each>
-													<div class="option" data-value="all">Seleziona Tutto</div>
-													<div class="option" data-value="clean">Pulisci Selezione</div>
+													<div class="option" data-value="all">Select All</div>
+													<div class="option" data-value="clear">Clear Selection</div>
 												</div>
 											</div>
 										</span>
 									</div>
+								</xsl:if>
+								<xsl:if test="$image_frame=true()">
+									<xsl:if test="$document_navigation=true()">
+										<span id="inside_left_arrow-add"><i class="fa fa-chevron-up"></i></span>
+										<span id="inside_right_arrow-add"><i class="fa fa-chevron-down"></i></span>
+									</xsl:if>
 									
 									<div id="image_cont">
 										<div id="image_fade">
@@ -516,28 +551,28 @@
 								<div id="text_elem"/>
 							</div>
 							<xsl:if test="$search=true()">
-								<div id="search_cont" class="collapsed bottomBox">
+								<div id="search_cont" class="collapsed bottomBox searchContainer">
 									<div id="search_header" class="bottomBoxHeader">
-										<span id="toggle_search_cont" class="mainButtons" title="Apri/Chiudi Ricerca">
+										<span id="toggle_search_cont" class="mainButtons toggleSearchButton" data-boxsuffix=" " title="Apri/Chiudi Ricerca">
 											<i class='fa fa-angle-double-up'></i>
 										</span>
-										<span id="keyboard_link" class="mainButtons small" title="Apri/Chiudi Tastiera">
+										<span id="keyboard_link" class="mainButtons small searchKeyboardButton" data-boxsuffix="" title="Apri/Chiudi Tastiera">
 											<i class="fa fa-keyboard-o"></i>
 										</span>
 										<div id="tipue_search_input_div">
-											<input type="text" id="tipue_search_input" />
+											<input type="text" id="tipue_search_input" class="searchInput" data-boxsuffix=" "/>
 											<i class="fa fa-close clear_input" title="Clear search"></i>
 										</div>
-										<span id="start_search" class="mainButtons small" title="Avvia Ricerca">
+										<span id="start_search" class="mainButtons small searchStart" data-boxsuffix="" title="Avvia Ricerca">
 											<i class='fa fa-search'></i>
 										</span>
 									</div>
 									<div id="search_sub_header" class="bottomBoxSubHeader">
-										<div id="search_query">Enter your query into the search box above!</div>
-										<div id="search_results"></div>
+										<div id="search_query" class="searchQuery">Enter your query into the search box above!</div>
+										<div id="search_results" class="searchResults"></div>
 									</div>
 									<div id="search_cont_results" class="bottomBoxContent">
-										<div id="tipue_search_content"></div>
+										<div id="tipue_search_content" class="searchResultsContent"></div>
 									</div>
 									<div id="search_foot" class="bottomBoxFooter"></div>
 								</div>	
@@ -580,7 +615,7 @@
 							<!-- Text frame bottom menu -->
 							<div id="text_tool" class="bottom-menu">
 								<xsl:if test="$search=true()">
-									<span id="search_link" class="mainButtons" title="Search">
+									<span id="search_link" class="mainButtons searchButton" data-boxsuffix=" "  title="Search">
 										<span>Search</span>
 										<i class="fa fa-search"></i>
 									</span>
