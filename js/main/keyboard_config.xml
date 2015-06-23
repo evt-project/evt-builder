@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Configuration file for EVT virtual keyboards
+    Instructions:
+    - to add a new keyboard, simply add a new <keyboard /> tag after the first, specifing the correct
+    language code (e.g.: it, en, etc);
+    - add one or more key-group with <key-group /> to defined groups of key (vowels, consonants, etc);
+    - add one or more key <key /> into a key-group with the correct html entity code (if possible, use
+    the entity code, not the name).
+-->
 <keyboard-group>
     <keyboard code="ang">
         <key-group id='capital-vowels'>
