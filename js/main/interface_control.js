@@ -1087,11 +1087,28 @@ $(function() {
 
 	if ( $('#keyboard_link').length > 0 ) {
 		$('#keyboard_link').click(function(){
+
 			if ( !$(this).hasClass('inactive') && $('#keyboard').length > 0) {
+				var numKeys, newKeyboardHeight, newKeyboardWidth;
+				numKeys = $('.key').length;
+				newKeyboardHeight = (numKeys/9)*$('.key').outerHeight()+1;
+				newKeyboardWidth = numKeys/(numKeys/9)*$('.key').outerWidth()+2;
 				if ( !$('#search_cont').hasClass('collapsed') ) {
 					$('#keyboard').addClass('openDown');
+					var offsetTop = $(this).parents('.bottomBoxHeader').outerHeight()+2;
+					$('#keyboard').css({
+						'top': offsetTop,
+						'height': newKeyboardHeight,
+						'width': newKeyboardWidth
+					});
 				} else {
 					$('#keyboard').removeClass('openDown');
+					offsetTop = (numKeys/9)*$('.key').outerHeight()+2;
+					$('#keyboard').css({
+						'top': -offsetTop,
+						'height': newKeyboardHeight,
+						'width': newKeyboardWidth
+					});
 				}
 				
 				$('#keyboard').toggle();
