@@ -1091,7 +1091,11 @@ $(function() {
 			if ( !$(this).hasClass('inactive') && $('#keyboard').length > 0) {
 				var numKeys, newKeyboardHeight, newKeyboardWidth;
 				numKeys = $('.key').length;
-				newKeyboardHeight = (numKeys/9)*$('.key').outerHeight()+1;
+				if ( numKeys % 9 == 0 ) {
+					newKeyboardHeight = (numKeys/9)*$('.key').outerHeight()+1;
+				} else {
+					newKeyboardHeight = (numKeys/9)*$('.key').outerHeight()+1+$('.key').height();
+				}
 				newKeyboardWidth = numKeys/(numKeys/9)*$('.key').outerWidth()+2;
 				if ( !$('#search_cont').hasClass('collapsed') ) {
 					$('#keyboard').addClass('openDown');
@@ -1103,7 +1107,11 @@ $(function() {
 					});
 				} else {
 					$('#keyboard').removeClass('openDown');
-					offsetTop = (numKeys/9)*$('.key').outerHeight()+2;
+					if ( numKeys % 9 == 0 ) {
+						offsetTop = (numKeys/9)*$('.key').outerHeight()+2;
+					} else {
+						offsetTop = (numKeys/9)*$('.key').outerHeight()+2+$('.key').height();
+					}
 					$('#keyboard').css({
 						'top': -offsetTop,
 						'height': newKeyboardHeight,
