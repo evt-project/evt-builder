@@ -353,8 +353,13 @@ http://www.tipue.com/search
 
                                         out += '<div class="tipue_search_content_text">' + t_d + '</div>';
                                         out += '<div class="tipue_search_found_text">';
+<<<<<<< HEAD
                                         out += '<span class="tipue_search_go_to_result" onclick="window.location.hash = \'doc='+text_id+'&page='+page_id+'\'; $(\''+set.elements[8]+'\').trigger(\'click\');">';                                        
                                         out += 'found in ' +text_label + pos_label + ' (page ' + page_n  + ')</span></div>';
+=======
+                                        out += '<span class="tipue_search_go_to_result" onclick="window.location.hash = \'doc='+text_id+'&page='+page_id+'\'; $(\'#toggle_search_cont\').trigger(\'click\');">';                                        
+                                        out += 'found in ' + text_label + ' page ' + page_n  + ' ('+ pos_label + ')</span></div>';
+>>>>>>> 5fa0cea7fc0982cb6ef679f0eadb9866f4811fc0
                                         //out += '<p>-</p>';
                                         out += '<hr />';
                                         
