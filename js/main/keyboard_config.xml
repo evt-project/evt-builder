@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE keyboard-group SYSTEM "vk.dtd">
 <!--
     Configuration file for EVT virtual keyboards
     Instructions:
@@ -10,7 +11,7 @@
 -->
 <keyboard-group>
     <keyboard code="ang">
-        <key-group id='capital-vowels'>
+        <key-group name='capital-vowels'>
             <key id='capital-long-a'>&#256;</key>
             <key id='capital-long-e'>&#274;</key>
             <key id='capital-long-i'>&#298;</key>
@@ -27,7 +28,7 @@
             <key id='capital-y-acute'>&#221;</key>
             <key id='capital-ash-acute'>&#508;</key>
         </key-group>
-        <key-group id='lower-vowels'>
+        <key-group name='lower-vowels'>
             <key id='lower-long-a'>&#257;</key>
             <key id='lower-long-e'>&#275;</key>
             <key id='lower-long-i'>&#299;</key>
@@ -44,7 +45,7 @@
             <key id='lower-y-acute'>&#253;</key>
             <key id='lower-ash-acute'>&#509;</key>
         </key-group>
-        <key-group id='consonants'>
+        <key-group name='consonants'>
             <key id='capital-eth'>&#208;</key>
             <key id='lower-eth'>&#240;</key>
             <key id='capital-thorn'>&#222;</key>
@@ -58,7 +59,7 @@
             <key id='capital-g-dot'>&#288;</key>
             <key id='lower-g-dot'>&#289;</key>
         </key-group>
-        <key-group id='manuscript-conventions'>
+        <key-group name='manuscript-conventions'>
             <key id='amperagus-tironian-et'>&#8266;</key>
             <key id='thorn-with-slash'>&#42853;</key>
         </key-group>

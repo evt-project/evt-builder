@@ -1,0 +1,8 @@
+<!ELEMENT keyboard-group (keyboard+)>
+<!ELEMENT keyboard (key-group+)>
+<!ELEMENT key-group (key+)>
+<!ELEMENT key (#PCDATA)>
+
+<!ATTLIST keyboard code ID #REQUIRED>
+<!ATTLIST key-group name CDATA #IMPLIED>
+<!ATTLIST key id ID #REQUIRED>
