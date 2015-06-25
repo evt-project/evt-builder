@@ -79,7 +79,7 @@ http://www.tipue.com/search
                          {
                               tipuesearch_in = $.extend({}, json);
 							  console.log(tipuesearch_in);
-                              if ( $('#search_link').hasClass('active') && $('#search_query').attr('data-value') != '' ) {
+                              if ( $(set.elements[3]).hasClass('active') && $(set.elements[4]).attr('data-value') != '' ) {
                                    getTipueSearch(0, true);
                               }
                          }
@@ -103,46 +103,46 @@ http://www.tipue.com/search
                }
                if (getURLP('q'))
                {
-                    $('#tipue_search_input').val(getURLP('q'));
+                    $(set.elements[0]).val(getURLP('q'));
                     getTipueSearch(0, true);
                }                      
-               $('#start_search').click(function() {
+               $(set.elements[2]).click(function() {
 					// console.log("RICERCA ON");
 					// console.log(set.mode);
 					// console.log(set.contentLocation);
                		//if ($('#span_si').is(':visible')) {
-                              if ($('#tipue_search_input').val() != "") {
-	 						if ($('#text_elem').is(':visible')) {
-	 							//$('#text_elem').fadeOut(400);
+                              if ($(set.elements[0]).val() != "") {
+	 						if ($(set.elements[5]).is(':visible')) {
+	 							//$(set.elements[5]).fadeOut(400);
 								//$('#image_cont').css({opacity: "0.3"});
 								getTipueSearch(0, true);
-                    			     $('#search_query').html($('#tipue_search_input').val());
-                                        $('#search_query').attr('data-value', $('#tipue_search_input').val());
+                    			     $(set.elements[4]).html($(set.elements[0]).val());
+                                        $(set.elements[4]).attr('data-value', $(set.elements[0]).val());
 	 						}
 	 						else {
 								$('#keyboard').hide();
                     			     getTipueSearch(0, true);
-                    			     $('#search_query').html($('#tipue_search_input').val());
-                                        $('#search_query').attr('data-value', $('#tipue_search_input').val());
+                    			     $(set.elements[4]).html($(set.elements[0]).val());
+                                        $(set.elements[4]).attr('data-value', $(set.elements[0]).val());
                                    } 
                     	     } else {
-                                   $('#tipue_search_input').trigger('keyup');
-                                   $('#search_query').text('Enter your query into the search box above!');
-                                   $('#search_query').attr('data-value', '');
-                                   $('#tipue_search_content, #tipue_search_results_count, #search_foot').text('');
+                                   $(set.elements[0]).trigger('keyup');
+                                   $(set.elements[4]).text('Enter your query into the search box above!');
+                                   $(set.elements[4]).attr('data-value', '');
+                                   $(set.elements[1], '#tipue_search_results_count', set.elements[6]).text('');
                               }
                     	//} else {
-                         //   $('#tipue_search_content').html("<div>Enter your query into the search box above!</div>");
+                         //   $(set.elements[1]).html("<div>Enter your query into the search box above!</div>");
                          //}
                          
-                         if ( $('#search_cont').hasClass('collapsed') ) {
-                              $('#toggle_search_cont').trigger('click');
+                         if ( $(set.elements[7]).hasClass('collapsed') ) {
+                              $(set.elements[8]).trigger('click');
                          }
                          if ( $('#switchReg').hasClass('active') && $('#txtimg_link').hasClass('current_mode') ) {
                               $('#switchReg').trigger('click');
                          }
-                         if ($('#keyboard_link').hasClass('active')) {
-                              $('#keyboard_link').trigger('click');
+                         if ($(set.elements[9]).hasClass('active')) {
+                              $(set.elements[9]).trigger('click');
                          }
                     //}
                });
@@ -152,26 +152,26 @@ http://www.tipue.com/search
                     if(event.keyCode == '13')
                     {
                     	/*if ($('#span_si').is(':visible')) {
-                    		if ($('#tipue_search_input').val() != "") {
+                    		if ($(set.elements[0]).val() != "") {
                          		getTipueSearch(0, true);
-                         		$('#query').html($('#tipue_search_input').val());
+                         		$('#query').html($(set.elements[0]).val());
 						 	}
 						 	else
-						 	   $('#tipue_search_content').html("<div>Enter your query into the search box above!</div>");
+						 	   $(set.elements[1]).html("<div>Enter your query into the search box above!</div>");
 						}*/
-                         $("#start_search").trigger('click');
+                         $(set.elements[2]).trigger('click');
                     }
                });
 
                function getTipueSearch(start, replace)
                {
-                    $('#tipue_search_content').hide();
+                    $(set.elements[1]).hide();
                     var out = '';
                     var results = '';
                     var show_replace = false;
                     var show_stop = false;
                     
-                    var d = $('#tipue_search_input').val().toLowerCase();
+                    var d = $(set.elements[0]).val().toLowerCase();
                     d = $.trim(d);
                     var d_w = d.split(' ');
                     d = '';
@@ -273,19 +273,19 @@ http://www.tipue.com/search
                          {
                               if (show_replace == 1)
                               {
-                                   out += '<div id="tipue_search_warning_head">Showing results for ' + d + '</div>';
-                                   out += '<div id="tipue_search_warning">Search for <a href="javascript:void(0)" id="tipue_search_replaced">' + d_r + '</a></div>'; 
+                                   out += '<div id="tipue_search_warning_head' + set.addId + '">Showing results for ' + d + '</div>';
+                                   out += '<div id="tipue_search_warning' + set.addId + '">Search for <a href="javascript:void(0)" id="tipue_search_replaced' + set.addId + '">' + d_r + '</a></div>'; 
                               }
                               if (c == 1)
                               {
                                    //out += '<div id="tipue_search_results_count">1 result</div>';
-                                   $('#search_results').html('<div id="tipue_search_results_count">We have found 1 result into the ' + $("#span_ee_select .label_selected").text().toLowerCase() + ' edition.</div>');
+                                   $(set.elements[10]).html('<div id="tipue_search_results_count' + set.addId + '">We have found 1 result into the ' + $(set.elements[11] + " .label_selected").text().toLowerCase() + ' edition.</div>');
                               }
                               else
                               {
                                    c_c = c.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                                    // out += '<div id="tipue_search_results_count">' + 'We have found ' + c_c + ' results into the ' + $("#span_ee_select .label_selected").text().toLowerCase() + ' edition </div>';
-                                   $('#search_results').html('<div id="tipue_search_results_count">' + 'We have found ' + c_c + ' results into the ' + $("#span_ee_select .label_selected").text().toLowerCase() + ' edition.</div>');
+                                   $(set.elements[10]).html('<div id="tipue_search_results_count' + set.addId + '">' + 'We have found ' + c_c + ' results into the ' + $(set.elements[11] + " .label_selected").text().toLowerCase() + ' edition.</div>');
                               }
                               
                               found.sort();
@@ -353,7 +353,7 @@ http://www.tipue.com/search
 
                                         out += '<div class="tipue_search_content_text">' + t_d + '</div>';
                                         out += '<div class="tipue_search_found_text">';
-                                        out += '<span class="tipue_search_go_to_result" onclick="window.location.hash = \'doc='+text_id+'&page='+page_id+'\'; $(\'#toggle_search_cont\').trigger(\'click\');">';                                        
+                                        out += '<span class="tipue_search_go_to_result" onclick="window.location.hash = \'doc='+text_id+'&page='+page_id+'\'; $(\''+set.elements[8]+'\').trigger(\'click\');">';                                        
                                         out += 'found in ' +text_label + pos_label + ' (page ' + page_n  + ')</span></div>';
                                         //out += '<p>-</p>';
                                         out += '<hr />';
@@ -371,7 +371,7 @@ http://www.tipue.com/search
                                    var pages = Math.ceil(c / set.show);
                                    var page = (start / set.show);
                                    var foot_out = "";
-                                   foot_out += '<div id="tipue_search_foot"><ul id="tipue_search_foot_boxes">';
+                                   foot_out += '<div id="tipue_search_foot' + set.addId + '"><ul id="tipue_search_foot_boxes' + set.addId + '">';
                                    
                                    if (start > 0)
                                    {
@@ -425,38 +425,38 @@ http://www.tipue.com/search
                                    
                                    foot_out += '</ul></div>';
 
-                                   $('#search_foot').html(foot_out).show();
+                                   $(set.elements[6]).html(foot_out).show();
                               } else {
-                                   $('#search_foot').hide();
+                                   $(set.elements[6]).hide();
                               }                       
                          }
                          else
                          {
-                              out += '<div id="tipue_search_warning_head">Nothing found</div>';
+                              out += '<div id="tipue_search_warning_head' + set.addId + '">Nothing found</div>';
                          }
                     }
                     else
                     {
                          if (show_stop)
                          {
-                              out += '<div id="tipue_search_warning_head">Nothing found</div><div id="tipue_search_warning">Common words are largely ignored</div>';
+                              out += '<div id="tipue_search_warning_head' + set.addId + '">Nothing found</div><div id="tipue_search_warning' + set.addId + '">Common words are largely ignored</div>';
                          }
                          else
                          {
-                              out += '<div id="tipue_search_warning_head">Search too short</div>';
+                              out += '<div id="tipue_search_warning_head' + set.addId + '">Search too short</div>';
                               if (set.minimumLength == 1)
                               {
-                                   out += '<div id="tipue_search_warning">Should be one character or more</div>';
+                                   out += '<div id="tipue_search_warning' + set.addId + '">Should be one character or more</div>';
                               }
                               else
                               {
-                                   out += '<div id="tipue_search_warning">Should be ' + set.minimumLength + ' characters or more</div>';
+                                   out += '<div id="tipue_search_warning' + set.addId + '">Should be ' + set.minimumLength + ' characters or more</div>';
                               }
                          }
                     }
                
-                    $('#tipue_search_content').html(out);
-                    $('#tipue_search_content').slideDown(200);
+                    $(set.elements[1]).html(out);
+                    $(set.elements[1]).slideDown(200);
                     
                     $('#tipue_search_replaced').click(function()
                     {
