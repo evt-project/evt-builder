@@ -177,7 +177,7 @@
                                 <xsl:attribute name="n" select="@xml:id"></xsl:attribute>
                                 <xsl:attribute name="label">
                                     <xsl:call-template name="generateTextLabel">
-                                        <xsl:with-param name="text_id"><xsl:value-of select="@n"/></xsl:with-param>
+                                        <xsl:with-param name="text_id"><xsl:value-of select="@xml:id"/></xsl:with-param>
                                     </xsl:call-template>
                                 </xsl:attribute>
                                 <xsl:for-each select="current()/child::node()">
@@ -276,7 +276,7 @@
         </xsl:result-document>
     </xsl:template>
     
-    <!-- IT: ricorsione per generare correttamente gli elementi di <text> nella ET-->
+    <!-- IT: ricorsione per generare correttamente gli elementi di <text> nella ET -->
     <xsl:template name="textFromSourceDoc">
         <xsl:if test="self::tei:surface">
             <xsl:for-each select="current()">

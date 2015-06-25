@@ -180,4 +180,8 @@
 			<xsl:call-template name="pagesInSourceDoc" />	
 		</xsl:for-each-group>
 	</xsl:template>
+	
+	<xsl:template match="*" mode="file4search4embedded">
+		<xsl:call-template name="search_file4embedded"/>
+	</xsl:template>
 </xsl:stylesheet>
