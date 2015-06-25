@@ -1800,7 +1800,8 @@ div.doc.not_current:hover{
 	margin-bottom: 10px;
 	font-size: 90%;
 }
-#tipue_search_results_count, #tipue_search_results_count-add {
+#tipue_search_results_count, #tipue_search_results_count-add,
+.tipue_search_results_count {
 	font-size: 90%;
 	text-align: center;
 	margin-bottom: 10px;

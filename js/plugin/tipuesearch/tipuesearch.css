@@ -73,7 +73,7 @@ http://www.tipue.com/search
 {
      color: #333;  
 }
-#tipue_search_results_count
+#tipue_search_results_count, .tipue_search_results_count
 {
      font: 13px/1.6 'Open Sans', sans-serif;
 	color: #333;

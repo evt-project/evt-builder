@@ -633,7 +633,6 @@ $(function() {
 			/* SELECT EDITION LEVEL / SWITCH ON/OFF REGESTO */
 			$('.main_ee_select .option_container .option').click(function(){
 				if ( ! $(this).hasClass('selected') ) {
-					// #CDP. Se il regesto è visibile, lo chiudo
 					var regesto_button, regesto_cont;
 					var temp_frame, temp_parent;
 					var other_frame, other_parent;
@@ -709,10 +708,10 @@ $(function() {
 									.css('opacity', "0.5")
 									.addClass('not_active'); 
 					}
-
-					if ($(regesto_cont).is(":visible")) {
+				
+					if ($(regesto_cont).length > 0 && $(regesto_cont).is(":visible")) {
 						$(regesto_button).trigger('click');
-					}
+					} 
 
     				if ( other_frame != "" && other_parent != "" ) {
     					var other_ee_elem, other_ee_val;
@@ -749,7 +748,6 @@ $(function() {
 											.css('opacity', "0.5")
 											.addClass('not_active'); 
 							}
-
 	    					gotoedition(pp_val, other_ee_val, other_frame, other_parent);
     					} else {
     						gotoedition(pp_val, ee_val, temp_frame, temp_parent);
@@ -3529,8 +3527,8 @@ $(function() {
 				$('#span_ee_select-add').css({display: "inline-block"});
 				//$('#switchReg-add').css({display: "inline-block"});
 				//$("#span_ee_select-add").show();
-
-				$('#span_ee_select-add .option_container .option:nth-child(2)').trigger('click');
+				var current_right_edition = $('#span_ee_select').find('.label_selected').attr('data-value');
+				$("#span_ee_select-add .option_container .option[data-value!='"+current_right_edition+"']:first").trigger('click');
 			}
 
 			//fitFrame();
