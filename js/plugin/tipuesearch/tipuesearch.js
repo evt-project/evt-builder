@@ -73,12 +73,12 @@ http://www.tipue.com/search
                if (set.mode == 'json')
                {
 					// console.log("SONO IN MODE JSON");
-					console.log(set.contentLocation);
+					// console.log(set.contentLocation);
                     $.getJSON(set.contentLocation,
                          function(json)
                          {
                               tipuesearch_in = $.extend({}, json);
-							  console.log(tipuesearch_in);
+							  // console.log(tipuesearch_in);
                               if ( $(set.elements[3]).hasClass('active') && $(set.elements[4]).attr('data-value') != '' ) {
                                    getTipueSearch(0, true);
                               }
