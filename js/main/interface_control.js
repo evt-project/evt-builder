@@ -62,7 +62,7 @@ $(function() {
 				var current_id = $(this).text();
 				$('.main_ee_select .option_container').append(
 					$('<div/>')
-						.attr("data-value", current_id)
+						.attr("data-value", current_id.toLowerCase())
 						.addClass('option')
 						.text(current_id)
 				);
@@ -78,7 +78,7 @@ $(function() {
 
 			$('.main_ee_select .label_selected')
 				.text($('.main_ee_select .option_container div:first').text())
-				.attr("data-value", $('.main_ee_select .option_container div:first').text());
+				.attr("data-value", $('.main_ee_select .option_container div:first').attr('data-value'));
 
 
 			first_pp = $(xml).find('pages pair pb').first().text();
@@ -603,6 +603,7 @@ $(function() {
 			/* SELECT TEXT */
 			$('.main_tt_select .option_container .option').click(function() {
 				if(! $(this).hasClass('selected')){
+					$(this).addClass('selected');
 					var new_tt_opt, new_tt_val, new_tt_first_page;
 					var current_pp_val;
 
@@ -634,36 +635,37 @@ $(function() {
 			$('.main_ee_select .option_container .option').click(function(){
 				if ( ! $(this).hasClass('selected') ) {
 					var regesto_button, regesto_cont;
-					var temp_frame, temp_parent;
+					var contextual_frame, contextual_parent;
 					var other_frame, other_parent;
 					var other_ee_select, other_ee_select_val;
 					var pp_val, ee_val;
-    				var tt_val;
+    				var tt_val
     				
     				pp_val = $('#span_pp_select .label_selected').attr('data-value');
     				tt_val = $('#span_pp_select .label_selected').attr('data-first-doc');
-    				ee_val = $(this).text().toLowerCase();
+    				ee_val = $(this).attr('data-value').toLowerCase();
 
-    				temp_frame = "";
-    				temp_parent = "";
+    				contextual_frame = "";
+    				contextual_parent = "";
 
     				other_frame = "";
     				other_parent = "";
-					// Edition Select in text-add frame
+					
+					// Se ho cliccato su un elemento del selettore di sinistra
 					if ($(this).parents(".like_select").attr("id") === "span_ee_select-add") {
+						// Dovrò agire sul regesto a sinistra...
 						regesto_button = "#switchReg-add";
 						regesto_cont = "#regesto_cont-add";
 
-						other_ee_select_val = $('#span_ee_select .label_selected').text().toLowerCase();
-						// se sto cliccando lo stesso livello di edizione dell'altro frame
-						if ( other_ee_select_val === ee_val ) {
-							other_frame = "text_elem";
-							other_parent = "text_cont";
-							other_ee_select = "#span_ee_select";
-						}
-						
-						temp_frame = "text_elem-add";
-    					temp_parent = "text_cont-add";
+						// ...sui contenitori testuali di sinistra...
+						contextual_frame = "text_elem-add";
+    					contextual_parent = "text_cont-add";
+
+    					// ... e sui selettori e contenitori testuali di destra
+						other_ee_select = "span_ee_select";
+
+    					other_frame = "text_elem";
+						other_parent = "text_cont";
 
     					if ( $('#main_right_frame .like_select.filter').find('.option.selected').length > 0 ) {
 							$('#main_right_frame .like_select.filter').find('.option.selected').each(function() {
@@ -676,84 +678,93 @@ $(function() {
 								}
 							});
 						}
-
 					} 
-					// Main Edition Select
+					// Se ho cliccato su un elemento del selettore di destra
 					else {
+						// Dovrò agire sul regesto a destra...
 						regesto_button = "#switchReg";
 						regesto_cont = "#regesto_cont";
+						// ...sui contenitori testuali di sinistra...
+						contextual_frame = "text_elem";
+    					contextual_parent = "text_cont";
 
-						other_ee_select_val = $('#span_ee_select-add .label_selected').text().toLowerCase();
+    					// ... e sui selettori e contenitori testuali di destra
+						other_ee_select = "span_ee_select-add";
 
-						if ( other_ee_select_val === ee_val ) {
-							other_frame = "text_elem-add";
-							other_parent = "text_cont-add";
-							other_ee_select = "#span_ee_select-add";
-						}
+						other_frame = "text_elem-add";
+						other_parent = "text_cont-add";
 
-						temp_frame = "text_elem";
-    					temp_parent = "text_cont";
 					}
+					other_ee_select_val = $('#'+other_ee_select).find('.label_selected').attr('data-value').toLowerCase();
 					
-					if ( ee_val != 'diplomatic' ){ // Disattivare filtri liste nell'edizione diplomatica
-						$("#"+temp_parent)
+					// Faccio un controllo sul livello di edizione da attivare sul frame corrente
+					// e se sto passando all'edizione diplomatica disattivo i filtri e le liste
+					if ( ee_val != 'diplomatic' ){ 
+						$("#"+contextual_parent)
 							.parents("div[id*='frame']")
 								.find('.like_select.filter')
 									.css('opacity', "1")
 									.removeClass('not_active'); 
 					} else {
-						$("#"+temp_parent)
+						$("#"+contextual_parent)
 							.parents("div[id*='frame']")
 								.find('.like_select.filter')
 									.css('opacity', "0.5")
 									.addClass('not_active'); 
 					}
 				
+					// Se ho il regesto, e questo è aperto, lo chiudo
 					if ($(regesto_cont).length > 0 && $(regesto_cont).is(":visible")) {
 						$(regesto_button).trigger('click');
-					} 
+					}
 
-    				if ( other_frame != "" && other_parent != "" ) {
-    					var other_ee_elem, other_ee_val;
-    					if( $(other_ee_select).find('.option.selected').next().length > 0 ) {
-    						other_ee_elem = $(other_ee_select).find('.option.selected').next()
-    					} else {
-    						other_ee_elem = $(other_ee_select).find('.option.selected').prev();
-    					}
-    					if ( other_ee_elem.attr('data-value') != undefined ) {
-    						other_ee_val = other_ee_elem.attr('data-value').toLowerCase();
-	    					other_ee_elem
-	    						.addClass('selected')
-	    						.siblings('.selected')
-	    							.removeClass('selected');
+					// Se sto selezionando lo stesso livello attivo nell'altro frame
+    				if ( other_ee_select_val === ee_val ) {
+    					// Cerco un nuovo elemento da selezionare nell'altro frame
+    					// e me ne salvo il valore
+    					var other_ee_elem_to_select, other_ee_val;
+    					other_ee_elem_to_select = $('#'+other_ee_select).find(".option[data-value!='"+ee_val+"']:first");
+    					other_ee_val = other_ee_elem_to_select.attr('data-value').toLowerCase();
 
-	    					$(other_ee_select)
-	    						.find('.label_selected')
-	    							.attr('data-value', other_ee_val)
-	    							.text(other_ee_elem.text());
+    					$('#'+other_ee_select)
+							.find(".option[data-value='"+other_ee_val+"']").addClass('selected')
+							.siblings('.option')
+							.removeClass('selected');
+						
+						$('#'+other_ee_select)
+		    						.find('.label_selected')
+		    							.attr('data-value', other_ee_val)
+		    							.text(other_ee_elem_to_select.text());
 
-							if ( (other_ee_val != 'diplomatic') &&
-								 (!$("#"+other_parent).parents("div[id*='frame']").find('.toggleReg').hasClass('active'))){ // Disattivare filtri liste nell'edizione diplomatica
-								
+    					// Se il valore dell'elemento da selezionare nell'altro frame non è indefinito né vuoto
+    					if ( other_ee_val != undefined && other_ee_val != '' ) {
+    						
+    						// Se sto attivando l'edizione diplomatica nell'altro frame
+    						// Disattivo le liste e i filtri
+							if ( (other_ee_val != 'diplomatic') && (!$("#"+other_parent).parents("div[id*='frame']").find('.toggleReg').hasClass('active'))) {
 								$("#"+other_parent)
-								.parents("div[id*='frame']")
+									.parents("div[id*='frame']")
 									.find('.like_select.filter')
 										.css('opacity', "1")
 										.removeClass('not_active'); 
 							} else {
-								
 								$("#"+other_parent)
 									.parents("div[id*='frame']")
 										.find('.like_select.filter')
 											.css('opacity', "0.5")
 											.addClass('not_active'); 
 							}
+							// carico nell'altro frame il nuovo livello di edizione trovato
 	    					gotoedition(pp_val, other_ee_val, other_frame, other_parent);
-    					} else {
-    						gotoedition(pp_val, ee_val, temp_frame, temp_parent);
+    					} 
+    					else {
+    						// altrimenti...
+    						gotoedition(pp_val, ee_val, contextual_frame, contextual_parent);
     					}
     				}
-    				gotoedition(pp_val, ee_val, temp_frame, temp_parent);
+    				// Altrimenti lascio stare l'altro frame così com'è 
+					// e carico nel frame contestuale al click il testo del livello di edizione selezionato
+    				gotoedition(pp_val, ee_val, contextual_frame, contextual_parent);
 				}
 			});
 			
@@ -849,10 +860,11 @@ $(function() {
 						}
 					}*/
 
-					$(".option[data-value!='"+option_sel_value+"']")
-						.removeClass('selected');
-					// $(this)
-					// 	.addClass('selected');
+					$(this).parents('.like_select')
+						.find(".option[data-value!='"+option_sel_value+"']")
+							.removeClass('selected');
+					$(this)
+						.addClass('selected');
 					if ($(this).parents('.option_container').is(':visible')) {
 						if($(this).parents('.option_container').hasClass('up')){
 					       $(this).parents('.option_container').animate({
@@ -1210,6 +1222,7 @@ $(function() {
 		if (search_keyboardButton.hasClass('active')) {
 			search_keyboardButton.trigger('click');
 		}
+		InitializeSearch();
 	}
 
 	function scrollDownSearchContainer(speed, searchCont){
