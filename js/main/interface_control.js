@@ -2436,8 +2436,11 @@ $(function() {
 		// $('.menu-box:visible').each(function(){
 		// 	new_container_height -= $(this).height();
 		// });
-		$("div[id*='main_']").each(function(){
+		
+		$("#central_wrapper div[id*='main_']").each(function(){
+			// Se nel frame i box in basso sono tutti chiusi
 			if( $(this).find('.bottomBoxOpened').length == 0 ) {
+				// Ricalcolo l'altezza del frame in modo che riempia tutto lo spazio
 				new_container_height = $(this).height();
 				if ( !$(this).find('header').hasClass('menuClosed') ) {
 					new_container_height -= $(this).find('header').height();
@@ -2445,31 +2448,29 @@ $(function() {
 						new_container_height -= $(this).find('.bottom-menu').height();
 					}
 				}
-				$('.text-box.height-changed')
+				$(this).find('.text-box.height-changed')
 					.removeClass('height-changed')
 					.css({'height': new_container_height+'px'});
-			}
-		});
-
-		if ( $('.bottomBoxOpened').length > 0 ) {
-			$('.bottomBoxHeader:visible').each(function(){
-				mainContainer = $(this).parents("div[id*='frame']");
-				mainContainerHeight = mainContainer.height();
-				bottomBoxHeaderHeight = $(this).height() + 2;
+			} 
+			// Invece se il box in basso del frame è aperto
+			// ricalcolo l'altezza sulla base dell'header di tale box
+			else {
+				mainContainerHeight = $(this).height();
+				bottomBoxHeaderHeight = $(this).find('.bottomBoxOpened .bottomBoxHeader:visible').height() + 2;
 				
-				if(mainContainer.find('header').hasClass('menuClosed')){
+				if($(this).find('header').hasClass('menuClosed')){
 					new_container_height = mainContainerHeight - bottomBoxHeaderHeight;
-					$('.bottomBox:visible')
+					$(this).find('.bottomBox:visible')
 						.animate({height: mainContainerHeight+'px'}, 'fast');
 				} else {
 					//old_container_height = $('#main_left_frame').height()-$('#left_header').height()-$('#image_tool').height();
-					new_container_height = mainContainerHeight - bottomBoxHeaderHeight - (mainContainer.find('header').height()*2);
+					new_container_height = mainContainerHeight - bottomBoxHeaderHeight - ($(this).find('header').height()*2);
 				}
 
 				// $('.text-box')
 				// 	.removeClass('height-changed')
 				// 	.css({'height': (new_container_height+bottomBoxHeaderHeight+2)+'px'});
-				mainContainer
+				$(this)
 					.find('.text-box')
 						.each(function(){
 							if ( !$(this).hasClass('height-changed') ) {
@@ -2478,8 +2479,8 @@ $(function() {
 									.animate({'height': new_container_height}, 'fast');
 							}
 						});
-			});
-		}
+			}
+		});
 	}
 	// Gestione lunghezza delle select sulla base della option più lunga
 	function updateSelectLength(elem){
