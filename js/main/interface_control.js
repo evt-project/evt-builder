@@ -1095,41 +1095,44 @@ $(function() {
 		setSearchClosedPosition();
 	}
 
-	if ( $('#keyboard_link').length > 0 ) {
-		$('#keyboard_link').click(function(){
-
-			if ( !$(this).hasClass('inactive') && $('#keyboard').length > 0) {
+	if ( $('.searchKeyboardButton').length > 0 ) {
+		$('.searchKeyboardButton').click(function(){
+			if ( !$(this).hasClass('inactive') && $('.keyboardSearch').length > 0) {
 				var numKeys, newKeyboardHeight, newKeyboardWidth;
-				numKeys = $('.key').length;
+				var search_cont, keyboard;
+				search_cont = $(this).parents('.searchContainer:first');
+				keyboard = search_cont.find('.keyboardSearch');
+				numKeys = $(keyboard).find('.key').length;
 				if ( numKeys % 9 == 0 ) {
-					newKeyboardHeight = (numKeys/9)*$('.key').outerHeight()+1;
+					newKeyboardHeight = (numKeys/9)*$(keyboard).find('.key').outerHeight()+1;
 				} else {
-					newKeyboardHeight = (numKeys/9)*$('.key').outerHeight()+1+$('.key').height();
+					newKeyboardHeight = (numKeys/9)*$(keyboard).find('.key').outerHeight()+1+$('.key').height();
 				}
-				newKeyboardWidth = numKeys/(numKeys/9)*$('.key').outerWidth()+2;
-				if ( !$('#search_cont').hasClass('collapsed') ) {
-					$('#keyboard').addClass('openDown');
+				newKeyboardWidth = numKeys/(numKeys/9)*$(keyboard).find('.key').outerWidth()+2;
+				
+				if ( !search_cont.hasClass('collapsed') ) {
+					keyboard.addClass('openDown');
 					var offsetTop = $(this).parents('.bottomBoxHeader').outerHeight()+2;
-					$('#keyboard').css({
+					keyboard.css({
 						'top': offsetTop,
 						'height': newKeyboardHeight,
 						'width': newKeyboardWidth
 					});
 				} else {
-					$('#keyboard').removeClass('openDown');
+					keyboard.removeClass('openDown');
 					if ( numKeys % 9 == 0 ) {
-						offsetTop = (numKeys/9)*$('.key').outerHeight()+2;
+						offsetTop = (numKeys/9)*$(keyboard).find('.key').outerHeight()+2;
 					} else {
-						offsetTop = (numKeys/9)*$('.key').outerHeight()+2+$('.key').height();
+						offsetTop = (numKeys/9)*$(keyboard).find('.key').outerHeight()+2+$('.key').height();
 					}
-					$('#keyboard').css({
+					keyboard.css({
 						'top': -offsetTop,
 						'height': newKeyboardHeight,
 						'width': newKeyboardWidth
 					});
 				}
 				
-				$('#keyboard').toggle();
+				keyboard.toggle();
 				$(this).toggleClass('active');
 			}
 		});

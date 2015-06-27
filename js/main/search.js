@@ -49,11 +49,20 @@ $(function() {
 	
 	// "Tastiera" per la ricerca
 	// Inizio tastiera virtuale
-	var queryInput = document.getElementById("tipue_search_input");
+	var queryInput;
+    // = document.getElementById("tipue_search_input");
     var search_box = document.getElementById("search_cont");
+    var search_box_add = document.getElementById("search_cont-add");
     var keyboard = document.createElement('div');
+    var keyboard_add = document.createElement('div');
+    
     keyboard.setAttribute('id', 'keyboard');
+    keyboard.className = 'keyboardSearch';
     keyboard.style.display = "none";
+
+    keyboard_add.setAttribute('id', 'keyboard-add');
+    keyboard_add.className = 'keyboardSearch';
+    keyboard_add.style.display = "none";
 
     // var keyboard = document.getElementById("keyboard");
     // queryInput.onfocus = function () {
@@ -84,12 +93,19 @@ $(function() {
 
     // Tasti
     var keys = document.createDocumentFragment();
+    var keys_add = document.createDocumentFragment();
     for (var i in key_list) {
         var button = document.createElement('span');
         button.setAttribute('class','key');
         button.appendChild(document.createTextNode(key_list[i]));
-        button.onclick = makeOnClick(queryInput, key_list[i]);
+        button.onclick = makeOnClick(key_list[i]);
         keys.appendChild(button);
+
+        var button_add = document.createElement('span');
+        button_add.setAttribute('class','key');
+        button_add.appendChild(document.createTextNode(key_list[i]));
+        button_add.onclick = makeOnClick(key_list[i]);
+        keys_add.appendChild(button_add);
     }
 
     // Backspace
@@ -97,20 +113,36 @@ $(function() {
     backspace.setAttribute('class','key');
     backspace.appendChild(document.createTextNode('<-'));
     backspace.onclick = function() {
+        queryInput = this.parentNode.parentNode.getElementsByClassName('searchInput')[0];
         queryInput.value = queryInput.value.slice(0, queryInput.value.length - 1);
         queryInput.focus();
-        $('#tipue_search_input').keyup();
+        $('#'+queryInput).keyup();
+    }
+
+    var backspace_add = document.createElement('span');
+    backspace_add.setAttribute('class','key');
+    backspace_add.appendChild(document.createTextNode('<-'));
+    backspace_add.onclick = function() {
+        queryInput = this.parentNode.parentNode.getElementsByClassName('searchInput')[0];
+        queryInput.value = queryInput.value.slice(0, queryInput.value.length - 1);
+        queryInput.focus();
+        $('#'+queryInput.id).keyup();
     }
     keys.appendChild(backspace);
     keyboard.appendChild(keys);
-    
     search_box.appendChild(keyboard);
+
+    keys_add.appendChild(backspace_add);
+    keyboard_add.appendChild(keys_add);
+    search_box_add.appendChild(keyboard_add);
+
     // Gestione onclick
-    function makeOnClick(field, x) {
+    function makeOnClick(x) {
         return function() {
+            field = this.parentNode.parentNode.getElementsByClassName('searchInput')[0];
             field.value += x;
             field.focus();
-            $('#tipue_search_input').keyup();
+            $('#'+field.id).keyup();
         };
     }
     /* Disabilito pulsante TASTIERA VIRTUALE nella ricerca se non presente */
