@@ -649,9 +649,9 @@
 												<i class="fa fa-circle filter_color"></i>
 												Select All
 											</div>
-											<div class="option" data-value="clean">
+											<div class="option" data-value="clear">
 												<i class="fa fa-circle-o filter_color"></i>
-												Clean Selection
+												Clear Selection
 											</div>
 										</div>
 									</div>
