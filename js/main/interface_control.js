@@ -2652,8 +2652,7 @@ $(function() {
 		$('#right_header .like_select, #right_header .mainButtons').each(function(){
 			right_menu_width += $(this).outerWidth() + 8; //4px margin
 		}); 
-		console.log(right_menu_width);
-		console.log($('#right_header').innerWidth());
+		
 		if ( right_menu_width > $('#right_header').innerWidth()) {
 			var diff = right_menu_width - $('#right_header').innerWidth();
 			var remove_width = diff/$('#right_header .like_select').length;
