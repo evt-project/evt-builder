@@ -2627,8 +2627,6 @@ $(function() {
 		$('#left_header .like_select, #left_header .mainButtons').each(function(){
 			left_menu_width += $(this).outerWidth() + 8; //4px margin
 		}); 
-		console.log(left_menu_width);
-		console.log($('#left_header').innerWidth());
 		if ( left_menu_width > $('#left_header').innerWidth()) {
 			var diff = left_menu_width - $('#left_header').innerWidth();
 			var remove_width = diff/$('#left_header .like_select').length;
@@ -3052,7 +3050,7 @@ $(function() {
 			}
 
 			if ( $('.bottomBox:visible').hasClass('collapsed') ) {
-				$('.bottomBox:visible').css('top', noMenu_height-$('.bottomBox:visible').find('.bottomBoxHeader').outerHeight() - 1);
+				$('.bottomBox:visible').css('top', noMenu_height-$('.bottomBox:visible').find('.bottomBoxHeader').outerHeight() - 2);
 			}
 			
 			// LEFT FRAME
@@ -3270,6 +3268,7 @@ $(function() {
 		} else {
 			// chiudi il div della ricerca
 			if ( $('#search_link').length > 0 && $('#search_link').hasClass('active') ) {
+				var boxSuffix = $('#search_link.active').attr('data-boxsuffix');
 				closeSearchBox('fast', boxSuffix);
 			}
 			openListsBox(speed);

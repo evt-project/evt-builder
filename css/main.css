@@ -996,6 +996,9 @@ footer{
 #text_tool .mainButtons, #text_tool-add .mainButtons {
 	top:7px;
 }
+#text_tool-add #search_link-add {
+	top:0px;
+}
 #right_header .like_select{
 	#left:-8px;
 	display: inline-block;
@@ -1860,17 +1863,15 @@ div.doc.not_current:hover{
 	color: rgb(245, 234, 212);
 	background: none repeat scroll 0% 0% rgb(54, 45, 40);
 	position: absolute;
-	padding: 0px 20px;
+	/*padding: 0px 20px;
 	padding-top: 2px;
-	padding-left: 35px;
+	padding-left: 35px;*/
+	padding:1px 0px 2px 0px;
 	left: 1px;
 	margin-top: 1px;
 	right: 1px;
-	#box-shadow: 0px 1px 3px -1px #000;
+	/*box-shadow: 0px 1px 3px -1px #000;*/
 	height: 30px;	
-}
-#search_header, #search_header-add {
-	padding-right: 1px;
 }
 #search_header .mainButtons.small, #search_header-add .mainButtons.small,
 #tipue_search_input_div, #tipue_search_input_div-add {
@@ -1885,9 +1886,10 @@ div.doc.not_current:hover{
 #list_header #toggle_list_cont, 
 #search_header #toggle_search_cont, #search_header-add #toggle_search_cont-add {
 	min-width: 0;
-	left: -2px;
-	position: absolute;
-	#border-radius: 0px;
+	/*left: -2px;*/
+	left: 0px;
+	position: relative;
+	/*border-radius: 0px;*/
 	padding:0px 5px;
 	-moz-box-shadow: none;
 	-webkit-box-shadow: none;
@@ -1895,6 +1897,7 @@ div.doc.not_current:hover{
 	-khtml-box-shadow: none;
 	-ms-box-shadow: none;
 	box-shadow: none;
+	margin: 0px 3px 0px 2px;
 }
 
 #search_header #toggle_search_cont:hover, #search_header-add #toggle_search_cont-add:hover,
@@ -1911,12 +1914,15 @@ div.doc.not_current:hover{
 #toggle_search_cont, #toggle_search_cont-add {
 	border-top-right-radius: 0px;
 	border-bottom-right-radius: 0px;	
+	margin-right: 2px !important;
 }
 #keyboard_link, #keyboard_link-add {
 	border-radius: 0px;	
 	margin: 0px;
 	box-shadow: none;
+	min-width: 28.5px;
 }
+
 #keyboard, #keyboard-add  {
     display: none;
 	position: absolute;
@@ -1952,16 +1958,36 @@ div.doc.not_current:hover{
 	min-width: 28.5px;
 	box-shadow: none;
 }
+
+#keyboard_link, #keyboard_link-add, 
+#toggle_search_cont, #toggle_search_cont-add,
+#start_search, #start_search-add {
+	top: calc(0% - 10.5px);
+	top: -moz-calc(0% - 10.5px);
+	top: -webkit-calc(0% - 11px);
+	height:29px;
+	/*display: inline;*/
+}
+#keyboard_link.small.small, #keyboard_link-add.small, 
+#toggle_search_cont.small, #toggle_search_cont-add.small,
+#start_search.small, #start_search-add.small {
+	top:0px;
+}
+#toggle_list_cont{
+	height:29px;
+	top:-1px;
+}
 #tipue_search_input_div, #tipue_search_input_div-add{
-	width: -webkit-calc(100% - 63px);
-    width: -moz-calc(100% - 63px);
-    width: calc(100% - 63px);
-	display: inline-block;
+	width: -webkit-calc(100% - 99px);
+    width: -moz-calc(100% - 99px);
+    width: calc(100% - 99px);
   	display: inline-block;
   	margin: 0 2px;
-  	height: 28px;
+  	margin-top: 1px;
+  	height: 29px;
 	background: #fff;
 }
+
 .clear_input {
 	position: absolute;
 	right: 6px;
@@ -2035,7 +2061,7 @@ div.doc.not_current:hover{
 	#border-right: 1px solid rgb(227, 200, 156);
 	padding-right: 15px;
 	padding-left: 15px;
-	top: -1px;
+	top: 1px;
 	min-height: 28px;
 	display: inline-block;
 }
