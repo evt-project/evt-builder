@@ -24,7 +24,7 @@ $(function() {
     }, false);
 	var params2 = [];
 	ee_label_right.addEventListener("DOMAttrModified", function(e) {
-		if (params2.length == 0) {
+        if (params2.length == 0) {
 			params2.push('#tipue_search_input', '#tipue_search_content', '#start_search', '#search_link', '#search_query', '#text_elem', '#search_foot',
 			'#search_cont', '#toggle_search_cont', '#keyboard_link', '#search_results', "#span_ee_select");
 		}
