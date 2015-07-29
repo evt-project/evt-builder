@@ -340,7 +340,7 @@
 								<xsl:if test="$search=true()">
 									<div id="search_cont-add" class="collapsed bottomBox searchContainer">
 										<div id="search_header-add" class="bottomBoxHeader">
-											<span id="toggle_search_cont-add" class="mainButtons toggleSearchButton" data-boxsuffix="-add" title="Apri/Chiudi Ricerca">
+											<span id="toggle_search_cont-add" class="mainButtons small toggleSearchButton" data-boxsuffix="-add" title="Apri/Chiudi Ricerca">
 												<i class='fa fa-angle-double-up'></i>
 											</span>
 											<span id="keyboard_link-add" class="mainButtons small searchKeyboardButton" data-boxsuffix="-add" title="Apri/Chiudi Tastiera">
@@ -553,7 +553,7 @@
 							<xsl:if test="$search=true()">
 								<div id="search_cont" class="collapsed bottomBox searchContainer">
 									<div id="search_header" class="bottomBoxHeader">
-										<span id="toggle_search_cont" class="mainButtons toggleSearchButton" data-boxsuffix=" " title="Apri/Chiudi Ricerca">
+										<span id="toggle_search_cont" class="mainButtons small toggleSearchButton" data-boxsuffix=" " title="Apri/Chiudi Ricerca">
 											<i class='fa fa-angle-double-up'></i>
 										</span>
 										<span id="keyboard_link" class="mainButtons small searchKeyboardButton" data-boxsuffix="" title="Apri/Chiudi Tastiera">

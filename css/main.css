@@ -1975,7 +1975,7 @@ div.doc.not_current:hover{
 	height:29px;
 	/*display: inline;*/
 }
-#keyboard_link.small.small, #keyboard_link-add.small, 
+#keyboard_link.small, #keyboard_link-add.small, 
 #toggle_search_cont.small, #toggle_search_cont-add.small,
 #start_search.small, #start_search-add.small {
 	top:0px;
