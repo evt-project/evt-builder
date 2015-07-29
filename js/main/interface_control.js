@@ -1051,7 +1051,7 @@ $(function() {
 					if($('#txt_single').attr('class')==="current_mode"){ $('#header_collapse').css("left",'15px'); }
 					// IT: Cambia il titolo della pagina in base all'hash
 					//document.title = 'The hash is ' + ( hash.replace( /^#/, '' ) || 'blank' ) + '.';
-				    
+				    resizeButtonsAndSelects();
 				});
 				
 				// IT: Al primo caricamento aggiorno l'id della pagina in modo che indichi pagina singola
@@ -2490,49 +2490,48 @@ $(function() {
 	// Gestione lunghezza delle select sulla base della option più lunga
 	function updateSelectLength(elem){
 		var widthSel, widthOpt;
-		// Calcolo la larghezza del div figlio di .like_select
-		widthSel = $(elem).find('div').width();
-		// Calcolo la larghezza del div.option_container, aggiungendo 10 per via del padding 
-		widthOpt = $(elem).find('.option_container').width()+10;
-		// Se la larghezza del contenitore esterno è maggiore di quella delle option aggiorno l'option_container e ristemo il genitore	
-		if(widthSel > widthOpt){
-			
-			// Imposto la larghezza dell'option container secondo quella del div figlio di .like_select
-			$(elem)
-				.find('.option_container')
-					.css('width', widthSel)
-					.attr('data-first-load-width', widthSel);
+		widthSel = $(elem).outerWidth();
 
-			// Ricalcolo la dimensione dell'option_container, sempre aggiungendo 10 per il padding
-			widthOpt = $(elem).find('.option_container').width()+10;
-			// Se la nuova dimensione di option_container è maggiore di quella del div figlio di .like_select
-			// (Ovvero se le opzioni "sbordano")
-			// Aggiorno nuovamente la larghezza del div .like_select sulla base della nuova larghezza di option_container
-			if(widthSel < widthOpt){
-				$(elem)
-					.css('width', widthOpt)
-					.attr('data-first-load-width', widthOpt);
-			}
-		}
-		// Se altrimenti il contenitore delle option è più largo in partenza aggiorno il genitore
-		else {
+		// // Calcolo la larghezza del div figlio di .like_select
+		// widthSel = $(elem).find('div').width();
+		// // Calcolo la larghezza del div.option_container, aggiungendo 10 per via del padding 
+		// widthOpt = $(elem).find('.option_container').width()+10;
+		// // Se la larghezza del contenitore esterno è maggiore di quella delle option aggiorno l'option_container e ristemo il genitore	
+		// if(widthSel > widthOpt){
 			
-			// imposto la larghezza di .like_select sulla base di quella di option_container, 
-			// aggiungendo 14 per via del div per l'apertura
-			$(elem)
-				.css('width', widthOpt+14)
-				.attr('data-first-load-width', widthOpt+14);
-			// Poi aggiorno la dimensione dell'option_container, aggiungendo i 4px che mi permettono di allinearla al div figlio di .like_select
-			$(elem)
-				.find('.option_container')
-					.css('width', widthOpt+4)
-					.attr('data-first-load-width', widthOpt+4);
-		}
+		// 	// Imposto la larghezza dell'option container secondo quella del div figlio di .like_select
+		// 	$(elem)
+		// 		.find('.option_container')
+		// 			.css('width', widthSel)
+		// 			.attr('data-first-load-width', widthSel);
+
+		// 	// Ricalcolo la dimensione dell'option_container, sempre aggiungendo 10 per il padding
+		// 	widthOpt = $(elem).find('.option_container').width()+10;
+		// 	// Se la nuova dimensione di option_container è maggiore di quella del div figlio di .like_select
+		// 	// (Ovvero se le opzioni "sbordano")
+		// 	// Aggiorno nuovamente la larghezza del div .like_select sulla base della nuova larghezza di option_container
+		// 	if(widthSel < widthOpt){
+		// 		// $(elem)
+		// 		// 	.css('width', widthOpt)
+		// 		// 	.attr('data-first-load-width', widthOpt);
+		// 	}
+		// }
+		// // Se altrimenti il contenitore delle option è più largo in partenza aggiorno il genitore
+		// else {
+			
+		// 	// imposto la larghezza di .like_select sulla base di quella di option_container, 
+		// 	// aggiungendo 14 per via del div per l'apertura
+		// 	// $(elem)
+		// 	// 	.css('width', widthOpt+14)
+		// 	// 	.attr('data-first-load-width', widthOpt+14);
+		// 	// Poi aggiorno la dimensione dell'option_container, aggiungendo i 4px che mi permettono di allinearla al div figlio di .like_select
+		// 	$(elem)
+		// 		.find('.option_container')
+		// 			.css('width', widthOpt+4)
+		// 			.attr('data-first-load-width', widthOpt+4);
+		// }
 		// Riporto la position di option_container ad absolute per rendere corretto il posizionamento all'apertura
-		$(elem).find('.option_container').css("position", "absolute");
-		$(elem).find('.option_container').css("visibility", "visible");
-		$(elem).find('.option_container').css("display", "none");
-
+		
 		if ( $(elem).find('.option_container').hasClass('up') ) {
 			var height;
 			height = $(elem).find('.option_container').height()+6;
@@ -2544,9 +2543,9 @@ $(function() {
 			widthEE = $('#span_ee_select').find('div').width();
 			optEE = $('#span_ee_select').find('.option_container').width();
 			$('#span_ee_select-add').find('.option_container').removeAttr('style');
-			$('#span_ee_select-add')
-				.css('width', widthEE)
-				.attr('data-first-load-width', widthEE);
+			// $('#span_ee_select-add')
+			// 	.css('width', widthEE)
+			// 	.attr('data-first-load-width', widthEE);
 			$('#span_ee_select-add')
 				.find('.option_container')
 					.css('width', optEE)
@@ -2558,9 +2557,9 @@ $(function() {
 			widthPP = $('#span_pp_select').find('div').width() * 1.5 - 5;
 			optPP = $('#span_pp_select').find('.option_container').width() * 1.5;
 			$('#span_dd_select').find('.option_container').removeAttr('style');
-			$('#span_dd_select')
-				.css('width', widthPP)
-				.attr('data-first-load-width', widthPP);
+			// $('#span_dd_select')
+			// 	.css('width', widthPP)
+			// 	.attr('data-first-load-width', widthPP);
 			$('#span_dd_select')
 				.find('.option_container')
 					.css('width', optPP)
@@ -2600,78 +2599,190 @@ $(function() {
 			widthEE = $('#span_list_select-add').find('div').width();
 			optEE = $('#span_list_select-add').find('.option_container').width();
 			$('#span_list_select-add').find('.option_container').removeAttr('style');
-			$('#span_list_select-add')
-				.css('width', widthEE)
-				.attr('data-first-load-width', widthEE);
+			// $('#span_list_select-add')
+			// 	.css('width', widthEE)
+			// 	.attr('data-first-load-width', widthEE);
 			$('#span_list_select-add')
 				.find('.option_container')
 					.css('width', optEE)
 					.attr('data-first-load-width', optEE);
 			$('span_list_select-add').addClass('widthChanged');
 		}
+
+		console.log($(elem).attr('id'));
+		console.log(widthSel);
+		$(elem).find('.option_container').css({
+			"width": widthSel-10,
+			"position": "absolute",
+			"visibility": "visible",
+			"display": "none"
+		});
 	}
 
 	// RIDIMENSIONAMENTO PULSANTI E SELETTORI IN BASE ALLO SPAZIO DISPONIBILE
 	function resizeButtonsAndSelects() {
-		if ( $('#left_header').width() < 600 ) {
-			$('#main_left_frame .mainButtons, #main_right_frame .mainButtons')
+		/* ========= */
+		/* TOP MENUS */
+		/* ========= */
+		
+		/* ========== */
+		/* LEFT FRAME */
+		/* ========== */
+		$('#left_menu').css('width', 'auto');
+		if ( $('#left_menu').outerWidth() > $('#left_header').innerWidth() - 30 ) {
+			$('#main_left_frame .mainButtons')
+				.addClass('small')
+				.find('span').hide();
+
+			if ( $('#left_menu').outerWidth() > $('#left_header').innerWidth() - 30 ) {
+				var diff =  $('#left_menu').outerWidth() - $('#left_header').innerWidth() - 30;
+				var remove_width = diff/$('#left_header .like_select').length;
+				$('#left_header .like_select').each(function(){
+					var new_width = $(this).outerWidth() - remove_width; 
+					$(this).css({
+						'width': new_width
+					});
+				});
+			} else {
+				$('#left_header .like_select').each(function(){
+					var reset_width = $(this).attr('data-first-load-width'); 
+					$(this).css({
+						'width': reset_width
+					});
+				});
+			}
+		} else {
+			$('#main_left_frame .mainButtons')
+				.removeClass('small')
+				.find('span').show();
+
+			$('#left_header .like_select').each(function(){
+				var reset_width = $(this).attr('data-first-load-width'); 
+				$(this).css({
+					'width': reset_width
+				});
+			});
+		}
+		
+		$('#left_menu').css('width', '100%');
+
+		
+		/* =========== */
+		/* RIGHT FRAME */
+		/* =========== */
+		$('#right_menu').css('width', 'auto');
+		if ( $('#right_menu').outerWidth() >= $('#right_header').innerWidth() - 30 ) {
+			$('#right_header .mainButtons')
 				.addClass('small')
 				.find('span').hide();
 		} else {
-			$('#main_left_frame .mainButtons, #main_right_frame .mainButtons')
+			$('#right_header .mainButtons')
 				.removeClass('small')
 				.find('span').show();
 		}
-		// RESIZE SELECTORS IN LEFT HEADER
-		var left_menu_width = 0; 
-		$('#left_header .like_select, #left_header .mainButtons').each(function(){
-			left_menu_width += $(this).outerWidth() + 8; //4px margin
-		}); 
-		if ( left_menu_width > $('#left_header').innerWidth()) {
-			var diff = left_menu_width - $('#left_header').innerWidth();
-			var remove_width = diff/$('#left_header .like_select').length;
-			console.log(diff);
-			console.log(remove_width);
-			$('#left_header .like_select').each(function(){
-				var new_width = $(this).outerWidth() - remove_width; 
-				$(this).css({
-					'width': new_width
-				});
-			});
-		} else {
-			$('#left_header .like_select').each(function(){
-				var reset_width = $(this).attr('data-first-load-width'); 
-				$(this).css({
-					'width': reset_width
-				});
-			});
-		} 
-
-		// RESIZE SELECTORS IN RIGHT HEADER
-		var right_menu_width = 0; 
-		$('#right_header .like_select, #right_header .mainButtons').each(function(){
-			right_menu_width += $(this).outerWidth() + 8; //4px margin
-		}); 
-		
-		if ( right_menu_width > $('#right_header').innerWidth()) {
-			var diff = right_menu_width - $('#right_header').innerWidth();
+		if ( $('#right_menu').outerWidth() >= $('#right_header').innerWidth() - 30 ) {
+			var diff =  $('#right_menu').outerWidth() - ($('#right_header').innerWidth() - 30);
 			var remove_width = diff/$('#right_header .like_select').length;
-			console.log(diff);
-			console.log(remove_width);
-			$('#right_header .like_select').each(function(){
-				var new_width = $(this).outerWidth() - remove_width; 
-				$(this).css({
-					'width': new_width
+			if (remove_width > 0) {
+				$('#right_header .like_select').each(function(){
+					var new_width = $(this).outerWidth() - remove_width; 
+					
+					$(this).find('.label_selected').css({
+						'width': new_width
+					});
+					
 				});
-			});
+				$('#right_header .mainButtons')
+					.addClass('small')
+					.find('span').hide();
+			} 
 		} else {
 			$('#right_header .like_select').each(function(){
-				var reset_width = $(this).attr('data-first-load-width'); 
 				$(this).css({
-					'width': reset_width
+					'width': 'auto'
 				});
 			});
 		}
+		$('#right_menu').css('width', '100%');
+
+		/* ============ */
+		/* BOTTOM MENUS */
+		/* ============ */
+
+		/* ========== */
+		/* LEFT FRAME */
+		/* ========== */
+		$('#text_tool-add').css('width', 'auto');
+		if ( $('#text_tool-add').outerWidth() >= $('#right_header').innerWidth() - 30 ) {
+			$('#text_tool-add .mainButtons')
+				.addClass('small')
+				.find('span').hide();
+		} else {
+			$('#text_tool-add .mainButtons')
+				.removeClass('small')
+				.find('span').show();
+		}
+		if ( $('#text_tool-add').outerWidth() >= $('#right_header').innerWidth() - 30 ) {
+			var diff =  $('#text_tool-add').outerWidth() - ($('#right_header').innerWidth() - 30);
+			var remove_width = diff/$('#text_tool-add .like_select').length;
+			if (remove_width > 0) {
+				$('#text_tool-add .like_select').each(function(){
+					var new_width = $(this).outerWidth() - remove_width; 
+					$(this).find('.label_selected').css({
+						'width': new_width
+					});
+					
+				});
+				$('#text_tool-add .mainButtons')
+					.addClass('small')
+					.find('span').hide();
+			} 
+		} else {
+			$('#text_tool-add .like_select').each(function(){
+				$(this).css({
+					'width': 'auto'
+				});
+			});
+		}
+		$('#text_tool-add').css('width', '100%');
+
+		/* =========== */
+		/* RIGHT FRAME */
+		/* =========== */
+		$('#text_tool').css('width', 'auto');
+		if ( $('#text_tool').outerWidth() >= $('#right_header').innerWidth() - 30 ) {
+			$('#text_tool .mainButtons')
+				.addClass('small')
+				.find('span').hide();
+		} else {
+			$('#text_tool .mainButtons')
+				.removeClass('small')
+				.find('span').show();
+		}
+		if ( $('#text_tool').outerWidth() >= $('#right_header').innerWidth() - 30 ) {
+			var diff =  $('#text_tool').outerWidth() - ($('#right_header').innerWidth() - 30);
+			var remove_width = diff/$('#text_tool .like_select').length;
+			if (remove_width > 0) {
+				$('#text_tool .like_select').each(function(){
+					var new_width = $(this).outerWidth() - remove_width; 
+					$(this).find('.label_selected').css({
+						'width': new_width
+					});
+					
+				});
+				$('#text_tool .mainButtons')
+					.addClass('small')
+					.find('span').hide();
+			} 
+		} else {
+			$('#text_tool .like_select').each(function(){
+				$(this).css({
+					'width': 'auto'
+				});
+			});
+		}
+		$('#text_tool').css('width', '100%');
+
 	}
 
 	/* HANDLING SINGLE BOX FULL SCREEN */
