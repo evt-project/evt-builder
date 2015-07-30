@@ -2560,7 +2560,7 @@ $(function() {
 			$(elem).find('.option_container').attr('data-toggle-top', height);
 		}
 
-		if(elem.id === 'span_ee_select'){
+		if($(elem).attr('id') === 'span_ee_select'){
 			var widthEE, optEE;
 			widthEE = $('#span_ee_select').find('div').width();
 			optEE = $('#span_ee_select').find('.option_container').width();
@@ -2574,7 +2574,7 @@ $(function() {
 					.attr('data-first-load-width', optEE);
 			$('#span_ee_select-add').addClass('widthChanged');
 		}
-		if(elem.id === 'span_dd_select'){
+		if($(elem).attr('id') === 'span_dd_select'){
 			var widthPP, optPP;
 			widthPP = $('#span_pp_select').find('div').width() * 1.5 - 5;
 			optPP = $('#span_pp_select').find('.option_container').width() * 1.5;
@@ -2598,7 +2598,7 @@ $(function() {
 				}
 			}
 		}
-		if( elem.id === 'span_tt_select' ) {
+		if( $(elem).attr('id') === 'span_tt_select' ) {
 			if ( optionTooltipInPages ) {
 				if ( $('#span_pp_select').find('.option_tooltip').length > 0 ){
 					$('#span_pp_select').find('.option_tooltip').css({
@@ -2607,7 +2607,7 @@ $(function() {
 				}
 			}
 		}
-		if( elem.id === 'span_pp_select' ) {
+		if( $(elem).attr('id') === 'span_pp_select' ) {
 			if ( optionTooltipInPages ) {
 				if ( $(elem).find('.option_tooltip').length > 0 ){
 					$(elem).find('.option_tooltip').css({
@@ -2616,19 +2616,8 @@ $(function() {
 				}
 			}
 		}
-		if(elem.id === 'span_list_select-add'){
-			var widthEE, optEE;
-			widthEE = $('#span_list_select-add').find('div').width();
-			optEE = $('#span_list_select-add').find('.option_container').width();
-			$('#span_list_select-add').find('.option_container').removeAttr('style');
-			// $('#span_list_select-add')
-			// 	.css('width', widthEE)
-			// 	.attr('data-first-load-width', widthEE);
-			$('#span_list_select-add')
-				.find('.option_container')
-					.css('width', optEE)
-					.attr('data-first-load-width', optEE);
-			$('span_list_select-add').addClass('widthChanged');
+		if( $(elem).attr('id') === 'span_list_select-add' ) {
+			widthSel = $('#span_list_select').find('.option_container').width()+10;
 		}
 
 		$(elem).find('.option_container').css({
