@@ -1201,21 +1201,22 @@ $(function() {
 	}
 
 	function toggleSearchCont(toggler){
-				var search_cont, search_input, search_query;
-				var search_startButton, search_keyboardButton;
-				// alert($(toggler).attr('id'));
-				search_cont = $(toggler).parents('.searchContainer');
-				search_input = search_cont.find('.searchInput');
-				search_query = search_cont.find('.searchQuery');
-				search_startButton = search_cont.find('.searchStart');
-				search_keyboardButton = search_cont.find('.searchKeyboardButton');
-				if ( search_cont.hasClass('collapsed') ) {
-					search_cont.removeClass('collapsed')
-					if ( search_input.val() != '' && 
-						 search_query.text() != search_input.val() ) {
-							search_startButton.trigger('click');
-					} 
-					// else {
+		var search_cont, search_input, search_query;
+		var search_startButton, search_keyboardButton;
+		// alert($(toggler).attr('id'));
+		search_cont = $(toggler).parents('.searchContainer');
+		search_input = search_cont.find('.searchInput');
+		search_query = search_cont.find('.searchQuery');
+		search_startButton = search_cont.find('.searchStart');
+		search_keyboardButton = search_cont.find('.searchKeyboardButton');
+		var boxSuffix = $(toggler).attr('data-boxsuffix');
+		if ( search_cont.hasClass('collapsed') ) {
+			search_cont.removeClass('collapsed')
+			if ( search_input.val() != '' && 
+				 search_query.text() != search_input.val() ) {
+					search_startButton.trigger('click');
+			} 
+			// else {
 
 				var top, mainContainerHeight;
 				top = 0;
@@ -1229,7 +1230,7 @@ $(function() {
 				       top: top+'px'
 				}, 400);
 				$(toggler).find('.fa').removeClass('fa-angle-double-up').addClass('fa-angle-double-down');
-				var boxSuffix = $(toggler).attr('data-boxsuffix');
+				
 				// TO DO: generalizzare per frame di appartenenza
 				if ( $('#span_list_select').length > 0 && !$('#span_list_select'+boxSuffix).hasClass('not_active')) {
 					$('#span_list_select').addClass('not_active').css('opacity', '0.5');
@@ -1240,7 +1241,7 @@ $(function() {
 			$(toggler).find('.fa').removeClass('fa-angle-double-down').addClass('fa-angle-double-up');
 
 			if ( $('#span_list_select').length > 0 && $('#span_list_select').hasClass('not_active')) {
-				if ( $('#switchReg').length > 0 ) {
+				if ( $('#switchReg').length > 0 && !$('#switchReg').hasClass('disabled') ) {
 					if ( !$('#switchReg').hasClass('active') ) {
 						$('#span_list_select').removeClass('not_active').css('opacity', '1');	
 					}
@@ -1349,8 +1350,10 @@ $(function() {
 		    updateTextContHeight();
 		});
 		if ( $('#search_cont'+boxSuffix).hasClass('collapsed') ) {
-			if ( $('#switchReg'+boxSuffix).hasClass('active') && $('#txtimg_link').hasClass('current_mode') ) {
-				$('#switchReg'+boxSuffix).trigger('click');
+			if ( $('#switchReg').length > 0 && !$('#switchReg'+boxSuffix).hasClass('disabled') ) {
+				if ( $('#switchReg'+boxSuffix).hasClass('active') && $('#txtimg_link').hasClass('current_mode') ) {
+					$('#switchReg'+boxSuffix).trigger('click');
+				}
 			}
 		}
 
@@ -1363,6 +1366,8 @@ $(function() {
 
 	/* HANDLING LISTS */
 	function toggleListCont(toggler){
+		var boxSuffix = $(toggler).attr('data-boxsuffix');
+
 		if ( $('#lists_cont').hasClass('collapsed') ) {
 			var top, mainContainerHeight;
 			top = 0;
@@ -1389,7 +1394,7 @@ $(function() {
 			$(toggler).find('.fa').removeClass('fa-angle-double-down').addClass('fa-angle-double-up');
 
 			if ( $('#span_list_select').length > 0 && $('#span_list_select').hasClass('not_active')) {
-				if ( $('#switchReg').length > 0 ) {
+				if ( $('#switchReg').length > 0 && !$('#switchReg'+boxSuffix).hasClass('disabled') ) {
 					if ( !$('#switchReg').hasClass('active') ) {
 						$('#span_list_select').removeClass('not_active').css('opacity', '1');	
 					}
@@ -1728,7 +1733,7 @@ $(function() {
     	}
 
     	$(id_regesto_cont).load("data/output_data/regesto/doc_"+current_doc+".html #regesto", function(response, status, xhr){
-	    	if (status == "success"){
+	    	if (status == "success") {
 		    	$('<div />')
 		    		.attr('id', "hide_regesto")
 		    		.addClass('hide_regesto')
@@ -1737,7 +1742,7 @@ $(function() {
 		    		.appendTo(id_regesto_cont); // solo nel box di destra
 
 		    	if ( ($('#span_ee_select .label_selected').attr('data-value') != 'diplomatic') &&
-		    		 (!$('#switchReg').hasClass('active')) ){
+		    		 (!$('#switchReg').hasClass('active')) ) {
 		    		$("#main_right_frame").find('.like_select.filter')
 						.css('opacity', "1")
 						.removeClass('not_active'); 	 	
@@ -3083,7 +3088,7 @@ $(function() {
 			});
 
 			if ( $('#txttxt_link').attr("class") !== "current_mode" ) {
-				if ( $('#regesto_cont'+boxSuffix).length > 0 ) {
+				if ( $('#regesto_cont'+boxSuffix).length > 0 && !$('#regesto_cont'+boxSuffix).hasClass('disabled')) {
 					$('#regesto_cont'+boxSuffix).animate({'height': height_full-118}, 700);
 				}
 			}
@@ -3091,7 +3096,9 @@ $(function() {
 		} else {
 			$('.bottomBox:visible').animate({'height': height_full-85}, 700);
 			if($('#txttxt_link').attr("class") !== "current_mode"){
-				$('#regesto_cont'+boxSuffix).animate({'height': height_full-85}, 700);
+				if ( $('#regesto_cont'+boxSuffix).length > 0 && !$('#regesto_cont'+boxSuffix).hasClass('disabled')) {
+					$('#regesto_cont'+boxSuffix).animate({'height': height_full-85}, 700);
+				}
 			}
 			$('#text_cont'+boxSuffix).animate({'height': height_full-85}, 700);
 		}
@@ -3313,8 +3320,12 @@ $(function() {
 		   	updateTextContHeight();
 
 		   	if ( $('#span_list_select'+boxSuffix).length > 0 ) {
-				if ( $('#switchReg').length > 0 ) {
+				// Se ho il regesto...
+				if ( ($('#switchReg').length > 0 ) && 
+		   		 	 (!$('#switchReg'+boxSuffix).hasClass('disabled')) ) {
+					// ...e il regesto non è aperto
 					if ( !$('#switchReg').hasClass('active') ) {
+						// attivo il selettore dei filtri
 						$('#span_list_select'+boxSuffix).removeClass('not_active').css('opacity', '1');	
 					}
 				} else {
@@ -3327,9 +3338,13 @@ $(function() {
 		   	if ( $('#list_link'+boxSuffix).length > 0 && $('#list_link'+boxSuffix).hasClass('active') ) {
 				closeListsBox('fast');
 			}
-
-		   	if ( !$('#switchReg'+boxSuffix).length > 0 ) {
+			// Se ho il regesto, questo non è disabilitato e c'è un solo livello di edizione...
+		   	if ( ($('#switchReg'+boxSuffix).length > 0) && 
+		   		 (!$('#switchReg'+boxSuffix).hasClass('disabled')) &&
+		   		 ($('#span_ee_select .option').length == 1) ) {
+		   		// ...e questo è attivo e siamo nella modalità testo immagine
 			   	if ( $('#switchReg'+boxSuffix).hasClass('active') && $('#txtimg_link').hasClass('current_mode') ) {
+					// chiudo il regesto
 					$('#regesto_cont'+boxSuffix).hide();
 					$('#switchReg'+boxSuffix).removeClass('active');
 				}

@@ -538,7 +538,7 @@
 									</xsl:element>
 									<xsl:if test="$regesto=true()">
 										<xsl:element name="span">
-											<xsl:attribute name="class">imageTopTool mainButtons toggleReg</xsl:attribute>
+											<xsl:attribute name="class">imageTopTool mainButtons active toggleReg</xsl:attribute>
 											<xsl:attribute name="id">switchReg</xsl:attribute>
 											<xsl:attribute name="value">reg</xsl:attribute>
 											<xsl:attribute name="title"><xsl:value-of select="$regesto_button_label"/></xsl:attribute>
