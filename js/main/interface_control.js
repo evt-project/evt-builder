@@ -1207,7 +1207,7 @@ $(function() {
 				       top: top+'px'
 				}, 400);
 				$(toggler).find('.fa').removeClass('fa-angle-double-up').addClass('fa-angle-double-down');
-
+				var boxSuffix = $(toggler).attr('data-boxsuffix');
 				// TO DO: generalizzare per frame di appartenenza
 				if ( $('#span_list_select').length > 0 && !$('#span_list_select'+boxSuffix).hasClass('not_active')) {
 					$('#span_list_select').addClass('not_active').css('opacity', '0.5');

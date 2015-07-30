@@ -1975,14 +1975,15 @@ div.doc.not_current:hover{
 	height:29px;
 	/*display: inline;*/
 }
+
+#toggle_list_cont, #toggle_list_cont-add {
+	height:29px;
+	top:-1px;
+}
 #keyboard_link.small, #keyboard_link-add.small, 
 #toggle_search_cont.small, #toggle_search_cont-add.small,
 #start_search.small, #start_search-add.small {
 	top:0px;
-}
-#toggle_list_cont{
-	height:29px;
-	top:-1px;
 }
 #tipue_search_input_div, #tipue_search_input_div-add{
 	width: -webkit-calc(100% - 99px);
@@ -2068,11 +2069,13 @@ div.doc.not_current:hover{
 	#border-right: 1px solid rgb(227, 200, 156);
 	padding-right: 15px;
 	padding-left: 15px;
-	top: 1px;
+	top:-8.5px;
 	min-height: 28px;
 	display: inline-block;
 }
-
+#toggle_list_cont.small, #toggle_list_cont-add.small{
+	top: 0.5px;
+}
 #list_header .labelList:hover{
 	border-radius: 4px 4px 0px 0px;
 	background: rgba(227, 200, 156, .5)
