@@ -131,10 +131,16 @@
 		     Se false() e' necessario aggiungere le proprie trasformazioni xslt nel file modules/elements/evt_builder-generate-text_label.xsl -->
 	<xsl:param name="defaulTextLabel" select="true()"/>
 	
-	
+	<!-- ################# -->
 	<!-- INTERFACE CONTROL -->
+	<!-- ################# -->
+	<!-- LABELS -->
+	<!-- EN: Label for button of Regesto -->
+	<!-- IT: Testo etichetta per il pulsante del Regesto -->
+	<!-- default: 'Regesto' -->
+	<xsl:param name="regesto_button_label" select="'Regesto'"/>
 	
-	<!-- BUTTONS -->
+	<!-- BUTTONS PRESENCE AND POSITION -->
 	
 	<!-- EN: Show/Hide Txt/Img Link Button in interface -->
 	<!-- IT: Mostra/Nascondi pulsante Txt/Img Link nell'interfaccia web -->
@@ -159,7 +165,7 @@
 	<!-- EN: Show/Hide Edition level selector in interface -->
 	<!-- IT: Mostra/Nascondi selettore Livello/i Edizione nell'interfaccia web -->
 	<!-- default: true() -->
-	<xsl:param name="edition_level_selector" select="true()"/>
+	<xsl:param name="edition_level_selector" select="false()"/>
 	
 	<!-- IT: Choose page selector position -->
 	<!-- IT: Scegli posizione Selettore pagina -->
