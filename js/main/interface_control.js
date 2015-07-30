@@ -68,12 +68,18 @@ $(function() {
 				);
 			});
 			
+			// Se ho solo un livello di edizioni e non ho il regesto il pulsante TXT-TXT non serve più
 			if( $(xml).find('editions edition').length <= 1 && $(xml).find('regesto').length < 1){
 				$('#txttxt_link').remove();
 				$('div.concave, div.extTop').css('width', '200px');
 				$('div.botleftconcave').css('width', '176px');
 			}
-
+			// Se ho il regesto e un solo livello di edizione
+			// Rimuovo i pulsanti dal menu inferiore perché inutili
+			// (ricerca, liste, filtri)
+			if ($('#regesto_cont').length > 0 && $("#span_ee_select").find('.option').length == 1 ) {
+				$('#search_link-add, #list_link-add, #span_list_select-add').remove();
+			}
 			$(".main_ee_select .option_container div:first-child").addClass( "selected" );
 
 			$('.main_ee_select .label_selected')
@@ -3669,8 +3675,8 @@ $(function() {
 	    	}
 
 
-			// Se ho il REGESTO
-			if ($('#regesto_cont').length > 0 ) {
+			// Se ho il REGESTO e un solo livello di edizione
+			if ( $('#regesto_cont').length > 0 && $("#span_ee_select").find('.option').length == 1 ) {
 
 				if ( ! $('#regesto_cont').is(':visible') ){
 					$('#regesto_cont').show();		
@@ -3691,45 +3697,35 @@ $(function() {
 					}
 				}
 
-				// Se ho un solo livello di edizione... 
-				// (e quindi ho trasformato il selettore delle edizioni in una semplice etichetta senza .option)
-				if ( $("#span_ee_select").find('.option').length == 1 ){
-
-					// ...nascondo il pulsante del Regesto dal menu di destra
-					$('#switchReg').hide();
-					// ... e il regesto a sinistra
-					if ( $("#switchReg").hasClass('active') ) {
-						//$('#switchReg').trigger('click').addClass('active');
-					}
-					//$('#regesto_cont').hide('drop',  {direction: 'up'}, 'linear');
-					
-					// ...nascondo il pulsante del Regesto dal menu di sinistra e il toggle in fondo al regesto di sinistra
-					$('#switchReg-add').hide();
-
-					// ...aggiorno l'etichetta nel menu di sinistra col testo "Regesto"
-					$('#span_ee_select-add')
-						.css({display: "none"})
-						.find('.label_selected')
-							.attr('data-value', 'regesto')
-							.text('Regesto');
-					// ...disattivo il selettore dei filtri nel menu di sinistra
-					$('#span_list_select-add').addClass('not_active').css('opacity', '0');
-					$('#span_list_select').removeClass('not_active').css('opacity', '1');
-
-					// Sposto il selettore dei testi a sinistra
-					if ( $('#left_menu').find('#span_tt_select').length == 0 ){
-						$('#span_tt_select').detach().prependTo('#left_menu').css({'display':'inline-block'});
-					} else {
-						if ( !$('#span_tt_select').is(':visible') ){
-							$('#span_tt_select').show();
-						}
-					}
-					//$('#inside_left_arrow, #inside_right_arrow').hide();
-					//$('#inside_left_arrow-add, #inside_right_arrow-add').show();
-
-				} else {
-					// Se ho più livelli di edizione...  GESTIRE!
+				// ...nascondo il pulsante del Regesto dal menu di destra
+				$('#switchReg').hide();
+				// ... e il regesto a sinistra
+				if ( $("#switchReg").hasClass('active') ) {
+					//$('#switchReg').trigger('click').addClass('active');
 				}
+				//$('#regesto_cont').hide('drop',  {direction: 'up'}, 'linear');
+				
+				// ...nascondo il pulsante del Regesto dal menu di sinistra e il toggle in fondo al regesto di sinistra
+				$('#switchReg-add').hide();
+
+				// ...aggiorno l'etichetta nel menu di sinistra col testo "Regesto"
+				$('#span_ee_select-add')
+					.css({display: "none"})
+					.find('.label_selected')
+						.attr('data-value', 'regesto')
+						.text('Regesto');
+				
+				// Sposto il selettore dei testi a sinistra
+				// if ( $('#left_menu').find('#span_tt_select').length == 0 ){
+				// 	$('#span_tt_select').detach().prependTo('#left_menu').css({'display':'inline-block'});
+				// } else {
+				// 	if ( !$('#span_tt_select').is(':visible') ){
+				// 		$('#span_tt_select').show();
+				// 	}
+				// }
+
+				//$('#inside_left_arrow, #inside_right_arrow').hide();
+				//$('#inside_left_arrow-add, #inside_right_arrow-add').show();
 			} 
 			else {
 				//$('#zvalint').hide(); //SISTEMARE
