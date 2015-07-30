@@ -1726,7 +1726,6 @@ $(function() {
     		id_regesto_cont = "#regesto_cont-add";
     		id_regesto = "#regesto-add";
     	}
-    	console.log('pippo');
 
     	$(id_regesto_cont).load("data/output_data/regesto/doc_"+current_doc+".html #regesto", function(response, status, xhr){
 	    	if (status == "success"){
@@ -3154,9 +3153,12 @@ $(function() {
 
 			}
 			if ( $('.bottomBox:visible').hasClass('collapsed') ) {
-				var bottomBox_newTop = noMenu_height - ($('#main_right_frame').find('.bottomBox:visible').find('.bottomBoxHeader').outerHeight()*2) - 12;
-				$('.bottomBox:visible').css('top', bottomBox_newTop+'px');
+				
 			}
+			$('.bottomBox.collapsed:visible').each(function(){
+				var bottomBox_newTop = noMenu_height - ($('#main_right_frame').find('.bottomBox:visible').find('.bottomBoxHeader').outerHeight()*2) - 12;
+				$(this).css('top', bottomBox_newTop+'px');
+			});
 		} 
 		// Se menu aperto
 		else {
@@ -3180,9 +3182,9 @@ $(function() {
 				noMenu_height_right = noMenu_height_right - $('#main_right_frame').find('.bottomBox:visible').find('.bottomBoxHeader').outerHeight() - 1;
 			}
 
-			if ( $('.bottomBox:visible').hasClass('collapsed') ) {
-				$('.bottomBox:visible').css('top', noMenu_height-$('.bottomBox:visible').find('.bottomBoxHeader').outerHeight() - 2);
-			}
+			$('.bottomBox.collapsed:visible').each(function(){
+				$(this).css('top', noMenu_height-$('.bottomBox:visible').find('.bottomBoxHeader').outerHeight() - 2);
+			});
 			
 			// LEFT FRAME
 			$('#text_cont-add, #regesto_cont-add')
