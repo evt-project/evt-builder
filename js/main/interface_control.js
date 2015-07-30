@@ -73,12 +73,18 @@ $(function() {
 				$('#txttxt_link').remove();
 				$('div.concave, div.extTop').css('width', '200px');
 				$('div.botleftconcave').css('width', '176px');
-			}
+			} else if ( $(xml).find('editions edition').length > 1 ) {
+				$('#span_ee_select').removeClass('hidden');
+			} 
 			// Se ho il regesto e un solo livello di edizione
-			// Rimuovo i pulsanti dal menu inferiore perché inutili
-			// (ricerca, liste, filtri)
 			if ($('#regesto_cont').length > 0 && $("#span_ee_select").find('.option').length == 1 ) {
+				// Rimuovo i pulsanti dal menu inferiore perché inutili
+				// (ricerca, liste, filtri)
 				$('#search_link-add, #list_link-add, #span_list_select-add').remove();
+				// Rimuovo il pulsante per aprire il selettore dei livelli di edizione
+				// in quanto non è necessario
+				$('#span_ee_select').find('.open_select').remove();
+				$('#span_ee_select').find('.label_selected').css('margin-right', '4px');
 			}
 			$(".main_ee_select .option_container div:first-child").addClass( "selected" );
 
@@ -538,7 +544,7 @@ $(function() {
 					$("#span_pp_select .option_tooltip")
 						.empty()
 						.hide()
-						;
+					;
 				});
 				if ( groupingPagesByDoc ) {
 					$(".main_dd_select .option_container .option").hover(function(e) {
@@ -972,9 +978,9 @@ $(function() {
 						current_doc = $('.main_pp_select .option_container div.option:first').attr('data-first-doc');
 					}
 
-					if ($("#regesto_cont").length > 0){ 
+					if ( $("#regesto_cont").length > 0 ) { 
 						updateRegestoContent(current_doc);
-          			}
+ 					}
 
 					//current_page = hash.replace( /^#/, '' );
 					//var checkpp = $(xml).find('text pb:contains('+current_page+')').text();
@@ -1691,19 +1697,24 @@ $(function() {
 	
 	function hide_regesto(regesto_cont, regesto){
 		if ( $(this).attr('id') == "hide_regesto-add" ) {
-			$("#switchReg-add")
-				.toggleClass('active')
-				.find('.fa')
-					.toggleClass('fa-toggle-on')
-					.toggleClass('fa-toggle-off');
+			if ( !$("#switchReg-add").hasClass('disabled') ) {
+				$("#switchReg-add")
+					.toggleClass('active')
+					.find('.fa')
+						.toggleClass('fa-toggle-on')
+						.toggleClass('fa-toggle-off');
+				toggleReg(regesto_cont);
+			}
 		} else {
-			$("#switchReg")
-				.toggleClass('active')
-				.find('.fa')
-					.toggleClass('fa-toggle-on')
-					.toggleClass('fa-toggle-off');
+			if ( !$("#switchReg").hasClass('disabled') ) {
+				$("#switchReg")
+					.toggleClass('active')
+					.find('.fa')
+						.toggleClass('fa-toggle-on')
+						.toggleClass('fa-toggle-off');
+				toggleReg(regesto_cont);
+			}
 		}
-		toggleReg(regesto_cont);
 	}
 
 	function updateRegestoContent(current_doc){
@@ -1715,47 +1726,56 @@ $(function() {
     		id_regesto_cont = "#regesto_cont-add";
     		id_regesto = "#regesto-add";
     	}
+    	console.log('pippo');
 
-    	$(id_regesto_cont).load("data/output_data/regesto/doc_"+current_doc+".html #regesto", function(){
-	    	
-	    	$('<div />')
-	    		.attr('id', "hide_regesto")
-	    		.addClass('hide_regesto')
-	    		.append("<i class='fa fa-chevron-up'></i></div>")	
-	    		.click(function(){hide_regesto(id_regesto_cont, id_regesto);})
-	    		.appendTo(id_regesto_cont); // solo nel box di destra
+    	$(id_regesto_cont).load("data/output_data/regesto/doc_"+current_doc+".html #regesto", function(response, status, xhr){
+	    	if (status == "success"){
+		    	$('<div />')
+		    		.attr('id', "hide_regesto")
+		    		.addClass('hide_regesto')
+		    		.append("<i class='fa fa-chevron-up'></i></div>")	
+		    		.click(function(){ hide_regesto(id_regesto_cont, id_regesto); })
+		    		.appendTo(id_regesto_cont); // solo nel box di destra
 
-	    	if ( ($('#span_ee_select .label_selected').attr('data-value') != 'diplomatic') &&
-	    		 (!$('#switchReg').hasClass('active')) ){
-	    		$("#main_right_frame").find('.like_select.filter')
-					.css('opacity', "1")
-					.removeClass('not_active'); 	 	
-	    	} else {
-	    		$("#main_right_frame").find('.like_select.filter')
-					.css('opacity', "0.5")
-					.addClass('not_active'); 
-	    	}
-	    	if ( $("#span_ee_select").find('.option').length == 0 ) {
-	    		// Se ho un solo livello di edizione, in modalità txt txt nel frame di sx avrò sicuramente il regesto,
-	    		// quindi non ho bisogno del selettore con i filtri nel menu in basso a sx
-	    		$("#main_left_frame").find('.like_select.filter')
-					.css('opacity', "0")
-					.addClass('not_active'); 
-	    	} else if ($("#span_ee_select").find('.option').length > 0) {
-	    		// ...altrimenti
-	    		if ( $('#span_ee_select-add .label_selected').attr('data-value') != 'regesto' ) {
-	    			// Se nel frame ho il regesto visibile, il selettore dei filtri rimane opacizzato...
-	    			$("#main_left_frame").find('.like_select.filter')
-						.css('opacity', "0.5")
-						.addClass('not_active'); 	 		
-	    		} else {
-    				// altrimenti è funzionante e pienamente visibile
-	    			$("#main_left_frame").find('.like_select.filter')
+		    	if ( ($('#span_ee_select .label_selected').attr('data-value') != 'diplomatic') &&
+		    		 (!$('#switchReg').hasClass('active')) ){
+		    		$("#main_right_frame").find('.like_select.filter')
 						.css('opacity', "1")
-						.removeClass('not_active'); 	 		
-	    		}
-	    	}	
-
+						.removeClass('not_active'); 	 	
+		    	} else {
+		    		$("#main_right_frame").find('.like_select.filter')
+						.css('opacity', "0.5")
+						.addClass('not_active'); 
+		    	}
+		    	if ( $("#span_ee_select").find('.option').length == 0 ) {
+		    		// Se ho un solo livello di edizione, in modalità txt txt nel frame di sx avrò sicuramente il regesto,
+		    		// quindi non ho bisogno del selettore con i filtri nel menu in basso a sx
+		    		$("#main_left_frame").find('.like_select.filter')
+						.css('opacity', "0")
+						.addClass('not_active'); 
+		    	} else if ($("#span_ee_select").find('.option').length > 0) {
+		    		// ...altrimenti
+		    		if ( $('#span_ee_select-add .label_selected').attr('data-value') != 'regesto' ) {
+		    			// Se nel frame ho il regesto visibile, il selettore dei filtri rimane opacizzato...
+		    			$("#main_left_frame").find('.like_select.filter')
+							.css('opacity', "0.5")
+							.addClass('not_active'); 	 		
+		    		} else {
+	    				// altrimenti è funzionante e pienamente visibile
+		    			$("#main_left_frame").find('.like_select.filter')
+							.css('opacity', "1")
+							.removeClass('not_active'); 	 		
+		    		}
+		    	}
+		    	if ( $('#switchReg').hasClass('disabled') ) {
+	    			$('#switchReg').removeClass('disabled').show();
+	    			resizeButtonsAndSelects();
+		    	}
+		    } else { 
+		    	hide_regesto(id_regesto_cont, id_regesto);
+		    	$('#switchReg').addClass('disabled').hide();
+		    	resizeButtonsAndSelects();
+		    }	
 		});
     }
 
@@ -2077,6 +2097,45 @@ $(function() {
 		}
 	}
 
+	// IT: Seleziono un documento nella pagina
+	// (pensato per casi in cui possono esserci più documenti in una stessa pagina)
+	function selectDocumentInPage(elem) {
+		var tt_val, tt_lab, doc_title, current_doc_title, pp_val;
+		if ( $(elem).parents("div[id*='frame']").find('.doc').length > 1 && $(elem).hasClass('not_current') ){
+			doc_title = $(elem).attr('title');
+			current_doc_title = $(".doc.current").attr('tempTitle');
+
+			$(".doc.current")
+				.attr('title', current_doc_title)
+				.removeAttr('tempTitle')
+				.removeClass('current')
+				.addClass('not_current');
+			
+			$(elem)
+				.attr('tempTitle', doc_title)
+				.removeAttr('title')
+				.removeClass('not_current')
+				.addClass('current');
+
+			tt_val = $(elem).attr('data-doc');
+			tt_lab = $("#span_tt_select .option[data-value='"+tt_val+"']").text();
+			pp_val = $("#span_pp_select .label_selected").attr('data-value');
+			
+			updateRegestoContent(tt_val);
+			updateHash(tt_val, pp_val, "");
+
+			$('#text_cont').animate({
+			    scrollTop: ($('.doc.current').position().top)
+			},200);
+
+			$("#span_tt_select .option.selected").removeClass('selected');
+			$("#span_tt_select .option[data-value='"+tt_val+"']").addClass('selected');
+			$("#span_tt_select .label_selected")
+				.attr("data-value", tt_val)
+				.text(tt_lab + "*");
+		}
+	}
+
 	// IT: Gestisce il cambio pagina e gli eventi correlati
 	function gotopage(pp_val, pp_lab, state){
 		var edition, edition_add; 
@@ -2120,8 +2179,6 @@ $(function() {
 			     else $('#switchHS').addClass('likeInactive');
 			}
 
-
-
 			// Aggiorna eventi sul click negli elementi del text
 			var current_tt, current_doc_title;
 			current_tt = $('#span_tt_select .option_container .option.selected').attr('data-value');
@@ -2133,48 +2190,15 @@ $(function() {
 				.removeAttr('title')
 				.addClass('current');
 
-			if($('.doc').length > 0) {
+			if ($('.doc').length > 0) {
 				$('#text_cont').animate({
 				    scrollTop: ($('.doc.current').position().top)
 				},0);
+
+				$("#text_cont .doc").click(function(){
+					selectDocumentInPage(this);
+				});
 			}
-
-			$("#text_cont .doc").click(function(){
-				var tt_val, tt_lab, doc_title, current_doc_title, pp_val;
-				if ( $(this).parents("div[id*='frame']").find('.doc').length > 1 && $(this).hasClass('not_current') ){
-					doc_title = $(this).attr('title');
-					current_doc_title = $(".doc.current").attr('tempTitle');
-
-					$(".doc.current")
-						.attr('title', current_doc_title)
-						.removeAttr('tempTitle')
-						.removeClass('current')
-						.addClass('not_current');
-					
-					$(this)
-						.attr('tempTitle', doc_title)
-						.removeAttr('title')
-						.removeClass('not_current')
-						.addClass('current');
-
-					tt_val = $(this).attr('data-doc');
-					tt_lab = $("#span_tt_select .option[data-value='"+tt_val+"']").text();
-					pp_val = $("#span_pp_select .label_selected").attr('data-value');
-					
-					updateRegestoContent(tt_val);
-					updateHash(tt_val, pp_val, "");
-
-					$('#text_cont').animate({
-					    scrollTop: ($('.doc.current').position().top)
-					},200);
-
-					$("#span_tt_select .option.selected").removeClass('selected');
-					$("#span_tt_select .option[data-value='"+tt_val+"']").addClass('selected');
-					$("#span_tt_select .label_selected")
-						.attr("data-value", tt_val)
-						.text(tt_lab + "*");
-				}
-			});
 
 			$("img").error(function () {
 			  	$(this)
@@ -2212,10 +2236,6 @@ $(function() {
 			$('#text_cont-add').animate({ scrollTop: 0 });
 		}
 		
-		/*$('#text_elem').load('pagina.html', function() {
-			alert('Load was performed.');
-		});*/
-		
 		// IT: Aggiorna l'indirizzo del frame secondario per il testo
 		if ($("#text_cont-add").length > 0){ //SISTEMARE
 			edition_add=$("#span_ee_select-add .option_container .option.selected").text().toLowerCase();
@@ -2229,25 +2249,12 @@ $(function() {
 				.fadeIn(200);
 		}
 		
-		// IT: Aggiorna le informazioni all'interno delle etichette			
-		$('#central_page_number span').text(pp_val);
-		/*$('#edval span')
-			.hide()
-			.fadeIn(200);*/
-
-		//$("#iviewerImage").attr("src", "images/null.jpg"); // Loading...
-		//$('#folio_page_number').val(pp_val).change(); // IT: Questo attiva l'evento nel file js/plugin/jquery.iviewer config
-		
-		// preload([
-		// 	'images/single/'+$('.main_pp_select .option_container .option.selected').prev().text()+'.jpg',
-		// 	'images/single/'+$('.main_pp_select .option_container .option.selected').next().text()+'.jpg'
-		// ]);
-
 		// IT: Se ci si trova nella modalit Thumb, chiude la schermata e visualizza l'immagine
 		if($("#thumb_cont").css('display') === "block"){
 			$(".thumb_link").trigger('click');
 		}
 	}
+
 	// IT: Gestisce il cambio edizione nel frame testuale
 	function gotoedition(pp_val, ee_val, pp_el, frame_id){
 		var tt_val;
@@ -2625,8 +2632,6 @@ $(function() {
 			$('span_list_select-add').addClass('widthChanged');
 		}
 
-		console.log($(elem).attr('id'));
-		console.log(widthSel);
 		$(elem).find('.option_container').css({
 			"width": widthSel-10,
 			"position": "absolute",

@@ -287,10 +287,7 @@
 											<xsl:element name="span">
 												<xsl:attribute name="id">span_ee_select-add</xsl:attribute>
 												<xsl:attribute name="class">
-													like_select
-													<xsl:if test="$edition_level_selector=false()">
-														hidden
-													</xsl:if>
+													like_select <xsl:if test="$edition_level_selector=false()"> hidden</xsl:if>
 												</xsl:attribute>
 												<xsl:call-template name="div_select_build">
 													<xsl:with-param name="html_div_class"
