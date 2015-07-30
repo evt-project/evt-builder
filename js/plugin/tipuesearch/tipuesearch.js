@@ -127,12 +127,12 @@ http://www.tipue.com/search
                                    } 
                     	     } else {
                                    $(set.elements[0]).trigger('keyup');
-                                   $(set.elements[4]).text('Enter your query into the search box above!');
+                                   $(set.elements[4]).text('Enter your query in the search box above!');
                                    $(set.elements[4]).attr('data-value', '');
                                    $(set.elements[1], '#tipue_search_results_count', set.elements[6]).text('');
                               }
                     	//} else {
-                         //   $(set.elements[1]).html("<div>Enter your query into the search box above!</div>");
+                         //   $(set.elements[1]).html("<div>Enter your query in the search box above!</div>");
                          //}
                          
                          if ( $(set.elements[7]).hasClass('collapsed') ) {
@@ -157,7 +157,7 @@ http://www.tipue.com/search
                          		$('#query').html($(set.elements[0]).val());
 						 	}
 						 	else
-						 	   $(set.elements[1]).html("<div>Enter your query into the search box above!</div>");
+						 	   $(set.elements[1]).html("<div>Enter your query in the search box above!</div>");
 						}*/
                          $(set.elements[2]).trigger('click');
                     }
@@ -276,17 +276,24 @@ http://www.tipue.com/search
                                    out += '<div id="tipue_search_warning_head' + set.addId + '">Showing results for ' + d + '</div>';
                                    out += '<div id="tipue_search_warning' + set.addId + '">Search for <a href="javascript:void(0)" id="tipue_search_replaced' + set.addId + '">' + d_r + '</a></div>'; 
                               }
+                              var results_text;
                               if (c == 1)
                               {
                                    //out += '<div id="tipue_search_results_count">1 result</div>';
-                                   $(set.elements[10]).html('<div id="tipue_search_results_count' + set.addId + '" class="tipue_search_results_count">We have found 1 result into the ' + $(set.elements[11] + " .label_selected").text().toLowerCase() + ' edition.</div>');
+                                   results_text = 'We have found ' + c_c + ' results';
                               }
                               else
                               {
                                    c_c = c.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-                                   // out += '<div id="tipue_search_results_count">' + 'We have found ' + c_c + ' results into the ' + $("#span_ee_select .label_selected").text().toLowerCase() + ' edition </div>';
-                                   $(set.elements[10]).html('<div id="tipue_search_results_count' + set.addId + '" class="tipue_search_results_count">' + 'We have found ' + c_c + ' results into the ' + $(set.elements[11] + " .label_selected").text().toLowerCase() + ' edition.</div>');
+                                   // out += '<div id="tipue_search_results_count">' + 'We have found ' + c_c + ' results in the ' + $("#span_ee_select .label_selected").text().toLowerCase() + ' edition </div>';
+                                   results_text = 'We have found ' + c_c + ' results';
                               }
+                              
+                              if ($(set.elements[11] + " .option_container .option").length > 1 ) {
+                                   results_text += ' in the ' + $(set.elements[11] + " .label_selected").text().toLowerCase() + ' edition.';
+                              }
+
+                              $(set.elements[10]).html('<div id="tipue_search_results_count' + set.addId + '" class="tipue_search_results_count">' + results_text + '</div>');
                               
                               found.sort();
                               // console.log(found);
