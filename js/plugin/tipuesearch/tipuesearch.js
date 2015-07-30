@@ -280,7 +280,7 @@ http://www.tipue.com/search
                               if (c == 1)
                               {
                                    //out += '<div id="tipue_search_results_count">1 result</div>';
-                                   results_text = 'We have found ' + c_c + ' results';
+                                   results_text = 'We have found 1 result';
                               }
                               else
                               {
