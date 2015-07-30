@@ -580,7 +580,7 @@
 							
 							<div id="lists_cont" class="bottomBox">
 								<div id="list_header" class="bottomBoxHeader">
-									<span id="toggle_list_cont" class="mainButtons" title="Apri/Chiudi Liste">
+									<span id="toggle_list_cont" class="mainButtons small" title="Apri/Chiudi Liste">
 										<i class='fa fa-angle-double-down'></i>
 									</span>
 								</div>
