@@ -1105,15 +1105,21 @@ $(function() {
 			if ( !$(this).hasClass('inactive') && $('.keyboardSearch').length > 0) {
 				var numKeys, newKeyboardHeight, newKeyboardWidth;
 				var search_cont, keyboard;
+				var keyHeight, keyWidth;
+
 				search_cont = $(this).parents('.searchContainer:first');
 				keyboard = search_cont.find('.keyboardSearch');
 				numKeys = $(keyboard).find('.key').length;
+				keyHeight = $(keyboard).find('.key').outerHeight();
+				keyWidth = $(keyboard).find('.key').outerWidth();
 				if ( numKeys % 9 == 0 ) {
-					newKeyboardHeight = (numKeys/9)*$(keyboard).find('.key').outerHeight()+1;
+					newKeyboardHeight = (numKeys/9)*keyHeight+1;
 				} else {
-					newKeyboardHeight = (numKeys/9)*$(keyboard).find('.key').outerHeight()+1+$('.key').height();
+					
+					newKeyboardHeight = (Math.floor(numKeys/9)*keyHeight)+1+keyHeight;
 				}
-				newKeyboardWidth = numKeys/(numKeys/9)*$(keyboard).find('.key').outerWidth()+2;
+				
+				newKeyboardWidth = 9*keyWidth+1;
 				
 				if ( !search_cont.hasClass('collapsed') ) {
 					keyboard.addClass('openDown');
@@ -1126,9 +1132,9 @@ $(function() {
 				} else {
 					keyboard.removeClass('openDown');
 					if ( numKeys % 9 == 0 ) {
-						offsetTop = (numKeys/9)*$(keyboard).find('.key').outerHeight()+2;
+						offsetTop = ((numKeys/9)*keyHeight)+2;
 					} else {
-						offsetTop = (numKeys/9)*$(keyboard).find('.key').outerHeight()+2+$('.key').height();
+						offsetTop = (Math.floor(numKeys/9)*keyHeight)+2+keyHeight;
 					}
 					keyboard.css({
 						'top': -offsetTop,
