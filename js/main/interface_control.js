@@ -148,7 +148,11 @@ $(function() {
 				}
 				else{
 					current_id = first_page_d;
-					current_label = first_label_d+" - (miss)";
+					if ( first_label_d.substr(-1).toLowerCase() == 'v' ) {
+						current_label = first_label_d+" - (miss)";	
+					} else {
+						current_label = "(miss) - "+ first_label_d;
+					}
 				}
 
 				// if (groupingPagesByDoc) {
@@ -3768,6 +3772,10 @@ $(function() {
 			UnInitialize(); //Add by JK for ITL
 			UnInitializeHS(); //Add by JK for HS
 			
+			if ( $('#search_link-add').hasClass('active') ) {
+				$('#search_link-add').trigger('click');
+			}
+
 			$("#imgd_link").addClass("current_mode").siblings().removeClass("current_mode");
 			//$("#txtimg_link").removeClass("current_mode");
 			//$("#imgimg_link").removeClass("current_mode");
