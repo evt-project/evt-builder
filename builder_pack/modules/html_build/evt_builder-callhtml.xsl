@@ -295,10 +295,14 @@
 												</xsl:call-template>
 											</xsl:element>
 											<xsl:if test="$regesto=true()">
-												<span class="imageTopTool mainButtons toggleReg" id="switchReg-add" value="reg" title="Regesto">
-													<span>Regesto</span>
+												<xsl:element name="span">
+													<xsl:attribute name="class">imageTopTool mainButtons toggleReg</xsl:attribute>
+													<xsl:attribute name="id">switchReg-add</xsl:attribute>
+													<xsl:attribute name="value">reg</xsl:attribute>
+													<xsl:attribute name="title"><xsl:value-of select="$regesto_button_label"/></xsl:attribute>
+													<span><xsl:value-of select="$regesto_button_label"/></span>
 													<i class="fa fa-toggle-off"></i>
-												</span>
+												</xsl:element>
 											</xsl:if>
 										</xsl:if>
 										<xsl:if test="$image_frame=true()">
@@ -533,10 +537,14 @@
 										</xsl:call-template>
 									</xsl:element>
 									<xsl:if test="$regesto=true()">
-										<span class="imageTopTool mainButtons active toggleReg" id="switchReg" value="reg" title="Regesto">
-											<span>Regesto</span>
+										<xsl:element name="span">
+											<xsl:attribute name="class">imageTopTool mainButtons toggleReg</xsl:attribute>
+											<xsl:attribute name="id">switchReg</xsl:attribute>
+											<xsl:attribute name="value">reg</xsl:attribute>
+											<xsl:attribute name="title"><xsl:value-of select="$regesto_button_label"/></xsl:attribute>
+											<span><xsl:value-of select="$regesto_button_label"/></span>
 											<i class="fa fa-toggle-on"></i>
-										</span>
+										</xsl:element>
 									</xsl:if>
 								</div>
 								<i class="fa fa-times-circle closeFullScreen" id="closeFullScreenRight"></i>
