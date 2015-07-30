@@ -74,7 +74,7 @@ $(function() {
 				$('div.concave, div.extTop').css('width', '200px');
 				$('div.botleftconcave').css('width', '176px');
 			} else if ( $(xml).find('editions edition').length > 1 ) {
-				$('#span_ee_select').removeClass('hidden');
+				$('#span_ee_select, #span_ee_select-add').removeClass('hidden');
 			} 
 			// Se ho il regesto e un solo livello di edizione
 			if ($('#regesto_cont').length > 0 && $("#span_ee_select").find('.option').length == 1 ) {
