@@ -493,6 +493,7 @@ footer{
 }
 #regesto_cont div.front, #regesto_cont-add div.front{
     width:85%;
+    padding-bottom: 20px;
     margin:auto;
 }
 #text_cont-add{
