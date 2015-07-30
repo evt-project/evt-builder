@@ -33,7 +33,7 @@ $(function() {
     
     function updateTipueSearchLocation(newLocation, params, id){
         jsonLocation = URI + '/'+newLocation+'/' + newLocation + '.json';
-        console.log(jsonLocation);
+        console.log("CHANGED TO"+jsonLocation);
         triggerTipueSearch(jsonLocation, params, id);
     }
 
@@ -108,31 +108,9 @@ $(function() {
         keys_add.appendChild(button_add);
     }
 
-    // Backspace
-    var backspace = document.createElement('span');
-    backspace.setAttribute('class','key');
-    backspace.appendChild(document.createTextNode('<-'));
-    backspace.onclick = function() {
-        queryInput = this.parentNode.parentNode.getElementsByClassName('searchInput')[0];
-        queryInput.value = queryInput.value.slice(0, queryInput.value.length - 1);
-        queryInput.focus();
-        $('#'+queryInput).keyup();
-    }
-
-    var backspace_add = document.createElement('span');
-    backspace_add.setAttribute('class','key');
-    backspace_add.appendChild(document.createTextNode('<-'));
-    backspace_add.onclick = function() {
-        queryInput = this.parentNode.parentNode.getElementsByClassName('searchInput')[0];
-        queryInput.value = queryInput.value.slice(0, queryInput.value.length - 1);
-        queryInput.focus();
-        $('#'+queryInput.id).keyup();
-    }
-    keys.appendChild(backspace);
     keyboard.appendChild(keys);
     search_box.appendChild(keyboard);
 
-    keys_add.appendChild(backspace_add);
     keyboard_add.appendChild(keys_add);
     search_box_add.appendChild(keyboard_add);
 

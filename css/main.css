@@ -1936,12 +1936,13 @@ div.doc.not_current:hover{
 	width: 279px;
 	max-width: 297px;
 	color: rgb(0, 0, 0);
-	text-align: center;
+	text-align: left;
 	background: rgb(78, 68, 60);
 	left: 34px;
 	height: auto;
 	bottom: 0px;
 	padding-top: 1px;
+	padding-left: 1px;
 }
 #keyboard.openDown, #keyboard-add.openDown {
 	top:32px;
@@ -1954,6 +1955,7 @@ div.doc.not_current:hover{
 	height: 25px;
 	padding: 2px;
 	width: 25px;
+	text-align: center;
 }
 .key:hover{
 	background: rgba(227, 200, 156, 1);
@@ -1969,9 +1971,9 @@ div.doc.not_current:hover{
 #keyboard_link, #keyboard_link-add, 
 #toggle_search_cont, #toggle_search_cont-add,
 #start_search, #start_search-add {
-	top: calc(0% - 10.5px);
+	/*top: calc(0% - 10.5px);
 	top: -moz-calc(0% - 10.5px);
-	top: -webkit-calc(0% - 11px);
+	top: -webkit-calc(0% - 11px);*/
 	height:29px;
 	/*display: inline;*/
 }
