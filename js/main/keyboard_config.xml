@@ -62,8 +62,6 @@
         <key-group name='manuscript-conventions'>
             <key id='amperagus-tironian-et'>&#8266;</key>
             <key id='thorn-with-slash'>&#42853;</key>
-            <key id='thorn-with-slash'>&#42853;</key>
-            
         </key-group>
     </keyboard>
 </keyboard-group>
