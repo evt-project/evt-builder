@@ -1085,8 +1085,14 @@ $(function() {
 					     	first_hash_doc = first_hash_parts[i].substr(4);   
 					    }
 					} 
-					$(window).hashchange();	
-					// updateHash(first_hash_doc, first_hash_pp, "");
+					// controllo che i riferimenti a documento e pagina
+					// siano effettivamente relativi all'edizione corrente
+					if ( $("#span_tt_select .option[data-value='"+first_hash_doc+"']").length < 1 || 
+						 $("#span_pp_select .option[data-value='"+first_hash_pp+"']").length < 1 ) {
+						window.location.hash = '';
+					} else {
+						$(window).hashchange();		
+					}
 				} else {
 					// IT: L'evento viene attivato quando cambia l'hash della pagina
 					$(window).hashchange();	
