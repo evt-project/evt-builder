@@ -344,9 +344,15 @@
 											<span id="toggle_search_cont-add" class="mainButtons small toggleSearchButton" data-boxsuffix="-add" title="Apri/Chiudi Ricerca">
 												<i class='fa fa-angle-double-up'></i>
 											</span>
-											<span id="keyboard_link-add" class="mainButtons small searchKeyboardButton" data-boxsuffix="-add" title="Apri/Chiudi Tastiera">
-												<i class="fa fa-keyboard-o"></i>
-											</span>
+											<xsl:element name="span">
+												<xsl:attribute name="id">keyboard_link-add</xsl:attribute>
+												<xsl:attribute name="class">mainButtons small searchKeyboardButton <xsl:if test="$virtual_keyboard_search=false()"> hidden</xsl:if></xsl:attribute>
+												<xsl:attribute name="data-boxsuffix">-add</xsl:attribute>
+												<xsl:attribute name="title">Apri/Chiudi Tastiera</xsl:attribute>
+												<xsl:element name="i">
+													<xsl:attribute name="class">fa fa-keyboard-o</xsl:attribute>
+												</xsl:element>
+											</xsl:element>
 											<div id="tipue_search_input_div-add">
 												<input type="text" id="tipue_search_input-add"  class="searchInput" data-boxsuffix="-add"/>
 												<i class="fa fa-close clear_input" title="Clear search"></i>
@@ -561,9 +567,15 @@
 										<span id="toggle_search_cont" class="mainButtons small toggleSearchButton" data-boxsuffix=" " title="Apri/Chiudi Ricerca">
 											<i class='fa fa-angle-double-up'></i>
 										</span>
-										<span id="keyboard_link" class="mainButtons small searchKeyboardButton" data-boxsuffix="" title="Apri/Chiudi Tastiera">
-											<i class="fa fa-keyboard-o"></i>
-										</span>
+										<xsl:element name="span">
+											<xsl:attribute name="id">keyboard_link</xsl:attribute>
+											<xsl:attribute name="class">mainButtons small searchKeyboardButton <xsl:if test="$virtual_keyboard_search=false()"> hidden</xsl:if></xsl:attribute>
+											<xsl:attribute name="data-boxsuffix"></xsl:attribute>
+											<xsl:attribute name="title">Apri/Chiudi Tastiera</xsl:attribute>
+											<xsl:element name="i">
+												<xsl:attribute name="class">fa fa-keyboard-o</xsl:attribute>
+											</xsl:element>
+										</xsl:element>
 										<div id="tipue_search_input_div">
 											<input type="text" id="tipue_search_input" class="searchInput" data-boxsuffix=" "/>
 											<i class="fa fa-close clear_input" title="Clear search"></i>

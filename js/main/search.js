@@ -93,27 +93,32 @@ $(function() {
 	}
 
     // Tasti
-    var keys = document.createDocumentFragment();
-    var keys_add = document.createDocumentFragment();
-    for (var i in key_list) {
-        var button = document.createElement('span');
-        button.setAttribute('class','key');
-        button.appendChild(document.createTextNode(key_list[i]));
-        button.onclick = makeOnClick(key_list[i]);
-        keys.appendChild(button);
+    if ( key_list.length > 0 ) {
+        var keys = document.createDocumentFragment();
+        var keys_add = document.createDocumentFragment();
+        for (var i in key_list) {
+            var button = document.createElement('span');
+            button.setAttribute('class','key');
+            button.appendChild(document.createTextNode(key_list[i]));
+            button.onclick = makeOnClick(key_list[i]);
+            keys.appendChild(button);
 
-        var button_add = document.createElement('span');
-        button_add.setAttribute('class','key');
-        button_add.appendChild(document.createTextNode(key_list[i]));
-        button_add.onclick = makeOnClick(key_list[i]);
-        keys_add.appendChild(button_add);
+            var button_add = document.createElement('span');
+            button_add.setAttribute('class','key');
+            button_add.appendChild(document.createTextNode(key_list[i]));
+            button_add.onclick = makeOnClick(key_list[i]);
+            keys_add.appendChild(button_add);
+        }
+
+        keyboard.appendChild(keys);
+        search_box.appendChild(keyboard);
+
+        keyboard_add.appendChild(keys_add);
+        search_box_add.appendChild(keyboard_add);
+    } else {
+        document.getElementById('keyboard_link').className += ' hidden';
+        document.getElementById('keyboard_link-add').className += ' hidden';
     }
-
-    keyboard.appendChild(keys);
-    search_box.appendChild(keyboard);
-
-    keyboard_add.appendChild(keys_add);
-    search_box_add.appendChild(keyboard_add);
 
     // Gestione onclick
     function makeOnClick(x) {
