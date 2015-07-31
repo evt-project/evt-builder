@@ -378,6 +378,7 @@ http://www.tipue.com/search
                                    var pages = Math.ceil(c / set.show);
                                    var page = (start / set.show);
                                    var foot_out = "";
+                                   if (set.addId == undefined) set.addId = '';
                                    foot_out += '<div id="tipue_search_foot' + set.addId + '"><ul id="tipue_search_foot_boxes' + set.addId + '">';
                                    
                                    if (start > 0)

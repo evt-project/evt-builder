@@ -2074,7 +2074,7 @@ $(function() {
 		
 		if ($('.inPage').length > 1) {
 			var actual_label = $('.main_tt_select .label_selected').text();
-			$('.main_tt_select .label_selected').text(actual_label + " *");
+			$('.main_tt_select .label_selected').text(actual_label);
 		} 
 	}
 
@@ -2095,9 +2095,17 @@ $(function() {
 			.addClass('inPage')
 				.siblings('.selected')
 					.removeClass('selected');
-		if ($('.inPage').length > 1) {
+		if ( $('.inPage').length > 1 ) {
 			var actual_label = $('.main_tt_select .label_selected').text();
-			$('.main_tt_select .label_selected').text(actual_label + " *");
+			$('.main_tt_select .label_selected').text(actual_label);
+		}
+
+		$('.doc.current').removeClass('current').addClass('not_current');
+		$(".doc[data-doc='"+current_doc+"']").removeClass('not_current').addClass('current');
+		if ( $('.doc.current').length > 0 && $('.doc.current').position() != undefined ){
+			$('#text_cont').animate({
+			    scrollTop: ($('.doc.current').position().top)
+			},200);
 		}
 	}
 
@@ -2105,7 +2113,9 @@ $(function() {
 	// (pensato per casi in cui possono esserci più documenti in una stessa pagina)
 	function selectDocumentInPage(elem) {
 		var tt_val, tt_lab, doc_title, current_doc_title, pp_val;
-		if ( $(elem).parents("div[id*='frame']").find('.doc').length > 1 && $(elem).hasClass('not_current') ){
+		if ( $(elem).parents("div[id*='frame']").find('.doc').length > 1 && 
+			 $(elem).hasClass('not_current') ) {
+			
 			doc_title = $(elem).attr('title');
 			current_doc_title = $(".doc.current").attr('tempTitle');
 
@@ -2128,15 +2138,17 @@ $(function() {
 			updateRegestoContent(tt_val);
 			updateHash(tt_val, pp_val, "");
 
-			$('#text_cont').animate({
-			    scrollTop: ($('.doc.current').position().top)
-			},200);
+			if ( $('.doc.current').length > 0 && $('.doc.current').position() != undefined ){
+				$('#text_cont').animate({
+				    scrollTop: ($('.doc.current').position().top)
+				},200);
+			}
 
 			$("#span_tt_select .option.selected").removeClass('selected');
 			$("#span_tt_select .option[data-value='"+tt_val+"']").addClass('selected');
 			$("#span_tt_select .label_selected")
 				.attr("data-value", tt_val)
-				.text(tt_lab + "*");
+				.text(tt_lab);
 		}
 	}
 
