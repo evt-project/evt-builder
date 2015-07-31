@@ -1,4 +1,5 @@
 // [JACOPO] Search startup
+var key_list = [];
 $(function() {
 	var URI = 'data/output_data';
 	var jsonLocation = URI + '/' + "diplomatic" + '/' + 'diplomatic' + '.json';
@@ -83,7 +84,7 @@ $(function() {
 	
 	var keyboard_xml = loadXMLDoc('js/main/keyboard_config.xml');
 	var key_group = keyboard_xml.getElementsByTagName('key-group');
-	var key_list = [];
+	
 	for (var i = 0; i < key_group.length; i++) {
 		var keys = key_group[i].getElementsByTagName('key');
 		for (var j = 0; j < keys.length; j++) {

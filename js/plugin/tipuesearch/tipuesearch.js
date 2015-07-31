@@ -194,7 +194,8 @@ http://www.tipue.com/search
                     d = $.trim(d);
                     d_w = d.split(' ');
                     
-                    if (d.length >= set.minimumLength)
+                    if ( d.length >= set.minimumLength ||
+                         (d.length == 1 && key_list.indexOf(d)) )
                     {
                          if (replace)
                          {
