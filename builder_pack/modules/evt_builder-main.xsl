@@ -411,7 +411,7 @@
 											{
 											"line" : "<xsl:value-of select="@xml:id" />|par <xsl:value-of select="@n" />",
 											"text" : <xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:pb)]" mode="facs"/></xsl:variable>"<xsl:value-of select="fn:normalize-space($var)"></xsl:value-of>",
-											"tags" : "<xsl:value-of select="preceding::text[1]/@xml:id" />|<xsl:call-template name="generateTextLabel"><xsl:with-param name="text_id"><xsl:value-of select="preceding::text[1]/@xml:id"/></xsl:with-param></xsl:call-template>",
+											"tags" : "<xsl:value-of select="ancestor::text[1]/@xml:id" />|<xsl:call-template name="generateTextLabel"><xsl:with-param name="text_id"><xsl:value-of select="ancestor::text[1]/@xml:id"/></xsl:with-param></xsl:call-template>",
 											"loc" : "<xsl:value-of select="preceding::pb[1]/@xml:id" />|<xsl:value-of select="preceding::pb[1]/@n" />"
 											},
 										</xsl:when>
@@ -419,7 +419,7 @@
 											{
 											"line" : "<xsl:value-of select="@xml:id" />|par <xsl:value-of select="@n" />",
 											"text" : <xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:pb)]" mode="facs"/></xsl:variable>"<xsl:value-of select="fn:normalize-space($var)"></xsl:value-of>",
-											"tags" : "<xsl:value-of select="preceding::text[1]/@xml:id" />|<xsl:call-template name="generateTextLabel"><xsl:with-param name="text_id"><xsl:value-of select="preceding::text[1]/@xml:id"/></xsl:with-param></xsl:call-template>",
+											"tags" : "<xsl:value-of select="ancestor::text[1]/@xml:id" />|<xsl:call-template name="generateTextLabel"><xsl:with-param name="text_id"><xsl:value-of select="ancestor::text[1]/@xml:id"/></xsl:with-param></xsl:call-template>",
 											"loc" : "<xsl:value-of select="preceding::pb[1]/@xml:id" />|<xsl:value-of select="preceding::pb[1]/@n" />"
 											}
 										</xsl:otherwise>
