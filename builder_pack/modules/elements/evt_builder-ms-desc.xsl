@@ -92,40 +92,40 @@
 						<div class="right_col"><xsl:value-of select="//tei:textLang"/></div>
 					</div>  
 				</xsl:if>
-				<xsl:if test="tei:msItem"><!--and tei:msItem/normalize-space()">-->
-					<xsl:if test="tei:locus or tei:title or tei:incipit or tei:explicit">
-						<div class="row">
-							<div class="left_col">Texts:</div>
-							<div class="right_col">
-								<xsl:for-each select="tei:msItem">
+				<xsl:if test="//tei:msItem"><!--and tei:msItem/normalize-space()">-->
+					<div class="row">
+						<div class="left_col">Texts:</div>
+						<div class="right_col">
+							<xsl:for-each select="tei:msItem">
+								<div class="msItem">
 									<xsl:if test="tei:locus and tei:title">
-										<xsl:value-of select="tei:locus"/>
-										<xsl:text>: </xsl:text>
-										<xsl:value-of select="tei:title"/>
-										<br/>
+										<span class="block">
+											<xsl:value-of select="tei:locus"/>
+											<xsl:text>: </xsl:text>
+											<xsl:value-of select="tei:title"/>	
+										</span>
 									</xsl:if>
 									<xsl:if test="tei:incipit">
-										<xsl:text>Incipit: </xsl:text>
-										<xsl:value-of select="tei:incipit"/>
-										<br/>
+										<span class="block">
+											<xsl:text>Incipit: </xsl:text>
+											<xsl:value-of select="tei:incipit"/>	
+										</span>
 									</xsl:if>
 									<xsl:if test="tei:explicit">
-										<xsl:text>Explicit: </xsl:text>
-										<xsl:value-of select="tei:explicit"/>
-										<br/><br/>
+										<span class="block">
+											<xsl:text>Explicit: </xsl:text>
+											<xsl:value-of select="tei:explicit"/>
+										</span>
 									</xsl:if>
-								</xsl:for-each>
-							</div>
+									<xsl:if test="tei:colophon">
+										<span class="block">
+											<xsl:value-of select="tei:colophon"/>
+										</span>
+									</xsl:if>
+								</div>
+							</xsl:for-each>
 						</div>
-					</xsl:if>
-					<xsl:if test="tei:colophon">
-						<div class="row">
-							<div class="left_col">Colophon:</div>
-							<div class="right_col">
-								<xsl:value-of select="tei:colophon"/>
-							</div>
-						</div>
-					</xsl:if>
+					</div>
 				</xsl:if>
 			</div>
 		</div>
