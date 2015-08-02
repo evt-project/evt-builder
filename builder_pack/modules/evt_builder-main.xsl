@@ -61,14 +61,26 @@
 		<!-- EN: If there is at least a <text> element the transformations for parallel transcription are activated -->
 		<!-- IT: Le trasformazioni per la parallel transcription vengono attivate se nel documento esiste almeno un elemento <text> -->
 		<xsl:if test="tei:TEI/tei:text">
-			<xsl:apply-templates select="$step0" mode="splitPages"></xsl:apply-templates>
+			<xsl:apply-templates select="$step0" mode="splitPages"/>
 			
+			<!-- HEADER INFORMATION -->
+			<xsl:if test="$headerInfo=true()">
+				<xsl:call-template name="headerInfo"/>
+			</xsl:if>
+			
+			<!-- MANUSCRIPT DESCRIPTION -->
+			<xsl:if test="$msDesc=true()">
+				<xsl:call-template name="msDesc"/>
+			</xsl:if>
+			
+			<!-- REGESTO -->
 			<xsl:if test="$regesto=true()">
 				<xsl:for-each select="tei:TEI/tei:text/tei:group/tei:text">
-					<xsl:call-template name="regesto"></xsl:call-template>	
+					<xsl:call-template name="regesto"/>	
 				</xsl:for-each>
 			</xsl:if>
 			
+			<!-- LISTS -->
 			<xsl:if test="$list_person=true()">
 				<xsl:result-document method="html" encoding="UTF-8" media-type="text/plain" byte-order-mark="yes" href="{$filePrefix}/data/output_data/liste/listPerson.html" indent="yes">
 					<xsl:element name="div">
@@ -210,10 +222,23 @@
 			</xsl:choose>
 		</xsl:if>
 	</xsl:template>
-
+	
+	<!-- HEADER INFO -->
+	<xsl:template name="headerInfo">
+		<xsl:result-document method="html" encoding="UTF-8" media-type="text/plain" byte-order-mark="yes" href="{$filePrefix}/data/output_data/prefatory_matter/header_info.html" indent="yes">
+			<xsl:call-template name="headerInfo_generation"/>
+		</xsl:result-document>
+	</xsl:template>
+	<!-- MS DESCRIPTION -->
+	<xsl:template name="msDesc">
+		<xsl:result-document method="html" encoding="UTF-8" media-type="text/plain" byte-order-mark="yes" href="{$filePrefix}/data/output_data/prefatory_matter/ms_desc.html" indent="yes">
+			<xsl:call-template name="msDesc_generation"/>
+		</xsl:result-document>
+	</xsl:template>
+	<!-- REGESTO -->
 	<xsl:template name="regesto">
 		<xsl:variable name="doc_id" select="@xml:id" />
-		<xsl:result-document method="html" encoding="UTF-8" media-type="text/plain" byte-order-mark="yes" href="{$filePrefix}/data/output_data/regesto/doc_{$doc_id}.html" indent="yes">
+		<xsl:result-document method="html" encoding="UTF-8" media-type="text/plain" byte-order-mark="yes" href="{$filePrefix}/data/output_data/prefatory_matter/regesto/regesto_doc_{$doc_id}.html" indent="yes">
 			<xsl:variable name="front" select="current()/tei:front" />
 			<xsl:call-template name="doc_regesto">
 				<xsl:with-param name="doc_id" select="$doc_id"/>
@@ -222,6 +247,7 @@
 		</xsl:result-document>
 	</xsl:template>
 	
+	<!-- LIST PERSON -->
 	<xsl:template name="listPerson">
 			<xsl:element name="ul">
 				<xsl:attribute name="id">ul_listPerson</xsl:attribute>
@@ -237,6 +263,7 @@
 			</xsl:element>
 	</xsl:template>
 	
+	<!-- LIST PLACE -->
 	<xsl:template name="listPlace">
 		<xsl:element name="ul">
 			<xsl:attribute name="id">ul_listPlace</xsl:attribute>

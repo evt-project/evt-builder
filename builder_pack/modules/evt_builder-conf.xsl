@@ -57,12 +57,28 @@
 	<!-- default: true() -->
 	<xsl:param name="double_view" select="true()"/>
 	
+	<!-- ################ -->
+	<!-- PREFATORY MATTER -->
+	<!-- ################ -->
+	
 	<!-- EN: On/Off regesto -->
 	<!-- IT: Attiva/Disattiva regesto -->
 	<!-- default: false() -->
 	<xsl:param name="regesto" select="true()"/>
 	
-	<!-- Edition -->
+	<!-- EN: On/Off Manuscript Description -->
+	<!-- IT: Attiva/Disattiva Descrizione del manoscritto-->
+	<!-- default: true() -->
+	<xsl:param name="msDesc" select="true()"/>
+	
+	<!-- EN: On/Off Header information -->
+	<!-- IT: Attiva/Disattiva Informazioni generali -->
+	<!-- default: true() -->
+	<xsl:param name="headerInfo" select="true()"/>
+	
+	<!-- ############## -->
+	<!-- EDITION LEVELS -->
+	<!-- ############## -->
 	<!-- EN: To use it in your code:
 		<xsl:value-of select="$edition_array[n]" />	-->
 	<!-- IT: Per l'utilizzo nel codice:

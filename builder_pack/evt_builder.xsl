@@ -35,10 +35,13 @@
 
 	<!-- HTML structure -->
 	<xsl:include href="modules/html_build/evt_builder-callhtml.xsl"/>
+	<xsl:include href="modules/html_build/evt_builder-callhtml-prefatory_matter.xsl"/>
 	<xsl:include href="modules/html_build/evt_builder-function.xsl"/>
 		
 	<!-- Elements -->
 	<xsl:include href="modules/elements/evt_builder-divLine.xsl"/>
+	<xsl:include href="modules/elements/evt_builder-header-info.xsl"/>
+	<xsl:include href="modules/elements/evt_builder-ms-desc.xsl"/>
 	
 	<!-- Elements for facsimile version-->
 	<xsl:include href="modules/elements/evt_builder-facs-core.xsl"/>
