@@ -150,6 +150,15 @@
     <xsl:template match="*" mode="structure_generation">
         <xsl:result-document method="xml" href="{$filePrefix}/data/output_data/structure.xml" indent="yes">
             <xml>
+                <!-- Integrazione by AB -->
+                <xsl:if test="$msDesc=true()">
+                    <msDesc active="1"/>
+                </xsl:if>
+                <xsl:if test="$headerInfo=true()">
+                    <headerInfo active="1"/>
+                </xsl:if>
+                <!-- /end Integrazione by AB -->
+                
                 <xsl:if test="$regesto=true()">
                     <regesto active="1" />
                 </xsl:if>

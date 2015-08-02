@@ -138,55 +138,6 @@
 	</xsl:template>
 
 	
-	<xsl:template name="doc_regesto">
-		<xsl:param name="doc_id" />
-		<xsl:param name="front" />
-		<html lang="en-US">
-			<xsl:call-template name="html_head">
-				<xsl:with-param name="html_path" select="$dataPrefix"/>
-				<xsl:with-param name="html_tc" select="'datastructure'"/>
-				<xsl:with-param name="output" select="regesto"/>
-			</xsl:call-template>
-			<body>
-				<div id="regesto">
-					<div class="front">
-						<div class='title'>Informazioni sul documento</div>
-						<div class="info">
-							<div class="align-center"><span class="intestazione inline">Numerazione nuova: </span><xsl:value-of select="$front/tei:titlePart[@type='numerazioneNuova']"/></div>
-							<div class="align-center"><span class="intestazione inline">Numerazione originale: </span><xsl:value-of select="$front/tei:titlePart[@type='numerazioneOrig']"/></div>
-							<div class="align-center">
-								<span class="intestazione inline">
-									<xsl:apply-templates mode="dipl" select="$front/tei:docDate"/>
-								</span>
-							</div>
-						</div>
-						<div class="reg_text">
-							<!--<xsl:value-of select="$front/tei:div[@type='regesto']"/>-->
-							<xsl:apply-templates select="$front/tei:div[@type='regesto']" mode="dipl"/>
-						</div>
-						<div class="reg_note">
-							<hr/>
-							<p class="bibliografia">
-								<!--<xsl:value-of select="$front//tei:div[@type='orig_doc']"/>-->
-								<xsl:apply-templates select="$front//tei:div[@type='orig_doc']" mode="dipl"></xsl:apply-templates>
-							</p>
-							<p class="bibliografia">
-								<xsl:for-each select="$front//tei:div[@type='biblio']/tei:p">
-									<xsl:apply-templates mode='dipl'/>
-								</xsl:for-each>
-							</p>
-							<p class="crit_notes">
-								<xsl:for-each select="tei:front//tei:div[@type='crit_notes']/tei:note">
-									<xsl:apply-templates mode="dipl"/>
-								</xsl:for-each>
-							</p>
-						</div>
-					</div>
-				</div>
-			</body>
-		</html>
-	</xsl:template>
-	
 	<xsl:template name="index_build">
 		<html lang="en-US">
 			<xsl:call-template name="html_head">
@@ -194,9 +145,15 @@
 			</xsl:call-template>
 			<body>
 				<div id="global_wrapper">
+					<!-- Integration by AB -->
+					<xsl:if test="$headerInfo=true()">
+						<div id="headerInfo_cont"></div>
+					</xsl:if>
+					<!-- /end Integration by AB -->
 					<header id="main_header">
 						<div id="home_title">
 							<xsl:value-of select="$index_title"/>
+							
 							<xsl:if test="$badge=true()">
 								<div id="badge_title"><xsl:value-of select="$badge_text"/></div>
 							</xsl:if>
@@ -207,27 +164,37 @@
 							</div>
 							<div class='botleftconcave'></div>
 						</div>
-						<div id="mode_switch">
-							<xsl:if test="$image_frame=false()">
-								<a href="javascript:void(0);" id="txt_single" class="current_mode"
-									title="Single Text mode"> <img src="images/txt-single.png" class="mainHeaderimg"></img> </a>
+						<div id="cont_interface_tools">
+							<div id="mode_switch">
+								<xsl:if test="$image_frame=false()">
+									<a href="javascript:void(0);" id="txt_single" class="current_mode"
+										title="Single Text mode"> <img src="images/txt-single.png" class="mainHeaderimg"></img> </a>
+								</xsl:if>
+								<xsl:if test="$image_frame=true()">
+									<a href="javascript:void(0);" id="txtimg_link" class="current_mode"
+										title="Image|Text mode"> <img src="images/img-txt.png" class="mainHeaderimg"></img></a>
+									<!--<a href="javascript:void(0);" id="imgimg_link" title="image/image mode"> [I|I] </a>-->
+								</xsl:if>
+								<xsl:if test="count($edition_array) &gt; 1">
+									<a href="javascript:void(0);" id="txttxt_link"
+										title="Text|Text mode"> <img src="images/txt-txt.png" class="mainHeaderimg"></img> </a>
+								</xsl:if>
+								<xsl:if test="$image_frame=true() and $double_view=true()">
+									<a href="javascript:void(0);" id="imgd_link"
+										title="Bookreader mode"> <img src="images/double-view.png" class="mainHeaderimg"></img> </a>
+								</xsl:if>
+							</div>
+						
+							<!-- Integration by AB -->
+							<xsl:if test="$headerInfo=true()">
+								<a href="javascript:void(0);" id="info_link" 
+									lang="en" title="About"><i class="fa fa-info-circle"></i></a>
 							</xsl:if>
-							<xsl:if test="$image_frame=true()">
-								<a href="javascript:void(0);" id="txtimg_link" class="current_mode"
-									title="Image|Text mode"> <img src="images/img-txt.png" class="mainHeaderimg"></img></a>
-								<!--<a href="javascript:void(0);" id="imgimg_link" title="image/image mode"> [I|I] </a>-->
-							</xsl:if>
-							<xsl:if test="count($edition_array) &gt; 1">
-								<a href="javascript:void(0);" id="txttxt_link"
-									title="Text|Text mode"> <img src="images/txt-txt.png" class="mainHeaderimg"></img> </a>
-							</xsl:if>
-							<xsl:if test="$image_frame=true() and $double_view=true()">
-								<a href="javascript:void(0);" id="imgd_link"
-									title="Bookreader mode"> <img src="images/double-view.png" class="mainHeaderimg"></img> </a>
-							</xsl:if>
-						</div>
-						<div id="cont_fullscreen">
-							<a href="javascript:void(0);" id="main_fullscreen" title="Fullscreen"><i class="fa fa-expand"></i></a>
+							<!-- /end Integration by AB -->
+						
+							<div id="cont_fullscreen">
+								<a href="javascript:void(0);" id="main_fullscreen" title="Fullscreen"><i class="fa fa-expand"></i></a>
+							</div>
 						</div>
 					</header>
 					<section id="central_wrapper">
@@ -331,6 +298,15 @@
 														<i class="fa fa-chain-broken"></i>
 													</span>
 												</xsl:if>
+												
+												<!-- Integration by AB -->
+												<xsl:if test="$image_frame=true() and $msDesc=true()">
+													<span class="mainButtons active" id="switch_msDesc" lang="en" title="Manuscript Information">
+														<span lang="en">MS Info</span>
+														<i class="fa fa-info-circle"></i>
+													</span>
+												</xsl:if>
+												<!-- /end Integration by AB -->
 											</div>
 										</xsl:if>
 										<!--<input type="image" src="images/zoom.png" id="switchZoom" class="top_image_tools" value="zoom" onclick="zoomOn()"/>-->
@@ -411,7 +387,11 @@
 										<span id="inside_left_arrow-add"><i class="fa fa-chevron-up"></i></span>
 										<span id="inside_right_arrow-add"><i class="fa fa-chevron-down"></i></span>
 									</xsl:if>
-									
+									<!-- Integration by AB -->
+									<xsl:if test="$image_frame=true() and $msDesc=true()">
+										<div id="msDesc_cont"></div>
+									</xsl:if>
+									<!-- /end Integration by AB -->
 									<div id="image_cont">
 										<div id="image_fade">
 											<div id="image_elem">
