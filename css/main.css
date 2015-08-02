@@ -2221,7 +2221,7 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 }
 #headerInfo {
     width: 50%;
-	font-size: 21pt;
+	font-size: 20pt;
 	height: 90%;
 	min-width: 500px;
 	min-height: 300px;
@@ -2346,6 +2346,7 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
     display: table;
     width: 100%;
     border-spacing: 0px;
+    font-size: 90%;
 }
 
 #msDesc .list {
@@ -2377,6 +2378,16 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
     padding: 1% 4% 1% 3%;
     text-align: left;
     font-size: 100%;
+}
+
+#msDesc .msItem {
+	display: block;
+	margin: 20px 0;
+}
+
+#msDesc span.block {
+	display: block;
+	margin: 0;
 }
 
 .italic {
