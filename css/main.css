@@ -500,6 +500,10 @@ footer{
 	bottom: 0px;
 }
 
+#text_cont, #text_cont-add {
+	font-size: 19px;
+}
+
 #text_frame, #text_elem-add > div, #regesto, #regesto-add{
 	margin-top:auto !important;
 	#overflow-y: scroll;
@@ -994,7 +998,7 @@ footer{
 	border-radius: 3px;
 	text-align: center;
 }
-#text_tool .mainButtons, #text_tool-add .mainButtons {
+#text_tool .mainButtons {
 	top:7px;
 }
 #text_tool-add #search_link-add {
@@ -1761,6 +1765,7 @@ div.botleftconcave {
 	-ms-box-shadow: 0px 2px 5px -4px rgb(0, 0, 0) inset;
 	box-shadow: 0px 2px 5px -4px rgb(0, 0, 0) inset;
     cursor: pointer;
+    line-height: 0;
 }
 #hide_regesto:hover{
 	background: rgba(54, 45, 40, .3);
@@ -2392,4 +2397,25 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 
 .italic {
   font-style: italic;
+}
+
+.font-size-controller {
+	padding-right: 3px;
+	min-width: 28px;
+	border-radius: 3px;
+	text-align: center;
+}
+.font-size-controller .fa-font {
+	margin: 0px; 
+	height: 28px;
+}
+
+.font-size-controller .fa-minus, 
+.font-size-controller .fa-plus {
+	margin: 0px; 
+	position: absolute; 
+	right: 5px; 
+	font-size: 0.55em; 
+	top: 5px; 
+	float: right;
 }

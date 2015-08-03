@@ -339,7 +339,7 @@
 										</div>
 										<div id="search_sub_header-add" class="bottomBoxSubHeader">
 											<div id="search_query-add" class="searchQuery">Enter your query into the search box above!</div>
-											<div id="search_results-add" class="searchResults"></div>
+											<div id="search_results-add" class="searchResults can-change-font-size"></div>
 										</div>
 										<div id="search_cont_results-add" class="bottomBoxContent">
 											<div id="tipue_search_content-add" class="searchResultsContent"></div>
@@ -379,6 +379,14 @@
 													<div class="option" data-value="clear">Clear Selection</div>
 												</div>
 											</div>
+										</span>
+										<span class="mainButtons small font-size-controller" data-action="decrease">
+											<i class="fa fa-font"></i>
+											<i class="fa fa-minus"></i>
+										</span>
+										<span class="mainButtons small font-size-controller" data-action="increase">
+											<i class="fa fa-font"></i>
+											<i class="fa fa-plus"></i>
 										</span>
 									</div>
 								</xsl:if>
@@ -536,9 +544,9 @@
 								<i class="fa fa-times-circle closeFullScreen" id="closeFullScreenRight"></i>
 							</header>
 							<xsl:if test="$regesto=true()">
-								<div id="regesto_cont" class="text-box"/>
+								<div id="regesto_cont" class="text-box can-change-font-size"/>
 							</xsl:if>
-							<div id="text_cont" class="text-box">
+							<div id="text_cont" class="text-box can-change-font-size">
 								<div id="text_elem"/>
 							</div>
 							<xsl:if test="$search=true()">
@@ -569,7 +577,7 @@
 										<div id="search_results" class="searchResults"></div>
 									</div>
 									<div id="search_cont_results" class="bottomBoxContent">
-										<div id="tipue_search_content" class="searchResultsContent"></div>
+										<div id="tipue_search_content" class="searchResultsContent can-change-font-size"></div>
 									</div>
 									<div id="search_foot" class="bottomBoxFooter"></div>
 								</div>	
@@ -652,6 +660,14 @@
 											</div>
 										</div>
 									</div>
+								</span>
+								<span class="mainButtons small font-size-controller" data-action="decrease">
+									<i class="fa fa-font"></i>
+									<i class="fa fa-minus"></i>
+								</span>
+								<span class="mainButtons small font-size-controller" data-action="increase">
+									<i class="fa fa-font"></i>
+									<i class="fa fa-plus"></i>
 								</span>
 							</div>
 						</div>

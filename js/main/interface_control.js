@@ -81,6 +81,7 @@ $(function() {
 				// Rimuovo i pulsanti dal menu inferiore perché inutili
 				// (ricerca, liste, filtri)
 				$('#search_link-add, #list_link-add, #span_list_select-add').remove();
+				$('.font-size-controller').css('top', '7px');
 				// Rimuovo il pulsante per aprire il selettore dei livelli di edizione
 				// in quanto non è necessario
 				$('#span_ee_select').find('.open_select').remove();
@@ -492,7 +493,6 @@ $(function() {
 			   Ricerca gli altri testi che iniziano sulla stessa pagina 
 			   e aggiorna il contenuto del tooltip con tale elenco. */
 			
-			// #CDP - Aggiungere controllo per avere il tooltip solo se esiste almeno un caso di pagina con più doc sopra
 			if ( optionTooltipInPages ) {
 				$('<span/>')
 					.addClass('option_tooltip')
@@ -998,8 +998,38 @@ $(function() {
 
 			}
 
-		
 			/* Fine integrazione by AB */
+
+			$('.font-size-controller').click(function(){
+				var action = $(this).attr('data-action');
+				$(this).parents("div[id*='_frame']").find('.can-change-font-size').each(function(){
+					var currentFontSize, currentFontSizeNum, newFontSize;
+					currentFontSize = $(this).css('font-size');
+					currentFontSizeNum = parseFloat(currentFontSize, 10);
+					if ( action == 'increase' ) {
+						newFontSize = currentFontSizeNum * 1.1;	
+					} else {
+						newFontSize = currentFontSizeNum * 0.9;
+					}	
+					$(this).css({
+						'font-size': newFontSize,
+						'line-height': (newFontSize+10)+'px'
+					});
+					$(this).attr('data-font-size', newFontSize);
+				});
+			});
+
+			$('#decrease_font_size').click(function(){
+				var currentFontSize, currentFontSizeNum, newFontSize;
+				currentFontSize = $('#text_frame').css('font-size');
+				currentFontSizeNum = parseFloat(currentFontSize, 10);
+				
+				$('#text_frame').css({
+					'font-size': newFontSize,
+					'line-height': (newFontSize+10)+'px'
+				});
+			});
+
 
 			/* Fine Gestione eventi */
 
@@ -2220,13 +2250,24 @@ $(function() {
 	// IT: Gestisce il cambio pagina e gli eventi correlati
 	function gotopage(pp_val, pp_lab, state){
 		var edition, edition_add; 
+		var current_font_size;
 		//N.B. i caricamenti delle immagini si attivano grazie agli eventi change dei label_selected in iviewer_config
 		edition = $("#span_ee_select .main_ee_select .label_selected").text().toLowerCase();
 		$('#span_pp_select .label_selected').trigger('change');
 		
 		$('#text_elem').attr('data-page', pp_val);
+		if ( $('#text_cont').attr('data-font-size') != '') {
+			current_font_size = parseFloat($('#text_cont').attr('data-font-size'));	
+		} else {
+			current_font_size = parseFloat($('#text_cont').css('font-size'));
+		}
+		
 		$('#text_elem').empty().load("data/output_data/"+edition+"/page_"+pp_val+"_"+edition+".html #text_frame", function( response, status, xhr ){
-			
+			$('#text_cont')
+				.css({
+					'font-size': current_font_size+'px',
+					'line-height': (current_font_size+10)+'px'
+				});
 			//IT: Attiva occorrenza in lista 
 			if ( $('.list').length > 0 && $('.list_element.list_element_opened').length > 0 ) {
 				$('.selected_from_list').removeClass('selected_from_list')
@@ -3553,7 +3594,19 @@ $(function() {
 
 			// Se il regesto è nel box di sinistra, lo sposto a destra
 			if ( $('#main_left_frame').find('#regesto_cont') ){
+				var current_font_size;
+				if ( $('#text_cont').attr('data-font-size') && $('#text_cont').attr('data-font-size') != '') {
+					current_font_size = parseFloat($('#text_cont').attr('data-font-size'));	
+				} else {
+					current_font_size = parseFloat($('#text_cont').css('font-size'));
+				}
+
 				$('#regesto_cont')
+					.css({
+						'font-size': current_font_size+'px',
+						'line-height': (current_font_size+10)+'px'
+					})
+					.attr('data-font-size', current_font_size)
 					.detach()
 					.insertAfter("#right_header")
 				;	

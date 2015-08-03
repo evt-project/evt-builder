@@ -43,7 +43,7 @@ div[id*='regesto'] hr{
 	margin: 10px auto;
 	text-align: left;
 	line-height: 28px;
-	font-size: 19px;
+    font-size: 100%;
 }
 
 #text_frame-add, #regesto, #regesto-add {
@@ -52,10 +52,12 @@ div[id*='regesto'] hr{
 	max-width: 600px;
 	margin: 10px auto;
 	text-align: left;
-	line-height: 28px;
-	font-size: 19px;
 }
 
+#regesto_cont, #regesto_cont-add {
+    line-height: 28px;
+    font-size: 19px;
+}
 .full #text_frame, .full #text_frame-add,
 .full #regesto, .full #regesto-add{
 	max-width: 1000px;
@@ -430,7 +432,7 @@ span.dipl-ex {
 span.tooltip {
 	font-size: 80%;
 	position: absolute;
-	line-height: 16px;
+	line-height: 100%;
 	display: none;
 	background: #e5dac4;
 	border: 2.5px solid black;
@@ -442,11 +444,7 @@ span.tooltip {
 	-khtml-box-shadow: 2px 2px 2px #7e7067;
 	-ms-box-shadow: 2px 2px 2px #7e7067;
 	padding: 5px;
-	#margin-top:32px;
 	z-index:99;
-	#margin-left: -40px;
-	#min-width:250px;
-	#width:250px;
 	text-align: center;
 	cursor: text !important;
 }
