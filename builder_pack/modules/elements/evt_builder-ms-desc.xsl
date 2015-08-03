@@ -19,7 +19,6 @@
 	<!-- Si seleziona il nodo <msDesc> e si applica la regola ai nodi al suo interno. -->
 	<xsl:template match="tei:msDesc">
 		<div id="msDesc">
-			<div class="title">Manuscript description</div>
 			<xsl:apply-templates select="tei:msIdentifier"/>
 			<xsl:apply-templates select="tei:msContents"/>
 			<xsl:apply-templates select="tei:physDesc"/>

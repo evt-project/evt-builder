@@ -80,6 +80,11 @@
 				</xsl:for-each>
 			</xsl:if>
 			
+			<!-- FRONT INFORMATION -->
+			<xsl:if test="$frontInfo=true()">
+				<xsl:call-template name="front"/>
+			</xsl:if>
+			
 			<!-- LISTS -->
 			<xsl:if test="$list_person=true()">
 				<xsl:result-document method="html" encoding="UTF-8" media-type="text/plain" byte-order-mark="yes" href="{$filePrefix}/data/output_data/liste/listPerson.html" indent="yes">
@@ -237,6 +242,14 @@
 			<xsl:call-template name="msDesc_generation"/>
 		</xsl:result-document>
 	</xsl:template>
+	
+	<!-- MS DESCRIPTION -->
+	<xsl:template name="front">
+		<xsl:result-document method="html" encoding="UTF-8" media-type="text/plain" byte-order-mark="yes" href="{$filePrefix}/data/output_data/prefatory_matter/front.html" indent="yes">
+			<xsl:call-template name="front_generation"/>
+		</xsl:result-document>
+	</xsl:template>
+	
 	<!-- REGESTO -->
 	<xsl:template name="regesto">
 		<xsl:variable name="doc_id" select="@xml:id" />

@@ -159,6 +159,10 @@
                 </xsl:if>
                 <!-- /end Integrazione by AB -->
                 
+                <xsl:if test="$frontInfo=true()">
+                    <front active="1" />
+                </xsl:if>
+                
                 <xsl:if test="$regesto=true()">
                     <regesto active="1" />
                 </xsl:if>

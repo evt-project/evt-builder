@@ -451,7 +451,8 @@ footer{
 
 #text_cont, #text_cont-add, 
 #image_cont, 
-#regesto_cont, #regesto_cont-add, 
+#regesto_cont, #regesto_cont-add,
+#front_cont, #front_cont-add,
 #lists_cont, 
 #search_cont, #search_cont-add {
 	height: 100%;
@@ -459,7 +460,8 @@ footer{
 }	
 /*Chiara  */
 #text_cont, #text_cont-add, 
-#regesto_cont, #regesto_cont-add, 
+#regesto_cont, #regesto_cont-add,
+#front_cont, #front_cont-add, 
 #lists_cont, 
 #search_cont, #search_cont-add{
 	background: white;
@@ -485,13 +487,38 @@ footer{
     overflow: auto;
 }
 
+#front_cont, #front_cont-add {
+	text-align: left;
+	font-size: 19px;
+}
+#front_cont .front, #front_cont-add .front{
+	padding-top: 40px;
+}
+#front_cont .front > .title, #front_cont-add .front > .title {
+	text-align: center;
+	font-weight: bold;
+	margin-bottom: 20px;
+	font-size: 110%;
+	display: block;
+}
+
+#front_cont .front > div, #front_cont-add .front > div,
+#front_cont .front .hangInd, #front_cont-add .front .hangInd{
+	margin-bottom: 20px;
+}
+
 #right_header.menuClosed + #text_cont, 
-#right_header.menuClosed +  #regesto_cont,
+#right_header.menuClosed + #regesto_cont,
+#right_header.menuClosed + #front_cont,
+#left_header.menuClosed + #front_cont,
 #left_header.menuClosed + #text_cont-add, 
-#left_header.menuClosed + #regesto_cont-add{
+#left_header.menuClosed + #regesto_cont-add, 
+#right_header.menuClosed + #front_cont-add,
+#left_header.menuClosed + #front_cont-add {
 	#margin-top: 0px;
 }
-#regesto_cont div.front, #regesto_cont-add div.front{
+#regesto_cont div.front, #regesto_cont-add div.front, 
+#front_cont div.front, #front_cont-add div.front {
     width:85%;
     padding-bottom: 20px;
     margin:auto;
@@ -1708,8 +1735,9 @@ div.botleftconcave {
 	display: none;
 }
 
-/* REGESTO */
-#regesto_cont, #regesto_cont-add{
+/* REGESTO AND FRONT INFO */
+#regesto_cont, #regesto_cont-add, 
+#front_cont, #front_cont-add{
     position: absolute;
     z-index: 9;
     top: 0px;
@@ -1717,11 +1745,13 @@ div.botleftconcave {
     left: 0;
 }
 #regesto, #regesto-add,
-#regesto_cont, #regesto_cont-add{
+#regesto_cont, #regesto_cont-add, 
+#front, #front-add,
+#front_cont, #front_cont-add{
 	background: #f5efe4;
 }
 #regesto .title, #regesto .align-center,
-#regesto-add .title, #regesto-add .align-center{
+#regesto-add .title, #regesto-add .align-center {
     text-align: center;
 }
 #regesto .title,
@@ -1751,7 +1781,8 @@ div.botleftconcave {
 #regesto-add .bibliografia{
     margin: 10px 0;
 }
-#hide_regesto{
+#hide_regesto, 
+#hide_front, #hide_front-add {
     position: relative;
     text-align: center;
     font-size: 12px;
@@ -1767,18 +1798,20 @@ div.botleftconcave {
     cursor: pointer;
     line-height: 0;
 }
-#hide_regesto:hover{
+#hide_regesto:hover,
+#hide_front:hover, #hide_front-add:hover {
 	background: rgba(54, 45, 40, .3);
 }
 
-#main_left_frame #hide_regesto{
+#main_left_frame #hide_regesto {
 	display: none;
 }
 #value_regesto{
     border-bottom: 4px double #000;
 }
 
-#left_menu #switchReg-add{
+#left_menu #switchReg-add,
+#left_menu #switchFront-add{
 	display: none;
 }
 
@@ -2198,6 +2231,10 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 	display: none !important;
 }
 
+.title {
+	display: inline;
+	font-style: italic; 
+}
 /* HEADER INFO by AB */
 #headerInfo_cont {
 	position: fixed;
@@ -2230,7 +2267,7 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 	height: 90%;
 	min-width: 500px;
 	min-height: 300px;
-	background: transparent url("../images/bg-darker2.png") repeat fixed 0% 0%;
+	background: #FFFAF0;
 	overflow: auto;
 	position: relative;
 	border: 2px solid #4E443C;
@@ -2390,13 +2427,23 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 	margin: 20px 0;
 }
 
-#msDesc span.block {
+.block {
 	display: block;
 	margin: 0;
 }
 
 .italic {
   font-style: italic;
+}
+
+.uppercase {
+	text-transform: uppercase;
+}
+
+.section-title {
+	display: block;
+	font-weight: bold;
+	text-transform: capitalize;
 }
 
 .font-size-controller {

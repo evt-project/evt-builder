@@ -21,8 +21,7 @@
 	<!-- P Paragraphs -->
 	<xsl:template match="tei:p" mode="dipl">
 		<xsl:element name="span">
-			<xsl:attribute name="data-id" select="@xml:id"/>
-			
+			<xsl:attribute name="data-id" select="@xml:id"/>			
 			<xsl:if test="current()[not((string-length(normalize-space()))= 0)]">
 				<xsl:attribute name="class" select="$ed_name2,name()" separator="-"/>
 				<xsl:apply-templates mode="#current"> </xsl:apply-templates>
