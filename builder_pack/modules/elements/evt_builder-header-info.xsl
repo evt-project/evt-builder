@@ -29,7 +29,6 @@
         dei nodi che riguardano le informazioni sul titolo dell'opera e i suoi responsabili. -->
 	<xsl:template match="tei:titleStmt">
 		<div id="titleStmt">
-			<div class="title">Information about the project</div>
 			<xsl:if test="tei:title">
 				<xsl:apply-templates select="tei:title"/>
 			</xsl:if>

@@ -1064,6 +1064,10 @@ $(function() {
 						updateRegestoContent(current_doc);
  					}
 
+ 					if ( $("#front_cont").length > 0 ) { 
+						updateFrontContent(current_doc);
+ 					}
+
 					//current_page = hash.replace( /^#/, '' );
 					//var checkpp = $(xml).find('text pb:contains('+current_page+')').text();
 					checkpp = $(xml).find('pages pb:contains('+current_page+')').text();
@@ -1829,47 +1833,53 @@ $(function() {
 
     	$(id_regesto_cont).load("data/output_data/prefatory_matter/regesto/regesto_doc_"+current_doc+".html #regesto", function(response, status, xhr){
 	    	if (status == "success") {
-		    	$('<div />')
-		    		.attr('id', "hide_regesto")
-		    		.addClass('hide_regesto')
-		    		.append("<i class='fa fa-chevron-up'></i></div>")	
-		    		.click(function(){ hide_regesto(id_regesto_cont, id_regesto); })
-		    		.appendTo(id_regesto_cont); // solo nel box di destra
+		    	if ( $('#regesto').children().length>0 && $.trim($("#regesto").text())!=='' ) {
+			    	$('<div />')
+			    		.attr('id', "hide_regesto")
+			    		.addClass('hide_regesto')
+			    		.append("<i class='fa fa-chevron-up'></i></div>")	
+			    		.click(function(){ hide_regesto(id_regesto_cont, id_regesto); })
+			    		.appendTo(id_regesto_cont); // solo nel box di destra
 
-		    	if ( ($('#span_ee_select .label_selected').attr('data-value') != 'diplomatic') &&
-		    		 (!$('#switchReg').hasClass('active')) ) {
-		    		$("#main_right_frame").find('.like_select.filter')
-						.css('opacity', "1")
-						.removeClass('not_active'); 	 	
-		    	} else {
-		    		$("#main_right_frame").find('.like_select.filter')
-						.css('opacity', "0.5")
-						.addClass('not_active'); 
-		    	}
-		    	if ( $("#span_ee_select").find('.option').length == 0 ) {
-		    		// Se ho un solo livello di edizione, in modalità txt txt nel frame di sx avrò sicuramente il regesto,
-		    		// quindi non ho bisogno del selettore con i filtri nel menu in basso a sx
-		    		$("#main_left_frame").find('.like_select.filter')
-						.css('opacity', "0")
-						.addClass('not_active'); 
-		    	} else if ($("#span_ee_select").find('.option').length > 0) {
-		    		// ...altrimenti
-		    		if ( $('#span_ee_select-add .label_selected').attr('data-value') != 'regesto' ) {
-		    			// Se nel frame ho il regesto visibile, il selettore dei filtri rimane opacizzato...
-		    			$("#main_left_frame").find('.like_select.filter')
-							.css('opacity', "0.5")
-							.addClass('not_active'); 	 		
-		    		} else {
-	    				// altrimenti è funzionante e pienamente visibile
-		    			$("#main_left_frame").find('.like_select.filter')
+			    	if ( ($('#span_ee_select .label_selected').attr('data-value') != 'diplomatic') &&
+			    		 (!$('#switchReg').hasClass('active')) ) {
+			    		$("#main_right_frame").find('.like_select.filter')
 							.css('opacity', "1")
-							.removeClass('not_active'); 	 		
-		    		}
-		    	}
-		    	if ( $('#switchReg').hasClass('disabled') ) {
-	    			$('#switchReg').removeClass('disabled').show();
-	    			resizeButtonsAndSelects();
-		    	}
+							.removeClass('not_active'); 	 	
+			    	} else {
+			    		$("#main_right_frame").find('.like_select.filter')
+							.css('opacity', "0.5")
+							.addClass('not_active'); 
+			    	}
+			    	if ( $("#span_ee_select").find('.option').length == 0 ) {
+			    		// Se ho un solo livello di edizione, in modalità txt txt nel frame di sx avrò sicuramente il regesto,
+			    		// quindi non ho bisogno del selettore con i filtri nel menu in basso a sx
+			    		$("#main_left_frame").find('.like_select.filter')
+							.css('opacity', "0")
+							.addClass('not_active'); 
+			    	} else if ($("#span_ee_select").find('.option').length > 0) {
+			    		// ...altrimenti
+			    		if ( $('#span_ee_select-add .label_selected').attr('data-value') != 'regesto' ) {
+			    			// Se nel frame ho il regesto visibile, il selettore dei filtri rimane opacizzato...
+			    			$("#main_left_frame").find('.like_select.filter')
+								.css('opacity', "0.5")
+								.addClass('not_active'); 	 		
+			    		} else {
+		    				// altrimenti è funzionante e pienamente visibile
+			    			$("#main_left_frame").find('.like_select.filter')
+								.css('opacity', "1")
+								.removeClass('not_active'); 	 		
+			    		}
+			    	}
+			    	if ( $('#switchReg').hasClass('disabled') ) {
+		    			$('#switchReg').removeClass('disabled').show();
+		    			resizeButtonsAndSelects();
+			    	}
+			    } else {
+			    	hide_regesto(id_regesto_cont, id_regesto);
+			    	$('#switchReg').addClass('disabled').hide();
+			    	resizeButtonsAndSelects();
+			    }
 		    } else { 
 		    	hide_regesto(id_regesto_cont, id_regesto);
 		    	$('#switchReg').addClass('disabled').hide();
@@ -1908,6 +1918,158 @@ $(function() {
 
 	/* ==/ HANDLING REGESTO END */
 
+	/* HANDLING FRONT */
+	function show_front(front_container, front){
+		var height;
+		height = $('#central_wrapper').height();
+		
+		if ( ! $('#main_right_frame').hasClass('menuClosed') && !$('#main_left_frame').hasClass('menuClosed') ) {
+			height = height - ($('#main_right_frame').height() * 2);
+		}
+
+		if ( $('#lists_cont') && $('#list_header').is(':visible') ) {
+			height = height - $('#list_header').height() + 4;
+		}
+		
+		$(front_container)
+			.removeClass('hidden')
+			.animate({
+	       		'top': '0px',
+	       		'min-height': '436.1px',
+	       		'height': height+"px"
+	   		}, 400, function(){
+	   			$(front_container).removeAttr('style');
+	   			if ( $(front_cont).parents("div[id*='frame']").attr('id') == 'main_left_frame' && 
+	   				 $('#span_ee_select').find('.option') == 0 ) {
+	   				$(front_container).find('.showHide_front').hide();	
+	   			} else {
+	   				$(front_container).find('.showHide_front').removeAttr('style');
+	   			}
+	   		});
+	   	$(front).show();
+		$(front_container).scrollTop(0);
+		$(front_container).parents("div[id*='frame']")
+			.find('.like_select.filter').css('opacity', '.5').addClass('not_active');
+	}
+	
+	function hide_front(front_cont, front){
+		if ( $(this).attr('id') == "hide_front-add" ) {
+			if ( !$("#switchFront-add").hasClass('disabled') ) {
+				$("#switchFront-add")
+					.toggleClass('active')
+					.find('.fa')
+						.toggleClass('fa-toggle-on')
+						.toggleClass('fa-toggle-off');
+				toggleReg(front_cont);
+			}
+		} else {
+			if ( !$("#switchFront").hasClass('disabled') ) {
+				$("#switchFront")
+					.toggleClass('active')
+					.find('.fa')
+						.toggleClass('fa-toggle-on')
+						.toggleClass('fa-toggle-off');
+				toggleReg(front_cont);
+			}
+		}
+	}
+
+	function updateFrontContent(current_doc){
+    	var id_front_cont, id_front;
+    	id_front_cont = "#front_cont";
+    	id_front = "#front";
+
+    	if ($('#front_cont-add').length > 0 ) {
+    		id_front_cont = "#front_cont-add";
+    		id_front = "#front-add";
+    	}
+
+    	$(id_front_cont).load("data/output_data/prefatory_matter/front.html #front", function(response, status, xhr){
+	    	if (status == "success") {
+	    		if ( $('#front_cont .front').children().length>0 && $.trim($("#front_cont .front").text())!=='' ){
+	    			$('<div />')
+			    		.attr('id', "hide_front")
+			    		.addClass('hide_front')
+			    		.append("<i class='fa fa-chevron-up'></i></div>")	
+			    		.click(function(){ hide_front(id_front_cont, id_front); })
+			    		.appendTo(id_front_cont); // solo nel box di destra
+
+			    	if ( ($('#span_ee_select .label_selected').attr('data-value') != 'diplomatic') &&
+			    		 (!$('#switchFront').hasClass('active')) ) {
+			    		$("#main_right_frame").find('.like_select.filter')
+							.css('opacity', "1")
+							.removeClass('not_active'); 	 	
+			    	} else {
+			    		$("#main_right_frame").find('.like_select.filter')
+							.css('opacity', "0.5")
+							.addClass('not_active'); 
+			    	}
+			    	if ( $("#span_ee_select").find('.option').length == 0 ) {
+			    		// Se ho un solo livello di edizione, in modalità txt txt nel frame di sx avrò sicuramente il front,
+			    		// quindi non ho bisogno del selettore con i filtri nel menu in basso a sx
+			    		$("#main_left_frame").find('.like_select.filter')
+							.css('opacity', "0")
+							.addClass('not_active'); 
+			    	} else if ($("#span_ee_select").find('.option').length > 0) {
+			    		// ...altrimenti
+			    		if ( $('#span_ee_select-add .label_selected').attr('data-value') != 'front' ) {
+			    			// Se nel frame ho il front visibile, il selettore dei filtri rimane opacizzato...
+			    			$("#main_left_frame").find('.like_select.filter')
+								.css('opacity', "0.5")
+								.addClass('not_active'); 	 		
+			    		} else {
+		    				// altrimenti è funzionante e pienamente visibile
+			    			$("#main_left_frame").find('.like_select.filter')
+								.css('opacity', "1")
+								.removeClass('not_active'); 	 		
+			    		}
+			    	}
+			    	if ( $('#switchFront').hasClass('disabled') ) {
+		    			$('#switchFront').removeClass('disabled').show();
+		    			resizeButtonsAndSelects();
+			    	}
+	    		} else { 
+			    	hide_front(id_front_cont, id_front);
+			    	$('#switchFront').addClass('disabled').hide();
+			    	resizeButtonsAndSelects();
+			    }
+		    } else { 
+		    	hide_front(id_front_cont, id_front);
+		    	$('#switchFront').addClass('disabled').hide();
+		    	resizeButtonsAndSelects();
+		    }	
+		});
+    }
+
+    /* Apertura/chiusura front */
+    function toggleFront(front_cont){
+    	if ($(front_cont).is(":visible")) {
+			$(front_cont).hide('drop',  {direction: 'up'}, 'linear', function(){
+				var ee_val;
+				ee_val = $(front_cont).parents("div[id*='frame']").find('.main_ee_select .label_selected').attr('data-value');
+				if ( ee_val.toLowerCase() != 'diplomatic' ) {
+					$(front_cont)
+						.parents("div[id*='frame']")
+							.find('.like_select.filter')
+								.css('opacity', "1")
+								.removeClass('not_active'); 
+				}
+			});
+			
+		} else {
+			$(front_cont).show('drop',  {direction: 'up'}, 'linear', function(){
+				// Disattivare filtri liste nell'edizione diplomatica
+				$(front_cont)
+					.parents("div[id*='frame']")
+						.find('.like_select.filter')
+							.css('opacity', "0.5")
+							.addClass('not_active');
+				
+			});
+		}
+    }
+	/* ==/ HANDLING FRONT END */
+	
 	// IT: Imposta l'etichetta dell'edizione, al primo caricamento della index
 	//$('#edval span').text($("input[name=edition_r]:checked").val());	
 	
@@ -2231,6 +2393,7 @@ $(function() {
 			pp_val = $("#span_pp_select .label_selected").attr('data-value');
 			
 			updateRegestoContent(tt_val);
+			updateFrontContent(tt_val);
 			updateHash(tt_val, pp_val, "");
 
 			if ( $('.doc.current').length > 0 && $('.doc.current').position() != undefined ){
@@ -3267,12 +3430,13 @@ $(function() {
 				noMenu_height_right = noMenu_height - $('#main_right_frame').find('.bottomBox:visible').find('.bottomBoxHeader').outerHeight();
 			}
 
-			if ( $('#main_right_frame').find('#regesto_cont').length > 0 ) {
+			if ( $('#main_right_frame').find('#regesto_cont').length > 0 || 
+				 $('#main_right_frame').find('#front_cont').length > 0 ) {
 				// LEFT FRAME
-				$('#text_cont-add, #regesto_cont-add, #thumb_cont')
+				$('#text_cont-add, #regesto_cont-add, #front_cont-add, #thumb_cont')
 					.css('height', noMenu_height_left);	
 				// RIGHT FRAME
-				$('#text_cont, #regesto_cont')
+				$('#text_cont, #regesto_cont, #front_cont')
 					.css('height', noMenu_height_right);	
 			} else {
 				// LEFT FRAME
@@ -3280,7 +3444,7 @@ $(function() {
 					.css('height', noMenu_height_left+33);
 
 				// RIGHT FRAME
-				$('#regesto_cont')
+				$('#regesto_cont, #front_cont')
 					.css('height', noMenu_height+33);
 				$('#text_cont')
 					.css('height', noMenu_height);
@@ -3321,12 +3485,12 @@ $(function() {
 			});
 			
 			// LEFT FRAME
-			$('#text_cont-add, #regesto_cont-add')
+			$('#text_cont-add, #regesto_cont-add, #front_cont-add')
 				.css('height', noMenu_height_left);
 			$('#thumb_cont')
 				.css('height', noMenu_height_left+$('.bottom-menu').outerHeight());
 			// RIGHT FRAME
-			$('#text_cont, #regesto_cont')
+			$('#text_cont, #regesto_cont, #front_cont')
 					.css('height', noMenu_height_right);
 		}
 	}
@@ -3451,6 +3615,23 @@ $(function() {
 
 	});
 
+	/* APRI/CHIUDI FRONT */
+	$('.toggleFront').click(function(event) {
+		var front_cont;
+		$(this)
+			.toggleClass('active')
+			.find('.fa')
+				.toggleClass('fa-toggle-on')
+				.toggleClass('fa-toggle-off');
+		if ( $(this).attr('id') == "switchReg-add" ) {
+			front_cont = "#front_cont-add";
+		} else {
+			front_cont = "#front_cont";
+		}
+		toggleFront(front_cont);
+
+	});
+
 	/* APRI/CHIUDI RICERCA */
 	$('.searchButton').click(function(event) {
 		// if ( $('#lists_cont').is(':visible') ) {
@@ -3499,6 +3680,14 @@ $(function() {
 					$('#regesto_cont'+boxSuffix).hide();
 					$('#switchReg'+boxSuffix).removeClass('active');
 				}
+			}
+
+			// Se ho il front
+			if ( ($('#switchFront'+boxSuffix).length > 0) && 
+		   		 (!$('#switchFront'+boxSuffix).hasClass('disabled')) ) {
+		   		// chiudo il front
+				$('#front_cont'+boxSuffix).hide();
+				$('#switchFront'+boxSuffix).removeClass('active');
 			}
 		   	openSearchBox(speed, boxSuffix);
 

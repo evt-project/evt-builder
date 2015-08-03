@@ -271,6 +271,16 @@
 													<i class="fa fa-toggle-off"></i>
 												</xsl:element>
 											</xsl:if>
+											<xsl:if test="$frontInfo=true()">
+												<xsl:element name="span">
+													<xsl:attribute name="class">imageTopTool mainButtons toggleFront</xsl:attribute>
+													<xsl:attribute name="id">switchFront-add</xsl:attribute>
+													<xsl:attribute name="value">reg</xsl:attribute>
+													<xsl:attribute name="title"><xsl:value-of select="$front_button_label"/></xsl:attribute>
+													<span><xsl:value-of select="$front_button_label"/></span>
+													<i class="fa fa-toggle-off"></i>
+												</xsl:element>
+											</xsl:if>
 										</xsl:if>
 										<xsl:if test="$image_frame=true()">
 											<div id="image_menu">
@@ -540,11 +550,24 @@
 											<i class="fa fa-toggle-on"></i>
 										</xsl:element>
 									</xsl:if>
+									<xsl:if test="$frontInfo=true()">
+										<xsl:element name="span">
+											<xsl:attribute name="class">imageTopTool mainButtons active toggleFront</xsl:attribute>
+											<xsl:attribute name="id">switchFront</xsl:attribute>
+											<xsl:attribute name="value">reg</xsl:attribute>
+											<xsl:attribute name="title"><xsl:value-of select="$front_button_label"/></xsl:attribute>
+											<span><xsl:value-of select="$front_button_label"/></span>
+											<i class="fa fa-toggle-on"></i>
+										</xsl:element>
+									</xsl:if>
 								</div>
 								<i class="fa fa-times-circle closeFullScreen" id="closeFullScreenRight"></i>
 							</header>
 							<xsl:if test="$regesto=true()">
 								<div id="regesto_cont" class="text-box can-change-font-size"/>
+							</xsl:if>
+							<xsl:if test="$frontInfo=true()">
+								<div id="front_cont" class="text-box can-change-font-size"/>
 							</xsl:if>
 							<div id="text_cont" class="text-box can-change-font-size">
 								<div id="text_elem"/>

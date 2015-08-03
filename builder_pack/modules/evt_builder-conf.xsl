@@ -64,7 +64,12 @@
 	<!-- EN: On/Off regesto -->
 	<!-- IT: Attiva/Disattiva regesto -->
 	<!-- default: false() -->
-	<xsl:param name="regesto" select="true()"/>
+	<xsl:param name="regesto" select="false()"/>
+	
+	<!-- EN: On/Off Front Information -->
+	<!-- IT: Attiva/Disattiva Front Information -->
+	<!-- default: true() -->
+	<xsl:param name="frontInfo" select="true()"/>
 	
 	<!-- EN: On/Off Manuscript Description -->
 	<!-- IT: Attiva/Disattiva Descrizione del manoscritto-->
@@ -154,7 +159,12 @@
 	<!-- EN: Label for button of Regesto -->
 	<!-- IT: Testo etichetta per il pulsante del Regesto -->
 	<!-- default: 'Regesto' -->
-	<xsl:param name="regesto_button_label" select="'Regesto'"/>
+	<xsl:variable name="regesto_button_label" select="'Regesto'"/>
+	
+	<!-- EN: Label for button of Front -->
+	<!-- IT: Testo etichetta per il pulsante del Front -->
+	<!-- default: 'Front' -->
+	<xsl:variable name="front_button_label" select="'Front'"/>
 	
 	<!-- BUTTONS PRESENCE AND POSITION -->
 	
