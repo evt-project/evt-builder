@@ -82,7 +82,23 @@
 			
 			<!-- FRONT INFORMATION -->
 			<xsl:if test="$frontInfo=true()">
-				<xsl:call-template name="front"/>
+				<xsl:choose>
+					<xsl:when test="$root//tei:text/tei:group">
+						<!-- Gestione TEXT multipli in tei:group -->
+						<xsl:for-each select="$root//tei:text/tei:group/tei:text">
+							<xsl:if test="current()/tei:front">
+								<xsl:call-template name="front"/>
+							</xsl:if>						
+						</xsl:for-each>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:for-each select="tei:TEI/tei:text">
+							<xsl:if test="current()/tei:front">
+								<xsl:call-template name="front"/>
+							</xsl:if>
+						</xsl:for-each>
+					</xsl:otherwise>
+				</xsl:choose>
 			</xsl:if>
 			
 			<!-- LISTS -->
@@ -243,11 +259,29 @@
 		</xsl:result-document>
 	</xsl:template>
 	
-	<!-- MS DESCRIPTION -->
+	<!-- FRONT -->
 	<xsl:template name="front">
-		<xsl:result-document method="html" encoding="UTF-8" media-type="text/plain" byte-order-mark="yes" href="{$filePrefix}/data/output_data/prefatory_matter/front.html" indent="yes">
-			<xsl:call-template name="front_generation"/>
-		</xsl:result-document>
+		<xsl:variable name="front" select="current()/tei:front" />
+		<xsl:variable name="doc_id">
+			<xsl:choose>
+				<xsl:when test="current()/@xml:id">
+					<xsl:value-of select="current()/@xml:id"/>
+				</xsl:when>
+				<xsl:when test="current()/tei:body/tei:div[@subtype='edition_text']/@xml:id ">
+					<xsl:value-of select="current()/tei:body/tei:div[@subtype='edition_text']/@xml:id" />
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:value-of select="''"/>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:variable>
+		<xsl:if test="not($doc_id='')">
+			<xsl:result-document method="html" encoding="UTF-8" media-type="text/plain" byte-order-mark="yes" href="{$filePrefix}/data/output_data/prefatory_matter/front/front_doc_{$doc_id}.html" indent="yes">
+				<xsl:call-template name="front_generation">
+					<xsl:with-param name="front" select="$front"></xsl:with-param>
+				</xsl:call-template>
+			</xsl:result-document>	
+		</xsl:if>
 	</xsl:template>
 	
 	<!-- REGESTO -->

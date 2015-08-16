@@ -466,12 +466,6 @@ footer{
 #search_cont, #search_cont-add{
 	background: white;
 	position: relative;
-	/*-moz-box-shadow:-2px 3px 5px -2px rgba(0, 0, 0, 0.8);
-	-webkit-box-shadow:-2px 3px 5px -2px rgba(0, 0, 0, 0.8);
-	-o-box-shadow:-2px 3px 5px -2px rgba(0, 0, 0, 0.8);
-	-khtml-box-shadow:-2px 3px 5px -2px rgba(0, 0, 0, 0.8);
-	-ms-box-shadow:-2px 3px 5px -2px rgba(0, 0, 0, 0.8);
-	box-shadow:-2px 3px 5px -2px rgba(0, 0, 0, 0.8);*/
 	margin-top: 42px;
 	bottom: 42px;
 	height: 100%;
@@ -501,7 +495,6 @@ footer{
 	font-size: 110%;
 	display: block;
 }
-
 #front_cont .front > div, #front_cont-add .front > div,
 #front_cont .front .hangInd, #front_cont-add .front .hangInd{
 	margin-bottom: 20px;
@@ -2128,7 +2121,7 @@ div.doc.not_current:hover{
 	#border-right: 1px solid rgb(227, 200, 156);
 	padding-right: 15px;
 	padding-left: 15px;
-	top:-8.5px;
+	top:-7.5px;
 	min-height: 28px;
 	display: inline-block;
 }
@@ -2283,20 +2276,21 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 	height: 100%;
 }
 
-#headerInfo .title {
-    cursor: text;
-    text-align: center;
-	font-size: 130%;
-	margin: 20px 0;
-	font-weight: bold;
-}
+
 #headerInfo .title.main {
+	display: block;
 	font-size: 110%;
 	margin:10px 0;
+	font-style: italic;
+	text-align: center;
+	font-weight: bold;
 }
-#headerInfo .title.sub {
-	font-size: 90%;
-	margin:10px 0;
+#headerInfo .section-title {
+    cursor: text;
+    text-align: left;
+	font-size: 70%;
+	margin:10px 30px;
+	font-weight: bold;
 }
 
 #headerInfo .table {
@@ -2337,11 +2331,28 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 #headerInfo .right_col {
     display: table-cell;
 	width: 78%;
-	font-size: 0.75em;
+	font-size: 70%;
 	padding: 0px 2% 3%;
 	cursor: text;
 }
-
+#generalFront_content {
+	padding: 0px 30px;
+}
+#generalFront_content > .title {
+	display: none;
+}
+#generalFront_content {
+	text-align: left;
+	font-size: 100%;
+}
+#generalFront_content > div, #generalFront_content .front .hangInd{
+	margin-bottom: 20px;
+	font-size: 70%;
+}
+#generalFront_content .section-title {
+	font-size: 100%;
+	margin: 10px 0;
+}
 /* MANUSCRIPT DESCRIPTION by AB */
 #msDesc_cont {
 	background: #f5efe4;
