@@ -1984,7 +1984,7 @@ $(function() {
     		id_front = "#front-add";
     	}
 
-    	$(id_front_cont).load("data/output_data/prefatory_matter/front.html #front", function(response, status, xhr){
+    	$(id_front_cont).load("data/output_data/prefatory_matter/front/front_doc_"+current_doc+".html #front", function(response, status, xhr){
 	    	if (status == "success") {
 	    		if ( $('#front_cont .front').children().length>0 && $.trim($("#front_cont .front").text())!=='' ){
 	    			$('<div />')

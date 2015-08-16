@@ -23,6 +23,12 @@
 					<a href="javascript:void(0);" id="close_header_info_cont" title="Close Header Info"><i class="fa fa-close"></i></a>
 					<div id="headerInfo_content">
 						<xsl:apply-templates select="//tei:teiHeader"/>
+						
+						<xsl:if test="tei:TEI/tei:text/tei:front and not(tei:TEI/tei:text/tei:body)">
+							<div id="generalFront_content">
+								<xsl:apply-templates select="tei:TEI/tei:text/tei:front"/>
+							</div>
+						</xsl:if>
 					</div>
 				</div>
 			</body>
@@ -99,7 +105,7 @@
 	<!-- FRONT INFO -->
 	<!-- ########## -->
 	<xsl:template name="front_generation">
-		<xsl:variable name="front" select="tei:TEI/tei:text/tei:front"/>
+		<xsl:param name="front" />
 		<html lang="en-US">
 			<body>
 				<div id="frontInfo">

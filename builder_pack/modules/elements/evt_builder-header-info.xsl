@@ -30,7 +30,10 @@
 	<xsl:template match="tei:titleStmt">
 		<div id="titleStmt">
 			<xsl:if test="tei:title">
-				<xsl:apply-templates select="tei:title"/>
+				<xsl:element name="div">
+					<xsl:attribute name="class">title main</xsl:attribute>
+					<xsl:value-of select="tei:title"/>
+				</xsl:element>
 			</xsl:if>
 			<div class="table">
 				<xsl:if test="tei:author and tei:author/normalize-space()">
@@ -68,7 +71,7 @@
         documento elettronico. -->
 	<xsl:template match="tei:publicationStmt">
 		<div id="publicationStmt">
-			<div class="title sub">Publication information</div>
+			<div class="section-title">Publication information</div>
 			<div class="table">
 				<xsl:if test=" tei:authority and tei:authority/normalize-space()">
 					<div class="row">
@@ -108,7 +111,7 @@
         dei nodi che riguardano le informazioni relative all'edizione del testo. -->
 	<xsl:template match="tei:editionStmt">
 		<div id="editionStmt">
-			<div class="title sub">Text edition</div>
+			<div class="section-title">Text edition</div>
 			<div class="table">
 				<xsl:if test="tei:edition and tei:edition/normalize-space()">
 					<div class="row">
@@ -136,7 +139,7 @@
 	<!-- Si seleziona il nodo <encodingDesc> e si applica la regola ai nodi al suo interno. -->
 	<xsl:template match="tei:encodingDesc">
 		<div class="encodingDesc">
-			<div class="title sub">Encoding description</div>
+			<div class="section-title">Encoding description</div>
 			<xsl:apply-templates select="tei:projectDesc"/>
 			<xsl:apply-templates select="tei:editorialDecl"/>
 			<xsl:apply-templates select="tei:samplingDecl"/>
@@ -215,7 +218,7 @@
         in particolare il tipo di linguaggio utilizzato. -->
 	<xsl:template match="tei:profileDesc">
 		<div class="profileDesc">
-			<div class="title sub">Text description</div>
+			<div class="section-title">Text description</div>
 			<div class="table">
 				<xsl:if test="tei:langUsage and tei:langUsage/normalize-space()">
 					<div class="row">
@@ -238,7 +241,7 @@
 	<xsl:template match="tei:revisionDesc">
 		<xsl:if test="normalize-space()">
 			<div class="change">
-				<div class="title sub">Revisions.</div>
+				<div class="section-title">Revisions.</div>
 				<div class="table">
 					<xsl:for-each select="tei:change">
 						<div class="row">
@@ -258,7 +261,7 @@
 	</xsl:template>
 	
 	<xsl:template match="tei:title">
-		<xsl:element name="div">
+		<xsl:element name="span">
 			<xsl:attribute name="class">title <xsl:value-of select="@type"/></xsl:attribute>
 			<xsl:value-of select="."/>
 		</xsl:element>

@@ -205,12 +205,33 @@
                                 <!-- Gestione TEXT multipli in tei:group -->
                                 <xsl:for-each select="$root//tei:text/tei:group/tei:text">
                                     <text>
-                                        <xsl:attribute name="n" select="@xml:id"></xsl:attribute>
-                                        <xsl:attribute name="label">
-                                            <xsl:call-template name="generateTextLabel">
-                                                <xsl:with-param name="text_id"><xsl:value-of select="@xml:id"/></xsl:with-param>
-                                            </xsl:call-template>
-                                        </xsl:attribute>
+                                        <xsl:choose>
+                                            <xsl:when test="@xml:id">
+                                                <xsl:attribute name="n" select="@xml:id"></xsl:attribute>
+                                                <xsl:attribute name="label">
+                                                    <xsl:call-template name="generateTextLabel">
+                                                        <xsl:with-param name="text_id"><xsl:value-of select="@xml:id"/></xsl:with-param>
+                                                    </xsl:call-template>
+                                                </xsl:attribute>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <xsl:attribute name="n" select="current()/tei:body/tei:div[@subtype='edition_text']/@xml:id"/>
+                                                <xsl:attribute name="label">
+                                                    <xsl:choose>
+                                                        <xsl:when test="current()/tei:body/tei:div[@subtype='edition_text']/@n=''">
+                                                            <xsl:call-template name="generateTextLabel">
+                                                                <xsl:with-param name="text_id">
+                                                                    <xsl:value-of select="current()/tei:body/tei:div[@subtype='edition_text']/@xml:id"/>
+                                                                </xsl:with-param>
+                                                            </xsl:call-template>
+                                                        </xsl:when>
+                                                        <xsl:otherwise>
+                                                            <xsl:value-of select="current()/tei:body/tei:div[@subtype='edition_text']/@n"/>
+                                                        </xsl:otherwise>
+                                                    </xsl:choose>
+                                                </xsl:attribute>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
                                         
                                         <xsl:if test="not(current()/tei:body/tei:div/child::*[1][self::tei:pb]) and not(current()/tei:body/tei:div/child::*[1][self::tei:p]/child::*[1][self::tei:pb])">
                                             <pb>
