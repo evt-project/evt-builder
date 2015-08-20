@@ -212,7 +212,7 @@
 	<!-- EN: On/Off Search -->
 	<!-- IT: Attiva/Disattiva Ricerca -->
 	<!-- default: true() -->
-	<xsl:param name="search" select="true()"/>
+	<xsl:param name="search" select="false()"/>
 	
 	<!-- EN: On/Off Virtual Keyboard for search -->
 	<!-- IT: Attiva/Disattiva Tastiera virtuale per ricerca -->

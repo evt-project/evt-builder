@@ -215,21 +215,59 @@
                                                 </xsl:attribute>
                                             </xsl:when>
                                             <xsl:otherwise>
-                                                <xsl:attribute name="n" select="current()/tei:body/tei:div[@subtype='edition_text']/@xml:id"/>
-                                                <xsl:attribute name="label">
-                                                    <xsl:choose>
-                                                        <xsl:when test="current()/tei:body/tei:div[@subtype='edition_text']/@n=''">
-                                                            <xsl:call-template name="generateTextLabel">
-                                                                <xsl:with-param name="text_id">
-                                                                    <xsl:value-of select="current()/tei:body/tei:div[@subtype='edition_text']/@xml:id"/>
-                                                                </xsl:with-param>
-                                                            </xsl:call-template>
-                                                        </xsl:when>
-                                                        <xsl:otherwise>
-                                                            <xsl:value-of select="current()/tei:body/tei:div[@subtype='edition_text']/@n"/>
-                                                        </xsl:otherwise>
-                                                    </xsl:choose>
-                                                </xsl:attribute>
+                                                <xsl:choose>
+                                                    <xsl:when test="current()/tei:body/tei:div[@subtype='edition_text']/@xml:id">
+                                                        <xsl:attribute name="n" select="current()/tei:body/tei:div[@subtype='edition_text']/@xml:id"/>
+                                                        <xsl:attribute name="label">
+                                                            <xsl:choose>
+                                                                <xsl:when test="current()/tei:body/tei:div[@subtype='edition_text']/@n=''">
+                                                                    <xsl:call-template name="generateTextLabel">
+                                                                        <xsl:with-param name="text_id">
+                                                                            <xsl:value-of select="current()/tei:body/tei:div[@subtype='edition_text']/@xml:id"/>
+                                                                        </xsl:with-param>
+                                                                    </xsl:call-template>
+                                                                </xsl:when>
+                                                                <xsl:otherwise>
+                                                                    <xsl:value-of select="current()/tei:body/tei:div[@subtype='edition_text']/@n"/>
+                                                                </xsl:otherwise>
+                                                            </xsl:choose>
+                                                        </xsl:attribute>
+                                                    </xsl:when>
+                                                    <xsl:when test="current()/tei:body/@xml:id">
+                                                        <xsl:attribute name="n" select="current()/tei:body/@xml:id"/>
+                                                        <xsl:attribute name="label">
+                                                            <xsl:choose>
+                                                                <xsl:when test="current()/tei:body/@n=''">
+                                                                    <xsl:call-template name="generateTextLabel">
+                                                                        <xsl:with-param name="text_id">
+                                                                            <xsl:value-of select="current()/tei:body/@xml:id"/>
+                                                                        </xsl:with-param>
+                                                                    </xsl:call-template>
+                                                                </xsl:when>
+                                                                <xsl:otherwise>
+                                                                    <xsl:value-of select="current()/tei:body/@n"/>
+                                                                </xsl:otherwise>
+                                                            </xsl:choose>
+                                                        </xsl:attribute>
+                                                    </xsl:when>
+                                                    <xsl:when test="current()/@xml:id">
+                                                        <xsl:attribute name="n" select="current()/@xml:id"/>
+                                                        <xsl:attribute name="label">
+                                                            <xsl:choose>
+                                                                <xsl:when test="current()/@n=''">
+                                                                    <xsl:call-template name="generateTextLabel">
+                                                                        <xsl:with-param name="text_id">
+                                                                            <xsl:value-of select="current()/@xml:id"/>
+                                                                        </xsl:with-param>
+                                                                    </xsl:call-template>
+                                                                </xsl:when>
+                                                                <xsl:otherwise>
+                                                                    <xsl:value-of select="current()/@n"/>
+                                                                </xsl:otherwise>
+                                                            </xsl:choose>
+                                                        </xsl:attribute>
+                                                    </xsl:when>
+                                                </xsl:choose>
                                             </xsl:otherwise>
                                         </xsl:choose>
                                         
@@ -262,7 +300,7 @@
                                     <xsl:when test="$root//tei:div[@subtype='edition_text']">
                                         <xsl:for-each select="$root//tei:div[@subtype='edition_text']">
                                             <text>
-                                                <xsl:attribute name="n" select="@n"></xsl:attribute>
+                                                <xsl:attribute name="n" select="@xml:id"></xsl:attribute>
                                                 <xsl:attribute name="label">
                                                     <xsl:value-of select="@n"/>
                                                 </xsl:attribute>
@@ -278,10 +316,22 @@
                                     <xsl:when test="$root//tei:body">
                                         <xsl:for-each select="$root//tei:body">
                                             <text>
-                                                <xsl:attribute name="n" select="@n"></xsl:attribute>
-                                                <xsl:attribute name="label">
-                                                    <xsl:value-of select="@n"/>
-                                                </xsl:attribute>
+                                                <xsl:choose>
+                                                    <xsl:when test="@xml:id">
+                                                        <xsl:attribute name="n" select="@xml:id"></xsl:attribute>
+                                                        <xsl:attribute name="label">
+                                                            <xsl:value-of select="@n"/>
+                                                        </xsl:attribute>
+                                                    </xsl:when>
+                                                    <xsl:otherwise>
+                                                        <xsl:if test="ancestor::node()/@xml:id">
+                                                            <xsl:attribute name="n" select="ancestor::node()/@xml:id"></xsl:attribute>
+                                                            <xsl:attribute name="label">
+                                                                <xsl:value-of select="ancestor::node()/@n"/>
+                                                            </xsl:attribute>
+                                                        </xsl:if>
+                                                    </xsl:otherwise>
+                                                </xsl:choose>
                                                 <xsl:for-each select=".//tei:pb">
                                                     <pb>
                                                         <xsl:attribute name="n" select="if(@n) then (@n) else (@xml:id)"></xsl:attribute>
