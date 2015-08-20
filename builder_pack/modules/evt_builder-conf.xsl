@@ -92,7 +92,7 @@
 	<!-- EN: It is possible to skip production of pages for a specific edition simply removing the textual part of the corresponding item. -->
 	<!-- IT: E' possibile rimuovere la produzione di pagine di una determinata edizione semplicemente rimuovendo la parte testuale dell'item corrispondente. -->
 	<xsl:variable name="edition_array" as="element()*">
-		<edition></edition> 	
+		<edition>Diplomatic</edition> 	
 		<!-- EN: For processing in the modules: $edition_array[1] -->
 		<!-- IT: Per l'elaborazione nei moduli: $edition_array[1] -->
 		
@@ -229,7 +229,7 @@
 	<!-- EN: On/Off persons list -->
 	<!-- IT: Attiva/disattiva lista persone -->
 	<!-- default: true() -->
-	<xsl:param name="list_person" select="true()"/>
+	<xsl:param name="list_person" select="false()"/>
 	<!-- EN: Customize persons list label -->
 	<!-- IT: Personalizza etichetta lista persone -->
 	<!-- default: Persons List -->
@@ -238,7 +238,7 @@
 	<!-- EN: On/Off places list -->
 	<!-- IT: Attiva/disattiva lista luoghi -->
 	<!-- default: true() -->
-	<xsl:param name="list_place" select="true()"/>
+	<xsl:param name="list_place" select="false()"/>
 	
 	<!-- EN: Customize places list label -->
 	<!-- IT: Personalizza etichetta lista luoghi -->
@@ -254,10 +254,10 @@
 			 Per rimuovere un elemento basta eliminare o tutto l'elemento di interesse o anche solo il testo al suo interno.
 			 Per aggiungere un elemento alla lista basta sapere che il tag fa riferimento alla classe data all'elemento html con il quale sono state marcate le parole "particolari" da selezionare. -->
 	<xsl:variable name="lists" as="element()*">
-		<persName>Persone</persName>
+		<!--<persName>Persone</persName>
 		<placeName>Luoghi</placeName>
 		<roleName>Mestieri/Ruoli</roleName>
 		<measure>Monete</measure>
-		<date>Date</date>
+		<date>Date</date>-->
 	</xsl:variable>
 </xsl:stylesheet>
