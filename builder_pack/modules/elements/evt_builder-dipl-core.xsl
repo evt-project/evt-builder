@@ -153,7 +153,7 @@
 			<xsl:when test="@id">
 				<xsl:variable name="choiceId" select="@id"/>
 				<!--IT: Controlla che il nodo contenga qualcosa oltre a ORIG, se c'è solo ORIG non viene fatto niente-->
-				<xsl:if test="*[not(self::orig)]">
+				<xsl:if test="*[not(self::orig)] or *[not(self::seg[@type='original'])]">
 					<xsl:choose>
 						<!-- IT: Questo è per la prima parte di CHOICE che contine un el REG, la parte che dovrà contenere la tooltip -->
 						<xsl:when test="@part and boolean(./ancestor::node()[parent::node()[name()=$start_split]]//preceding-sibling::node()[not(self::lb)][1]//tei:choice[@id=$choiceId and not(tei:reg)])"><xsl:element name="span">
@@ -175,6 +175,26 @@
 							<xsl:apply-templates select="tei:reg" mode="#current"> </xsl:apply-templates>
 						</xsl:element>
 						</xsl:when>
+						<!-- per gestire choice contenenti tei:seg con @type=original per ORIG e @type=alter per REG-->
+						<xsl:when test="@part and boolean(./ancestor::node()[parent::node()[name()=$start_split]]//preceding-sibling::node()[not(self::lb)][1]//tei:choice[@id=$choiceId and not(tei:seg[@type='alter'])])"><xsl:element name="span">
+							<xsl:attribute name="class" select="$ed_name2,'choice_popup'" separator="-"/>
+							<xsl:if test="@id">
+								<xsl:variable name="vApos">'</xsl:variable>
+								<xsl:attribute name="class" select="$ed_name2,'-choice_popup ',@id" separator=""/>
+								<xsl:attribute name="onmouseover" select="'overChoice(',$vApos,@id,$vApos,')'" separator=""/>
+								<xsl:attribute name="onmouseout" select="'outChoice(',$vApos,@id,$vApos,')'" separator=""/>
+							</xsl:if>
+							<xsl:element name="span">
+								<xsl:attribute name="class" select="$ed_name2,'orig'" separator="'-'"/>
+								<xsl:apply-templates select="tei:seg[@type='original']/ancestor::node()[parent::node()[name()=$start_split]]/preceding-sibling::node()[not(self::lb)][position() lt 2]//tei:choice[@id=$choiceId]//tei:seg[@type='original']/node(), 
+									tei:seg[@type='original']/ancestor::node()[parent::node()[name()=$start_split]]//tei:choice[@id=$choiceId]//tei:seg[@type='original']/node(),
+									tei:seg[@type='original']/ancestor::node()[parent::node()[name()=$start_split]]/following-sibling::node()[not(self::lb)][position() lt 3]//tei:choice[@id=$choiceId]//tei:seg[@type='original']/node()"
+									mode="#current"/>
+							</xsl:element>
+							<xsl:sequence select="' '"/>
+							<xsl:apply-templates select="tei:seg[@type='original']" mode="#current"> </xsl:apply-templates>
+						</xsl:element>
+						</xsl:when>
 						<!-- IT: Questo è per le altre parti, che dovranno contenere solo REG -->
 						<xsl:otherwise>
 							<xsl:element name="span">
@@ -185,7 +205,14 @@
 									<xsl:attribute name="onmouseover" select="'overChoice(',$vApos,@id,$vApos,')'" separator=""/>
 									<xsl:attribute name="onmouseout" select="'outChoice(',$vApos,@id,$vApos,')'" separator=""/>
 								</xsl:if>
-								<xsl:apply-templates select="tei:reg" mode="#current"/>
+								<xsl:choose>
+									<xsl:when test="tei:reg">
+										<xsl:apply-templates select="tei:reg" mode="#current"/>		
+									</xsl:when>
+									<xsl:when test="tei:seg['alter']">
+										<xsl:apply-templates select="tei:seg[@type='alter']" mode="#current"/>
+									</xsl:when>
+								</xsl:choose>
 							</xsl:element>
 						</xsl:otherwise>
 					</xsl:choose>
@@ -233,6 +260,24 @@
 							</xsl:when>
 							<xsl:otherwise>
 								<xsl:apply-templates select="tei:reg" mode="#current"> </xsl:apply-templates>
+							</xsl:otherwise>
+						</xsl:choose>
+					</xsl:when>
+					<xsl:when test="tei:seg[@type='alter']">
+						<xsl:choose>
+							<!-- IT: 1. escludi i choice che contengono reg vuoti (che contengono solo white-spaces) usati per la punteggiatura
+									 2. escludi i choice che contengono reg che contengono solo punteggiatura-->
+							<xsl:when test="tei:seg[@type='alter'][not(descendant::tei:pc)][normalize-space()] or
+								tei:seg[@type='alter'][descendant::tei:pc][node()[not(self::tei:pc)][normalize-space()]]">
+								<xsl:element name="span">
+									<xsl:attribute name="class" select="$ed_name2,'choice_popup'" separator="-"/>
+									<xsl:if test="tei:seg[@type='original']"><xsl:apply-templates select="tei:seg[@type='original']" mode="#current"/>
+										<xsl:sequence select="' '"/><!--important--></xsl:if>
+									<xsl:apply-templates select="tei:seg[@type='alter']" mode="#current"> </xsl:apply-templates>
+								</xsl:element>
+							</xsl:when>
+							<xsl:otherwise>
+								<xsl:apply-templates select="tei:seg[@type='alter']" mode="#current"> </xsl:apply-templates>
 							</xsl:otherwise>
 						</xsl:choose>
 					</xsl:when>
@@ -296,6 +341,24 @@
 	<xsl:template match="tei:expan|tei:damage|tei:ex|tei:corr|tei:reg|tei:orig|tei:abbr" mode="dipl">
 		<xsl:element name="span">
 			<xsl:attribute name="class" select="$ed_name2,name()" separator="-"/>
+			<xsl:apply-templates mode="#current"/> 
+		</xsl:element>
+	</xsl:template>
+	
+	<xsl:template match="tei:seg" mode="dipl">
+		<xsl:element name="span">
+			<xsl:choose>
+				<xsl:when test="@type='original'">
+					<xsl:attribute name="class" select="$ed_name2,'orig'" separator="-"/>		
+				</xsl:when>
+				<xsl:when test="@type='alter'">
+					<xsl:attribute name="class" select="$ed_name2,'reg'" separator="-"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:attribute name="class" select="$ed_name2,@type" separator="-"/>
+				</xsl:otherwise>
+			</xsl:choose>
+			
 			<xsl:apply-templates mode="#current"/> 
 		</xsl:element>
 	</xsl:template>

@@ -139,13 +139,32 @@
 					</xsl:if>
 					<xsl:element name="span">
 						<xsl:attribute name="class" select="$ed_name1,'reg'" separator="-"/>
-						<xsl:variable name="choiceId" select="orig/ancestor::tei:choice[1]/@id"></xsl:variable>
-						<xsl:apply-templates select="orig/ancestor::node()[parent::node()[name()=$start_split]]//tei:choice[@id=$choiceId]//tei:reg/node(),
-							orig/ancestor::node()[parent::node()[name()=$start_split]]/following-sibling::node()[not(self::lb)][position() lt 3]//tei:choice[@id=$choiceId]//tei:reg/node()"
-							mode="#current"/>
+						<xsl:choose>
+							<xsl:when test="tei:orig">
+								<xsl:variable name="choiceId" select="orig/ancestor::tei:choice[1]/@id"></xsl:variable>
+								<xsl:apply-templates select="orig/ancestor::node()[parent::node()[name()=$start_split]]//tei:choice[@id=$choiceId]//tei:reg/node(),
+									orig/ancestor::node()[parent::node()[name()=$start_split]]/following-sibling::node()[not(self::lb)][position() lt 3]//tei:choice[@id=$choiceId]//tei:reg/node()"
+									mode="#current"/>		
+							</xsl:when>
+							<xsl:when test="tei:seg[@type='original']">
+								<xsl:variable name="choiceId" select="tei:seg[@type='original']/ancestor::tei:choice[1]/@id"></xsl:variable>
+								<xsl:apply-templates select="tei:seg[@type='original']/ancestor::node()[parent::node()[name()=$start_split]]//tei:choice[@id=$choiceId]//tei:seg[@type='alter']/node(),
+									tei:seg[@type='original']/ancestor::node()[parent::node()[name()=$start_split]]/following-sibling::node()[not(self::lb)][position() lt 3]//tei:choice[@id=$choiceId]//tei:seg[@type='alter']/node()"
+									mode="#current"/>
+							</xsl:when>
+						</xsl:choose>
+						
 					</xsl:element>
 					<xsl:sequence select="' '"/>
-					<xsl:apply-templates select="tei:orig" mode="#current"> </xsl:apply-templates>
+					<xsl:choose>
+						<xsl:when test="tei:orig">
+							<xsl:apply-templates select="tei:orig" mode="#current"> </xsl:apply-templates>
+						</xsl:when>
+						<xsl:when test="tei:seg[@type='original']">
+							<xsl:apply-templates select="tei:seg" mode="#current"> </xsl:apply-templates>
+						</xsl:when>
+					</xsl:choose>
+					
 				</xsl:element>
 			</xsl:when>
 			<!-- IT: Questo è per le altre parti, che dovranno contenere solo ORIG-->
@@ -185,6 +204,24 @@
 							</xsl:when>
 							<xsl:otherwise>
 								<xsl:apply-templates select="tei:orig" mode="#current"> </xsl:apply-templates>
+							</xsl:otherwise>
+						</xsl:choose>
+					</xsl:when>
+					<xsl:when test="tei:seg[@type='original']">
+						<xsl:choose>
+							<!-- IT: 1. escludi i choice che contengono reg vuoti (che contengono solo white-spaces) usati per la punteggiatura
+									 2. escludi i choice che contengono reg che contengono solo punteggiatura-->
+							<xsl:when test="tei:seg[@type='alter'][not(descendant::tei:pc)][normalize-space()] or
+								tei:reg[descendant::tei:pc][node()[not(self::tei:pc)][normalize-space()]]">
+								<xsl:element name="span">
+									<xsl:attribute name="class" select="$ed_name1,'choice_popup'" separator="-"/>
+									<xsl:apply-templates select="tei:seg[@type='alter']" mode="#current"> </xsl:apply-templates>
+									<xsl:sequence select="' '"/>
+									<xsl:apply-templates select="tei:seg[@type='original']" mode="#current"> </xsl:apply-templates>
+								</xsl:element>
+							</xsl:when>
+							<xsl:otherwise>
+								<xsl:apply-templates select="tei:seg[@type='original']" mode="#current"> </xsl:apply-templates>
 							</xsl:otherwise>
 						</xsl:choose>
 					</xsl:when>
@@ -247,6 +284,23 @@
 		</xsl:element>
 	</xsl:template>
 	
+	<xsl:template match="tei:seg" mode="facs" priority="2">
+		<xsl:element name="span">
+			<xsl:choose>
+				<xsl:when test="@type='original'">
+					<xsl:attribute name="class" select="$ed_name1,'orig'" separator="-"/>		
+				</xsl:when>
+				<xsl:when test="@type='alter'">
+					<xsl:attribute name="class" select="$ed_name1,'reg'" separator="-"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:attribute name="class" select="$ed_name1,@type" separator="-"/>
+				</xsl:otherwise>
+			</xsl:choose>
+			
+			<xsl:apply-templates mode="#current"/> 
+		</xsl:element>
+	</xsl:template>
 	
 	<!--
 		CORR Correction

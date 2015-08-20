@@ -258,20 +258,54 @@
                                 </xsl:for-each>
                             </xsl:when>
                             <xsl:otherwise>
-                                <xsl:for-each select="$root//tei:div[@subtype='edition_text']">
-                                    <text>
-                                        <xsl:attribute name="n" select="@n"></xsl:attribute>
-                                        <xsl:attribute name="label">
-                                            <xsl:value-of select="@n"/>
-                                        </xsl:attribute>
-                                        <xsl:for-each select=".//tei:pb">
-                                            <pb>
-                                                <xsl:attribute name="n" select="if(@n) then (@n) else (@xml:id)"></xsl:attribute>
-                                                <xsl:value-of select="@xml:id"></xsl:value-of>
-                                            </pb>
+                                <xsl:choose>
+                                    <xsl:when test="$root//tei:div[@subtype='edition_text']">
+                                        <xsl:for-each select="$root//tei:div[@subtype='edition_text']">
+                                            <text>
+                                                <xsl:attribute name="n" select="@n"></xsl:attribute>
+                                                <xsl:attribute name="label">
+                                                    <xsl:value-of select="@n"/>
+                                                </xsl:attribute>
+                                                <xsl:for-each select=".//tei:pb">
+                                                    <pb>
+                                                        <xsl:attribute name="n" select="if(@n) then (@n) else (@xml:id)"></xsl:attribute>
+                                                        <xsl:value-of select="@xml:id"></xsl:value-of>
+                                                    </pb>
+                                                </xsl:for-each>
+                                            </text>
                                         </xsl:for-each>
-                                    </text>
-                                </xsl:for-each>
+                                    </xsl:when>
+                                    <xsl:when test="$root//tei:body">
+                                        <xsl:for-each select="$root//tei:body">
+                                            <text>
+                                                <xsl:attribute name="n" select="@n"></xsl:attribute>
+                                                <xsl:attribute name="label">
+                                                    <xsl:value-of select="@n"/>
+                                                </xsl:attribute>
+                                                <xsl:for-each select=".//tei:pb">
+                                                    <pb>
+                                                        <xsl:attribute name="n" select="if(@n) then (@n) else (@xml:id)"></xsl:attribute>
+                                                        <xsl:choose>
+                                                            <xsl:when test="@xml:id">
+                                                                <xsl:value-of select="@xml:id"/>        
+                                                            </xsl:when>
+                                                            <xsl:when test="@n">
+                                                                <xsl:value-of select="@n"/>
+                                                            </xsl:when>
+                                                            <xsl:when test="@facs">
+                                                                <xsl:value-of select="@facs"/>
+                                                            </xsl:when>
+                                                            <xsl:otherwise>
+                                                                <xsl:value-of select="position()"/>
+                                                            </xsl:otherwise>
+                                                        </xsl:choose>
+                                                    </pb>
+                                                </xsl:for-each>
+                                            </text>
+                                        </xsl:for-each>
+                                    </xsl:when>
+                                </xsl:choose>
+                                
                             </xsl:otherwise>
                         </xsl:choose>
                     </xsl:if>
@@ -298,8 +332,21 @@
                             <pair>
                                 <xsl:for-each select="current-group()/self::tei:pb">
                                     <pb>
-                                        <xsl:attribute name="n" select="@n"></xsl:attribute>
-                                        <xsl:value-of select="@xml:id"></xsl:value-of>
+                                        <xsl:attribute name="n" select="@n"/>
+                                        <xsl:choose>
+                                            <xsl:when test="@xml:id">
+                                                <xsl:value-of select="@xml:id"/>        
+                                            </xsl:when>
+                                            <xsl:when test="@n">
+                                                <xsl:value-of select="@n"/>
+                                            </xsl:when>
+                                            <xsl:when test="@facs">
+                                                <xsl:value-of select="@facs"/>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <xsl:value-of select="position()"/>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
                                     </pb>
                                 </xsl:for-each>
                             </pair>

@@ -145,7 +145,22 @@
 
 	<xsl:template name="page">
 		<!-- CDP:embedded -->	
-		<xsl:variable name="pb_n" select="@xml:id" />	
+		<xsl:variable name="pb_n">
+			<xsl:choose>
+				<xsl:when test="@xml:id">
+					<xsl:value-of select="@xml:id"/>
+				</xsl:when>
+				<xsl:when test="@n">
+					<xsl:value-of select="@n"/>
+				</xsl:when>
+				<xsl:when test="@facs">
+					<xsl:value-of select="@facs"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:value-of select="position()"/>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:variable>
 		<!-- EN: For every single page, the system generates the corresponding edition. Data_structure template is in html_builder/evt_builder-callhtml.xsl -->
 		<!-- IT: Per ogni pagina, genera le corrispettive edizioni. Il template data_structure si trova in html_build/evt_builder-callhtml.xsl -->
 		<xsl:for-each select="$edition_array">
