@@ -2355,6 +2355,7 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 }
 /* MANUSCRIPT DESCRIPTION by AB */
 #msDesc_cont {
+	display: none;
 	background: #f5efe4;
 	margin-top: 42px;
 	bottom: 42px;

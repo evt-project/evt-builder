@@ -26,6 +26,7 @@
 	<!-- Basic -->
 	<xsl:include href="modules/evt_builder-main.xsl"/>
 	<xsl:include href="modules/evt_builder-conf.xsl"/>
+	<xsl:include href="modules/evt_builder-conf-labels.xsl"/>
 
 	<xsl:include href="modules/fundamental_units/evt_builder-copy_and_call_main.xsl"/>
 	<xsl:include href="modules/fundamental_units/evt_builder-structure.xsl"/>

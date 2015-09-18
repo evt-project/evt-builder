@@ -259,6 +259,7 @@
 				</xsl:otherwise>
 			</xsl:choose>
 		</xsl:if>
+		
 	</xsl:template>
 	
 	<!-- HEADER INFO -->
