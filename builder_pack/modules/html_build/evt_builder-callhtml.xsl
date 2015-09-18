@@ -311,7 +311,7 @@
 												
 												<!-- Integration by AB -->
 												<xsl:if test="$image_frame=true() and $msDesc=true()">
-													<span class="mainButtons active" id="switch_msDesc" lang="en" title="Manuscript Information">
+													<span class="mainButtons" id="switch_msDesc" lang="en" title="Manuscript Information">
 														<span lang="en">MS Info</span>
 														<i class="fa fa-info-circle"></i>
 													</span>

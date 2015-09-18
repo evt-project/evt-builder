@@ -2888,7 +2888,7 @@ $(function() {
 			if ( optionTooltipInPages ) {
 				if ( $('#span_pp_select').find('.option_tooltip').length > 0 ){
 					$('#span_pp_select').find('.option_tooltip').css({
-						'min-width': widthOpt-50
+						'min-width': widthSel-50
 					});
 				}
 			}
@@ -2897,7 +2897,7 @@ $(function() {
 			if ( optionTooltipInPages ) {
 				if ( $(elem).find('.option_tooltip').length > 0 ){
 					$(elem).find('.option_tooltip').css({
-						'left': widthOpt+15
+						'left': widthSel+1
 					});
 				}
 			}
