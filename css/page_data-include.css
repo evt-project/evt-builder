@@ -216,7 +216,7 @@ span.facs-choice_popup.hover span.facs-reg {
 }
 
 span.facs-choice_popup span.facs-orig { 
-	#color: #999966;
+	/*color: #999966;*/
 	color: #69513a; /*background-color: rgba(255,255,204,0.8);*/ 
 }
 
@@ -405,8 +405,8 @@ span.dipl-red {
 	color: red; 
 }
 
-span.dipl-hi-7init { f
-	ont-size: 140% 
+span.dipl-hi-7init {
+	font-size: 140% 
 }
 
 span.dipl-hi-init3_1 { 
@@ -463,14 +463,14 @@ span.popup{
     display:inline-block;
 }	
 span.popup:hover > span.tooltip{
-	#display: block;
-	#min-width: 20px;
-	#text-align: left;
-	#padding:1%;
+	/*display: block;
+	min-width: 20px;
+	text-align: left;
+	padding:1%;*/
 }
 
 .doc.current span.popup span.trigger, .doc.current span.open_note .fa{ 
-	#color: #999966;
+	/*color: #999966;*/
 	color: #69513a; /*background-color: rgba(255,255,204,0.8);*/ 
 	cursor: pointer;
 }
@@ -532,15 +532,15 @@ span .text_note{
 	padding:1%;
 }*/
 span.emph{
-    #font-weight:bold;
+    /*font-weight:bold;*/
     font-style:italic;
 }
 span.italic{
 	font-style:italic;
 }
 span.term, span.emph span.term{
-    #font-weight:bold;
-    #font-style:normal;
+    /*font-weight:bold;
+    font-style:normal;*/
 }
 #regesto span.term, #regesto span.emph, #text span.emph{
 	font-style:italic;
@@ -613,7 +613,7 @@ span.roleName.list_active{
 }
 
 .doc.current span.opened > span.trigger{
-	#text-shadow:0px 0px 1px rgba(0,0,0,0.8);
+	/*text-shadow:0px 0px 1px rgba(0,0,0,0.8);*/
 	text-shadow:0px 0px 0.3px rgba(0,0,0,0.8);
 }
 span.display-block{

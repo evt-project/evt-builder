@@ -330,7 +330,11 @@ $(function() {
 						}
 					});
 				});
-				
+				if ($.browser.safari) {
+					$('#list_header .labelList').css('top', '1px');
+				} else if ($.browser.webkit) {
+					$('#list_header .labelList').css('top', '-8.5px');
+				}
 			} else {
 				$('#lists_cont').remove();
 				$('#list_link').remove();
@@ -1209,6 +1213,11 @@ $(function() {
 		})
 
 		resizeButtonsAndSelects();
+
+		// Sistemo interfaccia per Safari
+		if ($.browser.safari) {
+			$('#toggle_list_cont, #toggle_search_cont, #start_search, #toggle_search_cont-add, #start_search-add').css('top', '-1px');
+		}
 	});
 
 	if ( $('#search_cont').length > 0 ) {
