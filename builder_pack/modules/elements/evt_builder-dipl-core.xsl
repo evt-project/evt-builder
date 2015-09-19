@@ -600,9 +600,11 @@
 						<xsl:value-of select="@quantity"/>
 						<xsl:text> </xsl:text>
 						<xsl:value-of select="@unit"/>
-						<xsl:text> </xsl:text>
-						<xsl:value-of select="@type"/>
-						<xsl:text> </xsl:text>
+						<xsl:if test="@type">
+							<xsl:text> (</xsl:text>
+							<xsl:value-of select="@type"/>
+							<xsl:text>) </xsl:text>
+						</xsl:if>
 						
 						<!--<xsl:if test="@type!=''">
 							<xsl:element name="span">
@@ -689,9 +691,27 @@
 						<xsl:value-of select="tei:settlement"/>
 					</xsl:element>
 					<xsl:if test="tei:settlement/@type">
-						<xsl:text> (</xsl:text>
-						<xsl:value-of select="tei:settlement/@type"></xsl:value-of>
-						<xsl:text>)</xsl:text>
+						<xsl:text>, </xsl:text>
+						<xsl:choose>
+							<xsl:when test="contains(current()/tei:settlement/@type, '_')">
+								<xsl:variable name="settlementType1"><xsl:value-of select="substring-before(current()/tei:settlement/@type, '_')"/></xsl:variable>
+								<xsl:value-of select="replace($settlementType1, '-', '/')"/>
+								<xsl:variable name="settlementType2"><xsl:value-of select="substring-after(current()/tei:settlement/@type, '_')"></xsl:value-of></xsl:variable>
+								<xsl:choose>
+									<xsl:when test="contains($settlementType2, '_')">
+										<xsl:text>&#xA0;(</xsl:text>
+										<xsl:value-of select="replace($settlementType2, '_', ')')"></xsl:value-of>		
+									</xsl:when>
+									<xsl:otherwise>
+										<xsl:text>&#xA0;</xsl:text>
+										<xsl:value-of select="$settlementType2"></xsl:value-of>
+									</xsl:otherwise>
+								</xsl:choose>
+							</xsl:when>
+							<xsl:otherwise>
+								<xsl:value-of select="replace(current()/tei:settlement/@type, '-', '/')"/>
+							</xsl:otherwise>
+						</xsl:choose>
 					</xsl:if>
 				</xsl:if>
 				<xsl:if test="current()/tei:placeName[@type='new']">
@@ -700,7 +720,7 @@
 				</xsl:if>
 				<xsl:if test="current()/tei:district">
 					<xsl:text> (</xsl:text>
-					<xsl:value-of select="current()/tei:district/@type" />
+					<xsl:value-of select="replace(current()/tei:district/@type, '_', ' ')" />
 					<xsl:text> </xsl:text>
 					<xsl:value-of select="tei:district"/>
 					<xsl:text>)</xsl:text>
