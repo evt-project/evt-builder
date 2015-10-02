@@ -198,12 +198,12 @@
 						</div>
 					</header>
 					<section id="central_wrapper">
-						<i class="fa fa-caret-up" id="header_collapse" title="Toggle menu"></i>
+						<i class="fa fa-caret-up" id="header_collapse" data-action="collapse" title="Toggle menu"></i>
 						<div class="main_left_arrow" onclick="UnInitialize()" title="Previous"/>
 						<div class="main_right_arrow" title="Next"/>
 						<xsl:if test="$image_frame=true() or count($edition_array) &gt; 1">
 							<xsl:variable name="viewStatus" select="if($image_frame=false()) then 'width:0px; border-left-width:0px; border-right-width:0px;' else ''"/>
-							<div id="main_left_frame" style="{$viewStatus}">
+							<div id="main_left_frame" class="main_frame" style="{$viewStatus}">
 								<i class="fa fa-caret-up go-full-left" id="goFullScreenLeft" title="Expand frame"></i>
 								<!--
 								<div id="main_left_menu">
@@ -359,7 +359,7 @@
 								</xsl:if>
 								<xsl:if test="count($edition_array) &gt; 1">
 									<!-- Text frame bottom menu -->
-									<div id="text_tool-add" class="bottom-menu">
+									<div id="text_tool-add" class="bottom-menu hidden">
 										<xsl:if test="$search=true()">
 											<span id="search_link-add" class="mainButtons searchButton" data-boxsuffix="-add" title="Search">
 												<span>Search</span>
@@ -407,10 +407,10 @@
 									</xsl:if>
 									<!-- Integration by AB -->
 									<xsl:if test="$image_frame=true() and $msDesc=true()">
-										<div id="msDesc_cont"></div>
+										<div id="msDesc_cont" class="inner_frame"></div>
 									</xsl:if>
 									<!-- /end Integration by AB -->
-									<div id="image_cont">
+									<div id="image_cont" class="inner_frame">
 										<div id="image_fade">
 											<div id="image_elem">
 												<!--<img id="iviewerImage" src="images/null.jpg" />-->
@@ -446,7 +446,7 @@
 										</div>
 										<input id="dimFit" type="hidden" value=""/>
 										<input id="imgTit" type="hidden" value=""/>
-										<div id="thumb_cont">
+										<div id="thumb_cont" class="inner_frame">
 											<!-- CDP:embedded -->
 											<!-- <xsl:if test="$root//tei:sourceDoc"> -->
 												<!-- Found the node(s) for embedded transcription-->
@@ -488,7 +488,7 @@
 						</xsl:variable>
 						
 						
-						<div id="{$id_right_frame}">
+						<div id="{$id_right_frame}" class="main_frame">
 							<i class="fa fa-caret-up go-full-right" id="goFullScreenRight" title="Expand frame"></i>
 							<!--
 							<div id="main_right_menu">
@@ -564,12 +564,12 @@
 								<i class="fa fa-times-circle closeFullScreen" id="closeFullScreenRight"></i>
 							</header>
 							<xsl:if test="$regesto=true()">
-								<div id="regesto_cont" class="text-box can-change-font-size"/>
+								<div id="regesto_cont" class="text-box can-change-font-size inner_frame"/>
 							</xsl:if>
 							<xsl:if test="$frontInfo=true()">
-								<div id="front_cont" class="text-box can-change-font-size"/>
+								<div id="front_cont" class="text-box can-change-font-size inner_frame"/>
 							</xsl:if>
-							<div id="text_cont" class="text-box can-change-font-size">
+							<div id="text_cont" class="text-box can-change-font-size inner_frame">
 								<div id="text_elem"/>
 							</div>
 							<xsl:if test="$search=true()">

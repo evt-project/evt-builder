@@ -466,7 +466,7 @@ footer{
 #search_cont, #search_cont-add{
 	background: white;
 	position: relative;
-	margin-top: 42px;
+	
 	bottom: 42px;
 	height: 100%;
 	height: -moz-calc(100% - 42px);
@@ -481,6 +481,16 @@ footer{
     height: calc(100% - 84px);
     min-height: 436.1px;
     overflow: auto;
+
+    position: absolute;
+    margin-top: 42px;
+    height: 100%;
+	height: -moz-calc(100% - 84px);
+	height: -webkit-calc(100% - 84px);
+    height: -o-calc(100% - 84px);
+    height: calc(100% - 84px);
+    top: 0;
+    width: 100%;
 }
 
 #front_cont, #front_cont-add {
@@ -536,8 +546,9 @@ footer{
 	position: relative;
 	/*height: 95%;
 	min-height: 480px;*/
-	height: 100%;
-	
+	margin-top: 42px;
+	top: 0px;
+	height: calc(100% - 42px);
 	/*-moz-box-shadow:2px 3px 5px -2px rgba(0, 0, 0, 0.8);
 	-webkit-box-shadow:2px 3px 5px -2px rgba(0, 0, 0, 0.8);
 	-o-box-shadow:2px 3px 5px -2px rgba(0, 0, 0, 0.8);
@@ -2366,13 +2377,14 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 	display: none;
 	background: #f5efe4;
 	margin-top: 42px;
-	bottom: 42px;
+	
+	bottom: 0px !important;
 	/* con bottom menu: */
     height: 100%;
-	height: -moz-calc(100% - 84px);
-	height: -webkit-calc(100% - 84px);
-    height: -o-calc(100% - 84px);
-    height: calc(100% - 84px);
+	height: -moz-calc(100% - 42px);
+	height: -webkit-calc(100% - 42px);
+    height: -o-calc(100% - 42px);
+    height: calc(100% - 42px);
     min-height: 436.1px;
     overflow: auto;
     position: absolute;

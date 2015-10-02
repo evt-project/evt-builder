@@ -20,7 +20,8 @@ function magnifierReady() {
 		zoomImagWidth = 445; /*richiamata anche in jqzoom*/
 	}
 	var imgWidth = parseFloat($("#iviewerImage").css('width'));
-	var imgHeight = parseFloat($("#iviewerImage").css('height'));
+	// var imgHeight = parseFloat($("#iviewerImage").css('height'));
+	var imgHeight = parseFloat($('#image_cont').height());
 	zoomImagHeight = (zoomImagWidth * imgHeight) / imgWidth; /*richiamata anche in jqzoom*/
 	/*IT: modifico gli attibuti della nuova immagine*/
 	img.setAttribute('id', 'magImage');
@@ -77,13 +78,11 @@ function setMagHeight() {;
 	left_headerHeight = $("#left_header").height();
 	if ($('#left_header').hasClass('menuClosed')) {
 		$("#mag_image_elem").css({
-			'margin-top': '0px',
-			'height': ($("#image_cont").height()) + 'px'
+			'height': ($("#image_cont").height() + left_headerHeight) + 'px'
 		});
 	} else {
 		$("#mag_image_elem").css({
-			'margin-top': left_headerHeight + 'px',
-			'height': ($("#image_cont").height()) - left_headerHeight + 'px'
+			'height': $("#image_cont").height() + 'px'
 		});
 	}
 	$('.zoomWindow').css({
@@ -122,7 +121,7 @@ function magOn() {
       		$('#switchMag').addClass('active'); //Add by CDP for FA
       		$('#switchMag i').removeClass('fa fa-search').addClass('fa fa-search-plus');
       		//$('#switchITL').removeClass('inactive');//Add by CDP for FA
-      		
+      		$('#image_tool').addClass('hidden');
       		magnifierON = true;
       	}
 	} else {
@@ -131,14 +130,16 @@ function magOn() {
 			"overflow": "hidden"
 		});
 		$("#image_elem, #image_fade").fadeIn();
-		if (!$('#image_tool').hasClass('menuClosed')) $("#image_tool").css({
-			"display": "block",
-			"overflow": "hidden"
-		}); //Add by CDP per gestire la scomparsa del menu
+		if (!$('#image_tool').hasClass('menuClosed')) {
+			$("#image_tool").css({
+				"display": "block",
+				"overflow": "hidden"
+			}); //Add by CDP per gestire la scomparsa del menu
+		}
 		$("#mag_image_elem").fadeOut();
 		$('#switchMag').removeClass('active'); //Add by CDP for FA
 		$('#switchMag i').removeClass('fa fa-search-plus').addClass('fa fa-search');
-
+		$('#image_tool').removeClass('hidden');
 		magnifierON = false;
 	}
 	$('#thumb_cont').css('display', 'none');
