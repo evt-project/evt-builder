@@ -24,115 +24,7 @@
             IT: 
         </xd:detail>
     </xd:doc>
-    <!--<xsl:template match="*" mode="structure_generation">
-        <xsl:result-document method="xml" href="{$filePrefix}/data/output_data/structure.xml" indent="yes">
-            <xml>
-                <editions>
-                    <xsl:for-each select="$edition_array">
-                        <edition><xsl:value-of select="."/></edition>
-                    </xsl:for-each>
-                </editions>
-                <textpage>
-                    <xsl:for-each select="$root//tei:div[@subtype='edition_text']">
-                        <text>
-                            <xsl:attribute name="n" select="@n"></xsl:attribute>
-                            <xsl:for-each select=".//tei:pb">
-                                <pb><xsl:value-of select="@n"></xsl:value-of></pb>
-                            </xsl:for-each>
-                        </text>
-                    </xsl:for-each>
-                </textpage>
-                <pages>
-                    <xsl:for-each-group select="//tei:pb" group-starting-with="node()[ends-with(@n, 'v') or (ends-with(@n, 'r') and not(preceding-sibling::node()[ends-with(@n, 'v')]) ) or (not (ends-with(@n, 'v') or ends-with(@n, 'r')))]" >
-                        <pair>
-                            <xsl:for-each select="current-group()/self::tei:pb">
-                                <pb><xsl:value-of select="@n"></xsl:value-of></pb>
-                            </xsl:for-each>
-                        </pair>
-                    </xsl:for-each-group>
-                </pages>
-            </xml>
-        </xsl:result-document>
-    </xsl:template>-->
     
-    <!-- CDP:embedded -->
-    <!--<xsl:template match="*" mode="structure_generation4embedded">
-        <xsl:result-document method="xml" href="{$filePrefix}/data/output_data/structure.xml" indent="yes">
-            <xml>
-                <editions>
-                    <xsl:for-each select="$edition_array">
-                        <edition><xsl:value-of select="."/></edition>
-                    </xsl:for-each>
-                </editions>
-                <textpage>
-                    <xsl:for-each select="$root//tei:sourceDoc">
-                        <text>
-                            <xsl:attribute name="n" select="@xml:id"></xsl:attribute>
-                            <xsl:for-each select="current()/child::node()">
-                                <xsl:if test="self::tei:surface">
-                                    <pb><xsl:value-of select="@n"></xsl:value-of></pb>    
-                                </xsl:if>
-                                <xsl:if test="self::tei:surfaceGrp">
-                                    <xsl:for-each select="current()/child::node()">-->
-                                    <!-- gestisco due livelli di annidamento di <surfaceGrp> -->
-                                        <!--<xsl:if test="self::tei:surface">
-                                            <xsl:for-each select="current()">
-                                                <pb><xsl:value-of select="@n"></xsl:value-of></pb>
-                                            </xsl:for-each>
-                                        </xsl:if>
-                                        <xsl:if test="self::tei:surfaceGrp">-->
-                                        <!-- primo livello di annidamento <surfaceGrp> -->
-                                            <!--<xsl:for-each select="current()/child::tei:surface">
-                                                <pb><xsl:value-of select="@n"></xsl:value-of></pb>
-                                            </xsl:for-each>
-                                        </xsl:if>
-                                        
-                                    </xsl:for-each>
-                                </xsl:if>
-                            </xsl:for-each>
-                        </text>
-                    </xsl:for-each>
-                </textpage>
-                <pages>
-                    <xsl:for-each select="$root//tei:sourceDoc">
-                        <xsl:for-each select="child::node()">
-                            <xsl:if test="self::tei:surface">
-                                <xsl:call-template name="surfaceStructure" />
-                            </xsl:if>
-                            <xsl:if test="self::tei:surfaceGrp">
-                                <xsl:for-each select="current()/child::node()">
-                                    <xsl:if test="self::tei:surface">
-                                        <xsl:call-template name="surfaceStructure" />
-                                    </xsl:if>
-                                    <xsl:if test="self::tei:surfaceGrp">
-                                        <xsl:for-each select="current()/tei:surface">
-                                            <xsl:call-template name="surfaceStructure" />
-                                        </xsl:for-each>
-                                    </xsl:if>
-                                </xsl:for-each>
-                            </xsl:if>
-                        </xsl:for-each>
-                    </xsl:for-each>
-                </pages>
-            </xml>
-        </xsl:result-document>
-    </xsl:template>
-    <xsl:template name="surfaceStructure">-->
-        <!-- per gestire i casi in cui la prima pagina è il recto, ovvero quella di destra -->
-        <!--<xsl:if test="(ends-with(@n, 'r')) and not(current()/preceding-sibling::tei:surface[1][ends-with(@n, 'v')])">
-            <pair>
-                <pb><xsl:value-of select="@n" /></pb>
-            </pair>
-        </xsl:if>
-        <xsl:if test="ends-with(@n, 'v')">
-            <pair>
-                <pb><xsl:value-of select="@n"></xsl:value-of></pb>
-                <xsl:if test="current()/following-sibling::tei:surface[1][ends-with(@n, 'r')]">
-                    <pb><xsl:value-of select="current()/following-sibling::tei:surface[1]/@n"></xsl:value-of></pb>
-                </xsl:if>
-            </pair>
-        </xsl:if> 
-    </xsl:template>  -->
     <xsl:template name="getLastPb">
         <xsl:choose>
             <xsl:when test="current()/tei:body/descendant::tei:pb">
@@ -143,6 +35,38 @@
                 <xsl:for-each select="current()/preceding-sibling::tei:text[1]">
                     <xsl:call-template name="getLastPb"></xsl:call-template>
                 </xsl:for-each>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    
+    <xsl:template name="generatePbElement">
+        <xsl:param name="pb"/>
+        <xsl:param name="position"/>
+        <xsl:attribute name="n">
+            <xsl:choose>
+                <xsl:when test="$pb/@n">
+                    <xsl:value-of select="$pb/@n"/>
+                </xsl:when>
+                <xsl:when test="$pb/@xml:id">
+                    <xsl:value-of select="$pb/@xml:id"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select="$position"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:attribute>
+        <xsl:choose>
+            <xsl:when test="$pb/@xml:id">
+                <xsl:value-of select="$pb/@xml:id"/>        
+            </xsl:when>
+            <xsl:when test="$pb/@n">
+                <xsl:value-of select="$pb/@n"/>
+            </xsl:when>
+            <xsl:when test="$pb/@facs">
+                <xsl:value-of select="$pb/@facs"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="$position"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
@@ -275,8 +199,12 @@
                                             <pb>
                                                 <xsl:choose>
                                                     <xsl:when test="current()/preceding-sibling::tei:text[1]/descendant::tei:pb">
-                                                        <xsl:attribute name="n" select="if(current()/preceding-sibling::tei:text[1]/descendant::tei:pb[last()]/@n) then (current()/preceding-sibling::tei:text[1]/descendant::tei:pb[last()]/@n) else (current()/preceding-sibling::tei:text[1]/descendant::tei:pb[last()]/@xml:id)"></xsl:attribute>
-                                                        <xsl:value-of select="current()/preceding-sibling::tei:text[1]/descendant::tei:pb[last()]/@xml:id"></xsl:value-of>
+                                                        <xsl:call-template name="generatePbElement">
+                                                            <xsl:with-param name="pb" select="current()/preceding-sibling::tei:text[1]/descendant::tei:pb[last()]"/>
+                                                            <xsl:with-param name="position" select="current()/preceding-sibling::tei:text[1]/descendant::tei:pb[last()]/position()"/>
+                                                        </xsl:call-template>
+                                                        <!--<xsl:attribute name="n" select="if(current()/preceding-sibling::tei:text[1]/descendant::tei:pb[last()]/@n) then (current()/preceding-sibling::tei:text[1]/descendant::tei:pb[last()]/@n) else (current()/preceding-sibling::tei:text[1]/descendant::tei:pb[last()]/@xml:id)"></xsl:attribute>
+                                                        <xsl:value-of select="current()/preceding-sibling::tei:text[1]/descendant::tei:pb[last()]/@xml:id"></xsl:value-of>-->
                                                     </xsl:when>
                                                     <xsl:otherwise>
                                                         <xsl:for-each select="current()/preceding-sibling::tei:text[1]">
@@ -288,8 +216,12 @@
                                         </xsl:if>
                                         <xsl:for-each select=".//tei:pb">
                                             <pb>
-                                                <xsl:attribute name="n" select="if(@n) then(@n) else(@xml:id)"></xsl:attribute>
-                                                <xsl:value-of select="@xml:id"></xsl:value-of>
+                                                <xsl:call-template name="generatePbElement">
+                                                    <xsl:with-param name="pb" select="current()"/>
+                                                    <xsl:with-param name="position" select="position()"/>
+                                                </xsl:call-template>
+                                                <!--<xsl:attribute name="n" select="if(@n) then(@n) else(@xml:id)"></xsl:attribute>
+                                                <xsl:value-of select="@xml:id"></xsl:value-of>-->
                                             </pb>
                                         </xsl:for-each>
                                     </text>
@@ -306,8 +238,12 @@
                                                 </xsl:attribute>
                                                 <xsl:for-each select=".//tei:pb">
                                                     <pb>
-                                                        <xsl:attribute name="n" select="if(@n) then (@n) else (@xml:id)"></xsl:attribute>
-                                                        <xsl:value-of select="@xml:id"></xsl:value-of>
+                                                        <xsl:call-template name="generatePbElement">
+                                                            <xsl:with-param name="pb" select="current()"/>
+                                                            <xsl:with-param name="position" select="position()"/>
+                                                        </xsl:call-template>
+                                                        <!--<xsl:attribute name="n" select="if(@n) then (@n) else (@xml:id)"></xsl:attribute>
+                                                        <xsl:value-of select="@xml:id"></xsl:value-of>-->
                                                     </pb>
                                                 </xsl:for-each>
                                             </text>
@@ -334,7 +270,12 @@
                                                 </xsl:choose>
                                                 <xsl:for-each select=".//tei:pb">
                                                     <pb>
-                                                        <xsl:attribute name="n" select="if(@n) then (@n) else (@xml:id)"></xsl:attribute>
+                                                        <xsl:call-template name="generatePbElement">
+                                                            <xsl:with-param name="pb" select="current()"/>
+                                                            <xsl:with-param name="position" select="position()"/>
+                                                        </xsl:call-template>
+                                                        
+                                                        <!--<xsl:attribute name="n" select="if(@n) then (@n) else (@xml:id)"></xsl:attribute>
                                                         <xsl:choose>
                                                             <xsl:when test="@xml:id">
                                                                 <xsl:value-of select="@xml:id"/>        
@@ -348,7 +289,7 @@
                                                             <xsl:otherwise>
                                                                 <xsl:value-of select="position()"/>
                                                             </xsl:otherwise>
-                                                        </xsl:choose>
+                                                        </xsl:choose>-->
                                                     </pb>
                                                 </xsl:for-each>
                                             </text>
@@ -382,7 +323,11 @@
                             <pair>
                                 <xsl:for-each select="current-group()/self::tei:pb">
                                     <pb>
-                                        <xsl:attribute name="n" select="@n"/>
+                                        <xsl:call-template name="generatePbElement">
+                                            <xsl:with-param name="pb" select="current()"/>
+                                            <xsl:with-param name="position" select="position()"/>
+                                        </xsl:call-template>
+                                        <!--<xsl:attribute name="n" select="@n"/>
                                         <xsl:choose>
                                             <xsl:when test="@xml:id">
                                                 <xsl:value-of select="@xml:id"/>        
@@ -396,7 +341,7 @@
                                             <xsl:otherwise>
                                                 <xsl:value-of select="position()"/>
                                             </xsl:otherwise>
-                                        </xsl:choose>
+                                        </xsl:choose>-->
                                     </pb>
                                 </xsl:for-each>
                             </pair>
@@ -412,8 +357,12 @@
         <xsl:if test="self::tei:surface">
             <xsl:for-each select="current()">
                 <pb>
-                    <xsl:attribute name="n" select="@n"></xsl:attribute>
-                    <xsl:value-of select="@xml:id"></xsl:value-of>
+                    <xsl:call-template name="generatePbElement">
+                        <xsl:with-param name="pb" select="current()"/>
+                        <xsl:with-param name="position" select="position()"/>
+                    </xsl:call-template>
+                    <!--<xsl:attribute name="n" select="@n"></xsl:attribute>
+                    <xsl:value-of select="@xml:id"></xsl:value-of>-->
                 </pb>
             </xsl:for-each>
         </xsl:if>
@@ -443,22 +392,35 @@
                 <xsl:if test="(ends-with(@n, 'r')) and not(current()/preceding-sibling::tei:surface[1][ends-with(@n, 'v')])">
                     <pair>
                         <pb>
-                            <xsl:attribute name="n" select="@n"></xsl:attribute>
-                            <xsl:value-of select="@xml:id"></xsl:value-of>
+                            <xsl:call-template name="generatePbElement">
+                                <xsl:with-param name="pb" select="current()"/>
+                                <xsl:with-param name="position" select="position()"/>
+                            </xsl:call-template>
+                            <!--<xsl:attribute name="n" select="@n"></xsl:attribute>
+                            <xsl:value-of select="@xml:id"></xsl:value-of>-->
                         </pb>
                     </pair>
                 </xsl:if>
                 <xsl:if test="ends-with(@n, 'v')">
                     <pair>
                         <pb>
-                            <xsl:attribute name="n" select="@n"></xsl:attribute>
-                            <xsl:value-of select="@xml:id"></xsl:value-of>
+                            <xsl:call-template name="generatePbElement">
+                                <xsl:with-param name="pb" select="current()"/>
+                                <xsl:with-param name="position" select="position()"/>
+                            </xsl:call-template>
+                            <!--<xsl:attribute name="n" select="@n"></xsl:attribute>
+                            <xsl:value-of select="@xml:id"></xsl:value-of>-->
                         </pb>
                         <xsl:if test="current()/following-sibling::tei:surface[1][ends-with(@n, 'r')]">
                             <!-- <pb><xsl:value-of select="current()/following-sibling::tei:surface[1]/@n"></xsl:value-of></pb> -->
                             <pb>
-                                <xsl:attribute name="n" select="current()/following-sibling::tei:surface[1]/@n"></xsl:attribute>
-                                <xsl:value-of select="current()/following-sibling::tei:surface[1]/@xml:id"></xsl:value-of>
+                                <xsl:call-template name="generatePbElement">
+                                    <xsl:with-param name="pb" select="current()/following-sibling::tei:surface[1]"/>
+                                    <xsl:with-param name="position" select="current()/following-sibling::tei:surface[1]/position()"/>
+                                </xsl:call-template>
+                                
+                                <!--<xsl:attribute name="n" select="current()/following-sibling::tei:surface[1]/@n"></xsl:attribute>
+                                <xsl:value-of select="current()/following-sibling::tei:surface[1]/@xml:id"></xsl:value-of>-->
                             </pb>
                         </xsl:if>
                     </pair>
@@ -467,8 +429,12 @@
             <xsl:otherwise>
                 <pair>
                     <pb>
-                        <xsl:attribute name="n" select="@n"></xsl:attribute>
-                        <xsl:value-of select="@xml:id"></xsl:value-of>
+                        <xsl:call-template name="generatePbElement">
+                            <xsl:with-param name="pb" select="current()"/>
+                            <xsl:with-param name="position" select="position()"/>
+                        </xsl:call-template>
+                        <!--<xsl:attribute name="n" select="@n"></xsl:attribute>
+                        <xsl:value-of select="@xml:id"></xsl:value-of>-->
                     </pb>
                 </pair>
             </xsl:otherwise>
