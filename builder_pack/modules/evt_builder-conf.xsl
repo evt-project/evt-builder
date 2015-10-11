@@ -35,8 +35,8 @@
 	<!-- IT: Titolo edizione -->
 	<!-- default: 'Codex Viewer' -->
 	<!--<xsl:param name="index_title" select="'Codex Viewer'"/>-->
-	<xsl:param name="index_title" select="'The Digital Vercelli Book'"/>
-	<!--<xsl:param name="index_title" select="'Codice Pelavicino'"/>-->
+	<!--<xsl:param name="index_title" select="'The Digital Vercelli Book'"/>-->
+	<xsl:param name="index_title" select="'Codice Pelavicino'"/>
 	
 	<!-- EN: Hide/Show scans -->
 	<!-- IT: Nascondi/Mostra scansioni -->
@@ -50,7 +50,7 @@
 	<!-- EN: Set text in badge -->
 	<!-- IT: Imposta testo del badge -->
 	<!-- ex: alpha, beta, stable etc -->	
-	<xsl:param name="badge_text" select="'BETA'"/>
+	<xsl:param name="badge_text" select="'DIGITAL'"/>
 	
 	<!-- EN: On/Off doubleview -->
 	<!-- IT: Attiva/Disattiva vista doppia pagina -->
@@ -64,12 +64,12 @@
 	<!-- EN: On/Off regesto -->
 	<!-- IT: Attiva/Disattiva regesto -->
 	<!-- default: false() -->
-	<xsl:param name="regesto" select="false()"/>
+	<xsl:param name="regesto" select="true()"/>
 	
 	<!-- EN: On/Off Front Information -->
 	<!-- IT: Attiva/Disattiva Front Information -->
 	<!-- default: true() -->
-	<xsl:param name="frontInfo" select="true()"/>
+	<xsl:param name="frontInfo" select="false()"/>
 	
 	<!-- EN: On/Off Manuscript Description -->
 	<!-- IT: Attiva/Disattiva Descrizione del manoscritto-->
@@ -92,7 +92,7 @@
 	<!-- EN: It is possible to skip production of pages for a specific edition simply removing the textual part of the corresponding item. -->
 	<!-- IT: E' possibile rimuovere la produzione di pagine di una determinata edizione semplicemente rimuovendo la parte testuale dell'item corrispondente. -->
 	<xsl:variable name="edition_array" as="element()*">
-		<edition>Diplomatic</edition> 	
+		<edition></edition> 	
 		<!-- EN: For processing in the modules: $edition_array[1] -->
 		<!-- IT: Per l'elaborazione nei moduli: $edition_array[1] -->
 		
@@ -155,28 +155,18 @@
 	<!-- ################# -->
 	<!-- INTERFACE CONTROL -->
 	<!-- ################# -->
-	<!-- LABELS -->
-	<!-- EN: Label for button of Regesto -->
-	<!-- IT: Testo etichetta per il pulsante del Regesto -->
-	<!-- default: 'Regesto' -->
-	<xsl:variable name="regesto_button_label" select="'Regesto'"/>
-	
-	<!-- EN: Label for button of Front -->
-	<!-- IT: Testo etichetta per il pulsante del Front -->
-	<!-- default: 'Front' -->
-	<xsl:variable name="front_button_label" select="'Front'"/>
 	
 	<!-- BUTTONS PRESENCE AND POSITION -->
 	
 	<!-- EN: Show/Hide Txt/Img Link Button in interface -->
 	<!-- IT: Mostra/Nascondi pulsante Txt/Img Link nell'interfaccia web -->
 	<!-- default: true() -->
-	<xsl:param name="txtimg_link_button" select="true()"/>
+	<xsl:param name="txtimg_link_button" select="false()"/>
 	
 	<!-- EN: Show/Hide Hotspot Button in interface -->
 	<!-- IT: Mostra/Nascondi pulsante Hotspot nell'interfaccia web -->
 	<!-- default: true() -->
-	<xsl:param name="hs_button" select="true()"/>
+	<xsl:param name="hs_button" select="false()"/>
 	
 	<!-- EN: Show/Hide Magnifier Button in interface -->
 	<!-- IT: Mostra/Nascondi pulsante Lente di ingrandimento nell'interfaccia web -->
@@ -202,22 +192,22 @@
 	<!-- EN: Choose whether or not to group pages by document in the selector -->
     <!-- IT: Scegli se raggruppare o meno le pagine per documento nel selettore apposito -->
     <!-- default: true() -->
-    <xsl:param name="pp_selector_doc_grouping" select="true()"/>
+    <xsl:param name="pp_selector_doc_grouping" select="false()"/>
     
     <!-- EN: Choose whether or not having a tooltip on pages option showing the belonging document  -->
     <!-- IT: Scegli se avere un tooltip sulle opzioni delle pagine che mostra il/i documento/i di appartenenza -->
     <!-- default: false() -->
-    <xsl:param name="pp_selector_doc_tooltip" select="false()"/>
+    <xsl:param name="pp_selector_doc_tooltip" select="true()"/>
 
 	<!-- EN: On/Off Search -->
 	<!-- IT: Attiva/Disattiva Ricerca -->
 	<!-- default: true() -->
-	<xsl:param name="search" select="false()"/>
+	<xsl:param name="search" select="true()"/>
 	
 	<!-- EN: On/Off Virtual Keyboard for search -->
 	<!-- IT: Attiva/Disattiva Tastiera virtuale per ricerca -->
 	<!-- default: true() -->
-	<xsl:param name="virtual_keyboard_search" select="true()"/>
+	<xsl:param name="virtual_keyboard_search" select="false()"/>
 	
 	<!-- EN: On/Off Document Navigation -->
 	<!-- IT: Attiva/Disattiva navigazione per documento -->
@@ -229,21 +219,12 @@
 	<!-- EN: On/Off persons list -->
 	<!-- IT: Attiva/disattiva lista persone -->
 	<!-- default: true() -->
-	<xsl:param name="list_person" select="false()"/>
-	<!-- EN: Customize persons list label -->
-	<!-- IT: Personalizza etichetta lista persone -->
-	<!-- default: Persons List -->
-	<xsl:param name="list_person_label" select="'Lista Persone'"/>
+	<xsl:param name="list_person" select="true()"/>
 	
 	<!-- EN: On/Off places list -->
 	<!-- IT: Attiva/disattiva lista luoghi -->
 	<!-- default: true() -->
-	<xsl:param name="list_place" select="false()"/>
-	
-	<!-- EN: Customize places list label -->
-	<!-- IT: Personalizza etichetta lista luoghi -->
-	<!-- default: Places List -->
-	<xsl:param name="list_place_label" select="'Lista Luoghi'"/>
+	<xsl:param name="list_place" select="true()"/>
 	
 	<!-- EN: It is possibile to personalize the elements in the filter select element that will select and highlight particular (groups of) words.
 			 In order to change the label it is necessary to change the text inside the corresponding element.
@@ -254,10 +235,10 @@
 			 Per rimuovere un elemento basta eliminare o tutto l'elemento di interesse o anche solo il testo al suo interno.
 			 Per aggiungere un elemento alla lista basta sapere che il tag fa riferimento alla classe data all'elemento html con il quale sono state marcate le parole "particolari" da selezionare. -->
 	<xsl:variable name="lists" as="element()*">
-		<!--<persName>Persone</persName>
+		<persName>Persone</persName>
 		<placeName>Luoghi</placeName>
 		<roleName>Mestieri/Ruoli</roleName>
 		<measure>Monete</measure>
-		<date>Date</date>-->
+		<date>Date</date>
 	</xsl:variable>
 </xsl:stylesheet>
