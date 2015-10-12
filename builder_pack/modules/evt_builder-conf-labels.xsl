@@ -15,20 +15,84 @@
 			IT: Questo file è una collezione di variabili configurabili, che vengono utilizzati negli altri moduli per la generazione dei testi delle etichette.
 		</xd:short>
 	</xd:doc>
+	<!-- ###### -->
+	<!-- HEADER -->
+	<!-- ###### -->
+	<xsl:variable name="single_text_mode_title" select="'Single Text mode'"/>
+	<xsl:variable name="image_text_mode_title" select="'Image|Text mode'"/>
+	<xsl:variable name="text_text_mode_title" select="'Text|Text mode'"/>
+	<xsl:variable name="bookreader_mode_title" select="'Bookreader mode'"/>
+	<xsl:variable name="teiHeader_button_title" select="'Project Info'"/>
+	<xsl:variable name="goFullscreen_button_title" select="'Fullscreen'"/>
+	<xsl:variable name="toggleMenu_button_title" select="'Toggle menu'"/>
+	<xsl:variable name="previousPage_button_title" select="'Previous Folio'"/>
+	<xsl:variable name="nextPage_button_title" select="'Next Folio'"/>
+	<xsl:variable name="previousText_button_title" select="'Previous Text'"/>
+	<xsl:variable name="nextText_button_title" select="'Next Text'"/>
+	
+	<xsl:variable name="expandFrame_button_title" select="'Expand Frame'"/>
+	<xsl:variable name="collapseFrame_button_title" select="'Collapse Frame'"/>
+	<xsl:variable name="pp_selector_title" select="'Folio'"/>
+	<xsl:variable name="tt_selector_title" select="'Text'"/>
+	<xsl:variable name="ee_selector_title" select="'Edition Level'"/>
+	
+	<xsl:variable name="thumbs_button_label" select="'Thumbs'"/>
+	<xsl:variable name="thumbs_button_title" select="'Thumbnails'"/>
+	
+	<xsl:variable name="magnifier_button_label" select="'Magnifier'"/>
+	<xsl:variable name="magnifier_button_title" select="'Magnifying lens'"/>
+	
+	<xsl:variable name="hs_button_label" select="'HotSpot'"/>
+	<xsl:variable name="hs_button_title" select="'Hot spot'"/>
+	
+	<xsl:variable name="itl_button_label" select="'TextLink'"/>
+	<xsl:variable name="itl_button_title" select="'Image-Text link'"/>
+	
+	<xsl:variable name="search_button_label" select="'Search'"/>
+	<xsl:variable name="search_button_title" select="'Search'"/>
+	<xsl:variable name="toggleSearch_button_title" select="'Toggle Search'"/>
+	<xsl:variable name="toggleKeyboard_button_title" select="'Toggle Keyboard'"/>
+	<xsl:variable name="clearSearch_button_title" select="'Clear Search'"/>
+	<xsl:variable name="startSearch_button_title" select="'Start Search'"/>
+	<xsl:variable name="emptySearchAlertMsg" select="'Enter your query into the search box above!'"/>
+	
+	<xsl:variable name="entitiesSelector_title" select="'Entities'"/>
+	<xsl:variable name="noSelection_label" select="'No selection'"/>
+	<xsl:variable name="selectAll_label" select="'Select All'"/>
+	<xsl:variable name="clearSelection_label" select="'Clear selection'"/>
+	
+	<xsl:variable name="fitToFrame_button_title" select="'Fit To Frame'"/>
+	<xsl:variable name="zoomOut_button_title" select="'Zoom Out'"/>
+	<xsl:variable name="zoomIn_button_title" select="'Zoom In'"/>
+	
+	<xsl:variable name="noImage_alert_msg" select="'No Image'"/>
+	
+	<xsl:variable name="toggleLists_button_title" select="'Toggle Lists'"/>
+	<xsl:variable name="lists_button_label" select="'Lists'"/>
+	<xsl:variable name="lists_button_title" select="'Lists'"/>
+	
 	
 	<!-- ####### -->
 	<!-- BUTTONS -->
 	<!-- ####### -->
 
-	<!-- EN: Label for button of Regesto -->
-	<!-- IT: Testo etichetta per il pulsante del Regesto -->
+	<!-- EN: Label and title for button of Regesto -->
+	<!-- IT: Testo etichetta per il pulsante del Regesto e il valore del suo attributo title -->
 	<!-- default: 'Regesto' -->
 	<xsl:variable name="regesto_button_label" select="'Regesto'"/>
+	<xsl:variable name="regesto_button_title" select="'Regesto'"/>
 	
-	<!-- EN: Label for button of Front -->
-	<!-- IT: Testo etichetta per il pulsante del Front -->
+	<!-- EN: Label and title for button of Front -->
+	<!-- IT: Testo etichetta per il pulsante del Front e il valore del suo attributo title -->
 	<!-- default: 'Front' -->
 	<xsl:variable name="front_button_label" select="'Front'"/>
+	<xsl:variable name="front_button_title" select="'Front'"/>
+	
+	<!-- EN: Label and title for button of MsDesc -->
+	<!-- IT: Testo etichetta per il pulsante del msDesc e il valore del suo attributo title -->
+	<!-- default: 'Front' -->
+	<xsl:variable name="msDesc_button_label" select="'MS Info'"/>
+	<xsl:variable name="msDesc_button_title" select="'Manuscript Information'"/>
 	
 	<!-- EN: Customize persons list label -->
 	<!-- IT: Personalizza etichetta lista persone -->
