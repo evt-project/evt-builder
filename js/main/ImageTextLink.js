@@ -473,7 +473,7 @@ function moveAreas(){
    }
 }
 
-function switchIMT(){
+function switchITL(){
     if($("#thumb_cont").css('display') === "block"){
 	   	   if($("#image_elem").css('display') === "none"){
 				$("#image_elem").show();

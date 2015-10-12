@@ -64,12 +64,12 @@
 	<!-- EN: On/Off regesto -->
 	<!-- IT: Attiva/Disattiva regesto -->
 	<!-- default: false() -->
-	<xsl:param name="regesto" select="true()"/>
+	<xsl:param name="regesto" select="false()"/>
 	
 	<!-- EN: On/Off Front Information -->
 	<!-- IT: Attiva/Disattiva Front Information -->
 	<!-- default: true() -->
-	<xsl:param name="frontInfo" select="false()"/>
+	<xsl:param name="frontInfo" select="true()"/>
 	
 	<!-- EN: On/Off Manuscript Description -->
 	<!-- IT: Attiva/Disattiva Descrizione del manoscritto-->
@@ -156,12 +156,42 @@
 	<!-- INTERFACE CONTROL -->
 	<!-- ################# -->
 	
+	<!-- -->
+	<!-- DEFAULT CONTENT SEEN -->
+	<!-- EN: Set default content on first load for left frame choosing between image or manuscript info 
+			Possible values are: 
+			- 'image' if you want to see the image on first load
+			- 'info'  if you want to see the manuscript info on first load
+			Any other value will work as 'image'.
+	-->
+	<!-- IT: Indicare cosa visualizzare di default al primo caricamento nel frame sinistro: immagine o informazioni sul manoscritto 
+			I valori possibili sono: 
+			- 'image' se si vuole visualizzare l'immagine al primo caricamento
+			- 'info'  se si vogliono visualizzare le informazioni sul manoscritto al primo caricamento
+			Qualsiasi altro valore varrà come 'image'
+	-->
+	<xsl:variable name="left_frame_default_content" select="'image'" />
+	
+	<!-- EN: Set default content on first load for right frame choosing between text or text front info 
+			Possible values are: 
+			- 'text' if you want to see the text on first load
+			- 'info'  if you want to see the text front info on first load
+			Any other value will work as 'text'.
+	-->
+	<!-- IT: Indicare cosa visualizzare di default al primo caricamento nel frame destro: testo o informazioni sul testo 
+			I valori possibili sono: 
+			- 'text' se si vuole visualizzare il testo al primo caricamento
+			- 'info'  se si vogliono visualizzare le informazioni sul testo al primo caricamento
+			Qualsiasi altro valore varrà come 'text'
+	-->
+	<xsl:variable name="right_frame_default_content" select="'text'" />
+	
 	<!-- BUTTONS PRESENCE AND POSITION -->
 	
 	<!-- EN: Show/Hide Txt/Img Link Button in interface -->
 	<!-- IT: Mostra/Nascondi pulsante Txt/Img Link nell'interfaccia web -->
 	<!-- default: true() -->
-	<xsl:param name="txtimg_link_button" select="false()"/>
+	<xsl:param name="txtimg_link_button" select="true()"/>
 	
 	<!-- EN: Show/Hide Hotspot Button in interface -->
 	<!-- IT: Mostra/Nascondi pulsante Hotspot nell'interfaccia web -->

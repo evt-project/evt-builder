@@ -11,31 +11,15 @@ var magnifierON = false;
 function magnifierReady() {
 	$("#mag_image_elem").empty();
 	setMagHeight();
-	var img = document.getElementById("iviewerImage").cloneNode(false);
-	img.removeAttribute("style");
-	/*IT: calcolo nuova altezza: */
-	if ($('.current_mode').attr('id') == 'imgd_link') {
-		zoomImagWidth = 900;
-	} else {
-		zoomImagWidth = 445; /*richiamata anche in jqzoom*/
-	}
-	var imgWidth = parseFloat($("#iviewerImage").css('width'));
-	// var imgHeight = parseFloat($("#iviewerImage").css('height'));
-	var imgHeight = parseFloat($('#image_cont').height());
-	zoomImagHeight = (zoomImagWidth * imgHeight) / imgWidth; /*richiamata anche in jqzoom*/
-	/*IT: modifico gli attibuti della nuova immagine*/
-	img.setAttribute('id', 'magImage');
-	/*IT: inserisco nuova immagine in #mag_image_elem */
+
 	var hash_parts = new Array();
+	var current_pp;
 	hash_parts = location.hash.substr(1).split('&');
 	if ( hash_parts != "" ) {
 		//alert('fromHash');
 		for (var i = 0; i < hash_parts.length; i++) {
 		    if(hash_parts[i].indexOf("page") === 0) { //begins with "page"
 		        current_pp = hash_parts[i].substr(5);
-		    	/*if (current_pp.indexOf('-') > 0) {
-		    		current_pp = current_pp.substr(0, current_pp.indexOf('-'));
-				}*/
 		    }
 		}
 	} else {
@@ -48,6 +32,29 @@ function magnifierReady() {
 		}
 	}
 
+	var img = document.getElementById("iviewerImage").cloneNode(false);
+	img.removeAttribute("style");
+	/*IT: calcolo nuova altezza: */
+	if ($('.current_mode').attr('id') == 'imgd_link') {
+		if (current_pp.indexOf('+') < 0) { 
+    		zoomImagWidth = 445;
+		} else {
+			zoomImagWidth = 900;
+		}
+	} else {
+		zoomImagWidth = 445; /*richiamata anche in jqzoom*/
+	}
+	var imgWidth = parseFloat($("#iviewerImage").css('width'));
+	// var imgHeight = parseFloat($("#iviewerImage").css('height'));
+	var imgHeight = parseFloat($('#mag_image_elem').innerHeight());
+	var left_headerHeight = $("#left_header").outerHeight();
+	
+	zoomImagHeight = (zoomImagWidth * imgHeight) / imgWidth; /*richiamata anche in jqzoom*/
+	
+	/*IT: modifico gli attibuti della nuova immagine*/
+	img.setAttribute('id', 'magImage');
+	/*IT: inserisco nuova immagine in #mag_image_elem */
+
 	//alert(current_pp);
 	if ($('.current_mode').attr('id') == 'imgd_link')
 		imgB = "data/input_data/images/double/" + current_pp.replace("+", "-") + "_big.jpg";
@@ -58,15 +65,23 @@ function magnifierReady() {
 	$("#mag_image_elem > a").append(img);
 	/*IT: imposto il css della nuova immagine*/
 	$("#magImage").css({
-		'width': zoomImagWidth + 'px',
-		'height': zoomImagHeight + 'px',
+		// 'width': zoomImagWidth + 'px',
+		// 'height': zoomImagHeight + 'px',
+		'width': zoomImagWidth +'px',
+		'height': imgHeight + 'px',
 		'margin-left': 'auto',
 		'margin-right': 'auto'
 	});
 	if ($('.current_mode').attr('id') == 'imgd_link') {
-		setTimeout(function() {
-			magONbig();
-		}, 1000);
+		if (current_pp.indexOf('+') < 0) { 
+			setTimeout(function() {
+				magON();
+			}, 1000);
+		} else {
+			setTimeout(function() {
+				magONbig();
+			}, 1000);
+		}
 	} else {
 		setTimeout(function() {
 			magON();
@@ -75,14 +90,15 @@ function magnifierReady() {
 }
 
 function setMagHeight() {;
-	left_headerHeight = $("#left_header").height();
+	left_headerHeight = $("#left_header").outerHeight();
 	if ($('#left_header').hasClass('menuClosed')) {
 		$("#mag_image_elem").css({
 			'height': ($("#image_cont").height() + left_headerHeight) + 'px'
 		});
 	} else {
 		$("#mag_image_elem").css({
-			'height': $("#image_cont").height() + 'px'
+			'height': ($("#image_cont").height()) + 'px',
+			'margin-top': left_headerHeight+'px'
 		});
 	}
 	$('.zoomWindow').css({
@@ -156,7 +172,7 @@ function disableITLbutton() {
 function enableITLbutton() {
 	if($('#switchITL').hasClass('inactive')) $('#switchITL').removeClass('inactive');
 	if($('#switchITL').hasClass('likeInactive')) $('#switchITL').removeClass('likeInactive');
-	$('#switchITL').attr('onclick', 'switchIMT()');
+	$('#switchITL').attr('onclick', 'switchITL()');
 	$('#switchITL').removeAttr('title').attr('title', 'Image-Text link');
 }
 

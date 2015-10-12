@@ -554,8 +554,10 @@
                 });*/
 				
                 $('.zoomWrapperImage', this.node).css({
-                    width: Math.round(settings.lensWidth) + 'px',
-                    height: Math.round(settings.lensHeight) + 'px'
+                    // width: Math.round(settings.lensWidth) + 'px',
+                    // height: Math.round(settings.lensHeight) + 'px'
+                    width: Math.round(settings.lensWidth/el.scaleI.x) + 'px' ,
+                    height: Math.round(settings.lensHeight/el.scaleI.y) + 'px'
                 });
                 //zoom title
                 /*$('.zoomWrapperTitle', this.node).css({

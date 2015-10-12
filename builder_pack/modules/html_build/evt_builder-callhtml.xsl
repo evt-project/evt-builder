@@ -57,6 +57,7 @@
 
 			<xsl:if test="$html_tc!='datastructure'">
 				<xsl:comment>main lib</xsl:comment>
+				
 				<script type="text/javascript" src="{$html_path}/js/main/interface_control.js"/>
 				<script type="text/javascript" src="{$html_path}/js/main/utils.js"/>
 				<xsl:comment>/main lib</xsl:comment>
@@ -167,58 +168,92 @@
 						<div id="cont_interface_tools">
 							<div id="mode_switch">
 								<xsl:if test="$image_frame=false()">
-									<a href="javascript:void(0);" id="txt_single" class="current_mode"
-										title="Single Text mode"> <img src="images/txt-single.png" class="mainHeaderimg"></img> </a>
+									<xsl:element name="a">
+										<xsl:attribute name="href" select="'javascript:void(0);'"/>
+										<xsl:attribute name="id" select="'txt_single'"/>
+										<xsl:attribute name="class" select="'current_mode'"/>
+										<xsl:attribute name="title" select="$single_text_mode_title"/>
+										<img src="images/txt-single.png" class="mainHeaderimg"/> 
+									</xsl:element>
 								</xsl:if>
 								<xsl:if test="$image_frame=true()">
-									<a href="javascript:void(0);" id="txtimg_link" class="current_mode"
-										title="Image|Text mode"> <img src="images/img-txt.png" class="mainHeaderimg"></img></a>
-									<!--<a href="javascript:void(0);" id="imgimg_link" title="image/image mode"> [I|I] </a>-->
+									<xsl:element name="a">
+										<xsl:attribute name="href" select="'javascript:void(0);'"/>
+										<xsl:attribute name="id" select="'txtimg_link'"/>
+										<xsl:attribute name="class" select="'current_mode'"/>
+										<xsl:attribute name="title" select="$image_text_mode_title"/>
+										<img src="images/img-txt.png" class="mainHeaderimg"/>
+									</xsl:element>
 								</xsl:if>
 								<xsl:if test="count($edition_array) &gt; 1">
-									<a href="javascript:void(0);" id="txttxt_link"
-										title="Text|Text mode"> <img src="images/txt-txt.png" class="mainHeaderimg"></img> </a>
+									<xsl:element name="a">
+										<xsl:attribute name="href" select="'javascript:void(0);'"/>
+										<xsl:attribute name="id" select="'txttxt_link'"/>
+										<xsl:attribute name="title" select="$text_text_mode_title"/>
+										<img src="images/txt-txt.png" class="mainHeaderimg"/>
+									</xsl:element>
 								</xsl:if>
 								<xsl:if test="$image_frame=true() and $double_view=true()">
-									<a href="javascript:void(0);" id="imgd_link"
-										title="Bookreader mode"> <img src="images/double-view.png" class="mainHeaderimg"></img> </a>
+									<xsl:element name="a">
+										<xsl:attribute name="href" select="'javascript:void(0);'"/>
+										<xsl:attribute name="id" select="'imgd_link'"/>
+										<xsl:attribute name="title" select="$bookreader_mode_title"/>
+										<img src="images/double-view.png" class="mainHeaderimg"/>
+									</xsl:element>
 								</xsl:if>
 							</div>
 						
 							<!-- Integration by AB -->
 							<xsl:if test="$headerInfo=true()">
-								<a href="javascript:void(0);" id="info_link" 
-									lang="en" title="About"><i class="fa fa-info-circle"></i></a>
+								<xsl:element name="a">
+									<xsl:attribute name="href" select="'javascript:void(0);'"/>
+									<xsl:attribute name="id" select="'info_link'"/>
+									<xsl:attribute name="title" select="$teiHeader_button_title"/>
+									<i class="fa fa-info-circle"></i>
+								</xsl:element>
 							</xsl:if>
 							<!-- /end Integration by AB -->
 						
 							<div id="cont_fullscreen">
-								<a href="javascript:void(0);" id="main_fullscreen" title="Fullscreen"><i class="fa fa-expand"></i></a>
+								<xsl:element name="a">
+									<xsl:attribute name="href" select="'javascript:void(0);'"/>
+									<xsl:attribute name="id" select="'main_fullscreen'"/>
+									<xsl:attribute name="title" select="$goFullscreen_button_title"/>
+									<i class="fa fa-expand"></i>
+								</xsl:element>
 							</div>
 						</div>
 					</header>
 					<section id="central_wrapper">
-						<i class="fa fa-caret-up" id="header_collapse" data-action="collapse" title="Toggle menu"></i>
-						<div class="main_left_arrow" onclick="UnInitialize()" title="Previous"/>
-						<div class="main_right_arrow" title="Next"/>
+						<xsl:element name="i">
+							<xsl:attribute name="class" select="'fa fa-caret-up'"/>
+							<xsl:attribute name="id" select="'header_collapse'"/>
+							<xsl:attribute name="data-action" select="'collapse'"/>
+							<xsl:attribute name="title" select="$toggleMenu_button_title"/>
+						</xsl:element>
+						<xsl:element name="div">
+							<xsl:attribute name="class" select="'main_left_arrow'"/>
+							<xsl:attribute name="onclick" select="'UnInitialize()'"/>
+							<xsl:attribute name="title" select="$previousPage_button_title"/>
+						</xsl:element>
+						<xsl:element name="div">
+							<xsl:attribute name="class" select="'main_right_arrow'"/>
+							<xsl:attribute name="title" select="$nextPage_button_title"/>
+						</xsl:element>
 						<xsl:if test="$image_frame=true() or count($edition_array) &gt; 1">
 							<xsl:variable name="viewStatus" select="if($image_frame=false()) then 'width:0px; border-left-width:0px; border-right-width:0px;' else ''"/>
 							<div id="main_left_frame" class="main_frame" style="{$viewStatus}">
-								<i class="fa fa-caret-up go-full-left" id="goFullScreenLeft" title="Expand frame"></i>
-								<!--
-								<div id="main_left_menu">
-									<a href="javascript:void(0);" id="main_left_menu-openlink"
-										title="Open menu"> + </a>
-									<a href="javascript:void(0);" id="main_left_menu-closelink"
-										title="Close menu"> - </a>
-								</div>
-								-->
-								<xsl:if test="$image_frame=false()">
-									<!--<div class="main_left_arrow" onclick="UnInitialize()" title="Previous"/>-->
-								</xsl:if>
-								<!-- <div class="main_left_arrow" title="Previous"/> -->
+								<xsl:element name="i">
+									<xsl:attribute name="class" select="'fa fa-caret-up go-full-left'"/>
+									<xsl:attribute name="id" select="'goFullScreenLeft'"/>
+									<xsl:attribute name="title" select="$expandFrame_button_title"/>
+								</xsl:element>
 								<header id="left_header" class="top-menu">
-									<i class="fa fa-times-circle closeFullScreen" id="closeFullScreenLeft"></i>
+									<xsl:element name="i">
+										<xsl:attribute name="class" select="'fa fa-times-circle closeFullScreen'"/>
+										<xsl:attribute name="id" select="'closeFullScreenLeft'"/>
+										<xsl:attribute name="title" select="$collapseFrame_button_title"/>
+									</xsl:element>
 									<div id="left_menu">
 										<xsl:if test="$pp_selector_pos='left'">
 											<xsl:element name="span">
@@ -232,7 +267,7 @@
 														<xsl:value-of select="' optionDocTooltip'"/>
 													</xsl:if>
 												</xsl:attribute>
-												<xsl:attribute name="title" select="'Folio'"/>
+												<xsl:attribute name="title" select="$pp_selector_title"/>
 												<xsl:call-template name="div_select_build">
 													<xsl:with-param name="html_div_class"
 														select="'main_pp_select'"/>
@@ -247,36 +282,40 @@
 												</xsl:call-template>
 											</span>
 											<span id="thumb_elem-add" class="iconButtons">
-												<a href="javascript:void(0);" class="thumb_link"><i class="fa fa-th"></i></a>
+												<xsl:element name="a">
+													<xsl:attribute name="href" select="'javascript:void(0);'"/>
+													<xsl:attribute name="class" select="'thumb_link'"/>
+													<xsl:attribute name="title" select="$thumbs_button_title"/>
+													<i class="fa fa-th"></i>
+												</xsl:element>
 											</span>
 										</xsl:if>
 										<xsl:if test="count($edition_array) &gt; 1">
 											<xsl:element name="span">
-												<xsl:attribute name="id">span_ee_select-add</xsl:attribute>
+												<xsl:attribute name="id" select="'span_ee_select-add'"/>
 												<xsl:attribute name="class">
 													like_select <xsl:if test="$edition_level_selector=false()"> hidden</xsl:if>
 												</xsl:attribute>
 												<xsl:call-template name="div_select_build">
-													<xsl:with-param name="html_div_class"
-														select="'main_ee_select'"/>
+													<xsl:with-param name="html_div_class" select="'main_ee_select'"/>
 												</xsl:call-template>
 											</xsl:element>
 											<xsl:if test="$regesto=true()">
 												<xsl:element name="span">
-													<xsl:attribute name="class">imageTopTool mainButtons toggleReg</xsl:attribute>
-													<xsl:attribute name="id">switchReg-add</xsl:attribute>
-													<xsl:attribute name="value">reg</xsl:attribute>
-													<xsl:attribute name="title"><xsl:value-of select="$regesto_button_label"/></xsl:attribute>
+													<xsl:attribute name="class" select="'imageTopTool mainButtons toggleReg'"/>
+													<xsl:attribute name="id" select="'switchReg-add'"/>
+													<xsl:attribute name="value" select="'reg'"/>
+													<xsl:attribute name="title" select="$regesto_button_label"/>
 													<span><xsl:value-of select="$regesto_button_label"/></span>
 													<i class="fa fa-toggle-off"></i>
 												</xsl:element>
 											</xsl:if>
 											<xsl:if test="$frontInfo=true()">
 												<xsl:element name="span">
-													<xsl:attribute name="class">imageTopTool mainButtons toggleFront</xsl:attribute>
-													<xsl:attribute name="id">switchFront-add</xsl:attribute>
-													<xsl:attribute name="value">reg</xsl:attribute>
-													<xsl:attribute name="title"><xsl:value-of select="$front_button_label"/></xsl:attribute>
+													<xsl:attribute name="class" select="'imageTopTool mainButtons toggleFront'"/>
+													<xsl:attribute name="id" select="'switchFront-add'"/>
+													<xsl:attribute name="value" select="'info'"/>
+													<xsl:attribute name="title" select="$front_button_title"/>
 													<span><xsl:value-of select="$front_button_label"/></span>
 													<i class="fa fa-toggle-off"></i>
 												</xsl:element>
@@ -285,70 +324,106 @@
 										<xsl:if test="$image_frame=true()">
 											<div id="image_menu">
 												<xsl:if test="$thumbs_button=true()">
-													<span class="imageTopTool mainButtons thumb_link" id="thumb_elem" value="th" title="Thumbnails">
-														<span>Thumbs</span>
+													<xsl:element name="span">
+														<xsl:attribute name="class" select="'imageTopTool mainButtons thumb_link'"/>
+														<xsl:attribute name="id" select="'thumb_elem'"/>
+														<xsl:attribute name="value" select="'th'"/>
+														<xsl:attribute name="title" select="$thumbs_button_title"/>
+														<span><xsl:value-of select="$thumbs_button_label"/></span>
 														<i class="fa fa-th"></i>
-													</span>
+													</xsl:element>
 												</xsl:if>
 												<xsl:if test="$mag_button=true()">
-													<span class="imageTopTool mainButtons" id="switchMag" value="mag" onclick="magOn()" title="Magnifying lens">
-														<span>Magnifier</span>
+													<xsl:element name="span">
+														<xsl:attribute name="class" select="'imageTopTool mainButtons'"/>
+														<xsl:attribute name="id" select="'switchMag'"/>
+														<xsl:attribute name="value" select="'mag'"/>
+														<xsl:attribute name="onclick" select="'magOn()'"/>
+														<xsl:attribute name="title" select="$magnifier_button_label"/>
+														<span><xsl:value-of select="$magnifier_button_label"/></span>
 														<i class="fa evt-magnifier"></i>
-													</span>
+													</xsl:element>
 												</xsl:if>
 												<xsl:if test="$hs_button=true()">
-													<span class="imageTopTool mainButtons" id="switchHS" value="HS" title="Hot spot" onclick="switchHS()">
-														<span>HotSpot</span>
+													<xsl:element name="span">
+														<xsl:attribute name="class" select="'imageTopTool mainButtons'"/>
+														<xsl:attribute name="id" select="'switchHS'"/>
+														<xsl:attribute name="value" select="'HS'"/>
+														<xsl:attribute name="onclick" select="'switchHS()'"/>
+														<xsl:attribute name="title" select="$hs_button_label"/>
+														<span><xsl:value-of select="$hs_button_label"/></span>
 														<i class="fa fa-circle-o"></i>
-													</span>
+													</xsl:element>
 												</xsl:if>
 												<xsl:if test="$txtimg_link_button=true()">
-													<span class="imageTopTool mainButtons" id="switchITL" value="turn ITL on" title="Image-Text link" onclick="switchIMT()">
-														<span>TextLink</span>
+													<xsl:element name="span">
+														<xsl:attribute name="class" select="'imageTopTool mainButtons'"/>
+														<xsl:attribute name="id" select="'switchITL'"/>
+														<xsl:attribute name="value" select="'turn ITL on'"/>
+														<xsl:attribute name="onclick" select="'switchITL()'"/>
+														<xsl:attribute name="title" select="$itl_button_label"/>
+														<span><xsl:value-of select="$itl_button_label"/></span>
 														<i class="fa fa-chain-broken"></i>
-													</span>
+													</xsl:element>
 												</xsl:if>
 												
 												<!-- Integration by AB -->
 												<xsl:if test="$image_frame=true() and $msDesc=true()">
-													<span class="mainButtons" id="switch_msDesc" lang="en" title="Manuscript Information">
-														<span lang="en">MS Info</span>
-														<i class="fa fa-info-circle"></i>
-													</span>
+													<xsl:element name="span">
+														<xsl:attribute name="id" select="'switch_msDesc'"/>
+														<xsl:attribute name="title" select="$msDesc_button_title"/>
+														<xsl:attribute name="lang" select="'en'"/>
+														<xsl:attribute name="class">mainButtons <xsl:if test="$left_frame_default_content='info'"> active</xsl:if></xsl:attribute>
+														<xsl:element name="span">
+															<xsl:attribute name="lang" select="'en'"/>
+															<xsl:value-of select="$msDesc_button_label"/>
+														</xsl:element>
+														<xsl:element name="i">
+															<xsl:attribute name="class" select="'fa fa-info-circle'"/>
+														</xsl:element>
+													</xsl:element>
 												</xsl:if>
 												<!-- /end Integration by AB -->
 											</div>
 										</xsl:if>
-										<!--<input type="image" src="images/zoom.png" id="switchZoom" class="top_image_tools" value="zoom" onclick="zoomOn()"/>-->
-										<!--<input type="image" src="images/magOff.png" id="switchMag" class="top_image_tools" value="mag" onclick="magOn()"/>-->
-										<!--<input type="image" src="images/ITLoff.png" id="switchITL" class="top_image_tools" value="turn ITL on" title="Image text link" onclick="switchIMT()"/>-->
 									</div>
 								</header>
 								<xsl:if test="$search=true()">
 									<div id="search_cont-add" class="collapsed bottomBox searchContainer">
 										<div id="search_header-add" class="bottomBoxHeader">
-											<span id="toggle_search_cont-add" class="mainButtons small toggleSearchButton" data-boxsuffix="-add" title="Apri/Chiudi Ricerca">
-												<i class='fa fa-angle-double-up'></i>
-											</span>
 											<xsl:element name="span">
-												<xsl:attribute name="id">keyboard_link-add</xsl:attribute>
+												<xsl:attribute name="id" select="'toggle_search_cont-add'"/>
+												<xsl:attribute name="class" select="'mainButtons small toggleSearchButton'"/>
+												<xsl:attribute name="data-boxsuffix" select="'-add'"/>
+												<xsl:attribute name="title" select="$toggleSearch_button_title"/>
+												<i class='fa fa-angle-double-up'></i>
+											</xsl:element>
+											<xsl:element name="span">
+												<xsl:attribute name="id" select="'keyboard_link-add'"/>
 												<xsl:attribute name="class">mainButtons small searchKeyboardButton <xsl:if test="$virtual_keyboard_search=false()"> hidden</xsl:if></xsl:attribute>
-												<xsl:attribute name="data-boxsuffix">-add</xsl:attribute>
-												<xsl:attribute name="title">Apri/Chiudi Tastiera</xsl:attribute>
+												<xsl:attribute name="data-boxsuffix" select="'-add'"/>
+												<xsl:attribute name="title" select="$toggleKeyboard_button_title"/>
 												<xsl:element name="i">
 													<xsl:attribute name="class">fa fa-keyboard-o</xsl:attribute>
 												</xsl:element>
 											</xsl:element>
 											<div id="tipue_search_input_div-add">
 												<input type="text" id="tipue_search_input-add"  class="searchInput" data-boxsuffix="-add"/>
-												<i class="fa fa-close clear_input" title="Clear search"></i>
+												<xsl:element name="i">
+													<xsl:attribute name="class" select="'fa fa-close clear_input'"/>
+													<xsl:attribute name="title" select="$clearSearch_button_title"/>
+												</xsl:element>
 											</div>
-											<span id="start_search-add" class="mainButtons small searchStart" data-boxsuffix="-add" title="Avvia Ricerca">
+											<xsl:element name="span">
+												<xsl:attribute name="id" select="'start_search-add'"/>
+												<xsl:attribute name="class" select="'mainButtons small searchStart'"/>
+												<xsl:attribute name="data-boxsuffix" select="'-add'"/>
+												<xsl:attribute name="title" select="$startSearch_button_title"/>
 												<i class='fa fa-search'></i>
-											</span>
+											</xsl:element>
 										</div>
 										<div id="search_sub_header-add" class="bottomBoxSubHeader">
-											<div id="search_query-add" class="searchQuery">Enter your query into the search box above!</div>
+											<div id="search_query-add" class="searchQuery"><xsl:value-of select="$emptySearchAlertMsg"/></div>
 											<div id="search_results-add" class="searchResults can-change-font-size"></div>
 										</div>
 										<div id="search_cont_results-add" class="bottomBoxContent">
@@ -361,15 +436,22 @@
 									<!-- Text frame bottom menu -->
 									<div id="text_tool-add" class="bottom-menu hidden">
 										<xsl:if test="$search=true()">
-											<span id="search_link-add" class="mainButtons searchButton" data-boxsuffix="-add" title="Search">
-												<span>Search</span>
+											<xsl:element name="span">
+												<xsl:attribute name="id" select="'search_link-add'"/>
+												<xsl:attribute name="class" select="'mainButtons searchButton'"/>
+												<xsl:attribute name="data-boxsuffix" select="'-add'"/>
+												<xsl:attribute name="title" select="$search_button_title"></xsl:attribute>
+												<span><xsl:value-of select="$search_button_label"/></span>
 												<i class="fa fa-search"></i>
-											</span>
+											</xsl:element>
 										</xsl:if>
-										<span id="span_list_select-add" class="like_select filter" title="Lists">
+										<xsl:element name="span">
+											<xsl:attribute name="id" select="'span_list_select-add'"/>
+											<xsl:attribute name="class" select="'like_select filter'"/>
+											<xsl:attribute name="title" select="$entitiesSelector_title"/>
 											<div class="main_list_select">
 												<span data-value="none" class="label_selected">
-													No selection
+													<xsl:value-of select="$noSelection_label"/>
 												</span>
 												<div class="open_select open_up">
 													<i class="fa fa-sort-asc"></i>
@@ -385,11 +467,11 @@
 															</xsl:element>
 														</xsl:if>
 													</xsl:for-each>
-													<div class="option" data-value="all">Select All</div>
-													<div class="option" data-value="clear">Clear Selection</div>
+													<div class="option" data-value="all"><xsl:value-of select="$selectAll_label"/></div>
+													<div class="option" data-value="clear"><xsl:value-of select="$clearSelection_label"/></div>
 												</div>
 											</div>
-										</span>
+										</xsl:element>
 										<span class="mainButtons small font-size-controller" data-action="decrease">
 											<i class="fa fa-font"></i>
 											<i class="fa fa-minus"></i>
@@ -407,14 +489,15 @@
 									</xsl:if>
 									<!-- Integration by AB -->
 									<xsl:if test="$image_frame=true() and $msDesc=true()">
-										<div id="msDesc_cont" class="inner_frame"></div>
+										<xsl:element name="div">
+											<xsl:attribute name="id">msDesc_cont</xsl:attribute>
+											<xsl:attribute name="class">inner_frame <xsl:if test="$left_frame_default_content='info'"> open</xsl:if></xsl:attribute>
+										</xsl:element>
 									</xsl:if>
 									<!-- /end Integration by AB -->
 									<div id="image_cont" class="inner_frame">
 										<div id="image_fade">
-											<div id="image_elem">
-												<!--<img id="iviewerImage" src="images/null.jpg" />-->
-											</div>
+											<div id="image_elem"></div>
 										</div>
 										<div id="image_loading">
 											<i class="fa fa-refresh fa-spin"></i>
@@ -423,16 +506,37 @@
 										
 										<div id="image_tool" class="bottom-menu">
 											<div id="spb">
-												<a id="zoom_orig" class="zoom_btn"
-													href="javascript:void(0);" title="100%"><i class="evt-zoom1"></i></a>
-												<a id="zoom_fit" class="zoom_btn"
-													href="javascript:void(0);" title="Fit to frame"
-													><i class="fa evt-zoomfit"></i></a>
-												<a id="zoom_out" href="javascript:void(0);" title="Zoom out"><i class="fa evt-zoomminus"></i></a>
+												<xsl:element name="a">
+													<xsl:attribute name="id" select="'zoom_orig'"/>
+													<xsl:attribute name="class" select="'zoom_btn'"/>
+													<xsl:attribute name="href" select="'javascript:void(0);'"/>
+													<xsl:attribute name="title" select="'100%'"/>
+													<i class="evt-zoom1"></i>
+												</xsl:element>
+												<xsl:element name="a">
+													<xsl:attribute name="id" select="'zoom_fit'"/>
+													<xsl:attribute name="class" select="'zoom_btn'"/>
+													<xsl:attribute name="href" select="'javascript:void(0);'"/>
+													<xsl:attribute name="title" select="$fitToFrame_button_title"/>
+													<i class="fa evt-zoomfit"></i>
+												</xsl:element>
+												<xsl:element name="a">
+													<xsl:attribute name="id" select="'zoom_out'"/>
+													<xsl:attribute name="class" select="'zoom_btn'"/>
+													<xsl:attribute name="href" select="'javascript:void(0);'"/>
+													<xsl:attribute name="title" select="$zoomOut_button_title"/>
+													<i class="fa evt-zoomminus"></i>
+												</xsl:element>
 												<div id="spb_cont">
 													<div id="slider"/>
 												</div>
-												<a id="zoom_in" href="javascript:void(0);" title="Zoom in"><i class="fa evt-zoomplus"></i></a>
+												<xsl:element name="a">
+													<xsl:attribute name="id" select="'zoom_in'"/>
+													<xsl:attribute name="class" select="'zoom_btn'"/>
+													<xsl:attribute name="href" select="'javascript:void(0);'"/>
+													<xsl:attribute name="title" select="$zoomIn_button_title"/>
+													<i class="fa evt-zoomplus"></i>
+												</xsl:element>
 											</div>
 											<div id="zval">
 												<xsl:if test="$image_frame=true()">
@@ -440,37 +544,13 @@
 													<span id="zvalopz"/>
 												</xsl:if>
 												<xsl:if test="$image_frame=false()">
-													<span>No image</span>
+													<span><xsl:value-of select="$noImage_alert_msg"/></span>
 												</xsl:if>
 											</div>
 										</div>
 										<input id="dimFit" type="hidden" value=""/>
 										<input id="imgTit" type="hidden" value=""/>
-										<div id="thumb_cont" class="inner_frame">
-											<!-- CDP:embedded -->
-											<!-- <xsl:if test="$root//tei:sourceDoc"> -->
-												<!-- Found the node(s) for embedded transcription-->
-												<!-- <xsl:for-each select="$root//tei:sourceDoc//tei:surface[not(ancestor::tei:zone)]">
-													<figure class="thumb_single" data-value="{@xml:id}">
-														<img src="data/input_data/images/single/{@xml:id}_small.jpg"/>
-														<figcaption>
-															<xsl:value-of select="@n"/>
-														</figcaption>
-													</figure>
-												</xsl:for-each>
-											</xsl:if>
-											<xsl:if test="$root//tei:text"> -->
-												<!-- Found no node(s) for embedded transcription-->
-												<!-- <xsl:for-each select="$root//tei:text//tei:pb">
-													<figure class="thumb_single" data-value="{@xml:id}">
-														<img src="data/input_data/images/single/{@xml:id}_small.jpg"/>
-														<figcaption>
-															<xsl:value-of select="@n"/>
-														</figcaption>
-													</figure>
-												</xsl:for-each>
-											</xsl:if>-->
-										</div>									
+										<div id="thumb_cont" class="inner_frame"></div>									
 									</div>
 								</xsl:if>
 							</div>
@@ -489,24 +569,21 @@
 						
 						
 						<div id="{$id_right_frame}" class="main_frame">
-							<i class="fa fa-caret-up go-full-right" id="goFullScreenRight" title="Expand frame"></i>
-							<!--
-							<div id="main_right_menu">
-								<a href="javascript:void(0);" id="main_right_menu-openlink"
-									title="Open menu"> + </a>
-								<a href="javascript:void(0);" id="main_right_menu-closelink"
-									title="Close menu"> - </a>
-							</div>
-							-->
-							<!--<div class="main_right_arrow" title="Previous"/>-->
+							<xsl:element name="i">
+								<xsl:attribute name="class" select="'fa fa-caret-up go-full-right'"/>
+								<xsl:attribute name="id" select="'goFullScreenRight'"/>
+								<xsl:attribute name="title" select="$expandFrame_button_title"/>
+							</xsl:element>
 							<header id="right_header" class="top-menu">
 								<div id="right_menu">
-									<span id="span_tt_select" class="like_select" title="Text">
+									<xsl:element name="span">
+										<xsl:attribute name="id" select="'span_tt_select'"/>
+										<xsl:attribute name="class" select="'like_select'"/>
+										<xsl:attribute name="title" select="$tt_selector_title"/>
 										<xsl:call-template name="div_select_build">
-											<xsl:with-param name="html_div_class"
-												select="'main_tt_select'"/>
+											<xsl:with-param name="html_div_class" select="'main_tt_select'"/>
 										</xsl:call-template>
-									</span>
+									</xsl:element>
 									<xsl:if test="$pp_selector_pos='right'">
 										<xsl:element name="span">
 											<xsl:attribute name="id" select="'span_pp_select'"/>
@@ -519,55 +596,59 @@
 													<xsl:value-of select="' optionDocTooltip'"/>
 												</xsl:if>
 											</xsl:attribute>
-											<xsl:attribute name="title" select="'Folio'"/>
+											<xsl:attribute name="title" select="$pp_selector_title"/>
 											<xsl:call-template name="div_select_build">
-												<xsl:with-param name="html_div_class"
-													select="'main_pp_select'"/>
+												<xsl:with-param name="html_div_class" select="'main_pp_select'"/>
 											</xsl:call-template>
 										</xsl:element>
 									</xsl:if>
 									<xsl:element name="span">
-										<xsl:attribute name="id">span_ee_select</xsl:attribute>
-										<xsl:attribute name="title">Edition level</xsl:attribute>
-										<xsl:attribute name="class">
-											like_select
-											<xsl:if test="$edition_level_selector=false()">
-												hidden
-											</xsl:if>
-										</xsl:attribute>
+										<xsl:attribute name="id" select="'span_ee_select'"/>
+										<xsl:attribute name="title" select="$ee_selector_title"/>
+										<xsl:attribute name="class">like_select <xsl:if test="$edition_level_selector=false()"> hidden </xsl:if></xsl:attribute>
 										<xsl:call-template name="div_select_build">
-											<xsl:with-param name="html_div_class"
-												select="'main_ee_select'"/>
+											<xsl:with-param name="html_div_class" select="'main_ee_select'"/>
 										</xsl:call-template>
 									</xsl:element>
 									<xsl:if test="$regesto=true()">
 										<xsl:element name="span">
-											<xsl:attribute name="class">imageTopTool mainButtons active toggleReg</xsl:attribute>
-											<xsl:attribute name="id">switchReg</xsl:attribute>
-											<xsl:attribute name="value">reg</xsl:attribute>
-											<xsl:attribute name="title"><xsl:value-of select="$regesto_button_label"/></xsl:attribute>
+											<xsl:attribute name="class">
+												imageTopTool mainButtons toggleReg <xsl:if test="$right_frame_default_content='info'">active</xsl:if></xsl:attribute>
+											<xsl:attribute name="id" select="'switchReg'"/>
+											<xsl:attribute name="value" select="'reg'"/>
+											<xsl:attribute name="title" select="$regesto_button_label"/>
 											<span><xsl:value-of select="$regesto_button_label"/></span>
 											<i class="fa fa-toggle-on"></i>
 										</xsl:element>
 									</xsl:if>
 									<xsl:if test="$frontInfo=true()">
 										<xsl:element name="span">
-											<xsl:attribute name="class">imageTopTool mainButtons active toggleFront</xsl:attribute>
-											<xsl:attribute name="id">switchFront</xsl:attribute>
-											<xsl:attribute name="value">reg</xsl:attribute>
-											<xsl:attribute name="title"><xsl:value-of select="$front_button_label"/></xsl:attribute>
+											<xsl:attribute name="class">imageTopTool mainButtons toggleFront <xsl:if test="$right_frame_default_content='info'">active</xsl:if></xsl:attribute>
+											<xsl:attribute name="id" select="'switchFront'"/>
+											<xsl:attribute name="value" select="'reg'"/>
+											<xsl:attribute name="title" select="$front_button_label"/>
 											<span><xsl:value-of select="$front_button_label"/></span>
-											<i class="fa fa-toggle-on"></i>
+											<i class="fa fa-info-circle"></i>
 										</xsl:element>
 									</xsl:if>
 								</div>
-								<i class="fa fa-times-circle closeFullScreen" id="closeFullScreenRight"></i>
+								<xsl:element name="i">
+									<xsl:attribute name="class" select="'fa fa-times-circle closeFullScreen'"/>
+									<xsl:attribute name="id" select="'closeFullScreenRight'"/>
+									<xsl:attribute name="title" select="$collapseFrame_button_title"/>
+								</xsl:element>
 							</header>
 							<xsl:if test="$regesto=true()">
-								<div id="regesto_cont" class="text-box can-change-font-size inner_frame"/>
+								<xsl:element name="div">
+									<xsl:attribute name="id" select="'regesto_cont'"/>
+									<xsl:attribute name="class">text-box can-change-font-size inner_frame <xsl:if test="$right_frame_default_content='info'"> open</xsl:if></xsl:attribute>
+								</xsl:element>
 							</xsl:if>
 							<xsl:if test="$frontInfo=true()">
-								<div id="front_cont" class="text-box can-change-font-size inner_frame"/>
+								<xsl:element name="div">
+									<xsl:attribute name="id" select="'front_cont'"/>
+									<xsl:attribute name="class">text-box can-change-font-size inner_frame <xsl:if test="$right_frame_default_content='info'"> open</xsl:if></xsl:attribute>
+								</xsl:element>
 							</xsl:if>
 							<div id="text_cont" class="text-box can-change-font-size inner_frame">
 								<div id="text_elem"/>
@@ -575,28 +656,39 @@
 							<xsl:if test="$search=true()">
 								<div id="search_cont" class="collapsed bottomBox searchContainer">
 									<div id="search_header" class="bottomBoxHeader">
-										<span id="toggle_search_cont" class="mainButtons small toggleSearchButton" data-boxsuffix=" " title="Apri/Chiudi Ricerca">
-											<i class='fa fa-angle-double-up'></i>
-										</span>
 										<xsl:element name="span">
-											<xsl:attribute name="id">keyboard_link</xsl:attribute>
+											<xsl:attribute name="id" select="'toggle_search_cont'"/>
+											<xsl:attribute name="class" select="'mainButtons small toggleSearchButton'"/>
+											<xsl:attribute name="data-boxsuffix" select="''"/>
+											<xsl:attribute name="title" select="$toggleSearch_button_title"/>
+											<i class='fa fa-angle-double-up'></i>
+										</xsl:element>
+										<xsl:element name="span">
+											<xsl:attribute name="id" select="'keyboard_link'"/>
 											<xsl:attribute name="class">mainButtons small searchKeyboardButton <xsl:if test="$virtual_keyboard_search=false()"> hidden</xsl:if></xsl:attribute>
-											<xsl:attribute name="data-boxsuffix"></xsl:attribute>
-											<xsl:attribute name="title">Apri/Chiudi Tastiera</xsl:attribute>
+											<xsl:attribute name="data-boxsuffix" select="''"/>
+											<xsl:attribute name="title" select="$toggleKeyboard_button_title"/>
 											<xsl:element name="i">
 												<xsl:attribute name="class">fa fa-keyboard-o</xsl:attribute>
 											</xsl:element>
 										</xsl:element>
 										<div id="tipue_search_input_div">
-											<input type="text" id="tipue_search_input" class="searchInput" data-boxsuffix=" "/>
-											<i class="fa fa-close clear_input" title="Clear search"></i>
+											<input type="text" id="tipue_search_input"  class="searchInput" data-boxsuffix=""/>
+											<xsl:element name="i">
+												<xsl:attribute name="class" select="'fa fa-close clear_input'"/>
+												<xsl:attribute name="title" select="$clearSearch_button_title"/>
+											</xsl:element>
 										</div>
-										<span id="start_search" class="mainButtons small searchStart" data-boxsuffix="" title="Avvia Ricerca">
+										<xsl:element name="span">
+											<xsl:attribute name="id" select="'start_search'"/>
+											<xsl:attribute name="class" select="'mainButtons small searchStart'"/>
+											<xsl:attribute name="data-boxsuffix" select="''"/>
+											<xsl:attribute name="title" select="$startSearch_button_title"/>
 											<i class='fa fa-search'></i>
-										</span>
+										</xsl:element>
 									</div>
 									<div id="search_sub_header" class="bottomBoxSubHeader">
-										<div id="search_query" class="searchQuery">Enter your query into the search box above!</div>
+										<div id="search_query" class="searchQuery"><xsl:value-of select="$emptySearchAlertMsg"/></div>
 										<div id="search_results" class="searchResults"></div>
 									</div>
 									<div id="search_cont_results" class="bottomBoxContent">
@@ -608,9 +700,12 @@
 							
 							<div id="lists_cont" class="bottomBox">
 								<div id="list_header" class="bottomBoxHeader">
-									<span id="toggle_list_cont" class="mainButtons small" title="Apri/Chiudi Liste">
+									<xsl:element name="span">
+										<xsl:attribute name="id" select="'toggle_list_cont'"/>
+										<xsl:attribute name="class" select="'mainButtons small'"/>
+										<xsl:attribute name="title" select="$toggleLists_button_title"/>
 										<i class='fa fa-angle-double-down'></i>
-									</span>
+									</xsl:element>
 								</div>
 								<div id="list_letters" class="bottomBoxContent">
 									<span class="list_filter" data-filter-type="first_letter" data-value="A">A</span>
@@ -622,6 +717,8 @@
 									<span class="list_filter" data-filter-type="first_letter" data-value="G">G</span>
 									<span class="list_filter" data-filter-type="first_letter" data-value="H">H</span>
 									<span class="list_filter" data-filter-type="first_letter" data-value="I">I</span>
+									<span class="list_filter" data-filter-type="first_letter" data-value="J">J</span>
+									<span class="list_filter" data-filter-type="first_letter" data-value="K">K</span>
 									<span class="list_filter" data-filter-type="first_letter" data-value="L">L</span>
 									<span class="list_filter" data-filter-type="first_letter" data-value="M">M</span>
 									<span class="list_filter" data-filter-type="first_letter" data-value="N">N</span>
@@ -633,31 +730,52 @@
 									<span class="list_filter" data-filter-type="first_letter" data-value="T">T</span>
 									<span class="list_filter" data-filter-type="first_letter" data-value="U">U</span>
 									<span class="list_filter" data-filter-type="first_letter" data-value="V">V</span>
+									<span class="list_filter" data-filter-type="first_letter" data-value="W">W</span>
+									<span class="list_filter" data-filter-type="first_letter" data-value="X">X</span>
+									<span class="list_filter" data-filter-type="first_letter" data-value="Y">Y</span>
 									<span class="list_filter" data-filter-type="first_letter" data-value="Z">Z</span>
 								</div>
 							</div>
 							<xsl:if test="$document_navigation=true()">
-								<span id="inside_left_arrow"><i class="fa fa-chevron-up"></i></span>
-								<span id="inside_right_arrow"><i class="fa fa-chevron-down"></i></span>
+								<xsl:element name="span">
+									<xsl:attribute name="id" select="'inside_left_arrow'"/>
+									<xsl:attribute name="title" select="$previousText_button_title"/>
+									<i class="fa fa-chevron-up"></i>
+								</xsl:element>
+								<xsl:element name="span">
+									<xsl:attribute name="id" select="'inside_right_arrow'"/>
+									<xsl:attribute name="title" select="$nextText_button_title"/>
+									<i class="fa fa-chevron-down"></i>
+								</xsl:element>
 							</xsl:if>
 							<!-- Text frame bottom menu -->
 							<div id="text_tool" class="bottom-menu">
 								<xsl:if test="$search=true()">
-									<span id="search_link" class="mainButtons searchButton" data-boxsuffix=" "  title="Search">
-										<span>Search</span>
+									<xsl:element name="span">
+										<xsl:attribute name="id" select="'search_link'"/>
+										<xsl:attribute name="class" select="'mainButtons searchButton'"/>
+										<xsl:attribute name="data-boxsuffix" select="''"/>
+										<xsl:attribute name="title" select="$search_button_title"></xsl:attribute>
+										<span><xsl:value-of select="$search_button_label"/></span>
 										<i class="fa fa-search"></i>
-									</span>
+									</xsl:element>
 								</xsl:if>
 								<xsl:if test="$list_person=true()">
-									<span id="list_link" class="mainButtons" title="Liste">
-										<span>Lists</span>
+									<xsl:element name="span">
+										<xsl:attribute name="id" select="'list_link'"/>
+										<xsl:attribute name="class" select="'mainButtons'"/>
+										<xsl:attribute name="title" select="$lists_button_title"></xsl:attribute>
+										<span><xsl:value-of select="$lists_button_label"/></span>
 										<i class="fa fa-list"></i>
-									</span>
+									</xsl:element>
 								</xsl:if>
-								<span id="span_list_select" class="like_select filter" title="Lists">
+								<xsl:element name="span">
+									<xsl:attribute name="id" select="'span_list_select'"/>
+									<xsl:attribute name="class" select="'like_select filter'"/>
+									<xsl:attribute name="title" select="$entitiesSelector_title"/>
 									<div class="main_list_select">
 										<span data-value="none" class="label_selected">
-											No selection
+											<xsl:value-of select="$noSelection_label"/>
 										</span>
 										<div class="open_select open_up">
 											<i class="fa fa-sort-asc"></i>
@@ -666,24 +784,18 @@
 											<xsl:for-each select="$lists">
 												<xsl:if test="./normalize-space()">
 													<xsl:element name="div">
-														<xsl:attribute name="class">option</xsl:attribute>
+														<xsl:attribute name="class">option </xsl:attribute>
 														<xsl:attribute name="data-value"><xsl:value-of select="name(.)"/></xsl:attribute>
 														<i class="fa fa-circle filter_color"></i>
 														<xsl:value-of select="."/>
 													</xsl:element>
 												</xsl:if>
 											</xsl:for-each>
-											<div class="option" data-value="all">
-												<i class="fa fa-circle filter_color"></i>
-												Select All
-											</div>
-											<div class="option" data-value="clear">
-												<i class="fa fa-circle-o filter_color"></i>
-												Clear Selection
-											</div>
+											<div class="option" data-value="all"><xsl:value-of select="$selectAll_label"/></div>
+											<div class="option" data-value="clear"><xsl:value-of select="$clearSelection_label"/></div>
 										</div>
 									</div>
-								</span>
+								</xsl:element>
 								<span class="mainButtons small font-size-controller" data-action="decrease">
 									<i class="fa fa-font"></i>
 									<i class="fa fa-minus"></i>
@@ -696,17 +808,11 @@
 						</div>
 					</section>
 					<section id="central_button">
-						<!-- <div id="edval">
-							<span>Edition</span>
-						</div>
-						<div id="central_page_number">
-							<span>Folio: </span>
-						</div> -->
 						<input id="folio_page_number" type="hidden" value=""/>
 					</section>
 					
 					<footer>
-						<p>2012@rafmas</p>
+						<p>2012 - 2015 @ EVT team</p>
 					</footer>
 				</div>
 				<script src="js/main/fullscreen_request.js"/>
