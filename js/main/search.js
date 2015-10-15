@@ -82,7 +82,7 @@ $(function() {
 		return xhttp.responseXML;
 	}
 	
-	var keyboard_xml = loadXMLDoc('js/main/keyboard_config.xml');
+	var keyboard_xml = loadXMLDoc('config/keyboard_config.xml');
 	var key_group = keyboard_xml.getElementsByTagName('key-group');
 	
 	for (var i = 0; i < key_group.length; i++) {

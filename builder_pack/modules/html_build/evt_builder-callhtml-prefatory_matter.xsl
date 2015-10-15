@@ -150,8 +150,21 @@
 		</xsl:apply-templates>
 	</xsl:template>
 	
-	<xsl:template match="tei:listBibl/tei:biblStruct">
+	<!-- ############## -->
+	<!-- BIBLIO CHIGAGO -->
+	<!-- ############## -->
+	<xsl:template match="tei:listBibl">
+		<body>
+			<h2>References</h2>
+			<xsl:apply-templates select="biblStruct[note='DOTR']">
+				<xsl:sort order="ascending" select=".//date"/>
+			</xsl:apply-templates>
+		</body>
+	</xsl:template>
+	
+	<xsl:template match="tei:listBibl/biblStruct">
 		<p class="hangInd">
+			
 			<xsl:choose>
 				<xsl:when test="analytic">
 					
@@ -188,7 +201,7 @@
 		</p>
 	</xsl:template>
 	
-	<xsl:template match="tei:listBibl/tei:author">
+	<xsl:template match="tei:listBibl/author">
 		<xsl:choose>
 			
 			<xsl:when test="persName">
@@ -212,7 +225,7 @@
 		</xsl:choose>
 	</xsl:template>
 	
-	<xsl:template match="tei:listBibl/tei:editor">
+	<xsl:template match="tei:listBibl/editor">
 		<xsl:choose>
 			
 			<xsl:when test="persName">
@@ -236,12 +249,12 @@
 		</xsl:choose>
 	</xsl:template>
 	
-	<xsl:template match="tei:listBibl/tei:persName">
+	<xsl:template match="tei:listBibl/persName">
 		<xsl:value-of select="surname"/>,
 		<xsl:value-of select="foreName[@type='init']"/>
 	</xsl:template>
 	
-	<xsl:template match="tei:listBibl/tei:title">
+	<xsl:template match="tei:listBibl/title">
 		<xsl:choose>
 			<xsl:when test="@level='m' or @level='u'">
 				<span class="title"><xsl:apply-templates/>. </span>
@@ -260,7 +273,7 @@
 		</xsl:choose>
 	</xsl:template>
 	
-	<xsl:template match="tei:listBibl/tei:imprint">
+	<xsl:template match="tei:listBibl/imprint">
 		<xsl:choose>
 			<xsl:when test="../title[@level='m']">
 				<xsl:apply-templates select="pubPlace"/>
@@ -276,7 +289,7 @@
 		</xsl:choose>
 	</xsl:template>
 	
-	<xsl:template match="tei:listBibl/tei:date">
+	<xsl:template match="tei:listBibl/date">
 		<xsl:choose>
 			<xsl:when test="../biblScope[@type='vol']">
 				(<xsl:apply-templates/>):
@@ -290,15 +303,15 @@
 		</xsl:choose>
 	</xsl:template>
 	
-	<xsl:template match="tei:listBibl/tei:pubPlace">
+	<xsl:template match="tei:listBibl/pubPlace">
 		<xsl:apply-templates/>:&#160;
 	</xsl:template>
 	
-	<xsl:template match="tei:listBibl/tei:publisher">
+	<xsl:template match="tei:listBibl/publisher">
 		<xsl:apply-templates/>,&#160;
 	</xsl:template>
 	
-	<xsl:template match="tei:listBibl/tei:biblScope">
+	<xsl:template match="tei:listBibl/biblScope">
 		<xsl:choose>
 			<xsl:when test="@type='vol'">
 				<xsl:apply-templates/> 
@@ -308,4 +321,5 @@
 			</xsl:when>
 		</xsl:choose>
 	</xsl:template>
+	
 </xsl:stylesheet>

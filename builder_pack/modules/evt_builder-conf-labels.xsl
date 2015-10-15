@@ -15,9 +15,13 @@
 			IT: Questo file è una collezione di variabili configurabili, che vengono utilizzati negli altri moduli per la generazione dei testi delle etichette.
 		</xd:short>
 	</xd:doc>
-	<!-- ###### -->
-	<!-- HEADER -->
-	<!-- ###### -->
+	
+	<xsl:variable name="noImage_alert_msg" select="'No Image'"/>
+	
+	<!-- ####### -->
+	<!-- BUTTONS -->
+	<!-- ####### -->
+	
 	<xsl:variable name="single_text_mode_title" select="'Single Text mode'"/>
 	<xsl:variable name="image_text_mode_title" select="'Image|Text mode'"/>
 	<xsl:variable name="text_text_mode_title" select="'Text|Text mode'"/>
@@ -47,7 +51,14 @@
 	
 	<xsl:variable name="itl_button_label" select="'TextLink'"/>
 	<xsl:variable name="itl_button_title" select="'Image-Text link'"/>
+
+	<xsl:variable name="fitToFrame_button_title" select="'Fit To Frame'"/>
+	<xsl:variable name="zoomOut_button_title" select="'Zoom Out'"/>
+	<xsl:variable name="zoomIn_button_title" select="'Zoom In'"/>
 	
+	<!-- ###### -->
+	<!-- SEARCH -->
+	<!-- ###### -->
 	<xsl:variable name="search_button_label" select="'Search'"/>
 	<xsl:variable name="search_button_title" select="'Search'"/>
 	<xsl:variable name="toggleSearch_button_title" select="'Toggle Search'"/>
@@ -56,26 +67,18 @@
 	<xsl:variable name="startSearch_button_title" select="'Start Search'"/>
 	<xsl:variable name="emptySearchAlertMsg" select="'Enter your query into the search box above!'"/>
 	
+	<!-- ##### -->
+	<!-- LISTS -->
+	<!-- ##### -->
 	<xsl:variable name="entitiesSelector_title" select="'Entities'"/>
 	<xsl:variable name="noSelection_label" select="'No selection'"/>
 	<xsl:variable name="selectAll_label" select="'Select All'"/>
 	<xsl:variable name="clearSelection_label" select="'Clear selection'"/>
 	
-	<xsl:variable name="fitToFrame_button_title" select="'Fit To Frame'"/>
-	<xsl:variable name="zoomOut_button_title" select="'Zoom Out'"/>
-	<xsl:variable name="zoomIn_button_title" select="'Zoom In'"/>
-	
-	<xsl:variable name="noImage_alert_msg" select="'No Image'"/>
-	
 	<xsl:variable name="toggleLists_button_title" select="'Toggle Lists'"/>
 	<xsl:variable name="lists_button_label" select="'Lists'"/>
 	<xsl:variable name="lists_button_title" select="'Lists'"/>
 	
-	
-	<!-- ####### -->
-	<!-- BUTTONS -->
-	<!-- ####### -->
-
 	<!-- EN: Label and title for button of Regesto -->
 	<!-- IT: Testo etichetta per il pulsante del Regesto e il valore del suo attributo title -->
 	<!-- default: 'Regesto' -->

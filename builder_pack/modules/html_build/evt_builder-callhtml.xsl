@@ -57,7 +57,7 @@
 
 			<xsl:if test="$html_tc!='datastructure'">
 				<xsl:comment>main lib</xsl:comment>
-				
+				<script type="text/javascript" src="{$html_path}/config/strings.js"/>
 				<script type="text/javascript" src="{$html_path}/js/main/interface_control.js"/>
 				<script type="text/javascript" src="{$html_path}/js/main/utils.js"/>
 				<xsl:comment>/main lib</xsl:comment>
@@ -173,6 +173,7 @@
 										<xsl:attribute name="id" select="'txt_single'"/>
 										<xsl:attribute name="class" select="'current_mode'"/>
 										<xsl:attribute name="title" select="$single_text_mode_title"/>
+										<xsl:attribute name="data-var-title" select="'single_text_mode_title'"/>
 										<img src="images/txt-single.png" class="mainHeaderimg"/> 
 									</xsl:element>
 								</xsl:if>
@@ -182,6 +183,7 @@
 										<xsl:attribute name="id" select="'txtimg_link'"/>
 										<xsl:attribute name="class" select="'current_mode'"/>
 										<xsl:attribute name="title" select="$image_text_mode_title"/>
+										<xsl:attribute name="data-var-title" select="'image_text_mode_title'"/>
 										<img src="images/img-txt.png" class="mainHeaderimg"/>
 									</xsl:element>
 								</xsl:if>
@@ -190,6 +192,7 @@
 										<xsl:attribute name="href" select="'javascript:void(0);'"/>
 										<xsl:attribute name="id" select="'txttxt_link'"/>
 										<xsl:attribute name="title" select="$text_text_mode_title"/>
+										<xsl:attribute name="data-var-title" select="'text_text_mode_title'"/>
 										<img src="images/txt-txt.png" class="mainHeaderimg"/>
 									</xsl:element>
 								</xsl:if>
@@ -198,6 +201,7 @@
 										<xsl:attribute name="href" select="'javascript:void(0);'"/>
 										<xsl:attribute name="id" select="'imgd_link'"/>
 										<xsl:attribute name="title" select="$bookreader_mode_title"/>
+										<xsl:attribute name="data-var-title" select="'bookreader_mode_title'"/>
 										<img src="images/double-view.png" class="mainHeaderimg"/>
 									</xsl:element>
 								</xsl:if>
@@ -209,6 +213,7 @@
 									<xsl:attribute name="href" select="'javascript:void(0);'"/>
 									<xsl:attribute name="id" select="'info_link'"/>
 									<xsl:attribute name="title" select="$teiHeader_button_title"/>
+									<xsl:attribute name="data-var-title" select="'teiHeader_button_title'"/>
 									<i class="fa fa-info-circle"></i>
 								</xsl:element>
 							</xsl:if>
@@ -219,6 +224,7 @@
 									<xsl:attribute name="href" select="'javascript:void(0);'"/>
 									<xsl:attribute name="id" select="'main_fullscreen'"/>
 									<xsl:attribute name="title" select="$goFullscreen_button_title"/>
+									<xsl:attribute name="data-var-title" select="'goFullscreen_button_title'"/>
 									<i class="fa fa-expand"></i>
 								</xsl:element>
 							</div>
@@ -230,15 +236,18 @@
 							<xsl:attribute name="id" select="'header_collapse'"/>
 							<xsl:attribute name="data-action" select="'collapse'"/>
 							<xsl:attribute name="title" select="$toggleMenu_button_title"/>
+							<xsl:attribute name="data-var-title" select="'toggleMenu_button_title'"/>
 						</xsl:element>
 						<xsl:element name="div">
 							<xsl:attribute name="class" select="'main_left_arrow'"/>
 							<xsl:attribute name="onclick" select="'UnInitialize()'"/>
 							<xsl:attribute name="title" select="$previousPage_button_title"/>
+							<xsl:attribute name="data-var-title" select="'previousPage_button_title'"/>
 						</xsl:element>
 						<xsl:element name="div">
 							<xsl:attribute name="class" select="'main_right_arrow'"/>
 							<xsl:attribute name="title" select="$nextPage_button_title"/>
+							<xsl:attribute name="data-var-title" select="'nextPage_button_title'"/>
 						</xsl:element>
 						<xsl:if test="$image_frame=true() or count($edition_array) &gt; 1">
 							<xsl:variable name="viewStatus" select="if($image_frame=false()) then 'width:0px; border-left-width:0px; border-right-width:0px;' else ''"/>
@@ -247,12 +256,14 @@
 									<xsl:attribute name="class" select="'fa fa-caret-up go-full-left'"/>
 									<xsl:attribute name="id" select="'goFullScreenLeft'"/>
 									<xsl:attribute name="title" select="$expandFrame_button_title"/>
+									<xsl:attribute name="data-var-title" select="'expandFrame_button_title'"/>
 								</xsl:element>
 								<header id="left_header" class="top-menu">
 									<xsl:element name="i">
 										<xsl:attribute name="class" select="'fa fa-times-circle closeFullScreen'"/>
 										<xsl:attribute name="id" select="'closeFullScreenLeft'"/>
 										<xsl:attribute name="title" select="$collapseFrame_button_title"/>
+										<xsl:attribute name="data-var-title" select="'collapseFrame_button_title'"/>
 									</xsl:element>
 									<div id="left_menu">
 										<xsl:if test="$pp_selector_pos='left'">
@@ -268,6 +279,7 @@
 													</xsl:if>
 												</xsl:attribute>
 												<xsl:attribute name="title" select="$pp_selector_title"/>
+												<xsl:attribute name="data-var-title" select="'pp_selector_title'"/>
 												<xsl:call-template name="div_select_build">
 													<xsl:with-param name="html_div_class"
 														select="'main_pp_select'"/>
@@ -277,8 +289,7 @@
 										<xsl:if test="$double_view=true()">
 											<span id="span_dd_select" class="like_select">
 												<xsl:call-template name="div_select_build">
-													<xsl:with-param name="html_div_class"
-														select="'main_dd_select'"/>
+													<xsl:with-param name="html_div_class" select="'main_dd_select'"/>
 												</xsl:call-template>
 											</span>
 											<span id="thumb_elem-add" class="iconButtons">
@@ -286,6 +297,7 @@
 													<xsl:attribute name="href" select="'javascript:void(0);'"/>
 													<xsl:attribute name="class" select="'thumb_link'"/>
 													<xsl:attribute name="title" select="$thumbs_button_title"/>
+													<xsl:attribute name="data-var-title" select="'thumbs_button_title'"/>
 													<i class="fa fa-th"></i>
 												</xsl:element>
 											</span>
@@ -306,7 +318,8 @@
 													<xsl:attribute name="id" select="'switchReg-add'"/>
 													<xsl:attribute name="value" select="'reg'"/>
 													<xsl:attribute name="title" select="$regesto_button_label"/>
-													<span><xsl:value-of select="$regesto_button_label"/></span>
+													<xsl:attribute name="data-var-title" select="'regesto_button_label'"/>
+													<span data-var-text="regesto_button_label"><xsl:value-of select="$regesto_button_label"/></span>
 													<i class="fa fa-toggle-off"></i>
 												</xsl:element>
 											</xsl:if>
@@ -316,7 +329,8 @@
 													<xsl:attribute name="id" select="'switchFront-add'"/>
 													<xsl:attribute name="value" select="'info'"/>
 													<xsl:attribute name="title" select="$front_button_title"/>
-													<span><xsl:value-of select="$front_button_label"/></span>
+													<xsl:attribute name="data-var-title" select="'front_button_title'"/>
+													<span data-var-text="front_button_label"><xsl:value-of select="$front_button_label"/></span>
 													<i class="fa fa-toggle-off"></i>
 												</xsl:element>
 											</xsl:if>
@@ -329,7 +343,8 @@
 														<xsl:attribute name="id" select="'thumb_elem'"/>
 														<xsl:attribute name="value" select="'th'"/>
 														<xsl:attribute name="title" select="$thumbs_button_title"/>
-														<span><xsl:value-of select="$thumbs_button_label"/></span>
+														<xsl:attribute name="data-var-title" select="'thumbs_button_title'"/>
+														<span data-var-text="thumbs_button_label"><xsl:value-of select="$thumbs_button_label"/></span>
 														<i class="fa fa-th"></i>
 													</xsl:element>
 												</xsl:if>
@@ -340,7 +355,10 @@
 														<xsl:attribute name="value" select="'mag'"/>
 														<xsl:attribute name="onclick" select="'magOn()'"/>
 														<xsl:attribute name="title" select="$magnifier_button_label"/>
-														<span><xsl:value-of select="$magnifier_button_label"/></span>
+														<xsl:attribute name="data-var-title" select="'magnifier_button_label'"/>
+														<span data-var-text="magnifier_button_label">
+															<xsl:value-of select="$magnifier_button_label"/>
+														</span>
 														<i class="fa evt-magnifier"></i>
 													</xsl:element>
 												</xsl:if>
@@ -351,7 +369,8 @@
 														<xsl:attribute name="value" select="'HS'"/>
 														<xsl:attribute name="onclick" select="'switchHS()'"/>
 														<xsl:attribute name="title" select="$hs_button_label"/>
-														<span><xsl:value-of select="$hs_button_label"/></span>
+														<xsl:attribute name="data-var-title" select="'hs_button_label'"/>
+														<span data-var-text="hs_button_label"><xsl:value-of select="$hs_button_label"/></span>
 														<i class="fa fa-circle-o"></i>
 													</xsl:element>
 												</xsl:if>
@@ -362,7 +381,8 @@
 														<xsl:attribute name="value" select="'turn ITL on'"/>
 														<xsl:attribute name="onclick" select="'switchITL()'"/>
 														<xsl:attribute name="title" select="$itl_button_label"/>
-														<span><xsl:value-of select="$itl_button_label"/></span>
+														<xsl:attribute name="data-var-title" select="'itl_button_label'"/>
+														<span data-var-text="itl_button_label"><xsl:value-of select="$itl_button_label"/></span>
 														<i class="fa fa-chain-broken"></i>
 													</xsl:element>
 												</xsl:if>
@@ -372,10 +392,12 @@
 													<xsl:element name="span">
 														<xsl:attribute name="id" select="'switch_msDesc'"/>
 														<xsl:attribute name="title" select="$msDesc_button_title"/>
+														<xsl:attribute name="data-var-title" select="'msDesc_button_title'"/>
 														<xsl:attribute name="lang" select="'en'"/>
 														<xsl:attribute name="class">mainButtons <xsl:if test="$left_frame_default_content='info'"> active</xsl:if></xsl:attribute>
 														<xsl:element name="span">
 															<xsl:attribute name="lang" select="'en'"/>
+															<xsl:attribute name="data-var-text" select="'msDesc_button_label'"/>
 															<xsl:value-of select="$msDesc_button_label"/>
 														</xsl:element>
 														<xsl:element name="i">
@@ -396,6 +418,7 @@
 												<xsl:attribute name="class" select="'mainButtons small toggleSearchButton'"/>
 												<xsl:attribute name="data-boxsuffix" select="'-add'"/>
 												<xsl:attribute name="title" select="$toggleSearch_button_title"/>
+												<xsl:attribute name="data-var-title" select="'toggleSearch_button_title'"/>
 												<i class='fa fa-angle-double-up'></i>
 											</xsl:element>
 											<xsl:element name="span">
@@ -403,6 +426,7 @@
 												<xsl:attribute name="class">mainButtons small searchKeyboardButton <xsl:if test="$virtual_keyboard_search=false()"> hidden</xsl:if></xsl:attribute>
 												<xsl:attribute name="data-boxsuffix" select="'-add'"/>
 												<xsl:attribute name="title" select="$toggleKeyboard_button_title"/>
+												<xsl:attribute name="data-var-title" select="'toggleKeyboard_button_title'"/>
 												<xsl:element name="i">
 													<xsl:attribute name="class">fa fa-keyboard-o</xsl:attribute>
 												</xsl:element>
@@ -412,6 +436,7 @@
 												<xsl:element name="i">
 													<xsl:attribute name="class" select="'fa fa-close clear_input'"/>
 													<xsl:attribute name="title" select="$clearSearch_button_title"/>
+													<xsl:attribute name="data-var-title" select="'clearSearch_button_title'"/>
 												</xsl:element>
 											</div>
 											<xsl:element name="span">
@@ -419,11 +444,12 @@
 												<xsl:attribute name="class" select="'mainButtons small searchStart'"/>
 												<xsl:attribute name="data-boxsuffix" select="'-add'"/>
 												<xsl:attribute name="title" select="$startSearch_button_title"/>
+												<xsl:attribute name="data-var-title" select="'startSearch_button_title'"/>
 												<i class='fa fa-search'></i>
 											</xsl:element>
 										</div>
 										<div id="search_sub_header-add" class="bottomBoxSubHeader">
-											<div id="search_query-add" class="searchQuery"><xsl:value-of select="$emptySearchAlertMsg"/></div>
+											<div id="search_query-add" class="searchQuery" data-var-text="emptySearchAlertMsg"><xsl:value-of select="$emptySearchAlertMsg"/></div>
 											<div id="search_results-add" class="searchResults can-change-font-size"></div>
 										</div>
 										<div id="search_cont_results-add" class="bottomBoxContent">
@@ -440,8 +466,9 @@
 												<xsl:attribute name="id" select="'search_link-add'"/>
 												<xsl:attribute name="class" select="'mainButtons searchButton'"/>
 												<xsl:attribute name="data-boxsuffix" select="'-add'"/>
-												<xsl:attribute name="title" select="$search_button_title"></xsl:attribute>
-												<span><xsl:value-of select="$search_button_label"/></span>
+												<xsl:attribute name="title" select="$search_button_title"/>
+												<xsl:attribute name="data-var-title" select="'search_button_title'"/>
+												<span data-var-text="search_button_label"><xsl:value-of select="$search_button_label"/></span>
 												<i class="fa fa-search"></i>
 											</xsl:element>
 										</xsl:if>
@@ -449,8 +476,9 @@
 											<xsl:attribute name="id" select="'span_list_select-add'"/>
 											<xsl:attribute name="class" select="'like_select filter'"/>
 											<xsl:attribute name="title" select="$entitiesSelector_title"/>
+											<xsl:attribute name="data-var-title" select="'entitiesSelector_title'"/>
 											<div class="main_list_select">
-												<span data-value="none" class="label_selected">
+												<span data-value="none" class="label_selected" data-var-text="noSelection_label">
 													<xsl:value-of select="$noSelection_label"/>
 												</span>
 												<div class="open_select open_up">
@@ -467,8 +495,8 @@
 															</xsl:element>
 														</xsl:if>
 													</xsl:for-each>
-													<div class="option" data-value="all"><xsl:value-of select="$selectAll_label"/></div>
-													<div class="option" data-value="clear"><xsl:value-of select="$clearSelection_label"/></div>
+													<div class="option" data-value="all" data-var-text="selectAll_label"><xsl:value-of select="$selectAll_label"/></div>
+													<div class="option" data-value="clear" data-var-text="clearSelection_label"><xsl:value-of select="$clearSelection_label"/></div>
 												</div>
 											</div>
 										</xsl:element>
@@ -518,6 +546,7 @@
 													<xsl:attribute name="class" select="'zoom_btn'"/>
 													<xsl:attribute name="href" select="'javascript:void(0);'"/>
 													<xsl:attribute name="title" select="$fitToFrame_button_title"/>
+													<xsl:attribute name="data-var-title" select="'fitToFrame_button_title'"/>
 													<i class="fa evt-zoomfit"></i>
 												</xsl:element>
 												<xsl:element name="a">
@@ -525,6 +554,7 @@
 													<xsl:attribute name="class" select="'zoom_btn'"/>
 													<xsl:attribute name="href" select="'javascript:void(0);'"/>
 													<xsl:attribute name="title" select="$zoomOut_button_title"/>
+													<xsl:attribute name="data-var-title" select="'zoomOut_button_title'"/>
 													<i class="fa evt-zoomminus"></i>
 												</xsl:element>
 												<div id="spb_cont">
@@ -535,6 +565,7 @@
 													<xsl:attribute name="class" select="'zoom_btn'"/>
 													<xsl:attribute name="href" select="'javascript:void(0);'"/>
 													<xsl:attribute name="title" select="$zoomIn_button_title"/>
+													<xsl:attribute name="data-var-title" select="'zoomIn_button_title'"/>
 													<i class="fa evt-zoomplus"></i>
 												</xsl:element>
 											</div>
@@ -544,7 +575,7 @@
 													<span id="zvalopz"/>
 												</xsl:if>
 												<xsl:if test="$image_frame=false()">
-													<span><xsl:value-of select="$noImage_alert_msg"/></span>
+													<span data-var-text="noImage_alert_msg"><xsl:value-of select="$noImage_alert_msg"/></span>
 												</xsl:if>
 											</div>
 										</div>
@@ -573,6 +604,7 @@
 								<xsl:attribute name="class" select="'fa fa-caret-up go-full-right'"/>
 								<xsl:attribute name="id" select="'goFullScreenRight'"/>
 								<xsl:attribute name="title" select="$expandFrame_button_title"/>
+								<xsl:attribute name="data-var-title" select="'expandFrame_button_title'"/>
 							</xsl:element>
 							<header id="right_header" class="top-menu">
 								<div id="right_menu">
@@ -580,6 +612,7 @@
 										<xsl:attribute name="id" select="'span_tt_select'"/>
 										<xsl:attribute name="class" select="'like_select'"/>
 										<xsl:attribute name="title" select="$tt_selector_title"/>
+										<xsl:attribute name="data-var-title" select="'tt_selector_title'"/>
 										<xsl:call-template name="div_select_build">
 											<xsl:with-param name="html_div_class" select="'main_tt_select'"/>
 										</xsl:call-template>
@@ -597,6 +630,7 @@
 												</xsl:if>
 											</xsl:attribute>
 											<xsl:attribute name="title" select="$pp_selector_title"/>
+											<xsl:attribute name="data-var-title" select="'pp_selector_title'"/>
 											<xsl:call-template name="div_select_build">
 												<xsl:with-param name="html_div_class" select="'main_pp_select'"/>
 											</xsl:call-template>
@@ -605,6 +639,7 @@
 									<xsl:element name="span">
 										<xsl:attribute name="id" select="'span_ee_select'"/>
 										<xsl:attribute name="title" select="$ee_selector_title"/>
+										<xsl:attribute name="data-var-title" select="'ee_selector_title'"/>
 										<xsl:attribute name="class">like_select <xsl:if test="$edition_level_selector=false()"> hidden </xsl:if></xsl:attribute>
 										<xsl:call-template name="div_select_build">
 											<xsl:with-param name="html_div_class" select="'main_ee_select'"/>
@@ -617,7 +652,8 @@
 											<xsl:attribute name="id" select="'switchReg'"/>
 											<xsl:attribute name="value" select="'reg'"/>
 											<xsl:attribute name="title" select="$regesto_button_label"/>
-											<span><xsl:value-of select="$regesto_button_label"/></span>
+											<xsl:attribute name="data-var-title" select="'regesto_button_label'"/>
+											<span data-var-text="regesto_button_label"><xsl:value-of select="$regesto_button_label"/></span>
 											<i class="fa fa-toggle-on"></i>
 										</xsl:element>
 									</xsl:if>
@@ -627,7 +663,8 @@
 											<xsl:attribute name="id" select="'switchFront'"/>
 											<xsl:attribute name="value" select="'reg'"/>
 											<xsl:attribute name="title" select="$front_button_label"/>
-											<span><xsl:value-of select="$front_button_label"/></span>
+											<xsl:attribute name="data-var-title" select="'front_button_label'"/>
+											<span data-var-text="front_button_label"><xsl:value-of select="$front_button_label"/></span>
 											<i class="fa fa-info-circle"></i>
 										</xsl:element>
 									</xsl:if>
@@ -636,6 +673,7 @@
 									<xsl:attribute name="class" select="'fa fa-times-circle closeFullScreen'"/>
 									<xsl:attribute name="id" select="'closeFullScreenRight'"/>
 									<xsl:attribute name="title" select="$collapseFrame_button_title"/>
+									<xsl:attribute name="data-var-title" select="'collapseFrame_button_title'"/>
 								</xsl:element>
 							</header>
 							<xsl:if test="$regesto=true()">
@@ -661,6 +699,7 @@
 											<xsl:attribute name="class" select="'mainButtons small toggleSearchButton'"/>
 											<xsl:attribute name="data-boxsuffix" select="''"/>
 											<xsl:attribute name="title" select="$toggleSearch_button_title"/>
+											<xsl:attribute name="data-var-title" select="'toggleSearch_button_title'"/>
 											<i class='fa fa-angle-double-up'></i>
 										</xsl:element>
 										<xsl:element name="span">
@@ -668,6 +707,7 @@
 											<xsl:attribute name="class">mainButtons small searchKeyboardButton <xsl:if test="$virtual_keyboard_search=false()"> hidden</xsl:if></xsl:attribute>
 											<xsl:attribute name="data-boxsuffix" select="''"/>
 											<xsl:attribute name="title" select="$toggleKeyboard_button_title"/>
+											<xsl:attribute name="data-var-title" select="'toggleKeyboard_button_title'"/>
 											<xsl:element name="i">
 												<xsl:attribute name="class">fa fa-keyboard-o</xsl:attribute>
 											</xsl:element>
@@ -677,6 +717,7 @@
 											<xsl:element name="i">
 												<xsl:attribute name="class" select="'fa fa-close clear_input'"/>
 												<xsl:attribute name="title" select="$clearSearch_button_title"/>
+												<xsl:attribute name="data-var-title" select="'clearSearch_button_title'"/>
 											</xsl:element>
 										</div>
 										<xsl:element name="span">
@@ -684,11 +725,12 @@
 											<xsl:attribute name="class" select="'mainButtons small searchStart'"/>
 											<xsl:attribute name="data-boxsuffix" select="''"/>
 											<xsl:attribute name="title" select="$startSearch_button_title"/>
+											<xsl:attribute name="data-var-title" select="'startSearch_button_title'"/>
 											<i class='fa fa-search'></i>
 										</xsl:element>
 									</div>
 									<div id="search_sub_header" class="bottomBoxSubHeader">
-										<div id="search_query" class="searchQuery"><xsl:value-of select="$emptySearchAlertMsg"/></div>
+										<div id="search_query" class="searchQuery" data-var-text="emptySearchAlertMsg"><xsl:value-of select="$emptySearchAlertMsg"/></div>
 										<div id="search_results" class="searchResults"></div>
 									</div>
 									<div id="search_cont_results" class="bottomBoxContent">
@@ -704,6 +746,7 @@
 										<xsl:attribute name="id" select="'toggle_list_cont'"/>
 										<xsl:attribute name="class" select="'mainButtons small'"/>
 										<xsl:attribute name="title" select="$toggleLists_button_title"/>
+										<xsl:attribute name="data-var-title" select="'toggleLists_button_title'"/>
 										<i class='fa fa-angle-double-down'></i>
 									</xsl:element>
 								</div>
@@ -740,11 +783,13 @@
 								<xsl:element name="span">
 									<xsl:attribute name="id" select="'inside_left_arrow'"/>
 									<xsl:attribute name="title" select="$previousText_button_title"/>
+									<xsl:attribute name="data-var-title" select="'previousText_button_title'"/>
 									<i class="fa fa-chevron-up"></i>
 								</xsl:element>
 								<xsl:element name="span">
 									<xsl:attribute name="id" select="'inside_right_arrow'"/>
 									<xsl:attribute name="title" select="$nextText_button_title"/>
+									<xsl:attribute name="data-var-title" select="'nextText_button_title'"/>
 									<i class="fa fa-chevron-down"></i>
 								</xsl:element>
 							</xsl:if>
@@ -755,8 +800,9 @@
 										<xsl:attribute name="id" select="'search_link'"/>
 										<xsl:attribute name="class" select="'mainButtons searchButton'"/>
 										<xsl:attribute name="data-boxsuffix" select="''"/>
-										<xsl:attribute name="title" select="$search_button_title"></xsl:attribute>
-										<span><xsl:value-of select="$search_button_label"/></span>
+										<xsl:attribute name="title" select="$search_button_title"/>
+										<xsl:attribute name="data-var-title" select="'search_button_title'"/>
+										<span data-var-text="search_button_label"><xsl:value-of select="$search_button_label"/></span>
 										<i class="fa fa-search"></i>
 									</xsl:element>
 								</xsl:if>
@@ -764,8 +810,9 @@
 									<xsl:element name="span">
 										<xsl:attribute name="id" select="'list_link'"/>
 										<xsl:attribute name="class" select="'mainButtons'"/>
-										<xsl:attribute name="title" select="$lists_button_title"></xsl:attribute>
-										<span><xsl:value-of select="$lists_button_label"/></span>
+										<xsl:attribute name="title" select="$lists_button_title"/>
+										<xsl:attribute name="data-var-title" select="'lists_button_title'"/>
+										<span data-var-text="lists_button_label"><xsl:value-of select="$lists_button_label"/></span>
 										<i class="fa fa-list"></i>
 									</xsl:element>
 								</xsl:if>
@@ -773,8 +820,9 @@
 									<xsl:attribute name="id" select="'span_list_select'"/>
 									<xsl:attribute name="class" select="'like_select filter'"/>
 									<xsl:attribute name="title" select="$entitiesSelector_title"/>
+									<xsl:attribute name="data-var-title" select="'entitiesSelector_title'"/>
 									<div class="main_list_select">
-										<span data-value="none" class="label_selected">
+										<span data-value="none" class="label_selected" data-var-text="noSelection_label">
 											<xsl:value-of select="$noSelection_label"/>
 										</span>
 										<div class="open_select open_up">
@@ -791,16 +839,16 @@
 													</xsl:element>
 												</xsl:if>
 											</xsl:for-each>
-											<div class="option" data-value="all"><xsl:value-of select="$selectAll_label"/></div>
-											<div class="option" data-value="clear"><xsl:value-of select="$clearSelection_label"/></div>
+											<div class="option" data-value="all" data-var-text="selectAll_label"><xsl:value-of select="$selectAll_label"/></div>
+											<div class="option" data-value="clear" data-var-text="clearSelection_label"><xsl:value-of select="$clearSelection_label"/></div>
 										</div>
 									</div>
 								</xsl:element>
-								<span class="mainButtons small font-size-controller" data-action="decrease">
+								<span class="mainButtons small font-size-controller" data-action="decrease" title="Decrease font size" data-var-title="decrease_font_size">
 									<i class="fa fa-font"></i>
 									<i class="fa fa-minus"></i>
 								</span>
-								<span class="mainButtons small font-size-controller" data-action="increase">
+								<span class="mainButtons small font-size-controller" data-action="increase" title="Increase font size" data-var-title="increase_font_size">
 									<i class="fa fa-font"></i>
 									<i class="fa fa-plus"></i>
 								</span>
@@ -812,7 +860,7 @@
 					</section>
 					
 					<footer>
-						<p>2012 - 2015 @ EVT team</p>
+						<p>2012 - 2015 @ EVT team – University of Pisa</p>
 					</footer>
 				</div>
 				<script src="js/main/fullscreen_request.js"/>
