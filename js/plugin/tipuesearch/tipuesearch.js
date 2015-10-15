@@ -127,7 +127,7 @@ http://www.tipue.com/search
                                    } 
                     	     } else {
                                    $(set.elements[0]).trigger('keyup');
-                                   $(set.elements[4]).text('Enter your query in the search box above!');
+                                   $(set.elements[4]).text(STRINGS['emptySearchAlertMsg'] || 'Enter your query in the search box above!');
                                    $(set.elements[4]).attr('data-value', '');
                                    $(set.elements[1], '#tipue_search_results_count', set.elements[6]).text('');
                               }
@@ -274,24 +274,25 @@ http://www.tipue.com/search
                          {
                               if (show_replace == 1)
                               {
-                                   out += '<div id="tipue_search_warning_head' + set.addId + '">Showing results for ' + d + '</div>';
-                                   out += '<div id="tipue_search_warning' + set.addId + '">Search for <a href="javascript:void(0)" id="tipue_search_replaced' + set.addId + '">' + d_r + '</a></div>'; 
+                                   out += '<div id="tipue_search_warning_head' + set.addId + '">'+ (STRINGS['show_results_for'] || 'Showing results for ') + d + '</div>';
+                                   out += '<div id="tipue_search_warning' + set.addId + '">'+ (STRINGS['search_for'] || 'Search for ') + ' <a href="javascript:void(0)" id="tipue_search_replaced' + set.addId + '">' + d_r + '</a></div>'; 
                               }
                               var results_text;
                               if (c == 1)
                               {
                                    //out += '<div id="tipue_search_results_count">1 result</div>';
-                                   results_text = 'We have found 1 result';
+                                   results_text = (STRINGS['we_have_found'] || 'We have found') + ' ' + (STRINGS['one_result'] || '1 result');
                               }
                               else
                               {
                                    c_c = c.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                                    // out += '<div id="tipue_search_results_count">' + 'We have found ' + c_c + ' results in the ' + $("#span_ee_select .label_selected").text().toLowerCase() + ' edition </div>';
-                                   results_text = 'We have found ' + c_c + ' results';
+                                   results_text = (STRINGS['we_have_found'] || 'We have found ') + c_c + ' ' + (STRINGS['results'] || 'results');
                               }
                               
                               if ($(set.elements[11] + " .option_container .option").length > 1 ) {
-                                   results_text += ' in the ' + $(set.elements[11] + " .label_selected").text().toLowerCase() + ' edition.';
+                                   results_text += ' '+(STRINGS['in_the'] || 'in the')+' ';
+                                   results_text += $(set.elements[11] + " .label_selected").text().toLowerCase() + ' '+(STRINGS['edition'] || 'edition') + '.';
                               }
 
                               $(set.elements[10]).html('<div id="tipue_search_results_count' + set.addId + '" class="tipue_search_results_count">' + results_text + '</div>');
@@ -362,7 +363,7 @@ http://www.tipue.com/search
                                         out += '<div class="tipue_search_content_text">' + t_d + '</div>';
                                         out += '<div class="tipue_search_found_text">';
                                         out += '<span class="tipue_search_go_to_result" onclick="window.location.hash = \'doc='+text_id+'&page='+page_id+'\'; $(\''+set.elements[8]+'\').trigger(\'click\');">';                                        
-                                        out += 'found in ' + text_label + ' page ' + page_n  + ' ('+ pos_label + ')</span></div>';
+                                        out += (STRINGS['found_in'] || 'found in') + ' ' + text_label + ' '+(STRINGS['page'] || 'page')+' ' + page_n  + ' ('+ pos_label + ')</span></div>';
                                         //out += '<p>-</p>';
                                         out += '<hr />';
                                         
@@ -441,25 +442,26 @@ http://www.tipue.com/search
                          }
                          else
                          {
-                              out += '<div id="tipue_search_warning_head' + set.addId + '">Nothing found</div>';
+                              out += '<div id="tipue_search_warning_head' + set.addId + '">'+(STRINGS['nothing_found'] || 'Nothing found')+'</div>';
                          }
                     }
                     else
                     {
                          if (show_stop)
                          {
-                              out += '<div id="tipue_search_warning_head' + set.addId + '">Nothing found</div><div id="tipue_search_warning' + set.addId + '">Common words are largely ignored</div>';
+                              out += '<div id="tipue_search_warning_head' + set.addId + '">'+(STRINGS['nothing_found'] || 'Nothing found')+'</div>';
+                              out += '<div id="tipue_search_warning' + set.addId + '">'+(STRINGS['common_word_ignored_msg'] || 'Common words are largely ignored')+'</div>';
                          }
                          else
                          {
-                              out += '<div id="tipue_search_warning_head' + set.addId + '">Search too short</div>';
+                              out += '<div id="tipue_search_warning_head' + set.addId + '">'+(STRINGS['search_too_short'] || 'Search too short')+'</div>';
                               if (set.minimumLength == 1)
                               {
-                                   out += '<div id="tipue_search_warning' + set.addId + '">Should be one character or more</div>';
+                                   out += '<div id="tipue_search_warning' + set.addId + '">'+(STRINGS['more_char_alert'] || 'Should be one character or more')+'</div>';
                               }
                               else
                               {
-                                   out += '<div id="tipue_search_warning' + set.addId + '">Should be ' + set.minimumLength + ' characters or more</div>';
+                                   out += '<div id="tipue_search_warning' + set.addId + '">'+(STRINGS['should_be'] || 'Should be')+' ' + set.minimumLength +' '+(STRINGS['caracters_or_more'] || 'characters or more')+'</div>';
                               }
                          }
                     }

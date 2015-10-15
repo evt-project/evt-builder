@@ -38,13 +38,21 @@
 			<div class="table">
 				<xsl:if test="tei:author and tei:author/normalize-space()">
 					<div class="row">
-						<div class="left_col"><xsl:value-of select="$hi_author_section_label"/><xsl:text>:</xsl:text></div>
+						<div class="left_col">
+							<span data-var-text="hi_author_section_label">
+								<xsl:value-of select="$hi_author_section_label"/>
+							</span><xsl:text>:</xsl:text>
+						</div>
 						<div class="right_col"><xsl:apply-templates select="tei:author"/></div>
 					</div>
 				</xsl:if>
 				<xsl:if test="tei:principal and tei:principal/normalize-space()">
 					<div class="row">
-						<div class="left_col"><xsl:value-of select="$hi_principal_section_label"/><xsl:text>:</xsl:text></div>
+						<div class="left_col">
+							<span data-var-text="hi_principal_section_label">
+								<xsl:value-of select="$hi_principal_section_label"/>
+							</span><xsl:text>:</xsl:text>
+						</div>
 						<div class="right_col"><xsl:apply-templates select="tei:principal"/></div>
 					</div>
 				</xsl:if>
@@ -71,35 +79,59 @@
         documento elettronico. -->
 	<xsl:template match="tei:publicationStmt">
 		<div id="publicationStmt">
-			<div class="section-title"><xsl:value-of select="$hi_publicationStmt_section_label"/></div>
+			<div class="section-title">
+				<span data-var-text="hi_publicationStmt_section_label">
+					<xsl:value-of select="$hi_publicationStmt_section_label"/>
+				</span>
+			</div>
 			<div class="table">
 				<xsl:if test=" tei:authority and tei:authority/normalize-space()">
 					<div class="row">
-						<div class="left_col"><xsl:value-of select="$hi_publisher_section_label"/><xsl:text>:</xsl:text></div>
+						<div class="left_col">
+							<span data-var-text="hi_publisher_section_label">
+								<xsl:value-of select="$hi_publisher_section_label"/>
+							</span><xsl:text>:</xsl:text>
+						</div>
 						<div class="right_col"><xsl:apply-templates select="tei:authority"/></div>
 					</div>
 				</xsl:if>
 				<xsl:if test=" tei:publisher and tei:publisher/normalize-space()">
 					<div class="row">
-						<div class="left_col"><xsl:value-of select="$hi_publisher_section_label"/><xsl:text>:</xsl:text></div>
+						<div class="left_col">
+							<span data-var-text="hi_publisher_section_label">
+								<xsl:value-of select="$hi_publisher_section_label"/>
+							</span><xsl:text>:</xsl:text>
+						</div>
 						<div class="right_col"><xsl:apply-templates select="tei:publisher"/></div>
 					</div>
 				</xsl:if>
 				<xsl:if test=" tei:pubPlace and tei:pubPlace/normalize-space()">
 					<div class="row">
-						<div class="left_col"><xsl:value-of select="$hi_pubPlace_section_label"/><xsl:text>:</xsl:text></div>
+						<div class="left_col">
+							<span data-var-text="hi_pubPlace_section_label">
+								<xsl:value-of select="$hi_pubPlace_section_label"/>
+							</span><xsl:text>:</xsl:text>
+						</div>
 						<div class="right_col"><xsl:apply-templates select="tei:pubPlace"/></div>
 					</div>
 				</xsl:if>
 				<xsl:if test="tei:date and tei:date/normalize-space()">
 					<div class="row">
-						<div class="left_col"><xsl:value-of select="$hi_date_section_label"/><xsl:text>:</xsl:text></div>
+						<div class="left_col">
+							<span data-var-text="hi_date_section_label">
+								<xsl:value-of select="$hi_date_section_label"/>
+							</span><xsl:text>:</xsl:text>
+						</div>
 						<div class="right_col"><xsl:apply-templates select="tei:date"/></div>
 					</div>
 				</xsl:if>    
 				<xsl:if test="tei:availability and tei:availability/normalize-space()">
 					<div class="row">
-						<div class="left_col"><xsl:value-of select="$hi_availability_section_label"/><xsl:text>:</xsl:text></div>
+						<div class="left_col">
+							<span data-var-text="hi_availability_section_label">
+								<xsl:value-of select="$hi_availability_section_label"/>
+							</span><xsl:text>:</xsl:text>
+						</div>
 						<div class="right_col"><xsl:value-of select="tei:availability"/></div>
 					</div>
 				</xsl:if>    
@@ -111,11 +143,19 @@
         dei nodi che riguardano le informazioni relative all'edizione del testo. -->
 	<xsl:template match="tei:editionStmt">
 		<div id="editionStmt">
-			<div class="section-title"><xsl:value-of select="$hi_editionStmt_section_label"/></div>
+			<div class="section-title">
+				<span data-var-text="hi_editionStmt_section_label">
+					<xsl:value-of select="$hi_editionStmt_section_label"/>
+				</span>
+			</div>
 			<div class="table">
 				<xsl:if test="tei:edition and tei:edition/normalize-space()">
 					<div class="row">
-						<div class="left_col"><xsl:value-of select="$hi_edition_section_label"/><xsl:text>:</xsl:text></div>
+						<div class="left_col">
+							<span data-var-text="hi_edition_section_label">
+								<xsl:value-of select="$hi_edition_section_label"/>
+							</span><xsl:text>:</xsl:text>
+						</div>
 						<div class="right_col"><xsl:apply-templates select="tei:edition"/></div>
 					</div>
 				</xsl:if>  
@@ -139,7 +179,11 @@
 	<!-- Si seleziona il nodo <encodingDesc> e si applica la regola ai nodi al suo interno. -->
 	<xsl:template match="tei:encodingDesc">
 		<div class="encodingDesc">
-			<div class="section-title"><xsl:value-of select="$hi_encodingDesc_section_label"/></div>
+			<div class="section-title">
+				<span data-var-text="hi_encodingDesc_section_label">
+					<xsl:value-of select="$hi_encodingDesc_section_label"/>
+				</span>
+			</div>
 			<xsl:apply-templates select="tei:projectDesc"/>
 			<xsl:apply-templates select="tei:editorialDecl"/>
 			<xsl:apply-templates select="tei:samplingDecl"/>
@@ -154,7 +198,11 @@
 			<div class="projectDesc">
 				<div class="table">
 					<div class="row">
-						<div class="left_col"><xsl:value-of select="$hi_projectDesc_section_label"/><xsl:text>:</xsl:text></div>
+						<div class="left_col">
+							<span data-var-text="hi_projectDesc_section_label">
+								<xsl:value-of select="$hi_projectDesc_section_label"/>
+							</span><xsl:text>:</xsl:text>
+						</div>
 						<div class="right_col"><xsl:apply-templates/></div>
 					</div>
 				</div>    
@@ -169,25 +217,41 @@
 			<div class="table">
 				<xsl:if test="tei:correction and tei:correction/normalize-space()">
 					<div class="row">
-						<div class="left_col"><xsl:value-of select="$hi_correction_section_label"/><xsl:text>:</xsl:text></div>
+						<div class="left_col">
+							<span data-var-text="hi_correction_section_label">
+								<xsl:value-of select="$hi_correction_section_label"/>
+							</span><xsl:text>:</xsl:text>
+						</div>
 						<div class="right_col"><xsl:value-of select="tei:correction"/></div>
 					</div>
 				</xsl:if>
 				<xsl:if test="tei:normalization and tei:normalization/normalize-space()">
 					<div class="row">
-						<div class="left_col"><xsl:value-of select="$hi_normalization_section_label"/><xsl:text>:</xsl:text></div>
+						<div class="left_col">
+							<span data-var-text="hi_normalization_section_label">
+								<xsl:value-of select="$hi_normalization_section_label"/>
+							</span><xsl:text>:</xsl:text>
+						</div>
 						<div class="right_col"><xsl:value-of select="tei:normalization"/></div>
 					</div>
 				</xsl:if>
 				<xsl:if test="tei:segmentation and tei:segmentation/normalize-space()">
 					<div class="row">
-						<div class="left_col"><xsl:value-of select="$hi_segmentation_section_label"/><xsl:text>:</xsl:text></div>
+						<div class="left_col">
+							<span data-var-text="hi_segmentation_section_label">
+								<xsl:value-of select="$hi_segmentation_section_label"/>
+							</span><xsl:text>:</xsl:text>
+						</div>
 						<div class="right_col"><xsl:value-of select="tei:segmentation"/></div>
 					</div>
 				</xsl:if>
 				<xsl:if test="tei:hyphenation and tei:hyphenation/normalize-space()">
 					<div class="row">
-						<div class="left_col"><xsl:value-of select="$hi_hyphenation_section_label"/><xsl:text>:</xsl:text></div>
+						<div class="left_col">
+							<span data-var-text="hi_hyphenation_section_label">
+								<xsl:value-of select="$hi_hyphenation_section_label"/>
+							</span><xsl:text>:</xsl:text>
+						</div>
 						<div class="right_col"><xsl:value-of select="tei:hyphenation"/></div>
 					</div>
 				</xsl:if>    
@@ -202,7 +266,11 @@
 			<div class="samplingDecl">
 				<div class="table">
 					<div class="row">
-						<div class="left_col"><xsl:value-of select="$hi_samplingDecl_section_label"/><xsl:text>:</xsl:text></div>
+						<div class="left_col">
+							<span data-var-text="hi_samplingDecl_section_label">
+								<xsl:value-of select="$hi_samplingDecl_section_label"/>
+							</span><xsl:text>:</xsl:text>
+						</div>
 						<div class="right_col"><xsl:apply-templates/></div>
 					</div>
 				</div>
@@ -218,17 +286,29 @@
         in particolare il tipo di linguaggio utilizzato. -->
 	<xsl:template match="tei:profileDesc">
 		<div class="profileDesc">
-			<div class="section-title"><xsl:value-of select="$hi_profileDesc_section_label"/></div>
+			<div class="section-title">
+				<span data-var-text="hi_profileDesc_section_label">
+					<xsl:value-of select="$hi_profileDesc_section_label"/>
+				</span>
+			</div>
 			<div class="table">
 				<xsl:if test="tei:langUsage and tei:langUsage/normalize-space()">
 					<div class="row">
-						<div class="left_col"><xsl:value-of select="$hi_language_section_label"/><xsl:text>:</xsl:text></div>
+						<div class="left_col">
+							<span data-var-text="hi_language_section_label">
+								<xsl:value-of select="$hi_language_section_label"/>
+							</span><xsl:text>:</xsl:text>
+						</div>
 						<div class="right_col"><xsl:value-of select="tei:langUsage"/></div>
 					</div>
 				</xsl:if>
 				<xsl:if test="tei:textClass and tei:textClass/normalize-space()">
 					<div class="row">
-						<div class="left_col"><xsl:value-of select="$hi_textClass_section_label"/><xsl:text>:</xsl:text></div>
+						<div class="left_col">
+							<span data-var-text="hi_textClass_section_label">
+								<xsl:value-of select="$hi_textClass_section_label"/>
+							</span><xsl:text>:</xsl:text>
+						</div>
 						<div class="right_col"><xsl:value-of select="tei:textClass"/></div>
 					</div>
 				</xsl:if>
@@ -241,7 +321,11 @@
 	<xsl:template match="tei:revisionDesc">
 		<xsl:if test="normalize-space()">
 			<div class="change">
-				<div class="section-title"><xsl:value-of select="$hi_revisionDesc_section_label"/><xsl:text>:</xsl:text></div>
+				<div class="section-title">
+					<span data-var-text="hi_revisionDesc_section_label">
+						<xsl:value-of select="$hi_revisionDesc_section_label"/>
+					</span><xsl:text>:</xsl:text>
+				</div>
 				<div class="table">
 					<xsl:for-each select="tei:change">
 						<div class="row">

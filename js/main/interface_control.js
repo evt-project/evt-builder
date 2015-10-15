@@ -29,19 +29,6 @@
 	fitFrame, preload
 */
 
-/* MESSAGES */
-var noElements_alert_msg = 'No elements.',
-	pageMissing_alert_msg = 'miss',
-	goToDocument_prefix_text = 'Go to Text',
-	occurrences_plural_text = 'occurrences',
-	occurrences_singular_text = 'occurrence',
-	text_plural_msg = 'Documenti',
-	text_singular_msg = 'Documento',
-	occurrences_loc_page = 'Fol.',
-	occurrences_loc_doc = 'Doc.',
-	noSelection_msg = "No selection",
-	multiSelection_msg = "Multi selection";
-
 /* Variabili generiche*/
 var keycount, fulltogg;
 var first_pp, last_pp;
@@ -190,9 +177,9 @@ $(function() {
 				else {
 					current_id = first_page_d;
 					if ( first_label_d.substr(-1).toLowerCase() == 'v' ) {
-						current_label = first_label_d+" - ("+pageMissing_alert_msg+")";	
+						current_label = first_label_d+" - ("+STRINGS['pageMissing_alert_msg']+")";	
 					} else {
-						current_label = "("+pageMissing_alert_msg+") - "+ first_label_d;
+						current_label = "("+STRINGS['pageMissing_alert_msg']+") - "+ first_label_d;
 					}
 				}
 
@@ -513,9 +500,9 @@ $(function() {
 							}
 						});
 						if ($("#span_pp_select .option[data-value='"+pp_val+"']").length == 1) {	
-							docs = text_singular_msg+":<br />"+docs;
+							docs = STRINGS['text_singular_msg']+":<br />"+docs;
 						} else {
-							docs = text_plural_msg+":<br />"+docs;
+							docs = STRINGS['text_plural_msg']+":<br />"+docs;
 						}
 					} else {
 						first_doc = "<span>"+$("#span_tt_select .option_container .option[data-value='"+tt_val+"']").attr('data-real-label')+"</span>";
@@ -526,9 +513,9 @@ $(function() {
 							}
 						});
 						if (docs == "") {	
-							docs = text_singular_msg+":<br />"+first_doc;
+							docs = STRINGS['text_singular_msg']+":<br />"+first_doc;
 						} else {
-							docs = text_plural_msg+":<br />"+first_doc+docs;
+							docs = STRINGS['text_plural_msg']+":<br />"+first_doc+docs;
 						}
 					}
 					$("#span_pp_select .option_tooltip")
@@ -549,7 +536,7 @@ $(function() {
 						tt_vals = [];
 
 						for(var i = 0; i < pp_vals.length; i++) {
-							if ( pp_vals[i] != '' && pp_vals[i] != '('+pageMissing_alert_msg+')' ) {
+							if ( pp_vals[i] != '' && pp_vals[i] != '('+STRINGS['pageMissing_alert_msg']+')' ) {
 								$("#span_pp_select .option[data-value='"+pp_vals[i]+"']").each(function(){
 									var temp_tt_val;
 									temp_tt_val = $(this).parents('.optionGroup').attr('data-first-doc-group');
@@ -563,9 +550,9 @@ $(function() {
 						}
 
 						if ( tt_vals.length == 1 ) {	
-							docs = text_singular_msg+":<br />"+tt_vals[0];
+							docs = STRINGS['text_singular_msg']+":<br />"+tt_vals[0];
 						} else {
-							docs = text_plural_msg+":<br />";
+							docs = STRINGS['text_plural_msg']+":<br />";
 							for(var i = 0; i < tt_vals.length; i++ ) {
 								docs += '<span>'+tt_vals[i]+'</span>';
 							}
@@ -806,7 +793,7 @@ $(function() {
 				    //$(this).addClass('selected');
 				    $(this).parents("div[id*='frame']").find('.list_active').removeClass('list_active');
 				    // se "pulisci selezione" l'etichetta prende "No selection"
-			        newLabel = noSelection_msg;
+			        newLabel = STRINGS['noSelection_msg'];
 			        newLabelVal = "clear";
 				} else if (classToBeActived == 'all') { //seleziona tutto
 				    //$(this).addClass('selected');
@@ -818,7 +805,7 @@ $(function() {
 				        } 
 				        $(this).siblings(".option[data-value='clear']").removeClass('selected');
 				    });
-				    newLabel = multiSelection_msg;
+				    newLabel = STRINGS['multiSelection_msg'];
 				    newLabelVal = "multi";
 				} else {
 				   $(this).toggleClass('selected');
@@ -1084,13 +1071,13 @@ $(function() {
 					
 					if ( $('#inside_left_arrow').length > 0 || $('#inside_right_arrow').length > 0) {
 						if (current_doc_el.prev().text()  != "" ) {
-							$('#inside_left_arrow').attr('title', goToDocument_prefix_text+' '+current_doc_el.prev().text());
+							$('#inside_left_arrow').attr('title', STRINGS['goToDocument_prefix_text']+' '+current_doc_el.prev().text());
 						} else {
 							$('#inside_left_arrow').attr('title', '');
 						}
 					
 						if (current_doc_el.next().text() != ""){
-							$('#inside_right_arrow').attr('title',  goToDocument_prefix_text+' '+current_doc_el.next().text());
+							$('#inside_right_arrow').attr('title',  STRINGS['goToDocument_prefix_text']+' '+current_doc_el.next().text());
 						} else {
 							$('#inside_right_arrow').attr('title', '');
 						}
@@ -1171,6 +1158,26 @@ $(function() {
 	});
 
 	$(document).ready(function(){
+		$("[data-var-text").each(function(){
+			var name = '' ;
+			if ( $(this).attr('data-var-text') !== '' ) {
+				name = $(this).attr('data-var-text');
+				if ( STRINGS[name] != undefined && STRINGS[name] !== '') {
+					$(this).text(STRINGS[name]);
+				}
+			}
+		});
+		$("[data-var-title").each(function(){
+			var title = '' ;
+			if ( $(this).attr('data-var-title') !== '' ) {
+				title = $(this).attr('data-var-title');
+				if ( STRINGS[title] != undefined && STRINGS[title] !== '') {
+					$(this).attr('title', STRINGS[title]);
+				}
+			}
+			
+		});
+
 		resizeGlobalTopBar();
 		
 		$('.mainButtons').each(function(){
@@ -1980,7 +1987,7 @@ $(function() {
 	            $('<li />')
 	                .addClass('list_element')
 	                .addClass('no_elements')
-	                .text(noElements_alert_msg)
+	                .text(STRINGS['noElements_alert_msg'])
 	                .appendTo('.ul_list:visible');
 	        }
 	    }
@@ -2038,15 +2045,15 @@ $(function() {
 	                occ = $(list_occ).find("span[data-pb='"+pb+"'][data-doc='"+doc+"']").attr('data-occ')*1;
 	                occ++;
 	                $(list_occ)
-	                    .find("span[data-pb='"+pb+"'][data-pb='"+doc+"']")
+	                    .find("span[data-pb='"+pb+"'][data-doc='"+doc+"']")
 	                    .attr('data-occ', occ)
-	                    .attr('title', occ+" "+occurrences_plural_text);
+	                    .attr('title', occ+" "+STRINGS['occurrences_plural_text']);
 	                $(this).remove();
 	            } else {
-	                $(this)
+	            	$(this)
 	                    .attr('data-occ', '1')
-	                    .attr('title', "1 "+occurrences_singular_text)
-	                    .text(occurrences_loc_page+" "+pb_n+" - "+occurrences_loc_doc+" "+doc_lab)
+	                    .attr('title', "1 "+STRINGS['occurrences_singular_text'])
+	                    .text(STRINGS['occurrences_loc_page']+" "+pb_n+" - "+STRINGS['occurrences_loc_doc']+" "+doc_lab)
 	                    .click(function(){
 	                        goToOccurrencePage(this, pb, doc);
 	                    })
@@ -2055,7 +2062,7 @@ $(function() {
 	            }
 	        });
 	    } else {
-	        $(list_occ).append("<span class='no_occ'>Nessuna corrispondenza trovata.</span>");
+	        $(list_occ).append("<span class='no_occ'>"+STRINGS['no_occurrence']+".</span>");
 	    }
 	    $(elem).append(list_occ);
 	}
