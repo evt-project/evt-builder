@@ -1167,7 +1167,7 @@ $(function() {
 				}
 			}
 		});
-		$("[data-var-title").each(function(){
+		$("[data-var-title]").each(function(){
 			var title = '' ;
 			if ( $(this).attr('data-var-title') !== '' ) {
 				title = $(this).attr('data-var-title');

@@ -64,12 +64,12 @@
 	<!-- EN: On/Off regesto -->
 	<!-- IT: Attiva/Disattiva regesto -->
 	<!-- default: false() -->
-	<xsl:param name="regesto" select="true()"/>
+	<xsl:param name="regesto" select="false()"/>
 	
 	<!-- EN: On/Off Front Information -->
 	<!-- IT: Attiva/Disattiva Front Information -->
 	<!-- default: true() -->
-	<xsl:param name="frontInfo" select="false()"/>
+	<xsl:param name="frontInfo" select="true()"/>
 	
 	<!-- EN: On/Off Manuscript Description -->
 	<!-- IT: Attiva/Disattiva Descrizione del manoscritto-->

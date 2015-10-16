@@ -317,8 +317,8 @@
 													<xsl:attribute name="class" select="'imageTopTool mainButtons toggleReg'"/>
 													<xsl:attribute name="id" select="'switchReg-add'"/>
 													<xsl:attribute name="value" select="'reg'"/>
-													<xsl:attribute name="title" select="$regesto_button_label"/>
-													<xsl:attribute name="data-var-title" select="'regesto_button_label'"/>
+													<xsl:attribute name="title" select="$regesto_button_title"/>
+													<xsl:attribute name="data-var-title" select="'regesto_button_title'"/>
 													<span data-var-text="regesto_button_label"><xsl:value-of select="$regesto_button_label"/></span>
 													<i class="fa fa-toggle-off"></i>
 												</xsl:element>
@@ -662,8 +662,8 @@
 											<xsl:attribute name="class">imageTopTool mainButtons toggleFront <xsl:if test="$right_frame_default_content='info'">active</xsl:if></xsl:attribute>
 											<xsl:attribute name="id" select="'switchFront'"/>
 											<xsl:attribute name="value" select="'reg'"/>
-											<xsl:attribute name="title" select="$front_button_label"/>
-											<xsl:attribute name="data-var-title" select="'front_button_label'"/>
+											<xsl:attribute name="title" select="$front_button_title"/>
+											<xsl:attribute name="data-var-title" select="'front_button_title'"/>
 											<span data-var-text="front_button_label"><xsl:value-of select="$front_button_label"/></span>
 											<i class="fa fa-info-circle"></i>
 										</xsl:element>
