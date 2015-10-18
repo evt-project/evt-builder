@@ -36,6 +36,7 @@ var first_dd, last_dd;
 var groupingPagesByDoc, optionTooltipInPages;
 
 $(function() {
+	window.lang = new jquery_lang_js();
 
 	"use strict";
 
@@ -177,9 +178,9 @@ $(function() {
 				else {
 					current_id = first_page_d;
 					if ( first_label_d.substr(-1).toLowerCase() == 'v' ) {
-						current_label = first_label_d+" - ("+STRINGS['pageMissing_alert_msg']+")";	
+						current_label = first_label_d+" - (<span lang='def'>PAGE_MISSING</span>)";	
 					} else {
-						current_label = "("+STRINGS['pageMissing_alert_msg']+") - "+ first_label_d;
+						current_label = "(<span lang='def'>PAGE_MISSING</span>) - "+ first_label_d;
 					}
 				}
 
@@ -319,6 +320,7 @@ $(function() {
 					$('<span />')
 						.addClass('labelList')
 						.attr('id', 'header_'+listName)
+						.attr('lang', 'def')
 						.text(listLabel)
 						.click(function(){
 							openList(this, listName);
@@ -344,6 +346,9 @@ $(function() {
 									showListElementOccurrences(this, listName);
 								});
 						}
+						/* Integration by LS */
+				        window.lang.run();  
+				        /* /end Integration by LS */
 					});
 				});
 				if ($.browser.safari) {
@@ -500,9 +505,9 @@ $(function() {
 							}
 						});
 						if ($("#span_pp_select .option[data-value='"+pp_val+"']").length == 1) {	
-							docs = STRINGS['text_singular_msg']+":<br />"+docs;
+							docs = '<span lang="def">DOCUMENT</span>'+docs;
 						} else {
-							docs = STRINGS['text_plural_msg']+":<br />"+docs;
+							docs = '<span lang="def">DOCUMENTS</span>'+docs;
 						}
 					} else {
 						first_doc = "<span>"+$("#span_tt_select .option_container .option[data-value='"+tt_val+"']").attr('data-real-label')+"</span>";
@@ -513,15 +518,16 @@ $(function() {
 							}
 						});
 						if (docs == "") {	
-							docs = STRINGS['text_singular_msg']+":<br />"+first_doc;
+							docs = '<span lang="def">DOCUMENT</span>'+first_doc;
 						} else {
-							docs = STRINGS['text_plural_msg']+":<br />"+first_doc+docs;
+							docs = '<span lang="def">DOCUMENTS</span>'+first_doc+docs;
 						}
 					}
 					$("#span_pp_select .option_tooltip")
 						.append(docs)
 						.show()
 						.offset({ top: ($(this).offset().top) });
+					window.lang.run();
 				}, function(){
 					$("#span_pp_select .option_tooltip")
 						.empty()
@@ -536,7 +542,7 @@ $(function() {
 						tt_vals = [];
 
 						for(var i = 0; i < pp_vals.length; i++) {
-							if ( pp_vals[i] != '' && pp_vals[i] != '('+STRINGS['pageMissing_alert_msg']+')' ) {
+							if ( pp_vals[i] != '' && pp_vals[i] != '(<span lang="def">PAGE_MISSING</span>)' ) {
 								$("#span_pp_select .option[data-value='"+pp_vals[i]+"']").each(function(){
 									var temp_tt_val;
 									temp_tt_val = $(this).parents('.optionGroup').attr('data-first-doc-group');
@@ -550,9 +556,9 @@ $(function() {
 						}
 
 						if ( tt_vals.length == 1 ) {	
-							docs = STRINGS['text_singular_msg']+":<br />"+tt_vals[0];
+							docs = '<span lang="def">DOCUMENT</span>'+tt_vals[0];
 						} else {
-							docs = STRINGS['text_plural_msg']+":<br />";
+							docs = '<span lang="def">DOCUMENTS</span>';
 							for(var i = 0; i < tt_vals.length; i++ ) {
 								docs += '<span>'+tt_vals[i]+'</span>';
 							}
@@ -562,6 +568,7 @@ $(function() {
 							.append(docs)
 							.show()
 							.offset({ top: ($(this).offset().top) });
+						window.lang.run();
 					}, function(){
 						$("#span_dd_select .option_tooltip_dd")
 							.empty()
@@ -793,7 +800,7 @@ $(function() {
 				    //$(this).addClass('selected');
 				    $(this).parents("div[id*='frame']").find('.list_active').removeClass('list_active');
 				    // se "pulisci selezione" l'etichetta prende "No selection"
-			        newLabel = STRINGS['noSelection_msg'];
+			        // newLabel = 'NO_SELECTION';
 			        newLabelVal = "clear";
 				} else if (classToBeActived == 'all') { //seleziona tutto
 				    //$(this).addClass('selected');
@@ -805,7 +812,7 @@ $(function() {
 				        } 
 				        $(this).siblings(".option[data-value='clear']").removeClass('selected');
 				    });
-				    newLabel = STRINGS['multiSelection_msg'];
+				    // newLabel = 'MULTI_SELECTION';
 				    newLabelVal = "multi";
 				} else {
 				   $(this).toggleClass('selected');
@@ -816,19 +823,20 @@ $(function() {
 				   filtersActive = $(this).parents('.option_container').find('.option.selected').length;
 				   switch(filtersActive){
 				       case 1:
-				                newLabel = $(this).parents('.option_container').find('.option.selected').text();
+				                // newLabel = $(this).parents('.option_container').find('.option.selected span').text();
 				                newLabelVal = $(this).parents('.option_container').find('.option.selected').attr('data-value');
 				                break;
 				       case 0:
-				                newLabel = "No selection";
+				                // newLabel = "NO_SELECTION";
 				                newLabelVal = "clear";
 				                break;
 				       default:
-				                newLabel = "Multi selection";
+				                // newLabel = "MULTI_SELECTION";
 				                newLabelVal = "multi";
 				                break;
 				   }
 				}
+				newLabel = window.lang.convert(newLabelVal, window.lang.currentLang);
 				$(this).parents('.option_container').siblings('.label_selected').text(newLabel);
 				$(this).parents('.option_container').siblings('.label_selected').attr('data-value', newLabelVal);
 			});
@@ -904,6 +912,11 @@ $(function() {
 					    $('.option_container:visible').animate({height:"toggle"}, 400);
 					}
 				}
+				if ( ($(e.target).parents("#settings_cont").length === 0) && !($("#settings_cont").is(':animated')) ) {
+					if ( $('#settings_cont').is(':visible') ) {
+						$('#settings_link').trigger('click');
+					}
+				}
 			});
 
 			/* ========================= */
@@ -975,13 +988,20 @@ $(function() {
 					        }
 					    });
 				    }
+				    /* Integration by LS */
+			        window.lang.run();  
+			        /* /end Integration by LS */
 			    });
 			}
 			
 			/* ============ */
 			/* FRONT MATTER */
 			if (($(xml).find('headerInfo').length > 0) && ($(xml).find('headerInfo').attr('active')==1)){
-			    $('#headerInfo_cont').load("data/output_data/prefatory_matter/header_info.html #headerInfo");
+			    $('#headerInfo_cont').load("data/output_data/prefatory_matter/header_info.html #headerInfo", function(){
+			    	/* Integration by LS */
+			        window.lang.run();  
+			        /* /end Integration by LS */
+			    });
 			    $('#info_link').click(function(){
 			        if($('#headerInfo_cont').is(':visible')){
 			            $('#headerInfo_cont').hide('fade', 'slow');
@@ -1008,6 +1028,15 @@ $(function() {
 			/* Fine integrazione by AB */
 			/* *********************** */
 
+			/* ****************** */
+			/* Integrazione by LS */
+			/* ****************** */
+			
+	        window.lang.run();
+	        
+			/* *********************** */
+			/* Fine integrazione by LS */
+			/* *********************** */
 			
 			/* ==/ GESTIONE EVENTI POST AJAX */
 			/* ============================= */
@@ -1070,14 +1099,15 @@ $(function() {
 					current_doc_el = $("#span_tt_select .option[data-value='"+current_doc+"']");
 					
 					if ( $('#inside_left_arrow').length > 0 || $('#inside_right_arrow').length > 0) {
+						var prefixText = window.lang.convert('GO_TO_TEXT', window.lang.currentLang);
 						if (current_doc_el.prev().text()  != "" ) {
-							$('#inside_left_arrow').attr('title', STRINGS['goToDocument_prefix_text']+' '+current_doc_el.prev().text());
+							$('#inside_left_arrow').attr('title', prefixText+' '+current_doc_el.prev().text());
 						} else {
 							$('#inside_left_arrow').attr('title', '');
 						}
 					
 						if (current_doc_el.next().text() != ""){
-							$('#inside_right_arrow').attr('title',  STRINGS['goToDocument_prefix_text']+' '+current_doc_el.next().text());
+							$('#inside_right_arrow').attr('title', prefixText+' '+current_doc_el.next().text());
 						} else {
 							$('#inside_right_arrow').attr('title', '');
 						}
@@ -1158,26 +1188,7 @@ $(function() {
 	});
 
 	$(document).ready(function(){
-		$("[data-var-text").each(function(){
-			var name = '' ;
-			if ( $(this).attr('data-var-text') !== '' ) {
-				name = $(this).attr('data-var-text');
-				if ( STRINGS[name] != undefined && STRINGS[name] !== '') {
-					$(this).text(STRINGS[name]);
-				}
-			}
-		});
-		$("[data-var-title]").each(function(){
-			var title = '' ;
-			if ( $(this).attr('data-var-title') !== '' ) {
-				title = $(this).attr('data-var-title');
-				if ( STRINGS[title] != undefined && STRINGS[title] !== '') {
-					$(this).attr('title', STRINGS[title]);
-				}
-			}
-			
-		});
-
+		
 		resizeGlobalTopBar();
 		
 		$('.mainButtons').each(function(){
@@ -1707,6 +1718,41 @@ $(function() {
 		/* //= VIEW MODES */
 		/* ============== */
 
+		/* ****************** */
+		/* Integrazione by LS */
+		/* ****************** */
+		$('#settings_link').click(function(){
+	        if($('#settings_cont').is(':visible')){
+	            $('#settings_cont').animate({
+					height:"toggle"
+				}, 400); 
+	        } else {
+	            $('#settings_cont').animate({
+					height:"toggle"
+				}, 400); 
+	        }
+	    });
+	    $('.flag').click(function(){
+			if ( !$(this).hasClass('active') ) {
+				var lang = $(this).attr('data-value');
+				$('.flag.active').removeClass('active');
+				window.lang.change(lang);
+				$(this).addClass('active');
+				$('#settings_link').trigger('click');
+			}
+		});
+		window.lang.run();
+		if ( window.lang.currentLang === 'undefined' ) {
+			window.lang.change('en');
+		} else {
+			$('.flag.active').removeClass('active');
+			$(".flag[data-value='"+window.lang.currentLang+"']").addClass('active');
+		}
+
+	    /* *********************** */
+		/* /END Integrazione by LS */
+		/* *********************** */
+
 		/* ***************************** */
 		/* / END Gestione click e eventi */
 		/* ***************************** */
@@ -1987,7 +2033,7 @@ $(function() {
 	            $('<li />')
 	                .addClass('list_element')
 	                .addClass('no_elements')
-	                .text(STRINGS['noElements_alert_msg'])
+	                .text("<span lang='def'>NO_ELEMENTS</span>")
 	                .appendTo('.ul_list:visible');
 	        }
 	    }
@@ -1995,6 +2041,8 @@ $(function() {
 	    $("div[id*='list_']").animate({
 	        scrollTop: 0
 	    }, 0);
+
+	    window.lang.run();
 	}
 
 	function openList(elem, listName){
@@ -2047,13 +2095,13 @@ $(function() {
 	                $(list_occ)
 	                    .find("span[data-pb='"+pb+"'][data-doc='"+doc+"']")
 	                    .attr('data-occ', occ)
-	                    .attr('title', occ+" "+STRINGS['occurrences_plural_text']);
+	                    .attr('title', occ+" "+window.lang.convert('OCCURRENCES', window.lang.currentLang));
 	                $(this).remove();
 	            } else {
 	            	$(this)
 	                    .attr('data-occ', '1')
-	                    .attr('title', "1 "+STRINGS['occurrences_singular_text'])
-	                    .text(STRINGS['occurrences_loc_page']+" "+pb_n+" - "+STRINGS['occurrences_loc_doc']+" "+doc_lab)
+	                    .attr('title', "1 "+window.lang.convert('OCCURRENCE', window.lang.currentLang))
+	                    .text(window.lang.convert('FOL', window.lang.currentLang)+" "+pb_n+" - "+window.lang.convert('DOC', window.lang.currentLang)+" "+doc_lab)
 	                    .click(function(){
 	                        goToOccurrencePage(this, pb, doc);
 	                    })
@@ -2062,9 +2110,10 @@ $(function() {
 	            }
 	        });
 	    } else {
-	        $(list_occ).append("<span class='no_occ'>"+STRINGS['no_occurrence']+".</span>");
+	        $(list_occ).append("<span class='no_occ' lang='def'>NO_MATCHES_FOUND</span>");
 	    }
 	    $(elem).append(list_occ);
+	    window.lang.run();
 	}
 
 	function goToOccurrencePage(elem, pb, doc){
@@ -2310,7 +2359,10 @@ $(function() {
 	            hide_regesto(id_regesto_cont, id_regesto);
 	            $('#switchReg').addClass('disabled').hide();
 	            resizeButtonsAndSelects();
-	        }   
+	        } 
+	        /* Integration by LS */
+	        window.lang.run();  
+	        /* /end Integration by LS */
 	    });
 	}
 
@@ -2459,7 +2511,10 @@ $(function() {
 	            hide_front(id_front_cont, id_front);
 	            $('#switchFront').addClass('disabled').hide();
 	            resizeButtonsAndSelects();
-	        }   
+	        } 
+	        /* Integration by LS */
+	        window.lang.run();  
+	        /* /end Integration by LS */  
 	    });
 	}
 
@@ -2933,6 +2988,9 @@ $(function() {
 	        }
 	        InitializePopup();
 	        InitializeSearch();
+	        /* Integration by LS */
+	        window.lang.run();  
+	        /* /end Integration by LS */
 	    });
 	    
 	    $('#text_cont').animate({
@@ -2946,7 +3004,11 @@ $(function() {
 	    if ($("#text_cont-add").length > 0){ //SISTEMARE
 	        edition_add=$("#span_ee_select-add .option_container .option.selected").text().toLowerCase();
 
-	        $('#text_elem-add').load("data/output_data/"+edition_add+"/page_"+pp_val+"_"+edition_add+".html #text_frame");
+	        $('#text_elem-add').load("data/output_data/"+edition_add+"/page_"+pp_val+"_"+edition_add+".html #text_frame", function(){
+	        	/* Integration by LS */
+		        window.lang.run();  
+		        /* /end Integration by LS */
+	        });
 	            
 	        // IT: Aggiorna le informazioni all'interno dell'etichetta destra   
 	        $('#zvalopz')
@@ -2996,14 +3058,17 @@ $(function() {
 	            InitializeSearch();
 	            
 	            if($("#"+pp_el).parents("div[id*='frame']").find('.like_select.filter')){
-	                    $("#"+pp_el)
-	                        .parents("div[id*='frame']")
-	                            .find('.like_select.filter')
-	                                .find('.option_container .option.selected')
-	                                    .removeClass('selected')
-	                                    .trigger('click');
-	                                    
-	                }
+                    $("#"+pp_el)
+                        .parents("div[id*='frame']")
+                            .find('.like_select.filter')
+                                .find('.option_container .option.selected')
+                                    .removeClass('selected')
+                                    .trigger('click');
+                                    
+                }
+	            /* Integration by LS */
+		        window.lang.run();  
+		        /* /end Integration by LS */
 	        }
 	    );
 
