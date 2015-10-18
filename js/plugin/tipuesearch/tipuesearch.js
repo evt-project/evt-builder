@@ -127,7 +127,7 @@ http://www.tipue.com/search
                                    } 
                     	     } else {
                                    $(set.elements[0]).trigger('keyup');
-                                   $(set.elements[4]).text(STRINGS['emptySearchAlertMsg'] || 'Enter your query in the search box above!');
+                                   $(set.elements[4]).empty().append('<span lang="def">ENTER_YOUR_QUERY_INTO_THE_SEARCH_BOX_ABOVE</span>');
                                    $(set.elements[4]).attr('data-value', '');
                                    $(set.elements[1], '#tipue_search_results_count', set.elements[6]).text('');
                               }
@@ -274,25 +274,25 @@ http://www.tipue.com/search
                          {
                               if (show_replace == 1)
                               {
-                                   out += '<div id="tipue_search_warning_head' + set.addId + '">'+ (STRINGS['show_results_for'] || 'Showing results for ') + d + '</div>';
-                                   out += '<div id="tipue_search_warning' + set.addId + '">'+ (STRINGS['search_for'] || 'Search for ') + ' <a href="javascript:void(0)" id="tipue_search_replaced' + set.addId + '">' + d_r + '</a></div>'; 
+                                   out += '<div id="tipue_search_warning_head' + set.addId + '"><span lang="def">SHOWING_RESULTS_FOR</span>'+ d + '</div>';
+                                   out += '<div id="tipue_search_warning' + set.addId + '"><span lanf="def">SEARCH_FOR</span><a href="javascript:void(0)" id="tipue_search_replaced' + set.addId + '">' + d_r + '</a></div>'; 
                               }
                               var results_text;
                               if (c == 1)
                               {
                                    //out += '<div id="tipue_search_results_count">1 result</div>';
-                                   results_text = (STRINGS['we_have_found'] || 'We have found') + ' ' + (STRINGS['one_result'] || '1 result');
+                                   results_text = '<span lang="def">WE_HAVE_FOUND</span><span lang="def">ONE_RESULT</span>';
                               }
                               else
                               {
                                    c_c = c.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                                    // out += '<div id="tipue_search_results_count">' + 'We have found ' + c_c + ' results in the ' + $("#span_ee_select .label_selected").text().toLowerCase() + ' edition </div>';
-                                   results_text = (STRINGS['we_have_found'] || 'We have found ') + c_c + ' ' + (STRINGS['results'] || 'results');
+                                   results_text = '<span lang="def">WE_HAVE_FOUND</span>' + c_c + ' <span lang="def">RESULTS</span>';
                               }
                               
                               if ($(set.elements[11] + " .option_container .option").length > 1 ) {
-                                   results_text += ' '+(STRINGS['in_the'] || 'in the')+' ';
-                                   results_text += $(set.elements[11] + " .label_selected").text().toLowerCase() + ' '+(STRINGS['edition'] || 'edition') + '.';
+                                   results_text += ' <span lang="def">IN_THE</span> ';
+                                   results_text += $(set.elements[11] + " .label_selected").text().toLowerCase() + ' <span lang="def">EDITION</span>.';
                               }
 
                               $(set.elements[10]).html('<div id="tipue_search_results_count' + set.addId + '" class="tipue_search_results_count">' + results_text + '</div>');
@@ -363,7 +363,7 @@ http://www.tipue.com/search
                                         out += '<div class="tipue_search_content_text">' + t_d + '</div>';
                                         out += '<div class="tipue_search_found_text">';
                                         out += '<span class="tipue_search_go_to_result" onclick="window.location.hash = \'doc='+text_id+'&page='+page_id+'\'; $(\''+set.elements[8]+'\').trigger(\'click\');">';                                        
-                                        out += (STRINGS['found_in'] || 'found in') + ' ' + text_label + ' '+(STRINGS['page'] || 'page')+' ' + page_n  + ' ('+ pos_label + ')</span></div>';
+                                        out += '<span lang="def">FOUND_IN</span> ' + text_label + ' <span lang="def">PAGE</span> ' + page_n  + ' ('+ pos_label + ')</span></div>';
                                         //out += '<p>-</p>';
                                         out += '<hr />';
                                         
@@ -442,26 +442,26 @@ http://www.tipue.com/search
                          }
                          else
                          {
-                              out += '<div id="tipue_search_warning_head' + set.addId + '">'+(STRINGS['nothing_found'] || 'Nothing found')+'</div>';
+                              out += '<div id="tipue_search_warning_head' + set.addId + '"><span lang="def">NOTHING_FOUND</span></div>';
                          }
                     }
                     else
                     {
                          if (show_stop)
                          {
-                              out += '<div id="tipue_search_warning_head' + set.addId + '">'+(STRINGS['nothing_found'] || 'Nothing found')+'</div>';
-                              out += '<div id="tipue_search_warning' + set.addId + '">'+(STRINGS['common_word_ignored_msg'] || 'Common words are largely ignored')+'</div>';
+                              out += '<div id="tipue_search_warning_head' + set.addId + '"><span lang="def">NOTHING_FOUND</span></div>';
+                              out += '<div id="tipue_search_warning' + set.addId + '"><span lang="def">COMMON_WORDS_IGNORED</span></div>';
                          }
                          else
                          {
-                              out += '<div id="tipue_search_warning_head' + set.addId + '">'+(STRINGS['search_too_short'] || 'Search too short')+'</div>';
+                              out += '<div id="tipue_search_warning_head' + set.addId + '"><span lang="def">SEARCH_TOO_SHORT</span></div>';
                               if (set.minimumLength == 1)
                               {
-                                   out += '<div id="tipue_search_warning' + set.addId + '">'+(STRINGS['more_char_alert'] || 'Should be one character or more')+'</div>';
+                                   out += '<div id="tipue_search_warning' + set.addId + '"><span lang="def">MORE_CHARACTER_ALERT</span></div>';
                               }
                               else
                               {
-                                   out += '<div id="tipue_search_warning' + set.addId + '">'+(STRINGS['should_be'] || 'Should be')+' ' + set.minimumLength +' '+(STRINGS['caracters_or_more'] || 'characters or more')+'</div>';
+                                   out += '<div id="tipue_search_warning' + set.addId + '"><span lang="def">SHOULD_BE</span> ' + set.minimumLength +' <span lang="def">CHARACTERS_OR_MORE</span></div>';
                               }
                          }
                     }
@@ -480,7 +480,10 @@ http://www.tipue.com/search
                          var id_a = id_v.split('_');
                     
                          getTipueSearch(parseInt(id_a[0]), id_a[1]);
-                    });                                                       
+                    });   
+
+                    /* Integrazione by LS*/
+                    window.lang.run();                                                    
                }          
           });
      };

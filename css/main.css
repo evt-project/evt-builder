@@ -1423,7 +1423,7 @@ footer{
 	color: #f5ead4;
 }
 
-#main_fullscreen, #info_link{
+#main_fullscreen, #info_link, #settings_link {
 	text-shadow: 0px 1px 4px #000;
 	color: #F5EAD4;
 	padding: 0px 7px;
@@ -1433,11 +1433,11 @@ footer{
 	font-size: 1em;
 }
 
-#info_link {
+#info_link, #settings_link {
 	display: inline;
 }
 
-#main_fullscreen:hover, #info_link:hover {
+#main_fullscreen:hover, #info_link:hover, #settings_link:hover {
 	height: 34px;
 	color:rgb(180,177,170);
 }
@@ -2494,4 +2494,59 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 	font-size: 0.55em; 
 	top: 5px; 
 	float: right;
+}
+
+/*css Luca Sarri*/
+ 
+ 
+#settings_cont{
+	display:none;  
+   	z-index:99999;
+   	position:absolute;
+   	top: 44px;
+	right: 1px;
+	box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.6);
+	background: #F5ECD5;
+    color: #3C322B;
+    border: 1px solid rgba(60, 50, 44, 0.5);
+}
+#settings_cont .setting_row {
+	border-bottom: 1px solid rgba(60, 50, 44, 0.5);
+	padding: 5px 10px;
+}
+#settings_cont .setting_row:last-child {
+	border:none;
+}
+#settings_cont h1{
+	margin-top: 10px;
+    font-size: 0.8em;
+    text-align: center;
+}
+.setting_row_title {
+	font-size:0.62em;
+	margin-right:10px;
+}
+.setting_row_title, .setting_row_content {
+	display: inline-block;
+}
+	
+.setting_row  img.flag {	
+	height: 18px;
+	width: 18px;
+	border-radius: 100px;
+	border: 1px solid #4E443C;
+	display: inline-block;
+	margin: 0px 4px;
+	box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.7);
+	position: relative;
+	top: 2px;
+	cursor:pointer;
+}
+.setting_row  img.flag:hover,
+.setting_row  img.flag.active{
+	box-shadow: none !important;
+}
+.setting_row  img.flag.active {
+	cursor: default;
+	opacity: .5;
 }
