@@ -92,13 +92,21 @@
 	<!-- EN: It is possible to skip production of pages for a specific edition simply removing the textual part of the corresponding item. -->
 	<!-- IT: E' possibile rimuovere la produzione di pagine di una determinata edizione semplicemente rimuovendo la parte testuale dell'item corrispondente. -->
 	<xsl:variable name="edition_array" as="element()*">
-		<edition></edition> 	
-		<!-- EN: For processing in the modules: $edition_array[1] -->
-		<!-- IT: Per l'elaborazione nei moduli: $edition_array[1] -->
+		<edition>Diplomatic</edition> 
+		<!-- EN: If you have diplomatic edition put <edition>Diplomatic</edition>.  
+			 	 If you DON'T have diplomatic edition put <edition></edition> -->
+		<!-- IT: Se si ha l'edizione diplomatica scrivere <edition>Diplomatic</edition>.  
+			 	 Se NON si ha l'edizione diplomatica mettere <edition></edition> -->
+		
+		<!-- EN: For processing in the modules: $edition_array[1] --> <!-- IT: Per l'elaborazione nei moduli: $edition_array[1] -->
 		
 		<edition>Interpretative</edition>	
-		<!-- EN: For processing in the modules: $edition_array[2] -->
-		<!-- IT: Per l'elaborazione nei moduli: $edition_array[2] -->					
+		<!-- EN: If you have diplomatic edition put <edition>Interpretative</edition>.  
+			 	 If you don't have diplomatic edition put <edition></edition> -->
+		<!-- IT: Se si ha l'edizione interpretativa scrivere <edition>Interpretative</edition>.  
+			 	 Se NON si ha l'edizione interpretativa mettere <edition></edition> -->
+		
+		<!-- EN: For processing in the modules: $edition_array[2] --> <!-- IT: Per l'elaborazione nei moduli: $edition_array[2] -->					
 		
 		<!-- EN: To add a new edition it is necessary to add a new line here and -forcedly- a declaration concerning output file in the modules/evt_builder-main.xsl file, under the <xsl:if test="$edition_array[2]!=''" condition>
 				For instance: <edition>New_edition</edition> -->
