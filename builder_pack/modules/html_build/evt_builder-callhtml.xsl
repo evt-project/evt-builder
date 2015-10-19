@@ -355,7 +355,7 @@
 													<xsl:attribute name="title" select="'INFORMATION_ABOUT_THIS_TEXT'"/>
 													<xsl:attribute name="lang" select="'def'"/>
 													<span lang="def">INFO</span>
-													<i class="fa fa-toggle-off"></i>
+													<i class="fa fa-info"></i>
 												</xsl:element>
 											</xsl:if>
 										</xsl:if>
@@ -489,32 +489,35 @@
 												<i class="fa fa-search"></i>
 											</xsl:element>
 										</xsl:if>
-										<xsl:element name="span">
-											<xsl:attribute name="id" select="'span_list_select-add'"/>
-											<xsl:attribute name="class" select="'like_select filter'"/>
-											<xsl:attribute name="title" select="'SELECTOR_ENTITIES'"/>
-											<xsl:attribute name="lang" select="'def'"/>
-											<div class="main_list_select">
-												<span data-value="none" class="label_selected" lang="def">NO_SELECTION</span>
-												<div class="open_select open_up">
-													<i class="fa fa-sort-asc"></i>
+										<xsl:if test="count($lists) > 0">
+											<xsl:element name="span">
+												<xsl:attribute name="id" select="'span_list_select-add'"/>
+												<xsl:attribute name="class" select="'like_select filter'"/>
+												<xsl:attribute name="title" select="'SELECTOR_ENTITIES'"/>
+												<xsl:attribute name="lang" select="'def'"/>
+												<div class="main_list_select">
+													<span data-value="none" class="label_selected" lang="def">NO_SELECTION</span>
+													<div class="open_select open_up">
+														<i class="fa fa-sort-asc"></i>
+													</div>
+													<div class="option_container up">
+														<xsl:for-each select="$lists">
+															<xsl:if test="./normalize-space()">
+																<xsl:element name="div">
+																	<xsl:attribute name="class">option </xsl:attribute>
+																	<xsl:attribute name="data-value"><xsl:value-of select="name(.)"/></xsl:attribute>
+																	<i class="fa fa-circle filter_color"></i>
+																	<xsl:value-of select="."/>
+																</xsl:element>
+															</xsl:if>
+														</xsl:for-each>
+														<div class="option" data-value="all" lang="def">SELECT_ALL</div>
+														<div class="option" data-value="clear" lang="def">CLEAR_SELECTION</div>
+													</div>
 												</div>
-												<div class="option_container up">
-													<xsl:for-each select="$lists">
-														<xsl:if test="./normalize-space()">
-															<xsl:element name="div">
-																<xsl:attribute name="class">option </xsl:attribute>
-																<xsl:attribute name="data-value"><xsl:value-of select="name(.)"/></xsl:attribute>
-																<i class="fa fa-circle filter_color"></i>
-																<xsl:value-of select="."/>
-															</xsl:element>
-														</xsl:if>
-													</xsl:for-each>
-													<div class="option" data-value="all" lang="def">SELECT_ALL</div>
-													<div class="option" data-value="clear" lang="def">CLEAR_SELECTION</div>
-												</div>
-											</div>
-										</xsl:element>
+											</xsl:element>	
+										</xsl:if>
+										
 										<span class="mainButtons small font-size-controller" data-action="decrease" lang="def" title="DECREASE_FONT_SIZE">
 											<i class="fa fa-font"></i>
 											<i class="fa fa-minus"></i>
@@ -832,30 +835,32 @@
 										<i class="fa fa-list"></i>
 									</xsl:element>
 								</xsl:if>
-								<xsl:element name="span">
-									<xsl:attribute name="id" select="'span_list_select'"/>
-									<xsl:attribute name="class" select="'like_select filter'"/>
-									<xsl:attribute name="title" select="'SELECTOR_ENTITIES'"/>
-									<xsl:attribute name="lang" select="'def'"/>
-									<div class="main_list_select">
-										<span data-value="none" class="label_selected" lang="def">NO_SELECTION</span>
-										<div class="open_select open_up">
-											<i class="fa fa-sort-asc"></i>
+								<xsl:if test="count($lists) > 0">
+									<xsl:element name="span">
+										<xsl:attribute name="id" select="'span_list_select'"/>
+										<xsl:attribute name="class" select="'like_select filter'"/>
+										<xsl:attribute name="title" select="'SELECTOR_ENTITIES'"/>
+										<xsl:attribute name="lang" select="'def'"/>
+										<div class="main_list_select">
+											<span data-value="none" class="label_selected" lang="def">NO_SELECTION</span>
+											<div class="open_select open_up">
+												<i class="fa fa-sort-asc"></i>
+											</div>
+											<div class="option_container up">
+												<xsl:for-each select="$lists">
+													<xsl:element name="div">
+														<xsl:attribute name="class">option </xsl:attribute>
+														<xsl:attribute name="data-value"><xsl:value-of select="name(.)"/></xsl:attribute>
+														<i class="fa fa-circle filter_color"></i>
+														<span lang="def"><xsl:value-of select="name(.)"/></span>
+													</xsl:element>
+												</xsl:for-each>
+												<div class="option" data-value="all" lang="def">SELECT_ALL</div>
+												<div class="option" data-value="clear" lang="def">CLEAR_SELECTION</div>
+											</div>
 										</div>
-										<div class="option_container up">
-											<xsl:for-each select="$lists">
-												<xsl:element name="div">
-													<xsl:attribute name="class">option </xsl:attribute>
-													<xsl:attribute name="data-value"><xsl:value-of select="name(.)"/></xsl:attribute>
-													<i class="fa fa-circle filter_color"></i>
-													<span lang="def"><xsl:value-of select="name(.)"/></span>
-												</xsl:element>
-											</xsl:for-each>
-											<div class="option" data-value="all" lang="def">SELECT_ALL</div>
-											<div class="option" data-value="clear" lang="def">CLEAR_SELECTION</div>
-										</div>
-									</div>
-								</xsl:element>
+									</xsl:element>
+								</xsl:if>
 								<span class="mainButtons small font-size-controller" data-action="decrease" title="DECREASE_FONT_SIZE" lang="def">
 									<i class="fa fa-font"></i>
 									<i class="fa fa-minus"></i>
