@@ -10,6 +10,9 @@
  * @author RafMas 
  * @since 2012
  * 
+ * @author Julia Kenny - JK
+ * @from 2012 @to 2014	
+
  * @author ChiaraDipi - CDP
  * @since 2013	
  **/

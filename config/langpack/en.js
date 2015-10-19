@@ -11,6 +11,7 @@ jquery_lang_js.prototype.lang.en = {
 	"ITALIAN": "Italian",
 	"FRENCH": "French",
 	"GO_FULLSCREEN": "Go Fullscreen",
+    "EXIT_FULLSCREEN": "Exit Fullscreen",
 	"TOGGLE_MENU": "Toggle Menu",
 	"PREVIOUS_PAGE": "Previous Page",
 	"NEXT_PAGE": "Next Page",
