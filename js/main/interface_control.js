@@ -83,7 +83,7 @@ $(function() {
 				$('#span_ee_select, #span_ee_select-add').removeClass('hidden');
 			} 
 			// Se ho il regesto e un solo livello di edizione
-			if ($('#regesto_cont').length > 0 && $("#span_ee_select").find('.option').length == 1 ) {
+			if ( $(xml).find('regesto').length > 0 && $(xml).find('editions edition').length == 1 ) {
 				// Rimuovo i pulsanti dal menu inferiore perché inutili
 				// (ricerca, liste, filtri)
 				$('#search_link-add, #list_link-add, #span_list_select-add').remove();
@@ -496,7 +496,7 @@ $(function() {
 					tt_val = $(this).attr('data-first-doc');
 					docs = "";
 					if ( groupingPagesByDoc ) {
-						$("#span_pp_select .option[data-value='"+pp_val+"']").each(function(){
+						$(this).parents('.main_pp_select').find(".option[data-value='"+pp_val+"']").each(function(){
 							if($(this).attr('data-value') != tt_val){
 								var temp_tt_val;
 								temp_tt_val = $(this).parents('.optionGroup').attr('data-first-doc-group');
@@ -504,7 +504,7 @@ $(function() {
 								docs += "<span>"+temp_tt+"</span>";
 							}
 						});
-						if ($("#span_pp_select .option[data-value='"+pp_val+"']").length == 1) {	
+						if ($(this).parents('.main_pp_select').find(".option[data-value='"+pp_val+"']").length == 1) {	
 							docs = '<span lang="def">DOCUMENT</span>'+docs;
 						} else {
 							docs = '<span lang="def">DOCUMENTS</span>'+docs;
@@ -523,13 +523,13 @@ $(function() {
 							docs = '<span lang="def">DOCUMENTS</span>'+first_doc+docs;
 						}
 					}
-					$("#span_pp_select .option_tooltip")
+					$(this).parents('.main_pp_select').find(".option_tooltip")
 						.append(docs)
 						.show()
 						.offset({ top: ($(this).offset().top) });
 					window.lang.run();
 				}, function(){
-					$("#span_pp_select .option_tooltip")
+					$(this).parents('.main_pp_select').find(".option_tooltip")
 						.empty()
 						.hide()
 					;
@@ -1413,7 +1413,7 @@ $(function() {
 		        var front_cont;
 		        $(this)
 		            .toggleClass('active');
-		        if ( $(this).attr('id') == "switchReg-add" ) {
+		        if ( $(this).attr('id') == "switchFront-add" ) {
 		            front_cont = "#front_cont-add";
 		        } else {
 		            front_cont = "#front_cont";
@@ -2224,7 +2224,7 @@ $(function() {
 	}
 	
 	function InitializeLinkTextList(){
-	    $('span.tooltip span.entity_name.link_active').click(function() {
+	    $('span.tooltip span.entity_name.link_active').unbind('click').click(function() {
 	        var id_ref, order_list;
 
 	        $(this).parent('.tooltip').siblings('.trigger').trigger('click');
@@ -2500,16 +2500,19 @@ $(function() {
 	                }
 	                if ( $('#switchFront').hasClass('disabled') ) {
 	                    $('#switchFront').removeClass('disabled').show();
+	                    $('#front_cont').show();
 	                    resizeButtonsAndSelects();
 	                }
 	            } else { 
 	                hide_front(id_front_cont, id_front);
 	                $('#switchFront').addClass('disabled').hide();
+	                $('#front_cont').hide();
 	                resizeButtonsAndSelects();
 	            }
 	        } else { 
 	            hide_front(id_front_cont, id_front);
 	            $('#switchFront').addClass('disabled').hide();
+	            $('#front_cont').hide();
 	            resizeButtonsAndSelects();
 	        } 
 	        /* Integration by LS */
@@ -2769,8 +2772,10 @@ $(function() {
 	   - aggiunta della classe "inPage" alle option dei documenti contenuti nella pagina selezionata
 	 */
 	function selectPP(current_page, pp_lab, tt_val){
+		console.log('PP. '+tt_val);
 	    var dd_opt, dd_val, dd_lab, dd_first_doc;
 	    
+	    // SELETTORE PAGINE
 	    $('#span_pp_select .label_selected')
 	        .attr('data-value', current_page)
 	        .attr('data-first-doc', tt_val)
@@ -2782,6 +2787,19 @@ $(function() {
 	    $("#span_pp_select .option[data-value='"+current_page+"']")
 	        .addClass('selected');
 
+	    // SELETTORE PAGINE DUPLICATO NEL FRAME SINISTRO
+	    $('#span_pp_select-add .label_selected')
+	        .attr('data-value', current_page)
+	        .attr('data-first-doc', tt_val)
+	        .text(pp_lab);
+
+	    $("#span_pp_select-add .option[data-value!='"+current_page+"']")
+	        .removeClass('selected');
+
+	    $("#span_pp_select-add .option[data-value='"+current_page+"']")
+	        .addClass('selected');
+
+	    // SELETTORE PAGINE BOOK READER
 	    $('#span_dd_select .option')
 	        .removeClass('selected');
 	    
@@ -2799,15 +2817,20 @@ $(function() {
 	        .text(dd_lab);
 	    $('.inPage').removeClass('inPage');
 	    
+	   	
+	   	// GESTIONE DOCUMENTI MULTIPLI SU STESSA PAGINA
 	    $("#span_tt_select .option[data-value='"+tt_val+"']").addClass('inPage');
-	    
+
+	    $("#span_tt_select-add .option[data-value='"+tt_val+"']").addClass('inPage');
+
 	    // #CDP. Add scroll to elemento
 	    
 	    $("#span_tt_select .option[data-first-page='"+current_page+"']").addClass('inPage');
+	    $("#span_tt_select-add .option[data-first-page='"+current_page+"']").addClass('inPage');
 	    
-	    if ($('.inPage').length > 1) {
-	        var actual_label = $('.main_tt_select .label_selected').text();
-	        $('.main_tt_select .label_selected').text(actual_label);
+	    if ($("#span_tt_select").find('.inPage').length > 1) {
+	        var actual_label = $('#span_tt_select .label_selected').text();
+	        $('#span_tt_select .label_selected, #span_tt_select-add .label_selected').text(actual_label);
 	    } 
 	}
 
@@ -2815,28 +2838,46 @@ $(function() {
 	   - aggiornamento della label del selettore dei documenti
 	*/
 	function selectTT(current_doc){
+		console.log('TT. '+current_doc);
 	    var current_doc_lab = $("#span_tt_select .option_container .option[data-value='"+current_doc+"']").text();
+	    // SELETTORE TESTI
 	    $('#span_tt_select .label_selected')
 	        .attr('data-value', current_doc)
 	        .text(current_doc_lab);
 	    
+	    // SELETTORE TESTI DUPLICATO NEL FRAME SINISTRO
+	    $('#span_tt_select-add .label_selected')
+	        .attr('data-value', current_doc)
+	        .text(current_doc_lab);
+
+	    // GESTIONE DOCUMENTI MULTIPLI SU STESSA PAGINA
 	    var pp_first_doc_val = $("#span_pp_select .option_container .option.selected").attr('data-first-doc');  
 	    $("#span_tt_select .option[data-value='"+pp_first_doc_val+"']").addClass('inPage');
-	    
+
 	    $("#span_tt_select .option_container .option[data-value='"+current_doc+"']")
 	        .addClass('selected')
 	        .addClass('inPage')
 	            .siblings('.selected')
 	                .removeClass('selected');
-	    if ( $('.inPage').length > 1 ) {
-	        var actual_label = $('.main_tt_select .label_selected').text();
-	        $('.main_tt_select .label_selected').text(actual_label);
+
+	    // SELETTORE TESTI DUPLICATO NEL FRAME SINISTRO
+	    $("#span_tt_select-add .option[data-value='"+pp_first_doc_val+"']").addClass('inPage');
+	    $("#span_tt_select-add .option_container .option[data-value='"+current_doc+"']")
+	        .addClass('selected')
+	        .addClass('inPage')
+	            .siblings('.selected')
+	                .removeClass('selected');
+
+	    if ( $("#span_tt_select").find('.inPage').length > 1 ) {
+	        var actual_label = $('#span_tt_select .label_selected').text();
+	        $('#span_tt_select .label_selected').text(actual_label);
+	        $('#span_tt_select-add .label_selected').text(actual_label);
 	    }
 
 	    $('.doc.current').removeClass('current').addClass('not_current');
 	    $(".doc[data-doc='"+current_doc+"']").removeClass('not_current').addClass('current');
 	    if ( $('.doc.current').length > 0 && $('.doc.current').position() != undefined ){
-	        $('#text_cont').animate({
+	        $('#text_cont, #text_cont-add').animate({
 	            scrollTop: ($('.doc.current').position().top)
 	        },200);
 	    }
@@ -2873,16 +2914,10 @@ $(function() {
 	        updateHash(tt_val, pp_val, "");
 
 	        if ( $('.doc.current').length > 0 && $('.doc.current').position() != undefined ){
-	            $('#text_cont').animate({
+	            $('#text_cont, #text_cont-add').animate({
 	                scrollTop: ($('.doc.current').position().top)
 	            },200);
 	        }
-
-	        $("#span_tt_select .option.selected").removeClass('selected');
-	        $("#span_tt_select .option[data-value='"+tt_val+"']").addClass('selected');
-	        $("#span_tt_select .label_selected")
-	            .attr("data-value", tt_val)
-	            .text(tt_lab);
 	    }
 	}
 
@@ -2908,17 +2943,19 @@ $(function() {
 	                'line-height': (current_font_size+10)+'px'
 	            });
 	        //IT: Attiva occorrenza in lista 
-	        if ( $('.list').length > 0 && $('.list_element.list_element_opened').length > 0 ) {
-	            $('.selected_from_list').removeClass('selected_from_list')
-	            $('.list_element_opened').each(function() {
+	        var right_frame = $('#main_right_frame');
+	        if ( right_frame.find('.list').length > 0 && 
+	        	 right_frame.find('.list_element.list_element_opened').length > 0 ) {
+	            right_frame.find('.selected_from_list').removeClass('selected_from_list')
+	            right_frame.find('.list_element_opened').each(function() {
 	                var ref;
 	                ref = $(this).attr('id');
 	                $("#text span[data-ref='"+ref+"']").addClass('selected_from_list');
 	            });
 	        }
 	        //IT: Riattiva filtri attivi
-	        if ( $('.like_select.filter').length > 0 ) {
-	            $('.like_select.filter').find('.option.selected').removeClass('selected').trigger('click');
+	        if ( right_frame.find('.like_select.filter').length > 0 ) {
+	            right_frame.find('.like_select.filter').find('.option.selected').removeClass('selected').trigger('click');
 	        }
 
 	        //IT: controlla se la pagine ha gli elementi necessari allo strumento ITL
@@ -2951,9 +2988,9 @@ $(function() {
 	            .removeAttr('title')
 	            .addClass('current');
 
-	        if ($('.doc').length > 0) {
+	        if ($('#text_cont .doc').length > 0) {
 	            $('#text_cont').animate({
-	                scrollTop: ($('.doc.current').position().top)
+	                scrollTop: ($('#text_cont .doc.current').position().top)
 	            },0);
 
 	            $("#text_cont .doc").click(function(){
@@ -2973,38 +3010,74 @@ $(function() {
 	            }
 	        });
 
-	        if ($('#text_cont-add').is(':visible')) {
-	            $('#text_elem-add').remove();
-	            $('#text_elem')
-	                .clone()
-	                .attr("id", "text_elem-add")
-	                .appendTo('#text_cont-add')
-	            ;
-	            $('#text_elem-add')
-	                .find('#text_frame')
-	                    .attr('id', 'text_frame-add')
-	                    .find('#text')
-	                        .attr('#text-add');
-	        }
 	        InitializePopup();
 	        InitializeSearch();
 	        /* Integration by LS */
 	        window.lang.run();  
 	        /* /end Integration by LS */
 	    });
+	    if ( $("#text_cont .doc").length == 0 ) {
+	    	$('#text_cont').animate({
+		        scrollTop: 0
+		    });	
+	    }
 	    
-	    $('#text_cont').animate({
-	        scrollTop: 0
-	    });
 	    if($('.current_mode').attr('id') === 'txttxt_link'){
-	        $('#text_cont-add').animate({ scrollTop: 0 });
+	        if ( $("#text_cont-add .doc").length == 0 ) {
+	        	$('#text_cont-add').animate({ scrollTop: 0 });
+	        }
 	    }
 	    
 	    // IT: Aggiorna l'indirizzo del frame secondario per il testo
 	    if ($("#text_cont-add").length > 0){ //SISTEMARE
-	        edition_add=$("#span_ee_select-add .option_container .option.selected").text().toLowerCase();
+	    	edition_add = $("#span_ee_select-add .option_container .option.selected").text().toLowerCase();
 
 	        $('#text_elem-add').load("data/output_data/"+edition_add+"/page_"+pp_val+"_"+edition_add+".html #text_frame", function(){
+	        	$('#text_cont-add')
+		            .css({
+		                'font-size': current_font_size+'px',
+		                'line-height': (current_font_size+10)+'px'
+		            });
+		        //IT: Attiva occorrenza in lista 
+		        var left_frame = $('#main_left_frame');
+		        if ( left_frame.find('.list').length > 0 &&
+		        	 left_frame.find('.list_element.list_element_opened').length > 0 ) {
+		            
+		            left_frame.find('.selected_from_list').removeClass('selected_from_list')
+		            left_frame.find('.list_element_opened').each(function() {
+		                var ref;
+		                ref = $(this).attr('id');
+		                $("#text span[data-ref='"+ref+"']").addClass('selected_from_list');
+		            });
+		        }
+		        //IT: Riattiva filtri attivi
+		        if ( left_frame.find('.like_select.filter').length > 0 ) {
+		            left_frame.find('.like_select.filter').find('.option.selected').removeClass('selected').trigger('click');
+		        }
+
+		        // Aggiorna eventi sul click negli elementi del text
+		        var current_tt, current_doc_title;
+		        current_tt = $('#span_tt_select-add .option_container .option.selected').attr('data-value');
+		        $("#text_cont-add .doc[data-doc!='"+current_tt+"']").addClass('not_current');
+		        current_doc_title = $("#text_cont-add .doc[data-doc='"+current_tt+"']").attr('title');
+		        
+		        $("#text_cont-add .doc[data-doc='"+current_tt+"']")
+		            .attr('tempTitle', current_doc_title)
+		            .removeAttr('title')
+		            .addClass('current');
+
+		        if ($('#text_cont-add .doc').length > 0) {
+		            $('#text_cont-add').animate({
+		                scrollTop: ($('#text_cont-add .doc.current').position().top)
+		            },0);
+
+		            $("#text_cont-add .doc").click(function(){
+		                selectDocumentInPage(this);
+		            });
+		        }
+
+		        InitializePopup();
+		        InitializeSearch();
 	        	/* Integration by LS */
 		        window.lang.run();  
 		        /* /end Integration by LS */
@@ -3035,7 +3108,7 @@ $(function() {
 	    } //Add by JK for HS
 	    $('#'+pp_el).load("data/output_data/"+ee_val+"/page_"+pp_val+"_"+ee_val+".html #text_frame",
 	        function(status) {
-	            $('#'+frame_id+" .doc[data-doc!='"+tt_val+"']").hide();
+	            $('#'+frame_id+" .doc[data-doc!='"+tt_val+"']").addClass('not_current');
 
 	            // IT: se il pulsante ITL è attivo e non sono in modalità txttxt, attiva ITL
 	            if ($("#switchITL i").hasClass('fa fa-chain')){
@@ -4218,6 +4291,8 @@ $(function() {
         if($('.go-full-left').hasClass('onWhite')){
             $('.go-full-left').removeClass('onWhite');
         }
+
+        $('#span_pp_select-add, #span_tt_select-add').remove();
 	}
 
 	function openTxtTxtMode() {
@@ -4231,19 +4306,22 @@ $(function() {
                 .removeClass("current_mode");
         
         // Nascondo menu, pulsanti e selettori relativi alle immagini /bookreader
-        $("#image_menu").hide();
-        $("#mag").hide();
-        $("#image_cont").hide();
-        $("#msDesc_cont").hide();
-        $("#span_dd_select").hide();
+        $("#image_menu, #mag, #image_cont, #msDesc_cont, #span_dd_select").hide();
 
+        // GESTIONE NAVIGAZIONE DOCUMENTO
         if ( $('#inside_right_arrow').length > 0 || $('#inside_right_arrow').length > 0 ){
             $('#inside_left_arrow-add, #inside_right_arrow-add').show();
         }
         
-        $('#span_pp_select').show();
-        $('#span_pp_select').css("top", "0px"); // #CDP. Rimuovere e gestire con css
+        // GESTIONE SELETTORI PAGINE E DOCUMENTO
+        if ( !$("#span_pp_select").is(':visible') ){
+        	$('#span_pp_select').show();
+        }
+        if ( !$("#span_tt_select").is(':visible') ){
+        	$('#span_tt_select').show();
+        }
 
+        // GESTIONE MENU STRUMENTI TESTO BOX SINISTRO
         if ( !$('#text_tool').hasClass('menuClosed') ) { 
             $('#text_tool-add').show();
         }
@@ -4286,6 +4364,11 @@ $(function() {
                     .attr('id', 'text_frame-add')
                     .find('#text')
                         .attr('id', 'text-add');
+        if ($('#text_cont-add .doc').length > 0) {
+            $('#text_cont-add').animate({
+                scrollTop: ($('#text_cont-add .doc.current').position().top)
+            },0);
+        }
 
         // Aggiorno (eventualmente) le dimensioni del selettore delle edizioni nel menu di sinistra
         if (!$('#left_header').hasClass('menuClosed')) {
@@ -4309,13 +4392,11 @@ $(function() {
 
         // Se ho il REGESTO e un solo livello di edizione
         if ( $('#regesto_cont').length > 0 && $("#span_ee_select").find('.option').length == 1 ) {
-
-            if ( ! $('#regesto_cont').is(':visible') ){
+            if ( ! $('#regesto_cont').is(':visible') ) {
                 $('#regesto_cont').show();      
             }
-            
             // Se il contanitore del regesto non è nel box di sinistra lo sposto da destra a sinistra
-            if ( $('#main_left_frame').find('#regesto_cont').length <= 0 ){
+            if ( $('#main_left_frame').find('#regesto_cont').length <= 0 ) {
                 $('#regesto_cont')
                     .detach()
                     .insertAfter("#left_header")
@@ -4361,13 +4442,25 @@ $(function() {
         } 
         else {
             //$('#zvalint').hide(); //SISTEMARE
-            //$('#zvalopz').text($("input[name=edition_r]:checked").val());         
+            //$('#zvalopz').text($("input[name=edition_r]:checked").val());
             $('#span_ee_select-add').css({display: "inline-block"});
             //$('#switchReg-add').css({display: "inline-block"});
-            //$("#span_ee_select-add").show();
             $('#span_ee_select-add').find('.selected').removeClass('selected');
             var current_right_edition = $('#span_ee_select').find('.label_selected').attr('data-value');
             $("#span_ee_select-add .option_container .option[data-value!='"+current_right_edition+"']:first").trigger('click');
+
+            // DUPLICO PULSANTI DI NAVIGAZIONE PRESENTI NEL FRAME DI DESTRA
+            $('#span_pp_select')
+            	.clone(true)
+            		.attr('id', 'span_pp_select-add')
+            		.prependTo('#left_menu')
+            		.css('display', 'inline-block');
+
+            $('#span_tt_select')
+            	.clone(true)
+            		.attr('id', 'span_tt_select-add')
+            		.prependTo('#left_menu')
+            		.css('display', 'inline-block');
         }
 
         //fitFrame();
@@ -4458,6 +4551,8 @@ $(function() {
         if($('.go-full-left').hasClass('onWhite')){
             $('.go-full-left').removeClass('onWhite');
         }
+
+        $('#span_pp_select-add, #span_tt_select-add').remove();
     }
     
     function openTxtSingleMode(){
