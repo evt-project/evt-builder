@@ -1023,12 +1023,12 @@ footer{
 	border-radius: 3px;
 	text-align: center;
 }
-#text_tool .mainButtons {
+#text_tool .mainButtons, #text_tool-add .mainButtons {
 	top:7px;
 }
-#text_tool-add #search_link-add {
+/*#text_tool-add #search_link-add {
 	top:0px;
-}
+}*/
 #right_header .like_select{
 	/*left:-8px;*/
 	display: inline-block;
