@@ -554,6 +554,7 @@ footer{
 
 #text_elem, #text_elem-add, #regesto, #regesto-add{
 	width: 99.4%;
+	width: 100%;
 	min-height: 456px;
 	overflow: visible;
 	position: relative;
@@ -582,7 +583,8 @@ footer{
 	/*Chiara*/
 	height: 100%;
 	overflow-y: hidden;
-	width: 85%;
+	width: auto;
+	max-width: 85%;
 	/*margin-top: -20px;*/
 	padding: 10px 10px 30px 20px;
 }

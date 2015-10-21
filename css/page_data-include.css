@@ -38,7 +38,7 @@ div[id*='regesto'] hr{
 #text_frame{
 	background: white;
 	margin-top: -30px;
-	max-width: 600px;
+	/*max-width: 600px;*/
 	padding-left: 10px;
 	margin: 10px auto;
 	text-align: left;
@@ -60,7 +60,7 @@ div[id*='regesto'] hr{
 }
 .full #text_frame, .full #text_frame-add,
 .full #regesto, .full #regesto-add{
-	max-width: 1000px;
+/*	max-width: 1000px;*/
 }
 .right {
 	position: absolute;
@@ -129,13 +129,13 @@ DIV.facs-right, SPAN.facs-right {
 	display: block; 
     */
     text-align: right;
-    width: 92%;
+    /*width: 92%;*/
     display: inline-table;
     background:#FFF;
 }
 
 DIV.facs-left{
-    width: 92%;
+    /*width: 92%;*/
     display: inline-table;
 }
 
@@ -283,13 +283,13 @@ div.dipl-right, span.dipl-right {
 	*/
 	/*CDP*/
 	text-align: right;
-    width: 92%;
+    /*width: 92%;*/
     display: inline-table;
     background:#FFF; 
 }
 
 div.dipl-left, span.dipl-left{
-    width: 92%;
+/*    width: 92%;*/
     display: inline-table;
 }
 
