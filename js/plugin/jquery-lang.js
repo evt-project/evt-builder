@@ -94,6 +94,8 @@ jquery_lang_js.prototype.run = function () {
 		else
 			this.change(this.currentLang);			
 	}
+
+	console.log(this.currentLang);
 }
 
 jquery_lang_js.prototype.loadPack = function (packPath) {

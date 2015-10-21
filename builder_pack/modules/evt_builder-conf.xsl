@@ -245,7 +245,7 @@
 	<!-- EN: On/Off Virtual Keyboard for search -->
 	<!-- IT: Attiva/Disattiva Tastiera virtuale per ricerca -->
 	<!-- default: true() -->
-	<xsl:param name="virtual_keyboard_search" select="false()"/>
+	<xsl:param name="virtual_keyboard_search" select="true()"/>
 	
 	<!-- EN: On/Off Document Navigation -->
 	<!-- IT: Attiva/Disattiva navigazione per documento -->
