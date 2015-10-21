@@ -3817,10 +3817,10 @@ $(function() {
         }
         
 		$('#main_left_frame').animate({
-			width: width_full-8,
+			width: width_full,
 			height: height_full,
 			top: margin_top,
-			left: margin_left+8,
+			left: margin_left,
 			minWidth: "1021px"
 		}, 700, function(){
 			$('#left_header .closeFullScreen').toggle();
@@ -3968,10 +3968,10 @@ $(function() {
 		margin_top = -($('#main_right_frame'+suffix).offset().top);
 		
 		$('#main_right_frame'+suffix).animate({
-			width: width_full-8,
+			width: width_full,
 			height: height_full,
 			marginTop: margin_top,
-			left: margin_left+8,
+			left: margin_left,
 			right:0,
 			minWidth: "1021px",
 		}, 700, function(){
