@@ -350,7 +350,10 @@ $(function() {
 								});
 						}
 						/* Integration by LS */
-				        window.lang.run();  
+				        if ( $("[lang!='"+window.lang.currentLang+"']").length > 0 ) {
+				        	// console.log('Change lang for lists');
+				        	window.lang.update(window.lang.currentLang);
+				        }
 				        /* /end Integration by LS */
 					});
 				});
@@ -508,9 +511,9 @@ $(function() {
 							}
 						});
 						if ($(this).parents('.main_pp_select').find(".option[data-value='"+pp_val+"']").length == 1) {	
-							docs = '<span lang="def">DOCUMENT</span>'+docs;
+							docs = '<span lang="'+window.lang.currentLang+'">'+window.lang.convert('DOCUMENT', window.lang.currentLang)+'</span>'+docs;
 						} else {
-							docs = '<span lang="def">DOCUMENTS</span>'+docs;
+							docs = '<span lang="'+window.lang.currentLang+'">'+window.lang.convert('DOCUMENTS', window.lang.currentLang)+'</span>'+docs;
 						}
 					} else {
 						first_doc = "<span>"+$("#span_tt_select .option_container .option[data-value='"+tt_val+"']").attr('data-real-label')+"</span>";
@@ -521,16 +524,16 @@ $(function() {
 							}
 						});
 						if (docs == "") {	
-							docs = '<span lang="def">DOCUMENT</span>'+first_doc;
+							docs = '<span lang="'+window.lang.currentLang+'">'+window.lang.convert('DOCUMENT', window.lang.currentLang)+'</span>'+first_doc;
 						} else {
-							docs = '<span lang="def">DOCUMENTS</span>'+first_doc+docs;
+							docs = '<span lang="'+window.lang.currentLang+'">'+window.lang.convert('DOCUMENTS', window.lang.currentLang)+'</span>'+first_doc+docs;
 						}
 					}
 					$(this).parents('.main_pp_select').find(".option_tooltip")
 						.append(docs)
 						.show()
 						.offset({ top: ($(this).offset().top) });
-					window.lang.run();
+
 				}, function(){
 					$(this).parents('.main_pp_select').find(".option_tooltip")
 						.empty()
@@ -545,7 +548,7 @@ $(function() {
 						tt_vals = [];
 
 						for(var i = 0; i < pp_vals.length; i++) {
-							if ( pp_vals[i] != '' && pp_vals[i] != '(<span lang="def">PAGE_MISSING</span>)' ) {
+							if ( pp_vals[i] != '' && pp_vals[i] != '(<span lang="'+window.lang.currentLang+'">'+window.lang.convert('PAGE_MISSING', window.lang.currentLang)+'</span>)' ) {
 								$("#span_pp_select .option[data-value='"+pp_vals[i]+"']").each(function(){
 									var temp_tt_val;
 									temp_tt_val = $(this).parents('.optionGroup').attr('data-first-doc-group');
@@ -559,9 +562,9 @@ $(function() {
 						}
 
 						if ( tt_vals.length == 1 ) {	
-							docs = '<span lang="def">DOCUMENT</span>'+tt_vals[0];
+							docs = '<span lang="'+window.lang.currentLang+'">'+window.lang.convert('DOCUMENT', window.lang.currentLang)+'</span>'+tt_vals[0];
 						} else {
-							docs = '<span lang="def">DOCUMENTS</span>';
+							docs = '<span lang="'+window.lang.currentLang+'">'+window.lang.convert('DOCUMENTS', window.lang.currentLang)+'</span>';
 							for(var i = 0; i < tt_vals.length; i++ ) {
 								docs += '<span>'+tt_vals[i]+'</span>';
 							}
@@ -571,7 +574,7 @@ $(function() {
 							.append(docs)
 							.show()
 							.offset({ top: ($(this).offset().top) });
-						window.lang.run();
+
 					}, function(){
 						$("#span_dd_select .option_tooltip_dd")
 							.empty()
@@ -963,7 +966,7 @@ $(function() {
 			    $('#msDesc_cont').load("data/output_data/prefatory_matter/ms_desc.html #msDesc", function(){
 			    	if ( $('#msDesc_cont').is(':empty') ) {
 				    	$('#switch_msDesc, #msDesc_cont').remove();
-
+				    	resizeButtonsAndSelects();
 				    } else {
 				    	$('#switch_msDesc').click(function(){
 					    	if ( $("#thumb_elem").hasClass('active') ) {
@@ -992,7 +995,9 @@ $(function() {
 					    });
 				    }
 				    /* Integration by LS */
-			        window.lang.run();  
+			        if ($("[lang!='"+window.lang.currentLang+"']").length > 0) {
+			        	window.lang.run();
+			        }
 			        /* /end Integration by LS */
 			    });
 			}
@@ -1002,7 +1007,9 @@ $(function() {
 			if (($(xml).find('headerInfo').length > 0) && ($(xml).find('headerInfo').attr('active')==1)){
 			    $('#headerInfo_cont').load("data/output_data/prefatory_matter/header_info.html #headerInfo", function(){
 			    	/* Integration by LS */
-			        window.lang.run();  
+			        if ($("[lang!='"+window.lang.currentLang+"']").length > 0) {
+			        	window.lang.run();  
+			        }
 			        /* /end Integration by LS */
 			    });
 			    $('#info_link').click(function(){
@@ -1031,16 +1038,6 @@ $(function() {
 			/* Fine integrazione by AB */
 			/* *********************** */
 
-			/* ****************** */
-			/* Integrazione by LS */
-			/* ****************** */
-			
-	        window.lang.run();
-	        
-			/* *********************** */
-			/* Fine integrazione by LS */
-			/* *********************** */
-			
 			/* ==/ GESTIONE EVENTI POST AJAX */
 			/* ============================= */
 
@@ -1198,8 +1195,6 @@ $(function() {
 			var full_button_width = $(this).outerWidth();
 			$(this).attr('data-full-width', full_button_width);
 		});
-
-		resizeButtonsAndSelects();
 
 		// Sistemo interfaccia per Safari
 		if ($.browser.safari) {
@@ -1751,6 +1746,7 @@ $(function() {
 			$('.flag.active').removeClass('active');
 			$(".flag[data-value='"+window.lang.currentLang+"']").addClass('active');
 		}
+		resizeButtonsAndSelects();
 
 	    /* *********************** */
 		/* /END Integrazione by LS */
@@ -3509,13 +3505,13 @@ $(function() {
 	        .appendTo('#left_header');
 	    $('#left_menu_copy .small').removeClass('small').find('span').show();
 	    
-	    if ( $('#left_menu_copy').outerWidth() >= $('#left_header').innerWidth() - 30) {
+	    if ( $('#left_menu_copy').outerWidth() >= $('#left_header').innerWidth()) {
 	        $('#left_menu .mainButtons')
 	            .addClass('small')
 	            .find('span').hide();
 
-	        if ( $('#left_menu').outerWidth() > $('#left_header').innerWidth() - 30 ) {
-	            var diff =  $('#left_menu').outerWidth() - $('#left_header').innerWidth() - 30;
+	        if ( $('#left_menu').outerWidth() > $('#left_header').innerWidth()) {
+	            var diff =  $('#left_menu').outerWidth() - $('#left_header').innerWidth();
 	            var remove_width = diff/$('#left_header .like_select').length;
 	            $('#left_header .like_select').each(function(){
 	                var new_width = $(this).outerWidth() - remove_width; 

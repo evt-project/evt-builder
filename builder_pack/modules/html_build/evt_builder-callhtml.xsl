@@ -57,7 +57,6 @@
 
 			<xsl:if test="$html_tc!='datastructure'">
 				<xsl:comment>main lib</xsl:comment>
-				<script type="text/javascript" src="{$html_path}/config/strings.js"/>
 				<script type="text/javascript" src="{$html_path}/js/main/interface_control.js"/>
 				<script type="text/javascript" src="{$html_path}/js/main/utils.js"/>
 				<xsl:comment>/main lib</xsl:comment>
