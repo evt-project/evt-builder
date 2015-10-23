@@ -913,7 +913,11 @@ $(function() {
 					    $('.option_container:visible').animate({height:"toggle"}, 400);
 					}
 				}
-				if ( ($(e.target).parents("#settings_cont").length === 0) && !($("#settings_cont").is(':animated')) ) {
+
+				if ( $(e.target).parents("#settings_cont").length === 0 && 
+					 ! $("#settings_cont").is(':animated') &&
+					 $(e.target).parents("#settings_link").length === 0 &&
+					 $(e.target).attr('id') !== 'settings_link' ) {
 					if ( $('#settings_cont').is(':visible') ) {
 						$('#settings_link').trigger('click');
 					}
