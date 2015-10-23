@@ -351,7 +351,6 @@ $(function() {
 						}
 						/* Integration by LS */
 				        if ( $("[lang!='"+window.lang.currentLang+"']").length > 0 ) {
-				        	// console.log('Change lang for lists');
 				        	window.lang.update(window.lang.currentLang);
 				        }
 				        /* /end Integration by LS */
@@ -1021,7 +1020,6 @@ $(function() {
 			    });
 
 			    $('#headerInfo_cont').click(function(event){
-			    	console.log(event.target);
 			    	if ( $(event.target).parents('#close_header_info_cont').length > 0 ) {
 		    			$('#info_link').trigger('click');
 		    		} else {
@@ -1477,7 +1475,7 @@ $(function() {
 		        //  $('#list_link').trigger('click');
 		        // }
 
-		        var boxSuffix = $(this).attr('data-boxsuffix');
+		        var boxSuffix = $(this).attr('data-boxsuffix') || '';
 		        var speed;
 		        if($('#search_cont'+boxSuffix).hasClass('collapsed')){
 		           speed = 'fast';
@@ -1667,7 +1665,7 @@ $(function() {
 		        } else {
 		            // chiudi il div della ricerca
 		            if ( $('#search_link').length > 0 && $('#search_link').hasClass('active') ) {
-		                var boxSuffix = $('#search_link.active').attr('data-boxsuffix');
+		                var boxSuffix = $('#search_link.active').attr('data-boxsuffix') || '';
 		                closeSearchBox('fast', boxSuffix);
 		            }
 		            openListsBox(speed);
@@ -1853,7 +1851,7 @@ $(function() {
 	function setSearchClosedPosition(boxSuffix){
 	    var newTop;
 	    var mainContainerHeight, bottomBoxHeaderHeight;
-
+	    if (boxSuffix == undefined) {boxSuffix = '';}
 	    mainContainerHeight = $('#main_right_frame').height();
 	    if ( $('#main_right_frame').hasClass('full') ){
 	        bottomBoxHeaderHeight = $('#search_header').height() + 4;   
@@ -1868,11 +1866,13 @@ $(function() {
 	        bottomMenuHeight = $('#text_tool').height();
 	        newTop = mainContainerHeight - (bottomMenuHeight*2) - bottomBoxHeaderHeight;
 	    }
+	    
 	    $('#search_cont'+boxSuffix)
 	        .addClass('collapsed')
 	        .css({
 	           top: newTop+'px'
 	        });
+
 	    $('#toggle_search_cont'+boxSuffix+' .fa')
 	        .removeClass('fa-angle-double-down')
 	        .addClass('fa-angle-double-up');
@@ -1885,21 +1885,10 @@ $(function() {
 	    };
 	    
 	    $.when( closeDiv() ).done(function() {
-	        if ( $('#search_cont'+boxSuffix).hasClass('collapsed') || 
-	             $('#tipue_search_content'+boxSuffix).text() == '' ) {
-	            setSearchClosedPosition(boxSuffix); 
-	        }
+	        setSearchClosedPosition(boxSuffix); 
 	    });
 	    updateTextContHeight();
-	    // var old_container_height = $('#text_cont').height() + $('#list_header').height() + 4;
-	    // $('#regesto_cont').css('height', old_container_height);     
-	    // $('#text_cont').css('height', old_container_height);
 	    
-	    if ( $('#tipue_search_input'+boxSuffix).val() != '' ) {
-	        $('#tipue_search_input'+boxSuffix)
-	            .val('')
-	            .trigger('keyup');
-	    }
 	    if ( $('#keyboard'+boxSuffix).is(':visible') ) {
 	        $('#keyboard_link'+boxSuffix).trigger('click');
 	    }
@@ -2771,8 +2760,7 @@ $(function() {
 	   - aggiunta della classe "inPage" alle option dei documenti contenuti nella pagina selezionata
 	 */
 	function selectPP(current_page, pp_lab, tt_val){
-		console.log('PP. '+tt_val);
-	    var dd_opt, dd_val, dd_lab, dd_first_doc;
+		var dd_opt, dd_val, dd_lab, dd_first_doc;
 	    
 	    // SELETTORE PAGINE
 	    $('#span_pp_select .label_selected')
@@ -2837,8 +2825,7 @@ $(function() {
 	   - aggiornamento della label del selettore dei documenti
 	*/
 	function selectTT(current_doc){
-		console.log('TT. '+current_doc);
-	    var current_doc_lab = $("#span_tt_select .option_container .option[data-value='"+current_doc+"']").text();
+		var current_doc_lab = $("#span_tt_select .option_container .option[data-value='"+current_doc+"']").text();
 	    // SELETTORE TESTI
 	    $('#span_tt_select .label_selected')
 	        .attr('data-value', current_doc)
