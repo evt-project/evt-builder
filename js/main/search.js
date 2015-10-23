@@ -1,14 +1,21 @@
+/**
+ * 
+ * Search functions
+ *  
+ * author Jacopo Pugliese – JP
+ * @since 2013
+ */
 // [JACOPO] Search startup
 var key_list = [];
 $(function() {
 	var URI = 'data/output_data';
 	var jsonLocation = URI + '/' + "diplomatic" + '/' + 'diplomatic' + '.json';
-	console.log(jsonLocation);
+	// console.log(jsonLocation);
 	// c'è da fare un controllo per capire se mi trovo nella pagina con un solo box ricerca o due, quindi passare alla trigger di default il parametro
 	// per ora commento
 	//triggerTipueSearch(jsonLocation);
 	// $("#span_ee_select .label_selected").on('change', function(){
- //        jsonLocation = URI + '/'+$(this).text().toLowerCase()+'/' + $(this).text().toLowerCase() + '.json';
+    //  jsonLocation = URI + '/'+$(this).text().toLowerCase()+'/' + $(this).text().toLowerCase() + '.json';
 	// 	console.log(jsonLocation);
 	// 	triggerTipueSearch(jsonLocation);
 	// });

@@ -12,25 +12,21 @@
  * 
  * @author Julia Kenny - JK
  * @from 2012 @to 2014	
-
+ *
  * @author ChiaraDipi - CDP
  * @since 2013	
+ *
+ * @short-term coauthor Luca Sarri – LS
+ * (added and modified plugin for different languages)
+ * @in 2015
+ *
+ * @short-term Alessandro Barsi – AB
+ * (added functions for manuscript, text and project info)
+ * @in 2015
  **/
 
 /*jslint browser: true*/
 /*global $, jQuery, alert */
-/*
-	gotoedition, gotopage, 
-	updateSelectLength, 
-	UnInitialize, UnInitializeHS, 
-	chooseZoomMag, setMagHeight,
-	checkAnnPosHS
-	enableITLbutton, disableITLbutton,
-	enableHSbutton,	disableHSbutton,
-	ITLon, HSon,
-	Initialize, InitializeHS,
-	fitFrame, preload
-*/
 
 /* Variabili generiche*/
 var keycount, fulltogg;

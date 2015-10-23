@@ -1,9 +1,15 @@
 
-/*
-Tipue Search 3.1
-Copyright (c) 2013 Tipue
-Tipue Search is released under the MIT License
-http://www.tipue.com/search
+/**
+* Tipue Search 3.1
+* Copyright (c) 2013 Tipue
+* Tipue Search is released under the MIT License
+* http://www.tipue.com/search
+* 
+* changes by Jacopo Pugliese - JP 
+* @since 2013
+* 
+* changes by ChiaraDipi - CDP
+* @since 2015 
 */ 
 
 
@@ -145,6 +151,7 @@ http://www.tipue.com/search
                               $(set.elements[9]).trigger('click');
                          }
                     //}
+                    window.lang.run();
                });
 
                $(this).keyup(function(event)
@@ -291,8 +298,8 @@ http://www.tipue.com/search
                               }
                               
                               if ($(set.elements[11] + " .option_container .option").length > 1 ) {
-                                   results_text += ' <span lang="def">IN_THE</span> ';
-                                   results_text += $(set.elements[11] + " .label_selected").text().toLowerCase() + ' <span lang="def">EDITION</span>.';
+                                   results_text += ' <span lang="def">IN_THE_CURRENT_EDIION</span>. ';
+                                   // results_text += $(set.elements[11] + " .label_selected").text().toLowerCase() + ' <span lang="def">EDITION</span>.';
                               }
 
                               $(set.elements[10]).html('<div id="tipue_search_results_count' + set.addId + '" class="tipue_search_results_count">' + results_text + '</div>');
