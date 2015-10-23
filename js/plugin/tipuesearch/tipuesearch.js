@@ -111,31 +111,23 @@
                {
                     $(set.elements[0]).val(getURLP('q'));
                     getTipueSearch(0, true);
-               }                      
+               }             
+               // START SEARCH         
                $(set.elements[2]).click(function() {
-					// console.log("RICERCA ON");
-					// console.log(set.mode);
-					// console.log(set.contentLocation);
-               		//if ($('#span_si').is(':visible')) {
+					//if ($('#span_si').is(':visible')) {
                               if ($(set.elements[0]).val() != "") {
-	 						if ($(set.elements[5]).is(':visible')) {
-	 							//$(set.elements[5]).fadeOut(400);
-								//$('#image_cont').css({opacity: "0.3"});
-								getTipueSearch(0, true);
-                    			     $(set.elements[4]).html($(set.elements[0]).val());
-                                        $(set.elements[4]).attr('data-value', $(set.elements[0]).val());
-	 						}
-	 						else {
-								$('#keyboard').hide();
-                    			     getTipueSearch(0, true);
-                    			     $(set.elements[4]).html($(set.elements[0]).val());
-                                        $(set.elements[4]).attr('data-value', $(set.elements[0]).val());
+	 						if ( !$(set.elements[5]).is(':visible')) {
+	 							$('#keyboard').hide();
                                    } 
+                                   $(set.elements[4]).attr('data-value', $(set.elements[0]).val());
+                                   $(set.elements[4]).empty().append('<span lang="def">SEARCH_FOR</span> '+$(set.elements[0]).val());
+                                   getTipueSearch(0, true);
                     	     } else {
                                    $(set.elements[0]).trigger('keyup');
-                                   $(set.elements[4]).empty().append('<span lang="def">ENTER_YOUR_QUERY_INTO_THE_SEARCH_BOX_ABOVE</span>');
                                    $(set.elements[4]).attr('data-value', '');
+                                   $(set.elements[4]).empty().append('<span lang="def">ENTER_YOUR_QUERY_INTO_THE_SEARCH_BOX_ABOVE</span>');
                                    $(set.elements[1], '#tipue_search_results_count', set.elements[6]).text('');
+                                   
                               }
                     	//} else {
                          //   $(set.elements[1]).html("<div>Enter your query in the search box above!</div>");

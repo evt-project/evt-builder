@@ -463,7 +463,7 @@
 											</xsl:element>
 										</div>
 										<div id="search_sub_header-add" class="bottomBoxSubHeader">
-											<div id="search_query-add" class="searchQuery" lang="def">ENTER_YOUR_QUERY_INTO_THE_SEARCH_BOX_ABOVE</div>
+											<div id="search_query-add" class="searchQuery"><span lang="def">ENTER_YOUR_QUERY_INTO_THE_SEARCH_BOX_ABOVE</span></div>
 											<div id="search_results-add" class="searchResults can-change-font-size"></div>
 										</div>
 										<div id="search_cont_results-add" class="bottomBoxContent">
@@ -746,7 +746,7 @@
 										</xsl:element>
 									</div>
 									<div id="search_sub_header" class="bottomBoxSubHeader">
-										<div id="search_query" class="searchQuery" lang="def">ENTER_YOUR_QUERY_INTO_THE_SEARCH_BOX_ABOVE</div>
+										<div id="search_query" class="searchQuery"><span lang="def">ENTER_YOUR_QUERY_INTO_THE_SEARCH_BOX_ABOVE</span></div>
 										<div id="search_results" class="searchResults"></div>
 									</div>
 									<div id="search_cont_results" class="bottomBoxContent">
