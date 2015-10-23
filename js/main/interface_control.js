@@ -1547,6 +1547,10 @@ $(function() {
 
 		    $('.clear_input').click(function(event) {
 		        $(this).prev().val('').removeClass('clearable');
+		        $(this).parents('.searchContainer')
+		        	.find('.tipue_search_results_count, .searchResultsContent, .bottomBoxFooter div').empty(); 
+		        $(this).parents('.searchContainer')
+		        	.find('.searchQuery').empty().append('<span lang="'+window.lang.currentLang+'">'+window.lang.convert('ENTER_YOUR_QUERY_INTO_THE_SEARCH_BOX_ABOVE', window.lang.currentLang)+'</span>');
 		    });
 
 		    $('#tipue_search_input').keyup(function (e) {
@@ -1782,7 +1786,7 @@ $(function() {
 	    if ( search_cont.hasClass('collapsed') ) {
 	        search_cont.removeClass('collapsed')
 	        if ( search_input.val() != '' && 
-	             search_query.text() != search_input.val() ) {
+	             search_query.attr('data-value') != search_input.val() ) {
 	                search_startButton.trigger('click');
 	        } 
 	        // else {
