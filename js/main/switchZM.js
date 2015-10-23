@@ -1,7 +1,10 @@
 /**
  *
- * @author JK
+ * @author Julia Kenny – JK
  * @since 2012
+ *
+ * @author Chiara Di Pietro – CDP
+ * @since 2014
  *
  **/
 
