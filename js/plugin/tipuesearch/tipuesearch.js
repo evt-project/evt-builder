@@ -114,24 +114,20 @@
                }             
                // START SEARCH         
                $(set.elements[2]).click(function() {
-					//if ($('#span_si').is(':visible')) {
-                              if ($(set.elements[0]).val() != "") {
-	 						if ( !$(set.elements[5]).is(':visible')) {
-	 							$('#keyboard').hide();
-                                   } 
-                                   $(set.elements[4]).attr('data-value', $(set.elements[0]).val());
-                                   $(set.elements[4]).empty().append('<span lang="def">SEARCH_FOR</span> '+$(set.elements[0]).val());
-                                   getTipueSearch(0, true);
-                    	     } else {
-                                   $(set.elements[0]).trigger('keyup');
-                                   $(set.elements[4]).attr('data-value', '');
-                                   $(set.elements[4]).empty().append('<span lang="def">ENTER_YOUR_QUERY_INTO_THE_SEARCH_BOX_ABOVE</span>');
-                                   $(set.elements[1], '#tipue_search_results_count', set.elements[6]).text('');
-                                   
-                              }
-                    	//} else {
-                         //   $(set.elements[1]).html("<div>Enter your query in the search box above!</div>");
-                         //}
+                         if ($(set.elements[0]).val() != "") {
+ 						if ( !$(set.elements[5]).is(':visible')) {
+ 							$('#keyboard').hide();
+                              } 
+                              $(set.elements[4]).attr('data-value', $(set.elements[0]).val());
+                              $(set.elements[4]).empty().append('<span lang="def">SEARCH_FOR</span> <strong>'+$(set.elements[0]).val()+'</strong>');
+                              getTipueSearch(0, true);
+               	     } else {
+                              $(set.elements[0]).trigger('keyup');
+                              $(set.elements[4]).attr('data-value', '');
+                              $(set.elements[4]).empty().append('<span lang="def">ENTER_YOUR_QUERY_INTO_THE_SEARCH_BOX_ABOVE</span>');
+                              $(set.elements[1], '#tipue_search_results_count', set.elements[6]).text('');
+                              
+                         }
                          
                          if ( $(set.elements[7]).hasClass('collapsed') ) {
                               $(set.elements[8]).trigger('click');
@@ -142,7 +138,6 @@
                          if ($(set.elements[9]).hasClass('active')) {
                               $(set.elements[9]).trigger('click');
                          }
-                    //}
                     window.lang.run();
                });
 
@@ -442,6 +437,8 @@
                          else
                          {
                               out += '<div id="tipue_search_warning_head' + set.addId + '"><span lang="def">NOTHING_FOUND</span></div>';
+                              $(set.elements[10]).empty();
+                              $(set.elements[6]).empty();
                          }
                     }
                     else
@@ -450,6 +447,8 @@
                          {
                               out += '<div id="tipue_search_warning_head' + set.addId + '"><span lang="def">NOTHING_FOUND</span></div>';
                               out += '<div id="tipue_search_warning' + set.addId + '"><span lang="def">COMMON_WORDS_IGNORED</span></div>';
+                              $(set.elements[10]).empty();
+                              $(set.elements[6]).empty();
                          }
                          else
                          {
@@ -457,11 +456,17 @@
                               if (set.minimumLength == 1)
                               {
                                    out += '<div id="tipue_search_warning' + set.addId + '"><span lang="def">MORE_CHARACTER_ALERT</span></div>';
+                                   $(set.elements[10]).empty();
+                                   $(set.elements[6]).empty();
                               }
                               else
                               {
                                    out += '<div id="tipue_search_warning' + set.addId + '"><span lang="def">SHOULD_BE</span> ' + set.minimumLength +' <span lang="def">CHARACTERS_OR_MORE</span></div>';
+                                   $(set.elements[10]).empty();
+                                   $(set.elements[6]).empty();
                               }
+                              $(set.elements[10]).empty();
+                              $(set.elements[6]).empty();
                          }
                     }
                
