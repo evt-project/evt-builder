@@ -2180,7 +2180,6 @@ ul.ul_list li{
 	list-style-type: none;
 	padding: 5px;
 	border-bottom: 1px solid #ccc;
-	cursor: pointer;
 }
 ul.ul_list li:nth-child(odd){
 	background: rgba(185, 170, 153, .1);
@@ -2190,6 +2189,18 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 }
 .list_element .more_info{
 	display: none;
+}
+.toggle_list_element{
+	margin-left: 10px;
+}
+.toggle_list_element .fa{
+	text-shadow: none;
+}
+.toggle_list_element:hover{
+	cursor: pointer;
+}
+.toggle_list_element:hover .fa{
+	text-shadow:0 1px 4px rgba(0,0,0,0.7);
 }
 #occorrenze{
 	display: none;
@@ -2222,6 +2233,17 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 	background:transparent;	
 	color: #ccc;
 }
+.small-note {
+	font-size: 90%;
+	display: none;
+}
+.list_element_opened .occurences,
+.list_element_opened .small-note {
+	display: block !important;
+}
+.tooltip .toggle_list_element{
+	display: none !important;
+}
 #text span.popup.selected_from_list .trigger{
 	background: #ffc !important;
 	text-shadow:0px 0px 1px #000;
@@ -2229,10 +2251,6 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 #text span.popup.selected_from_list .tooltip{
 	background: rgb(229, 218, 196) !important;
 	text-shadow:none !important;
-}
-.small-note{
-	font-size: 90%;
-	display: block;
 }
 
 .hidden{
@@ -2350,7 +2368,7 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 	padding: 0px 2% 3%;
 	cursor: text;
 }
-#generalFront_content {
+#generalFront_content, #generalBiblio_content {
 	padding: 0px 30px;
 }
 #generalFront_content > .title {
@@ -2551,4 +2569,16 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 .setting_row  img.flag.active {
 	cursor: default;
 	opacity: .5;
+}
+
+/* REFs Elements */
+.ref:hover {
+	cursor: pointer;
+	text-shadow:0px 0px 1px #000;
+}
+
+.bibl {
+	display: block;
+	font-size: 70%;
+	margin: 5px 0;
 }

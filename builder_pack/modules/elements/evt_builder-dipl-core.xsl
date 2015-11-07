@@ -396,21 +396,33 @@
 	
 	
 	<!-- REF References to additional text -->
-	<xsl:template match="tei:ref[starts-with(@target,'#')]" mode="dipl">
-		<xsl:element name="span">
-			<xsl:attribute name="class">popup ref</xsl:attribute>
-			<xsl:element name="span">
-				<xsl:attribute name="class">trigger</xsl:attribute>
-				<xsl:apply-templates mode="#current"/>
-			</xsl:element>
-			<xsl:element name="span">
-				<xsl:attribute name="class">tooltip</xsl:attribute>
-				<xsl:element name="span"><xsl:attribute name="class">before</xsl:attribute></xsl:element>
-				<xsl:for-each select="//tei:bibl[@xml:id=substring-after(current()/@target,'#')]">
+	<xsl:template match="tei:ref" mode="dipl">
+		<xsl:choose>
+			<xsl:when test="node()/ancestor::tei:note">
+				<xsl:element name="span">
+					<xsl:attribute name="class">ref</xsl:attribute>
+					<xsl:attribute name="data-target"><xsl:value-of select="@target"/></xsl:attribute>
+					<xsl:attribute name="data-type"><xsl:value-of select="@type"/></xsl:attribute>
 					<xsl:apply-templates mode="#current"/>
-				</xsl:for-each>
-			</xsl:element>
-		</xsl:element>
+				</xsl:element>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:element name="span">
+					<xsl:attribute name="class">popup ref</xsl:attribute>
+					<xsl:element name="span">
+						<xsl:attribute name="class">trigger</xsl:attribute>
+						<xsl:apply-templates mode="#current"/>
+					</xsl:element>
+					<xsl:element name="span">
+						<xsl:attribute name="class">tooltip</xsl:attribute>
+						<xsl:element name="span"><xsl:attribute name="class">before</xsl:attribute></xsl:element>
+						<xsl:for-each select="//tei:bibl[@xml:id=substring-after(current()/@target,'#')]">
+							<xsl:apply-templates mode="#current"/>
+						</xsl:for-each>
+					</xsl:element>
+				</xsl:element>
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:template>
 	
 	<xsl:template match="tei:front" mode="dipl">
@@ -462,21 +474,28 @@
 	
 	<!-- NOTE Note or annotation -->
 	<xsl:template match="tei:note" mode="dipl">
-		<xsl:element name="span">
-			<xsl:attribute name="class">inline_note popup</xsl:attribute>
-			<xsl:attribute name="id">note_<xsl:value-of select="if(@xml:id) then (@xml:id) else (count(preceding::*[name() = name(current())]))"></xsl:value-of></xsl:attribute>
-			<xsl:element name="i">
-				<xsl:attribute name="class">fa fa-circle open_note trigger</xsl:attribute>
-			</xsl:element>
-			<xsl:element name="span">
-				<xsl:attribute name="class">text_note tooltip</xsl:attribute>
-				<xsl:attribute name="id">
-					<xsl:value-of select="./@xml:id"/>
-				</xsl:attribute>
-				<xsl:element name="span"><xsl:attribute name="class">before</xsl:attribute></xsl:element>
+		<xsl:choose>
+			<xsl:when test="node()/ancestor::tei:listPerson or node()/ancestor::tei:listPlace">
 				<xsl:apply-templates mode="#current"/>
-			</xsl:element>
-		</xsl:element>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:element name="span">
+					<xsl:attribute name="class">inline_note popup</xsl:attribute>
+					<xsl:attribute name="id">note_<xsl:value-of select="if(@xml:id) then (@xml:id) else (count(preceding::*[name() = name(current())]))"></xsl:value-of></xsl:attribute>
+					<xsl:element name="i">
+						<xsl:attribute name="class">fa fa-circle open_note trigger</xsl:attribute>
+					</xsl:element>
+					<xsl:element name="span">
+						<xsl:attribute name="class">text_note tooltip</xsl:attribute>
+						<xsl:attribute name="id">
+							<xsl:value-of select="./@xml:id"/>
+						</xsl:attribute>
+						<xsl:element name="span"><xsl:attribute name="class">before</xsl:attribute></xsl:element>
+						<xsl:apply-templates mode="#current"/>
+					</xsl:element>
+				</xsl:element>
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:template>
 	
 	<!-- DATE -->
@@ -571,8 +590,9 @@
 					</xsl:if>
 					<xsl:text>)</xsl:text>
 				</xsl:if>
+				<span class="toggle_list_element"><i class="fa fa-angle-right"></i></span>
 				<xsl:if test="current()/tei:note and current()/tei:note != ''">
-					<span class='small-note'>[<xsl:value-of select="current()/tei:note"/>]</span>
+					<span class='small-note'>[<xsl:apply-templates select="tei:note" mode="dipl"/>]</span>
 				</xsl:if>
 			</xsl:when>
 			<xsl:otherwise>
@@ -725,8 +745,9 @@
 					<xsl:value-of select="tei:district"/>
 					<xsl:text>)</xsl:text>
 				</xsl:if>
+				<span class="toggle_list_element"><i class="fa fa-angle-right"></i></span>
 				<xsl:if test="current()/tei:note and current()/tei:note != ''">
-					<span class='small-note'>[<xsl:value-of select="current()/tei:note"/>]</span>
+					<span class='small-note'>[<xsl:apply-templates select="tei:note" mode="dipl"/>]</span>
 				</xsl:if>
 			</xsl:when>
 			<xsl:otherwise>
