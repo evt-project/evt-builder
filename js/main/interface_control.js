@@ -341,8 +341,8 @@ $(function() {
 							}
 						} else {
 							$('#list_'+listName)
-								.find('.list_element').click(function(){
-									showListElementOccurrences(this, listName);
+								.find('.list_element').find('.toggle_list_element').click(function(){
+									showListElementOccurrences($(this).parent(), listName);
 								});
 						}
 						/* Integration by LS */
@@ -350,6 +350,7 @@ $(function() {
 				        	window.lang.update(window.lang.currentLang);
 				        }
 				        /* /end Integration by LS */
+				        InitializeRefs();
 					});
 				});
 				if ($.browser.safari) {
@@ -2025,7 +2026,7 @@ $(function() {
 	            $('<li />')
 	                .addClass('list_element')
 	                .addClass('no_elements')
-	                .text("<span lang='def'>NO_ELEMENTS</span>")
+	                .append("<span lang='"+window.lang.currentLang+"'>"+window.lang.convert('NO_ELEMENTS', window.lang.currentLang)+"</span>")
 	                .appendTo('.ul_list:visible');
 	        }
 	    }
@@ -2049,18 +2050,26 @@ $(function() {
 
 	function showListElementOccurrences(elem, listName){
 	    if($(elem).hasClass('list_element_opened')){
-	        $(elem).find('.occurences').toggle();
+	        // $(elem).find('.small-note, .occurences').toggle();
+			$(elem).find('.fa').removeClass('fa-angle-down').addClass('fa-angle-right');
+			$(elem).removeClass('list_element_opened');
 	    } 
 	    else {
 	        if($(elem).find('.occurences').length<=0){
 	            prepareOccurrencesList(elem, listName);
 	        }
-	        $(elem).parents('.list').find('.occurences:visible').hide();
+	        // $(elem).parents('.list').find('.occurences:visible').hide();
+	        $(elem).parents('.list').find('.small-note:visible').hide();
+	        $(elem).parents('.list').find('.list_element_opened').find('.fa-angle-down').removeClass('fa-angle-down').addClass('fa-angle-right');
 	        $(elem).parents('.list').find('.list_element_opened').removeClass('list_element_opened');
 	        $(elem)
-	            .addClass('list_element_opened')
-	            .find('.occurences')
-	                .toggle();
+	            .addClass('list_element_opened');
+	        //     .find('.occurences, .small-note')
+	        //         .toggle();
+	        $(elem)
+	        	.find('.fa')
+	        		.removeClass('fa-angle-right')
+	        		.addClass('fa-angle-down');
 	    }
 	}
 
@@ -2102,7 +2111,7 @@ $(function() {
 	            }
 	        });
 	    } else {
-	        $(list_occ).append("<span class='no_occ' lang='def'>NO_MATCHES_FOUND</span>");
+	        $(list_occ).append("<span class='no_occ' lang='"+window.lang.currentLang+"'>"+window.lang.convert('NO_MATCHES_FOUND', window.lang.currentLang)+"</span>");
 	    }
 	    $(elem).append(list_occ);
 	    window.lang.run();
@@ -2201,7 +2210,7 @@ $(function() {
 	            $('#list_'+list_id).animate({
 	                scrollTop: 0
 	            }, function(){
-	                $('#'+id_ref).trigger('click');
+	                $('#'+id_ref).find('.toggle_list_element').trigger('click');
 	                $('#list_'+list_id).animate({
 	                    scrollTop: ($('#'+id_ref).position().top)
 	                },0);   
@@ -2543,6 +2552,29 @@ $(function() {
 	/* ==/ HANDLING FRONT END */
 	
 	/* HANDLING INTERFACE NAVIGATION */
+
+	/* Inizializzazione collegamenti ref */
+	function InitializeRefs(){
+		$('.ref').unbind('click').click(function(){
+			var type = $(this).attr('data-type'),
+				target = $(this).attr('data-target');
+			if ( type == 'doc' ) {
+				if ($('#span_tt_select').find(".option[data-value='"+target+"']").length == 0){
+					console.log('No such element.');
+				} else {
+					if ( $('#span_tt_select').find(".label_selected").attr("data-value") != target ) {
+						$('#span_tt_select').find(".option[data-value='"+target+"']").trigger('click');
+					}
+				}
+				if ( $(this).parents('.bottomBoxOpened') ) {
+					$(this).parents('.bottomBoxOpened').find("[id*='toggle']").trigger('click');
+				}
+			} else {
+				alert("Link to bibliography coming soon...");
+				console.log('target: '+target);
+			}
+		});
+	}
 
 	/* Inizializzazione Popup (note inline, dettagli elementi liste, ...) */
 	function InitializePopup(){
@@ -3001,6 +3033,7 @@ $(function() {
 	        });
 
 	        InitializePopup();
+	        InitializeRefs();
 	        InitializeSearch();
 	        /* Integration by LS */
 	        window.lang.run();  
@@ -3067,6 +3100,7 @@ $(function() {
 		        }
 
 		        InitializePopup();
+		        InitializeRefs();
 		        InitializeSearch();
 	        	/* Integration by LS */
 		        window.lang.run();  
@@ -3118,6 +3152,7 @@ $(function() {
 	            }
 	            
 	            InitializePopup();
+	            InitializeRefs();
 	            InitializeSearch();
 	            
 	            if($("#"+pp_el).parents("div[id*='frame']").find('.like_select.filter')){
@@ -4516,6 +4551,7 @@ $(function() {
 
         //fitFrame();
         InitializePopup();
+        InitializeRefs();
         InitializeSearch();
 
         $('#header_collapse').animate({

@@ -711,4 +711,9 @@
 		</xsl:if>
 	</xsl:template>
 	
+	<xsl:template match="tei:emph">
+		<span class="emph">
+			<xsl:apply-templates/>
+		</span>
+	</xsl:template>
 </xsl:stylesheet>

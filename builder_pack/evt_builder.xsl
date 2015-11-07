@@ -33,6 +33,9 @@
 	<!-- Image-Text link & HotSpot-->
 	<xsl:include href="modules/fundamental_units/evt-builder_imagetext-link_hotspot.xsl"/>
 
+	<!-- Biblio -->
+	<xsl:include href="modules/elements/evt_builder-biblio.xsl"/>
+	
 	<!-- HTML structure -->
 	<xsl:include href="modules/html_build/evt_builder-callhtml.xsl"/>
 	<xsl:include href="modules/html_build/evt_builder-callhtml-prefatory_matter.xsl"/>
