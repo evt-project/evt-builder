@@ -43,7 +43,7 @@ jquery_lang_js.prototype.lang.en = {
 	"SELECTOR_ENTITIES": "Entities selector",
 	"NO_SELECTION": "No selection",
 	"SELECT_ALL": "Select All",
-	"CLEAR_SELECTION": "Cleat selection",
+	"CLEAR_SELECTION": "Clear selection",
 	"DECREASE_FONT_SIZE": "Decrease font size",
 	"INCREASE_FONT_SIZE": "Increase font size",
 	"PREVIOUS_DOCUMENT": "Previous document",
@@ -143,6 +143,7 @@ jquery_lang_js.prototype.lang.en = {
     "measure": "Currencies",
     "date": "Dates",
     "clear": "No selection",
-    "multi": "Multi selection"
+    "multi": "Multi selection",
+    "Multi selection": "Multi selection"
 }
 
