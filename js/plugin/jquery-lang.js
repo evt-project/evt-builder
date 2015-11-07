@@ -95,7 +95,7 @@ jquery_lang_js.prototype.run = function () {
 			this.change(this.currentLang);			
 	}
 
-	console.log(this.currentLang);
+	console.log(' # lang run ' +this.currentLang + " #");
 }
 
 jquery_lang_js.prototype.loadPack = function (packPath) {
