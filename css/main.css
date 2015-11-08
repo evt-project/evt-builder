@@ -2237,6 +2237,9 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 	font-size: 90%;
 	display: none;
 }
+.tooltip .small-note {
+	display: block;
+}
 .list_element_opened .occurences,
 .list_element_opened .small-note {
 	display: block !important;
@@ -2582,3 +2585,4 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 	font-size: 70%;
 	margin: 5px 0;
 }
+
