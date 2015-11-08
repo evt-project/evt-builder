@@ -813,7 +813,7 @@ $(function() {
 				    //$(this).addClass('selected');
 				    $(this).parents("div[id*='frame']").find('.list_active').removeClass('list_active');
 				    // se "pulisci selezione" l'etichetta prende "No selection"
-			        // newLabel = 'NO_SELECTION';
+			        newLabel = 'NO_SELECTION';
 			        newLabelVal = "clear";
 				} else if (classToBeActived == 'all') { //seleziona tutto
 				    //$(this).addClass('selected');
@@ -825,7 +825,7 @@ $(function() {
 				        } 
 				        $(this).siblings(".option[data-value='clear']").removeClass('selected');
 				    });
-				    // newLabel = 'MULTI_SELECTION';
+				    newLabel = 'MULTI_SELECTION';
 				    newLabelVal = "multi";
 				} else {
 				   	$(this).toggleClass('selected');
@@ -836,22 +836,26 @@ $(function() {
 				   	filtersActive = $(this).parents('.option_container').find('.option.selected').length;
 				   	switch(filtersActive){
 				       	case 1:
-				                // newLabel = $(this).parents('.option_container').find('.option.selected span').text();
+				                newLabel = $(this).parents('.option_container').find('.option.selected').attr('data-value');
 				                newLabelVal = $(this).parents('.option_container').find('.option.selected').attr('data-value');
 				                break;
 				       	case 0:
-				                // newLabel = "NO_SELECTION";
+				                newLabel = "NO_SELECTION";
 				                newLabelVal = "clear";
 				                break;
 				       	default:
-				                // newLabel = "MULTI_SELECTION";
+				                newLabel = "MULTI_SELECTION";
 				                newLabelVal = "multi";
 				                break;
 				   	}
 				}
-				newLabel = window.lang.convert(newLabelVal, window.lang.currentLang);
-				$(this).parents('.option_container').siblings('.label_selected').text(newLabel);
+				// newLabel = window.lang.convert(newLabelVal, window.lang.currentLang);
+				$(this).parents('.option_container')
+							.siblings('.label_selected')
+							.attr('lang', 'def')
+							.text(newLabel);
 				$(this).parents('.option_container').siblings('.label_selected').attr('data-value', newLabelVal);
+				window.lang.run();
 			});
 			
 			/* General event on click on ".option". It select the element clicked and unselect the others. 
