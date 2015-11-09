@@ -4,60 +4,49 @@
  *  
  * author Jacopo Pugliese – JP
  * @since 2013
+ *
+ * author Chiara Di Pietro – CDP
+ * @since 2015
  */
 // [JACOPO] Search startup
 var key_list = [];
 $(function() {
-	var URI = 'data/output_data';
-	var jsonLocation = URI + '/' + "diplomatic" + '/' + 'diplomatic' + '.json';
-	// console.log(jsonLocation);
-	// c'è da fare un controllo per capire se mi trovo nella pagina con un solo box ricerca o due, quindi passare alla trigger di default il parametro
-	// per ora commento
-	//triggerTipueSearch(jsonLocation);
-	// $("#span_ee_select .label_selected").on('change', function(){
-    //  jsonLocation = URI + '/'+$(this).text().toLowerCase()+'/' + $(this).text().toLowerCase() + '.json';
-	// 	console.log(jsonLocation);
-	// 	triggerTipueSearch(jsonLocation);
-	// });
-	var ee_label_left = document.getElementById("span_ee_select-add").children[0].children[0];
-    var ee_label_right = document.getElementById("span_ee_select").children[0].children[0];
+    var URI = 'data/output_data';
+    var jsonLocation = URI + '/' + "diplomatic" + '/' + 'diplomatic' + '.json';
 
-	var params1 = [];
-    ee_label_left.addEventListener("DOMAttrModified", function(e) {
-		if (params1.length == 0){
-			params1.push('#tipue_search_input-add', '#tipue_search_content-add', '#start_search-add', '#search_link-add', '#search_query-add', '#text_elem-add', '#search_foot-add',
-			'#search_cont-add', '#toggle_search_cont-add', '#keyboard_link-add', '#search_results-add', "#span_ee_select-add");
-		}
-        updateTipueSearchLocation(e.newValue.toLowerCase(), params1, '-add');
-    }, false);
-	var params2 = [];
-	ee_label_right.addEventListener("DOMAttrModified", function(e) {
-        if (params2.length == 0) {
-			params2.push('#tipue_search_input', '#tipue_search_content', '#start_search', '#search_link', '#search_query', '#text_elem', '#search_foot',
-			'#search_cont', '#toggle_search_cont', '#keyboard_link', '#search_results', "#span_ee_select");
-		}
-        updateTipueSearchLocation(e.newValue.toLowerCase(), params2, '');
-    }, false);
-    
-    function updateTipueSearchLocation(newLocation, params, id){
+    $('#span_ee_select-add .label_selected')
+        .on('change', function(){
+            updateTipueSearchLocation($(this).attr('data-value').toLowerCase(), '-add');
+            // if ( $('#search_cont-add.bottomBoxOpened').is(':visible') ) {
+            //     $('#start_search-add').trigger('click');
+            // }
+        });
+    $('#span_ee_select .label_selected')
+        .on('change', function(){
+            updateTipueSearchLocation($(this).attr('data-value').toLowerCase(), '');
+            // if ( $('#search_cont.bottomBoxOpened').is(':visible') ) {
+            //     $('#start_search').trigger('click');
+            // }
+        });
+    function updateTipueSearchLocation(newLocation, suffix){
         jsonLocation = URI + '/'+newLocation+'/' + newLocation + '.json';
-        console.log("CHANGED TO"+jsonLocation);
-        triggerTipueSearch(jsonLocation, params, id);
+        // console.log("search "+suffix+" CHANGED TO "+jsonLocation);
+        triggerTipueSearch(jsonLocation, suffix);
     }
 
-	function triggerTipueSearch(jsonLocation, params, id) {
-		$(params[0]).tipuesearch({
-			'showURL' : false,
-			'mode' : 'json',
-			'contentLocation' : jsonLocation,
-			'elements' : params,
-			'addID' : id
-		});
-	}
-	
-	// "Tastiera" per la ricerca
-	// Inizio tastiera virtuale
-	var queryInput;
+    function triggerTipueSearch(jsonLocation, suffix) {
+        // console.log(' # triggerTipueSearch #');
+        $('#tipue_search_input'+suffix).tipuesearch({
+            'showURL' : false,
+            'mode' : 'json',
+            'contentLocation' : jsonLocation,
+            'suffix' : suffix
+        });
+    }
+    
+    // "Tastiera" per la ricerca
+    // Inizio tastiera virtuale
+    var queryInput;
     // = document.getElementById("tipue_search_input");
     var search_box = document.getElementById("search_cont");
     var search_box_add = document.getElementById("search_cont-add");
@@ -77,27 +66,27 @@ $(function() {
     //     keyboard.style.display = "block";
     // };
 
-	function loadXMLDoc(filename) {
-		if (window.XMLHttpRequest) {
-			xhttp = new XMLHttpRequest();
-		} else {
-			// code for IE5 and IE6
-			xhttp = new ActiveXObject("Microsoft.XMLHTTP");
-		}
-		xhttp.open("GET", filename, false);
-		xhttp.send();
-		return xhttp.responseXML;
-	}
-	
-	var keyboard_xml = loadXMLDoc('config/keyboard_config.xml');
-	var key_group = keyboard_xml.getElementsByTagName('key-group');
-	
-	for (var i = 0; i < key_group.length; i++) {
-		var keys = key_group[i].getElementsByTagName('key');
-		for (var j = 0; j < keys.length; j++) {
-			key_list.push(keys[j].textContent);
-		}
-	}
+    function loadXMLDoc(filename) {
+        if (window.XMLHttpRequest) {
+            xhttp = new XMLHttpRequest();
+        } else {
+            // code for IE5 and IE6
+            xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xhttp.open("GET", filename, false);
+        xhttp.send();
+        return xhttp.responseXML;
+    }
+    
+    var keyboard_xml = loadXMLDoc('config/keyboard_config.xml');
+    var key_group = keyboard_xml.getElementsByTagName('key-group');
+    
+    for (var i = 0; i < key_group.length; i++) {
+        var keys = key_group[i].getElementsByTagName('key');
+        for (var j = 0; j < keys.length; j++) {
+            key_list.push(keys[j].textContent);
+        }
+    }
 
     // Tasti
     if ( key_list.length > 0 ) {
@@ -141,5 +130,5 @@ $(function() {
         document.getElementById('keyboard_link').className += " " + "inactive"
     }
     // Fine tastiera virtuale
-	
+    
 });

@@ -78,14 +78,14 @@
 
                if (set.mode == 'json')
                {
-					// console.log("SONO IN MODE JSON");
-					// console.log(set.contentLocation);
+				// console.log("SONO IN MODE JSON");
+				// console.log(set.contentLocation);
                     $.getJSON(set.contentLocation,
                          function(json)
                          {
                               tipuesearch_in = $.extend({}, json);
 							  // console.log(tipuesearch_in);
-                              if ( $(set.elements[3]).hasClass('active') && $(set.elements[4]).attr('data-value') != '' ) {
+                              if ( $('#search_link'+set.suffix).hasClass('active') && $('#search_query'+set.suffix).attr('data-value') != '' ) {
                                    getTipueSearch(0, true);
                               }
                          }
@@ -109,63 +109,64 @@
                }
                if (getURLP('q'))
                {
-                    $(set.elements[0]).val(getURLP('q'));
+                    $('#tipue_search_input'+set.suffix).val(getURLP('q'));
                     getTipueSearch(0, true);
                }             
                // START SEARCH         
-               $(set.elements[2]).click(function() {
-                         if ($(set.elements[0]).val() != "") {
- 						if ( !$(set.elements[5]).is(':visible')) {
- 							$('#keyboard').hide();
-                              } 
-                              $(set.elements[4]).attr('data-value', $(set.elements[0]).val());
-                              $(set.elements[4]).empty().append('<span lang="def">SEARCH_FOR</span> <strong>'+$(set.elements[0]).val()+'</strong>');
-                              getTipueSearch(0, true);
-               	     } else {
-                              $(set.elements[0]).trigger('keyup');
-                              $(set.elements[4]).attr('data-value', '');
-                              $(set.elements[4]).empty().append('<span lang="def">ENTER_YOUR_QUERY_INTO_THE_SEARCH_BOX_ABOVE</span>');
-                              $(set.elements[1], '#tipue_search_results_count', set.elements[6]).text('');
-                              
-                         }
-                         
-                         if ( $(set.elements[7]).hasClass('collapsed') ) {
-                              $(set.elements[8]).trigger('click');
-                         }
-                         if ( $('#switchReg').hasClass('active') && $('#txtimg_link').hasClass('current_mode') ) {
-                              $('#switchReg').trigger('click');
-                         }
-                         if ($(set.elements[9]).hasClass('active')) {
-                              $(set.elements[9]).trigger('click');
-                         }
-                    window.lang.run();
+               $('#start_search'+set.suffix).click(function() {
+                    if ($('#tipue_search_input'+set.suffix).val() != "") {
+						if ( !$('#text_elem'+set.suffix).is(':visible')) {
+							$('#keyboard').hide();
+                         } 
+                         $('#search_query'+set.suffix)
+                              .attr('data-value', $('#tipue_search_input'+set.suffix).val())
+                              .empty()
+                              .append('<span lang="def">SEARCH_FOR</span> <strong>'+$('#tipue_search_input'+set.suffix).val()+'</strong>');
+                         getTipueSearch(0, true);
+          	     } else {
+                         $('#tipue_search_input'+set.suffix).trigger('keyup');
+                         $('#search_query'+set.suffix)
+                              .attr('data-value', '')
+                              .empty()
+                              .append('<span lang="def">ENTER_YOUR_QUERY_INTO_THE_SEARCH_BOX_ABOVE</span>');
+                         $('#tipue_search_content'+set.suffix, '#tipue_search_results_count'+set.suffix, '#search_foot'+set.suffix).text('');
+                         window.lang.run();
+                    }
+                    if ( $('#search_cont'+set.suffix).hasClass('collapsed') ) {
+                         $('#toggle_search_cont'+set.suffix).trigger('click');
+                    }
+                    if ( $('#txtimg_link').hasClass('current_mode') ) {
+                         $('#switchReg.active').trigger('click');
+                    }
+                    $('#keyboard_link'+set.suffix+'.active').trigger('click');
                });
 
                $(this).keyup(function(event)
                {
                     if(event.keyCode == '13')
                     {
-                    	/*if ($('#span_si').is(':visible')) {
-                    		if ($(set.elements[0]).val() != "") {
+                         /*if ($('#span_si').is(':visible')) {
+                    		if ($('#tipue_search_input'+set.suffix).val() != "") {
                          		getTipueSearch(0, true);
-                         		$('#query').html($(set.elements[0]).val());
+                         		$('#query').html($('#tipue_search_input'+set.suffix).val());
 						 	}
 						 	else
-						 	   $(set.elements[1]).html("<div>Enter your query in the search box above!</div>");
+						 	   $('#tipue_search_content'+set.suffix).html("<div>Enter your query in the search box above!</div>");
 						}*/
-                         $(set.elements[2]).trigger('click');
+                              
+                         $('#start_search'+set.suffix).trigger('click');
                     }
                });
 
                function getTipueSearch(start, replace)
                {
-                    $(set.elements[1]).hide();
+                    $('#tipue_search_content'+set.suffix).hide();
                     var out = '';
                     var results = '';
                     var show_replace = false;
                     var show_stop = false;
                     
-                    var d = $(set.elements[0]).val().toLowerCase();
+                    var d = $('#tipue_search_input'+set.suffix).val().toLowerCase();
                     d = $.trim(d);
                     var d_w = d.split(' ');
                     d = '';
@@ -189,7 +190,7 @@
                     d_w = d.split(' ');
                     
                     if ( d.length >= set.minimumLength ||
-                         (d.length == 1 && key_list.indexOf(d)) )
+                         (d.length == 1 && key_list.indexOf(d) >= 0) )
                     {
                          if (replace)
                          {
@@ -284,12 +285,12 @@
                                    results_text = '<span lang="def">WE_HAVE_FOUND</span>' + c_c + ' <span lang="def">RESULTS</span>';
                               }
                               
-                              if ($(set.elements[11] + " .option_container .option").length > 1 ) {
+                              if ($('#span_ee_select'+set.suffix + " .option_container .option").length > 1 ) {
                                    results_text += ' <span lang="def">IN_THE_CURRENT_EDIION</span>. ';
-                                   // results_text += $(set.elements[11] + " .label_selected").text().toLowerCase() + ' <span lang="def">EDITION</span>.';
+                                   // results_text += $('#span_ee_select'+set.suffix + " .label_selected").text().toLowerCase() + ' <span lang="def">EDITION</span>.';
                               }
 
-                              $(set.elements[10]).html('<div id="tipue_search_results_count' + set.addId + '" class="tipue_search_results_count">' + results_text + '</div>');
+                              $('#search_results'+set.suffix).html('<div id="tipue_search_results_count' + set.addId + '" class="tipue_search_results_count">' + results_text + '</div>');
                               
                               found.sort();
                               // console.log(found);
@@ -356,7 +357,7 @@
 
                                         out += '<div class="tipue_search_content_text">' + t_d + '</div>';
                                         out += '<div class="tipue_search_found_text">';
-                                        out += '<span class="tipue_search_go_to_result" onclick="window.location.hash = \'doc='+text_id+'&page='+page_id+'\'; $(\''+set.elements[8]+'\').trigger(\'click\');">';                                        
+                                        out += '<span class="tipue_search_go_to_result" onclick="window.location.hash = \'doc='+text_id+'&page='+page_id+'\'; $(\'#toggle_search_cont'+set.suffix+'\').trigger(\'click\');">';                                        
                                         out += '<span lang="def">FOUND_IN</span> ' + text_label + ' <span lang="def">PAGE</span> ' + page_n  + ' ('+ pos_label + ')</span></div>';
                                         //out += '<p>-</p>';
                                         out += '<hr />';
@@ -428,17 +429,16 @@
                                    }                    
                                    
                                    foot_out += '</ul></div>';
-
-                                   $(set.elements[6]).html(foot_out).show();
+                                   $('#search_foot'+set.suffix).html(foot_out).show();
                               } else {
-                                   $(set.elements[6]).hide();
+                                   $('#search_foot'+set.suffix).hide();
                               }                       
                          }
                          else
                          {
                               out += '<div id="tipue_search_warning_head' + set.addId + '"><span lang="def">NOTHING_FOUND</span></div>';
-                              $(set.elements[10]).empty();
-                              $(set.elements[6]).empty();
+                              $('#search_results'+set.suffix).empty();
+                              $('#search_foot'+set.suffix).empty();
                          }
                     }
                     else
@@ -447,8 +447,8 @@
                          {
                               out += '<div id="tipue_search_warning_head' + set.addId + '"><span lang="def">NOTHING_FOUND</span></div>';
                               out += '<div id="tipue_search_warning' + set.addId + '"><span lang="def">COMMON_WORDS_IGNORED</span></div>';
-                              $(set.elements[10]).empty();
-                              $(set.elements[6]).empty();
+                              $('#search_results'+set.suffix).empty();
+                              $('#search_foot'+set.suffix).empty();
                          }
                          else
                          {
@@ -456,24 +456,25 @@
                               if (set.minimumLength == 1)
                               {
                                    out += '<div id="tipue_search_warning' + set.addId + '"><span lang="def">MORE_CHARACTER_ALERT</span></div>';
-                                   $(set.elements[10]).empty();
-                                   $(set.elements[6]).empty();
+                                   $('#search_results'+set.suffix).empty();
+                              $('#search_foot'+set.suffix).empty();
                               }
                               else
                               {
                                    out += '<div id="tipue_search_warning' + set.addId + '"><span lang="def">SHOULD_BE</span> ' + set.minimumLength +' <span lang="def">CHARACTERS_OR_MORE</span></div>';
-                                   $(set.elements[10]).empty();
-                                   $(set.elements[6]).empty();
+                                   $('#search_results'+set.suffix).empty();
+                                   $('#search_foot'+set.suffix).empty();
                               }
-                              $(set.elements[10]).empty();
-                              $(set.elements[6]).empty();
+                              $('#search_results'+set.suffix).empty();
+                              $('#search_foot'+set.suffix).empty();
                          }
                     }
                
-                    $(set.elements[1]).html(out);
-                    $(set.elements[1]).slideDown(200);
+                    $('#tipue_search_content'+set.suffix)
+                         .html(out)
+                         .slideDown(200);
                     
-                    $('#tipue_search_replaced').click(function()
+                    $('#tipue_search_replaced'+set.suffix).click(function()
                     {
                          getTipueSearch(0, false);
                     });                
