@@ -534,7 +534,8 @@ footer{
 	min-height: 480px;*/
 	margin-top: 42px;
 	top: 0px;
-	height: calc(100% - 42px);
+	height: calc(100% - 41px);
+	height: -moz-calc(100% - 42px);
 	
 	/*-moz-box-shadow:2px 3px 5px -2px rgba(0, 0, 0, 0.8);
 	-webkit-box-shadow:2px 3px 5px -2px rgba(0, 0, 0, 0.8);
