@@ -54,8 +54,10 @@
                                    var desc = $(set.liveDescription, html).text();
                                    desc = desc.replace(/\s+/g, ' ');
                                                                       
-                                   var t_1 = html.toLowerCase().indexOf('<title>');
-                                   var t_2 = html.toLowerCase().indexOf('</title>', t_1 + 7);
+                                   // var t_1 = html.toLowerCase().indexOf('<title>');
+                                   // var t_2 = html.toLowerCase().indexOf('</title>', t_1 + 7);
+                                   var t_1 = html.indexOf('<title>');
+                                   var t_2 = html.indexOf('</title>', t_1 + 7);
                                    if (t_1 != -1 && t_2 != -1)
                                    {
                                         var tit = html.slice(t_1 + 7, t_2);
@@ -166,7 +168,8 @@
                     var show_replace = false;
                     var show_stop = false;
                     
-                    var d = $('#tipue_search_input'+set.suffix).val().toLowerCase();
+                    // var d = $('#tipue_search_input'+set.suffix).val().toLowerCase();
+                    var d = $('#tipue_search_input'+set.suffix).val();
                     d = $.trim(d);
                     var d_w = d.split(' ');
                     d = '';
@@ -231,12 +234,13 @@
                               var s_t = tipuesearch_in.pages[i].text;
                               for (var f = 0; f < d_w.length; f++)
                               {
-                                   var pat = new RegExp(d_w[f], 'i');
-                                   if (tipuesearch_in.pages[i].line.search(pat) != -1)
+                                   // var pat = new RegExp(d_w[f], 'i');
+                                   var pat = d_w[f];
+                                   if (tipuesearch_in.pages[i].line.indexOf(pat) != -1)
                                    {
                                         score -= (200000 - i);
                                    }
-                                   if (tipuesearch_in.pages[i].text.search(pat) != -1)
+                                   if (tipuesearch_in.pages[i].text.indexOf(pat) != -1)
                                    {
                                         score -= (150000 - i);
                                    }
@@ -253,7 +257,7 @@
                                         }
                                         s_t = s_t.replace(patr, "<span class='bold_search'>$1</span>");
                                    }
-                                   if (tipuesearch_in.pages[i].tags.search(pat) != -1)
+                                   if (tipuesearch_in.pages[i].tags.indexOf(pat) != -1)
                                    {
                                         score -= (100000 - i);
                                    }
@@ -269,8 +273,8 @@
                          {
                               if (show_replace == 1)
                               {
-                                   out += '<div id="tipue_search_warning_head' + set.addId + '"><span lang="def">SHOWING_RESULTS_FOR</span>'+ d + '</div>';
-                                   out += '<div id="tipue_search_warning' + set.addId + '"><span lanf="def">SEARCH_FOR</span><a href="javascript:void(0)" id="tipue_search_replaced' + set.addId + '">' + d_r + '</a></div>'; 
+                                   out += '<div id="tipue_search_warning_head' + set.suffix + '"><span lang="def">SHOWING_RESULTS_FOR</span>'+ d + '</div>';
+                                   out += '<div id="tipue_search_warning' + set.suffix + '"><span lanf="def">SEARCH_FOR</span><a href="javascript:void(0)" id="tipue_search_replaced' + set.suffix + '">' + d_r + '</a></div>'; 
                               }
                               var results_text;
                               if (c == 1)
@@ -290,7 +294,7 @@
                                    // results_text += $('#span_ee_select'+set.suffix + " .label_selected").text().toLowerCase() + ' <span lang="def">EDITION</span>.';
                               }
 
-                              $('#search_results'+set.suffix).html('<div id="tipue_search_results_count' + set.addId + '" class="tipue_search_results_count">' + results_text + '</div>');
+                              $('#search_results'+set.suffix).html('<div id="tipue_search_results_count' + set.suffix + '" class="tipue_search_results_count">' + results_text + '</div>');
                               
                               found.sort();
                               // console.log(found);
@@ -316,7 +320,8 @@
                                         }
                                         else
                                         {
-                                             var d_index = t.toLowerCase().indexOf(d);
+                                             // var d_index = t.toLowerCase().indexOf(d);
+                                             var d_index = t.indexOf(d);
                                              var pre_text = t.substring(0, d_index);
                                              var post_text = t.substring(d_index);
 
@@ -375,8 +380,8 @@
                                    var pages = Math.ceil(c / set.show);
                                    var page = (start / set.show);
                                    var foot_out = "";
-                                   if (set.addId == undefined) set.addId = '';
-                                   foot_out += '<div id="tipue_search_foot' + set.addId + '"><ul id="tipue_search_foot_boxes' + set.addId + '">';
+                                   if (set.suffix == undefined) set.suffix = '';
+                                   foot_out += '<div id="tipue_search_foot' + set.suffix + '"><ul id="tipue_search_foot_boxes' + set.suffix + '">';
                                    
                                    if (start > 0)
                                    {
@@ -436,7 +441,7 @@
                          }
                          else
                          {
-                              out += '<div id="tipue_search_warning_head' + set.addId + '"><span lang="def">NOTHING_FOUND</span></div>';
+                              out += '<div id="tipue_search_warning_head' + set.suffix + '"><span lang="def">NOTHING_FOUND</span></div>';
                               $('#search_results'+set.suffix).empty();
                               $('#search_foot'+set.suffix).empty();
                          }
@@ -445,23 +450,23 @@
                     {
                          if (show_stop)
                          {
-                              out += '<div id="tipue_search_warning_head' + set.addId + '"><span lang="def">NOTHING_FOUND</span></div>';
-                              out += '<div id="tipue_search_warning' + set.addId + '"><span lang="def">COMMON_WORDS_IGNORED</span></div>';
+                              out += '<div id="tipue_search_warning_head' + set.suffix + '"><span lang="def">NOTHING_FOUND</span></div>';
+                              out += '<div id="tipue_search_warning' + set.suffix + '"><span lang="def">COMMON_WORDS_IGNORED</span></div>';
                               $('#search_results'+set.suffix).empty();
                               $('#search_foot'+set.suffix).empty();
                          }
                          else
                          {
-                              out += '<div id="tipue_search_warning_head' + set.addId + '"><span lang="def">SEARCH_TOO_SHORT</span></div>';
+                              out += '<div id="tipue_search_warning_head' + set.suffix + '"><span lang="def">SEARCH_TOO_SHORT</span></div>';
                               if (set.minimumLength == 1)
                               {
-                                   out += '<div id="tipue_search_warning' + set.addId + '"><span lang="def">MORE_CHARACTER_ALERT</span></div>';
+                                   out += '<div id="tipue_search_warning' + set.suffix + '"><span lang="def">MORE_CHARACTER_ALERT</span></div>';
                                    $('#search_results'+set.suffix).empty();
                               $('#search_foot'+set.suffix).empty();
                               }
                               else
                               {
-                                   out += '<div id="tipue_search_warning' + set.addId + '"><span lang="def">SHOULD_BE</span> ' + set.minimumLength +' <span lang="def">CHARACTERS_OR_MORE</span></div>';
+                                   out += '<div id="tipue_search_warning' + set.suffix + '"><span lang="def">SHOULD_BE</span> ' + set.minimumLength +' <span lang="def">CHARACTERS_OR_MORE</span></div>';
                                    $('#search_results'+set.suffix).empty();
                                    $('#search_foot'+set.suffix).empty();
                               }

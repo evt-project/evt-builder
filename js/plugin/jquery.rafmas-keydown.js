@@ -78,7 +78,7 @@ $(document).keydown(function(e){
     }
 	if (e.keyCode == 37) { //left
 		if ((!$("#tipue_search_input") || !$("#tipue_search_input").is(":focus")) && 
-			 !$("#tipue_search_input-add") || !$("#tipue_search_input-add").is(":focus")) {
+			 (!$("#tipue_search_input-add") || !$("#tipue_search_input-add").is(":focus"))) {
 			if (!$(".main_left_arrow").hasClass('arrow_left_disable'))
 				$(".main_left_arrow").trigger('click');
 			return false;
