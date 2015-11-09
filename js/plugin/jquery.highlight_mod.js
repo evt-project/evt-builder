@@ -199,7 +199,7 @@ jQuery.fn.unhighlight = function (options) {
 };
 
 jQuery.fn.highlight = function (words, options) {
-    var settings = { className: 'highlight', element: 'span', caseSensitive: false, wordsOnly: false };
+    var settings = { className: 'highlight', element: 'span', caseSensitive: true, wordsOnly: false };
     jQuery.extend(settings, options);
     
     if (words.constructor === String) {
