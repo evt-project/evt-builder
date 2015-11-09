@@ -173,7 +173,7 @@
 									<xsl:element name="a">
 										<xsl:attribute name="href" select="'javascript:void(0);'"/>
 										<xsl:attribute name="id" select="'txt_single'"/>
-										<xsl:attribute name="class" select="'current_mode'"/>
+										<xsl:attribute name="class" select="'current_mode mode_view'"/>
 										<xsl:attribute name="title" select="'MODE_SINGLE_TEXT'"/>
 										<xsl:attribute name="lang" select="'def'"/>
 										<img src="images/txt-single.png" class="mainHeaderimg"/> 
@@ -183,7 +183,7 @@
 									<xsl:element name="a">
 										<xsl:attribute name="href" select="'javascript:void(0);'"/>
 										<xsl:attribute name="id" select="'txtimg_link'"/>
-										<xsl:attribute name="class" select="'current_mode'"/>
+										<xsl:attribute name="class" select="'current_mode mode_view'"/>
 										<xsl:attribute name="title" select="'MODE_IMAGE_TEXT'"/>
 										<xsl:attribute name="lang" select="'def'"/>
 										<img src="images/img-txt.png" class="mainHeaderimg"/>
@@ -193,6 +193,7 @@
 									<xsl:element name="a">
 										<xsl:attribute name="href" select="'javascript:void(0);'"/>
 										<xsl:attribute name="id" select="'txttxt_link'"/>
+										<xsl:attribute name="class" select="'mode_view'"/>
 										<xsl:attribute name="title" select="'MODE_TEXT_TEXT'"/>
 										<xsl:attribute name="lang" select="'def'"/>
 										<img src="images/txt-txt.png" class="mainHeaderimg"/>
@@ -202,6 +203,7 @@
 									<xsl:element name="a">
 										<xsl:attribute name="href" select="'javascript:void(0);'"/>
 										<xsl:attribute name="id" select="'imgd_link'"/>
+										<xsl:attribute name="class" select="'mode_view'"/>
 										<xsl:attribute name="title" select="'MODE_BOOKREADER'"/>
 										<xsl:attribute name="lang" select="'def'"/>
 										<img src="images/double-view.png" class="mainHeaderimg"/>

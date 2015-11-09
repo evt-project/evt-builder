@@ -1136,14 +1136,15 @@ footer{
 	height:20px;
 	margin-right: 9px;
 }
-.like_select .option:hover{
+.option.inPage{
+	background: rgba(126,108,95,0.5);
+}
+.like_select .option:hover, .like_select .hovered{
 	background: rgb(60, 50, 44);
 	background: rgb(126,108,95);
 	color:#fff;
 }
-.option.inPage{
-	background: rgba(126,108,95,0.5);
-}
+
 .option.selected{
 	/*color:#CCC;*/
 	color:#fff;
@@ -1434,7 +1435,10 @@ footer{
 	font-size: 0.65em;
 	font-size: 1em;
 }
-
+#info_link.active {
+	color:rgb(227, 200, 156);
+	background: transparent !important;
+}
 #info_link, #settings_link {
 	display: inline;
 }

@@ -29,7 +29,7 @@
 /*global $, jQuery, alert */
 
 /* Variabili generiche*/
-var keycount, fulltogg;
+var fulltogg;
 var first_pp, last_pp;
 var first_dd, last_dd;
 var groupingPagesByDoc, optionTooltipInPages;
@@ -40,7 +40,6 @@ $(function() {
 	"use strict";
 
 	//IT: Setting variabili generiche
-	keycount = 0;
 	fulltogg = false;
 	//var pp_temp_val=$(".main_pp_select").val();
 
@@ -905,6 +904,7 @@ $(function() {
 			/* General event on hover on ".option". */
 			
 			$('.like_select .option_container .option').hover(function(){
+				$('.hovered').removeClass('hovered');
 				var parent_title = $(this).parents('.like_select').attr('title');
 					$(this).parents('.like_select').attr('data-title', parent_title);
 					$(this).parents('.like_select').attr('title', '');
@@ -1031,6 +1031,7 @@ $(function() {
 			        /* /end Integration by LS */
 			    });
 			    $('#info_link').click(function(){
+			    	$(this).toggleClass('active');
 			    	// console.log(' # info_link click #');
 			        if($('#headerInfo_cont').is(':visible')){
 			            $('#headerInfo_cont').hide('fade', 'slow');
@@ -1237,6 +1238,7 @@ $(function() {
 			// SELECTORS
 			/* Apertura option container dei selettori a tendina */
 			$(".open_select").click(function(){
+				$('.hovered').removeClass('hovered');
 				// console.log(' # open_select click #');
 				if ( !$(this).parents('.like_select').hasClass('not_active') ){
 					if (!($(".option_container").is(':animated'))){
@@ -2638,11 +2640,11 @@ $(function() {
 		$('.ref').unbind('click').click(function(){
 			// console.log(' # ref click #');
 			var type = $(this).attr('data-type'),
-				target = $(this).attr('data-target');
+				target = $(this).attr('data-target').replace('#', '');
 			if ( type == 'doc' ) {
 				var targetTToption = $('#span_tt_select').find(".option[data-value='"+target+"']");
 				if (targetTToption.length == 0){
-					console.log('No such element.');
+					alert('The text for the selected document is not available.');
 				} else {
 					if ( $('#span_tt_select').find(".label_selected").attr("data-value") != target ) {
 						targetTToption.trigger('click');
