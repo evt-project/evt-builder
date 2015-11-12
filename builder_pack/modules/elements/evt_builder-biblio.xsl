@@ -13,15 +13,12 @@
         </xd:short>
     </xd:doc>
     
-    <!-- ############## -->
-    <!-- BIBLIO CHIGAGO -->
-    <!-- ############## -->
     <xsl:template match="tei:listBibl">
         <body>
             <xsl:choose>
-                <xsl:when test="biblStruct[note='DOTR']">
-                    <xsl:apply-templates select="biblStruct[note='DOTR']">
-                        <xsl:sort order="ascending" select=".//date"/>
+                <xsl:when test="biblStruct">
+                    <xsl:apply-templates select="biblStruct">
+                        <xsl:sort order="ascending" select=".//date or .//./date"/>
                     </xsl:apply-templates>
                 </xsl:when>
                 <xsl:otherwise>
@@ -33,174 +30,76 @@
         </body>
     </xsl:template>
     
+    <xsl:template match="tei:list">
+        <ul class="listBibl">
+            <xsl:apply-templates/>
+        </ul>
+    </xsl:template>
+    <xsl:template match="tei:list/tei:item">
+        <li>
+            <xsl:apply-templates/>
+        </li>
+    </xsl:template>
+    
     <xsl:template match="tei:listBibl/biblStruct">
         <p class="hangInd">
             
             <xsl:choose>
-                <xsl:when test="analytic">
-                    
-                    <xsl:if test="monogr/title[@level='j']">
-                        <xsl:apply-templates select=".//author"/>
-                        <xsl:apply-templates select=".//title[@level='a']"/>
-                        <xsl:apply-templates select=".//editor"/>
-                        <xsl:apply-templates select=".//title[@level='j']"/>
-                        <xsl:apply-templates select=".//imprint"/>
-                    </xsl:if>
-                    
-                    <xsl:if test="monogr/title[@level='m']">
-                        <xsl:apply-templates select=".//author"/>
-                        <xsl:apply-templates select=".//title[@level='a']"/>
-                        In <xsl:apply-templates select=".//editor"/>
-                        <xsl:apply-templates select=".//title[@level='m']"/>
-                        <xsl:apply-templates select=".//imprint"/>
-                        <xsl:apply-templates select=".//series"/>
-                    </xsl:if>
-                    
+                <xsl:when test=".//author/surname and .//author/forename">
+                    <xsl:apply-templates select=".//author/surname"/>,
+                    <xsl:variable name="forename" select=".//author/forename"/>
+                    <xsl:value-of select="translate(normalize-space(translate($forename,'. ',' .')),'. ',' .')"/>.
                 </xsl:when>
-                
                 <xsl:otherwise>
-                    <xsl:apply-templates select=".//author"/>
-                    <xsl:apply-templates select=".//editor"/>
-                    <xsl:apply-templates select=".//title[@level]"/>
-                    <xsl:apply-templates select=".//note[@place='inline']" mode="inline"/>
-                    <xsl:apply-templates select=".//imprint"/>
-                    <xsl:apply-templates select=".//series"/>
+                    <xsl:variable name="author" select=".//author"/>
+                    <xsl:value-of select="translate(normalize-space(translate($author,'. ',' .')),'. ',' .')"/>.
                 </xsl:otherwise>
-                
+            </xsl:choose>
+                        
+            <xsl:apply-templates select=".//date"/>.
+            &quot;<xsl:apply-templates select="./analytic/title"/>.&quot;
+                        
+            <xsl:choose>
+                <xsl:when test=".//title[@level='j'] or biblStruct[@type='journalArticle']">
+                    <xsl:apply-templates select=".//title[@level='j']"/>,
+                    <xsl:if test=".//biblScope[@type='vol']">
+                        vol. <xsl:apply-templates select=".//biblScope[@type='vol']"/>,
+                    </xsl:if>
+                    <xsl:if test=".//biblScope[@type='pp'] or .//biblScope[@type='pages']">
+                        pp. <xsl:apply-templates select=".//biblScope[@type='pp'], .//biblScope[@type='pages'] "/>.
+                    </xsl:if>					
+                </xsl:when>
+                <xsl:when test=".//title[@level='m'] or biblStruct[@type='monograph']">
+                    <xsl:if test=".//editor">
+                        In: <xsl:apply-templates select=".//editor"/>.
+                    </xsl:if>
+                    <xsl:if test=".//title[@level='m']">
+                        <xsl:apply-templates select=".//title[@level='m']"/>.
+                    </xsl:if>                    
+                    <xsl:if test=".//pubPlace">
+                        <xsl:apply-templates select=".//pubPlace"/>,
+                    </xsl:if>
+                    <xsl:if test=".//publisher">
+                        <xsl:apply-templates select=".//publisher"/>,
+                    </xsl:if>
+                    <xsl:if test=".//biblScope[@type='vol']">
+                        vol. <xsl:apply-templates select=".//biblScope[@type='vol']"/>,
+                    </xsl:if>
+                    <xsl:if test=".//biblScope[@type='pp'] or .//biblScope[@type='pages']">
+                        pp. <xsl:apply-templates select=".//biblScope[@type='pp'], .//biblScope[@type='pages'] "/>.
+                    </xsl:if>                                        
+                </xsl:when>                                       
             </xsl:choose>
             
         </p>
     </xsl:template>
-    
-    <xsl:template match="tei:listBibl/author">
-        <xsl:choose>
-            
-            <xsl:when test="persName">
-                <xsl:choose>
-                    <xsl:when test="position()=1 and position()=last()">
-                        <xsl:apply-templates select="persName"/>&#160;
-                    </xsl:when>
-                    <xsl:when test="position()!=last()">
-                        <xsl:apply-templates select="persName"/>,
-                    </xsl:when>
-                    <xsl:otherwise>
-                        and <xsl:apply-templates select="persName"/>&#160;
-                    </xsl:otherwise>
-                </xsl:choose>
-            </xsl:when>
-            
-            <xsl:otherwise>
-                <xsl:value-of select="."/>&#160;
-            </xsl:otherwise>
-            
-        </xsl:choose>
-    </xsl:template>
-    
-    <xsl:template match="tei:listBibl/editor">
-        <xsl:choose>
-            
-            <xsl:when test="persName">
-                <xsl:choose>
-                    <xsl:when test="position()=1 and position()=last()">
-                        <xsl:apply-templates select="persName"/>&#160;
-                    </xsl:when>
-                    <xsl:when test="position()!=last()">
-                        <xsl:apply-templates select="persName"/>,
-                    </xsl:when>
-                    <xsl:otherwise>
-                        and <xsl:apply-templates select="persName"/>&#160;eds.&#160;
-                    </xsl:otherwise>
-                </xsl:choose>
-            </xsl:when>
-            
-            <xsl:otherwise>
-                <xsl:value-of select="."/>&#160;ed.&#160;
-            </xsl:otherwise>
-            
-        </xsl:choose>
-    </xsl:template>
-    
-    <xsl:template match="tei:listBibl/persName">
-        <xsl:value-of select="surname"/>,
-        <xsl:value-of select="foreName[@type='init']"/>
-    </xsl:template>
-    
-    <xsl:template match="tei:listBibl/title">
-        <xsl:choose>
-            <xsl:when test="@level='m' or @level='u'">
-                <span class="title"><xsl:apply-templates/>. </span>
-            </xsl:when>
-            <xsl:when test="@level='s'">
-                <span class="title"><xsl:apply-templates/>, </span>
-            </xsl:when>
-            <xsl:when test="@level='j'">
-                <span class="title"><xsl:apply-templates/>&#160;</span>
-            </xsl:when>
-            <xsl:when test="@level='a'">&quot;<xsl:apply-templates/>.&quot; 
-            </xsl:when>
-            <xsl:otherwise>
-                <span class="title"><xsl:apply-templates/></span>
-            </xsl:otherwise>
-        </xsl:choose>
-    </xsl:template>
-    
-    <xsl:template match="tei:listBibl/imprint">
-        <xsl:choose>
-            <xsl:when test="../title[@level='m']">
-                <xsl:apply-templates select="pubPlace"/>
-                <xsl:apply-templates select="publisher"/>
-                <xsl:apply-templates select="date"/>
-                <xsl:apply-templates select="biblScope[@type='pages']"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:apply-templates select="biblScope[@type='vol']"/>
-                <xsl:apply-templates select="date"/>
-                <xsl:apply-templates select="biblScope[@type='pages']"/>
-            </xsl:otherwise>
-        </xsl:choose>
-    </xsl:template>
-    
-    <xsl:template match="tei:listBibl/date">
-        <xsl:choose>
-            <xsl:when test="../biblScope[@type='vol']">
-                (<xsl:apply-templates/>):
-            </xsl:when>
-            <xsl:when test="../biblScope[@type='pages']">
-                <xsl:apply-templates/>,
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:apply-templates/>.
-            </xsl:otherwise>
-        </xsl:choose>
-    </xsl:template>
-    
-    <xsl:template match="tei:listBibl/pubPlace">
-        <xsl:apply-templates/>:&#160;
-    </xsl:template>
-    
-    <xsl:template match="tei:listBibl/publisher">
-        <xsl:apply-templates/>,&#160;
-    </xsl:template>
-    
-    <xsl:template match="tei:listBibl/biblScope">
-        <xsl:choose>
-            <xsl:when test="@type='vol'">
-                <xsl:apply-templates/> 
-            </xsl:when>
-            <xsl:when test="@type='pages'">
-                <xsl:apply-templates/>. 
-            </xsl:when>
-        </xsl:choose>
-    </xsl:template>
-       
-    <!-- add by CDP -->
+
     <xsl:template match="tei:bibl">
         <xsl:element name="span">
             <xsl:attribute name="class">bibl</xsl:attribute>
             <xsl:attribute name="id"><xsl:value-of select="@xml:id"/></xsl:attribute>
             <xsl:apply-templates/>
-        </xsl:element>
-            
-        
+        </xsl:element>      
     </xsl:template>
+    
 </xsl:stylesheet>
