@@ -2588,6 +2588,11 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 .bibl {
 	display: block;
 	font-size: 70%;
-	margin: 5px 0;
+	margin: 10px 0;
+}
+
+.listBibl li {
+    list-style: none;
+    margin-top: 10px;
 }
 
