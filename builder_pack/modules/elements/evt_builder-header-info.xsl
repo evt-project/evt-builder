@@ -31,7 +31,7 @@
 		<div id="titleStmt">
 			<xsl:if test="tei:title">
 				<xsl:element name="div">
-					<xsl:attribute name="class">title main</xsl:attribute>
+					<xsl:attribute name="class">section-title</xsl:attribute>
 					<xsl:value-of select="tei:title"/>
 				</xsl:element>
 			</xsl:if>

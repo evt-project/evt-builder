@@ -1041,6 +1041,7 @@ $(function() {
 			        } else {
 			            $('#headerInfo_cont').show('fade', 'slow');
 			        }
+			        $('#settings_link.active').trigger('click');
 			    });
 
 			    $('#headerInfo_cont').click(function(event){
@@ -1418,7 +1419,40 @@ $(function() {
 		
 		/* ============ */
 		/* FRONT MATTER */
-		
+			// APRI/CHIUDI BIBLIOGRAFIA GENERALE
+			$('#biblio_link').click(function(){
+		    	$(this).toggleClass('active');
+		    	// console.log(' # biblio_link click #');
+		        if($('#generalBiblio_cont').is(':visible')){
+		        	$('#generalBiblio_content').scrollTop(0);
+		            $('#generalBiblio_cont').hide('fade', 'slow', function(){
+		            });
+		        } else {
+		        	$('#generalBiblio_content').scrollTop(0);
+		            $('#generalBiblio_cont').show('fade', 'slow', function(){
+		            	if ( $('.bibl.highlight').length > 0 ) {
+		            		$('#generalBiblio_content').scrollTop($('.bibl.highlight:first').position().top-100);
+			            	setTimeout(function(){
+			            		$('.bibl.highlight').removeClass('highlight');
+			            	}, 1500);
+		            	}
+		            });
+		        }
+		        $('#settings_link.active').trigger('click');
+		    });
+
+		    $('#generalBiblio_cont').click(function(event){
+		    	// console.log(' # headerInfo_cont click #');
+		    	if ( $(event.target).parents('#close_generalBiblio_cont').length > 0 ) {
+	    			$('#biblio_link').trigger('click');
+	    		} else {
+	    			if ( !$(event.target).is('#generalBiblio') ) {
+			    		if ( $(event.target).parents('#generalBiblio').length <= 0 ) {
+			    			$('#biblio_link').trigger('click');
+			    		}
+					}
+	    		}
+		    });
 			// APRI/CHIUDI REGESTO 
 		    $('.toggleReg').click(function(event) {
 		    	// console.log(' # toggleReg click #');
@@ -1771,6 +1805,7 @@ $(function() {
 		/* ****************** */
 		$('#settings_link').click(function(){
 			// console.log(' # settings_link click #');
+	        $(this).toggleClass('active');
 	        if($('#settings_cont').is(':visible')){
 	            $('#settings_cont').animate({
 					height:"toggle"
@@ -2651,7 +2686,7 @@ $(function() {
 			if ( type == 'doc' ) {
 				var targetTToption = $('#span_tt_select').find(".option[data-value='"+target+"']");
 				if (targetTToption.length == 0){
-					alert('The text for the selected document is not available.');
+					alert(window.lang.convert('TEXT_NOT_AVAILABLE', window.lang.currentLang));
 				} else {
 					if ( $('#span_tt_select').find(".label_selected").attr("data-value") != target ) {
 						targetTToption.trigger('click');
@@ -2659,8 +2694,14 @@ $(function() {
 				}
 				$(this).parents('.bottomBoxOpened').find("[id*='toggle']").trigger('click');
 			} else {
-				alert("Link to bibliography coming soon...");
-				console.log('target: '+target);
+				var targetElem = $('#'+target);
+				if (targetElem.length > 0) {
+					targetElem.addClass('highlight');
+					$('#generalBiblio_content').scrollTop(0);
+					$('#biblio_link').trigger('click');
+				} else {
+					alert(window.lang.convert('NO_REF', window.lang.currentLang));
+				}
 			}
 		});
 	}

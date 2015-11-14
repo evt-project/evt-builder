@@ -142,5 +142,9 @@ jquery_lang_js.prototype.lang.fr = {
     "measure": "Monnaies",
     "date": "Dates",
     "clear": "Pas de sélection",
-	"multi": "Multi sélection"
+	"multi": "Multi sélection",
+
+    "BIBLIO": "Bibliographie",
+    "NO_REF": "Aucune référence trouvée.",
+    "TEXT_NOT_AVAILABLE": "Le texte du document sélectionné n'est pas disponible."
 }

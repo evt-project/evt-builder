@@ -142,6 +142,10 @@ jquery_lang_js.prototype.lang.it = {
     "measure": "Monete",
     "date": "Date",
     "clear": "Nessuna selezione",
-    "multi": "Selezione multipla"
+    "multi": "Selezione multipla",
+
+    "BIBLIO": "Bibliografia",
+    "NO_REF": "Nessun riferimento trovato.",
+    "TEXT_NOT_AVAILABLE": "Il testo del documento selezionato non è ancora disponibile."
 }
 
