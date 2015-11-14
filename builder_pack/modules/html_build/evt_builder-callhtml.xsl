@@ -152,6 +152,25 @@
 					<xsl:if test="$headerInfo=true()">
 						<div id="headerInfo_cont"></div>
 					</xsl:if>
+					<!-- add by CDP -->
+					<xsl:if test="tei:TEI/tei:text/tei:front/descendant::tei:listBibl or tei:TEI/tei:text/tei:back/descendant::tei:listBibl">
+						<div id="generalBiblio_cont">
+							<div id="generalBiblio">
+								<div class="main-title"><span lang="def">BIBLIO</span></div>
+								<a href="javascript:void(0);" id="close_generalBiblio_cont" title="Close"><i class="fa fa-close"></i></a>
+								<div id="generalBiblio_content">
+									<div>
+										<xsl:if test="tei:TEI/tei:text/tei:front/descendant::tei:listBibl">
+											<xsl:apply-templates select="tei:TEI/tei:text/tei:front/descendant::tei:listBibl"></xsl:apply-templates>
+										</xsl:if>
+										<xsl:if test="tei:TEI/tei:text/tei:back/descendant::tei:listBibl">
+											<xsl:apply-templates select="tei:TEI/tei:text/tei:back/descendant::tei:listBibl"></xsl:apply-templates>
+										</xsl:if>
+									</div>
+								</div>
+							</div>
+						</div>
+					</xsl:if>
 					<!-- /end Integration by AB -->
 					<header id="main_header">
 						<div id="home_title">
@@ -212,7 +231,7 @@
 							</div>
 						
 							<!-- Integration by AB -->
-							<xsl:if test="$headerInfo=true()">
+							<!--<xsl:if test="$headerInfo=true()">
 								<xsl:element name="a">
 									<xsl:attribute name="href" select="'javascript:void(0);'"/>
 									<xsl:attribute name="id" select="'info_link'"/>
@@ -220,7 +239,7 @@
 									<xsl:attribute name="lang" select="'def'"/>
 									<i class="fa fa-info-circle"></i>
 								</xsl:element>
-							</xsl:if>
+							</xsl:if>-->
 							<!-- /end Integration by AB -->
 							
 							
@@ -241,9 +260,24 @@
 						</div>
 					</header>
 					<div id="settings_cont">
-						<h1><span lang="def">OPTIONS</span></h1>
+						<xsl:if test="$headerInfo=true()">
+							<div class="setting_row button_like" id="info_link">
+								<div class="setting_row_title">
+									<i class="fa fa-info-circle"></i>
+									<span lang="def">PROJECT_INFO</span>
+								</div>
+							</div>	
+						</xsl:if>
+						
+						<div class="setting_row button_like" id="biblio_link">
+								<div class="setting_row_title">
+									<i class="fa fa-book"></i>
+									<span lang="def">BIBLIO</span>
+								</div>
+							</div>	
+						
 						<div class="setting_row">
-							<div class="setting_row_title"><span lang="def">LANGUAGES</span>:</div>
+							<div class="setting_row_title"><i class="fa fa-language"></i><span lang="def">LANGUAGES</span>:</div>
 							<div class="setting_row_content">
 								<img src="images/en.gif" class="flag active" data-value="en" lang="def" title="ENGLISH" alt="ENG"/>
 								<img src="images/fr.gif" class="flag" data-value="fr" lang="def" title="FRENCH" alt="FR"/>

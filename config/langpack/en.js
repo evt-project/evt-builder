@@ -144,6 +144,10 @@ jquery_lang_js.prototype.lang.en = {
     "date": "Dates",
     "clear": "No selection",
     "multi": "Multi selection",
-    "Multi selection": "Multi selection"
+    "Multi selection": "Multi selection",
+
+    "BIBLIO": "Bibliography",
+    "NO_REF": "No reference found.",
+    "TEXT_NOT_AVAILABLE": "The text for the selected document is not available."
 }
 

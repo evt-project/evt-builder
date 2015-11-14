@@ -20,6 +20,7 @@
 		<html lang="en-US">
 			<body>
 				<div id="headerInfo">
+					<div class="main-title"><span lang="def">PROJECT_INFO</span></div>
 					<a href="javascript:void(0);" id="close_header_info_cont" title="Close Header Info"><i class="fa fa-close"></i></a>
 					<div id="headerInfo_content">
 						<xsl:apply-templates select="//tei:teiHeader"/>
@@ -29,22 +30,6 @@
 								<xsl:apply-templates select="tei:TEI/tei:text/tei:front"/>
 							</div>
 						</xsl:if>
-						<!-- add by CDP -->
-						<!-- add by CDP -->
-						<xsl:if test="tei:TEI/tei:text/tei:front/descendant::tei:listBibl or tei:TEI/tei:text/tei:back/descendant::tei:listBibl">
-							<div id="generalBiblio_content">
-								<div class="section-title"><span lang="def">BIBLIO</span></div>
-								<div>
-									<xsl:if test="tei:TEI/tei:text/tei:front/descendant::tei:listBibl">
-										<xsl:apply-templates select="tei:TEI/tei:text/tei:front/descendant::tei:listBibl"></xsl:apply-templates>
-									</xsl:if>
-									<xsl:if test="tei:TEI/tei:text/tei:back/descendant::tei:listBibl">
-										<xsl:apply-templates select="tei:TEI/tei:text/tei:back/descendant::tei:listBibl"></xsl:apply-templates>
-									</xsl:if>
-								</div>
-							</div>
-						</xsl:if>
-						
 					</div>
 				</div>
 			</body>

@@ -64,12 +64,12 @@
 	<!-- EN: On/Off regesto -->
 	<!-- IT: Attiva/Disattiva regesto -->
 	<!-- default: false() -->
-	<xsl:param name="regesto" select="false()"/>
+	<xsl:param name="regesto" select="true()"/>
 	
 	<!-- EN: On/Off Front Information -->
 	<!-- IT: Attiva/Disattiva Front Information -->
 	<!-- default: true() -->
-	<xsl:param name="frontInfo" select="true()"/>
+	<xsl:param name="frontInfo" select="false()"/>
 	
 	<!-- EN: On/Off Manuscript Description -->
 	<!-- IT: Attiva/Disattiva Descrizione del manoscritto-->
@@ -92,7 +92,7 @@
 	<!-- EN: It is possible to skip production of pages for a specific edition simply removing the textual part of the corresponding item. -->
 	<!-- IT: E' possibile rimuovere la produzione di pagine di una determinata edizione semplicemente rimuovendo la parte testuale dell'item corrispondente. -->
 	<xsl:variable name="edition_array" as="element()*">
-		<edition>Diplomatic</edition> 
+		<edition></edition> 
 		<!-- EN: If you have diplomatic edition put <edition>Diplomatic</edition>.  
 			 	 If you DON'T have diplomatic edition put <edition></edition> -->
 		<!-- IT: Se si ha l'edizione diplomatica scrivere <edition>Diplomatic</edition>.  
