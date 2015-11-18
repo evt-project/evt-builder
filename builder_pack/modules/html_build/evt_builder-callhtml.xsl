@@ -852,7 +852,7 @@
 										<xsl:attribute name="id" select="'search_link'"/>
 										<xsl:attribute name="class" select="'mainButtons searchButton'"/>
 										<xsl:attribute name="data-boxsuffix" select="''"/>
-										<xsl:attribute name="title" select="'OPEN SEARCH'"/>
+										<xsl:attribute name="title" select="'OPEN_SEARCH'"/>
 										<xsl:attribute name="lang" select="'def'"/>
 										<span lang="def">SEARCH</span>
 										<i class="fa fa-search"></i>
@@ -862,7 +862,7 @@
 									<xsl:element name="span">
 										<xsl:attribute name="id" select="'list_link'"/>
 										<xsl:attribute name="class" select="'mainButtons'"/>
-										<xsl:attribute name="title" select="'OPEN LISTS'"/>
+										<xsl:attribute name="title" select="'OPEN_LISTS'"/>
 										<xsl:attribute name="lang" select="'def'"/>
 										<span lang="def">LISTS</span>
 										<i class="fa fa-list"></i>
