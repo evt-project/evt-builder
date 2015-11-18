@@ -344,7 +344,7 @@ $(function() {
 							}
 						} else {
 							$('#list_'+listName)
-								.find('.list_element').find('.toggle_list_element').click(function(){
+								.find('.list_element').find('.toggle_list_element, .entity_name').click(function(){
 									// console.log(' # toggle_list_element click #');
 									showListElementOccurrences($(this).parent(), listName);
 								});
@@ -355,6 +355,7 @@ $(function() {
 				        }
 				        /* /end Integration by LS */
 				        InitializeRefs();
+				        $('.list_filter:first').trigger('click');
 					});
 				});
 				if ($.browser.safari) {
@@ -962,9 +963,9 @@ $(function() {
 				} else {
 					updateHash(tt_val, pp_val, "");
 				}
-				if(current_pp_val === pp_val){
+				// if(current_pp_val === pp_val){
 					$("#thumb_elem").trigger('click');
-				}
+				// }
 
 				if ( ! magnifierON ){
 					$("#image_elem").show();
@@ -1624,22 +1625,29 @@ $(function() {
 		    $('.clear_input').click(function(event) {
 		    	// console.log(' # clear_input click #');
 		        $(this).prev().val('').removeClass('clearable');
-		        $(this).parents('.searchContainer')
+		        var searchCont = $(this).parents('.searchContainer');
+		        searchCont
 		        	.find('.tipue_search_results_count, .searchResultsContent, .bottomBoxFooter div').empty(); 
-		        $(this).parents('.searchContainer')
-		        	.find('.searchQuery').empty().append('<span lang="'+window.lang.currentLang+'">'+window.lang.convert('ENTER_YOUR_QUERY_INTO_THE_SEARCH_BOX_ABOVE', window.lang.currentLang)+'</span>');
+		        searchCont
+		        	.find('.searchQuery')
+		        		.empty()
+		        		.append('<span lang="'+window.lang.currentLang+'">'+window.lang.convert('ENTER_YOUR_QUERY_INTO_THE_SEARCH_BOX_ABOVE', window.lang.currentLang)+'</span>');
+				$(this).parents("div[id*='frame']").find('.highlight').removeClass('highlight');
 		    });
 
-		    $('#tipue_search_input').keyup(function (e) {
-		        // console.log(' # tipue_search_input keyup #');
-		        $('#text_elem').unhighlight();
-		        var input_text_value = $(this).val();
-		        var word_array = input_text_value.split(' ');
-		        for (var i = 0; i<word_array.length; i++){
-		            $('#text_elem').highlight(word_array[i]);
+		    $('.searchInput').keyup(function (e) {
+		    	// console.log(' # tipue_search_input keyup #');
+		        var boxSuffix = $(this).attr('data-boxsuffix');
+		        if ( $("#search_cont"+boxSuffix).hasClass('bottomBoxOpened') ) {
+			        $('#text_elem'+boxSuffix).unhighlight();
+			        var input_text_value = $(this).val();
+			        var word_array = input_text_value.split(' ');
+			        for (var i = 0; i<word_array.length; i++){
+			            $('#text_elem'+boxSuffix).highlight(word_array[i]);
+			        }
+			        //$('ul.AnnSubmenu').highlight($(this).val());
+			        // $("span.highlight").css({ backgroundColor: "#FFFF88" });	
 		        }
-		        //$('ul.AnnSubmenu').highlight($(this).val());
-		        $("span.highlight").css({ backgroundColor: "#FFFF88" });
 		    });
 
 		    if ( $('#search_cont').length > 0 ) {
@@ -1988,6 +1996,8 @@ $(function() {
 	    if ( $('#keyboard'+boxSuffix).is(':visible') ) {
 	        $('#keyboard_link'+boxSuffix).trigger('click');
 	    }
+
+	    $('#text_cont'+boxSuffix+' .highlight').removeClass('highlight');
 	}
 
 	function openSearchBox(speed, boxSuffix) {
@@ -2129,6 +2139,9 @@ $(function() {
 	    $('.list_element').hide();
 	    var listsElementsFiltered = $(".list_element[data-order-list='"+filterValue.toLowerCase()+"'], .list_element[data-order-list='"+filterValue.toUpperCase()+"']");
 	    listsElementsFiltered.show();
+	    if (filterValue.toLowerCase() == 'c') {
+	    	$(".list_element[data-order-list='Ç']").show();
+	    }
 	    
 	    if ( $('.ul_list:visible').find(listsElementsFiltered).length == 0) {
 	        if ( $( '.no_elements' ).length > 0) {
@@ -2242,6 +2255,7 @@ $(function() {
 	    current_tt = $('#span_tt_select .label_selected').attr('data-value');
 	    // Se il riferimento punta ad una pagina diversa, aggiorno l'hash e carico la pagina di interesse
 	    if (pb != current_pp) {
+	        $('#text_cont').addClass('reachingOccurence');
 	        updateHash(doc, pb, "");
 	    } 
 	    // Altrimenti...
@@ -2258,6 +2272,9 @@ $(function() {
 	            ref = $('.list_element_opened').attr('id');
 	            $("#text span[data-ref='"+ref+"']").addClass('selected_from_list');
 	        }
+	        $('#text_cont').animate({
+	            scrollTop: ($('.selected_from_list').position().top)
+	        }, 200);
 	    }
 	    $('#toggle_list_cont').trigger('click');
 	}
@@ -3145,6 +3162,15 @@ $(function() {
 		        InitializePopup();
 		        InitializeRefs();
 		        InitializeSearch();
+
+		        
+		        if ($('.selected_from_list').length > 0) {
+		        	$('#text_cont.reachingOccurence')
+		        		.animate({
+				            scrollTop: ($('.selected_from_list').position().top)
+				        }, 200)
+				        .removeClass('reachingOccurence');
+		        }
 	    	});
 	    
 	    // IT: Aggiorna l'indirizzo del frame secondario per il testo
@@ -3187,7 +3213,7 @@ $(function() {
 		            .removeAttr('title')
 		            .addClass('current');
 
-		        if ($('#text_cont-add .doc').length > 0) {
+		        if ($('#text_cont-add:visible .doc').length > 0) {
 		        	// console.log('scroll-add');
 		            $('#text_cont-add').animate({
 		                scrollTop: ($('#text_cont-add .doc.current').position().top)
@@ -4552,6 +4578,11 @@ $(function() {
 
 	function openTxtTxtMode() {
 		// console.log(' # openTxtTxtMode #');
+    	var ppSelector = $('#span_pp_select'),
+			ttSelector = $('#span_tt_select');
+		updateHash(ttSelector.find('.label_selected').attr('data-value'), 
+                   ppSelector.find('.label_selected').attr('data-value'), "");
+
     	var main_text_edition, first_new_edition, second_new_edition, noMenu_height;
         UnInitialize();//Add by JK for ITL
         UnInitializeHS();//Add by JK for HS

@@ -628,3 +628,9 @@ span.tooltip span.entity_name.link_active{
 	text-decoration: underline;
 	cursor: pointer;
 }
+.list_element span.entity_name {
+    cursor: pointer;
+}
+.list_element span.entity_name:hover{
+    text-decoration: underline;
+}

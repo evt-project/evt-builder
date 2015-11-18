@@ -179,15 +179,15 @@ $(document).keydown(function(e){
 		$('.full .closeFullScreen').trigger('click');
 		$('.option_container:visible').prev().trigger('click');
 		$('#info_link.active').trigger('click');
-		if ( $("#search_link").hasClass("active") && 
-			 $('#search_cont').hasClass('collapsed') && 
+		if ( $('#search_cont').hasClass('collapsed') && 
 			 $('#tipue_search_input').is(':focus') ) {
-			$("#search_link").trigger('click');
+			$("#search_link.active").trigger('click');
+			$('#main_right_frame .highlight').removeClass('highlight');
 		}
-		if ( $("#search_link-add").hasClass("active") && 
-			 $('#search_cont-add').hasClass('collapsed') && 
+		if ( $('#search_cont-add').hasClass('collapsed') && 
 			 $('#tipue_search_input-add').is(':focus') ) {
-			$("#search_link-add").trigger('click');
+			$("#search_link-add.active").trigger('click');
+			$('#main_left_frame .highlight').removeClass('highlight');
 		}
 		return false;
 	}	
