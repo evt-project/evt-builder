@@ -853,13 +853,13 @@ footer{
 #thumb_cont{
 	position: relative;
 	
-	margin-top: 42px;
+	/*margin-top: 42px;*/
 	margin-right: 30px;
 	height: 100%;
-	height: -moz-calc(100% - 42px);
+	/*height: -moz-calc(100% - 42px);
 	height: -webkit-calc(100% - 42px);
     height: -o-calc(100% - 42px);
-    height: calc(100% - 42px);
+    height: calc(100% - 42px);*/
 
 	display: none;
 	min-width: 436px;
@@ -2124,7 +2124,7 @@ div.doc.not_current:hover{
 #lists_cont #list_letters span{
 	margin-right: 9px;
 	color: #999;
-	font-size: 95%;
+	font-size: 90%;
 }
 
 #lists_cont #list_letters span:hover{
@@ -2219,14 +2219,14 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 	display: none;
 }
 .occurences span{
-	cursor:pointer;
+	cursor: pointer;
 	border-radius: 4px;
-	padding: 3px 10px;
-    display: inline-block;
-    border: 1px solid #ccc;	
-	margin-right: 5px;
+	padding: 3px 6px;
+	display: inline-block;
+	border: 1px solid rgb(204, 204, 204);
+	margin-right: 3px;
 	font-size: 85%;
-	margin-bottom: 5px;
+	margin-bottom: 3px;
 }
 
 .occurences span.no_occ{
@@ -2628,6 +2628,9 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
     margin-top: 10px;
 }
 
+.highlight {
+	background: #ffc 
+}
 .bibl.highlight{
 	background: rgb(255, 255, 136);
 }

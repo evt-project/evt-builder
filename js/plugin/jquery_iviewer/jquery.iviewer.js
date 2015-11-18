@@ -386,7 +386,7 @@ $.widget( "ui.iviewer", $.ui.mouse, {
 
     _updateContainerInfo: function()
     {
-        this.options.height = this.container.height()-84; //rafmasAgg
+        this.options.height = this.container.height()-42; //rafmasAgg
         this.options.width = this.container.width();
     },
 
@@ -1002,7 +1002,7 @@ $.ui.iviewer.ImageObject = function(do_anim) {
                 .removeAttr("height")
                 .removeAttr("style")
                 //max-width is reset, because plugin breaks in the twitter bootstrap otherwise
-                .css({ position: "absolute", top :"0px", left: "0px", maxWidth: "none", paddingTop: "42px"}) //rafmasAgg padding
+                .css({ position: "absolute", top :"0px", left: "0px", maxWidth: "none" }) //, paddingTop: "42px"}) //rafmasAgg padding
                 .attr("id","iviewerImage"); //rafmasAgg
 
             self._img[0].src = src;
