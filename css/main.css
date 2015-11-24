@@ -1706,7 +1706,7 @@ div.botleftconcave {
 	font-weight: lighter !important;
 	color: rgb(245, 234, 212);
 	font-size: 1.1em;
-	z-index: 999999;
+	z-index: 99999;
 }
 
 .go-full-left:hover, .go-full-right:hover, .closeFullScreen:hover{
