@@ -206,6 +206,7 @@
 										<xsl:attribute name="title" select="'MODE_IMAGE_TEXT'"/>
 										<xsl:attribute name="lang" select="'def'"/>
 										<img src="images/img-txt.png" class="mainHeaderimg"/>
+										<!--<i class="fa evt-imgtxt"></i>-->
 									</xsl:element>
 								</xsl:if>
 								<xsl:if test="count($edition_array) &gt; 1">
@@ -216,6 +217,7 @@
 										<xsl:attribute name="title" select="'MODE_TEXT_TEXT'"/>
 										<xsl:attribute name="lang" select="'def'"/>
 										<img src="images/txt-txt.png" class="mainHeaderimg"/>
+										<!--<i class="fa evt-txttxt"></i>-->
 									</xsl:element>
 								</xsl:if>
 								<xsl:if test="$image_frame=true() and $double_view=true()">
@@ -226,6 +228,7 @@
 										<xsl:attribute name="title" select="'MODE_BOOKREADER'"/>
 										<xsl:attribute name="lang" select="'def'"/>
 										<img src="images/double-view.png" class="mainHeaderimg"/>
+										<!--<i class="fa evt-bookreader"></i>-->
 									</xsl:element>
 								</xsl:if>
 							</div>
@@ -374,7 +377,7 @@
 													<xsl:attribute name="class" select="'imageTopTool mainButtons toggleReg'"/>
 													<xsl:attribute name="id" select="'switchReg-add'"/>
 													<xsl:attribute name="value" select="'reg'"/>
-													<xsl:attribute name="title" select="'REGESTO'"/>
+													<xsl:attribute name="title" select="'REGESTO_TITLE'"/>
 													<xsl:attribute name="lang" select="'def'"/>
 													<span lang="def">REGESTO</span>
 													<i class="fa fa-toggle-off"></i>

@@ -24,6 +24,9 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 
+/*[class^="evt-"]:before, [class*=" evt-"]:before {
+	color:rgb(245, 234, 212)
+}*/
 .evt-bookreader:before {
 	content: "\e600";
 }
