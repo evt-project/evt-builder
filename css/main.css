@@ -2629,8 +2629,8 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 }
 
 .highlight {
-	background: #ffc 
+	background: #FFFF88;
 }
 .bibl.highlight{
-	background: rgb(255, 255, 136);
+	background: #FFFF88;
 }
