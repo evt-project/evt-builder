@@ -136,9 +136,15 @@ footer{
 	opacity: 1;
 }
 
-#imgd_link .mainHeaderimg, #txt_single .mainHeaderimg{
-	width: 51px;
+/*#txt_single .mainHeaderimg,*/
+#imgd_link .mainHeaderimg{
+/*	width: 51px;*/
+	margin-left: -2px;
 } 
+.mode_view img {
+	height: 37px;
+	width: auto;
+}
 
 #global_wrapper {
 	/*border: 3px solid yellow;*/
@@ -1552,6 +1558,15 @@ footer{
     opacity:0 !important;
 }
 /*Chiara*/
+/* Se si usano le icone nuove
+#txtimg_link, #txtimg_link:hover, #txtimg_link.current_mode,
+#txttxt_link, #txttxt_link:hover, #txttxt_link.current_mode,
+#imgd_link, #imgd_link:hover, #imgd_link.current_mode{
+	min-height: 50px;
+	font-size: 1.3em;
+	padding:0px;
+	margin-left: 7px;
+}*/
 #txtimg_link, #txttxt_link, #txtimg_link:hover, #txtimg_link.current_mode, #txttxt_link:hover, #txttxt_link.current_mode{
 	min-height: 50px;
 	font-size: 1.4em;
@@ -2436,6 +2451,9 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 #msDesc {
     padding: 42px 0 ;
     overflow-y: auto;
+}
+#msDesc p {
+	margin-bottom: 5px;
 }
 
 #msDesc .title {

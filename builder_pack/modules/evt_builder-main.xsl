@@ -720,4 +720,15 @@
 			<xsl:apply-templates/>
 		</span>
 	</xsl:template>
+	
+	<xsl:template match="tei:p">
+		<p><xsl:apply-templates/></p>
+	</xsl:template>
+	
+	<xsl:template match="tei:hi[@rend]">
+		<xsl:element name="span">
+			<xsl:attribute name="class"><xsl:value-of select="@rend"/></xsl:attribute>
+			<xsl:apply-templates/>
+		</xsl:element>
+	</xsl:template>
 </xsl:stylesheet>

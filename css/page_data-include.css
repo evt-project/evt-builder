@@ -538,6 +538,12 @@ span.emph{
 span.italic{
 	font-style:italic;
 }
+span.bold{
+    font-weight: bold;
+}
+span.uppercase{
+    text-transform: uppercase;
+}
 span.term, span.emph span.term{
     /*font-weight:bold;
     font-style:normal;*/

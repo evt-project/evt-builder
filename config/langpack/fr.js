@@ -23,6 +23,7 @@ jquery_lang_js.prototype.lang.fr = {
 	"THUMBS": "Miniatures",
 	"SELECTOR_EDITION_LEVEL": "Sélecteur de niveau d'édition",
 	"REGESTO": "Regesto",
+    "REGESTO_TITLE":"Regesto",
 	"INFORMATION_ABOUT_THIS_TEXT": "A propos de ce texte",
 	"INFO": "Info",
 	"MAGNIFIER_LENS": "Loupe",
