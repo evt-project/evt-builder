@@ -2652,3 +2652,14 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 .bibl.highlight{
 	background: #FFFF88;
 }
+
+.project-web-site_link {
+	margin-left: 10px; 
+	font-size: 70%;
+	color:rgb(78, 68, 60);
+	outline: none !important;
+}
+
+.project-web-site_link:hover{
+	opacity: 0.8;
+}

@@ -20,7 +20,18 @@
 		<html lang="en-US">
 			<body>
 				<div id="headerInfo">
-					<div class="main-title"><span lang="def">PROJECT_INFO</span></div>
+					<div class="main-title"><span lang="def">PROJECT_INFO</span>
+						<xsl:if test="$webSite != ''">
+							<xsl:element name="a">
+								<xsl:attribute name="class">project-web-site_link</xsl:attribute>
+								<xsl:attribute name="href"><xsl:value-of select="$webSite"/></xsl:attribute>
+								<xsl:attribute name="target">_blank</xsl:attribute>
+								<xsl:attribute name="lang">def</xsl:attribute>
+								<xsl:attribute name="title">VISIT_WEB_SITE</xsl:attribute>
+								<i class="fa fa-external-link"></i>
+							</xsl:element>
+						</xsl:if>
+					</div>
 					<a href="javascript:void(0);" id="close_header_info_cont" title="Close Header Info"><i class="fa fa-close"></i></a>
 					<div id="headerInfo_content">
 						<xsl:apply-templates select="//tei:teiHeader"/>
