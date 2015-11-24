@@ -147,6 +147,8 @@ jquery_lang_js.prototype.lang.it = {
 
     "BIBLIO": "Bibliografia",
     "NO_REF": "Nessun riferimento trovato.",
-    "TEXT_NOT_AVAILABLE": "Il testo del documento selezionato non è ancora disponibile."
+    "TEXT_NOT_AVAILABLE": "Il testo del documento selezionato non è ancora disponibile.",
+
+    "VISIT_WEB_SITE": "Visita il sito web del progetto."
 }
 
