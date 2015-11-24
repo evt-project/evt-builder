@@ -31,6 +31,7 @@
 	<xsl:param name="filePrefix" select="'../../..'"/> <!-- file path -->
 	<xsl:param name="dataPrefix" select="'../..'"/> <!-- page -->
 	
+	<xsl:param name="webSite" select="'http://pelavicino.labcd.unipi.it'"/> <!-- index -->
 	<!-- EN: Index title -->
 	<!-- IT: Titolo edizione -->
 	<!-- default: 'Codex Viewer' -->
@@ -192,14 +193,14 @@
 			- 'info'  se si vogliono visualizzare le informazioni sul testo al primo caricamento
 			Qualsiasi altro valore varrà come 'text'
 	-->
-	<xsl:variable name="right_frame_default_content" select="'text'" />
+	<xsl:variable name="right_frame_default_content" select="'info'" />
 	
 	<!-- BUTTONS PRESENCE AND POSITION -->
 	
 	<!-- EN: Show/Hide Txt/Img Link Button in interface -->
 	<!-- IT: Mostra/Nascondi pulsante Txt/Img Link nell'interfaccia web -->
 	<!-- default: true() -->
-	<xsl:param name="txtimg_link_button" select="true()"/>
+	<xsl:param name="txtimg_link_button" select="false()"/>
 	
 	<!-- EN: Show/Hide Hotspot Button in interface -->
 	<!-- IT: Mostra/Nascondi pulsante Hotspot nell'interfaccia web -->
@@ -245,7 +246,7 @@
 	<!-- EN: On/Off Virtual Keyboard for search -->
 	<!-- IT: Attiva/Disattiva Tastiera virtuale per ricerca -->
 	<!-- default: true() -->
-	<xsl:param name="virtual_keyboard_search" select="true()"/>
+	<xsl:param name="virtual_keyboard_search" select="false()"/>
 	
 	<!-- EN: On/Off Document Navigation -->
 	<!-- IT: Attiva/Disattiva navigazione per documento -->
