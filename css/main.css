@@ -2290,7 +2290,7 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 	font-style: italic; 
 }
 /* HEADER INFO by AB */
-#headerInfo_cont, #generalBiblio_cont {
+#headerInfo_cont, #generalBiblio_cont, #help_cont, #keyboard_shortcuts_cont{
 	position: fixed;
 	width: 100%;
 	height: 100%;
@@ -2302,7 +2302,7 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 	cursor: pointer;
 }
 
-#close_header_info_cont, #close_generalBiblio_cont{
+#close_header_info_cont, #close_generalBiblio_cont, #close_keyboard_shortcuts_cont{
 	text-shadow: 0px 1px 4px #000;
 	color: #4E443C;
 	padding: 0px 7px;
@@ -2311,15 +2311,15 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 	right: 0;
 	font-size: 1em;
 }
-#close_header_info_cont:hover, #close_generalBiblio_cont:hover {
+#close_header_info_cont:hover, #close_generalBiblio_cont:hover, #close_keyboard_shortcuts_cont:hover {
 	height: 34px;
 	opacity: .8;
 }
-#headerInfo, #generalBiblio {
+#headerInfo, #generalBiblio, #keyboard_shortcuts {
     width: 50%;
-	font-size: 20pt;
+    font-size: 20pt;
 	height: 90%;
-	min-width: 500px;
+	min-width: 700px;
 	min-height: 300px;
 	background: #FFFAF0;
 	overflow: hidden;
@@ -2338,7 +2338,7 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 }
 
 
-#headerInfo .title.main, #generalBiblio .title.main{
+#headerInfo .title.main, #generalBiblio .title.main, #keyboard_shortcuts .title.main{
 	display: block;
 	font-size: 110%;
 	margin:10px 0;
@@ -2347,14 +2347,15 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 	font-weight: bold;
 }
 #headerInfo .section-title, #generalBiblio .section-title,
-#headerInfo .main-title, #generalBiblio .main-title {
+#headerInfo .main-title, #generalBiblio .main-title,
+#keyboard_shortcuts .main-title {
     cursor: text;
     text-align: left;
 	font-size: 70%;
 	margin:10px 30px;
 	font-weight: bold;
 }
-#headerInfo .main-title, #generalBiblio .main-title {
+#headerInfo .main-title, #generalBiblio .main-title, #keyboard_shortcuts .main-title {
 	font-size: 100%;
 }
 #headerInfo .table {
@@ -2662,4 +2663,42 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 
 .project-web-site_link:hover{
 	opacity: 0.8;
+}
+
+.shortcuts_key {
+	background: transparent linear-gradient(to bottom, rgb(240, 240, 240), rgb(252, 252, 252)) repeat scroll 0% 0%;
+	border-radius: 3px;
+	color: rgb(48, 48, 48);
+	border-width: 1px 1px 2px;
+	border-style: solid;
+	border-color: rgb(224, 224, 224);
+	-moz-border-top-colors: none;
+	-moz-border-right-colors: none;
+	-moz-border-bottom-colors: none;
+	-moz-border-left-colors: none;
+	border-image: none;
+	white-space: nowrap;
+	font-variant: small-caps;
+	font-family: monospace;
+	padding: 0px 3px;
+	font-size: 90%;
+}
+
+.shortcuts_row {
+	display: block;
+	padding: 0 25px;
+}
+
+.shortcuts_col_left, .shortcuts_col_right {
+	display: inline-block;
+	font-size: 70%;
+	float: left;
+	padding: 5px 0;
+	border-bottom: 1px solid #e5e5e5;
+}
+.shortcuts_col_left {
+	width: 60%;
+}
+.shortcuts_col_right {
+	width: 40%;
 }

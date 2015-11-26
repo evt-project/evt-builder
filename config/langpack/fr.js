@@ -149,5 +149,19 @@ jquery_lang_js.prototype.lang.fr = {
     "NO_REF": "Aucune référence trouvée.",
     "TEXT_NOT_AVAILABLE": "Le texte du document sélectionné n'est pas disponible.",
 
-    "VISIT_WEB_SITE": "Visitez le site Web du projet."
+    "VISIT_WEB_SITE": "Visitez le site Web du projet.",
+    "HELP": "Help",
+    "CLOSE": "Fermer",
+    // Shortcuts
+    "KEYBOARD_SHORTCUTS": "Les raccourcis clavier",
+    "KS_OPEN_PROJECT_INFO" : "Ouvrir les informations sur le project",
+    "KS_SWITCH_MODE_VIEW" : "Changer mode de visualization",
+    "KS_GO_FULLSCREEN": "Plein écran",
+    "KS_OPEN_SEARCH": "Ouvrir la recherche",
+    "KS_OPEN_PAGE_SELECTOR" : "Ouvrir le selecteur des pages",
+    "KS_OPEN_TEXT_SELECTOR" : "Ouvrir le selecteur des textes",
+    "KS_OPEN_EDITION_SELECTOR" : "Ouvrir le selecteur de niveau d'édition",
+    "KS_CHANGE_PAGE" : "Changer page",
+    "KS_CHANGE_DOC" : "Changer document"
+
 }

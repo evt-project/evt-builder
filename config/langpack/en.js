@@ -151,6 +151,19 @@ jquery_lang_js.prototype.lang.en = {
     "NO_REF": "No reference found.",
     "TEXT_NOT_AVAILABLE": "The text for the selected document is not available.",
 
-    "VISIT_WEB_SITE": "Visit the website of the project."
+    "VISIT_WEB_SITE": "Visit the website of the project.",
+    "HELP": "Help",
+    "CLOSE": "Close",
+    // Shortcuts
+    "KEYBOARD_SHORTCUTS": "Keyboard shortcuts",
+    "KS_OPEN_PROJECT_INFO" : "Open project info",
+    "KS_SWITCH_MODE_VIEW" : "Switch mode view",
+    "KS_GO_FULLSCREEN": "Go fullscreen",
+    "KS_OPEN_SEARCH": "Open search",
+    "KS_OPEN_PAGE_SELECTOR" : "Open page selector",
+    "KS_OPEN_TEXT_SELECTOR" : "Open text selector",
+    "KS_OPEN_EDITION_SELECTOR" : "Open edition selector",
+    "KS_CHANGE_PAGE" : "Change page",
+    "KS_CHANGE_DOC" : "Change document"
 }
 

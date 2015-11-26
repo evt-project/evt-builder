@@ -148,6 +148,48 @@
 			</xsl:call-template>
 			<body>
 				<div id="global_wrapper">
+					<div id="keyboard_shortcuts_cont">
+						<div id="keyboard_shortcuts">
+							<div class="main-title"><span lang="def">KEYBOARD_SHORTCUTS</span></div>
+							<a href="javascript:void(0);" id="close_keyboard_shortcuts_cont" lang="def" title="CLOSE"><i class="fa fa-close"></i></a>
+							<div class="shortcuts_row">
+								<p class="shortcuts_col_left"><span lang="def">KS_OPEN_PROJECT_INFO</span></p>
+								<p class="shortcuts_col_right"><span class="shortcuts_key">alt</span>+<span class="shortcuts_key">i</span></p>
+							</div>
+							<div class="shortcuts_row">
+								<p class="shortcuts_col_left"><span lang="def">KS_SWITCH_MODE_VIEW</span></p>
+								<p class="shortcuts_col_right"><span class="shortcuts_key">alt</span>+<span class="shortcuts_key">1</span> / <span class="shortcuts_key">alt</span>+<span class="shortcuts_key">2</span> / <span class="shortcuts_key">alt</span>+<span class="shortcuts_key">3</span> ...</p>
+							</div>
+							<div class="shortcuts_row">
+								<p class="shortcuts_col_left"><span lang="def">KS_CHANGE_PAGE</span></p>
+								<p class="shortcuts_col_right"><span class="shortcuts_key">←</span> and <span class="shortcuts_key">→</span></p>
+							</div>
+							<div class="shortcuts_row">
+								<p class="shortcuts_col_left"><span lang="def">KS_CHANGE_DOC</span></p>
+								<p class="shortcuts_col_right"><span class="shortcuts_key">↑</span> and <span class="shortcuts_key">↓</span></p>
+							</div>
+							<div class="shortcuts_row">
+								<p class="shortcuts_col_left"><span lang="def">KS_GO_FULLSCREEN</span></p>
+								<p class="shortcuts_col_right"><span class="shortcuts_key">ctrl/cmd</span>+<span class="shortcuts_key">alt</span>+<span class="shortcuts_key">shift</span>+<span class="shortcuts_key">f</span></p>
+							</div>
+							<div class="shortcuts_row">
+								<p class="shortcuts_col_left"><span lang="def">KS_OPEN_SEARCH</span></p>
+								<p class="shortcuts_col_right"><span class="shortcuts_key">ctrl/cmd</span>+<span class="shortcuts_key">f</span></p>
+							</div>
+							<div class="shortcuts_row">
+								<p class="shortcuts_col_left"><span lang="def">KS_OPEN_PAGE_SELECTOR</span></p>
+								<p class="shortcuts_col_right"><span class="shortcuts_key">alt</span>+<span class="shortcuts_key">p</span></p>
+							</div>
+							<div class="shortcuts_row">
+								<p class="shortcuts_col_left"><span lang="def">KS_OPEN_TEXT_SELECTOR</span></p>
+								<p class="shortcuts_col_right"><span class="shortcuts_key">alt</span>+<span class="shortcuts_key">t</span></p>
+							</div>
+							<div class="shortcuts_row">
+								<p class="shortcuts_col_left"><span lang="def">KS_OPEN_EDITION_SELECTOR</span></p>
+								<p class="shortcuts_col_right"><span class="shortcuts_key">alt</span>+<span class="shortcuts_key">e</span></p>
+							</div>
+						</div>
+					</div>
 					<!-- Integration by AB -->
 					<xsl:if test="$headerInfo=true()">
 						<div id="headerInfo_cont"></div>
@@ -273,11 +315,11 @@
 						</xsl:if>
 						
 						<div class="setting_row button_like" id="biblio_link">
-								<div class="setting_row_title">
-									<i class="fa fa-book"></i>
-									<span lang="def">BIBLIO</span>
-								</div>
-							</div>	
+							<div class="setting_row_title">
+								<i class="fa fa-book"></i>
+								<span lang="def">BIBLIO</span>
+							</div>
+						</div>	
 						
 						<div class="setting_row">
 							<div class="setting_row_title"><i class="fa fa-language"></i><span lang="def">LANGUAGES</span>:</div>
@@ -286,7 +328,14 @@
 								<img src="images/fr.gif" class="flag" data-value="fr" lang="def" title="FRENCH" alt="FR"/>
 								<img src="images/ita.gif" class="flag" data-value="it" lang="def" title="ITALIAN"  alt="ITA"/>
 							</div>
-						</div>	 
+						</div>	
+						
+						<div class="setting_row button_like" id="keyboard_shortcuts_link">
+							<div class="setting_row_title">
+								<i class="fa fa-keyboard-o"></i>
+								<span lang="def">KEYBOARD_SHORTCUTS</span>
+							</div>
+						</div>
 					</div>
 					<section id="central_wrapper">
 						<xsl:element name="i">
