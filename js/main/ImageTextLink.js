@@ -474,37 +474,44 @@ function moveAreas(){
 }
 
 function switchITL(){
-    if($("#thumb_cont").css('display') === "block"){
-	   	   if($("#image_elem").css('display') === "none"){
-				$("#image_elem").show();
-				$("#image_fade").show();
-				if(!$('#left_header').hasClass('menuClosed')){
-					$("#image_tool").show();
-				}
-			}
-			$("#thumb_cont").hide();
+    var switchITL  = $('#switchITL'),
+        thumb_cont = $('#thumb_cont'),
+        image_elem = $('#image_elem');
+    if(thumb_cont.css('display') === "block"){
+        if(image_elem.css('display') === "none"){
+            image_elem.show();
+            $("#image_fade").show();
+            if(!$('#left_header').hasClass('menuClosed')){
+                $("#image_tool").show();
+            }
+        }
+        thumb_cont.hide();
 	}
 	if (ITLon == false){
-	   //if ((magnifierON==true)&&(bigImage==true)){magOn();}
-	   if (magnifierON){magOn();}
-	   if($('#switchMag').hasClass('likeInactive')){
-	       $('#switchMag').removeAttr('onclick').removeClass('likeInactive').addClass('inactive');
-	       $('#switchMag i').removeClass('fa fa-search-plus').addClass('fa fa-search');
-	   }
-	   if (HSon){UnInitializeHS();}
-	   if ($('#switchHS i ').hasClass('fa-dot-circle-o')){
-	       $('#switchHS i ').removeClass('fa-dot-circle-o').addClass('fa-circle-o'); //Add for FA
-	       $('#switchHS').removeClass('active'); //Add for FA
-	       if($('#switchHS').hasClass('likeInactive')) disableHSbutton();
-	   }
-       Initialize();
-       $('#switchITL').addClass('active'); //Add by CDP
+        //if ((magnifierON==true)&&(bigImage==true)){magOn();}
+        if (magnifierON){magOn();}
+        if($('#switchMag').hasClass('likeInactive')){
+            $('#switchMag').removeAttr('onclick').removeClass('likeInactive').addClass('inactive');
+            $('#switchMag i').removeClass('fa fa-search-plus').addClass('fa fa-search');
+        }
+        if (HSon){UnInitializeHS();}
+        if ($('#switchHS i ').hasClass('fa-dot-circle-o')){
+            $('#switchHS i ').removeClass('fa-dot-circle-o').addClass('fa-circle-o'); //Add for FA
+            $('#switchHS').removeClass('active'); //Add for FA
+            if($('#switchHS').hasClass('likeInactive')) {
+                disableHSbutton();
+            }
+        }
+        Initialize();
+        switchITL.addClass('active'); //Add by CDP
     }
 	else {
-	   if($('#switchITL').hasClass('likeInactive')) disableITLbutton();
-	   UnInitialize();
-       $('#switchITL i ').removeClass('fa-chain').addClass('fa-chain-broken');//Add by CDP for FA
-       $('#switchITL').removeClass('active'); //Add by CDP
+        
+            if(switchITL.hasClass('likeInactive')) disableITLbutton();
+            UnInitialize();
+            $('#switchITL i ').removeClass('fa-chain').addClass('fa-chain-broken');//Add by CDP for FA
+            switchITL.removeClass('active'); //Add by CDP
+        
 	}
 }
 

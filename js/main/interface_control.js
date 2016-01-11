@@ -1312,11 +1312,20 @@ $(function() {
 	        });
 
 			// BUTTONS
+			$('#left_menu .mainButtons').click(function(){
+				if ( ! $(this).hasClass('inactive') ) {
+					$(this).siblings().removeClass('active');
+				}
+			});
 			$('#switchMag, #switchHS, #switchITL').click(function(){
 				// console.log(' # switch mag/hs/itl click #');
 				var msDescSwitcher = $('#switch_msDesc');
 				if ( msDescSwitcher.length > 0 && msDescSwitcher.hasClass('active') ) {
 					msDescSwitcher.trigger('click');
+				}
+				var thumbsSwitcher = $('#thumb_elem');
+				if ( thumbsSwitcher.length > 0 && thumbsSwitcher.hasClass('active') ) {
+					thumbsSwitcher.removeClass('active');
 				}
 			});
 
@@ -3024,7 +3033,7 @@ $(function() {
 	   - aggiornamento della label del selettore dei documenti
 	*/
 	function selectTT(current_doc){
-		console.log(' # selectTT #');
+		// console.log(' # selectTT #');
 		var current_doc_lab = $("#span_tt_select .option_container .option[data-value='"+current_doc+"']").text();
 	    // SELETTORE TESTI E SELETTORE TESTI DUPLICATO NEL FRAME SINISTRO
 	    $('#span_tt_select .label_selected, #span_tt_select-add .label_selected')
