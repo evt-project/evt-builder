@@ -140,7 +140,7 @@
     
     <!-- EN: Starting point for the split of elements containing pb and lb -->
     <!-- IT: Punto di partenza per la divisione degli elementi contententi pb/lb -->
-    <xsl:variable name="start_split" select="if(//tei:text/tei:group[@xml:id='group']) then(//tei:text/tei:group[@xml:id='group']/name()) else( if(//tei:body/tei:div) then(//tei:body/tei:div/name()) else(//tei:body/name()) )"/>
+	<xsl:variable name="start_split" select="if(//tei:text/tei:group[@xml:id='group']) then(//tei:text/tei:group[@xml:id='group']/name()) else( if(//tei:body/tei:div[@subtype='edition_text']) then(//tei:body/tei:div[@subtype='edition_text']/name()) else(//tei:body/name()) )"/>
 	
 	
 	<!-- EN: Indicate the maximum depth of pb/lb with relatively to the element stated in the variable $start_split-->
@@ -200,7 +200,7 @@
 	<!-- EN: Show/Hide Txt/Img Link Button in interface -->
 	<!-- IT: Mostra/Nascondi pulsante Txt/Img Link nell'interfaccia web -->
 	<!-- default: true() -->
-	<xsl:param name="txtimg_link_button" select="false()"/>
+	<xsl:param name="txtimg_link_button" select="true()"/>
 	
 	<!-- EN: Show/Hide Hotspot Button in interface -->
 	<!-- IT: Mostra/Nascondi pulsante Hotspot nell'interfaccia web -->
@@ -279,5 +279,6 @@
 		<roleName/>
 		<measure/>
 		<date/>
+		<abbr/>
 	</xsl:variable>
 </xsl:stylesheet>

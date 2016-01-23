@@ -113,12 +113,16 @@ function setMagHeight() {;
 }
 
 function magOn() {
-	if (magnifierON == false) {
-	   if($('#switchMag').hasClass('likeInactive')){
+	
+	if (magnifierON == false || 
+		$('#thumb_cont').css('display') !== 'none' ||
+		$('#msDesc_cont').css('display') !== 'none') {
+	   	
+	   	if($('#switchMag').hasClass('likeInactive')) {
 	       $('#switchMag').removeAttr('onclick').removeClass('likeInactive').addClass('inactive');
 	       $('#switchMag i').removeClass('fa fa-search-plus').addClass('fa fa-search');
-	   }
-	   else{
+	  	}
+	    else{
       		/*IT: Se il collegamento testo immagine è attivo, lo disattivo*/
       		UnInitialize(); //Add by JK for ITL
       		$('#switchITL i').removeClass('fa fa-chain').addClass('fa fa-chain-broken');
@@ -161,7 +165,7 @@ function magOn() {
 		$('#image_tool').removeClass('hidden');
 		magnifierON = false;
 	}
-	$('#thumb_cont').css('display', 'none');
+	$('#thumb_cont, #msDesc_cont').css('display', 'none');
 }
 
 function disableITLbutton() {
