@@ -93,7 +93,7 @@
 	<!-- EN: It is possible to skip production of pages for a specific edition simply removing the textual part of the corresponding item. -->
 	<!-- IT: E' possibile rimuovere la produzione di pagine di una determinata edizione semplicemente rimuovendo la parte testuale dell'item corrispondente. -->
 	<xsl:variable name="edition_array" as="element()*">
-		<edition></edition> 
+		<edition>Diplomatic</edition> 
 		<!-- EN: If you have diplomatic edition put <edition>Diplomatic</edition>.  
 			 	 If you DON'T have diplomatic edition put <edition></edition> -->
 		<!-- IT: Se si ha l'edizione diplomatica scrivere <edition>Diplomatic</edition>.  
@@ -117,8 +117,8 @@
 	
 	<!-- EN: It is possibile to customize the prefix used in the creation of the classes of the html elements of the edition -->
 	<!-- IT: E' possibile personalizzare il prefisso usato nella creazione delle classi degli elementi html di un edizione. -->
-	<xsl:variable name="ed_name1">facs</xsl:variable>
-	<xsl:variable name="ed_name2">dipl</xsl:variable>
+	<xsl:variable name="ed_name1">dipl</xsl:variable>
+	<xsl:variable name="ed_name2">interp</xsl:variable>
 	
 	<!-- Variable -->
 	

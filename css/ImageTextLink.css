@@ -143,8 +143,8 @@ div.AnnText{
     color: #000000;
 }
 /* CDP provvisorio */
-.HighlightedAnnMenuItem div.facs-right, .HighlightedAnnMenuItem div.facs-center, .HighlightedAnnMenuItem div.dipl-right, .HighlightedAnnMenuItem div.dipl-center,
-.SelectedAnnMenuItem div.facs-right, .SelectedAnnMenuItem div.facs-center, .SelectedAnnMenuItem div.dipl-right, .SelectedAnnMenuItem div.dipl-center{
+.HighlightedAnnMenuItem div.dipl-right, .HighlightedAnnMenuItem div.dipl-center, .HighlightedAnnMenuItem div.interp-right, .HighlightedAnnMenuItem div.interp-center,
+.SelectedAnnMenuItem div.dipl-right, .SelectedAnnMenuItem div.dipl-center, .SelectedAnnMenuItem div.interp-right, .SelectedAnnMenuItem div.interp-center{
     background-color: transparent;
 }
 

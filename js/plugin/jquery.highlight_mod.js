@@ -53,9 +53,9 @@ jQuery.extend({
         	} else if (node.nodeType === 1 || node.tagName === 'SPAN') {
         		if (node.childNodes.length === 0)
         			return undefined;
-        		if (node.className.match('facs-reg'))
+        		if (node.className.match('dipl-reg'))
         			return undefined;
-        		if (node.className === 'dipl-lineN' || node.className === 'facs-lineN')
+        		if (node.className === 'interp-lineN' || node.className === 'dipl-lineN')
         			return undefined;
         		obj.array = [], obj.text = "";
         		for (var i = 0; i < node.childNodes.length; i++) {

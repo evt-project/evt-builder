@@ -46,15 +46,15 @@
 	<xsl:include href="modules/elements/evt_builder-header-info.xsl"/>
 	<xsl:include href="modules/elements/evt_builder-ms-desc.xsl"/>
 	
-	<!-- Elements for facsimile version-->
-	<xsl:include href="modules/elements/evt_builder-facs-core.xsl"/>
-	<xsl:include href="modules/elements/evt_builder-facs-multi_module.xsl"/>
-	<!--<xsl:include href="modules/elements/evt_builder-facs-textstructure.xsl"/>--> <!-- Added By JK-->
-
 	<!-- Elements for diplomatic version-->
 	<xsl:include href="modules/elements/evt_builder-dipl-core.xsl"/>
 	<xsl:include href="modules/elements/evt_builder-dipl-multi_module.xsl"/>
-	<!--<xsl:include href="modules/elements/evt_builder-dipl-textstructure.xsl"/>-->
+	<!--<xsl:include href="modules/elements/evt_builder-dipl-textstructure.xsl"/>--> <!-- Added By JK-->
+
+	<!-- Elements for interpretative version-->
+	<xsl:include href="modules/elements/evt_builder-interp-core.xsl"/>
+	<xsl:include href="modules/elements/evt_builder-interp-multi_module.xsl"/>
+	<!--<xsl:include href="modules/elements/evt_builder-interp-textstructure.xsl"/>-->
 	
 	<!-- Extra -->
 	<xsl:include href="modules/extra/functx-1.0.xsl"/>

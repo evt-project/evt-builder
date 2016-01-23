@@ -80,28 +80,28 @@
 							<div class="align-center"><span class="intestazione inline">Numerazione originale: </span><xsl:value-of select="$front/tei:titlePart[@type='numerazioneOrig']"/></div>
 							<div class="align-center">
 								<span class="intestazione inline">
-									<xsl:apply-templates mode="dipl" select="$front/tei:docDate"/>
+									<xsl:apply-templates mode="interp" select="$front/tei:docDate"/>
 								</span>
 							</div>
 						</div>
 						<div class="reg_text">
 							<!--<xsl:value-of select="$front/tei:div[@type='regesto']"/>-->
-							<xsl:apply-templates select="$front/tei:div[@type='regesto']" mode="dipl"/>
+							<xsl:apply-templates select="$front/tei:div[@type='regesto']" mode="interp"/>
 						</div>
 						<div class="reg_note">
 							<hr/>
 							<p class="bibliografia">
 								<!--<xsl:value-of select="$front//tei:div[@type='orig_doc']"/>-->
-								<xsl:apply-templates select="$front//tei:div[@type='orig_doc']" mode="dipl"></xsl:apply-templates>
+								<xsl:apply-templates select="$front//tei:div[@type='orig_doc']" mode="interp"></xsl:apply-templates>
 							</p>
 							<p class="bibliografia">
 								<xsl:for-each select="$front//tei:div[@type='biblio']/tei:p">
-									<xsl:apply-templates mode='dipl'/>
+									<xsl:apply-templates mode='interp'/>
 								</xsl:for-each>
 							</p>
 							<p class="crit_notes">
 								<xsl:for-each select="tei:front//tei:div[@type='crit_notes']/tei:note">
-									<xsl:apply-templates mode="dipl"/>
+									<xsl:apply-templates mode="interp"/>
 								</xsl:for-each>
 							</p>
 						</div>

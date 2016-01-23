@@ -12,38 +12,39 @@
 			IT: I template per la trasformazione degli elementi TEI del modulo TRANSCR, LINKING e gaiji.
 		</xd:short>
 	</xd:doc>
-
-	<xsl:template match="tei:g" mode="facs">
+	
+	<xsl:template match="tei:g" mode="interp">
 		<xsl:variable name="id" select="substring-after(@ref,'#')"/>
-		<xsl:apply-templates select="if($root//tei:charDecl//tei:glyph[@xml:id=$id]/tei:mapping[@type='diplomatic']) then($root//tei:charDecl//tei:glyph[@xml:id=$id]/tei:mapping[@type='diplomatic']) else($root//tei:charDecl//tei:char[@xml:id=$id]/tei:mapping[@type='diplomatic'])" mode="#current"/>
+		<xsl:apply-templates select="if($root//tei:charDecl//tei:glyph[@xml:id=$id]/tei:mapping[@type='normalized']) then($root//tei:charDecl//tei:glyph[@xml:id=$id]/tei:mapping[@type='normalized']) else($root//tei:charDecl//tei:char[@xml:id=$id]/tei:mapping[@type='normalized'])" mode="#current"/>
 	</xsl:template>
-
-	<xsl:template match="tei:fw" mode="facs" priority="2">
+	
+	<xsl:template match="tei:fw" mode="interp">
 		<xsl:choose>
 			<xsl:when test="@place='top-middle'">
 				<xsl:element name="span">
-					<xsl:attribute name="class" select="$ed_name1,'center'" separator="-"/>
-					<xsl:apply-templates mode="#current"> </xsl:apply-templates>
+					<xsl:attribute name="class" select="$ed_name2,'center'" separator="-"/>
+					<xsl:apply-templates mode="#current"/> 
 				</xsl:element>
 			</xsl:when>
 			<xsl:when test="@place='top-right'">
 				<xsl:element name="span">
-					<xsl:attribute name="class" select="$ed_name1,'right'" separator="-"/>
-					<xsl:apply-templates mode="#current"> </xsl:apply-templates>
+					<xsl:attribute name="class" select="$ed_name2,'right'" separator="-"/>
+					<xsl:apply-templates mode="#current"/> 
 				</xsl:element>
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:element name="span">
-					<xsl:apply-templates mode="#current"> </xsl:apply-templates>
+					<xsl:apply-templates mode="#current"/> 
 				</xsl:element>
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
-
-	<xsl:template match="tei:ab" mode="facs" priority="2">
+	
+	<xsl:template match="tei:ab" mode="interp" priority="2">
 		<xsl:element name="span">
-			<xsl:attribute name="class" select="$ed_name1, name()"/>
-			<xsl:apply-templates mode="#current"> </xsl:apply-templates>
+			<xsl:attribute name="class" select="$ed_name2,name()" separator="-"/>
+			<xsl:apply-templates mode="#current"/> 
 		</xsl:element>
 	</xsl:template>
+
 </xsl:stylesheet>
