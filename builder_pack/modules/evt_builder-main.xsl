@@ -187,17 +187,17 @@
 					viene attivata la trasformazione per il collegamento testo immagine -->
 				<xsl:when test="($root//tei:sourceDoc)and(current-group()/tei:zone[@lrx][@lry][@ulx][@uly])">
 					<!--<xsl:copy-of select="current-group()"/> --><!-- <-use this to find split errors -->
-					<!--<xsl:variable name="text"><xsl:apply-templates select="current-group()" mode="facs"/></xsl:variable>-->
+					<!--<xsl:variable name="text"><xsl:apply-templates select="current-group()" mode="dipl"/></xsl:variable>-->
 					<xsl:variable name="text"><xsl:apply-templates select="current-group()" mode="ITLembedded">
 						<xsl:with-param name="edition_level" select="$ed_name1"/>
 					</xsl:apply-templates></xsl:variable>
-					<xsl:apply-templates select="$text" mode="facs" />
+					<xsl:apply-templates select="$text" mode="dipl" />
 				</xsl:when>
 				<!-- IT: Se c'è il surface viene creato un albero temporaneo che corrisponde al gruppo corrente trasformato in base al livello di edizione;
 										 a questo viene applicato il template per il collegamento testo-immagine-->
 				<xsl:when test="$root//tei:facsimile/tei:surface[translate(@corresp, '#', '')=$pb_n]//tei:zone[@rendition='Line']">
 					<!--<xsl:copy-of select="current-group()"/>--> <!-- <-use this to find split errors -->
-					<xsl:variable name="text"><xsl:apply-templates select="current-group()" mode="facs"/></xsl:variable>
+					<xsl:variable name="text"><xsl:apply-templates select="current-group()" mode="dipl"/></xsl:variable>
 					<!-- IT: aggiungi elementi div per linee di testo -->
 					<xsl:variable name="text2">
 						<xsl:call-template name="divLine">
@@ -208,10 +208,10 @@
 					<!-- IT: trasforma el per ITL e HS-->
 					<xsl:apply-templates select="$text2" mode="ITL"/>
 				</xsl:when>
-				<!-- EN: If the surface element is not present only the facsimile edition templates are applied -->
-				<!-- IT: Se non c'è il surface devo applicare direttamente i templates per l'edizione facsimile -->
+				<!-- EN: If the surface element is not present only the diplomatic edition templates are applied -->
+				<!-- IT: Se non c'è il surface devo applicare direttamente i templates per l'edizione diplomatica -->
 				<xsl:otherwise>
-					<xsl:variable name="text"><xsl:apply-templates select="current-group()" mode="facs"/></xsl:variable>
+					<xsl:variable name="text"><xsl:apply-templates select="current-group()" mode="dipl"/></xsl:variable>
 					<!-- IT: aggiungi elementi div per linee di testo -->
 					<xsl:call-template name="divLine">
 						<xsl:with-param name="text" select="$text"/>
@@ -229,17 +229,17 @@
 						 viene attivata la trasformazione per il collegamento testo immagine -->
 				<xsl:when test="($root//tei:sourceDoc)and(current-group()/tei:zone[@lrx][@lry][@ulx][@uly])">
 					<!--<xsl:copy-of select="current-group()"/>--> <!-- <-use this to find split errors -->
-					<!--<xsl:variable name="text"><xsl:apply-templates select="current-group()" mode="dipl"/></xsl:variable>-->
+					<!--<xsl:variable name="text"><xsl:apply-templates select="current-group()" mode="interp"/></xsl:variable>-->
 					<xsl:variable name="text"><xsl:apply-templates select="current-group()" mode="ITLembedded">
 						<xsl:with-param name="edition_level" select="$ed_name2"/>
 					</xsl:apply-templates></xsl:variable>
-					<xsl:apply-templates select="$text" mode="dipl" />
+					<xsl:apply-templates select="$text" mode="interp" />
 				</xsl:when>
 				<!-- IT: Se c'è il surface viene creato un albero temporaneo che corrisponde al gruppo corrente trasformato in base al livello di edizione;
 										 a questo viene applicato il template per il collegamento testo-immagine-->
 				<xsl:when test="$root//tei:facsimile/tei:surface[translate(@corresp, '#', '')=$pb_n]//tei:zone[@rendition='Line']">
 					<!--<xsl:copy-of select="current-group()"/>--> <!-- <-use this to find split errors -->
-					<xsl:variable name="text"><xsl:apply-templates select="current-group()" mode="dipl"/></xsl:variable>
+					<xsl:variable name="text"><xsl:apply-templates select="current-group()" mode="interp"/></xsl:variable>
 					<xsl:variable name="text2">
 						<xsl:call-template name="divLine">
 							<xsl:with-param name="text" select="$text"/>
@@ -251,7 +251,7 @@
 				<!-- EN: If the surface element is not present only the diplomatic edition templates are applied -->
 				<!-- IT: Se non c'è il surface devo applicare direttamente i templates per l'edizione diplomatica-->
 				<xsl:otherwise>
-					<xsl:variable name="text"><xsl:apply-templates select="current-group()" mode="dipl"/></xsl:variable>
+					<xsl:variable name="text"><xsl:apply-templates select="current-group()" mode="interp"/></xsl:variable>
 					<xsl:call-template name="divLine">
 						<xsl:with-param name="text" select="$text"/>
 						<xsl:with-param name="ed_name" select="$ed_name2"/>
@@ -385,15 +385,15 @@
 		</xsl:copy>
 	</xsl:template>
 	
-	<xsl:template match="node()[name()='span'][@class='facs-choice_popup']/node()[name()='span'][@class='facs-reg']" mode="delete_el1">
+	<xsl:template match="node()[name()='span'][@class='dipl-choice_popup']/node()[name()='span'][@class='dipl-reg']" mode="delete_el1">
 		<!-- DO NOTHING -->
 	</xsl:template>
 	
-	<xsl:template match="node()[name()='div'][@class='facs-zone']" mode="delete_el1">
+	<xsl:template match="node()[name()='div'][@class='dipl-zone']" mode="delete_el1">
 		<!-- DO NOTHING -->
 	</xsl:template>
 	
-	<xsl:template match="node()[name()='div'][@class='facs-attachment']" mode="delete_el1">
+	<xsl:template match="node()[name()='div'][@class='dipl-attachment']" mode="delete_el1">
 		<!-- DO NOTHING -->
 	</xsl:template>
 	
@@ -403,15 +403,15 @@
 		</xsl:copy>
 	</xsl:template>
 	
-	<xsl:template match="node()[name()='span'][@class='dipl-choice_popup']/node()[name()='span'][@class='dipl-orig']|node()[name()='span'][@class='dipl-corr']" mode="delete_el2">
+	<xsl:template match="node()[name()='span'][@class='interp-choice_popup']/node()[name()='span'][@class='interp-orig']|node()[name()='span'][@class='interp-corr']" mode="delete_el2">
 		<!-- DO NOTHING -->
 	</xsl:template>
 	
-	<xsl:template match="node()[name()='div'][@class='dipl-zone']" mode="delete_el2">
+	<xsl:template match="node()[name()='div'][@class='interp-zone']" mode="delete_el2">
 		<!-- DO NOTHING -->
 	</xsl:template>
 	
-	<xsl:template match="node()[name()='div'][@class='dipl-attachment']" mode="delete_el2">
+	<xsl:template match="node()[name()='div'][@class='interp-attachment']" mode="delete_el2">
 		<!-- DO NOTHING -->
 	</xsl:template>
 	
@@ -430,7 +430,7 @@
 											<xsl:when test="following::lb">
 												{ 
 													"line" : "<xsl:value-of select="if(self::tei:lb/@n) then(concat(self::tei:lb/@n, '|line ',self::tei:lb/@n)) else('no line info |no line info')" />",
-													"text" : "<xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:lb)]" mode="facs"/></xsl:variable>
+													"text" : "<xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:lb)]" mode="dipl"/></xsl:variable>
 															  <xsl:variable name="var1"><xsl:apply-templates select="$var" mode="delete_el1"/></xsl:variable>
 															  <xsl:variable name="var2"><xsl:apply-templates select="$var1//text()[not(ancestor::span)]" mode="deleteSpaces"/></xsl:variable>
 															  <xsl:copy-of select="replace($var2, '(\\|/)', '$1$1')"></xsl:copy-of>",
@@ -441,7 +441,7 @@
 											<xsl:otherwise>
 												{ 
 													"line" : "<xsl:value-of select="if(self::tei:lb/@n) then(concat(self::tei:lb/@n, '|line ',self::tei:lb/@n)) else('no line info |no line info')" />",
-													"text" : "<xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:lb)]" mode="facs"/></xsl:variable>
+													"text" : "<xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:lb)]" mode="dipl"/></xsl:variable>
 															  <xsl:variable name="var1"><xsl:apply-templates select="$var" mode="delete_el1"/></xsl:variable>
 															  <xsl:variable name="var2"><xsl:apply-templates select="$var1//text()[not(ancestor::span)]" mode="deleteSpaces"></xsl:apply-templates></xsl:variable>
 															  <xsl:copy-of select="replace($var2, '(\\|/)', '$1$1')"></xsl:copy-of>",
@@ -454,7 +454,7 @@
 								</xsl:for-each-group>
 							</xsl:when>
 							<xsl:otherwise>
-								<xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:pb)]" mode="facs"/></xsl:variable>
+								<xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:pb)]" mode="dipl"/></xsl:variable>
 								<xsl:copy-of select="$var//text()"></xsl:copy-of>
 							</xsl:otherwise>
 						</xsl:choose>
@@ -475,7 +475,7 @@
 											<xsl:when test="following::lb">
 												{ 
 													"line" : "<xsl:value-of select="if(self::tei:lb/@n) then(concat(self::tei:lb/@n, '|line ',self::tei:lb/@n)) else('no line info |no line info')" />",
-												  	"text" : "<xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:lb)]" mode="dipl"/></xsl:variable>
+												  	"text" : "<xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:lb)]" mode="interp"/></xsl:variable>
 															  <xsl:variable name="var1"><xsl:apply-templates select="$var" mode="delete_el2"/></xsl:variable>
 															  <xsl:variable name="var2"><xsl:apply-templates select="$var1//text()[not(ancestor::span)]" mode="deleteSpaces"/></xsl:variable>
 															  <xsl:copy-of select="replace($var2, '(\\|/)', '$1$1')"></xsl:copy-of>",
@@ -486,7 +486,7 @@
 											<xsl:otherwise>
 												{ 
 													"line" : "<xsl:value-of select="if(self::tei:lb/@n) then(concat(self::tei:lb/@n, '|line ',self::tei:lb/@n)) else('no line info |no line info')" />",
-													"text" : "<xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:lb)]" mode="dipl"/></xsl:variable>
+													"text" : "<xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:lb)]" mode="interp"/></xsl:variable>
 															  <xsl:variable name="var1"><xsl:apply-templates select="$var" mode="delete_el2"/></xsl:variable>
 															  <xsl:variable name="var2"><xsl:apply-templates select="$var1//text()[not(ancestor::span)]" mode="deleteSpaces"/></xsl:variable>
 															  <xsl:copy-of select="replace($var2, '(\\|/)', '$1$1')"></xsl:copy-of>",
@@ -499,14 +499,14 @@
 								</xsl:for-each-group>
 							</xsl:when>
 							<xsl:when test="current-group()/(descendant-or-self::p)">
-								<!--<xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:pb)]" mode="dipl"/></xsl:variable>
+								<!--<xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:pb)]" mode="interp"/></xsl:variable>
 								<xsl:copy-of select="$var//text()"></xsl:copy-of>-->
 								<xsl:for-each-group select="current-group()/body/descendant::p" group-starting-with="//tei:p">
 									<xsl:choose>
 										<xsl:when test="following::p">
 											{
 											"line" : "<xsl:value-of select="@xml:id" />|par <xsl:value-of select="@n" />",
-											"text" : <xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:pb)]" mode="facs"/></xsl:variable>"<xsl:value-of select="fn:normalize-space($var)"></xsl:value-of>",
+											"text" : <xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:pb)]" mode="dipl"/></xsl:variable>"<xsl:value-of select="fn:normalize-space($var)"></xsl:value-of>",
 											"tags" : "<xsl:value-of select="ancestor::text[1]/@xml:id" />|<xsl:call-template name="generateTextLabel"><xsl:with-param name="text_id"><xsl:value-of select="ancestor::text[1]/@xml:id"/></xsl:with-param></xsl:call-template>",
 											"loc" : "<xsl:value-of select="preceding::pb[1]/@xml:id" />|<xsl:value-of select="preceding::pb[1]/@n" />"
 											},
@@ -514,7 +514,7 @@
 										<xsl:otherwise>
 											{
 											"line" : "<xsl:value-of select="@xml:id" />|par <xsl:value-of select="@n" />",
-											"text" : <xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:pb)]" mode="facs"/></xsl:variable>"<xsl:value-of select="fn:normalize-space($var)"></xsl:value-of>",
+											"text" : <xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:pb)]" mode="dipl"/></xsl:variable>"<xsl:value-of select="fn:normalize-space($var)"></xsl:value-of>",
 											"tags" : "<xsl:value-of select="ancestor::text[1]/@xml:id" />|<xsl:call-template name="generateTextLabel"><xsl:with-param name="text_id"><xsl:value-of select="ancestor::text[1]/@xml:id"/></xsl:with-param></xsl:call-template>",
 											"loc" : "<xsl:value-of select="preceding::pb[1]/@xml:id" />|<xsl:value-of select="preceding::pb[1]/@n" />"
 											}
@@ -523,7 +523,7 @@
 								</xsl:for-each-group>
 							</xsl:when>
 							<xsl:otherwise>
-								<xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:pb)]" mode="dipl"/></xsl:variable>
+								<xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:pb)]" mode="interp"/></xsl:variable>
 								<xsl:variable name="var1"><xsl:apply-templates select="$var" mode="delete_el2"/></xsl:variable>
 								<xsl:copy-of select="$var1//text()"></xsl:copy-of>
 							</xsl:otherwise>
@@ -551,7 +551,7 @@
 											<xsl:when test="following::lb">
 												{ 
 												"line" : "<xsl:value-of select="if(self::tei:lb/@n) then(concat(self::tei:lb/@n, '|line ',self::tei:lb/@n)) else('no line info|no line info')" />",
-												"text" : "<xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:lb)]" mode="facs"/></xsl:variable>
+												"text" : "<xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:lb)]" mode="dipl"/></xsl:variable>
 												<xsl:variable name="var1"><xsl:apply-templates select="$var" mode="delete_el1"/></xsl:variable>
 												<xsl:variable name="var2"><xsl:apply-templates select="$var1//text()[not(ancestor::span)]" mode="deleteSpaces"/></xsl:variable>
 												<xsl:copy-of select="replace($var2, '(\\|/)', '$1$1')"></xsl:copy-of>",
@@ -562,7 +562,7 @@
 											<xsl:otherwise>
 												{ 
 												"line" : "<xsl:value-of select="if(self::tei:lb/@n) then(concat(self::tei:lb/@n, '|line ',self::tei:lb/@n)) else('no line info|no line info')" />",
-												"text" : "<xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:lb)]" mode="facs"/></xsl:variable>
+												"text" : "<xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:lb)]" mode="dipl"/></xsl:variable>
 												<xsl:variable name="var1"><xsl:apply-templates select="$var" mode="delete_el1"/></xsl:variable>
 												<xsl:variable name="var2"><xsl:apply-templates select="$var1//text()[not(ancestor::span)]" mode="deleteSpaces"></xsl:apply-templates></xsl:variable>
 												<xsl:copy-of select="replace($var2, '(\\|/)', '$1$1')"></xsl:copy-of>",
@@ -575,14 +575,14 @@
 								</xsl:for-each-group>
 							</xsl:when>
 							<xsl:when test="current()/(descendant-or-self::line)">
-								<!--<xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:pb)]" mode="dipl"/></xsl:variable>
+								<!--<xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:pb)]" mode="interp"/></xsl:variable>
 								<xsl:copy-of select="$var//text()"></xsl:copy-of>-->
 								<xsl:for-each-group select="current()/descendant::line" group-starting-with="//tei:line">
 									<xsl:choose>
 										<xsl:when test="following::line">
 											{
 											"line" : "<xsl:value-of select="if(@xml:id) then (@xml:id) else('no line info')" />|<xsl:value-of select="if(@n) then(concat('line ',@n)) else('no line info')" />",
-											"text" : <xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:pb)]" mode="facs"/></xsl:variable>"<xsl:value-of select="fn:normalize-space($var)"></xsl:value-of>",
+											"text" : <xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:pb)]" mode="dipl"/></xsl:variable>"<xsl:value-of select="fn:normalize-space($var)"></xsl:value-of>",
 											"tags" : "<xsl:value-of select="ancestor::tei:sourceDoc/@xml:id"/>|<xsl:choose><xsl:when test="ancestor::tei:sourceDoc/@n"><xsl:value-of select="ancestor::tei:sourceDoc/@n"/></xsl:when><xsl:otherwise><xsl:call-template name="generateTextLabel"><xsl:with-param name="text_id"><xsl:value-of select="ancestor::tei:sourceDoc/@xml:id"/></xsl:with-param></xsl:call-template></xsl:otherwise></xsl:choose>",
 											"loc" : "<xsl:value-of select="$pageId"/>|<xsl:value-of select="$pageLabel"/>"
 											},
@@ -590,7 +590,7 @@
 										<xsl:otherwise>
 											{
 											"line" : "<xsl:value-of select="if(@xml:id) then (@xml:id) else('no line info')" />|<xsl:value-of select="if(@n) then(concat('line ',@n)) else('no line info')" />",
-											"text" : <xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:pb)]" mode="facs"/></xsl:variable>"<xsl:value-of select="fn:normalize-space($var)"></xsl:value-of>",
+											"text" : <xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:pb)]" mode="dipl"/></xsl:variable>"<xsl:value-of select="fn:normalize-space($var)"></xsl:value-of>",
 											"tags" : "<xsl:value-of select="ancestor::tei:sourceDoc/@xml:id"/>|<xsl:choose><xsl:when test="ancestor::tei:sourceDoc/@n"><xsl:value-of select="ancestor::tei:sourceDoc/@n"/></xsl:when><xsl:otherwise><xsl:call-template name="generateTextLabel"><xsl:with-param name="text_id"><xsl:value-of select="ancestor::tei:sourceDoc/@xml:id"/></xsl:with-param></xsl:call-template></xsl:otherwise></xsl:choose>",
 											"loc" : "<xsl:value-of select="$pageId"/>|<xsl:value-of select="$pageLabel"/>"
 											}
@@ -601,7 +601,7 @@
 							<xsl:otherwise>
 								{
 								"line" : "no line info|no line info",
-								"text" : "<xsl:variable name="var"><xsl:apply-templates select="current()" mode="facs"/></xsl:variable><xsl:variable name="var1"><xsl:apply-templates select="$var" mode="delete_el2"/></xsl:variable><xsl:copy-of select="$var1//text()"></xsl:copy-of>",
+								"text" : "<xsl:variable name="var"><xsl:apply-templates select="current()" mode="dipl"/></xsl:variable><xsl:variable name="var1"><xsl:apply-templates select="$var" mode="delete_el2"/></xsl:variable><xsl:copy-of select="$var1//text()"></xsl:copy-of>",
 								"tags" : "<xsl:value-of select="ancestor::tei:sourceDoc/@xml:id"/>|<xsl:choose><xsl:when test="ancestor::tei:sourceDoc/@n"><xsl:value-of select="ancestor::tei:sourceDoc/@n"/></xsl:when><xsl:otherwise><xsl:call-template name="generateTextLabel"><xsl:with-param name="text_id"><xsl:value-of select="ancestor::tei:sourceDoc/@xml:id"/></xsl:with-param></xsl:call-template></xsl:otherwise></xsl:choose>",
 								"loc" : "<xsl:value-of select="$pageId"/>|<xsl:value-of select="$pageLabel"/>"
 								},
@@ -628,7 +628,7 @@
 											<xsl:when test="following::lb">
 												{ 
 												"line" : "<xsl:value-of select="if(self::tei:lb/@n) then(concat(self::tei:lb/@n, '|line ',self::tei:lb/@n)) else('no line info |no line info')" />",
-												"text" : "<xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:lb)]" mode="dipl"/></xsl:variable>
+												"text" : "<xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:lb)]" mode="interp"/></xsl:variable>
 												<xsl:variable name="var1"><xsl:apply-templates select="$var" mode="delete_el2"/></xsl:variable>
 												<xsl:variable name="var2"><xsl:apply-templates select="$var1//text()[not(ancestor::span)]" mode="deleteSpaces"/></xsl:variable>
 												<xsl:copy-of select="replace($var2, '(\\|/)', '$1$1')"></xsl:copy-of>",
@@ -639,7 +639,7 @@
 											<xsl:otherwise>
 												{ 
 												"line" : "<xsl:value-of select="if(self::tei:lb/@n) then(concat(self::tei:lb/@n, '|line ',self::tei:lb/@n)) else('no line info |no line info')" />",
-												"text" : "<xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:lb)]" mode="dipl"/></xsl:variable>
+												"text" : "<xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:lb)]" mode="interp"/></xsl:variable>
 												<xsl:variable name="var1"><xsl:apply-templates select="$var" mode="delete_el2"/></xsl:variable>
 												<xsl:variable name="var2"><xsl:apply-templates select="$var1//text()[not(ancestor::span)]" mode="deleteSpaces"/></xsl:variable>
 												<xsl:copy-of select="replace($var2, '(\\|/)', '$1$1')"></xsl:copy-of>",
@@ -652,14 +652,14 @@
 								</xsl:for-each-group>
 							</xsl:when>
 							<xsl:when test="current()/(descendant-or-self::p)">
-								<!--<xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:pb)]" mode="dipl"/></xsl:variable>
+								<!--<xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:pb)]" mode="interp"/></xsl:variable>
 								<xsl:copy-of select="$var//text()"></xsl:copy-of>-->
 								<xsl:for-each-group select="current()/descendant::p" group-starting-with="//tei:p">
 									<xsl:choose>
 										<xsl:when test="following::p">
 											{
 											"line" : "<xsl:value-of select="if(@xml:id) then (@xml:id) else('no par info')" />|<xsl:value-of select="if(@n) then(concat('par ',@n)) else('no par info')" />",
-											"text" : <xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:pb)]" mode="facs"/></xsl:variable>"<xsl:value-of select="fn:normalize-space($var)"></xsl:value-of>",
+											"text" : <xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:pb)]" mode="dipl"/></xsl:variable>"<xsl:value-of select="fn:normalize-space($var)"></xsl:value-of>",
 											"tags" : "<xsl:value-of select="ancestor::tei:sourceDoc/@xml:id"/>|<xsl:choose><xsl:when test="ancestor::tei:sourceDoc/@n"><xsl:value-of select="ancestor::tei:sourceDoc/@n"/></xsl:when><xsl:otherwise><xsl:call-template name="generateTextLabel"><xsl:with-param name="text_id"><xsl:value-of select="ancestor::tei:sourceDoc/@xml:id"/></xsl:with-param></xsl:call-template></xsl:otherwise></xsl:choose>",
 											"loc" : "<xsl:value-of select="$pageId"/>|<xsl:value-of select="$pageLabel"/>"
 											},
@@ -667,7 +667,7 @@
 										<xsl:otherwise>
 											{
 											"line" : "<xsl:value-of select="if(@xml:id) then (@xml:id) else('no par info')" />|<xsl:value-of select="if(@n) then(concat('par ',@n)) else('no par info')" />",
-											"text" : <xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:pb)]" mode="facs"/></xsl:variable>"<xsl:value-of select="fn:normalize-space($var)"></xsl:value-of>",
+											"text" : <xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:pb)]" mode="dipl"/></xsl:variable>"<xsl:value-of select="fn:normalize-space($var)"></xsl:value-of>",
 											"tags" : "<xsl:value-of select="ancestor::tei:sourceDoc/@xml:id"/>|<xsl:choose><xsl:when test="ancestor::tei:sourceDoc/@n"><xsl:value-of select="ancestor::tei:sourceDoc/@n"/></xsl:when><xsl:otherwise><xsl:call-template name="generateTextLabel"><xsl:with-param name="text_id"><xsl:value-of select="ancestor::tei:sourceDoc/@xml:id"/></xsl:with-param></xsl:call-template></xsl:otherwise></xsl:choose>",
 											"loc" : "<xsl:value-of select="$pageId"/>|<xsl:value-of select="$pageLabel"/>"
 											}
@@ -676,14 +676,14 @@
 								</xsl:for-each-group>
 							</xsl:when>
 							<xsl:when test="current()/(descendant-or-self::line)">
-								<!--<xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:pb)]" mode="dipl"/></xsl:variable>
+								<!--<xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:pb)]" mode="interp"/></xsl:variable>
 								<xsl:copy-of select="$var//text()"></xsl:copy-of>-->
 								<xsl:for-each-group select="current()/descendant::line" group-starting-with="//tei:line">
 									<xsl:choose>
 										<xsl:when test="following::line">
 											{
 											"line" : "<xsl:value-of select="if(@xml:id) then (@xml:id) else('no line info')" />|<xsl:value-of select="if(@n) then(concat('line ',@n)) else('no line info')" />",
-											"text" : <xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:pb)]" mode="facs"/></xsl:variable>"<xsl:value-of select="fn:normalize-space($var)"></xsl:value-of>",
+											"text" : <xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:pb)]" mode="dipl"/></xsl:variable>"<xsl:value-of select="fn:normalize-space($var)"></xsl:value-of>",
 											"tags" : "<xsl:value-of select="ancestor::tei:sourceDoc/@xml:id"/>|<xsl:choose><xsl:when test="ancestor::tei:sourceDoc/@n"><xsl:value-of select="ancestor::tei:sourceDoc/@n"/></xsl:when><xsl:otherwise><xsl:call-template name="generateTextLabel"><xsl:with-param name="text_id"><xsl:value-of select="ancestor::tei:sourceDoc/@xml:id"/></xsl:with-param></xsl:call-template></xsl:otherwise></xsl:choose>",
 											"loc" : "<xsl:value-of select="$pageId"/>|<xsl:value-of select="$pageLabel"/>"
 											},
@@ -691,7 +691,7 @@
 										<xsl:otherwise>
 											{
 											"line" : "<xsl:value-of select="if(@xml:id) then (@xml:id) else('no line info')" />|<xsl:value-of select="if(@n) then(concat('line ',@n)) else('no line info')" />",
-											"text" : <xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:pb)]" mode="facs"/></xsl:variable>"<xsl:value-of select="fn:normalize-space($var)"></xsl:value-of>",
+											"text" : <xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:pb)]" mode="dipl"/></xsl:variable>"<xsl:value-of select="fn:normalize-space($var)"></xsl:value-of>",
 											"tags" : "<xsl:value-of select="ancestor::tei:sourceDoc/@xml:id"/>|<xsl:choose><xsl:when test="ancestor::tei:sourceDoc/@n"><xsl:value-of select="ancestor::tei:sourceDoc/@n"/></xsl:when><xsl:otherwise><xsl:call-template name="generateTextLabel"><xsl:with-param name="text_id"><xsl:value-of select="ancestor::tei:sourceDoc/@xml:id"/></xsl:with-param></xsl:call-template></xsl:otherwise></xsl:choose>",
 											"loc" : "<xsl:value-of select="$pageId"/>|<xsl:value-of select="$pageLabel"/>"
 											}
@@ -702,7 +702,7 @@
 							<xsl:otherwise>
 								{
 								"line" : "no line info|no line info",
-								"text" : "<xsl:variable name="var"><xsl:apply-templates select="current()" mode="dipl"/></xsl:variable><xsl:variable name="var1"><xsl:apply-templates select="$var" mode="delete_el2"/></xsl:variable><xsl:copy-of select="$var1//text()"></xsl:copy-of>",
+								"text" : "<xsl:variable name="var"><xsl:apply-templates select="current()" mode="interp"/></xsl:variable><xsl:variable name="var1"><xsl:apply-templates select="$var" mode="delete_el2"/></xsl:variable><xsl:copy-of select="$var1//text()"></xsl:copy-of>",
 								"tags" : "<xsl:value-of select="ancestor::tei:sourceDoc/@xml:id"/>|<xsl:choose><xsl:when test="ancestor::tei:sourceDoc/@n"><xsl:value-of select="ancestor::tei:sourceDoc/@n"/></xsl:when><xsl:otherwise><xsl:call-template name="generateTextLabel"><xsl:with-param name="text_id"><xsl:value-of select="ancestor::tei:sourceDoc/@xml:id"/></xsl:with-param></xsl:call-template></xsl:otherwise></xsl:choose>",
 								"loc" : "<xsl:value-of select="$pageId"/>|<xsl:value-of select="$pageLabel"/>"
 								},
