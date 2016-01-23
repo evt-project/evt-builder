@@ -990,23 +990,34 @@ $(function() {
 				    	resizeButtonsAndSelects();
 				    } else {
 				    	$('#switch_msDesc').click(function(){
-				    		// console.log(' # switch_msDesc click #');
-					    	if ( $("#thumb_elem").hasClass('active') ) {
-					    		$("#thumb_elem").trigger('click');
-					    	}
-					        
-					        if ( $('#msDesc_cont').is(':visible') ) {
+				    		var thumbContOpen = $('#thumb_cont').css('display') !== 'none';
+				    		if ( $('#msDesc_cont').is(':visible') ) { // HIDE
 					            $('#msDesc_cont').hide('drop', {direction:'up'}, 'linear', function(){
 					            	$('#msDesc_cont').removeClass('open');
-					            	if(!$('#left_header').hasClass('menuClosed')){
+					            	
+					            	if(!$('#left_header').hasClass('menuClosed') && 
+					            		!magnifierON && 
+					            		!thumbContOpen){
 										$("#image_tool").show();
 									} else {
 										$("#image_tool").hide();
 									}
+									$('#switch_msDesc').removeClass('active');
+						            $('#image_tool').removeClass('hidden');
+
+						            if (thumbContOpen){
+						    			$("#thumb_elem").addClass('active');
+						    		}
+
+						    		if (magnifierON && !thumbContOpen) {
+						    			$("#switchMag").addClass('active');	
+						    		}
+
+						    		if (ITLon && !thumbContOpen) {
+						    			$("#switchITL").addClass('active');		
+						    		}
 					            });
-					            $('#switch_msDesc').removeClass('active');
-					            $('#image_tool').removeClass('hidden');
-					        } else {
+					        } else { // SHOW
 					            $('#msDesc_cont').show('drop', {direction:'up'}, 'linear', function(){
 					            	$('#msDesc_cont').addClass('open');	
 					            	$("#image_tool").hide();
@@ -1319,13 +1330,15 @@ $(function() {
 			});
 			$('#switchMag, #switchHS, #switchITL').click(function(){
 				// console.log(' # switch mag/hs/itl click #');
-				var msDescSwitcher = $('#switch_msDesc');
-				if ( msDescSwitcher.length > 0 && msDescSwitcher.hasClass('active') ) {
-					msDescSwitcher.trigger('click');
-				}
-				var thumbsSwitcher = $('#thumb_elem');
-				if ( thumbsSwitcher.length > 0 && thumbsSwitcher.hasClass('active') ) {
-					thumbsSwitcher.removeClass('active');
+				if ( !$(this).hasClass('likeInactive') ) {
+					var msDescSwitcher = $('#switch_msDesc');
+					if ( msDescSwitcher.length > 0 && msDescSwitcher.hasClass('active') ) {
+						msDescSwitcher.trigger('click');
+					}
+					var thumbsSwitcher = $('#thumb_elem');
+					if ( thumbsSwitcher.length > 0 && thumbsSwitcher.hasClass('active') ) {
+						thumbsSwitcher.removeClass('active');
+					}
 				}
 			});
 
@@ -1722,16 +1735,16 @@ $(function() {
 
 			// APRI/CHIUDI THUMBNAILS
 		    $(".thumb_link").click(function(){
-		    	// console.log(' # thumb_link click #');
+		    	
 		        if ( $('#switch_msDesc').length > 0 && $('#switch_msDesc').hasClass('active') ) {
 		            $('#switch_msDesc').trigger('click');
 		        }
-		        if (magnifierON == false){  //modalità zoom attivo JK
+		        if (magnifierON == false) { 
 		            if($("#image_loading").css('display')!=="none"){$("#image_loading").hide()}
 		            if($("#image_elem").css('display') === "none"){
 		                $("#image_elem").show();
 		                $("#image_fade").show();
-		                if(!$('#left_header').hasClass('menuClosed')){
+		                if(!$('#left_header').hasClass('menuClosed') ){
 		                    $("#image_tool").show();
 		                }
 		                $("#thumb_cont").hide();
@@ -4061,6 +4074,7 @@ $(function() {
 					'display': 'block'
 				});
 			}
+			resizeButtonsAndSelects();
 		});
 		if ( isTxtTxtCurrentMode ) {
 			textWidth = $('#text_cont-add').find('#text').css('display', 'inline-block').outerWidth();
@@ -4152,10 +4166,11 @@ $(function() {
 				setMagHeight();
 				$('.zoomWindow').show();
 				checkAnnPosHS(); //Add for HS
+				resizeButtonsAndSelects();
 			});
 			$('#switchITL').show();
 			//Se ITL è impostato su attivo, attiva il collegamento. Abilita il pulsante.
-			if ($('#switchITL i ').hasClass('fa fa-chain')){ //Add by JK for ITL
+			if ($('#switchITL i ').hasClass('fa fa-chain') && ! $('#switchITL').hasClass('likeInactive')){ //Add by JK for ITL
 				Initialize();
 			}
 			enableITLbutton();
@@ -4237,6 +4252,7 @@ $(function() {
 				'margin-left': -(textWidth/2)+'px',
 				'display': 'block'
 			});
+			resizeButtonsAndSelects();
 		});
 		textWidth = $('#text_cont').find('#text').css('display', 'inline-block').outerWidth();
 		$('#text_cont')
@@ -4302,6 +4318,7 @@ $(function() {
 					.removeAttr("style");
 				$('#right_header .closeFullScreen, #header_collapse').toggle();
 				$('.go-full-right').toggle();
+				resizeButtonsAndSelects()
 			});
 		// Gestione selettori
 		if ( ! $('#txttxt_link').hasClass("current_mode") ){
@@ -4310,8 +4327,9 @@ $(function() {
 			} else if ($('#span_pp_select').hasClass('left_menu') && $('#left_menu').find('#span_pp_select').length == 0) {
 				$('#span_pp_select').detach().prependTo('#left_menu');
 			}
-			if ( $('#regesto_cont').length > 0 && $('#span_ee_select .option').length <= 1) {
+			if ( !$('#switchReg').hasClass('disabled') && $('#span_ee_select .option').length <= 1) {
 				if ($('#left_menu').find('#span_tt_select').length == 0){
+					console.log('entra');
 					$('#span_tt_select').detach().prependTo('#left_menu');
 				}
 			}
@@ -4472,25 +4490,27 @@ $(function() {
             $("#msDesc_cont").show();
         }
 
-        $('#switchReg').show();
-        var regestoCont = $('#regesto_cont');
-        if(regestoCont) {
-        	var listsCont = $('#lists_cont');
-            if (listsCont && listsCont.is(':visible')) {
-                var testo_cont_height;
-                testo_cont_height = $('#text_cont').height();
+        if (!$('#switchReg').hasClass('disabled')){
+        	$('#switchReg').show();
+        	var regestoCont = $('#regesto_cont');
+	        if(regestoCont) {
+	        	var listsCont = $('#lists_cont');
+	            if (listsCont && listsCont.is(':visible')) {
+	                var testo_cont_height;
+	                testo_cont_height = $('#text_cont').height();
 
-                regestoCont.css('height', testo_cont_height+'px');
-            }
+	                regestoCont.css('height', testo_cont_height+'px');
+	            }
 
-            if ( $('#switchReg').hasClass('active') ){
-                if ( !regestoCont.is(':visible') ) {
-                    //regestoCont.show('drop',  {direction: 'up'}, 'linear');
-                    regestoCont.show();
-                }
-            } else {
-                regestoCont.hide();
-            }
+	            if ( $('#switchReg').hasClass('active') ){
+	                if ( !regestoCont.is(':visible') ) {
+	                    //regestoCont.show('drop',  {direction: 'up'}, 'linear');
+	                    regestoCont.show();
+	                }
+	            } else {
+	                regestoCont.hide();
+	            }
+	        }
         }
         
         $("#span_dd_select").hide();
@@ -4697,7 +4717,7 @@ $(function() {
 
 
         // Se ho il REGESTO e un solo livello di edizione
-        if ( $('#regesto_cont').length > 0 && $("#span_ee_select").find('.option').length == 1 ) {
+        if ( !$('#regesto_cont').hasClass('disable') && $("#span_ee_select").find('.option').length == 1 ) {
             $('#regesto_cont:not(:visible)').show();
 
             // Se il contanitore del regesto non è nel box di sinistra lo sposto da destra a sinistra
