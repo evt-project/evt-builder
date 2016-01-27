@@ -113,10 +113,11 @@ function setMagHeight() {;
 }
 
 function magOn() {
-	
+	var thumb_cont  = $('#thumb_cont'),
+		msDesc_cont = $('#msDesc_cont');
 	if (magnifierON == false || 
-		$('#thumb_cont').css('display') !== 'none' ||
-		$('#msDesc_cont').css('display') !== 'none') {
+		(thumb_cont.length > 0 && thumb_cont.css('display') !== 'none') ||
+		(msDesc_cont.length > 0 && $('#msDesc_cont').css('display') !== 'none')) {
 	   	
 	   	if($('#switchMag').hasClass('likeInactive')) {
 	       $('#switchMag').removeAttr('onclick').removeClass('likeInactive').addClass('inactive');
