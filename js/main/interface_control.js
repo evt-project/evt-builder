@@ -1003,7 +1003,7 @@ $(function() {
 										$("#image_tool").hide();
 									}
 									$('#switch_msDesc').removeClass('active');
-						            $('#image_tool').removeClass('hidden');
+						            $('#image_tool > *').removeClass('hidden');
 
 						            if (thumbContOpen){
 						    			$("#thumb_elem").addClass('active');
@@ -1020,10 +1020,11 @@ $(function() {
 					        } else { // SHOW
 					            $('#msDesc_cont').show('drop', {direction:'up'}, 'linear', function(){
 					            	$('#msDesc_cont').addClass('open');	
-					            	$("#image_tool").hide();
+					            	$("#image_tool > *").show();
 					            });
 					            $('#switch_msDesc').addClass('active');
-					            $('#image_tool').addClass('hidden');
+					            /*$('#image_tool').addClass('hidden');*/
+					             $('#image_tool > *').addClass('hidden');
 					        }
 					    });
 				    }
