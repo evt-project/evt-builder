@@ -2448,6 +2448,9 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
     left: 0;
     font-size: 19px;
 }
+#msDesc_cont.alignedBottom {
+	bottom: 0px !important;
+}
 #msDesc_cont.open {
 	display: block;
 }

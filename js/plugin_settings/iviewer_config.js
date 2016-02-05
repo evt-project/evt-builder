@@ -37,12 +37,12 @@ $( function() {
 	var cpns="data/input_data/images/single/"+current_pp+".jpg";
 	
 	var iv1 = $("#image_elem").iviewer({
-		   src: cpns, 
-		   update_on_resize: true,
-		   zoom_animation: false,
-		   mousewheel: true,
-		   onMouseMove: function(ev, coords) {clickTrue(); },
-		   onFinishLoad: function(ev, src) {
+		   	src: cpns, 
+		   	update_on_resize: true,
+		   	zoom_animation: false,
+		   	mousewheel: true,
+		   	onMouseMove: function(ev, coords) {clickTrue(); },
+		   	onFinishLoad: function(ev, src) {
 		   									
 		   									$('#image_loading').hide();
 		   									$("#iviewerImage").fadeIn(200);
@@ -98,24 +98,24 @@ $( function() {
 		   onStartDrag: function() {click="true";},
 		   onDrag: function (ev, point) {moveAreas(); moveAreasHS()}, //Add by JK for ITL
 		   onStopDrag: function(ev, point) {moveAreas(); moveAreasHS(); onmouseup=clickFalse();} //Add by JK for ITL
-	  });
+	  	});
 	  
         function clickFalse(){
-         //Add by JK for ITL
+         	//Add by JK for ITL
             click = false;
         }
         function clickTrue(){
-        //Add by JK for ITL
+        	//Add by JK for ITL
             if(((ITLon == true)&&(click == false))||((HSon == true)&&(click == false))){
                 click = true;
             }
         }
         
-	   $("#zoom_in").click(function(){ iv1.iviewer('zoom_by', 1); }); 
-	   $("#zoom_out").click(function(){ iv1.iviewer('zoom_by', -1); }); 
-	   $("#zoom_fit").click(function(){ iv1.iviewer('fit'); ReInitialize(); ReInitializeHS(); }); 
-	   $("#zoom_orig").click(function(){ iv1.iviewer('set_zoom', 100); ReInitialize(); ReInitializeHS();}); 
-	   $("#zoom_update").click(function(){ iv1.iviewer('update_container_info'); });
+		$("#zoom_in").click(function(){ iv1.iviewer('zoom_by', 1); }); 
+		$("#zoom_out").click(function(){ iv1.iviewer('zoom_by', -1); }); 
+		$("#zoom_fit").click(function(){ iv1.iviewer('fit'); ReInitialize(); ReInitializeHS(); }); 
+		$("#zoom_orig").click(function(){ iv1.iviewer('set_zoom', 100); ReInitialize(); ReInitializeHS();}); 
+		$("#zoom_update").click(function(){ iv1.iviewer('update_container_info'); });
 	  
 	  	/*$('select[name=" "]').change( function() {
 			iv1.iviewer('loadImage', document.getElementById('slideshow-image').getAttribute('src'));
@@ -199,24 +199,21 @@ $( function() {
 
 		$("#slider").slider(
 		{
-		  orientation: "orizontal",
-		  min: 20,
-		  max: 140,
-		  step: 1,
-		  slide: showValue,
-		  change: showValue
-
+			orientation: "orizontal",
+			min: 20,
+			max: 140,
+			step: 1,
+			slide: showValue,
+			change: showValue
 		});
 		$("#update").click(function () {
-		  $("#slider").slider("option", "value", iv1.iviewer('info', 'zoom'));
+		 	$("#slider").slider("option", "value", iv1.iviewer('info', 'zoom'));
 		});
 		function showValue(event, ui) {
-		  var curr_val = iv1.iviewer('info', 'zoom');
-		  //if (curr_val>25 && curr_val<140)
-		  $("#val").html(curr_val.toFixed(0));
-		  //console.log(iv1.iviewer('info', 'zoom'));
-		  iv1.iviewer('set_zoom', ui.value);
-		  
-		  //alert(iv1.iviewer('info', 'zoom'));
+		  	var curr_val = iv1.iviewer('info', 'zoom');
+		  	try {
+		  		$("#val").html(curr_val.toFixed(0));
+		  		iv1.iviewer('set_zoom', ui.value);
+			} catch(e){ }
 		}
 });

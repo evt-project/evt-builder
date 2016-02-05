@@ -57,7 +57,20 @@
 
 			<xsl:if test="$html_tc!='datastructure'">
 				<xsl:comment>main lib</xsl:comment>
-				<script type="text/javascript" src="{$html_path}/js/main/interface_control.js"/>
+				<xsl:comment>interface control</xsl:comment>
+				<script type="text/javascript" src="{$html_path}/js/main/interface_control/ic_generic_bindings.js"/>
+				<script type="text/javascript" src="{$html_path}/js/main/interface_control/ic_global_menu.js"/>
+				<script type="text/javascript" src="{$html_path}/js/main/interface_control/ic_internal_fullscreen.js"/>
+				<script type="text/javascript" src="{$html_path}/js/main/interface_control/ic_lists.js"/>
+				<script type="text/javascript" src="{$html_path}/js/main/interface_control/ic_navigation.js"/>
+				<script type="text/javascript" src="{$html_path}/js/main/interface_control/ic_prefatory_matter.js"/>
+				<script type="text/javascript" src="{$html_path}/js/main/interface_control/ic_resizings.js"/>
+				<script type="text/javascript" src="{$html_path}/js/main/interface_control/ic_search.js"/>
+				<script type="text/javascript" src="{$html_path}/js/main/interface_control/ic_viewModes.js"/>
+				
+				<script type="text/javascript" src="{$html_path}/js/main/interface_control/ic_main.js"/>
+				<xsl:comment>/interface control</xsl:comment>
+				
 				<script type="text/javascript" src="{$html_path}/js/main/utils.js"/>
 				<xsl:comment>/main lib</xsl:comment>
 
