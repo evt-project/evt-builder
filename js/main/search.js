@@ -3,7 +3,7 @@
  * Search functions
  *  
  * author Jacopo Pugliese – JP
- * @since 2013
+ * @from 2013 @to 2015
  *
  * author Chiara Di Pietro – CDP
  * @since 2015
@@ -17,25 +17,17 @@ $(function() {
     $('#span_ee_select-add .label_selected')
         .on('change', function(){
             updateTipueSearchLocation($(this).attr('data-value').toLowerCase(), '-add');
-            // if ( $('#search_cont-add.bottomBoxOpened').is(':visible') ) {
-            //     $('#start_search-add').trigger('click');
-            // }
         });
     $('#span_ee_select .label_selected')
         .on('change', function(){
             updateTipueSearchLocation($(this).attr('data-value').toLowerCase(), '');
-            // if ( $('#search_cont.bottomBoxOpened').is(':visible') ) {
-            //     $('#start_search').trigger('click');
-            // }
         });
     function updateTipueSearchLocation(newLocation, suffix){
         jsonLocation = URI + '/'+newLocation+'/' + newLocation + '.json';
-        // console.log("search "+suffix+" CHANGED TO "+jsonLocation);
         triggerTipueSearch(jsonLocation, suffix);
     }
 
     function triggerTipueSearch(jsonLocation, suffix) {
-        // console.log(' # triggerTipueSearch #');
         $('#tipue_search_input'+suffix).tipuesearch({
             'showURL' : false,
             'mode' : 'json',
@@ -47,7 +39,6 @@ $(function() {
     // "Tastiera" per la ricerca
     // Inizio tastiera virtuale
     var queryInput;
-    // = document.getElementById("tipue_search_input");
     var search_box = document.getElementById("search_cont");
     var search_box_add = document.getElementById("search_cont-add");
     var keyboard = document.createElement('div');
@@ -60,11 +51,6 @@ $(function() {
     keyboard_add.setAttribute('id', 'keyboard-add');
     keyboard_add.className = 'keyboardSearch';
     keyboard_add.style.display = "none";
-
-    // var keyboard = document.getElementById("keyboard");
-    // queryInput.onfocus = function () {
-    //     keyboard.style.display = "block";
-    // };
 
     function loadXMLDoc(filename) {
         if (window.XMLHttpRequest) {
