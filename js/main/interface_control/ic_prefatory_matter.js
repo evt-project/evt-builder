@@ -439,12 +439,9 @@ function bindBiblioRefClick() {
                 if ( $('.bibl.highlight').length > 0 ) {
                     $('#generalBiblio_content').scrollTop($('.bibl.highlight:first').position().top-100);
                     var hideHilights = setTimeout(function(){
-                                            hideHilights();
+                                            $('.bibl.highlight').removeClass('highlight');
+                                            clearTimeout(hideHilights);
                                         }, 1500);
-                    function hideHilights(){
-                        $('.bibl.highlight').removeClass('highlight');
-                        clearTimeout(hideHilights);
-                    }
                 }
             });
         }
