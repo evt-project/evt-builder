@@ -275,7 +275,7 @@ function onSearchButtonClick(elem) {
 /*= BIND VIRTUAL KEYBOARD BUTTON CLICK EVENT =*/
 function bindKeyboardBtnClick() {
     $('.searchKeyboardButton').click(function(){
-        if ( !$(elem).hasClass('inactive') && $('.keyboardSearch').length > 0) {
+        if ( !$(this).hasClass('inactive') && $('.keyboardSearch').length > 0) {
             var numKeys, newKeyboardHeight, newKeyboardWidth;
             var search_cont, keyboard;
             var keyHeight, keyWidth;
