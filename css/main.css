@@ -589,6 +589,7 @@ footer{
 
 	/*Chiara*/
 	height: 100%;
+	height: auto;
 	overflow-y: hidden;
 	width: auto;
 	max-width: 85%;

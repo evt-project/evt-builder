@@ -216,21 +216,63 @@ function bindBtnClick() {
 function bindFontSizeControllerBtnClick() {
     $('.font-size-controller').click(function(){
         var action = $(this).attr('data-action');
-        $(this).parents("div[id*='_frame']").find('.can-change-font-size').each(function(){
-            var currentFontSize, currentFontSizeNum, newFontSize;
-            currentFontSize = $(this).css('font-size');
-            currentFontSizeNum = parseFloat(currentFontSize, 10);
-            if ( action == 'increase' ) {
-                newFontSize = currentFontSizeNum * 1.1; 
-            } else {
-                newFontSize = currentFontSizeNum * 0.9;
-            }   
-            $(this).css({
-                'font-size': newFontSize,
-                'line-height': (newFontSize+10)+'px'
+        var sizeCtrl = $(this);
+        if (!$(this).hasClass('inactive')) {
+            $(this).parents("div[id*='_frame']").find('.can-change-font-size').each(function(){
+                var currentFontSize, currentFontSizeNum, newFontSize;
+                currentFontSize = $(this).css('font-size');
+                currentFontSizeNum = parseFloat(currentFontSize, 10);
+                if ( action == 'increase' ) {
+                    newFontSize = currentFontSizeNum * 1.1; 
+                } else {
+                    newFontSize = currentFontSizeNum * 0.9;
+                }
+                if (newFontSize < 40 && newFontSize > 12) {
+                    $(this).css({
+                        'font-size': newFontSize,
+                        'line-height': (newFontSize+12)+'px'
+                    });
+                }
+
+                if ( (parseFloat(newFontSize, 10) * 1.1) >= 40 ) {
+                    $(this).parents("div[id*='_frame']").find("[data-action='increase']").addClass('inactive');
+                } else {
+                    $(this).parents("div[id*='_frame']").find("[data-action='increase']").removeClass('inactive');
+                }
+                if ( (parseFloat(newFontSize, 10) * 0.9) <= 12 ) {
+                    $(this).parents("div[id*='_frame']").find("[data-action='decrease']").addClass('inactive');
+                } else {
+                    $(this).parents("div[id*='_frame']").find("[data-action='decrease']").removeClass('inactive');
+                }
+
+                $(this).attr('data-font-size', newFontSize);
+
+                var lineNwidth = $('.dipl-lineN:last').outerWidth();
+                var textInnerWidt = $(this).parents("div[id*='_frame']").find("div[id*='text_cont']").innerWidth()*85/100;
+                $(this).find('.dipl-left, .interp-left').each(function(){
+                    $(this).css({
+                        'max-width': (textInnerWidt-lineNwidth-38)+'px'
+                    });
+                });
             });
-            $(this).attr('data-font-size', newFontSize);
-        });
+            
+            var frameWidth;
+            if ($(this).parent().attr('id') == 'text_tool-add') {
+                frameWidth = $('#text_cont-add').find('#text').outerWidth();
+                $('.full').find('#text_cont-add #text').css({
+                    'position': 'absolute',
+                    'left': '50%',
+                    'margin-left': -(frameWidth/2)+'px'
+                });
+            } else {
+                frameWidth = $('#text').outerWidth();
+                $('.full').find('#text').css({
+                    'position': 'absolute',
+                    'left': '50%',
+                    'margin-left': -(frameWidth/2)+'px'
+                });
+            }
+        }
     });
 
     $('#decrease_font_size').click(function(){
