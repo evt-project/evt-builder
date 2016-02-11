@@ -74,28 +74,40 @@ function goFullScreenLeft(){
         $('.zoomWindow').show(0); //Add for mag
         //$('#header_collapse').animate({opacity: 1});
         if ( isTxtTxtCurrentMode ) {
-            textWidth = $('#text_cont-add').find('#text').css('display', 'inline-block').outerWidth();
-            $('#text_cont-add').find('#text').css({
+            var text_cont = $('#main_left_frame').find('#text');
+            text_cont.css('display', 'inline-block');
+            updateLinesWidth(mainLeftFrame);
+            var textWidth = text_cont.outerWidth();
+            text_cont.css({
                 'margin-left': -(textWidth/2)+'px',
-                'display': 'block'
+                'display': 'inline-block'
             });
         }
         resizeButtonsAndSelects();
+        
     });
-    if ( isTxtTxtCurrentMode ) {
-        textWidth = $('#text_cont-add').find('#text').css('display', 'inline-block').outerWidth();
-        $('#text_cont-add').find('#text').css({
-            'left': '50%',
-            'position': 'relative',
-            'margin-left': -(textWidth/2)+'px'
-        });
-    }
+    
     fitBottomBoxHeightAndPosition('left', height_full);
     $('.go-full-left').toggle();
     //$('#switchITL:visible').hide();
     $('#switchITL').addClass('inactive');
 
     $('#text_cont-add').removeAttr('style');
+    var currentFontSize = $('#text_cont-add').attr('data-font-size');
+    $('#text_cont-add').css({
+        'font-size': currentFontSize+'px'
+    });
+    if ( isTxtTxtCurrentMode ) {
+        var text_cont = $('#main_left_frame').find('#text');
+        text_cont.css('display', 'inline-block');
+        updateLinesWidth(mainLeftFrame);
+        textWidth = text_cont.outerWidth();
+        text_cont.css({
+            'left': '50%',
+            'position': 'relative',
+            'margin-left': -(textWidth/2)+'px'
+        });
+    }
     
     if(($('#span_ee_select-add').is(':visible'))&&!$('#span_ee_select-add').hasClass('widthChanged')){
         $('#span_ee_select-add')
@@ -146,6 +158,7 @@ function closeFullScreenLeft(){
             minWidth: "0px"
         }, 700, function(){
             fitFrame();
+            updateLinesWidth(mainLeftFrame);
             mainLeftFrame.removeClass("full");
             $('#left_header .closeFullScreen, #header_collapse').toggle();
             $('.go-full-left').toggle();
@@ -166,6 +179,7 @@ function closeFullScreenLeft(){
             mainLeftFrame
                 .removeClass("full")
                 .removeAttr("style");
+            updateLinesWidth(mainLeftFrame);
             $('#left_header .closeFullScreen, #header_collapse').toggle();
             $('.go-full-left').toggle();
             //Add for Mag
@@ -252,11 +266,13 @@ function goFullScreenRight(){
         right:0,
         minWidth: "1021px",
     }, 700, function(){
+        
+        updateLinesWidth(mainRightFrame);
         $('#right_header .closeFullScreen').toggle();
         textWidth = $('#text_cont').find('#text').css('display', 'inline-block').outerWidth();
         $('#text_cont').find('#text').css({
             'margin-left': -(textWidth/2)+'px',
-            'display': 'block'
+            'display': 'display: inline-block;'
         });
         resizeButtonsAndSelects();
     });
@@ -318,6 +334,8 @@ function closeFullScreenRight(){
         marginTop: "0px",
         minWidth: "0px"
     }, 700, function(){
+            
+            updateLinesWidth(mainRightFrame);
             fitFrame();
             mainRightFrame
                 .removeClass("full")

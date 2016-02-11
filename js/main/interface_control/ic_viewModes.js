@@ -237,6 +237,14 @@ function openTxtTxtMode() {
     }, function(){
         $("#right_menu").show();
         $("#text_cont").show();
+
+        var lineNwidth = $('#main_right_frame').find('.dipl-lineN:last').outerWidth();
+        var textInnerWidt = $('#main_right_frame').find("div#text_cont").innerWidth()*85/100;    
+        $('#main_left_frame').find('.dipl-left, .interp-left').each(function(){
+            $(this).css({
+                'max-width': (textInnerWidt-lineNwidth-38)+'px'
+            });
+        });
     });
     // - fine gestione passaggio bookreader --> txttxt
     
@@ -254,7 +262,8 @@ function openTxtTxtMode() {
             .find('#text_frame')
                 .attr('id', 'text_frame-add')
                 .find('#text')
-                    .attr('id', 'text-add');
+                    .attr('id', 'text-add')
+                    .css('display', 'inline-block');
     if ($('#text_cont-add .doc').length > 0) {
         $('#text_cont-add').scrollTop($('#text_cont-add .doc.current').position().top);
     }
@@ -385,6 +394,13 @@ function openTxtTxtMode() {
         });
         $('.go-full-left').addClass('onWhite');
     }
+    var lineNwidth = $('#main_right_frame').find('.dipl-lineN:last').outerWidth();
+    var textInnerWidt = $('#main_right_frame').find("div#text_cont").innerWidth()*85/100;    
+    $('#main_left_frame').find('.dipl-left, .interp-left').each(function(){
+        $(this).css({
+            'max-width': (textInnerWidt-lineNwidth-38)+'px'
+        });
+    });
     fitFrame();
     // updateTextContHeight();
 }
