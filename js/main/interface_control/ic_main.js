@@ -470,6 +470,22 @@ $(function() {
 				}
 				
 				newlab = first_page_lab+" - "+second_page_lab;
+
+				if (typeof(second_page_lab) == 'undefined'){
+					newhash = first_page;
+					if (first_page.substr(-1) == 'r') { // ho solo la pagina di destra
+						newlab = first_page_lab+" - (miss)";	
+					} else if (first_page.substr(-1) == 'r') { // ho solo la pagina di sinistra
+						newlab = "(miss) - "+first_page_lab;
+					} else {
+						newlab = first_page_lab;
+					}
+
+				} else {
+					newhash = first_page+"+"+second_page;
+					newlab = first_page_lab+" - "+second_page_lab;
+				}
+
 				$(".main_dd_select .label_selected")
 					.text(newlab)
 					.attr("data-value", newhash)
