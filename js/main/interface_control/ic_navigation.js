@@ -179,6 +179,10 @@ function gotopage(pp_val, pp_lab, state){
                     $("#text span[data-ref='"+ref+"']").addClass('selected_from_list');
                 });
             }
+            if (!$('#imgd_link').hasClass('current_mode')){
+                updateLinesWidth(right_frame);
+            }
+
             //IT: Riattiva filtri attivi
             updateEntitiesFiltered(right_frame);
 
@@ -265,6 +269,9 @@ function gotopage(pp_val, pp_lab, state){
                     ref = $(this).attr('id');
                     $("#text span[data-ref='"+ref+"']").addClass('selected_from_list');
                 });
+            }
+            if (!$('#imgd_link').hasClass('current_mode')){
+                updateLinesWidth(left_frame);
             }
             //IT: Riattiva filtri attivi
             left_frame
