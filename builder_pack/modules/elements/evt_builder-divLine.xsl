@@ -8,6 +8,7 @@
     
     <xd:doc type="stylesheet">
         <xd:short>
+            EN: Template to add at every line of the text the HTML elements that are necessary for the correct formatting.
             IT: Template per aggiungere ad ogni linea di testo gli elementi HTML div necessari per la formattazione.
         </xd:short>
     </xd:doc>
