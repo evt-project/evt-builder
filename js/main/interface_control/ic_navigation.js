@@ -348,6 +348,11 @@ function gotoedition(pp_val, ee_val, pp_el, frame_id){
                     }
                 } /*Add by JK for HS*/
                 
+                if (!$('#imgd_link').hasClass('current_mode')){
+                    updateLinesWidth($('#main_right_frame'));
+                    updateLinesWidth($('#main_left_frame'));
+                }
+                
                 var current_doc = $('#span_tt_select .label_selected').attr('data-value');
                 if ( $(".doc[data-doc='"+current_doc+"']").length > 0 ) {
                     $(".doc[data-doc='"+current_doc+"']").addClass('current');
