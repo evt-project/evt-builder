@@ -28,10 +28,10 @@ function magnifierReady() {
 	} else {
 		if ($('.current_mode').attr('id') == 'imgd_link'){
 			//alert('fromDD');
-			current_pp = $('.main_dd_select .option_container .option:first-child').data('value');
+			current_pp = $('.main_dd_select .option_container .option:first').data('value');
 		} else {
 			//alert('fromPP');
-			current_pp = $('.main_pp_select .option_container .option:first-child').data('value');
+			current_pp = $('.main_pp_select .option_container .option:first').data('value');
 		}
 	}
 
