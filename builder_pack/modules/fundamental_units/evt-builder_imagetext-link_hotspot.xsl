@@ -8,7 +8,7 @@
 
 	<xd:doc type="stylesheet">
 		<xd:short>
-			EN: Template to create all elements necessary for text-image linking.
+			EN: Template to create all necessary elements for text-image linking.
 			IT: Template per la creazione degli elementi necessari per il collegamento testo immagine.
 		</xd:short>
 	</xd:doc>

@@ -11,7 +11,8 @@
         
         <xd:doc type="stylesheet">
             <xd:short>
-                IT: Template per la generazione del file structure.xml
+                EN: Templates for the creation of structure.xml file
+                IT: Templates per la generazione del file structure.xml
             </xd:short>
         </xd:doc>
         
