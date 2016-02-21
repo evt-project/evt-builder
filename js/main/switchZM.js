@@ -59,11 +59,14 @@ function magnifierReady() {
 	/*IT: inserisco nuova immagine in #mag_image_elem */
 
 	//alert(current_pp);
-	if ($('.current_mode').attr('id') == 'imgd_link')
+	if ($('.current_mode').attr('id') == 'imgd_link') {
 		imgB = "data/input_data/images/double/" + current_pp.replace("+", "-") + "_big.jpg";
-	else
+	} else {
+		if (current_pp.indexOf('+') > 0) {
+    		current_pp = current_pp.substr(0, current_pp.indexOf('+'));
+		}
 		imgB = "data/input_data/images/single/" + current_pp + "_big.jpg";
-	
+	}
 	$("#mag_image_elem").append('<a href="' + imgB + '" class="magnifier" ></a>');
 	$("#mag_image_elem > a").append(img);
 	/*IT: imposto il css della nuova immagine*/
