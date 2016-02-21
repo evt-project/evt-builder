@@ -121,6 +121,7 @@ function openTxtImgMode(){
     }, function(){
         $("#right_menu").show();
         $("#text_cont").show();
+        resizeButtonsAndSelects();
     });
 
     $("#mag").show();
