@@ -20,9 +20,9 @@
    background-color: white;
    padding: 8px;
    text-align:center;
-   background-image: url(../images/zoomloader.gif);
+   /*background-image: url(../images/zoomloader.gif);
    background-repeat: no-repeat;
-   background-position: 43px 30px;
+   background-position: 43px 30px;*/
    z-index:110;
    width:90px;
    height:43px;
