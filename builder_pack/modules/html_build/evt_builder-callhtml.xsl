@@ -300,21 +300,20 @@
 							</xsl:if>-->
 							<!-- /end Integration by AB -->
 							
-							
-								<xsl:element name="a" >
-									<xsl:attribute name="href" select="'javascript:void(0);'"/>
-									<xsl:attribute name="id" select="'main_fullscreen'"/>
-									<xsl:attribute name="data-action" select="'go_fullscreen'"/>
-									<xsl:attribute name="title" select="'GO_FULLSCREEN'"/>
-									<xsl:attribute name="lang" select="'def'"/>
-									<i class="fa fa-expand"></i>
-								</xsl:element>
-							
 							<!-- Integration by LS -->
 							<a href= "javascript:void(0);" id="settings_link" lang="def" title="SETTINGS"> 
 								<i class="fa fa-navicon"></i>
 							</a>	
 							<!-- /end Integration by LS -->
+							
+							<xsl:element name="a" >
+								<xsl:attribute name="href" select="'javascript:void(0);'"/>
+								<xsl:attribute name="id" select="'main_fullscreen'"/>
+								<xsl:attribute name="data-action" select="'go_fullscreen'"/>
+								<xsl:attribute name="title" select="'GO_FULLSCREEN'"/>
+								<xsl:attribute name="lang" select="'def'"/>
+								<i class="fa fa-expand"></i>
+							</xsl:element>
 						</div>
 					</header>
 					<div id="settings_cont">
