@@ -2569,7 +2569,7 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
  
 #settings_cont{
 	display:none;  
-   	z-index:99999;
+   	z-index:999999;
    	position:absolute;
    	top: 44px;
 	right: 1px;
