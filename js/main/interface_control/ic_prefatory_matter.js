@@ -145,7 +145,7 @@ function updateFrontContent(current_doc){
             $('#front_cont').hide();
             resizeButtonsAndSelects();
         } 
-        
+        resizeGlobalTopBar();
     });
 }
 
@@ -305,6 +305,7 @@ function updateRegestoContent(current_doc){
             $('#switchReg').addClass('disabled').hide();
             resizeButtonsAndSelects();
         } 
+        resizeGlobalTopBar();
     });
 }
 

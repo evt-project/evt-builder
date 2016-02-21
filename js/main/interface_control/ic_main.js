@@ -649,6 +649,7 @@ $(function() {
 			        	window.lang.run();
 			        }
 			        /* /end Integration by LS */
+			        resizeGlobalTopBar();
 			    });
 			}
 			
@@ -668,6 +669,8 @@ $(function() {
 			    bindTextInfoBtnClick();
 
 			    bindHeaderInfoBtnClick();
+
+			    resizeGlobalTopBar();
 			}
 
 			/* *********************** */
