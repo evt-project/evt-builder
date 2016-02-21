@@ -146,25 +146,34 @@ function updateSelectLength(elem){
     }
     if($(elem).attr('id') === 'span_dd_select'){
         var widthPP, optPP;
-        widthPP = $('#span_pp_select').find('div').width() * 1.5 - 5;
-        optPP = $('#span_pp_select').find('.option_container').width() * 1.5;
-        
-        // $('#span_dd_select')
-        //  .css('width', widthPP)
-        //  .attr('data-first-load-width', widthPP);
+        if ($('#imgd_link').hasClass('current_mode')) {
+            var optCont = $('#span_dd_select').find('.option_container');
+            optCont.css({
+                'width': 'auto',
+                'position': 'relative',
+                'visibility': 'hidden',
+                'display': 'block'
+            });
+            
+            widthPP = $('#span_dd_select').find('div').width() * 1.5 - 5;
+            optPP = $('#span_dd_select').find('.option_container').width() * 1.5;
+            widthSel = optCont.width()*1.2;
+        } else {
+            widthPP = $('#span_pp_select').find('div').width() * 1.5 - 5;
+            optPP = $('#span_pp_select').find('.option_container').width() * 1.5;    
+        }
         $('#span_dd_select')
             .addClass('widthChanged')
             .find('.option_container')
                 .removeAttr('style')
-                .css('width', optPP)
-                .attr('data-first-load-width', optPP);
+                .css('width', widthSel)
+                .attr('data-first-load-width', widthSel);
 
         if ( optionTooltipInPages ) {
             if ( $(elem).find('.option_tooltip_dd').length > 0 ){
                 $(elem).find('.option_tooltip_dd').css({
-                    'left': widthPP+1,
-                    'min-width': widthPP-50
-                    // 'min-width': 'auto'
+                    'left': widthSel+1,
+                    'min-width': widthSel
                 });
             }
         }

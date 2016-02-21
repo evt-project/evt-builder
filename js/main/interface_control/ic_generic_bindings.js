@@ -102,7 +102,6 @@ function bindOptionClick() {
             }
             else{
                 newText = $(this).text();
-                // WTF: main_dd_select
                 if ($(this).parents('.option_container').parent().attr("class") !== "main_pp_select"){
                     $(this).parents('.option_container').prev().prev().text(newText).attr("data-value", newPage).trigger('change'); // .label_selected
                 }

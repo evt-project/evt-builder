@@ -179,9 +179,9 @@ $(function() {
 				else {
 					current_id = first_page_d;
 					if ( first_label_d.substr(-1).toLowerCase() == 'v' ) {
-						current_label = first_label_d+" - (<span lang='def'>PAGE_MISSING</span>)";	
+						current_label = first_label_d+"<span lang='def'>PAGE_MISSING_RIGHT</span>";
 					} else {
-						current_label = "(<span lang='def'>PAGE_MISSING</span>) - "+ first_label_d;
+						current_label = "<span lang='def'>PAGE_MISSING_LEFT</span>"+ first_label_d;
 					}
 				}
 
@@ -421,16 +421,15 @@ $(function() {
 
 				if (typeof(second_page_lab) == 'undefined'){
 					newhash = first_page;
-					second_page_lab = "(miss)";
+					second_page_lab = window.lang.convert('PAGE_MISSING_RIGHT', window.lang.currentLang);
 				} else {
 					newhash = first_page+"+"+second_page;
 				}
-				newlab = first_page_lab+" - "+second_page_lab;
+				newlab = first_page_lab+second_page_lab;
 				$(".main_dd_select .label_selected")
 					.text(newlab)
 					.attr("data-value", newhash)
 					.attr("data-first-doc", temp_tt);
-
 				window.location.hash = "doc="+temp_tt+"&page="+newhash;
 			});
 			
@@ -464,36 +463,21 @@ $(function() {
 						.children()
 							.eq(1).attr("n");
 				second_page_lab = second_page_lab != "" ? second_page_lab : second_page;
-				if (typeof(second_page_lab) == 'undefined'){
-					newhash = first_page;
-					second_page_lab = "(miss)";
-				} else {
-					newhash = first_page+"+"+second_page;
-				}
 				
-				newlab = first_page_lab+" - "+second_page_lab;
-
-				if (typeof(second_page_lab) == 'undefined'){
-					newhash = first_page;
-					if (first_page.substr(-1) == 'r') { // ho solo la pagina di destra
-						newlab = first_page_lab+" - (miss)";	
-					} else if (first_page.substr(-1) == 'r') { // ho solo la pagina di sinistra
-						newlab = "(miss) - "+first_page_lab;
-					} else {
-						newlab = first_page_lab;
-					}
-
-				} else {
+				if (typeof(second_page_lab) != 'undefined'){
 					newhash = first_page+"+"+second_page;
-					newlab = first_page_lab+" - "+second_page_lab;
+				} else {
+					newhash = first_page;
 				}
-
+				var newLab = $(".main_dd_select .option_container .option[data-value='"+newhash+"']").text();
 				$(".main_dd_select .label_selected")
 					.text(newlab)
 					.attr("data-value", newhash)
 					.attr("data-first-doc", temp_tt)
 				;
+				
 				updateHash(temp_tt, newhash);
+				$(window).hashchange();
 			});
 
 			/* APERTURA TOOLTIP PAGE */
@@ -819,7 +803,7 @@ $(function() {
 						 $("#span_pp_select .option[data-value='"+first_hash_pp+"']").length < 1 ) {
 						window.location.hash = '';
 					} else {
-						$(window).hashchange();		
+						$(window).hashchange();
 					}
 				} else {
 					// IT: L'evento viene attivato quando cambia l'hash della pagina

@@ -160,7 +160,8 @@ function initializeLang() {
         translateEEselectedLabel();
 
         updateSelectLength($('#span_ee_select'));
-        if ($('#span_ee_select-add')) { updateSelectLength($('#span_ee_select-add')) }
+        if ($('#span_ee_select-add').length > 0) { updateSelectLength($('#span_ee_select-add')) }
+        if ($('#span_dd_select').length > 0) { updateSelectLength($('#span_dd_select')) }
     });
     window.lang.run();
     if ( window.lang.currentLang === 'undefined' ) {
@@ -170,7 +171,8 @@ function initializeLang() {
         $(".flag[data-value='"+window.lang.currentLang+"']").addClass('active');
     }
     updateSelectLength($('#span_ee_select'));
-    if ($('#span_ee_select-add')) { updateSelectLength($('#span_ee_select-add')) }
+    if ($('#span_ee_select-add').length > 0) { updateSelectLength($('#span_ee_select-add')) }
+    if ($('#span_dd_select').length > 0) { updateSelectLength($('#span_dd_select')) }
 }
 /* TEMPORARY*/
 function translateEEselectedLabel(){
