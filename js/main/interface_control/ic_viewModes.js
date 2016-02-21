@@ -122,6 +122,7 @@ function openTxtImgMode(){
         $("#right_menu").show();
         $("#text_cont").show();
         resizeButtonsAndSelects();
+        updateLinesWidth($('#main_right_frame'));
     });
 
     $("#mag").show();
@@ -414,6 +415,9 @@ function openTxtTxtMode() {
 function openBookreaderMode(){
     UnInitialize(); //Add by JK for ITL
     UnInitializeHS(); //Add by JK for HS
+    if (!$('#msDesc_cont').is(':visible')) {
+        $('#switch_msDesc').removeClass('active');
+    }
     
     if ( $('#search_link-add').hasClass('active') ) {
         closeSearchBox(0, '-add');
@@ -463,6 +467,7 @@ function openBookreaderMode(){
     $('.go-full-left.onWhite').removeClass('onWhite');
 
     $('#span_pp_select-add, #span_tt_select-add').remove();
+
 }
 
 /*= OPEN SINGLE TEXT VIEW MODE =*/
