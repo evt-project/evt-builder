@@ -62,7 +62,6 @@ body{
 
 footer{
 	display: none;
-	background: url(../images/bg-dark2.jpg) fixed;
 }
 
 #main_header{
@@ -371,9 +370,6 @@ footer{
 
 	display: none;
 }
-#main_left_menu:hover{
-	background: url(../images/bg-dark2.jpg) fixed;
-}
 
 #main_left_menu:hover #main_left_menu-openlink{
 	color: white;
@@ -421,9 +417,6 @@ footer{
 	box-shadow:0 9px 10px rgba(0,0,0,0.4);
 
 	display: none;
-}
-#main_right_menu:hover{
-	background: url(../images/bg-dark2.jpg) fixed;
 }
 
 #main_right_menu:hover #main_right_menu-openlink{
