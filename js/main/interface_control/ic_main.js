@@ -756,6 +756,7 @@ $(function() {
 						if($('#switchMag i').hasClass('fa-search-plus')){
 						  magnifierON = true;
 						}
+						gotopage(current_page, pp_lab, "none");
 					}
 					selectPP(current_page, pp_lab, current_doc);
 					selectTT(current_doc);
