@@ -615,7 +615,7 @@ $(function() {
 			bindFilterOptionClick();
 			
 			/* GENERIC SELECT CLICK */
-			bingOptionClick();
+			bindOptionClick();
 			
 			/* GENERIC SELECT HOVER */
 			bindOptionHover();

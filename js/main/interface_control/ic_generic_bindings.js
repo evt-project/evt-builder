@@ -83,7 +83,7 @@ function bindOpenSelectClick() {
 /*= - it select the element clicked and unselect the others.                       =*/
 /*= - it closes the ".like_select".                                                =*/
 /*= - If it is a filter, it is possible to select more than one ".option" element. =*/
-function bingOptionClick() {
+function bindOptionClick() {
     $(".like_select .option_container .option").click(function(){
         if( (!$(this).hasClass('selected')) && (! $(this).parents('.like_select').hasClass('filter'))){
             var option_sel_value, option_sel_label;
@@ -108,19 +108,27 @@ function bingOptionClick() {
                 }
             }*/
 
-            $(this).parents('.like_select')
+            var thisSelect = $(this).parents('.like_select');
+            thisSelect
                 .find(".option[data-value!='"+option_sel_value+"']")
                     .removeClass('selected');
             $(this)
                 .addClass('selected');
+            
             if ($(this).parents('.option_container').is(':visible')) {
                 if($(this).parents('.option_container').hasClass('up')){
                    $(this).parents('.option_container').animate({
                        top: '-5px',
                        height:"toggle"
-                   }, 400);
+                   }, 400, function(){
+                        updateSelectLength(thisSelect);
+                   });
                 } else {
-                    $(this).parents('.option_container').animate({height:"toggle"}, 400);
+                    $(this).parents('.option_container').animate({
+                        height:"toggle"
+                    }, 400, function(){
+                        updateSelectLength(thisSelect);
+                    });
                 }
             }
         }
