@@ -1581,7 +1581,7 @@ footer{
 div.concave {
 	border-top: 2px solid #3C322C;
     background: transparent;
-	width: 265px;
+	width: 287px;
 	position: absolute;
 	right: 0px;
 	top: 9px;
@@ -1589,7 +1589,7 @@ div.concave {
 
 div.extTop{
 	background: #3c322c;
-	width: 265px;
+	width: 287px;
 	height: 17px;
 	position: relative;
 }
@@ -1610,7 +1610,7 @@ div.topleftconcave {
 div.botleftconcave {
 	position: absolute;
 	background: #3c322c;
-	width: 241px;
+	width: 263px;
 	height: 16px;
 	top: 16px;
 	left: 24px;
