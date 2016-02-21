@@ -407,7 +407,7 @@ function openTxtTxtMode() {
         });
     });
     fitFrame();
-    // updateTextContHeight();
+    updateSelectLength($('#span_ee_select-add'));
 }
 
 /*= OPEN BOOKREADER VIEW MODE =*/

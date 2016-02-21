@@ -150,7 +150,7 @@ function gotopage(pp_val, pp_lab, state){
     var edition, edition_add; 
     var current_font_size;
     //N.B. i caricamenti delle immagini si attivano grazie agli eventi change dei label_selected in iviewer_config
-    edition = $("#span_ee_select .main_ee_select .label_selected").text().toLowerCase();
+    edition = $("#span_ee_select .main_ee_select .label_selected").attr('data-value').toLowerCase();
     // $('#span_pp_select .label_selected').trigger('change');
     
     if ( $('#text_cont').attr('data-font-size') != '') {
