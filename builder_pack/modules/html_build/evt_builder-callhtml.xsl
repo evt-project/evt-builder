@@ -187,7 +187,7 @@
 							</div>
 							<div class="shortcuts_row">
 								<p class="shortcuts_col_left"><span lang="def">KS_OPEN_SEARCH</span></p>
-								<p class="shortcuts_col_right"><span class="shortcuts_key">ctrl/cmd</span>+<span class="shortcuts_key">f</span></p>
+								<p class="shortcuts_col_right"><span class="shortcuts_key">ctrl/cmd</span>+<span class="shortcuts_key">alt</span>+<span class="shortcuts_key">f</span></p>
 							</div>
 							<div class="shortcuts_row">
 								<p class="shortcuts_col_left"><span lang="def">KS_OPEN_PAGE_SELECTOR</span></p>
