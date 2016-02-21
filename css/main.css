@@ -673,7 +673,9 @@ footer{
 .image_tool-class{
 	opacity: 0.4;
 }
-
+.image_tool-class.no-opacity{
+	opacity: 1;
+}
 #image_tool:hover, .image_tool-class:hover{
 	opacity: 1;
 }

@@ -365,7 +365,7 @@ function bindMsDescBtnClick() {
                 }
                 $('#switch_msDesc').removeClass('active');
                 $('#image_tool > *').removeClass('hidden');
-
+                $('#image_tool').removeClass('no-opacity');
                 if (thumbContOpen){
                     $("#thumb_elem").addClass('active');
                 }
@@ -391,6 +391,7 @@ function bindMsDescBtnClick() {
                 // $("#image_tool").hide();
             }
             $('#switch_msDesc').addClass('active');
+            $('#image_tool').addClass('no-opacity');
             /*$('#image_tool').addClass('hidden');*/
              // $('#image_tool > *').addClass('hidden');
         }
