@@ -114,7 +114,9 @@ jquery_lang_js.prototype.lang.en = {
 	"LIST_PLACE": "List of places",
 
 	"NO_ELEMENTS": "No elements.",
-    "PAGE_MISSING": "miss",
+    "PAGE_MISSING": "(miss)",
+    "PAGE_MISSING_RIGHT": " - (miss)",
+    "PAGE_MISSING_LEFT": "(miss) - ",
     "GO_TO_TEXT": "Go to Text",
     "OCCURRENCES": "occurrences",
     "OCCURRENCE": "occurrence",

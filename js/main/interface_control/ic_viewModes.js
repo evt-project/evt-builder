@@ -430,12 +430,17 @@ function openBookreaderMode(){
     $("#switchReg-add").hide();
     $('#text_tool-add').hide().addClass('hidden');
     
+    var ddSelector = $('#span_dd_select');
+
     $("#right_menu").hide();
     $("#main_left_frame").animate({
         'width': '99.5%'
     } //, 800
     , function(){
         $("#main_right_frame").hide();
+        ddSelector.css({display: "inline-block"});
+        updateSelectLength(ddSelector);
+        fitFrame();
     });
 
     //$("#image_cont-add").remove();
@@ -449,17 +454,6 @@ function openBookreaderMode(){
     $("#image_cont").show();
     $('#switchITL').hide();
     $('#switchHS').hide();
-    var ddSelector = $('#span_dd_select');
-    ddSelector.css({display: "inline-block"});
-    fitFrame();
-    
-    if(!$('#left_header').hasClass('menuClosed')){
-        if(!ddSelector.hasClass('widthChanged')){
-            ddSelector.addClass('widthChanged');
-            ddSelector.find('.option_container').removeAttr('style');
-            updateSelectLength(ddSelector); 
-        }
-    }
     
     $('#header_collapse').animate({
         left: "100%",

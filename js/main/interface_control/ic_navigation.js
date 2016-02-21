@@ -47,7 +47,7 @@ function selectPP(current_page, pp_lab, tt_val){
     $('#span_dd_select .option')
         .removeClass('selected');
     
-    dd_opt = $('#span_dd_select .option_container .option:contains("'+pp_lab+'")');
+    dd_opt = $("#span_dd_select .option_container .option[data-value*='"+current_page+"']");
     dd_opt.addClass('selected');
                 
     dd_val = dd_opt.attr('data-value');
@@ -607,9 +607,9 @@ function bindTTselectClick() {
 function bindDDselectClick() {
     $('.main_dd_select .option_container .option').click(function(){
         var pp_val, pp_lab, tt_val, first_page_id;
-        pp_val = $(this).attr('data-value');
-        tt_val = $(this).attr('data-first-page-first-doc');
-        pp_lab = $(this).text();
+        pp_val = $(this).attr('data-value') || '';
+        tt_val = $(this).attr('data-first-page-first-doc') || '';
+        pp_lab = $(this).text() || '';
         $('#span_dd_select .label_selected')
             .attr("data-value", pp_val)
             .attr("data-first-doc", tt_val)
