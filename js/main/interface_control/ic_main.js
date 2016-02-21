@@ -36,7 +36,7 @@ var groupingPagesByDoc, optionTooltipInPages;
 
 $(function() {
 	window.lang = new jquery_lang_js();
-
+	window.lang.run();
 	"use strict";
 
 	//IT: Setting variabili generiche
@@ -67,8 +67,9 @@ $(function() {
 				$('.main_ee_select .option_container').append(
 					$('<div/>')
 						.attr("data-value", current_id.toLowerCase())
+						.attr("lang", 'def')
 						.addClass('option')
-						.text(current_id)
+						.text(current_id.toUpperCase())
 				);
 			});
 			
@@ -93,8 +94,9 @@ $(function() {
 			}
 			$(".main_ee_select .option_container div:first-child").addClass( "selected" );
 
+			var firstEE = $('.main_ee_select .option_container div:first').text();
 			$('.main_ee_select .label_selected')
-				.text($('.main_ee_select .option_container div:first').text())
+				.text(window.lang.convert(firstEE.toUpperCase(), window.lang.currentLang))
 				.attr("data-value", $('.main_ee_select .option_container div:first').attr('data-value'))
 				.trigger('change');
 

@@ -1,5 +1,8 @@
 jquery_lang_js.prototype.lang.en = {
-	"MODE_SINGLE_TEXT": "Single Text Mode",
+	"DIPLOMATIC": "Diplomatic",
+    "INTERPRETATIVE": "Interpretative",
+
+    "MODE_SINGLE_TEXT": "Single Text Mode",
 	"MODE_IMAGE_TEXT": "Image Text Mode",
 	"MODE_TEXT_TEXT": "Text Text Mode",
 	"MODE_BOOKREADER": "Bookreader mode",

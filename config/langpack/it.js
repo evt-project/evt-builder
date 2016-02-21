@@ -1,5 +1,8 @@
 jquery_lang_js.prototype.lang.it = {
-	"MODE_SINGLE_TEXT": "Testo singolo",
+    "DIPLOMATIC": "Diplomatica",
+    "INTERPRETATIVE": "Interpretativa",
+	
+    "MODE_SINGLE_TEXT": "Testo singolo",
 	"MODE_IMAGE_TEXT": "Immagine-Testo",
 	"MODE_TEXT_TEXT": "Testo-Testo",
 	"MODE_BOOKREADER": "Sfoglia manoscritto",

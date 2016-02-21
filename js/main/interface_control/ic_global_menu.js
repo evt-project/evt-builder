@@ -155,6 +155,12 @@ function initializeLang() {
             $(this).addClass('active');
             $('#settings_link').trigger('click');
         }
+
+        // Translate edition level label
+        translateEEselectedLabel();
+
+        updateSelectLength($('#span_ee_select'));
+        if ($('#span_ee_select-add')) { updateSelectLength($('#span_ee_select-add')) }
     });
     window.lang.run();
     if ( window.lang.currentLang === 'undefined' ) {
@@ -163,8 +169,23 @@ function initializeLang() {
         $('.flag.active').removeClass('active');
         $(".flag[data-value='"+window.lang.currentLang+"']").addClass('active');
     }
+    updateSelectLength($('#span_ee_select'));
+    if ($('#span_ee_select-add')) { updateSelectLength($('#span_ee_select-add')) }
 }
+/* TEMPORARY*/
+function translateEEselectedLabel(){
+    var firstEE = $('#span_ee_select .option_container .selected').attr('data-value');
+    if (firstEE){
+        $('#span_ee_select .label_selected')
+            .text(window.lang.convert(firstEE.toUpperCase(), window.lang.currentLang));
+    }
 
+    var firstEE_add = $('#span_ee_select-add .option_container .selected').attr('data-value');
+    if (firstEE_add) {
+        $('#span_ee_select-add .label_selected')
+            .text(window.lang.convert(firstEE_add.toUpperCase(), window.lang.currentLang));
+    }
+}
 /*= BIND TOGGLE SHORTCUTS BUTTON CLICK EVENT =*/
 function bindShortcutsBtnClick() {
     $('#keyboard_shortcuts_link').click(function(){
