@@ -824,6 +824,10 @@ $(function() {
 	});
 
 	$(document).ready(function(){
+		if ($('#generalBiblio_cont').length == 0) {
+			$('#biblio_link').remove();
+		}
+		
 		resizeGlobalTopBar();
 		
 		$('.mainButtons').each(function(){
