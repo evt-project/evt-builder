@@ -183,6 +183,10 @@ function openTxtImgMode(){
     $('.go-full-left.onWhite').removeClass('onWhite');
 
     $('#span_pp_select-add, #span_tt_select-add').remove();
+
+    if ($('#search_link-add').hasClass('active')) {
+        closeSearchBox(0, '-add');
+    }
 }
 
 /*= OPEN TEXT/TEXT VIEW MODE =*/
@@ -412,7 +416,7 @@ function openBookreaderMode(){
     UnInitializeHS(); //Add by JK for HS
     
     if ( $('#search_link-add').hasClass('active') ) {
-        $('#search_link-add').trigger('click');
+        closeSearchBox(0, '-add');
     }
 
     $("#imgd_link").addClass("current_mode").siblings().removeClass("current_mode");
