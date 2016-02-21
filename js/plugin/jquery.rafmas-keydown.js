@@ -55,7 +55,7 @@ $(document).keydown(function(e){
 		//CTRL+ALT+SHIF+f - CMD+ALT+SHIF+f => go fullscreen
 		document.getElementById("main_fullscreen").click();
 	}
-	if ((e.keyCode == 102 || e.keyCode == 70) && (e.ctrlKey||e.metaKey) && !e.altKey) { //CTRL+f - CMD+f
+	if ((e.keyCode == 102 || e.keyCode == 70) && (e.ctrlKey||e.metaKey) && e.altKey) { //CTRL+f - CMD+f
         e.preventDefault();
         if (e.shiftKey) {
         	if($('#search_link-add').is(':visible')){
@@ -180,7 +180,7 @@ $(document).keydown(function(e){
 		$('.option_container:visible').prev().trigger('click');
 		$('#info_link.active').trigger('click');
 		if ( $('#search_cont').hasClass('collapsed') && 
-			 $('#tipue_search_input').is(':focus') ) {
+			$('#tipue_search_input').is(':focus') ) {
 			$("#search_link.active").trigger('click');
 			$('#main_right_frame .highlight').removeClass('highlight');
 		}
@@ -188,6 +188,10 @@ $(document).keydown(function(e){
 			 $('#tipue_search_input-add').is(':focus') ) {
 			$("#search_link-add.active").trigger('click');
 			$('#main_left_frame .highlight').removeClass('highlight');
+		}
+
+		if ( $('#keyboard_shortcuts_cont').is(':visible') ) {
+			$('#keyboard_shortcuts_link').trigger('click');
 		}
 		return false;
 	}	
