@@ -18,8 +18,7 @@
     var viewFullScreen = document.getElementById("main_fullscreen");
     if (viewFullScreen) {
         viewFullScreen.addEventListener("click", function () {
-        	//alert(viewFullScreen.title);
-			if(viewFullScreen.getAttribute('data-action')=="go_fullscreen"){
+        	if(viewFullScreen.getAttribute('data-action')=="go_fullscreen"){
 				var docElm = document.documentElement;
 				if (docElm.requestFullscreen) {
 					docElm.requestFullscreen();
@@ -30,9 +29,6 @@
 				else if (docElm.webkitRequestFullScreen) {
 					docElm.webkitRequestFullScreen();
 				}
-				viewFullScreen.title = window.lang.convert('EXIT_FULLSCREEN', window.lang.currentLang);
-				viewFullScreen.setAttribute('data-action', 'exit_fullscreen');
-				viewFullScreen.getElementsByClassName('fa')[0].className = "fa fa-compress";
 			}
 			else {
 				if (document.exitFullscreen) {
@@ -44,9 +40,6 @@
 				else if (document.webkitCancelFullScreen) {
 					document.webkitCancelFullScreen();
 				}
-				viewFullScreen.title = window.lang.convert('GO_FULLSCREEN', window.lang.currentLang);
-				viewFullScreen.setAttribute('data-action', 'go_fullscreen');
-				viewFullScreen.getElementsByClassName('fa')[0].className = "fa fa-expand";
 			}
         }, false);
     }
@@ -82,26 +75,27 @@
         }, false);
     }
 	
-	//Doesn't quite work - rafmas
-	document.addEventListener("mozfullscreenchange", function(e) {
-		if(viewFullScreen.getAttribute('data-action')=="go_fullscreen"){
-			// viewFullScreen.setAttribute('data-action', 'exit_fullscreen');
-			if (viewFullScreenII != null) viewFullScreenII.title="close";
-			return false;
+	if (document.addEventListener) {
+	    document.addEventListener('webkitfullscreenchange', onFullScreenChange, false);
+	    document.addEventListener('mozfullscreenchange', onFullScreenChange, false);
+	    document.addEventListener('fullscreenchange', onFullScreenChange, false);
+	    document.addEventListener('MSFullscreenChange', onFullScreenChange, false);
+	}
+
+	function onFullScreenChange(){
+		var viewFullScreen = document.getElementById("main_fullscreen");
+	    if(viewFullScreen.getAttribute('data-action')=="go_fullscreen"){
+			viewFullScreen.title = window.lang.convert('EXIT_FULLSCREEN', window.lang.currentLang);
+			viewFullScreen.setAttribute('data-action', 'exit_fullscreen');
+			var goFullScreenIcon = viewFullScreen.getElementsByClassName('fa')[0]
+			goFullScreenIcon.className = "fa fa-compress";
 		}
-		if(viewFullScreen.getAttribute('data-action')=="exit_fullscreen")
-			// viewFullScreen.setAttribute('data-action', 'go_fullscreen');
-			if (viewFullScreenII != null) viewFullScreenII.title="Fullscreen";	
-	},false);
-	document.addEventListener("webkitfullscreenchange", function(e) {
-		if(viewFullScreen.getAttribute('data-action')=="go_fullscreen"){
-			// viewFullScreen.setAttribute('data-action', 'exit_fullscreen');
-			if (viewFullScreenII != null) viewFullScreenII.title="close";
-			return false;
+		else {
+			viewFullScreen.title = window.lang.convert('GO_FULLSCREEN', window.lang.currentLang);
+			viewFullScreen.setAttribute('data-action', 'go_fullscreen');
+			var goFullScreenIcon = viewFullScreen.getElementsByClassName('fa')[0]
+			goFullScreenIcon.className = "fa fa-expand";
 		}
-		if(viewFullScreen.getAttribute('data-action')=="exit_fullscreen")
-			// viewFullScreen.setAttribute('data-action', 'go_fullscreen');	
-			if (viewFullScreenII != null) viewFullScreenII.title="Fullscreen";	
-		},false);
+	}
 
 })();

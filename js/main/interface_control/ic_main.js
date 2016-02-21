@@ -820,6 +820,7 @@ $(function() {
 					// IT: L'evento viene attivato quando cambia l'hash della pagina
 					$(window).hashchange();	
 				}
+			resizeGlobalTopBar();
 		}
 	});
 
@@ -827,7 +828,7 @@ $(function() {
 		if ($('#generalBiblio_cont').length == 0) {
 			$('#biblio_link').remove();
 		}
-		
+
 		resizeGlobalTopBar();
 		
 		$('.mainButtons').each(function(){
