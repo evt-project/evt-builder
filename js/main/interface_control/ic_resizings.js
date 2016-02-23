@@ -178,7 +178,7 @@ function updateSelectLength(elem){
             }
         }
     }
-    if( $(elem).attr('id') === 'span_tt_select' ) {
+    if( $(elem).attr('id') === 'span_tt_select' ) { 
         if ( optionTooltipInPages ) {
             if ( $('#span_pp_select').find('.option_tooltip').length > 0 ){
                 $('#span_pp_select').find('.option_tooltip').css({
