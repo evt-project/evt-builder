@@ -107,26 +107,29 @@ function bindOptionClick() {
                 }
             }*/
 
-            var thisSelect = $(this).parents('.like_select');
+            var thisSelect          = $(this).parents('.like_select'),
+                thisOptionContainer = $(this).parents('.option_container');
             thisSelect
                 .find(".option[data-value!='"+option_sel_value+"']")
                     .removeClass('selected');
             $(this)
                 .addClass('selected');
             
-            if ($(this).parents('.option_container').is(':visible')) {
-                if($(this).parents('.option_container').hasClass('up')){
-                   $(this).parents('.option_container').animate({
+            if (thisOptionContainer.is(':visible')) {
+                if(thisOptionContainer.hasClass('up')){
+                   thisOptionContainer.animate({
                        top: '-5px',
                        height:"toggle"
                    }, 400, function(){
                         // updateSelectLength(thisSelect);
+                        thisOptionContainer.css('min-width', thisSelect.width()-10);
                    });
                 } else {
-                    $(this).parents('.option_container').animate({
+                    thisOptionContainer.animate({
                         height:"toggle"
                     }, 400, function(){
                         // updateSelectLength(thisSelect);
+                        thisOptionContainer.css('min-width', thisSelect.width()-10);
                     });
                 }
             }
