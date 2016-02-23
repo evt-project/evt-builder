@@ -120,13 +120,13 @@ function bindOptionClick() {
                        top: '-5px',
                        height:"toggle"
                    }, 400, function(){
-                        updateSelectLength(thisSelect);
+                        // updateSelectLength(thisSelect);
                    });
                 } else {
                     $(this).parents('.option_container').animate({
                         height:"toggle"
                     }, 400, function(){
-                        updateSelectLength(thisSelect);
+                        // updateSelectLength(thisSelect);
                     });
                 }
             }

@@ -217,7 +217,9 @@ function gotopage(pp_val, pp_lab, state){
                 .addClass('current');
 
             if ($('#text_cont .doc').length > 0) {
-                $('#text_cont').scrollTop($('#text_cont .doc.current').position().top);
+                if ($('#text_cont .doc.current').length > 0 && $('#text_cont .doc.current').position() !== undefined) {
+                    $('#text_cont').scrollTop($('#text_cont .doc.current').position().top);
+                }
 
                 $("#text_cont .doc").unbind('click').click(function(){
                     selectDocumentInPage(this);
