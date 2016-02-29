@@ -121,36 +121,43 @@ function magOn() {
 	if (magnifierON == false || 
 		(thumb_cont.length > 0 && thumb_cont.css('display') !== 'none') ||
 		(msDesc_cont.length > 0 && $('#msDesc_cont').css('display') !== 'none')) {
-	   	
-	   	if($('#switchMag').hasClass('likeInactive')) {
-	       $('#switchMag').removeAttr('onclick').removeClass('likeInactive').addClass('inactive');
-	       $('#switchMag i').removeClass('fa fa-search-plus').addClass('fa fa-search');
-	  	}
-	    else{
-      		/*IT: Se il collegamento testo immagine è attivo, lo disattivo*/
-      		UnInitialize(); //Add by JK for ITL
-      		$('#switchITL i').removeClass('fa fa-chain').addClass('fa fa-chain-broken');
-      		$('#switchITL').removeClass('active'); //Add by CDP
-      		if($('#switchITL').hasClass('likeInactive')) disableITLbutton();
-      
-      		/*IT: Se gli HotSpot sono attivi, li disattivo*/
-      		UnInitializeHS(); //Add by JK for HS
-      		$('#switchHS i').removeClass('fa fa-dot-circle-o').addClass('fa fa-circle-o');
-      		$('#switchHS').removeClass('active');
-      		if($('#switchHS').hasClass('likeInactive')) disableHSbutton();
-      
-      		/*IT: rendo visibile il div del magnifier e invisibile quello dello zoom*/
-      		$("#mag_image_elem").fadeIn();
-      		$("#image_elem, #image_tool, #image_fade").css({
-      			'display': 'none'
-      		});
-      		//$('#image_tool').addClass('menuClosed'); //Add by CDP per gestire la scomparsa del menu
-      		$('#switchMag').addClass('active'); //Add by CDP for FA
-      		$('#switchMag i').removeClass('fa fa-search').addClass('fa fa-search-plus');
-      		//$('#switchITL').removeClass('inactive');//Add by CDP for FA
-      		$('#image_tool').addClass('hidden');
-      		magnifierON = true;
-      	}
+		
+		if ($('.zoomWrapperImage').hasClass('bigImageError')) {
+			var errorMsg = $('.zoomWrapperImage').attr('data-error-msg');
+			alert(errorMsg);
+		} else {
+			// magnifierReady();
+			// chooseZoomMag();   	
+		   	if($('#switchMag').hasClass('likeInactive')) {
+		       $('#switchMag').removeAttr('onclick').removeClass('likeInactive').addClass('inactive');
+		       $('#switchMag i').removeClass('fa fa-search-plus').addClass('fa fa-search');
+		  	}
+		    else{
+	      		/*IT: Se il collegamento testo immagine è attivo, lo disattivo*/
+	      		UnInitialize(); //Add by JK for ITL
+	      		$('#switchITL i').removeClass('fa fa-chain').addClass('fa fa-chain-broken');
+	      		$('#switchITL').removeClass('active'); //Add by CDP
+	      		if($('#switchITL').hasClass('likeInactive')) disableITLbutton();
+	      
+	      		/*IT: Se gli HotSpot sono attivi, li disattivo*/
+	      		UnInitializeHS(); //Add by JK for HS
+	      		$('#switchHS i').removeClass('fa fa-dot-circle-o').addClass('fa fa-circle-o');
+	      		$('#switchHS').removeClass('active');
+	      		if($('#switchHS').hasClass('likeInactive')) disableHSbutton();
+	      
+	      		/*IT: rendo visibile il div del magnifier e invisibile quello dello zoom*/
+	      		$("#mag_image_elem").fadeIn();
+	      		$("#image_elem, #image_tool, #image_fade").css({
+	      			'display': 'none'
+	      		});
+	      		//$('#image_tool').addClass('menuClosed'); //Add by CDP per gestire la scomparsa del menu
+	      		$('#switchMag').addClass('active'); //Add by CDP for FA
+	      		$('#switchMag i').removeClass('fa fa-search').addClass('fa fa-search-plus');
+	      		//$('#switchITL').removeClass('inactive');//Add by CDP for FA
+	      		$('#image_tool').addClass('hidden');
+	      		magnifierON = true;
+	      	}
+	    }
 	} else {
 		/*IT: rendo visibile il div dello dello zoom e invisibile quello del magnifier*/
 		$("#image_elem, #image_fade").css({

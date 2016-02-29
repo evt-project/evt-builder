@@ -883,15 +883,14 @@ footer{
 }
 
 #thumb_cont figure:hover figcaption{
-	background: url(../images/opacity.png) repeat-x 0 -200px;
-	color: black;
+	background: rgba(0,0,0,0.7) !important;
 }
 
 #thumb_cont figure figcaption{
     color: white;
 	position: relative;
 	margin-top: -52px;
-	background: url(../images/opacity.png) repeat-x 0 -50px;
+	background: rgba(0,0,0,0.2);
 	font-size: 0.7em;
 	width: 100px;
 }
