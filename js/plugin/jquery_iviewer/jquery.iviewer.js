@@ -365,9 +365,9 @@ $.widget( "ui.iviewer", $.ui.mouse, {
         }
 
         this.container.bind('mousemove.iviewer', function(ev) { me._handleMouseMove(ev); });
-
-        this.loadImage(this.options.src);
-
+        if (this.options.src != undefined){ // Added by CDP
+            this.loadImage(this.options.src);
+        }
         if(!this.options.ui_disabled)
         {
             this.createui();

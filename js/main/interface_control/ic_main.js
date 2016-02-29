@@ -264,7 +264,8 @@ $(function() {
 		    					.attr('data-first-doc', current_id);
 		    			
 		    			$('<img />')
-		    				.attr('src', 'data/input_data/images/single/'+page_current_id+'_small.jpg')
+		    				.addClass('thumb_single_img')
+		    				.attr('data-src', 'data/input_data/images/single/'+page_current_id+'_small.jpg')
 		    				.appendTo(figure);
 		    			
 		    			$('<figcaption />')
@@ -901,5 +902,29 @@ $(function() {
 		/* ***************************** */
 		/* / END Gestione click e eventi */
 		/* ***************************** */
+
+		window.onerror = function myErrorHandler(errorMsg, url, lineNumber) {
+		    var msgParts = errorMsg.replace('Error: ', '').split('/');
+		    if (msgParts.length > 0) {
+			    var errorType = msgParts[0],
+			    	errorMsg = msgParts[1];
+			    if (errorType == 'BigImageError') {
+			    	try {
+			    		var lens = document.getElementsByClassName('zoomPreload')[0];
+                		lens.textContent = errorMsg;
+                		alert(errorMsg);
+                		$('.zoomWrapperImage')
+                			.addClass('bigImageError')
+                			.attr('data-error-msg', errorMsg);
+                		if (magnifierON){
+                			document.getElementById('switchMag').click();
+                		}
+                	} catch(e){}
+			    }
+			} else {
+				console.log('Error occurred: '+errorMsg);
+			}
+		    return true;
+		}
 	});	
 });
