@@ -244,7 +244,7 @@ function resizeButtonsAndSelects() {
     if ( leftMenuCopy.outerWidth() >= leftHeader.innerWidth()) {
         leftHeaderBtns
             .addClass('small')
-            .find('span').hide();
+            /*.find('span').hide();*/
 
         if ( leftMenu.outerWidth() > leftHeader.innerWidth()) {
             var diff =  leftMenu.outerWidth() - leftHeader.innerWidth();
