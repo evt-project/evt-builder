@@ -193,6 +193,14 @@ $(document).keydown(function(e){
 		if ( $('#keyboard_shortcuts_cont').is(':visible') ) {
 			$('#keyboard_shortcuts_link').trigger('click');
 		}
+
+		if ( $('.dialog:visible').length > 0) {
+			var linkedBtn = $('.dialog:visible').attr('data-target-btn');
+			if (linkedBtn !== undefined && linkedBtn !== '') {
+				$('#'+linkedBtn).removeClass('active');
+			}
+			$('.dialog:visible').hide('fade', 'slow');
+		}
 		return false;
 	}	
 	if ( e.keyCode == 13 ) { //input

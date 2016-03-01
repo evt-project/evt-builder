@@ -203,6 +203,20 @@
 							</div>
 						</div>
 					</div>
+					
+					<div id="welcomeInfo_cont" class="dialog" data-content="welcomeInfo">
+						<div id="welcomeInfo">
+							<a href="javascript:void(0);" id="close_welcome_info_cont" class="closeDialog" data-dialog="welcomeInfo_cont" title="CLOSE" lang="def">
+								<i class="fa fa-close"></i></a>
+							<div id="welcomeInfo_content">
+								<xsl:copy-of select="$welcomeMsg"/>
+								<div class="neverShowDiv">
+									<input type="checkbox" checked="checked" class="neverShowAgain"/> <span lang="def">NEVER_SHOW_AGAIN</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					
 					<!-- Integration by AB -->
 					<xsl:if test="$headerInfo=true()">
 						<div id="headerInfo_cont"></div>

@@ -169,6 +169,8 @@ jquery_lang_js.prototype.lang.en = {
     "KS_OPEN_TEXT_SELECTOR" : "Open text selector",
     "KS_OPEN_EDITION_SELECTOR" : "Open edition selector",
     "KS_CHANGE_PAGE" : "Change page",
-    "KS_CHANGE_DOC" : "Change document"
+    "KS_CHANGE_DOC" : "Change document",
+
+    "NEVER_SHOW_AGAIN" : "Never show again"
 }
 
