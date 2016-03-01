@@ -552,6 +552,10 @@ footer{
 	background: #000;
 }
 
+#text {
+	color: #000;
+}
+
 #text_elem, #text_elem-add, #regesto, #regesto-add{
 	width: 99.4%;
 	width: 100%;
