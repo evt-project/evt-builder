@@ -168,6 +168,8 @@ jquery_lang_js.prototype.lang.it = {
     "KS_OPEN_TEXT_SELECTOR" : "Apertura selettore testi",
     "KS_OPEN_EDITION_SELECTOR" : "Apertura selettore livelli di edizione",
     "KS_CHANGE_PAGE" : "Cambio pagina",
-    "KS_CHANGE_DOC" : "Cambio documento"
+    "KS_CHANGE_DOC" : "Cambio documento",
+
+    "NEVER_SHOW_AGAIN" : "Non mostrare più"
 }
 

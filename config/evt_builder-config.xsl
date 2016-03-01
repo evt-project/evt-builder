@@ -39,6 +39,17 @@
 	<!--<xsl:param name="index_title" select="'The Digital Vercelli Book'"/>-->
 	<xsl:param name="index_title" select="'Codice Pelavicino'"/>
 	
+	<!-- EN: Welcome Message -->
+	<!-- IT: Messaggio di benvenuto -->
+	<!-- default: 'Welcome to an edition created with EVT' -->
+	<xsl:param name="welcomeMsg">
+		<div>
+			<p>Welcome to an edition created with EVT!</p> 
+		</div>
+		<div>It is recommended to go to full screen mode so that all available screen space is used to show the manuscript images and the transcription text.</div>
+		<div>If you have any suggestions or spot an error/bug please contact us at ...</div>
+	</xsl:param>
+	
 	<!-- EN: Hide/Show scans -->
 	<!-- IT: Nascondi/Mostra scansioni -->
 	<!-- default: true() -->
@@ -134,12 +145,12 @@
 	
 	
 	<!-- EN: Indicate the xml node that contains all the text to be transformed for each edition level -->
-    <!-- IT: Indicare il nodo xml che contiene il testo da trasformare per ogni livello di edizione -->
-    <xsl:variable name="ed_content" select="if(//tei:text/tei:group[@xml:id='group']) then(//tei:text/tei:group[@xml:id='group']/name()) else ( //tei:body/name() )"/> 
-    
-    
-    <!-- EN: Starting point for the split of elements containing pb and lb -->
-    <!-- IT: Punto di partenza per la divisione degli elementi contententi pb/lb -->
+	<!-- IT: Indicare il nodo xml che contiene il testo da trasformare per ogni livello di edizione -->
+	<xsl:variable name="ed_content" select="if(//tei:text/tei:group[@xml:id='group']) then(//tei:text/tei:group[@xml:id='group']/name()) else ( //tei:body/name() )"/> 
+	
+	
+	<!-- EN: Starting point for the split of elements containing pb and lb -->
+	<!-- IT: Punto di partenza per la divisione degli elementi contententi pb/lb -->
 	<xsl:variable name="start_split" select="if(//tei:text/tei:group[@xml:id='group']) then(//tei:text/tei:group[@xml:id='group']/name()) else( if(//tei:body/tei:div[@subtype='edition_text']) then(//tei:body/tei:div[@subtype='edition_text']/name()) else(//tei:body/name()) )"/>
 	
 	
@@ -200,7 +211,7 @@
 	<!-- EN: Show/Hide Txt/Img Link Button in interface -->
 	<!-- IT: Mostra/Nascondi pulsante Txt/Img Link nell'interfaccia web -->
 	<!-- default: true() -->
-	<xsl:param name="txtimg_link_button" select="true()"/>
+	<xsl:param name="txtimg_link_button" select="false()"/>
 	
 	<!-- EN: Show/Hide Hotspot Button in interface -->
 	<!-- IT: Mostra/Nascondi pulsante Hotspot nell'interfaccia web -->
@@ -231,7 +242,7 @@
 	<!-- EN: Choose whether or not to group pages by document in the selector -->
     <!-- IT: Scegli se raggruppare o meno le pagine per documento nel selettore apposito -->
     <!-- default: true() -->
-    <xsl:param name="pp_selector_doc_grouping" select="false()"/>
+    <xsl:param name="pp_selector_doc_grouping" select="true()"/>
     
     <!-- EN: Choose whether or not having a tooltip on pages option showing the belonging document  -->
     <!-- IT: Scegli se avere un tooltip sulle opzioni delle pagine che mostra il/i documento/i di appartenenza -->
@@ -274,11 +285,10 @@
 			 Per rimuovere un elemento basta eliminare o tutto l'elemento di interesse o anche solo il testo al suo interno.
 			 Per aggiungere un elemento alla lista basta sapere che il tag fa riferimento alla classe data all'elemento html con il quale sono state marcate le parole "particolari" da selezionare. -->
 	<xsl:variable name="lists" as="element()*">
-		<persName/>
-		<placeName/>
-		<roleName/>
-		<measure/>
-		<date/>
-		<abbr/>
+		<persName>Persone</persName>
+		<placeName>Luoghi</placeName>
+		<roleName>Mestieri/Ruoli</roleName>
+		<measure>Monete</measure>
+		<date>Date</date>
 	</xsl:variable>
 </xsl:stylesheet>

@@ -2290,7 +2290,7 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 	font-style: italic; 
 }
 /* HEADER INFO by AB */
-#headerInfo_cont, #generalBiblio_cont, #help_cont, #keyboard_shortcuts_cont{
+#headerInfo_cont, #generalBiblio_cont, #help_cont, #keyboard_shortcuts_cont, #welcomeInfo_cont{
 	position: fixed;
 	width: 100%;
 	height: 100%;
@@ -2302,7 +2302,18 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 	cursor: pointer;
 }
 
-#close_header_info_cont, #close_generalBiblio_cont, #close_keyboard_shortcuts_cont{
+#welcomeInfo_cont .neverShowDiv {
+	position: absolute;
+	bottom: 20px;
+	right: 30px;
+	font-size: 80%;
+	font-weight: 100;
+}
+
+#welcomeInfo_cont .neverShowDiv input{
+	margin-right: 6px;
+}
+#close_header_info_cont, #close_generalBiblio_cont, #close_keyboard_shortcuts_cont, #close_welcome_info_cont{
 	text-shadow: 0px 1px 4px #000;
 	color: #4E443C;
 	padding: 0px 7px;
@@ -2311,32 +2322,33 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 	right: 0;
 	font-size: 1em;
 }
-#close_header_info_cont:hover, #close_generalBiblio_cont:hover, #close_keyboard_shortcuts_cont:hover {
+#close_header_info_cont:hover, #close_generalBiblio_cont:hover, #close_keyboard_shortcuts_cont:hover, #close_welcome_info_cont:hover {
 	height: 34px;
 	opacity: .8;
 }
-#headerInfo, #generalBiblio, #keyboard_shortcuts {
+#headerInfo, #generalBiblio, #keyboard_shortcuts, #welcomeInfo{
     width: 50%;
     font-size: 20pt;
-	height: 90%;
+	max-height: 90%;
 	min-width: 700px;
 	min-height: 300px;
 	background: #FFFAF0;
 	overflow: hidden;
 	position: relative;
-	border: 2px solid #4E443C;
 	box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.8);
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
 	cursor: default;
 }
-
-#headerInfo_content, #generalBiblio_content {
+#headerInfo_content, #generalBiblio_content, #welcomeInfo_content {
 	overflow: hidden;
 	height: 100%;
 }
 
+#welcomeInfo_content ul {
+	margin-left: 40px;
+}
 
 #headerInfo .title.main, #generalBiblio .title.main, #keyboard_shortcuts .title.main{
 	display: block;
@@ -2402,13 +2414,19 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 	cursor: text;
 }
 
-#generalFront_content, #headerInfo_content, #generalBiblio_content {
+#generalFront_content, #headerInfo_content, #generalBiblio_content, #welcomeInfo_content {
 	padding: 0px 25px;
 	text-align: left;
 	font-size: 100%;
 	overflow-x: hidden;
 	overflow-y: scroll;
 	height: calc(100% - 54px);
+}
+#welcomeInfo_content {
+	width: 80%;
+	padding: 10%;
+	height: auto;
+	font-size: 80%;
 }
 #generalFront_content > .title, #generalBiblio_content > .title {
 	display: none;

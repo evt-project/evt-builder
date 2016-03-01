@@ -424,6 +424,30 @@ function bindHeaderInfoBtnClick() {
             }
         }
     });
+
+    $('.closeDialog').click(function(event){
+        var target = $(this).attr('data-dialog');
+        if (target !== undefined && target !== '') {
+            if ($('#'+target).find('.neverShowAgain').is(':checked')) {
+                setCookie('welcome', 'neverShowAgain', 1);
+            }
+            $('#'+target).hide('fade', 'slow');
+        }
+    });
+
+    $('.dialog').click(function(event){
+        var targetContent = $(this).attr('data-content');
+        if (targetContent !== undefined && targetContent !== '') {
+            if ( !$(event.target).is('#'+targetContent) ) {
+                if ( $(event.target).parents('#'+targetContent).length <= 0 ) {
+                    $(this).hide('fade', 'slow');
+                    if ($(this).find('.neverShowAgain').is(':checked')) {
+                        setCookie('welcome', 'neverShowAgain', 1);
+                    }
+                }
+            }
+        }
+    });
 }
 
 /*= BIND BIBLIOGRAPHY REFERENCE IN TEXT CLICK EVENT =*/
