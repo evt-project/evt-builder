@@ -425,7 +425,7 @@ function bindHeaderInfoBtnClick() {
         }
     });
 
-    $('.closeDialog').click(function(event){
+    $('.closeDialog, .dialog_close').click(function(event){
         var target = $(this).attr('data-dialog');
         if (target !== undefined && target !== '') {
             if ($('#'+target).find('.neverShowAgain').is(':checked')) {

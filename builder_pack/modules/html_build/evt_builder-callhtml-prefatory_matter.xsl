@@ -19,7 +19,7 @@
 	<xsl:template name="headerInfo_generation">
 		<html lang="en-US">
 			<body>
-				<div id="headerInfo">
+				<div id="headerInfo" class="dialog_cont">
 					<div class="main-title"><span lang="def">PROJECT_INFO</span>
 						<xsl:if test="$webSite != ''">
 							<xsl:element name="a">
@@ -32,8 +32,8 @@
 							</xsl:element>
 						</xsl:if>
 					</div>
-					<a href="javascript:void(0);" id="close_header_info_cont" title="Close Header Info"><i class="fa fa-close"></i></a>
-					<div id="headerInfo_content">
+					<a href="javascript:void(0);" id="close_header_info_cont" class="dialog_close" data-dialog="headerInfo_cont" lang="def" title="CLOSE"><i class="fa fa-close"></i></a>
+					<div id="headerInfo_content" class="dialog_cont_inner">
 						<xsl:apply-templates select="//tei:teiHeader"/>
 						
 						<xsl:if test="tei:TEI/tei:text/tei:front and not(tei:TEI/tei:text/tei:body)">
