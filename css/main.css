@@ -2294,7 +2294,10 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 	font-style: italic; 
 }
 
-#headerInfo_cont, #generalBiblio_cont, #help_cont, #keyboard_shortcuts_cont, #welcomeInfo_cont{
+/* ******* */
+/* DIALOGS */
+/* ******* */
+.dialog{
 	position: fixed;
 	width: 100%;
 	height: 100%;
@@ -2306,7 +2309,7 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 	cursor: pointer;
 }
 
-#close_header_info_cont, #close_generalBiblio_cont, #close_keyboard_shortcuts_cont, #close_welcome_info_cont{
+.dialog_close{
 	text-shadow: 0px 1px 4px #000;
 	color: #4E443C;
 	padding: 0px 7px;
@@ -2315,33 +2318,36 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 	right: 0;
 	font-size: 1em;
 }
-#close_header_info_cont:hover, #close_generalBiblio_cont:hover, #close_keyboard_shortcuts_cont:hover, #close_welcome_info_cont:hover {
+
+.dialog_close:hover {
 	height: 34px;
 	opacity: .8;
 }
-#headerInfo, #generalBiblio, #keyboard_shortcuts, #welcomeInfo{
+
+.dialog_cont{
+    padding: 0px 25px;
     width: 50%;
-    font-size: 20pt;
-	max-height: 90%;
 	min-width: 700px;
-	min-height: 300px;
+	max-height: calc(100% - 54px);
 	background: #FFFAF0;
-	overflow: hidden;
-	position: relative;
 	box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.8);
 	top: 50%;
 	left: 50%;
+	position: relative;
 	transform: translate(-50%, -50%);
 	cursor: default;
+	text-align: left;
+	font-size: 100%;
+	overflow-x: hidden;
+	overflow-y: scroll;
 }
 
-#headerInfo_content, #generalBiblio_content {
+.dialog_cont_inner {
 	overflow: hidden;
 	height: 100%;
 }
 
-#headerInfo .title.main, #generalBiblio .title.main,
-#keyboard_shortcuts .title.main, #welcomeInfo_content_top .title.main{
+.dialog .title.main{
 	display: block;
 	font-size: 110%;
 	margin:10px 0;
@@ -2349,18 +2355,24 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 	text-align: center;
 	font-weight: bold;
 }
-#headerInfo .section-title, #generalBiblio .section-title,
-#headerInfo .main-title, #generalBiblio .main-title,
-#keyboard_shortcuts .main-title {
+
+.dialog .main-title,
+.dialog .section-title{
     cursor: text;
     text-align: left;
 	font-size: 70%;
 	margin:10px 30px;
 	font-weight: bold;
 }
-#headerInfo .main-title, #generalBiblio .main-title, #keyboard_shortcuts .main-title {
+
+.dialog .main-title, {
 	font-size: 100%;
 }
+
+/* *************** */
+/* ==/ END DIALOGS */
+/* *************** */
+
 #headerInfo .table {
     display: table;
     width: 100%;
@@ -2405,26 +2417,21 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 	cursor: text;
 }
 
-#generalFront_content, #headerInfo_content, #generalBiblio_content {
-	padding: 0px 25px;
-	text-align: left;
-	font-size: 100%;
-	overflow-x: hidden;
-	overflow-y: scroll;
-	height: calc(100% - 54px);
-}
-
+/* *********** */
+/* WELCOME BOX */
+/* *********** */
 #welcomeInfo {
     background-color: #837468;
     border-radius: 10px;
     border: 3px solid #4e443c;
+    padding: 0;
+    height: auto;
 }
 
 #welcomeInfo_content_top {
 	width: 84%;
-	height: 100%;
 	padding: 8%;
-	font-size: 80%;
+	font-size: 70%;
 	z-index: 3000;
 	overflow: hidden;
     background: #FFFAF0;   
@@ -2466,7 +2473,7 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
     min-width: 120px;
     margin: 60px auto;
     padding: 10px;
-    background-color: #FFFAF0;
+    background: #FFFAF0;
     font-style: normal;
     font-weight: bold;
     font-size: 100%;
@@ -2495,6 +2502,9 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 	margin-right: 6px;
 	padding: 3px;
 }
+/* ******************* */
+/* ==/ END WELCOME BOX */
+/* ******************* */
 
 #generalFront_content > .title, #generalBiblio_content > .title {
 	display: none;
