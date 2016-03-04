@@ -851,6 +851,9 @@ $(function() {
 			window.location="index.html";
 		});
 
+		$('#poweredBy').click(function(){
+			$('#EVTinfo_cont').show('fade', 'slow');
+		});
 		/*= TOGGLE SHORTCUTS =*/
 		bindShortcutsBtnClick();
 		
