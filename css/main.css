@@ -2293,7 +2293,7 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 	display: inline;
 	font-style: italic; 
 }
-/* HEADER INFO by AB */
+
 #headerInfo_cont, #generalBiblio_cont, #help_cont, #keyboard_shortcuts_cont, #welcomeInfo_cont{
 	position: fixed;
 	width: 100%;
@@ -2306,17 +2306,6 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 	cursor: pointer;
 }
 
-#welcomeInfo_cont .neverShowDiv {
-	position: absolute;
-	bottom: 20px;
-	right: 30px;
-	font-size: 80%;
-	font-weight: 100;
-}
-
-#welcomeInfo_cont .neverShowDiv input{
-	margin-right: 6px;
-}
 #close_header_info_cont, #close_generalBiblio_cont, #close_keyboard_shortcuts_cont, #close_welcome_info_cont{
 	text-shadow: 0px 1px 4px #000;
 	color: #4E443C;
@@ -2345,16 +2334,14 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 	transform: translate(-50%, -50%);
 	cursor: default;
 }
-#headerInfo_content, #generalBiblio_content, #welcomeInfo_content {
+
+#headerInfo_content, #generalBiblio_content {
 	overflow: hidden;
 	height: 100%;
 }
 
-#welcomeInfo_content ul {
-	margin-left: 40px;
-}
-
-#headerInfo .title.main, #generalBiblio .title.main, #keyboard_shortcuts .title.main{
+#headerInfo .title.main, #generalBiblio .title.main,
+#keyboard_shortcuts .title.main, #welcomeInfo_content_top .title.main{
 	display: block;
 	font-size: 110%;
 	margin:10px 0;
@@ -2418,7 +2405,7 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 	cursor: text;
 }
 
-#generalFront_content, #headerInfo_content, #generalBiblio_content, #welcomeInfo_content {
+#generalFront_content, #headerInfo_content, #generalBiblio_content {
 	padding: 0px 25px;
 	text-align: left;
 	font-size: 100%;
@@ -2426,12 +2413,89 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 	overflow-y: scroll;
 	height: calc(100% - 54px);
 }
-#welcomeInfo_content {
-	width: 80%;
-	padding: 10%;
-	height: auto;
-	font-size: 80%;
+
+#welcomeInfo {
+    background-color: #837468;
+    border-radius: 10px;
+    border: 3px solid #4e443c;
 }
+
+#welcomeInfo_content_top {
+	width: 84%;
+	height: 100%;
+	padding: 8%;
+	font-size: 80%;
+	z-index: 3000;
+	overflow: hidden;
+    background: #FFFAF0;   
+}
+
+#welcomeInfo_content_top .title.main {
+    font-style: normal;
+}
+
+#welcomeInfo_content_center {
+    width: 100%;
+	height: auto;	
+	font-size: 120px;
+	text-shadow: none;
+	background-color: #837468;
+	color: #FFFAF0;
+	text-align:center;
+	z-index: 1000;
+	position: absolute;
+}
+
+#welcomeInfo_content_center .fa{
+    height: 20px;
+    margin-top: -50px;    
+    display: block;
+    text-shadow: none; 
+}
+
+#welcomeInfo_content_bottom {
+	width: 100%;
+	height: auto;	
+	background-color: #837468;
+    text-align: center;
+    font-family: Junicode, Times, serif;
+    font-size: 80%;
+}
+
+#welcomeInfo_content_bottom .button_welcome {
+    min-width: 120px;
+    margin: 60px auto;
+    padding: 10px;
+    background-color: #FFFAF0;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 100%;
+    font-family: Junicode, Times, serif;
+    color: #4e443c;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0px 0px 2px 2px rgba(97,94,97,1);
+}
+
+#welcomeInfo_content_bottom .button_welcome:hover {
+    box-shadow: none;
+}
+
+#welcomeInfo_cont .neverShowDiv {
+	position: absolute;
+	bottom: 20px;
+	right: 30px;
+	font-size: 80%;
+	font-weight: 100;
+	color: #FFFAF0;
+}
+
+#welcomeInfo_cont .neverShowDiv input{
+	margin-right: 6px;
+	padding: 3px;
+}
+
 #generalFront_content > .title, #generalBiblio_content > .title {
 	display: none;
 }

@@ -207,9 +207,18 @@
 					<div id="welcomeInfo_cont" class="dialog" data-content="welcomeInfo">
 						<div id="welcomeInfo">
 							<a href="javascript:void(0);" id="close_welcome_info_cont" class="closeDialog" data-dialog="welcomeInfo_cont" title="CLOSE" lang="def">
-								<i class="fa fa-close"></i></a>
-							<div id="welcomeInfo_content">
-								<xsl:copy-of select="$welcomeMsg"/>
+								<i class="fa fa-close"></i>
+							</a>
+							<div id="welcomeInfo_content_top">
+								<xsl:copy-of select="$welcomeMsg"/>		
+							</div>	
+							<div id="welcomeInfo_content_center">
+								<i class="fa fa-caret-down"></i>
+							</div>
+							<div id="welcomeInfo_content_bottom">								
+								<a href="javascript:void(0);" id="button_welcome_info_cont" class="closeDialog" data-dialog="welcomeInfo_cont" title="CLOSE" lang="def">
+									<button class="button_welcome">Start</button>
+								</a>
 								<div class="neverShowDiv">
 									<input type="checkbox" checked="checked" class="neverShowAgain"/> <span lang="def">NEVER_SHOW_AGAIN</span>
 								</div>
