@@ -193,9 +193,9 @@ function bindShortcutsBtnClick() {
     $('#keyboard_shortcuts_link').click(function(){
         $(this).toggleClass('active');
         if($('#keyboard_shortcuts_cont').is(':visible')){
-            $('#keyboard_shortcuts_cont').hide('fade', 'slow');
+            $('#keyboard_shortcuts_cont').hide('fade', 0);
         } else {
-            $('#keyboard_shortcuts_cont').show('fade', 'slow');
+            $('#keyboard_shortcuts_cont').show('fade', 0);
         }
         $('#settings_link.active').trigger('click');
     });

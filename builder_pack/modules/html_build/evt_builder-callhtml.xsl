@@ -163,43 +163,46 @@
 				<div id="global_wrapper">
 					<div id="keyboard_shortcuts_cont" class="dialog" data-content="keyboard_shortcuts">
 						<div id="keyboard_shortcuts" class="dialog_cont">
-							<div class="main-title"><span lang="def">KEYBOARD_SHORTCUTS</span></div>
 							<a href="javascript:void(0);" id="close_keyboard_shortcuts_cont" class="dialog_close" data-dialog="keyboard_shortcuts_cont" lang="def" title="CLOSE"><i class="fa fa-close"></i></a>
-							<div class="shortcuts_row">
-								<p class="shortcuts_col_left"><span lang="def">KS_OPEN_PROJECT_INFO</span></p>
-								<p class="shortcuts_col_right"><span class="shortcuts_key">alt</span>+<span class="shortcuts_key">i</span></p>
-							</div>
-							<div class="shortcuts_row">
-								<p class="shortcuts_col_left"><span lang="def">KS_SWITCH_MODE_VIEW</span></p>
-								<p class="shortcuts_col_right"><span class="shortcuts_key">alt</span>+<span class="shortcuts_key">1</span> / <span class="shortcuts_key">alt</span>+<span class="shortcuts_key">2</span> / <span class="shortcuts_key">alt</span>+<span class="shortcuts_key">3</span> ...</p>
-							</div>
-							<div class="shortcuts_row">
-								<p class="shortcuts_col_left"><span lang="def">KS_CHANGE_PAGE</span></p>
-								<p class="shortcuts_col_right"><span class="shortcuts_key">←</span> and <span class="shortcuts_key">→</span></p>
-							</div>
-							<div class="shortcuts_row">
-								<p class="shortcuts_col_left"><span lang="def">KS_CHANGE_DOC</span></p>
-								<p class="shortcuts_col_right"><span class="shortcuts_key">↑</span> and <span class="shortcuts_key">↓</span></p>
-							</div>
-							<div class="shortcuts_row">
-								<p class="shortcuts_col_left"><span lang="def">KS_GO_FULLSCREEN</span></p>
-								<p class="shortcuts_col_right"><span class="shortcuts_key">ctrl/cmd</span>+<span class="shortcuts_key">alt</span>+<span class="shortcuts_key">shift</span>+<span class="shortcuts_key">f</span></p>
-							</div>
-							<div class="shortcuts_row">
-								<p class="shortcuts_col_left"><span lang="def">KS_OPEN_SEARCH</span></p>
-								<p class="shortcuts_col_right"><span class="shortcuts_key">ctrl/cmd</span>+<span class="shortcuts_key">alt</span>+<span class="shortcuts_key">f</span></p>
-							</div>
-							<div class="shortcuts_row">
-								<p class="shortcuts_col_left"><span lang="def">KS_OPEN_PAGE_SELECTOR</span></p>
-								<p class="shortcuts_col_right"><span class="shortcuts_key">alt</span>+<span class="shortcuts_key">p</span></p>
-							</div>
-							<div class="shortcuts_row">
-								<p class="shortcuts_col_left"><span lang="def">KS_OPEN_TEXT_SELECTOR</span></p>
-								<p class="shortcuts_col_right"><span class="shortcuts_key">alt</span>+<span class="shortcuts_key">t</span></p>
-							</div>
-							<div class="shortcuts_row">
-								<p class="shortcuts_col_left"><span lang="def">KS_OPEN_EDITION_SELECTOR</span></p>
-								<p class="shortcuts_col_right"><span class="shortcuts_key">alt</span>+<span class="shortcuts_key">e</span></p>
+							<div class="title main" lang="def">KEYBOARD_SHORTCUTS</div>
+							<div class="dialog_separator"><i class="fa fa-caret-down"></i></div>
+							<div class="dialog_cont_inner">
+								<div class="shortcuts_row">
+									<p class="shortcuts_col_left"><span lang="def">KS_OPEN_PROJECT_INFO</span></p>
+									<p class="shortcuts_col_right"><span class="shortcuts_key">alt</span>+<span class="shortcuts_key">i</span></p>
+								</div>
+								<div class="shortcuts_row">
+									<p class="shortcuts_col_left"><span lang="def">KS_SWITCH_MODE_VIEW</span></p>
+									<p class="shortcuts_col_right"><span class="shortcuts_key">alt</span>+<span class="shortcuts_key">1</span> / <span class="shortcuts_key">alt</span>+<span class="shortcuts_key">2</span> / <span class="shortcuts_key">alt</span>+<span class="shortcuts_key">3</span> ...</p>
+								</div>
+								<div class="shortcuts_row">
+									<p class="shortcuts_col_left"><span lang="def">KS_CHANGE_PAGE</span></p>
+									<p class="shortcuts_col_right"><span class="shortcuts_key">←</span> and <span class="shortcuts_key">→</span></p>
+								</div>
+								<div class="shortcuts_row">
+									<p class="shortcuts_col_left"><span lang="def">KS_CHANGE_DOC</span></p>
+									<p class="shortcuts_col_right"><span class="shortcuts_key">↑</span> and <span class="shortcuts_key">↓</span></p>
+								</div>
+								<div class="shortcuts_row">
+									<p class="shortcuts_col_left"><span lang="def">KS_GO_FULLSCREEN</span></p>
+									<p class="shortcuts_col_right"><span class="shortcuts_key">ctrl/cmd</span>+<span class="shortcuts_key">alt</span>+<span class="shortcuts_key">shift</span>+<span class="shortcuts_key">f</span></p>
+								</div>
+								<div class="shortcuts_row">
+									<p class="shortcuts_col_left"><span lang="def">KS_OPEN_SEARCH</span></p>
+									<p class="shortcuts_col_right"><span class="shortcuts_key">ctrl/cmd</span>+<span class="shortcuts_key">alt</span>+<span class="shortcuts_key">f</span></p>
+								</div>
+								<div class="shortcuts_row">
+									<p class="shortcuts_col_left"><span lang="def">KS_OPEN_PAGE_SELECTOR</span></p>
+									<p class="shortcuts_col_right"><span class="shortcuts_key">alt</span>+<span class="shortcuts_key">p</span></p>
+								</div>
+								<div class="shortcuts_row">
+									<p class="shortcuts_col_left"><span lang="def">KS_OPEN_TEXT_SELECTOR</span></p>
+									<p class="shortcuts_col_right"><span class="shortcuts_key">alt</span>+<span class="shortcuts_key">t</span></p>
+								</div>
+								<div class="shortcuts_row">
+									<p class="shortcuts_col_left"><span lang="def">KS_OPEN_EDITION_SELECTOR</span></p>
+									<p class="shortcuts_col_right"><span class="shortcuts_key">alt</span>+<span class="shortcuts_key">e</span></p>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -232,31 +235,33 @@
 								<i class="fa fa-close"></i>
 							</a>
 							<div class="title main">Information about EVT</div>
-							
-							<p>EVT (Edition Visualization Technology) is a software for creating and browsing digital editions of manuscripts
-								based on text encoded according to the TEI XML schemas and Guidelines. This tool was born as part of the DVB
-								(Digital Vercelli Book) project in order to allow the creation of a digital edition of the Vercelli Book, a
-								parchment codex of the late tenth century, now preserved in the Archivio e Biblioteca Capitolare of Vercelli
-								and regarded as one of the four most important manuscripts of the Anglo-Saxon period as regards the transmission
-								of poetic texts in the Old English language.
-							</p>
-							<p>To ensure that it will be working on all the most recent web browsers, and for as long as possible on the World
-								Wide Web itself, EVT is built on open and standard web technologies such as HTML, CSS and JavaScript. Specific
-								features, such as the magnifying lens, are entrusted to jQuery plugins, again chosen among the open source and
-								best supported ones to reduce the risk of future incompatibilities. The general architecture of the software,
-								in any case, is modular, so that any component which may cause trouble or turn out to be not completely up to
-								the task can be replaced easily.</p>
-							<p>For more information about how to use and/or customize EVT please refer to the EVT Manual included in the
-								archive you downloaded, in the "doc" folder.</p>
-							<p>EVT is used in the following projects:
+							<div class="dialog_separator"><i class="fa fa-caret-down"></i></div>
+							<div id="EVTinfo_content" class="dialog_cont_inner">
+								<p>EVT (Edition Visualization Technology) is a software for creating and browsing digital editions of manuscripts
+									based on text encoded according to the TEI XML schemas and Guidelines. This tool was born as part of the DVB
+									(Digital Vercelli Book) project in order to allow the creation of a digital edition of the Vercelli Book, a
+									parchment codex of the late tenth century, now preserved in the Archivio e Biblioteca Capitolare of Vercelli
+									and regarded as one of the four most important manuscripts of the Anglo-Saxon period as regards the transmission
+									of poetic texts in the Old English language.
+								</p>
+								<p>To ensure that it will be working on all the most recent web browsers, and for as long as possible on the World
+									Wide Web itself, EVT is built on open and standard web technologies such as HTML, CSS and JavaScript. Specific
+									features, such as the magnifying lens, are entrusted to jQuery plugins, again chosen among the open source and
+									best supported ones to reduce the risk of future incompatibilities. The general architecture of the software,
+									in any case, is modular, so that any component which may cause trouble or turn out to be not completely up to
+									the task can be replaced easily.</p>
+								<p>For more information about how to use and/or customize EVT please refer to the EVT Manual included in the
+									archive you downloaded, in the "doc" folder.</p>
+								<p>EVT is used in the following projects:</p>
 								<ul>
 									<li><a href="http://pelavicino.labcd.unipi.it/evt/">Codice Pelavicino Digitale</a></li>
 									<li><a href="http://vbd.humnet.unipi.it/beta2/">Vercelli Book Digitale</a></li>
-								</ul></p>
-							<p>EVT has a home page in the <a href="https://sourceforge.net/p/evt-project/">SourceForge</a> repository,
-								but development is done on Gitlab and Github: if you are interested in learning more about EVT and/or
-								in adapting it to your specific needs please contact the project Director, Roberto Rosselli Del Turco
-								roberto.rossellidelturco@gmail.com.</p>
+								</ul>
+								<p>EVT has a home page in the <a href="https://sourceforge.net/p/evt-project/">SourceForge</a> repository,
+									but development is done on Gitlab and Github: if you are interested in learning more about EVT and/or
+									in adapting it to your specific needs please contact the project Director, Roberto Rosselli Del Turco
+									roberto.rossellidelturco@gmail.com.</p>
+							</div>
 						</div>
 					</div>
 					
@@ -268,9 +273,12 @@
 					<xsl:if test="tei:TEI/tei:text/tei:front/descendant::tei:listBibl or tei:TEI/tei:text/tei:back/descendant::tei:listBibl">
 						<div id="generalBiblio_cont" class="dialog" data-content="generalBiblio">
 							<div id="generalBiblio" class="dialog_cont">
-								<div class="main-title"><span lang="def">BIBLIO</span></div>
-								<a href="javascript:void(0);" id="close_generalBiblio_cont"  class="closeDialog" data-dialog="generalBiblio_cont" title="CLOSE" lang="def"><i class="fa fa-close"></i></a>
-								<div id="generalBiblio_content" class="dialog_cont_inner">
+								<a href="javascript:void(0);" class="dialog_close" data-dialog="generalBiblio_cont" title="CLOSE" lang="def">
+									<i class="fa fa-close"></i>
+								</a>
+								<div class="title main" lang="def">BIBLIO</div>
+								<div class="dialog_separator"><i class="fa fa-caret-down"></i></div>
+									<div id="generalBiblio_content" class="dialog_cont_inner">
 									<div>
 										<xsl:if test="tei:TEI/tei:text/tei:front/descendant::tei:listBibl">
 											<xsl:apply-templates select="tei:TEI/tei:text/tei:front/descendant::tei:listBibl"></xsl:apply-templates>
