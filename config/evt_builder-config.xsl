@@ -44,7 +44,7 @@
 	<!-- default: 'Welcome to an edition created with EVT' -->
 	<xsl:param name="welcomeMsg">
 		<div>
-			<p>Welcome to an edition created with EVT!</p> 
+			<p class="title main">Welcome to an edition created with EVT!</p> 
 		</div>
 		<div>It is recommended to go to full screen mode so that all available screen space is used to show the manuscript images and the transcription text.</div>
 		<div>If you have any suggestions or spot an error/bug please contact us at ...</div>
