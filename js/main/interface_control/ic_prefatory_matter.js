@@ -403,9 +403,9 @@ function bindTextInfoBtnClick() {
     $('#info_link').click(function(){
         $(this).toggleClass('active');
         if($('#headerInfo_cont').is(':visible')){
-            $('#headerInfo_cont').hide('fade', 'slow');
+            $('#headerInfo_cont').hide('fade', 0);
         } else {
-            $('#headerInfo_cont').show('fade', 'slow');
+            $('#headerInfo_cont').show('fade', 0);
         }
         $('#settings_link.active').trigger('click');
     });
@@ -431,7 +431,7 @@ function bindHeaderInfoBtnClick() {
             if ($('#'+target).find('.neverShowAgain').is(':checked')) {
                 setCookie('welcome', 'neverShowAgain', 1);
             }
-            $('#'+target).hide('fade', 'slow');
+            $('#'+target).hide('fade', 0);
         }
     });
 
@@ -440,7 +440,7 @@ function bindHeaderInfoBtnClick() {
         if (targetContent !== undefined && targetContent !== '') {
             if ( !$(event.target).is('#'+targetContent) ) {
                 if ( $(event.target).parents('#'+targetContent).length <= 0 ) {
-                    $(this).hide('fade', 'slow');
+                    $(this).hide('fade', 0);
                     if ($(this).find('.neverShowAgain').is(':checked')) {
                         setCookie('welcome', 'neverShowAgain', 1);
                     }
@@ -457,11 +457,11 @@ function bindBiblioRefClick() {
         $(this).toggleClass('active');
         if($('#generalBiblio_cont').is(':visible')){
             $('#generalBiblio_content').scrollTop(0);
-            $('#generalBiblio_cont').hide('fade', 'slow', function(){
+            $('#generalBiblio_cont').hide('fade', 0, function(){
             });
         } else {
             $('#generalBiblio_content').scrollTop(0);
-            $('#generalBiblio_cont').show('fade', 'slow', function(){
+            $('#generalBiblio_cont').show('fade', 0, function(){
                 if ( $('.bibl.highlight').length > 0 ) {
                     $('#generalBiblio_content').scrollTop($('.bibl.highlight:first').position().top-100);
                     var hideHilights = setTimeout(function(){

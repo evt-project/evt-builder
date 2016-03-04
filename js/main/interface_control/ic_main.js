@@ -818,7 +818,7 @@ $(function() {
 	$(document).ready(function(){
 		var welcomeCookie = getCookie('welcome');
 		if (welcomeCookie === undefined || welcomeCookie === '') {
-			$('#welcomeInfo_cont').show('fade', 'slow');
+			$('#welcomeInfo_cont').show('fade', 0);
 		}
 
 		if ($('#generalBiblio_cont').length == 0) {
@@ -852,7 +852,7 @@ $(function() {
 		});
 
 		$('#poweredBy').click(function(){
-			$('#EVTinfo_cont').show('fade', 'slow');
+			$('#EVTinfo_cont').show('fade', 0);
 		});
 		/*= TOGGLE SHORTCUTS =*/
 		bindShortcutsBtnClick();

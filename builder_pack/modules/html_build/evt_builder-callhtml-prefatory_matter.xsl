@@ -20,7 +20,8 @@
 		<html lang="en-US">
 			<body>
 				<div id="headerInfo" class="dialog_cont">
-					<div class="main-title"><span lang="def">PROJECT_INFO</span>
+					<a href="javascript:void(0);" id="close_header_info_cont" class="dialog_close" data-dialog="headerInfo_cont" lang="def" title="CLOSE"><i class="fa fa-close"></i></a>
+					<div class="title main"><span lang="def">PROJECT_INFO</span>
 						<xsl:if test="$webSite != ''">
 							<xsl:element name="a">
 								<xsl:attribute name="class">project-web-site_link</xsl:attribute>
@@ -32,7 +33,7 @@
 							</xsl:element>
 						</xsl:if>
 					</div>
-					<a href="javascript:void(0);" id="close_header_info_cont" class="dialog_close" data-dialog="headerInfo_cont" lang="def" title="CLOSE"><i class="fa fa-close"></i></a>
+					<div class="dialog_separator"><i class="fa fa-caret-down"></i></div>
 					<div id="headerInfo_content" class="dialog_cont_inner">
 						<xsl:apply-templates select="//tei:teiHeader"/>
 						

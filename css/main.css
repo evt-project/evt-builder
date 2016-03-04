@@ -2310,59 +2310,115 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 }
 
 .dialog_close{
-	text-shadow: 0px 1px 4px #000;
+	text-shadow: 0px 1px 4px rgba(0,0,0,.3);
 	color: #4E443C;
+	color: #FFFAF0;
 	padding: 0px 7px;
 	position: absolute;
 	top: 4px;
 	right: 0;
 	font-size: 1em;
+	z-index: 99999999;
+}
+.dialog_close .fa {
+	text-shadow:none;
 }
 
 .dialog_close:hover {
 	height: 34px;
 	opacity: .8;
 }
+.project-web-site_link, .project-web-site_link a {
+	color: #FFFAF0 !important;
+}
 
 .dialog_cont{
     padding: 0px 25px;
     width: 50%;
 	min-width: 700px;
-	max-height: calc(100% - 54px);
+	max-height: calc(100% - 54px) !important;
 	background: #FFFAF0;
 	box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.8);
 	top: 50%;
 	left: 50%;
-	position: relative;
 	transform: translate(-50%, -50%);
 	cursor: default;
 	text-align: left;
-	font-size: 100%;
-	overflow-x: hidden;
-	overflow-y: scroll;
+	font-size: 14pt;
+	overflow: hidden;
+
+	border-radius: 10px;
+	border: 3px solid rgb(78, 68, 60);
+	border-color: rgb(60, 50, 44);
+	padding: 0;
+	height: 100%;
+	position: relative;
 }
 
 .dialog_cont_inner {
 	overflow: hidden;
-	height: 100%;
+    height: calc(100% - 100px);
+    overflow-y: auto;
+    padding: 25px;
+    padding-bottom: 10px;
+    position: relative;
+}
+.dialog_cont_inner div:last-child {
+	margin-bottom: 25px;
 }
 
+.dialog_cont_inner p {
+	margin-bottom: 10px;
+}
+
+.dialog_cont_inner ul{
+	margin-left: 30px;
+	margin-bottom: 10px;
+}
 .dialog .title.main{
 	display: block;
-	font-size: 110%;
-	margin:10px 0;
-	font-style: italic;
+	margin:0;
 	text-align: center;
-	font-weight: bold;
+	background: rgb(54, 45, 40);
+	margin: 0;
+	color: #FFFAF0;
+	padding: 15px 0;
+	font-style: normal;
+	font-size: 20pt;
+	font-weight: normal;
+	position: relative;
+	z-index: 999999;
+	height: 35px;
+}
+
+.dialog_separator {
+	width: 100%;
+	height: auto;	
+	font-size: 120px;
+	text-shadow: none;
+	/*background-color: #837468;*/
+	background: rgb(60, 50, 44);
+	color: #FFFAF0;
+	text-align:center;
+	z-index: 1000;
+	position: absolute;
+}
+
+.dialog_separator .fa{
+    height: 20px;
+    margin-top: -64px;    
+    display: block;
+    text-shadow: none; 
+    color:rgb(54, 45, 40);
 }
 
 .dialog .main-title,
 .dialog .section-title{
     cursor: text;
     text-align: left;
-	font-size: 70%;
 	margin:10px 30px;
 	font-weight: bold;
+
 }
 
 .dialog .main-title, {
@@ -2421,20 +2477,30 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 /* WELCOME BOX */
 /* *********** */
 #welcomeInfo {
-    background-color: #837468;
+    /*background-color: #837468;*/
+    background: rgb(60, 50, 44);
     border-radius: 10px;
     border: 3px solid #4e443c;
+    border-color: rgb(60, 50, 44);
     padding: 0;
     height: auto;
 }
 
+#welcomeInfo .title.main{
+	background: transparent none repeat scroll 0% 0%;
+    color: rgb(54, 45, 40);
+    font-weight: bold;
+}
+#welcomeInfo .dialog_close, #welcomeInfo .dialog_close .fa{
+	color: rgb(54, 45, 40);
+}
 #welcomeInfo_content_top {
 	width: 84%;
 	padding: 8%;
-	font-size: 70%;
+	font-size: 100%;
 	z-index: 3000;
 	overflow: hidden;
-    background: #FFFAF0;   
+    background: #FFFAF0;
 }
 
 #welcomeInfo_content_top .title.main {
@@ -2446,7 +2512,8 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 	height: auto;	
 	font-size: 120px;
 	text-shadow: none;
-	background-color: #837468;
+	/*background-color: #837468;*/
+	background: rgb(60, 50, 44);
 	color: #FFFAF0;
 	text-align:center;
 	z-index: 1000;
@@ -2463,7 +2530,8 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 #welcomeInfo_content_bottom {
 	width: 100%;
 	height: auto;	
-	background-color: #837468;
+	/*background-color: #837468;*/
+	background: rgb(60, 50, 44);
     text-align: center;
     font-family: Junicode, Times, serif;
     font-size: 80%;
@@ -2476,13 +2544,13 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
     background: #FFFAF0;
     font-style: normal;
     font-weight: bold;
-    font-size: 100%;
-    font-family: Junicode, Times, serif;
+    font-size:  15pt;
     color: #4e443c;
     border-radius: 8px;
     border: none;
     cursor: pointer;
     box-shadow: 0px 0px 2px 2px rgba(97,94,97,1);
+    font-variant: small-caps;
 }
 
 #welcomeInfo_content_bottom .button_welcome:hover {
@@ -2493,7 +2561,6 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 	position: absolute;
 	bottom: 20px;
 	right: 30px;
-	font-size: 80%;
 	font-weight: 100;
 	color: #FFFAF0;
 }
@@ -2513,7 +2580,6 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 #generalFront_content > div, #generalFront_content .front .hangInd,
 #generalBiblio_content > div {
 	margin-bottom: 20px;
-	font-size: 70%;
 }
 #generalFront_content .section-title,
 #generalBiblio_content .section-title {
@@ -2787,7 +2853,6 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 
 .shortcuts_col_left, .shortcuts_col_right {
 	display: inline-block;
-	font-size: 70%;
 	float: left;
 	padding: 5px 0;
 	border-bottom: 1px solid #e5e5e5;

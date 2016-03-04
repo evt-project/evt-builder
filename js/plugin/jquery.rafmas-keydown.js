@@ -199,7 +199,7 @@ $(document).keydown(function(e){
 			if (linkedBtn !== undefined && linkedBtn !== '') {
 				$('#'+linkedBtn).removeClass('active');
 			}
-			$('.dialog:visible').hide('fade', 'slow');
+			$('.dialog:visible').hide('fade', 0);
 		}
 		return false;
 	}	
