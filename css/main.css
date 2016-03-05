@@ -641,13 +641,10 @@ footer{
 
 #text_tool .like_select,
 #text_tool-add .like_select{
-	/*left:-8px;*/
 	display: inline-block;
-	/*margin-top:15px;*/
+	top: 7px;
 }
-#text_tool-add .like_select{
-	margin-top: 7.5px;
-}
+
 #text_tool span.text-button,
 #text_tool-add span.text-button{
     position: relative;
