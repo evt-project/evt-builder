@@ -826,11 +826,6 @@ footer{
     font-size: 0.9em;
 }
 
-#zoom_fit{
-	margin: 10px !important;
-	font-size: 0.85em !important;
-}
-
 #zoom_fit:hover, #zoom_orig:hover, #zoom_out:hover, #zoom_in:hover{
 	/*Senza FA
 	-moz-box-shadow:inset 0px 2px 6px -2px #000;
