@@ -669,7 +669,7 @@
 																	<xsl:attribute name="class">option </xsl:attribute>
 																	<xsl:attribute name="data-value"><xsl:value-of select="name(.)"/></xsl:attribute>
 																	<i class="fa fa-circle filter_color"></i>
-																	<xsl:value-of select="."/>
+																	<span lang="def"><xsl:value-of select="name(.)"/></span>
 																</xsl:element>
 															</xsl:if>
 														</xsl:for-each>
