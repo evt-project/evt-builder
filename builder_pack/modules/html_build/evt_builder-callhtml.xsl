@@ -254,10 +254,10 @@
 									archive you downloaded, in the "doc" folder.</p>
 								<p>EVT is used in the following projects:</p>
 								<ul>
-									<li><a href="http://pelavicino.labcd.unipi.it/evt/">Codice Pelavicino Digitale</a></li>
-									<li><a href="http://vbd.humnet.unipi.it/beta2/">Vercelli Book Digitale</a></li>
+									<li><a href="http://pelavicino.labcd.unipi.it/evt/" target="blank">Codice Pelavicino Digitale</a></li>
+									<li><a href="http://vbd.humnet.unipi.it/beta2/" target="blank">Vercelli Book Digitale</a></li>
 								</ul>
-								<p>EVT has a home page in the <a href="https://sourceforge.net/p/evt-project/">SourceForge</a> repository,
+								<p>EVT has a home page in the <a href="https://sourceforge.net/p/evt-project/" target="blank">SourceForge</a> repository,
 									but development is done on Gitlab and Github: if you are interested in learning more about EVT and/or
 									in adapting it to your specific needs please contact the project Director, Roberto Rosselli Del Turco
 									roberto.rossellidelturco@gmail.com.</p>
