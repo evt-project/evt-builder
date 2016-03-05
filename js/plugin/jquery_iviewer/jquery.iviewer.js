@@ -406,7 +406,17 @@ $.widget( "ui.iviewer", $.ui.mouse, {
         this.container.addClass("iviewer_loading");
         this.img_object.load(src, function() {
             me._imageLoaded(src);
+            $('#image_cont .errorMsg')
+                .remove();
         }, function() {
+            if ($('#image_cont .errorMsg').length == 0) {
+                var errorMsg = window.lang.convert('ERROR_LOADING_IMAGE', window.lang.currentLang) || "There was an error in loading the image.";
+                var lang = window.lang.currentLang || "def";
+                $('#image_loading').hide();
+                $('<span class="errorMsg" lang="'+lang+'">')
+                    .text(errorMsg)
+                    .appendTo('#image_cont');
+            }
             me._trigger("onErrorLoad", 0, src);
         });
     },

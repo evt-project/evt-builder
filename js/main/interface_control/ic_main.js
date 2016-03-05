@@ -912,26 +912,21 @@ $(function() {
 		/* ***************************** */
 
 		window.onerror = function myErrorHandler(errorMsg, url, lineNumber) {
-		    var msgParts = errorMsg.replace('Error: ', '').split('/');
-		    if (msgParts.length > 0) {
-			    var errorType = msgParts[0],
-			    	errorMsg = msgParts[1];
-			    if (errorType == 'BigImageError') {
-			    	try {
-			    		var lens = document.getElementsByClassName('zoomPreload')[0];
-                		lens.textContent = errorMsg;
-                		if ($('.current_mode').attr('id') === 'txtimg_link' || $('.current_mode').attr('id') === 'imgd_link'){
-                			alert(errorMsg);
-                		}
-                		console.log(errorMsg);
-                		$('.zoomWrapperImage')
-                			.addClass('bigImageError')
-                			.attr('data-error-msg', errorMsg);
-                		if (magnifierON){
-                			document.getElementById('switchMag').click();
-                		}
-                	} catch(e){}
-			    }
+		    if (errorMsg == 'BigImageError') {
+		    	try {
+		    		var errorMsg = window.lang.convert('ERROR_LOADING_HI_IMAGE', window.lang.currentLang);
+		    		var lens = document.getElementsByClassName('zoomPreload')[0];
+            		lens.textContent = errorMsg;
+            		if ($('.current_mode').attr('id') === 'txtimg_link' || $('.current_mode').attr('id') === 'imgd_link'){
+            			alert(errorMsg);
+            		}
+            		$('.zoomWrapperImage')
+            			.addClass('bigImageError')
+            			.attr('data-error-msg', errorMsg);
+            		if (magnifierON){
+            			document.getElementById('switchMag').click();
+            		}
+            	} catch(e){}
 			} else {
 				console.log('Error occurred: '+errorMsg);
 			}
