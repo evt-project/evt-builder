@@ -920,7 +920,10 @@ $(function() {
 			    	try {
 			    		var lens = document.getElementsByClassName('zoomPreload')[0];
                 		lens.textContent = errorMsg;
-                		alert(errorMsg);
+                		if ($('.current_mode').attr('id') === 'txtimg_link' || $('.current_mode').attr('id') === 'imgd_link'){
+                			alert(errorMsg);
+                		}
+                		console.log(errorMsg);
                 		$('.zoomWrapperImage')
                 			.addClass('bigImageError')
                 			.attr('data-error-msg', errorMsg);

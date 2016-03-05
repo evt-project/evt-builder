@@ -76,8 +76,10 @@ $( function() {
                                                 chooseZoomMag();
                                                 //iv1.iviewer('fit');
                                                 clearTimeout(getBigImage);
-                                             }, 5000);
-                                            ;}, 
+                                            }, 5000);
+
+                                            $('#zoom_fit').trigger('click');
+                                        }, 
           // onStartDrag: function(ev, coords) { return false; }, //this image will not be dragged
            onAfterZoom: function(ev, zoom) {if ($('#switchITL i').hasClass('fa-chain')){ReInitialize();}; //Add by JK for ITL
                                             if ($("#switchHS i").hasClass('fa-dot-circle-o')){ReInitializeHS();}; //Add by JK for HS
