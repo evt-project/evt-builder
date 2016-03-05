@@ -2866,3 +2866,24 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 	cursor: pointer;
 	text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
 }
+
+.errorMsg{
+	background: rgba(255,0,0,0.1);
+	padding: 10px 20px;
+	border: 1px solid rgba(255,0,0,0.5);
+	display: inline-block;
+	margin: 0px 40px;
+}
+
+#image_cont .errorMsg {
+	position:absolute;
+	top: 50%;
+	left: 45%;
+	transform: translate(-50%, -100%);
+	background: rgba(255,0,0,0.2);
+	padding: 10px 20px;
+	border: 1px solid rgba(255,0,0,0.5);
+	color: #fff;
+	font-size: 14pt;
+	font-weight: normal !important;
+}

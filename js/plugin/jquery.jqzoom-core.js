@@ -771,7 +771,7 @@
             }
             this.node.onerror = function () {
                 // alert('Problems while loading the big image.');
-                throw new Error('BigImageError/There was a problem while loading the hi-res image.'); //Add by CDP
+                throw new Error('BigImageError'); //Add by CDP
             };
             this.node.onload = function () {
                 //fetching data

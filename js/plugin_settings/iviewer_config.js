@@ -44,9 +44,10 @@ $( function() {
             mousewheel: true,
             onMouseMove: function(ev, coords) {clickTrue(); },
             onFinishLoad: function(ev, src) {
-                                            
                                             $('#image_loading').hide();
-                                            $("#iviewerImage").fadeIn(200);
+                                            // $("#iviewerImage").fadeIn(200, function(){
+                                            //     $('#zoom_fit').trigger('click');
+                                            // }); 
                                             if (($('.current_mode').attr('id')=='txtimg_link') & (!$('#switchITL').hasClass('inactive')) & ($('#switchITL i').hasClass('fa fa-chain')) ){
                                                   Initialize();} //Add by JK for ITL
                                             if (($('.current_mode').attr('id')=='txtimg_link') & (!$('#switchHS').hasClass('inactive')) & ($("#switchHS i").hasClass('fa fa-dot-circle-o')) ) {
@@ -77,8 +78,6 @@ $( function() {
                                                 //iv1.iviewer('fit');
                                                 clearTimeout(getBigImage);
                                             }, 5000);
-
-                                            $('#zoom_fit').trigger('click');
                                         }, 
           // onStartDrag: function(ev, coords) { return false; }, //this image will not be dragged
            onAfterZoom: function(ev, zoom) {if ($('#switchITL i').hasClass('fa-chain')){ReInitialize();}; //Add by JK for ITL

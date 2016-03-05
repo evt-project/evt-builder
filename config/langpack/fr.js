@@ -169,5 +169,9 @@ jquery_lang_js.prototype.lang.fr = {
     "KS_CHANGE_PAGE" : "Changer page",
     "KS_CHANGE_DOC" : "Changer document",
 
-    "NEVER_SHOW_AGAIN" : "Ne monrer plus"
+    "NEVER_SHOW_AGAIN" : "Ne monrer plus",
+
+    "ERROR_LOADING_TEXT": "Il y avait une erreur dans le chargement du texte. La transcription de cette page n'est pas encore disponible. Pour plus d'information contacter les conservateurs de l'edition.",
+    "ERROR_LOADING_IMAGE": "Il y avait un problème lors du chargement de l'image.",
+    "ERROR_LOADING_HI_IMAGE": "Il y avait un problème lors du chargement de l'image de salut-res."
 }

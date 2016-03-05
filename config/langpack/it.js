@@ -170,6 +170,10 @@ jquery_lang_js.prototype.lang.it = {
     "KS_CHANGE_PAGE" : "Cambio pagina",
     "KS_CHANGE_DOC" : "Cambio documento",
 
-    "NEVER_SHOW_AGAIN" : "Non mostrare più"
+    "NEVER_SHOW_AGAIN" : "Non mostrare più",
+
+    "ERROR_LOADING_TEXT": "Si è verificato un errore nel caricamento del testo. La trascrizione per questa pagina potrebbe non essere disponibile. Per ulteriori informazioni contattare i curatori dell'edizione.",
+    "ERROR_LOADING_IMAGE": "Si è verificato un errore durante il caricamento dell'immagine.",
+    "ERROR_LOADING_HI_IMAGE": "Si è verificato un errore durante il caricamento dell'immagine ad alta risoluzione."
 }
 
