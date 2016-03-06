@@ -36,7 +36,6 @@
 					<div class="dialog_separator"><i class="fa fa-caret-down"></i></div>
 					<div id="headerInfo_content" class="dialog_cont_inner">
 						<xsl:apply-templates select="//tei:teiHeader"/>
-						
 						<!--<xsl:if test="tei:TEI/tei:text/tei:front and not(tei:TEI/tei:text/tei:body)">
 							<div id="generalFront_content">
 								<xsl:apply-templates select="tei:TEI/tei:text/tei:front"/>

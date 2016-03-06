@@ -45,32 +45,32 @@ function bindOpenSelectClick() {
                     $('.option_container.up:visible').animate({
                         top: '-5px',
                         height:"toggle"
-                    }, 400); 
-                    $('.option_container.down:visible').animate({height:"toggle"}, 400);   
+                    }, 0); 
+                    $('.option_container.down:visible').animate({height:"toggle"}, 0);   
                 }
                 if($(this).hasClass('open_up')){
                     if ($(this).siblings('.option_container').is(':visible')) {
                         $(this).siblings('.option_container').animate({
                             top: '-5px',
                             height:"toggle"
-                        }, 400);
+                        }, 0);
                     } else {
                         var top = "-" + $(this).siblings('.option_container').attr('data-toggle-top') + "px";
                         $(this).siblings('.option_container').animate({
                             top: top,
                             height:"toggle"
-                        }, 400);
+                        }, 0);
                     }
                 } else {
                     $(this).siblings('.option_container').animate({
                         height:"toggle"
-                    }, 400, function(){
+                    }, 0, function(){
                         var height = $(this).find('.option').height();
                         var selected = $(this).find('.option.selected').index();    
                         var scroll = (height*1.5)*selected;
                         $(this).animate({
                             scrollTop: scroll
-                        }, 400);
+                        }, 0);
                     });
                 }
             }
@@ -120,14 +120,14 @@ function bindOptionClick() {
                    thisOptionContainer.animate({
                        top: '-5px',
                        height:"toggle"
-                   }, 400, function(){
+                   }, 0, function(){
                         // updateSelectLength(thisSelect);
                         thisOptionContainer.css('min-width', thisSelect.width()-10);
                    });
                 } else {
                     thisOptionContainer.animate({
                         height:"toggle"
-                    }, 400, function(){
+                    }, 0, function(){
                         // updateSelectLength(thisSelect);
                         thisOptionContainer.css('min-width', thisSelect.width()-10);
                     });
@@ -145,9 +145,9 @@ function bindGlobarWrapperMouseDown() {
                $('.option_container:visible').animate({
                    top: '-5px',
                    height:"toggle"
-               }, 400);
+               }, 0);
             } else {
-                $('.option_container:visible').animate({height:"toggle"}, 400);
+                $('.option_container:visible').animate({height:"toggle"}, 0);
             }
         }
 

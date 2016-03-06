@@ -136,11 +136,11 @@ function bindSettingsBtnClick() {
         if($('#settings_cont').is(':visible')){
             $('#settings_cont').animate({
                 height:"toggle"
-            }, 400); 
+            }, 0); 
         } else {
             $('#settings_cont').animate({
                 height:"toggle"
-            }, 400); 
+            }, 0); 
         }
     });
 }
