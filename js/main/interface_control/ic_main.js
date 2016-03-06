@@ -23,6 +23,10 @@
  * @short-term Alessandro Barsi – AB
  * (added functions for manuscript, text and project info)
  * @in 2015
+ * 
+ * @short-term Ilaria Tiezzi -IT
+ * (added functions for project info)
+ * @in 2016
  **/
 
 /*jslint browser: true*/
@@ -647,9 +651,26 @@ $(function() {
 			        	window.lang.run();  
 			        }
 			        /* /end Integration by LS */
-			        if ($('#generalFront_content').text().trim() == '') {
-				    	$('#generalFront_content').remove();
-				    }
+			        
+			         /* Integration by IT */
+				    $(document).ready(function() {
+                    
+                        $(".box_tab").hide(); 
+                        $("#headerInfo_nav_tabs li:first").addClass("active").show(); 
+                        $(".box_tab:first").show(); 
+
+                        $("#headerInfo_nav_tabs li").click(function() {
+                     
+                            $("#headerInfo_nav_tabs li").removeClass("active"); 
+                            $(this).addClass("active"); 
+                            $(".box_tab").hide(); 
+                     
+                            var activeTab = $(this).find("a").attr("href");
+                            $(activeTab).fadeIn(); 
+                            return false;
+                            });
+                    });
+                    /* /end Integration by IT */
 			    });
 			    bindTextInfoBtnClick();
 
