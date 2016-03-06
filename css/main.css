@@ -2367,6 +2367,21 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 	margin-left: 30px;
 	margin-bottom: 10px;
 }
+
+.dialog_cont_inner a{
+	font-weight: normal;
+	color: #4e443c;
+	text-decoration: none;
+}
+
+.dialog_cont_inner a:hover{
+	text-decoration: underline;
+}
+
+.dialog_cont_inner a .fa:hover{
+	text-shadow: none;
+}
+
 .dialog .title.main{
 	display: block;
 	margin:0;
@@ -2889,3 +2904,64 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 	font-size: 14pt;
 	font-weight: normal !important;
 }
+
+/* ************ */
+/* PROJECT INFO */
+/* ************ */
+
+#headerInfo_nav_tabs {
+    display:block;
+    list-style:none;
+    margin:0 auto;
+    position:relative;
+    width: 18%;
+    height: auto;
+    float: left;    
+}
+
+#headerInfo_nav_tabs li a {
+    display:block;
+    position:relative;
+    min-width: 100px;
+    margin-bottom: 2px;
+    padding: 5px;    
+    font-style: normal;
+    font-weight: normal;    
+    font-size:  15pt;
+    color: #4e443c;
+    background: #FFFAF0;
+    border: none;
+    cursor: pointer;
+    font-variant: small-caps;
+    border: 1px solid rgb(78, 68, 60); 
+}
+
+#headerInfo_nav_tabs li.active a, #headerInfo_nav_tabs li a:hover {
+    text-decoration: none;    
+    color: #FFFAF0;
+    background: #4e443c;
+}
+
+#headerInfo_box_tabs {
+    width: 78%;
+    min-height: 95%;
+    float:left;
+    height:auto;
+    padding:10px;
+    overflow:auto;
+    border: 1px solid rgb(78, 68, 60);
+    color: #4e443c;
+}
+
+#headerInfo_box_tabs .title {
+    width: 100%;
+    height: 15px;
+    display: block;
+    margin-top: 20px;
+    font-weight: bold; 
+    font-style: normal;
+}
+    
+/* ******************** */
+/* ==/ END PROJECT INFO */
+/* ******************** */
