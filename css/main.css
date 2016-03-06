@@ -2304,7 +2304,7 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 .dialog_close{
 	text-shadow: 0px 1px 4px rgba(0,0,0,.3);
 	color: #4E443C;
-	color: #FFFAF0;
+	color: #FFFAF0 !important;
 	padding: 0px 7px;
 	position: absolute;
 	top: 4px;
@@ -2348,7 +2348,7 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 }
 
 .dialog_cont_inner {
-	overflow: hidden;
+    overflow: hidden;
     height: calc(100% - 100px);
     overflow-y: auto;
     padding: 25px;
@@ -2356,7 +2356,7 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
     position: relative;
 }
 .dialog_cont_inner div:last-child {
-	margin-bottom: 25px;
+	/*margin-bottom: 25px;*/
 }
 
 .dialog_cont_inner p {
@@ -2905,52 +2905,78 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 	font-weight: normal !important;
 }
 
+.dialog a {
+	color: rgb(78, 68, 60);
+}
 /* ************ */
 /* PROJECT INFO */
 /* ************ */
 
+#headerInfo_content {
+    padding: 0;
+	overflow: hidden;
+    height: 100%;
+    overflow-y: auto;
+    position: relative;
+	overflow-y: auto;
+	width: 80%;
+	margin-left: 20%;
+	height: calc(100% - 65px);
+	margin-top: 1px;
+	border-left: 1px solid rgb(78, 68, 60);
+}
+
 #headerInfo_nav_tabs {
-    display:block;
-    list-style:none;
-    margin:0 auto;
-    position:relative;
-    width: 18%;
-    height: auto;
-    float: left;    
+    display: block;
+	list-style: none;
+	margin: 0 auto;
+	position: relative;
+	width: 18%;
+	height: auto;
+	position: fixed;
+	width: 20%;
+	margin-top: 1px;
 }
 
 #headerInfo_nav_tabs li a {
-    display:block;
-    position:relative;
-    min-width: 100px;
-    margin-bottom: 2px;
-    padding: 5px;    
-    font-style: normal;
-    font-weight: normal;    
-    font-size:  15pt;
-    color: #4e443c;
-    background: #FFFAF0;
-    border: none;
-    cursor: pointer;
-    font-variant: small-caps;
-    border: 1px solid rgb(78, 68, 60); 
+    display: block;
+	position: relative;
+	min-width: 100px;
+	padding: 10px;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 14pt;
+	color: rgb(78, 68, 60);
+	border: none;
+	font-variant: small-caps;
+	border-bottom: 1px solid rgb(78, 68, 60);
+	cursor: pointer;
+	text-decoration: none;
+	text-align: right;
+	padding-right: 15px;
 }
 
 #headerInfo_nav_tabs li.active a, #headerInfo_nav_tabs li a:hover {
     text-decoration: none;    
+    border-bottom: 1px solid #FFFAF0;
     color: #FFFAF0;
-    background: #4e443c;
+    background: rgb(54, 45, 40);
 }
+#headerInfo_nav_tabs li {
+	position: relative;
+	top: 1px;
+}
+ #headerInfo_nav_tabs li:nth-child(1),  #headerInfo_nav_tabs li:nth-child(2) {
+ 	top: 0;
+ }
 
 #headerInfo_box_tabs {
-    width: 78%;
-    min-height: 95%;
-    float:left;
-    height:auto;
-    padding:10px;
-    overflow:auto;
-    border: 1px solid rgb(78, 68, 60);
-    color: #4e443c;
+    width: 94%;
+	float: left;
+	height: auto;
+	padding: 3%;
+	overflow: auto;
+	color: rgb(78, 68, 60);
 }
 
 #headerInfo_box_tabs .title {
@@ -2960,6 +2986,12 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
     margin-top: 20px;
     font-weight: bold; 
     font-style: normal;
+}
+.box_tab {
+	display: none;
+}
+.box_tab a {
+	text-decoration: underline;
 }
     
 /* ******************** */

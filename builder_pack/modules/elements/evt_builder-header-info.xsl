@@ -17,58 +17,57 @@
 	</xd:doc>
 	<xsl:template match="tei:teiHeader">
 		<div id="headerInfo_nav_tabs">
-			
-			<li>
-				<a href="#tab1">
-					<span lang="def">EVT_INFORMATION</span>
-				</a>
-			</li>
-			<li>
-				<a href="#tab2">
+			<li data-tab="#generalInfo_tab">
+				<a href="javascript:void(0)" lang="def" title="GENERAL_INFORMATION">
 					<span lang="def">GENERAL_INFORMATION</span>
 				</a>
 			</li>
 			
 			<xsl:if test="tei:fileDesc/publicationStmt">
-				<li> 
-					<a href="#tab3">
+				<li data-tab="#publicationInfo_tab"> 
+					<a href="javascript:void(0)" lang="def" title="PUBLICATION_INFORMATION">
 						<span lang="def">PUBLICATION_INFORMATION</span>							
 					</a>
 				</li>
 			</xsl:if>
 			<xsl:if test="tei:encodingDesc">
-				<li>
-					<a href="#tab4">				
+				<li data-tab="#projectDesc_tab">
+					<a href="javascript:void(0)" lang="def" title="PROJECT_DESCRIPTION">				
 						<span lang="def">PROJECT_DESCRIPTION</span>															
 					</a>
 				</li>
 			</xsl:if>
 			<xsl:if test="tei:profileDesc">
-				<li>
-					<a href="#tab5">				
+				<li data-tab="#profileDesc_tab">
+					<a href="javascript:void(0)" lang="def" title="PROFILE_DESCRIPTION">				
 						<span lang="def">PROFILE_DESCRIPTION</span>															
 					</a>
 				</li>
 			</xsl:if>
 			<xsl:if test="tei:revisionDesc">
-				<li>
-					<a href="#tab6">				
+				<li data-tab="#revisions_tab">
+					<a href="javascript:void(0)" lang="def" title="REVISIONS">				
 						<span lang="def">REVISIONS</span>															
 					</a>
 				</li>
 			</xsl:if>
+			<li data-tab="#evtInfo_tab">
+				<a href="javascript:void(0)" lang="def" title="EVT_INFORMATION">
+					<span lang="def">EVT_INFORMATION</span>
+				</a>
+			</li>
 		</div>
 		
 		<div id="headerInfo_box_tabs">
-			<div id="tab1" class="box_tab">
+			<div id="evtInfo_tab" class="box_tab">
 				<xsl:copy-of select="$evtTxt"/>	
 			</div>
 			
-			<div id="tab2" class="box_tab">
-				<xsl:if test="tei:fileDesc//title">
+			<div id="generalInfo_tab" class="box_tab">
+				<xsl:if test="tei:fileDesc/tei:titleStmt/tei:title">
 					<div>
 						<p class="title"><span lang="def">TITLE</span></p>
-						<p class="information"><xsl:value-of select="tei:fileDesc//title"/></p>
+						<p class="information"><xsl:value-of select="tei:fileDesc/tei:titleStmt/tei:title"/></p>
 					</div>
 				</xsl:if>
 				<xsl:if test="tei:fileDesc//author and tei:fileDesc//author/normalize-space()">
@@ -103,7 +102,7 @@
 				</xsl:if>				
 			</div>
 			
-			<div id="tab3" class="box_tab">
+			<div id="publicationInfo_tab" class="box_tab">
 				<xsl:if test="tei:fileDesc//authority and tei:fileDesc//authority/normalize-space()">
 					<div>
 						<p class="title"><span lang="def">AUTORITY</span></p>
@@ -136,7 +135,7 @@
 				</xsl:if>				
 			</div>
 			
-			<div id="tab4" class="box_tab">
+			<div id="projectDesc_tab" class="box_tab">
 				<xsl:if test="tei:encodingDesc/projectDesc and tei:encodingDesc/projectDesc/normalize-space()">
 					<p class="title"><span lang="def">PROFILE_DESCRIPTION</span></p>
 					<p class="information"><xsl:apply-templates select="tei:encodingDesc/projectDesc"/></p>	
@@ -172,7 +171,7 @@
 				</xsl:if>
 			</div>
 			
-			<div id="tab5" class="box_tab">
+			<div id="profileDesc_tab" class="box_tab">
 				<xsl:if test="tei:profileDesc/langUsage and tei:profileDesc/langUsage/normalize-space()">
 					<p class="title"><span lang="def">LANGUAGE</span></p>
 					<p class="information"><xsl:apply-templates select="tei:profileDesc/langUsage"/></p>	
@@ -187,7 +186,7 @@
 				</xsl:if>				
 			</div>
 			
-			<div id="tab6" class="box_tab">
+			<div id="revisions_tab" class="box_tab">
 				<xsl:if test="tei:revisionDesc and tei:revisionDesc/normalize-space()">
 					<p class="title"><span lang="def">REVISIONS</span></p>
 					<ul class="information">
