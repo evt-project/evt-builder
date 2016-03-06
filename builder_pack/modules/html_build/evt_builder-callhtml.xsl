@@ -237,30 +237,7 @@
 							<div class="title main">Information about EVT</div>
 							<div class="dialog_separator"><i class="fa fa-caret-down"></i></div>
 							<div id="EVTinfo_content" class="dialog_cont_inner">
-								<p>EVT (Edition Visualization Technology) is a software for creating and browsing digital editions of manuscripts
-									based on text encoded according to the TEI XML schemas and Guidelines. This tool was born as part of the DVB
-									(Digital Vercelli Book) project in order to allow the creation of a digital edition of the Vercelli Book, a
-									parchment codex of the late tenth century, now preserved in the Archivio e Biblioteca Capitolare of Vercelli
-									and regarded as one of the four most important manuscripts of the Anglo-Saxon period as regards the transmission
-									of poetic texts in the Old English language.
-								</p>
-								<p>To ensure that it will be working on all the most recent web browsers, and for as long as possible on the World
-									Wide Web itself, EVT is built on open and standard web technologies such as HTML, CSS and JavaScript. Specific
-									features, such as the magnifying lens, are entrusted to jQuery plugins, again chosen among the open source and
-									best supported ones to reduce the risk of future incompatibilities. The general architecture of the software,
-									in any case, is modular, so that any component which may cause trouble or turn out to be not completely up to
-									the task can be replaced easily.</p>
-								<p>For more information about how to use and/or customize EVT please refer to the EVT Manual included in the
-									archive you downloaded, in the "doc" folder.</p>
-								<p>EVT is used in the following projects:</p>
-								<ul>
-									<li><a href="http://pelavicino.labcd.unipi.it/evt/" target="blank">Codice Pelavicino Digitale</a></li>
-									<li><a href="http://vbd.humnet.unipi.it/beta2/" target="blank">Vercelli Book Digitale</a></li>
-								</ul>
-								<p>EVT has a home page in the <a href="https://sourceforge.net/p/evt-project/" target="blank">SourceForge</a> repository,
-									but development is done on Gitlab and Github: if you are interested in learning more about EVT and/or
-									in adapting it to your specific needs please contact the project Director, Roberto Rosselli Del Turco
-									roberto.rossellidelturco@gmail.com.</p>
+								<xsl:copy-of select="$evtTxt"/>	
 							</div>
 						</div>
 					</div>
