@@ -2857,11 +2857,13 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 }
 
 #poweredBy {
-	position: fixed;
-	bottom: 4px;
-	right: 4px;
+    width: 100%;
+	position: relative;
+	text-align: right;
 	font-size: 12px;
+	margin: 10px auto auto -4.5%;	
 }
+
 #poweredBy:hover{
 	cursor: pointer;
 	text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
