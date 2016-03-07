@@ -2991,7 +2991,11 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 .box_tab a {
 	text-decoration: underline;
 }
-    
+
 /* ******************** */
 /* ==/ END PROJECT INFO */
 /* ******************** */
+
+#EVTinfo_content {
+	font-size: 95%;
+}
