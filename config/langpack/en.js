@@ -118,7 +118,7 @@ jquery_lang_js.prototype.lang.en = {
 	"PROVENANCE": "Provenance",
 	"ADDITIONAL_INFORMATION": "Additional information",
 	"ADDITIONAL_MATERIALS": "Additional materials",
-	"LIST_PERSON": "List of person",
+	"LIST_PERSON": "List of persons",
 	"LIST_PLACE": "List of places",
 
 	"NO_ELEMENTS": "No elements.",

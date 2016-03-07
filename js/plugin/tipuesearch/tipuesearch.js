@@ -53,11 +53,14 @@
                                    cont = cont.replace(/\s+/g, ' ');
                                    var desc = $(set.liveDescription, html).text();
                                    desc = desc.replace(/\s+/g, ' ');
-                                                                      
-                                   // var t_1 = html.toLowerCase().indexOf('<title>');
-                                   // var t_2 = html.toLowerCase().indexOf('</title>', t_1 + 7);
-                                   var t_1 = html.indexOf('<title>');
-                                   var t_2 = html.indexOf('</title>', t_1 + 7);
+                                   
+                                   /* CASE INSENSITIVE SEARCH */
+                                   var t_1 = html.toLowerCase().indexOf('<title>');
+                                   var t_2 = html.toLowerCase().indexOf('</title>', t_1 + 7);
+                                   
+                                   /* CASE SENSITIVE SEARCH */
+                                   // var t_1 = html.indexOf('<title>');
+                                   // var t_2 = html.indexOf('</title>', t_1 + 7);
                                    if (t_1 != -1 && t_2 != -1)
                                    {
                                         var tit = html.slice(t_1 + 7, t_2);
@@ -168,8 +171,11 @@
                     var show_replace = false;
                     var show_stop = false;
                     
-                    // var d = $('#tipue_search_input'+set.suffix).val().toLowerCase();
-                    var d = $('#tipue_search_input'+set.suffix).val();
+                    /* CASE INSENSITIVE SEARCH */
+                    var d = $('#tipue_search_input'+set.suffix).val().toLowerCase();
+                    
+                    /* CASE SENSITIVE SEARCH */
+                    // var d = $('#tipue_search_input'+set.suffix).val();
                     d = $.trim(d);
                     var d_w = d.split(' ');
                     d = '';
@@ -236,11 +242,11 @@
                               {
                                    // var pat = new RegExp(d_w[f], 'i');
                                    var pat = d_w[f];
-                                   if (tipuesearch_in.pages[i].line.indexOf(pat) != -1)
+                                   if (tipuesearch_in.pages[i].line.toLowerCase().indexOf(pat) != -1)
                                    {
                                         score -= (200000 - i);
                                    }
-                                   if (tipuesearch_in.pages[i].text.indexOf(pat) != -1)
+                                   if (tipuesearch_in.pages[i].text.toLowerCase().indexOf(pat) != -1)
                                    {
                                         score -= (150000 - i);
                                    }
@@ -320,8 +326,11 @@
                                         }
                                         else
                                         {
-                                             // var d_index = t.toLowerCase().indexOf(d);
-                                             var d_index = t.indexOf(d);
+                                             /* CASE INSENSITIVE SEARCH */
+                                             var d_index = t.toLowerCase().indexOf(d);
+
+                                             /* CASE SENSITIVE SEARCH */
+                                             // var d_index = t.indexOf(d);
                                              var pre_text = t.substring(0, d_index);
                                              var post_text = t.substring(d_index);
 
