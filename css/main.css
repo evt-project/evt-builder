@@ -2339,9 +2339,9 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 	font-size: 14pt;
 	overflow: hidden;
 
-	border-radius: 10px;
-	border: 3px solid rgb(78, 68, 60);
-	border-color: rgb(60, 50, 44);
+	border-radius: 5px;
+	/*border: 3px solid rgb(78, 68, 60);
+	border-color: rgb(60, 50, 44);*/
 	padding: 0;
 	height: 100%;
 	position: relative;
@@ -2481,9 +2481,9 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 #welcomeInfo {
     /*background-color: #837468;*/
     background: rgb(60, 50, 44);
-    border-radius: 10px;
-    border: 3px solid #4e443c;
-    border-color: rgb(60, 50, 44);
+    border-radius: 5px;
+    /*border: 3px solid #4e443c;
+    border-color: rgb(60, 50, 44);*/
     padding: 0;
     height: auto;
 }
