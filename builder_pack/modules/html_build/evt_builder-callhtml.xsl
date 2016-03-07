@@ -220,7 +220,7 @@
 							</div>
 							<div id="welcomeInfo_content_bottom">								
 								<a href="javascript:void(0);" id="button_welcome_info_cont" class="closeDialog" data-dialog="welcomeInfo_cont" title="CLOSE" lang="def">
-									<button class="button_welcome">Start</button>
+									<button class="button_welcome">start</button>
 								</a>
 								<div class="neverShowDiv">
 									<input type="checkbox" checked="checked" class="neverShowAgain"/> <span lang="def">NEVER_SHOW_AGAIN</span>

@@ -31,13 +31,15 @@
 	<xsl:param name="filePrefix" select="'../../..'"/> <!-- file path -->
 	<xsl:param name="dataPrefix" select="'../..'"/> <!-- page -->
 	
-	<xsl:param name="webSite" select="'http://pelavicino.labcd.unipi.it'"/> <!-- index -->
+	<!-- EN: Main web site for digital edition -->
+	<!-- IT: Sito web principale dell'edizione -->
+	<!-- default: '' -->
+	<xsl:param name="webSite" select="''"/>
+	
 	<!-- EN: Index title -->
 	<!-- IT: Titolo edizione -->
 	<!-- default: 'Codex Viewer' -->
-	<!--<xsl:param name="index_title" select="'Codex Viewer'"/>-->
-	<!--<xsl:param name="index_title" select="'The Digital Vercelli Book'"/>-->
-	<xsl:param name="index_title" select="'Codice Pelavicino'"/>
+	<xsl:param name="index_title" select="'Codex Viewer'"/>
 	
 	<!-- EN: Welcome Message -->
 	<!-- IT: Messaggio di benvenuto -->
@@ -46,8 +48,14 @@
 		<div>
 			<p class="title main">Welcome to an edition created with EVT!</p> 
 		</div>
+		<div>This archive includes a few examples of editions created using EVT, 
+			by default you are showed a small excerpt of the 
+			<a href="http://pelavicino.labcd.unipi.it/" target="blank">
+				Codice Pelavicino Digitale edition</a>.
+		</div>
 		<div>It is recommended to go to full screen mode so that all available screen space is used to show the manuscript images and the transcription text.</div>
-		<div>If you have any suggestions or spot an error/bug please contact us at ...</div>
+		<div>For more information refer to the EVT Manual in the "doc" folder. 
+			If you have any suggestions or spot an error/bug please contact us at <a href="mailto:evt.developers@gmail.com">evt.developers@gmail.com</a></div>
 	</xsl:param>
 	
 	<!-- EN: Hide/Show scans -->

@@ -112,7 +112,7 @@
 					<xsl:attribute name="class">AnnTitlebar</xsl:attribute>
 					<xsl:element name="div">
 						<xsl:attribute name="class">PopupCloser</xsl:attribute>
-						<xsl:attribute name="onclick">HideAnnHS('Ann_<xsl:value-of select="$linkId"></xsl:value-of>')</xsl:attribute>X</xsl:element>
+						<xsl:attribute name="onclick">HideAnnHS('Ann_<xsl:value-of select="$linkId"></xsl:value-of>')</xsl:attribute><i class="fa fa-times"></i></xsl:element>
 					<xsl:element name="div">
 						<xsl:attribute name="class">AnnTitle</xsl:attribute>
 						<xsl:attribute name="onmousedown">BeginDragHS(this.parentNode.parentNode, event)</xsl:attribute>
@@ -288,7 +288,7 @@
 				<xsl:attribute name="class">AnnTitlebar</xsl:attribute>
 				<xsl:element name="div">
 					<xsl:attribute name="class">PopupCloser</xsl:attribute>
-					<xsl:attribute name="onclick">HideAnnHS('Ann_<xsl:value-of select="$linkId"></xsl:value-of>')</xsl:attribute>X</xsl:element>
+					<xsl:attribute name="onclick">HideAnnHS('Ann_<xsl:value-of select="$linkId"></xsl:value-of>')</xsl:attribute><i class="fa fa-times"></i></xsl:element>
 				<xsl:element name="div">
 					<xsl:attribute name="class">AnnTitle</xsl:attribute>
 					<xsl:attribute name="onmousedown">BeginDragHS(this.parentNode.parentNode, event)</xsl:attribute>

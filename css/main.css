@@ -1875,7 +1875,7 @@ div.doc.not_current:hover{
 }
 #search_cont_results, #search_cont_results-add {
 	padding: 20px;
-	overflow: scroll;
+	overflow-y: auto;
 	height: -moz-calc(100% - 194px);
 	height: -webkit-calc(100% - 194px);
 	height: -o-calc(100% - 194px);
@@ -2355,10 +2355,6 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
     padding-bottom: 10px;
     position: relative;
 }
-.dialog_cont_inner div:last-child {
-	/*margin-bottom: 25px;*/
-}
-
 .dialog_cont_inner p {
 	margin-bottom: 10px;
 }
@@ -2371,7 +2367,6 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 .dialog_cont_inner a{
 	font-weight: normal;
 	color: #4e443c;
-	text-decoration: none;
 }
 
 .dialog_cont_inner a:hover{
@@ -2514,6 +2509,9 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
     font-style: normal;
 }
 
+#welcomeInfo_content_top a {
+    text-decoration:underline;
+}
 #welcomeInfo_content_center {
     width: 100%;
 	height: auto;	
