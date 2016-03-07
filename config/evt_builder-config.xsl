@@ -327,5 +327,6 @@
 			but development is done on Gitlab and Github: if you are interested in learning more about EVT and/or
 			in adapting it to your specific needs please contact the project Director, Roberto Rosselli Del Turco
 			<a href="mailto:roberto.rossellidelturco@gmail.com" target="_top">roberto.rossellidelturco@gmail.com</a>.</p>
+		<p>If you have any suggestions or spot an error/bug please contact us at <a href="mailto:evt.developers@gmail.com">evt.developers@gmail.com</a></p>
 	</xsl:param>
 </xsl:stylesheet>
