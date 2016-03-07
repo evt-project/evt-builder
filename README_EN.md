@@ -33,4 +33,4 @@ There are several ways to customize EVT, the most important one is to modify the
 In the "doc" folder you will find a preliminary version of the EVT manual, this should be your main reference to customize and use this tool.
 
 ###Feedback
-Please send all comments, suggestions, bug reports etc. to roberto.rossellidelturco@gmail.com.
+Please send all comments, suggestions, bug reports etc. to roberto.rossellidelturco@gmail.com or to evt.developers@gmail.com.
