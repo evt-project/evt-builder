@@ -33,4 +33,4 @@ Ci sono diversi modi di personalizzare EVT, il più importante consiste nel modi
 Nella cartella "doc" è disponibile una versione preliminare del manuale di EVT, questo è il principale punto di riferimento riguardo l'uso e la personalizzazione del software.
 
 ###Feedback
-Per favore inviare ogni commento, suggerimento, bug report etc. a roberto.rossellidelturco@gmail.com.
+Per favore inviare ogni commento, suggerimento, bug report etc. a roberto.rossellidelturco@gmail.com oppure a evt.developers@gmail.com.

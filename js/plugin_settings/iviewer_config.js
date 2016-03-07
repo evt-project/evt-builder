@@ -45,9 +45,9 @@ $( function() {
             onMouseMove: function(ev, coords) {clickTrue(); },
             onFinishLoad: function(ev, src) {
                                             $('#image_loading').hide();
-                                            // $("#iviewerImage").fadeIn(200, function(){
-                                            //     $('#zoom_fit').trigger('click');
-                                            // }); 
+                                            $("#iviewerImage").show(function(){
+                                                $('#zoom_fit').trigger('click');
+                                            }); 
                                             if (($('.current_mode').attr('id')=='txtimg_link') & (!$('#switchITL').hasClass('inactive')) & ($('#switchITL i').hasClass('fa fa-chain')) ){
                                                   Initialize();} //Add by JK for ITL
                                             if (($('.current_mode').attr('id')=='txtimg_link') & (!$('#switchHS').hasClass('inactive')) & ($("#switchHS i").hasClass('fa fa-dot-circle-o')) ) {
@@ -70,8 +70,8 @@ $( function() {
                                               
                                             //$("#mag_image_elem").empty();
                                             if(!magnifierON) $('#image_fade').fadeIn(400);
-                                            loadThumbs();
 
+                                            loadThumbs();
                                             var getBigImage = setTimeout(function (){
                                                 magnifierReady();
                                                 chooseZoomMag();
