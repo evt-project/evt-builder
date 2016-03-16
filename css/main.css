@@ -1311,7 +1311,8 @@ footer{
 	background: transparent;
 }
 
-.inactive i, .inactive span{
+.inactive i, .inactive span,
+.disabled i, .disabled span{
 	text-shadow:none;	
 	color: #786E64;
 	-moz-box-shadow:none;
@@ -1323,7 +1324,8 @@ footer{
     text-shadow:none !important;
 }
 
-.inactive:hover, .inactive{
+.inactive:hover, .inactive,
+.disabled:hover, .disabled{
 	color: #786E64;
 	cursor: default;
 	-moz-box-shadow:none;
