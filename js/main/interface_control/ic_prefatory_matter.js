@@ -130,7 +130,7 @@ function updateFrontContent(current_doc){
                 }
                 if ( $('#switchFront').hasClass('disabled') ) {
                     $('#switchFront').removeClass('disabled').show();
-                    $('#switchFront').hasClass('active') {
+                    if ($('#switchFront').hasClass('active')) {
                         $('#front_cont').show();
                     }
                     resizeButtonsAndSelects();
