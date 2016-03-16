@@ -1839,7 +1839,9 @@ div.botleftconcave {
 }
 
 #left_menu #switchReg-add,
-#left_menu #switchFront-add{
+#left_menu #switchFront-add,
+div[id*='left_menu'] #switchReg-add,
+div[id*='left_menu'] #switchFront-add{
 	display: none;
 }
 
