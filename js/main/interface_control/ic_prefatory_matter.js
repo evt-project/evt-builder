@@ -65,13 +65,13 @@ function hide_front(front_cont, front){
     if ( front_cont == "#hide_front-add" ) {
         if ( !$("#switchFront-add").hasClass('disabled') ) {
             $("#switchFront-add")
-                .toggleClass('active');
+                .removeClass('active');
             toggleReg(front_cont);
         }
     } else {
         if ( !$("#switchFront").hasClass('disabled') ) {
             $("#switchFront")
-                .toggleClass('active');
+                .removeClass('active');
             toggleReg(front_cont);
         }
     }
@@ -130,18 +130,26 @@ function updateFrontContent(current_doc){
                 }
                 if ( $('#switchFront').hasClass('disabled') ) {
                     $('#switchFront').removeClass('disabled').show();
-                    $('#front_cont').show();
+                    $('#switchFront').hasClass('active') {
+                        $('#front_cont').show();
+                    }
                     resizeButtonsAndSelects();
                 }
             } else { 
                 hide_front(id_front_cont, id_front);
-                $('#switchFront').addClass('disabled').hide();
+                $('#switchFront')
+                    .addClass('disabled')
+                    // .hide()
+                ;
                 $('#front_cont').hide();
                 resizeButtonsAndSelects();
             }
         } else { 
             hide_front(id_front_cont, id_front);
-            $('#switchFront').addClass('disabled').hide();
+            $('#switchFront')
+                .addClass('disabled')
+                // .hide()
+            ;
             $('#front_cont').hide();
             resizeButtonsAndSelects();
         } 
@@ -493,30 +501,33 @@ function bindBiblioBtnClick() {
 /*= BIND TOGGLE FRONT INFO (OR REGESTO) BUTTON CLICK EVENT =*/
 function bindToggleFrontBtnClick() {
     $('.toggleReg').click(function(event) {
-        var regesto_cont;
-        $(this)
-            .toggleClass('active')
-            .find('.fa')
-                .toggleClass('fa-toggle-on')
-                .toggleClass('fa-toggle-off');
-        if ( $(this).attr('id') == "switchReg-add" ) {
-            regesto_cont = "#regesto_cont-add";
-        } else {
-            regesto_cont = "#regesto_cont";
+        if (!$(this).hasClass('disabled')) {
+            var regesto_cont;
+            $(this)
+                .toggleClass('active')
+                .find('.fa')
+                    .toggleClass('fa-toggle-on')
+                    .toggleClass('fa-toggle-off');
+            if ( $(this).attr('id') == "switchReg-add" ) {
+                regesto_cont = "#regesto_cont-add";
+            } else {
+                regesto_cont = "#regesto_cont";
+            }
+            toggleReg(regesto_cont);
         }
-        toggleReg(regesto_cont);
-
     });
     // APRI/CHIUDI FRONT
     $('.toggleFront').click(function(event) {
-        var front_cont;
-        $(this)
-            .toggleClass('active');
-        if ( $(this).attr('id') == "switchFront-add" ) {
-            front_cont = "#front_cont-add";
-        } else {
-            front_cont = "#front_cont";
+        if (!$(this).hasClass('disabled')) {
+            var front_cont;
+            $(this)
+                .toggleClass('active');
+            if ( $(this).attr('id') == "switchFront-add" ) {
+                front_cont = "#front_cont-add";
+            } else {
+                front_cont = "#front_cont";
+            }
+            toggleFront(front_cont);
         }
-        toggleFront(front_cont);
     });
 }

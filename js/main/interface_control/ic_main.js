@@ -809,7 +809,7 @@ $(function() {
 					}
 					// IT: Cambia il titolo della pagina in base all'hash
 					// document.title = 'The hash is ' + ( hash.replace( /^#/, '' ) || 'blank' ) + '.';
-				    // resizeButtonsAndSelects();
+				    resizeButtonsAndSelects();
 				});
 				/* //= HASH CHANGE - ba.bbq plugin */
 				/* =============================== */
