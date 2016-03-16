@@ -233,18 +233,21 @@ function resizeButtonsAndSelects() {
         leftHeaderSelects = leftHeader.find('.like_select');
     leftMenu.css('width', 'auto');
     leftMenu
-        .css('width', 'auto')
         .clone()
         .attr('id', 'left_menu_copy')
-        .css('display', 'none')
+        .css({
+            'width': 'auto',
+            'opacity': '0',
+            'position': 'fixed'
+        })
         .appendTo(leftHeader);
     var leftMenuCopy = $('#left_menu_copy');
-    leftMenuCopy.find('.small').removeClass('small').find('span').show();
+    leftMenuCopy.find('.small:visible').removeClass('small').find('span').show();
     
     if ( leftMenuCopy.outerWidth() >= leftHeader.innerWidth()) {
         leftHeaderBtns
             .addClass('small')
-            /*.find('span').hide();*/
+            .find('span').hide();
 
         if ( leftMenu.outerWidth() > leftHeader.innerWidth()) {
             var diff =  leftMenu.outerWidth() - leftHeader.innerWidth();
