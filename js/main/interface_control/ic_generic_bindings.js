@@ -62,13 +62,13 @@ function bindOpenSelectClick() {
                         }, 0);
                     }
                 } else {
-                    $(this).siblings('.option_container').animate({
+                    var option_container = $(this).siblings('.option_container');
+                    option_container.animate({
+                        scrollTop: 0,
                         height:"toggle"
                     }, 0, function(){
-                        var height = $(this).find('.option').height();
-                        var selected = $(this).find('.option.selected').index();    
-                        var scroll = (height*1.5)*selected;
-                        $(this).animate({
+                        var scroll = $(this).find('.option.selected').position().top;
+                        option_container.animate({
                             scrollTop: scroll
                         }, 0);
                     });
