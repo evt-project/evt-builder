@@ -162,4 +162,7 @@
 		</xsl:apply-templates>
 	</xsl:template>
 	
+	<xsl:template match="tei:front//tei:lb">
+		<xsl:value-of disable-output-escaping="yes">&lt;br/&gt;</xsl:value-of>
+	</xsl:template>
 </xsl:stylesheet>
