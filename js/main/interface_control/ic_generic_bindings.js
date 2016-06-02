@@ -442,7 +442,10 @@ function InitializePopup(){
         }
     });
     $('.trigger').unbind( "click" ).click(function(e){
-        if ( $('.doc').length<0 || $(this).parents('.doc').hasClass('current') || $(this).parents("div[id*='regesto_cont']").length>0 ) {
+        if ( $('.doc').length<=0 
+            || $(this).parents('.doc').hasClass('current') || 
+               $(this).parents("div[id*='regesto_cont']").length > 0 || 
+               $(this).parents("div[id*='front_cont']").length > 0 ) {
             e.stopPropagation();
             var popup, trigger, tooltip, before;
             popup = $(this).parent('.popup');
@@ -498,10 +501,10 @@ function InitializePopup(){
                 tooltip.css('position', 'relative');    
                 tooltipRealWidth = tooltip.width();
 
-                if( tooltipRealWidth > 200 ){
+                if( tooltipRealWidth > 300 ){
                     tooltip.css({
-                        'width': '200px',
-                        'max-width': '200px'
+                        'width': '300px',
+                        'max-width': '300px'
                     });
                 } 
                 tooltip.css({
@@ -601,10 +604,10 @@ function InitializePopup(){
                         });
                 }
                 tooltipRealWidth = tooltip.width();
-                if( tooltipRealWidth > 200 ){
+                if( tooltipRealWidth > 300 ){
                     tooltip.css({
-                        'width': '200px',
-                        'max-width': '200px'
+                        'width': '300px',
+                        'max-width': '300px'
                     });
                 } 
                 
