@@ -36,7 +36,7 @@
 				<span lang="def">MANUSCRIPT_CURRENT_LOCATION</span>
 			</div>
 			<div class="table">
-				<xsl:if test="tei:repository and tei:repository/normalize-space()">
+				<xsl:if test="tei:repository and tei:repository/normalize-space() != ''">
 					<div class="row">
 						<div class="left_col">
 							<span lang="def">MANUSCRIPT_LOCATION</span><xsl:text>:</xsl:text></div>
@@ -54,7 +54,7 @@
 							</xsl:if></div>
 					</div>
 				</xsl:if>
-				<xsl:if test="tei:collection and tei:collection/normalize-space()">
+				<xsl:if test="tei:collection and tei:collection/normalize-space() != ''">
 					<div class="row">
 						<div class="left_col">
 							<span lang="def">MANUSCRIPT_COLLECTION</span><xsl:text>:</xsl:text>
@@ -62,7 +62,7 @@
 						<div class="right_col"><xsl:apply-templates select="tei:collection"/></div>
 					</div>
 				</xsl:if>
-				<xsl:if test="tei:idno and tei:idno/normalize-space()">
+				<xsl:if test="tei:idno and tei:idno/normalize-space() != ''">
 					<div class="row">
 						<div class="left_col">
 							<span lang="def">MANUSCRIPT_CODE</span><xsl:text>:</xsl:text>
@@ -70,7 +70,7 @@
 						<div class="right_col"><xsl:apply-templates select="tei:idno"/></div>    
 					</div>
 				</xsl:if>
-				<xsl:if test="tei:msName"> <!--and tei:msName/normalize-space()">-->
+				<xsl:if test="tei:msName"> <!--and tei:msName/normalize-space() != ''">-->
 					<div class="row">
 						<div class="left_col">
 							<span lang="def">MANUSCRIPT_NAME</span><xsl:text>:</xsl:text>
@@ -90,7 +90,7 @@
 				<span lang="def">MANUSCRIPT_CONTENTS</span>
 			</div>
 			<div class="table">
-				<xsl:if test="tei:summary and tei:summary/normalize-space()">
+				<xsl:if test="tei:summary and tei:summary/normalize-space() != ''">
 					<div class="row">
 						<div class="left_col">
 							<span lang="def">MANUSCRIPT_CONTENT_SUMMARY</span><xsl:text>:</xsl:text>
@@ -98,7 +98,7 @@
 						<div class="right_col"><xsl:value-of select="tei:summary"/></div>
 					</div>
 				</xsl:if>
-				<xsl:if test="//tei:textLang and //tei:textLang/normalize-space()">
+				<xsl:if test="//tei:textLang and //tei:textLang/normalize-space() != ''">
 					<div class="row">
 						<div class="left_col">
 							<span lang="def">LANGUAGE</span><xsl:text>:</xsl:text>
@@ -106,7 +106,7 @@
 						<div class="right_col"><xsl:value-of select="//tei:textLang"/></div>
 					</div>  
 				</xsl:if>
-				<xsl:if test="//tei:msItem"><!--and tei:msItem/normalize-space()">-->
+				<xsl:if test="//tei:msItem"><!--and tei:msItem/normalize-space() != ''">-->
 					<div class="row">
 						<div class="left_col">
 							<span lang="def">MANUSCRIPT_ITEMS</span><xsl:text>:</xsl:text>
@@ -172,7 +172,7 @@
 			<div class="table">
 				<xsl:choose>
 					<xsl:when test="tei:support or tei:extent or tei:collation or tei:condition or tei:foliation">
-						<xsl:if test="tei:support and tei:support/normalize-space()">
+						<xsl:if test="tei:support and tei:support/normalize-space() != ''">
 							<div class="row">
 								<div class="left_col">
 									<span lang="def">MANUSCRIPT_SUPPORT</span><xsl:text>: </xsl:text>
@@ -180,7 +180,7 @@
 								<div class="right_col"><xsl:value-of select="tei:support"/></div>
 							</div>
 						</xsl:if>
-						<xsl:if test="tei:extent and tei:extent/normalize-space()">
+						<xsl:if test="tei:extent and tei:extent/normalize-space() != ''">
 							<div class="row">
 								<div class="left_col">
 									<span lang="def">EXTENT</span><xsl:text>: </xsl:text>
@@ -188,7 +188,7 @@
 								<div class="right_col"><xsl:value-of select="tei:extent"/></div>
 							</div>
 						</xsl:if>
-						<xsl:if test="tei:collation and tei:collation/normalize-space()">
+						<xsl:if test="tei:collation and tei:collation/normalize-space() != ''">
 							<div class="row">
 								<div class="left_col">
 									<span lang="def">COLLATION</span><xsl:text>: </xsl:text>
@@ -196,7 +196,7 @@
 								<div class="right_col"><xsl:value-of select="tei:collation"/></div>
 							</div>
 						</xsl:if>
-						<xsl:if test="tei:condition and tei:condition/normalize-space()">
+						<xsl:if test="tei:condition and tei:condition/normalize-space() != ''">
 							<div class="row">
 								<div class="left_col">
 									<span lang="def">CONDITION</span><xsl:text>: </xsl:text>
@@ -204,7 +204,7 @@
 								<div class="right_col"><xsl:value-of select="tei:condition"/></div>
 							</div>
 						</xsl:if>
-						<xsl:if test="tei:foliation and tei:foliation/normalize-space()">
+						<xsl:if test="tei:foliation and tei:foliation/normalize-space() != ''">
 							<div class="row">
 								<div class="left_col">
 									<span lang="def">FOLIATION</span><xsl:text>: </xsl:text>
@@ -229,7 +229,7 @@
 	<xsl:template match="tei:layoutDesc">
 		<div id="layoutDesc">
 			<div class="table">
-				<xsl:if test="tei:layout and tei:layout/normalize-space()">
+				<xsl:if test="tei:layout and tei:layout/normalize-space() != ''">
 					<div class="row">
 						<div class="left_col">
 							<span lang="def">LAYOUT</span><xsl:text>:</xsl:text>
@@ -237,7 +237,7 @@
 						<div class="right_col"><xsl:value-of select="tei:layout"/></div>
 					</div>
 				</xsl:if>
-				<xsl:if test="tei:summary and tei:summary/normalize-space()">
+				<xsl:if test="tei:summary and tei:summary/normalize-space() != ''">
 					<div class="row">
 						<div class="left_col">
 							<span lang="def">OVERVIEW</span><xsl:text>:</xsl:text>
@@ -250,7 +250,7 @@
 	</xsl:template>
 	
 	<xsl:template match="tei:handDesc">
-		<xsl:if test="normalize-space()">
+		<xsl:if test="normalize-space() != ''">
 			<div id="handDesc">
 				<div class="table">
 					<div class="row">
@@ -265,7 +265,7 @@
 	</xsl:template>
 	
 	<xsl:template match="tei:decoDesc">
-		<xsl:if test="normalize-space()">
+		<xsl:if test="normalize-space() != ''">
 			<div id="decoDesc">
 				<div class="table">
 					<div class="row">
@@ -285,25 +285,25 @@
 		<div class="history">
 			<div class="title_section"><span lang="def">MANUSCRIPT_HISTORY</span></div>
 			<div class="table">
-				<xsl:if test="tei:summary and tei:summary/normalize-space()">
+				<xsl:if test="tei:summary and tei:summary/normalize-space() != ''">
 					<div class="row">
 						<div class="left_col"><span lang="def">SUMMARY</span><xsl:text>:</xsl:text></div>
 						<div class="right_col"><xsl:value-of select="tei:summary"/></div>
 					</div>
 				</xsl:if>
-				<xsl:if test="tei:origin and tei:origin/normalize-space()">
+				<xsl:if test="tei:origin and tei:origin/normalize-space() != ''">
 					<div class="row">
 						<div class="left_col"><span lang="def">ORIGIN</span><xsl:text>:</xsl:text></div>
 						<div class="right_col"><xsl:value-of select="tei:origin"/></div>
 					</div>
 				</xsl:if>
-				<xsl:if test="tei:acquisition and tei:acquisition/normalize-space()">
+				<xsl:if test="tei:acquisition and tei:acquisition/normalize-space() != ''">
 					<div class="row">
 						<div class="left_col"><span lang="def">ACQUISITION</span><xsl:text>:</xsl:text></div>
 						<div class="right_col"><xsl:value-of select="tei:acquisition"/></div>    
 					</div>
 				</xsl:if>
-				<xsl:if test="tei:provenance and tei:provenance/normalize-space()">
+				<xsl:if test="tei:provenance and tei:provenance/normalize-space() != ''">
 					<div class="row">
 						<div class="left_col"><span lang="def">PROVENANCE</span><xsl:text>:</xsl:text></div>
 						<div class="right_col"><xsl:value-of select="tei:provenance"/></div>
@@ -318,13 +318,13 @@
 	<xsl:template match="tei:additional">
 		<div class="additional">
 			<div class="table">
-				<xsl:if test="tei:adminInfo and tei:adminInfo/normalize-space()">
+				<xsl:if test="tei:adminInfo and tei:adminInfo/normalize-space() != ''">
 					<div class="row">
 						<div class="left_col"><span lang="def">ADDITIONAL_INFORMATION</span><xsl:text>:</xsl:text></div>
 						<div class="right_col"><xsl:value-of select="tei:adminInfo"/></div>
 					</div>
 				</xsl:if>
-				<xsl:if test="tei:surrogates and tei:surrogates/normalize-space()">
+				<xsl:if test="tei:surrogates and tei:surrogates/normalize-space() != ''">
 					<div class="row">
 						<div class="left_col"><span lang="def">ADDITIONAL_MATERIALS</span><xsl:text>:</xsl:text></div>
 						<div class="right_col"><xsl:value-of select="tei:surrogates"/></div>
