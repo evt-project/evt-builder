@@ -453,6 +453,14 @@
 		</xsl:if>
 	</xsl:template>
 	
+	<!-- TITLEs in NOTE emphasized  -->
+	<xsl:template match="tei:note//tei:title" mode="interp">
+		<xsl:element name="span">
+			<xsl:attribute name="class">title emph</xsl:attribute>
+			<xsl:apply-templates mode="#current" />
+		</xsl:element>
+	</xsl:template>
+	
 	<!-- EMPH emphasized  -->
 	<xsl:template match="tei:emph" mode="interp">
 		<xsl:element name="span">
