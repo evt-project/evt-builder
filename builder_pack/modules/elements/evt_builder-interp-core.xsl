@@ -487,49 +487,6 @@
 		</xsl:choose>
 	</xsl:template>
 	
-	<!-- NOTE Note or annotation -->
-	<xsl:template match="tei:note" mode="interp">
-		<xsl:choose>
-			<xsl:when test="node()/ancestor::tei:listPerson or node()/ancestor::tei:listPlace">
-				<xsl:apply-templates mode="#current"/>
-			</xsl:when>
-			<xsl:otherwise>
-				<xsl:element name="span">
-					<xsl:attribute name="class">
-						inline_note popup
-						<xsl:value-of select="@type"/>
-					</xsl:attribute>
-					
-					<xsl:attribute name="id">note_<xsl:value-of select="if(@xml:id) then (@xml:id) else (count(preceding::*[name() = name(current())]))"></xsl:value-of></xsl:attribute>
-					<xsl:choose>
-						<xsl:when test="@type = 'critical' and @n != ''">
-							<xsl:element name="i">
-								<xsl:attribute name="class">open_note trigger</xsl:attribute>
-								<xsl:value-of select="@n"/>
-							</xsl:element>
-						</xsl:when>
-						<xsl:otherwise>
-							<xsl:element name="i">
-								<xsl:attribute name="class">fa fa-circle open_note trigger</xsl:attribute>
-							</xsl:element>
-						</xsl:otherwise>
-					</xsl:choose>
-					<xsl:element name="span">
-						<xsl:attribute name="class">text_note tooltip</xsl:attribute>
-						<xsl:attribute name="id">
-							<xsl:value-of select="./@xml:id"/>
-						</xsl:attribute>
-						<xsl:element name="span"><xsl:attribute name="class">before</xsl:attribute></xsl:element>
-						<xsl:element name="span">
-							<xsl:attribute name="class">tooltip_text</xsl:attribute>
-							<xsl:apply-templates mode="#current"/>
-						</xsl:element>
-					</xsl:element>
-				</xsl:element>
-			</xsl:otherwise>
-		</xsl:choose>
-	</xsl:template>
-	
 	<!-- DATE -->
 	<xsl:template match="tei:date" mode="interp">
 		<xsl:choose>
