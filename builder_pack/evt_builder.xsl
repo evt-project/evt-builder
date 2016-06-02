@@ -57,7 +57,7 @@
 	<!--<xsl:include href="modules/elements/evt_builder-interp-textstructure.xsl"/>-->
 	
 	<!-- Generic transformations -->
-	<xsl:include href="modules/elements/evt_builder-miscellaneous.xsl"/>
+	<xsl:include href="modules/elements/evt_builder-general.xsl"/>
 	
 	<!-- Extra -->
 	<xsl:include href="modules/extra/functx-1.0.xsl"/>

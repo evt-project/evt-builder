@@ -11,8 +11,8 @@
     
     <xd:doc type="stylesheet">
         <xd:short>
-            EN: Templates used to process the TEI elements of the CORE module.
-            IT: I template per la trasformazione degli elementi TEI del modulo CORE.
+            EN: Templates used to process the TEI elements of the CORE module and other general purpose elements not related to editorial activities.
+            IT: I template per la trasformazione degli elementi TEI del modulo CORE e altri elementi di uso generale non legati alle attività editoriali.
         </xd:short>
     </xd:doc>
     
