@@ -449,6 +449,7 @@ span.tooltip {
 	cursor: text !important;
     min-width: 30px;
 }
+
 span.tooltip span.before{
 	background: url("../images/popup_before.png") repeat scroll 0% 0% transparent;
 	left: 5%;
@@ -462,13 +463,8 @@ span.tooltip span, span.text_note span{
 }
 span.popup{
     display:inline-block;
-}	
-span.popup:hover > span.tooltip{
-	/*display: block;
-	min-width: 20px;
-	text-align: left;
-	padding:1%;*/
 }
+
 
 .doc.current span.popup span.trigger, .doc.current span.open_note .fa{ 
 	/*color: #999966;*/
@@ -526,6 +522,33 @@ span .text_note{
 	margin-top: 25px;
 	margin-left: -25px;
 }
+
+span.tooltip span.tooltip_text {
+    overflow: auto;
+    height: 100%;
+    width: 100%;
+    display: block;
+    max-height: 200px;
+    max-width: 300px;
+}
+
+/* CRITICAL NOTES */
+.inline_note.critical span.tooltip {
+    background: #e5e5e5;
+}
+.inline_note.critical span.tooltip span.before{
+    background: url("../images/popup_before_grey.png") repeat scroll 0% 0% transparent;
+}
+
+.inline_note.critical .open_note{
+    font-size: 0.8em !important;
+    top: -10px;
+    background: rgb(86, 28, 10) none repeat scroll 0% 0%;
+    color: rgb(245, 234, 212);
+    padding: 0px 6px 0px 4px;
+    border-radius: 5px;
+}
+
 /*.open_note:hover + span.text_note{
 	display: block;
 	min-width: 20px;
