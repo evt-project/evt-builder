@@ -447,6 +447,7 @@ span.tooltip {
 	z-index:99;
 	text-align: center;
 	cursor: text !important;
+    min-width: 30px;
 }
 span.tooltip span.before{
 	background: url("../images/popup_before.png") repeat scroll 0% 0% transparent;
