@@ -70,13 +70,13 @@
 						<p class="information"><xsl:value-of select="tei:fileDesc/tei:titleStmt/tei:title"/></p>
 					</div>
 				</xsl:if>
-				<xsl:if test="tei:fileDesc//author and tei:fileDesc//author/normalize-space()">
+				<xsl:if test="tei:fileDesc//author and tei:fileDesc//author/normalize-space() != ''">
 					<div>
 						<p class="title"><span lang="def">TEXT_AUTHOR</span></p>
 						<p class="information"><xsl:apply-templates select="tei:fileDesc//author"/></p>		
 					</div>
 				</xsl:if>
-				<xsl:if test="tei:fileDesc//principal and tei:fileDesc//principal/normalize-space()">
+				<xsl:if test="tei:fileDesc//principal and tei:fileDesc//principal/normalize-space() != ''">
 					<div>
 						<p class="title"><span lang="def">PRINCIPAL_INVESTIGATOR</span></p>
 						<p class="information"><xsl:apply-templates select="tei:fileDesc//principal"/></p>	
@@ -103,19 +103,19 @@
 			</div>
 			
 			<div id="publicationInfo_tab" class="box_tab">
-				<xsl:if test="tei:fileDesc//authority and tei:fileDesc//authority/normalize-space()">
+				<xsl:if test="tei:fileDesc//authority and tei:fileDesc//authority/normalize-space() != ''">
 					<div>
 						<p class="title"><span lang="def">AUTORITY</span></p>
 						<p class="information"><xsl:apply-templates select="tei:fileDesc//authority"/></p>						
 					</div>
 				</xsl:if>
-				<xsl:if test="tei:fileDesc//publisher and tei:fileDesc//publisher/normalize-space()">
+				<xsl:if test="tei:fileDesc//publisher and tei:fileDesc//publisher/normalize-space() != ''">
 					<div>
 						<p class="title"><span lang="def">PUBLISHER</span></p>
 						<p class="information"><xsl:apply-templates select="tei:fileDesc//publisher"/></p>						
 					</div>
 				</xsl:if>
-				<xsl:if test=" tei:fileDesc//pubPlace and tei:fileDesc//pubPlace/normalize-space()">
+				<xsl:if test=" tei:fileDesc//pubPlace and tei:fileDesc//pubPlace/normalize-space() != ''">
 					<div>
 						<p class="title"><span lang="def">PUBLICATION_PLACE</span></p>
 						<p class="information"><xsl:apply-templates select="tei:fileDesc//pubPlace"/></p>
@@ -127,7 +127,7 @@
 						<p class="information"><xsl:apply-templates select="tei:fileDesc//date"/></p>
 					</div>
 				</xsl:if>    
-				<xsl:if test="tei:fileDesc//availability and tei:fileDesc//availability/normalize-space()">
+				<xsl:if test="tei:fileDesc//availability and tei:fileDesc//availability/normalize-space() != ''">
 					<div>
 						<p class="title"><span lang="def">AVAILABILITY</span></p>
 						<p class="information"><xsl:value-of select="tei:fileDesc//availability"/></p>
@@ -136,32 +136,32 @@
 			</div>
 			
 			<div id="projectDesc_tab" class="box_tab">
-				<xsl:if test="tei:encodingDesc/projectDesc and tei:encodingDesc/projectDesc/normalize-space()">
+				<xsl:if test="tei:encodingDesc/projectDesc and tei:encodingDesc/projectDesc/normalize-space() != ''">
 					<p class="title"><span lang="def">PROFILE_DESCRIPTION</span></p>
 					<p class="information"><xsl:apply-templates select="tei:encodingDesc/projectDesc"/></p>	
 				</xsl:if>
-				<xsl:if test="tei:encodingDesc/editorialDecl and tei:encodingDesc/editorialDecl/normalize-space()">
+				<xsl:if test="tei:encodingDesc/editorialDecl and tei:encodingDesc/editorialDecl/normalize-space() != ''">
 					<p class="title"><span lang="def">EDITORIAL_DECLARATION</span></p>
 					
-					<xsl:if test="tei:encodingDesc/editorialDecl/correction and tei:encodingDesc/editorialDecl/correction/normalize-space()">
+					<xsl:if test="tei:encodingDesc/editorialDecl/correction and tei:encodingDesc/editorialDecl/correction/normalize-space() != ''">
 						<p class="information">
 							<span lang="def">CORRECTIONS</span><xsl:text>:</xsl:text>
 							<xsl:value-of select="tei:encodingDesc/editorialDecl/correction"/>
 						</p>
 					</xsl:if>
-					<xsl:if test="tei:encodingDesc/editorialDecl/normalization and tei:encodingDesc/editorialDecl/normalization/normalize-space()">
+					<xsl:if test="tei:encodingDesc/editorialDecl/normalization and tei:encodingDesc/editorialDecl/normalization/normalize-space() != ''">
 						<p class="information">	
 							<span lang="def">NORMALIZATION</span><xsl:text>:</xsl:text>							
 							<xsl:value-of select="tei:encodingDesc/editorialDecl/normalization"/>
 						</p>
 					</xsl:if>
-					<xsl:if test="tei:encodingDesc/editorialDecl/segmentation and tei:encodingDesc/editorialDecl/segmentation/normalize-space()">
+					<xsl:if test="tei:encodingDesc/editorialDecl/segmentation and tei:encodingDesc/editorialDecl/segmentation/normalize-space() != ''">
 						<p class="information">
 							<span lang="def">SEGMENTATION</span><xsl:text>:</xsl:text>	
 							<xsl:value-of select="tei:encodingDesc/editorialDecl/segmentation"/>
 						</p>
 					</xsl:if>
-					<xsl:if test="tei:encodingDesc/editorialDecl/hyphenation and tei:encodingDesc/editorialDecl/hyphenation/normalize-space()">							
+					<xsl:if test="tei:encodingDesc/editorialDecl/hyphenation and tei:encodingDesc/editorialDecl/hyphenation/normalize-space() != ''">							
 						<p class="information">
 							<span lang="def">HYPHENATION</span><xsl:text>:</xsl:text>
 							<xsl:value-of select="tei:encodingDesc/editorialDecl/hyphenation"/>
@@ -172,22 +172,22 @@
 			</div>
 			
 			<div id="profileDesc_tab" class="box_tab">
-				<xsl:if test="tei:profileDesc/langUsage and tei:profileDesc/langUsage/normalize-space()">
+				<xsl:if test="tei:profileDesc/langUsage and tei:profileDesc/langUsage/normalize-space() != ''">
 					<p class="title"><span lang="def">LANGUAGE</span></p>
 					<p class="information"><xsl:apply-templates select="tei:profileDesc/langUsage"/></p>	
 				</xsl:if>
-				<xsl:if test="tei:profileDesc/textDesc and tei:profileDesc/textDesc/normalize-space()">
+				<xsl:if test="tei:profileDesc/textDesc and tei:profileDesc/textDesc/normalize-space() != ''">
 					<p class="title"><span lang="def">TEXT_DESCRIPTION</span></p>
 					<p class="information"><xsl:apply-templates select="tei:profileDesc/textDesc"/></p>	
 				</xsl:if>
-				<xsl:if test="tei:profileDesc/textDesc and tei:profileDesc/settingDesc/normalize-space()">
+				<xsl:if test="tei:profileDesc/textDesc and tei:profileDesc/settingDesc/normalize-space() != ''">
 					<p class="title"><span lang="def">SETTING_DESCRIPTION</span></p>
 					<p class="information"><xsl:apply-templates select="tei:profileDesc/settingDesc"/></p>	
 				</xsl:if>				
 			</div>
 			
 			<div id="revisions_tab" class="box_tab">
-				<xsl:if test="tei:revisionDesc and tei:revisionDesc/normalize-space()">
+				<xsl:if test="tei:revisionDesc and tei:revisionDesc/normalize-space() != ''">
 					<p class="title"><span lang="def">REVISIONS</span></p>
 					<ul class="information">
 						<xsl:for-each select="tei:revisionDesc/change">							
