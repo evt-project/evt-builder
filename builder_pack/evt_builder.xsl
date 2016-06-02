@@ -62,4 +62,7 @@
 	<!-- Generation of text label from id. -->
 	<xsl:include href="modules/elements/evt_builder-generate-text_label.xsl"/>
 	
+	<!-- Custom templates -->
+	<xsl:include href="modules/evt_builder-custom-templates.xsl"/>
+	
 </xsl:stylesheet>
