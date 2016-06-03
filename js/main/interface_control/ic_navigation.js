@@ -654,7 +654,7 @@ function bindDDselectClick() {
     });
 }
 
-/* BINDSELECT EDITION LEVEL EVENT ON OPTION CLICK / SWITCH ON/OFF REGESTO */
+/* BIND SELECT EDITION LEVEL EVENT ON OPTION CLICK / SWITCH ON/OFF REGESTO */
 function bindEEselectClick() {
     $('.main_ee_select .option_container .option').click(function(){
         if ( ! $(this).hasClass('selected') ) {

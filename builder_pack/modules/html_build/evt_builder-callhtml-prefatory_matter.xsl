@@ -8,7 +8,7 @@
 
 	<xd:doc type="stylesheet">
 		<xd:short>
-			EN: Fundamental calls to generate the HTML structure.
+			EN: Fundamental calls to generate the HTML structure for prefatory matter.
 			IT: Le chiamate principali per la generazione della struttura HTML.
 		</xd:short>
 	</xd:doc>

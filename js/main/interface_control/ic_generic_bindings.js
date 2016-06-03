@@ -315,7 +315,7 @@ function bindFontSizeControllerBtnClick() {
     });
 }
 
-/*= BIND FONT COLLAPSE MENU BUTTONS CLICK EVENT =*/
+/*= BIND COLLAPSE MENU BUTTONS CLICK EVENT =*/
 function bindCollapseMenuBtnClick() {
     $('#header_collapse').click(function(){
         var noMenu_height, withMenu_height;
