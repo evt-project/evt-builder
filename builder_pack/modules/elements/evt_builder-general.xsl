@@ -18,7 +18,7 @@
     
     
     <!-- NOTE Note or annotation -->
-    <xsl:template match="tei:note">
+    <xsl:template match="//tei:note" mode="interp dipl #default">
         <xsl:choose>
             <xsl:when test="node()/ancestor::tei:listPerson or node()/ancestor::tei:listPlace">
                 <xsl:apply-templates mode="#current"/>
