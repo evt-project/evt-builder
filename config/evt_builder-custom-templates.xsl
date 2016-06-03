@@ -15,5 +15,5 @@
                 IT: Questo file è stato predisposto per accogliere template personalizzati
             </xd:short>
         </xd:doc>
-    
+    <!-- In order to make it work properly you need to add mode="interp dipl #default" to each template -->
 </xsl:stylesheet>
