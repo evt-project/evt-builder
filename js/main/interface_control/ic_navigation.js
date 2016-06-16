@@ -89,7 +89,6 @@ function selectTT(current_doc){
     var pp_first_doc_val = $("#span_pp_select .option_container .option.selected").attr('data-first-doc');  
     $("#span_tt_select .option[data-value='"+pp_first_doc_val+"'], #span_tt_select-add .option[data-value='"+pp_first_doc_val+"']")
         .addClass('inPage');
-
     $("#span_tt_select .option_container .option[data-value='"+current_doc+"'], #span_tt_select-add .option_container .option[data-value='"+current_doc+"']")
         .addClass('selected')
         .addClass('inPage')
@@ -134,7 +133,6 @@ function selectDocumentInPage(elem) {
         tt_val = $(elem).attr('data-doc');
         tt_lab = $("#span_tt_select .option[data-value='"+tt_val+"']").text();
         pp_val = $("#span_pp_select .label_selected").attr('data-value');
-        
         // updateRegestoContent(tt_val);
         // updateFrontContent(tt_val);
         updateHash(tt_val, pp_val, "");
@@ -233,6 +231,8 @@ function gotopage(pp_val, pp_lab, state){
                         $("#text_cont .doc").unbind('click').click(function(){
                             selectDocumentInPage(this);
                         });
+                    } else {
+                        $('#text').addClass('doc').addClass('current').attr('data-doc', current_tt);
                     }
 
                     $("img").error(function () {
@@ -304,20 +304,29 @@ function gotopage(pp_val, pp_lab, state){
                     // Aggiorna eventi sul click negli elementi del text
                     var current_tt, current_doc_title;
                     current_tt = $('#span_tt_select-add .option_container .option.selected').attr('data-value');
-                    $("#text_cont-add .doc[data-doc!='"+current_tt+"']").addClass('not_current');
-                    current_doc_title = $("#text_cont-add .doc[data-doc='"+current_tt+"']").attr('title');
                     
-                    $("#text_cont-add .doc[data-doc='"+current_tt+"']")
-                        .attr('tempTitle', current_doc_title)
-                        .removeAttr('title')
-                        .addClass('current');
+                    if($('#text_cont-add').find('.doc').length <= 0){
+                        $('#text_cont-add')
+                            .find('#text')
+                            .addClass('doc')
+                            .addClass('current')
+                            .attr('data-doc', current_tt);
+                    } else {
+                        $("#text_cont-add .doc[data-doc!='"+current_tt+"']").addClass('not_current');
+                        current_doc_title = $("#text_cont-add .doc[data-doc='"+current_tt+"']").attr('title');
+                        
+                        $("#text_cont-add .doc[data-doc='"+current_tt+"']")
+                            .attr('tempTitle', current_doc_title)
+                            .removeAttr('title')
+                            .addClass('current');
 
-                    if ($('#text_cont-add:visible .doc').length > 0) {
-                        $('#text_cont-add').scrollTop($('#text_cont-add .doc.current').position().top);
+                        if ($('#text_cont-add:visible .doc').length > 0) {
+                            $('#text_cont-add').scrollTop($('#text_cont-add .doc.current').position().top);
 
-                        $("#text_cont-add .doc").unbind('click').click(function(){
-                            selectDocumentInPage(this);
-                        });
+                            $("#text_cont-add .doc").unbind('click').click(function(){
+                                selectDocumentInPage(this);
+                            });
+                        }
                     }
 
                     InitializePopup();
@@ -365,7 +374,15 @@ function gotoedition(pp_val, ee_val, pp_el, frame_id){
                             .appendTo(elem);
                     }
                 } else {
-                    $('#'+frame_id+" .doc[data-doc!='"+tt_val+"']").addClass('not_current');
+                    if($('#'+frame_id).find('.doc').length <= 0){
+                        $('#'+frame_id)
+                            .find('#text')
+                            .addClass('doc')
+                            .addClass('current')
+                            .attr('data-doc', tt_val);
+                    } else {
+                        $('#'+frame_id+" .doc[data-doc!='"+tt_val+"']").addClass('not_current');
+                    }
 
                     // IT: se il pulsante ITL è attivo e non sono in modalità txttxt, attiva ITL
                     if ($("#switchITL i").hasClass('fa fa-chain')){
@@ -446,11 +463,11 @@ function navDoc(toward){
 
     new_pp = new_tt.attr('data-first-page');
     new_tt_val = new_tt.attr('data-value');
-    if ( $(".doc[data-doc='"+new_tt_val+"']").length > 0 ) {
+    if ( $(".doc[data-doc='"+new_tt_val+"']").length > 0 && $(".optionGroup[data-doc-group='"+new_tt_val+"']").find(".option[data-value='"+new_pp+"']").length>0) {
         $(".doc[data-doc='"+new_tt_val+"']").trigger('click');
         //selectTT(new_tt_val);
         $('#text_cont').scrollTop($('.doc.current').position().top);
-        updateHash(new_tt_val, current_pp, "");
+        updateHash(new_tt_val, current_pp, "");        
     } else {
         new_tt.trigger('click');
     }

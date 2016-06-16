@@ -75,6 +75,26 @@
 	</xsl:variable>
 	
 	<xsl:variable name="step-5">
+		<xsl:apply-templates select="$step-6" mode="splitLbPb"/>
+	</xsl:variable>
+	
+	<xsl:variable name="step-6">
+		<xsl:apply-templates select="$step-7" mode="splitLbPb"/>
+	</xsl:variable>
+	
+	<xsl:variable name="step-7">
+		<xsl:apply-templates select="$step-8" mode="splitLbPb"/>
+	</xsl:variable>
+	
+	<xsl:variable name="step-8">
+		<xsl:apply-templates select="$step-9" mode="splitLbPb"/>
+	</xsl:variable>
+	
+	<xsl:variable name="step-9">
+		<xsl:apply-templates select="$step-10" mode="splitLbPb"/>
+	</xsl:variable>
+	
+	<xsl:variable name="step-10">
 		<xsl:apply-templates select="//node()[name()=$ed_content]" mode="splitLbPb"/>
 	</xsl:variable>
 	
@@ -103,6 +123,11 @@
 	<!--IT: Per ogni pagina chiama il template page -->
 	<xsl:template match="*" mode="splitPages">
 		<!--<xsl:copy-of select="*"></xsl:copy-of>-->
+		<xsl:for-each-group select="//node()[name()=$ed_content]/descendant-or-self::node()[@type='original-front']/node()" group-starting-with="//tei:pb">
+			<xsl:if test="self::tei:pb"> <!--IT: test per non creare una pagina per un gruppo che non inizia con pb (puo succedere al primo gruppo)  -->
+				<xsl:call-template name="page"/> <!-- See: evt_builder-main -->
+			</xsl:if>
+		</xsl:for-each-group>
 		<xsl:for-each-group select="//node()[name()=$ed_content]/descendant-or-self::node()[name()=$start_split]/node()" group-starting-with="//tei:pb">
 			<xsl:if test="self::tei:pb"> <!--IT: test per non creare una pagina per un gruppo che non inizia con pb (puo succedere al primo gruppo)  -->
 				<xsl:call-template name="page"/> <!-- See: evt_builder-main -->
@@ -122,7 +147,19 @@
 					<xsl:variable name="pb_id" select="@xml:id" />
 					<xsl:variable name="pb_n" select="@n" />
 					<xsl:for-each select="current-group()/descendant::tei:persName[starts-with(@ref,'#')]">
-						<xsl:variable name="doc_id" select="current()/ancestor::tei:text[1]/@xml:id" />
+						<xsl:variable name="doc_id">
+							<xsl:choose>
+								<xsl:when test="current()/ancestor::tei:text[1]/@xml:id">
+									<xsl:value-of select="current()/ancestor::tei:text[1]/@xml:id"/>
+								</xsl:when>
+								<xsl:when test="current()/ancestor::tei:body[1]/tei:div[@subtype='edition_text']/@xml:id">
+									<xsl:value-of select="current()/ancestor::tei:body[1]/tei:div[@subtype='edition_text']/@xml:id"/>
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:value-of select="count(current()/ancestor::tei:text[1]/preceding-sibling::tei:text) + 1"/>
+								</xsl:otherwise>
+							</xsl:choose>
+						</xsl:variable>
 						<xsl:element name="span">
 							<xsl:attribute name="data-ref"><xsl:value-of select="translate(@ref, '#', '')"/></xsl:attribute>
 							<xsl:attribute name="data-doc"><xsl:value-of select="$doc_id"/></xsl:attribute>
@@ -143,7 +180,19 @@
 					<xsl:variable name="pb_id" select="@xml:id" />
 					<xsl:variable name="pb_n" select="@n" />
 					<xsl:for-each select="current-group()/descendant::tei:placeName[starts-with(@ref,'#')]">
-						<xsl:variable name="doc_id" select="current()/ancestor::tei:text[1]/@xml:id" />
+						<xsl:variable name="doc_id">
+							<xsl:choose>
+								<xsl:when test="current()/ancestor::tei:text[1]/@xml:id">
+									<xsl:value-of select="current()/ancestor::tei:text[1]/@xml:id"/>
+								</xsl:when>
+								<xsl:when test="current()/ancestor::tei:body[1]/tei:div[@subtype='edition_text']/@xml:id">
+									<xsl:value-of select="current()/ancestor::tei:body[1]/tei:div[@subtype='edition_text']/@xml:id"/>
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:value-of select="count(current()/ancestor::tei:text[1]/preceding-sibling::tei:text) + 1"/>
+								</xsl:otherwise>
+							</xsl:choose>
+						</xsl:variable>
 						<xsl:element name="span">
 							<xsl:attribute name="data-ref"><xsl:value-of select="translate(@ref, '#', '')"/></xsl:attribute>
 							<xsl:attribute name="data-doc"><xsl:value-of select="$doc_id"/></xsl:attribute>

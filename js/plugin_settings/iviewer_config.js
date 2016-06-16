@@ -16,6 +16,7 @@ $( function() {
     var firstload = true;
     var current_pp;
     var hash_parts = new Array();
+    var last_src = '';
     hash_parts = location.hash.substr(1).split('&');
     if ( hash_parts != "" ) {
         for (var i = 0; i < hash_parts.length; i++) {
@@ -34,9 +35,12 @@ $( function() {
         }
     }
     var cpns;
+
     if (current_pp !== undefined) {
-       cpns="data/input_data/images/single/"+current_pp+".jpg";
+        current_pp = current_pp.replace('-front', '');
+        cpns="data/input_data/images/single/"+current_pp+".jpg";
     }
+
     var iv1 = $("#image_elem").iviewer({
             src: cpns, 
             update_on_resize: true,
@@ -156,7 +160,6 @@ $( function() {
       
         $(window).hashchange( function(){
             var curr_src;
-
             hash_parts = location.hash.substr(1).split('&');
             if ( hash_parts != "" ) {
                 for (var i = 0; i < hash_parts.length; i++) {
@@ -180,21 +183,26 @@ $( function() {
                 }
                 curr_src = "data/input_data/images/single/"+current_pp+".jpg";
             }
-            //alert(curr_src);
-            if (firstload){
-                iv1.iviewer('loadImage', "data/input_data/images/single/"+current_pp+".jpg");
-                firstload = false;
-            }
-            else if ( $('#text_elem').attr('data-page') != current_pp || $('#iviewerImage').attr('src') != curr_src ||
-                      (($('#iviewerImage').attr('src') == curr_src) && ($('#image_loading').is(':visible')) ) 
-                    ){
-                $('#image_fade').fadeOut(600, function(){
-                //$('#iviewerImage').fadeOut(600);      
-                    $('#image_loading').show();     
-                    iv1.iviewer('loadImage', curr_src);
-                });
-            }
+            curr_src = curr_src.replace('-front', '');
 
+            if (firstload){
+                curr_src = "data/input_data/images/single/"+current_pp.replace('-front', '')+".jpg";
+                iv1.iviewer('loadImage', curr_src);
+                firstload = false;
+                last_src = curr_src
+            }
+            else if (last_src != curr_src) { 
+                if ( $('#text_elem').attr('data-page') != current_pp || $('#iviewerImage').attr('src') != curr_src ||
+                          (($('#iviewerImage').attr('src') == curr_src) && ($('#image_loading').is(':visible')) ) 
+                        ){
+                    $('#image_fade').fadeOut(600, function(){
+                    //$('#iviewerImage').fadeOut(600);      
+                        $('#image_loading').show();     
+                        iv1.iviewer('loadImage', curr_src);
+                    });
+                }
+                last_src = curr_src
+            }
         });
 
         $("#slider").slider(

@@ -181,8 +181,8 @@ jquery_lang_js.prototype.lang.en = {
 
     "NEVER_SHOW_AGAIN" : "Never show again",
 
-    "ERROR_LOADING_TEXT": "There was an error in loading the text.",
-    "ERROR_LOADING_IMAGE": "There was an error in loading the image. The transcript for this page may not yet be available. For more informations, please contact the curators.",
+    "ERROR_LOADING_TEXT": "There was an error in loading the text. The transcript for this page may not yet be available. ",
+    "ERROR_LOADING_IMAGE": "There was an error in loading the image. For more informations, please contact the curators.",
     "ERROR_LOADING_HI_IMAGE": "There was a problem while loading the hi-res image."
 }
 

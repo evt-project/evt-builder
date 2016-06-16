@@ -429,11 +429,11 @@
 		<!-- do nothing -->
 	</xsl:template>
 	
-	<xsl:template match="tei:text/tei:body" mode="interp">
-		<xsl:if test="current()[not((string-length(normalize-space()))= 0)]">
+	<xsl:template match="tei:body" mode="interp">
+		
 			<xsl:element name="div">
 				<xsl:attribute name="class">doc</xsl:attribute>
-				<xsl:attribute name="data-doc"><xsl:value-of select="current()/parent::tei:text/@xml:id"/></xsl:attribute>
+				<xsl:attribute name="data-doc" select="current()/parent::tei:text/@xml:id"/>
 				<xsl:attribute name="title"><xsl:text>Doc. </xsl:text>
 					<xsl:choose>
 						<xsl:when test="current()/parent::tei:text/@n">
@@ -450,7 +450,7 @@
 				</xsl:attribute>
 				<xsl:apply-templates mode="#current"/>
 			</xsl:element>
-		</xsl:if>
+		
 	</xsl:template>
 	
 	<!-- TITLEs in NOTE emphasized  -->
@@ -507,7 +507,7 @@
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:element name="span">
-					<xsl:attribute name="class">date</xsl:attribute>
+					<xsl:attribute name="class">date no-info </xsl:attribute>
 					<xsl:apply-templates mode="#current"/>
 				</xsl:element>
 			</xsl:otherwise>
@@ -536,7 +536,8 @@
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:element name="span">
-					<xsl:attribute name="class">persName <xsl:value-of select="substring-after(current()/@ref,'#')" /></xsl:attribute>
+					<xsl:attribute name="class">persName no-info <xsl:value-of select="substring-after(current()/@ref,'#')" /></xsl:attribute>
+					<xsl:attribute name="title"><xsl:value-of select="substring-after(current()/@ref,'#')" /></xsl:attribute>
 					<xsl:apply-templates mode="#current" />
 				</xsl:element>
 			</xsl:otherwise>
@@ -547,10 +548,7 @@
 		<xsl:choose>
 			<xsl:when test="current()//tei:forename or current()//tei:surname or current()//tei:sex or current()//tei:occupation">
 				<xsl:element name="span">
-					<xsl:attribute name="class">
-						entity_name 
-						<xsl:if test="$list_person=true()"> link_active</xsl:if>
-					</xsl:attribute>
+					<xsl:attribute name="class">entity_name <xsl:if test="$list_person=true()"> link_active</xsl:if></xsl:attribute>
 					<xsl:attribute name="data-ref">
 						<xsl:value-of select="@xml:id" />
 					</xsl:attribute>
@@ -641,7 +639,7 @@
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:element name="span">
-					<xsl:attribute name="class">measure</xsl:attribute>
+					<xsl:attribute name="class">measure no-info</xsl:attribute>
 					<xsl:apply-templates mode="#current"/>
 				</xsl:element>
 			</xsl:otherwise>
@@ -678,7 +676,8 @@
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:element name="span">
-					<xsl:attribute name="class">placeName <xsl:value-of select="substring-after(current()/@ref,'#')" /></xsl:attribute>
+					<xsl:attribute name="class">placeName no-info <xsl:value-of select="substring-after(current()/@ref,'#')" /></xsl:attribute>
+					<xsl:attribute name="title"><xsl:value-of select="substring-after(current()/@ref,'#')" /></xsl:attribute>
 					<xsl:apply-templates mode="#current" />
 				</xsl:element>
 			</xsl:otherwise>

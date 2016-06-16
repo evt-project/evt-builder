@@ -589,9 +589,9 @@ footer{
 	height: auto;
 	overflow-y: hidden;
 	width: auto;
-	max-width: 85%;
+	max-width: 88%;
 	/*margin-top: -20px;*/
-	padding: 10px 10px 30px 20px;
+	padding: 10px 10px 30px 10px;
 }
 
 #mag_image_elem{
@@ -1853,6 +1853,10 @@ div.doc.not_current{
 div.doc.not_current:hover{
 	cursor: pointer;
 	opacity: .6;
+}
+
+#front .original-front {
+	display: none;
 }
 
 /* LISTE */

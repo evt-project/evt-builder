@@ -466,9 +466,10 @@ span.popup{
 }
 
 
-.doc.current span.popup span.trigger, .doc.current span.open_note .fa{ 
-	/*color: #999966;*/
-	color: #69513a; /*background-color: rgba(255,255,204,0.8);*/ 
+.doc.current span.trigger, .doc.current span.popup span.trigger, 
+.doc.current span.open_note .fa,
+.doc.current .persName.no-info, .doc.current .placeName.no-info{ 
+	color: #69513a;
 	cursor: pointer;
 }
 
@@ -584,7 +585,9 @@ div[id*='regesto'] span.trigger:hover, div[id*='regesto'] .popup.opened span.tri
 	cursor: pointer;
 	text-shadow:0px 0px 1px #000;
 }
-.doc.current span.persName.list_active span.trigger, 
+.doc.current span.persName.no-info.list_active,
+.doc.current span.persName.no-info:hover,
+.doc.current span.persName.list_active span.trigger,
 .doc.current span.persName.over span.trigger, 
 .doc.current span.persName.opened span.trigger
 {
@@ -621,6 +624,8 @@ span.roleName.list_active{
 	cursor: default;
 }
 
+.doc.current span.placeName.no-info.list_active,
+.doc.current span.placeName.no-info:hover,
 .doc.current span.placeName.list_active span.trigger, 
 .doc.current span.placeName.over > span.trigger, 
 .doc.current span.placeName.opened > span.trigger{
@@ -641,6 +646,12 @@ span.roleName.list_active{
 .option[data-value="date"] .filter_color{
 	color: #9CD5F2;
 }
+span.no-info{
+    cursor: default !important;
+}
+.doc.current span.persName.no-info, .doc.current span.placeName.no-info{ 
+    color: #69513a;
+}
 
 .doc.current span.opened > span.trigger{
 	/*text-shadow:0px 0px 1px rgba(0,0,0,0.8);*/
@@ -653,7 +664,6 @@ span.display-block{
 span.quote{
     font-style:italic;
 }
-
 span.tooltip span.entity_name.link_active{
 	text-decoration: underline;
 	cursor: pointer;

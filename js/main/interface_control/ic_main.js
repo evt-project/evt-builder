@@ -127,7 +127,7 @@ $(function() {
 			// 		var text_ref, group_elem;
 			// 		text_ref = $(this).attr('n').replace(/\s+/g, '');
 			// 		group_elem = $('<div/>')
-			// 						.attr("data-first-doc-group", text_ref)
+			// 						.attr("data-doc-group", text_ref)
 			// 						.addClass('optionGroup')
 			// 						.append($('<span>').text(text_ref));
 			// 		$('.main_dd_select .option_container').append(group_elem);
@@ -170,7 +170,7 @@ $(function() {
 					// 	second_text_ref = second_text_ref.replace(/\s+/g, '');
 
 					// 	if(first_text_ref !== second_text_ref){
-					// 		$(".main_dd_select [data-first-doc-group='"+second_text_ref+"']").append(
+					// 		$(".main_dd_select [data-doc-group='"+second_text_ref+"']").append(
 					//			$('<div/>')
 			  		//				.attr("data-value", current_id)
 			  		// 				.attr("data-first-page-first-doc", first_text_ref)
@@ -190,7 +190,7 @@ $(function() {
 				}
 
 				// if (groupingPagesByDoc) {
-				// 	$(".main_dd_select [data-first-doc-group='"+first_text_ref+"']").append(
+				// 	$(".main_dd_select [data-doc-group='"+first_text_ref+"']").append(
    				//  	$('<div/>')
 	   			//			.attr("data-value", current_id)
 	   			//			.attr("data-first-page-first-doc", first_text_ref)
@@ -240,7 +240,7 @@ $(function() {
 				if (groupingPagesByDoc) {
 					$('.main_pp_select .option_container').append(
 					    $('<div/>')
-	    						.attr("data-first-doc-group", current_id)
+	    						.attr("data-doc-group", current_id)
 	    						.addClass('optionGroup')
 	    						.append($('<span>').text(current_label))
 					);
@@ -255,7 +255,7 @@ $(function() {
 				    						.addClass('option')
 				    						.text(page_current_label);
     					if (groupingPagesByDoc) {
-    						$(".main_pp_select [data-first-doc-group='"+current_id+"']").append(newOption);
+    						$(".main_pp_select [data-doc-group='"+current_id+"']").append(newOption);
     					} else {
     						$('.main_pp_select .option_container').append(newOption);
     					}
@@ -509,7 +509,7 @@ $(function() {
 						$(this).parents('.main_pp_select').find(".option[data-value='"+pp_val+"']").each(function(){
 							if($(this).attr('data-value') != tt_val){
 								var temp_tt_val;
-								temp_tt_val = $(this).parents('.optionGroup').attr('data-first-doc-group');
+								temp_tt_val = $(this).parents('.optionGroup').attr('data-doc-group');
 								temp_tt = $("#span_tt_select .option[data-value='"+temp_tt_val+"']").attr('data-real-label');
 								docs += "<span>"+temp_tt+"</span>";
 							}
@@ -555,7 +555,7 @@ $(function() {
 							if ( pp_vals[i] != '' && pp_vals[i] != '(<span lang="'+window.lang.currentLang+'">'+window.lang.convert('PAGE_MISSING', window.lang.currentLang)+'</span>)' ) {
 								$("#span_pp_select .option[data-value='"+pp_vals[i]+"']").each(function(){
 									var temp_tt_val;
-									temp_tt_val = $(this).parents('.optionGroup').attr('data-first-doc-group');
+									temp_tt_val = $(this).parents('.optionGroup').attr('data-doc-group');
 									temp_tt = $("#span_tt_select .option[data-value='"+temp_tt_val+"']").attr('data-real-label');
 									if ( tt_vals[tt_vals.length-1] != temp_tt ) {
 										tt_vals.push(temp_tt);
