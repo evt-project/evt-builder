@@ -418,6 +418,7 @@ $.widget( "ui.iviewer", $.ui.mouse, {
                     .appendTo('#image_cont');
             }
             me._trigger("onErrorLoad", 0, src);
+            $('#image_loading').hide();
         });
     },
 

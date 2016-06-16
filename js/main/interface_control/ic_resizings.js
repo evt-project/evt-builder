@@ -532,7 +532,7 @@ function updateLinesWidth(mainFrameElem){
     var textInnerWidt = mainFrameElem.find("div[id*='text_cont']").innerWidth()*85/100;
     $(mainFrameElem).find('.dipl-left, .interp-left').each(function(){
         $(this).css({
-            'max-width': (textInnerWidt-lineNwidth-38)+'px'
+            'max-width': (textInnerWidt-lineNwidth-43)+'px'
         });
     });
 }
