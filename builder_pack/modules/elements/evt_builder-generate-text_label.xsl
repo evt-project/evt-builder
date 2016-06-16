@@ -11,8 +11,8 @@
     
 	<xd:doc type="stylesheet">
 		<xd:short>
-			EN: This file collects functions and templates that can be customized according to own needs
-			IT: Questo file è una collezione di funzioni e template che possono essere personalizzati a seconda delle necessita'
+			EN: This file contains a template used to generate automatically text label when the element representing the text has no @n attibute
+			IT: Questo file contiene un template utilizzato per generare automaticamente l'etichetta del testo quando l'elemento che rappresenta il testo stesso non ha un attributo @n
 		</xd:short>
 	</xd:doc>
 	
