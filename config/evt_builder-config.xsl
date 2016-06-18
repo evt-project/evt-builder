@@ -31,6 +31,8 @@
 	<xsl:param name="filePrefix" select="'../../..'"/> <!-- file path -->
 	<xsl:param name="dataPrefix" select="'../..'"/> <!-- page -->
 	
+	<xsl:param name="imageExt">jpg</xsl:param> <!-- images extension -->
+	
 	<!-- EN: Main web site for digital edition -->
 	<!-- IT: Sito web principale dell'edizione -->
 	<!-- default: '' -->

@@ -161,7 +161,9 @@
 				<xsl:with-param name="html_path" select="$mainPrefix"/>
 			</xsl:call-template>
 			<body>
-				<div id="global_wrapper">
+				<xsl:element name="div">
+					<xsl:attribute name="id" select="'global_wrapper'"/>
+					<xsl:attribute name="data-image-extension" select="$imageExt"/>
 					<div id="keyboard_shortcuts_cont" class="dialog" data-content="keyboard_shortcuts">
 						<div id="keyboard_shortcuts" class="dialog_cont">
 							<a href="javascript:void(0);" id="close_keyboard_shortcuts_cont" class="dialog_close" data-dialog="keyboard_shortcuts_cont" lang="def" title="CLOSE"><i class="fa fa-close"></i></a>
@@ -1023,7 +1025,7 @@
 					<footer>
 						<p>2012 - 2015 @ EVT team – University of Pisa</p>
 					</footer>
-				</div>
+				</xsl:element>
 				<script src="js/main/fullscreen_request.js"/>
 				<script>
 					(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

@@ -596,7 +596,7 @@ footer{
 
 #mag_image_elem{
     height:100%;
-    overflow: auto;
+    /*overflow: auto;*/
 }
 
 #image_elem, #image_fade {  
@@ -874,7 +874,7 @@ footer{
     /*float: left;*/
     display: inline-block;
 	padding: 9px 3px;
-	margin: 5px;
+	margin: 3px;
 	cursor: pointer;
 }
 

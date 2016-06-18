@@ -59,13 +59,14 @@ function magnifierReady() {
 	/*IT: inserisco nuova immagine in #mag_image_elem */
 
 	//alert(current_pp);
+	var imageExt = $('#global_wrapper').attr('data-image-extension') || 'jpg';
 	if ($('.current_mode').attr('id') == 'imgd_link') {
-		imgB = "data/input_data/images/double/" + current_pp.replace("+", "-") + "_big.jpg";
+		imgB = "data/input_data/images/double/" + current_pp.replace("+", "-") + "_big."+imageExt;
 	} else {
 		if (current_pp.indexOf('+') > 0) {
     		current_pp = current_pp.substr(0, current_pp.indexOf('+'));
 		}
-		imgB = "data/input_data/images/single/" + current_pp + "_big.jpg";
+		imgB = "data/input_data/images/single/" + current_pp + "_big."+imageExt;
 	}
 	$("#mag_image_elem").append('<a href="' + imgB + '" class="magnifier" ></a>');
 	$("#mag_image_elem > a").append(img);
