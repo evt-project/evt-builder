@@ -138,74 +138,78 @@ $(function() {
 				var current_id, first_page_d, second_page_d;
 				var current_label, first_label_d, second_label_d;
 				var first_text_ref, second_text_ref;
+				var first_page_in_front, second_page_in_front;
 
 				first_page_d = $(this).children('pb').eq(0).text();
 				first_label_d = $(this).children('pb').eq(0).attr("n") != "" ? $(this).children('pb').eq(0).attr("n") : first_page_d;
-				second_page_d = $(this).children('pb').eq(1).text();
-				second_label_d = $(this).children('pb').eq(1).attr("n") != "" ? $(this).children('pb').eq(1).attr("n") : second_page_d;
 				
-				current_id = "";
-				current_label = "";
-				
-				first_text_ref = $(xml)
-					.find('textpage text')
-					.find('pb:contains("'+first_page_d+'")')
-					.parent().attr('n');
-				if (first_text_ref === undefined) {
+				if (first_page_d.indexOf('-front') < 0){
+					second_page_d = $(this).children('pb').eq(1).text();
+					second_label_d = $(this).children('pb').eq(1).attr("n") != "" ? $(this).children('pb').eq(1).attr("n") : second_page_d;
+					
+					current_id = "";
+					current_label = "";
+					
 					first_text_ref = $(xml)
 						.find('textpage text')
-						.find("pb[n='"+first_page_d+"']")
+						.find('pb:contains("'+first_page_d+'")')
 						.parent().attr('n');
-				}
-				first_text_ref = first_text_ref.replace(/\s+/g, '');
-
-				if (second_page_d !== "") {
-					current_id = first_page_d+"+"+second_page_d;
-					current_label = first_label_d+" - "+second_label_d;
-					// if (groupingPagesByDoc) {
-					//	second_text_ref = $(xml)
-					// 						.find('textpage text')
-					// 						.find('pb:contains("'+second_page_d+'")')
-					// 						.parent().attr('n');
-					// 	second_text_ref = second_text_ref.replace(/\s+/g, '');
-
-					// 	if(first_text_ref !== second_text_ref){
-					// 		$(".main_dd_select [data-doc-group='"+second_text_ref+"']").append(
-					//			$('<div/>')
-			  		//				.attr("data-value", current_id)
-			  		// 				.attr("data-first-page-first-doc", first_text_ref)
-					// 				.addClass('option')
-					// 				.text(current_label)
-					// 		);
-		   			//	}
-		   			// }
-				}
-				else {
-					current_id = first_page_d;
-					if ( first_label_d.substr(-1).toLowerCase() == 'v' ) {
-						current_label = first_label_d+"<span lang='def'>PAGE_MISSING_RIGHT</span>";
-					} else {
-						current_label = "<span lang='def'>PAGE_MISSING_LEFT</span>"+ first_label_d;
+					if (first_text_ref === undefined) {
+						first_text_ref = $(xml)
+							.find('textpage text')
+							.find("pb[n='"+first_page_d+"']")
+							.parent().attr('n');
 					}
-				}
+					first_text_ref = first_text_ref.replace(/\s+/g, '');
 
-				// if (groupingPagesByDoc) {
-				// 	$(".main_dd_select [data-doc-group='"+first_text_ref+"']").append(
-   				//  	$('<div/>')
-	   			//			.attr("data-value", current_id)
-	   			//			.attr("data-first-page-first-doc", first_text_ref)
-				// 			.addClass('option')
-				// 			.text(current_label)
-	   			//	);
-				// } else {
-					$('.main_dd_select .option_container').append(
-	    				$('<div/>')
-	    					.attr("data-value", current_id)
-	    					.attr("data-first-page-first-doc", first_text_ref)
-							.addClass('option')
-							.append(current_label)
-	    			);
-				// }
+					if (second_page_d !== "") {
+						current_id = first_page_d+"+"+second_page_d;
+						current_label = first_label_d+" - "+second_label_d;
+						// if (groupingPagesByDoc) {
+						//	second_text_ref = $(xml)
+						// 						.find('textpage text')
+						// 						.find('pb:contains("'+second_page_d+'")')
+						// 						.parent().attr('n');
+						// 	second_text_ref = second_text_ref.replace(/\s+/g, '');
+
+						// 	if(first_text_ref !== second_text_ref){
+						// 		$(".main_dd_select [data-doc-group='"+second_text_ref+"']").append(
+						//			$('<div/>')
+				  		//				.attr("data-value", current_id)
+				  		// 				.attr("data-first-page-first-doc", first_text_ref)
+						// 				.addClass('option')
+						// 				.text(current_label)
+						// 		);
+			   			//	}
+			   			// }
+					}
+					else {
+						current_id = first_page_d;
+						if ( first_label_d.substr(-1).toLowerCase() == 'v' ) {
+							current_label = first_label_d+"<span lang='def'>PAGE_MISSING_RIGHT</span>";
+						} else {
+							current_label = "<span lang='def'>PAGE_MISSING_LEFT</span>"+ first_label_d;
+						}
+					}
+
+					// if (groupingPagesByDoc) {
+					// 	$(".main_dd_select [data-doc-group='"+first_text_ref+"']").append(
+	   				//  	$('<div/>')
+		   			//			.attr("data-value", current_id)
+		   			//			.attr("data-first-page-first-doc", first_text_ref)
+					// 			.addClass('option')
+					// 			.text(current_label)
+		   			//	);
+					// } else {
+						$('.main_dd_select .option_container').append(
+		    				$('<div/>')
+		    					.attr("data-value", current_id)
+		    					.attr("data-first-page-first-doc", first_text_ref)
+								.addClass('option')
+								.append(current_label)
+		    			);
+					// }
+				}
 			});
 			$('.main_dd_select .option_container div.option:first-child').addClass('selected');
 			$('.main_dd_select .label_selected')
@@ -245,13 +249,19 @@ $(function() {
 	    						.append($('<span>').text(current_label))
 					);
 				}
+
 				$(this).find('pb').each(function(){
 					var page_current_id = $(this).text();
+					var pageInFront = page_current_id.indexOf('-front') >= 0
+					page_current_id = page_current_id.replace('-front', '')
+					
     				var page_current_label = $(this).attr("n");
-    				if( groupingPagesByDoc || (!groupingPagesByDoc && $(".main_pp_select .option_container .option[data-value='"+page_current_id+"']").length <= 0)) {
+    				if( ( groupingPagesByDoc && $(".main_pp_select [data-doc-group='"+current_id+"'] .option[data-value='"+page_current_id+"']").length <= 0)|| 
+    					(!groupingPagesByDoc && $(".main_pp_select .option_container .option[data-value='"+page_current_id+"']").length <= 0)) {
     					var newOption = $('<div/>')
 				    						.attr("data-value", page_current_id)
 				    						.attr("data-first-doc", current_id)
+				    						.attr("data-has-front", pageInFront)
 				    						.addClass('option')
 				    						.text(page_current_label);
     					if (groupingPagesByDoc) {

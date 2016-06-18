@@ -849,7 +849,10 @@
 								</xsl:element>
 							</xsl:if>
 							<div id="text_cont" class="text-box can-change-font-size inner_frame">
-								<div id="text_elem"/>
+								<div id="text_elem">
+									<div id="front_frame"></div>
+									<div id="text_frame"></div>
+								</div>
 							</div>
 							<xsl:if test="$search=true()">
 								<div id="search_cont" class="collapsed bottomBox searchContainer">

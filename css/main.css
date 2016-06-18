@@ -521,7 +521,7 @@ footer{
 	font-size: 19px;
 }
 
-#text_frame, #text_elem-add > div, #regesto, #regesto-add{
+#text_frame, #front_frame, #text_elem-add > div, #regesto, #regesto-add{
 	margin-top:auto !important;
 	/*overflow-y: scroll;*/
 }
@@ -552,7 +552,7 @@ footer{
 	background: #000;
 }
 
-#text {
+#text, #text-add {
 	color: #000;
 }
 

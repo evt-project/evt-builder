@@ -270,6 +270,12 @@ function openTxtTxtMode() {
                 .find('#text')
                     .attr('id', 'text-add')
                     .css('display', 'inline-block');
+    $('#text_elem-add')
+            .find('#front_frame')
+                .attr('id', 'front_frame-add')
+                .find('#text')
+                    .attr('id', 'text-add')
+                    .css('display', 'inline-block');
     if ($('#text_cont-add .doc').length > 0) {
         $('#text_cont-add').scrollTop($('#text_cont-add .doc.current').position().top);
     }
