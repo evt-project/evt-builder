@@ -37,8 +37,10 @@ var fulltogg;
 var first_pp, last_pp;
 var first_dd, last_dd;
 var groupingPagesByDoc, optionTooltipInPages;
+var image_ext;
 
 $(function() {
+	image_ext = $('#global_wrapper').attr('data-image-extension') || 'jpg';
 	window.lang = new jquery_lang_js();
 	window.lang.run();
 	"use strict";
@@ -279,7 +281,7 @@ $(function() {
 		    			
 		    			$('<img />')
 		    				.addClass('thumb_single_img')
-		    				.attr('data-src', 'data/input_data/images/single/'+page_current_id+'_small.jpg')
+		    				.attr('data-src', 'data/input_data/images/single/'+page_current_id+'_small.'+image_ext)
 		    				.appendTo(figure);
 		    			
 		    			$('<figcaption />')

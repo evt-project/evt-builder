@@ -186,10 +186,11 @@
                                                                                                        - finisce con r, è preceduto da un pb che finisce con v, ma il numero del @n che finisce con r non è consecutivo a quello del @n che finisce con v (104v e 106r vengno inseriti in due gruppi diversi)
                                                                                                        - non finisce né con v né con r (104 e 105 vengno inseriti in due gruppi diversi)
                         -->
-                        <xsl:for-each-group select="$step0//tei:pb" group-starting-with="node()[ends-with(@n, 'v') 
-                                                                                                or (ends-with(@n, 'r') and not(preceding-sibling::tei:pb[1][ends-with(@n, 'v')]) )
-                                                                                                or (ends-with(@n, 'r') and preceding-sibling::tei:pb[1][ends-with(@n, 'v')] and not( number(translate(@n,'r',''))= number(translate(preceding-sibling::tei:pb[1]/@n,'v',''))+1))
-                                                                                                or (not (ends-with(@n, 'v') or ends-with(@n, 'r')))]" >
+                        <xsl:for-each-group select="$step0//tei:pb" 
+                            group-starting-with="node()[ends-with(@n, 'v') 
+                                                    or (ends-with(@n, 'r') and not(preceding-sibling::tei:pb[1][ends-with(@n, 'v')]) )
+                                                    or (ends-with(@n, 'r') and preceding-sibling::tei:pb[1][ends-with(@n, 'v')] and not( number(translate(@n,'r',''))= number(translate(preceding-sibling::tei:pb[1]/@n,'v',''))+1))
+                                                    or (not (ends-with(@n, 'v') or ends-with(@n, 'r')))]" >
                             <pair>
                                 <xsl:for-each select="current-group()/self::tei:pb">
                                     <pb>
