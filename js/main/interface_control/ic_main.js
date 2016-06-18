@@ -281,6 +281,8 @@ $(function() {
 		    			
 		    			$('<img />')
 		    				.addClass('thumb_single_img')
+		    				.attr("src", "images/empty-image.jpg")
+		    				.attr("data-state", "to-load")
 		    				.attr('data-src', 'data/input_data/images/single/'+page_current_id+'_small.'+image_ext)
 		    				.appendTo(figure);
 		    			
