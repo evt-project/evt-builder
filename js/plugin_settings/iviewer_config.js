@@ -141,9 +141,10 @@ $( function() {
             var getThumbsSrc = setInterval(function (){
                 for (var i = 0; i < 10 && countThumbs < thumbsElems.length; i++) {
                     var thumbEl = thumbsElems[countThumbs];
-                    if (thumbEl.getAttribute('src') == undefined || thumbEl.getAttribute('src') == '') {
+                    if (thumbEl.getAttribute('data-state') == 'to-load' || thumbEl.getAttribute('src') == undefined || thumbEl.getAttribute('src') == '') {
                         if (thumbEl.getAttribute('data-src') !== undefined){
                             thumbEl.setAttribute('src', thumbEl.getAttribute('data-src'));
+                            thumbEl.setAttribute('data-state', 'loaded');
                         }
                     }
                     countThumbs++;
