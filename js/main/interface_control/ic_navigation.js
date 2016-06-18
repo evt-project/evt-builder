@@ -156,186 +156,215 @@ function gotopage(pp_val, pp_lab, state){
     } else {
         current_font_size = parseFloat($('#text_cont').css('font-size'));
     }
-    
-    $('#text_elem')
-        .attr('data-page', pp_val)
-        .empty()
-        .load("data/output_data/"+edition+"/page_"+pp_val+"_"+edition+".html #text_frame", 
-            function( response, status, xhr ){
-                if (status === 'error') {
-                    if ($('#text_elem .errorMsg').length == 0) {
-                        var errorMsg = window.lang.convert('ERROR_LOADING_TEXT', window.lang.currentLang);
-                        $('<span class="errorMsg">')
-                            .text(errorMsg)
-                            .appendTo('#text_elem');
-                    }
-                } else {
-                    $('#text_cont')
-                        .css({
-                            'font-size': current_font_size+'px',
-                            'line-height': (current_font_size+10)+'px'
-                        });
-                    //IT: Attiva occorrenza in lista 
-                    var right_frame = $('#main_right_frame');
-                    if ( right_frame.find('.list').length > 0 && 
-                         right_frame.find('.list_element.list_element_opened').length > 0 ) {
-                        right_frame.find('.selected_from_list').removeClass('selected_from_list');
-                        right_frame.find('.list_element_opened').each(function() {
-                            var ref;
-                            ref = $(this).attr('id');
-                            $("#text span[data-ref='"+ref+"']").addClass('selected_from_list');
-                        });
-                    }
-                    if (!$('#imgd_link').hasClass('current_mode')){
-                        updateLinesWidth(right_frame);
-                    }
 
-                    //IT: Riattiva filtri attivi
-                    updateEntitiesFiltered(right_frame);
 
-                    //IT: controlla se la pagine ha gli elementi necessari allo strumento ITL
-                    if ($('#text_elem .Area').length){
-                        if($('#switchITL').hasClass('inactive') || $('#switchITL').hasClass('likeInactive')){
-                            enableITLbutton();
-                        }
-                    } else {
-                        if($('#switchITL i ').hasClass('fa-circle-o')) disableITLbutton();
-                         else $('#switchITL').addClass('likeInactive');
-                    }
-                    //IT: controlla se la pagine ha gli elementi necessari allo strumento HS
-                    if ($('#text_elem .Annotation').length){
-                        if($('#switchHS').hasClass('inactive') || $('#switchHS').hasClass('likeInactive')){
-                            enableHSbutton();
-                        }
-                    } else {
-                         if($('#switchHS i ').hasClass('fa-circle-o')) disableHSbutton();
-                         else $('#switchHS').addClass('likeInactive');
-                    }
+    var pageLoadedCallback = function(status, current_font_size) {
+        if (status === 'error') {
+            if ($('#text_elem .errorMsg').length == 0) {
+                var errorMsg = window.lang.convert('ERROR_LOADING_TEXT', window.lang.currentLang);
+                $('<span class="errorMsg">')
+                    .text(errorMsg)
+                    .appendTo('#text_elem');
+            }
+        } else {
+            $('#text_cont')
+                .css({
+                    'font-size': current_font_size+'px',
+                    'line-height': (current_font_size+10)+'px'
+                });
+            //IT: Attiva occorrenza in lista 
+            var right_frame = $('#main_right_frame');
+            if ( right_frame.find('.list').length > 0 && 
+                 right_frame.find('.list_element.list_element_opened').length > 0 ) {
+                 right_frame.find('.selected_from_list').removeClass('selected_from_list');
+                 right_frame.find('.list_element_opened').each(function() {
+                    var ref;
+                    ref = $(this).attr('id');
+                    $("#text span[data-ref='"+ref+"']").addClass('selected_from_list');
+                });
+            }
+            if (!$('#imgd_link').hasClass('current_mode')){
+                updateLinesWidth(right_frame);
+            }
 
-                    // Aggiorna eventi sul click negli elementi del text
-                    var current_tt, current_doc_title;
-                    current_tt = $('#span_tt_select .option_container .option.selected').attr('data-value');
-                    $("#text_cont .doc[data-doc!='"+current_tt+"']").addClass('not_current');
-                    current_doc_title = $("#text_cont .doc[data-doc='"+current_tt+"']").attr('title');
-                    
-                    $("#text_cont .doc[data-doc='"+current_tt+"']")
-                        .attr('tempTitle', current_doc_title)
-                        .removeAttr('title')
-                        .addClass('current');
+            //IT: Riattiva filtri attivi
+            updateEntitiesFiltered(right_frame);
 
-                    if ($('#text_cont .doc').length > 0) {
-                        if ($('#text_cont .doc.current').length > 0 && $('#text_cont .doc.current').position() !== undefined) {
-                            $('#text_cont').scrollTop($('#text_cont .doc.current').position().top);
-                        }
-
-                        $("#text_cont .doc").unbind('click').click(function(){
-                            selectDocumentInPage(this);
-                        });
-                    } else {
-                        $('#text').addClass('doc').addClass('current').attr('data-doc', current_tt);
-                    }
-
-                    $("img").error(function () {
-                        $(this)
-                            .unbind("error")
-                            .attr("src", "images/no-image.png")
-                            .css('opacity', '0.3');
-                        if ( $(this).parent('.tooltip') ){
-                            $(this).css({
-                                'width': '100px'
-                            });
-                        }
-                    });
-
-                    InitializePopup();
-                    InitializeRefs();
-                    InitializeSearch();
-
-                    
-                    if ($('.selected_from_list').length > 0) {
-                        $('#text_cont.reachingOccurence')
-                            .scrollTop($('.selected_from_list').position().top)
-                            .removeClass('reachingOccurence');
-                    }
+            //IT: controlla se la pagine ha gli elementi necessari allo strumento ITL
+            if ($('#text_elem .Area').length){
+                if($('#switchITL').hasClass('inactive') || $('#switchITL').hasClass('likeInactive')){
+                    enableITLbutton();
                 }
+            } else {
+                if($('#switchITL i ').hasClass('fa-circle-o')) disableITLbutton();
+                 else $('#switchITL').addClass('likeInactive');
+            }
+            //IT: controlla se la pagine ha gli elementi necessari allo strumento HS
+            if ($('#text_elem .Annotation').length){
+                if($('#switchHS').hasClass('inactive') || $('#switchHS').hasClass('likeInactive')){
+                    enableHSbutton();
+                }
+            } else {
+                 if($('#switchHS i ').hasClass('fa-circle-o')) disableHSbutton();
+                 else $('#switchHS').addClass('likeInactive');
+            }
+
+            // Aggiorna eventi sul click negli elementi del text
+            var current_tt, current_doc_title;
+            current_tt = $('#span_tt_select .option_container .option.selected').attr('data-value');
+            $("#text_cont .doc[data-doc!='"+current_tt+"']").addClass('not_current');
+            current_doc_title = $("#text_cont .doc[data-doc='"+current_tt+"']").attr('title');
+            
+            $("#text_cont .doc[data-doc='"+current_tt+"']")
+                .attr('tempTitle', current_doc_title)
+                .removeAttr('title')
+                .addClass('current');
+
+            if ($('#text_cont .doc').length > 0) {
+                if ($('#text_cont .doc.current').length > 0 && $('#text_cont .doc.current').position() !== undefined) {
+                    $('#text_cont').scrollTop($('#text_cont .doc.current').position().top);
+                }
+
+                $("#text_cont .doc").unbind('click').click(function(){
+                    selectDocumentInPage(this);
+                });
+            } else {
+                $('#text').addClass('doc').addClass('current').attr('data-doc', current_tt);
+            }
+
+            $("img").error(function () {
+                $(this)
+                    .unbind("error")
+                    .attr("src", "images/no-image.png")
+                    .css('opacity', '0.3');
+                if ( $(this).parent('.tooltip') ){
+                    $(this).css({
+                        'width': '100px'
+                    });
+                }
+            });
+
+            InitializePopup();
+            InitializeRefs();
+            InitializeSearch();
+
+            
+            if ($('.selected_from_list').length > 0) {
+                $('#text_cont.reachingOccurence')
+                    .scrollTop($('.selected_from_list').position().top)
+                    .removeClass('reachingOccurence');
+            }
+        }
+    }
+
+    var pageLoadedCallbackAdd = function(status, current_font_size) {
+        if (status === 'error') {
+            if ($('#text_elem-add .errorMsg').length == 0) {
+                var errorMsg = window.lang.convert('ERROR_LOADING_TEXT', window.lang.currentLang);
+                $('<span class="errorMsg">')
+                    .text(errorMsg)
+                    .appendTo('#text_elem-add');
+            }
+        } else {
+            $('#text_cont-add')
+                .css({
+                    'font-size': current_font_size+'px',
+                    'line-height': (current_font_size+10)+'px'
+                });
+            //IT: Attiva occorrenza in lista 
+            var left_frame = $('#main_left_frame');
+            if ( left_frame.find('.list').length > 0 &&
+                 left_frame.find('.list_element.list_element_opened').length > 0 ) {
+                
+                left_frame.find('.selected_from_list').removeClass('selected_from_list')
+                left_frame.find('.list_element_opened').each(function() {
+                    var ref;
+                    ref = $(this).attr('id');
+                    $("#text span[data-ref='"+ref+"']").addClass('selected_from_list');
+                });
+            }
+            if (!$('#imgd_link').hasClass('current_mode')){
+                updateLinesWidth(left_frame);
+            }
+            //IT: Riattiva filtri attivi
+            left_frame
+                .find('.like_select.filter')
+                    .find('.option.selected')
+                        .removeClass('selected')
+                        .trigger('click');
+
+            // Aggiorna eventi sul click negli elementi del text
+            var current_tt, current_doc_title;
+            current_tt = $('#span_tt_select-add .option_container .option.selected').attr('data-value');
+            
+            if($('#text_cont-add').find('.doc').length <= 0){
+                $('#text_cont-add')
+                    .find('#text')
+                    .addClass('doc')
+                    .addClass('current')
+                    .attr('data-doc', current_tt);
+            } else {
+                $("#text_cont-add .doc[data-doc!='"+current_tt+"']").addClass('not_current');
+                current_doc_title = $("#text_cont-add .doc[data-doc='"+current_tt+"']").attr('title');
+                
+                $("#text_cont-add .doc[data-doc='"+current_tt+"']")
+                    .attr('tempTitle', current_doc_title)
+                    .removeAttr('title')
+                    .addClass('current');
+
+                if ($('#text_cont-add:visible .doc').length > 0) {
+                    $('#text_cont-add').scrollTop($('#text_cont-add .doc.current').position().top);
+
+                    $("#text_cont-add .doc").unbind('click').click(function(){
+                        selectDocumentInPage(this);
+                    });
+                }
+            }
+
+            InitializePopup();
+            InitializeRefs();
+            InitializeSearch();
+            /* Integration by LS */
+            window.lang.run();  
+            /* /end Integration by LS */
+        }
+    }
+
+    $('#text_elem #front_frame').empty()
+    if ( $(".main_pp_select .option[data-value='"+pp_val+"']").attr('data-has-front') === 'true' ) {
+        $('#text_elem #front_frame')
+            .attr('data-page', pp_val)
+            .load("data/output_data/"+edition+"/page_"+pp_val+"-front_"+edition+".html #text_frame #text", 
+                function( response, status, xhr ){
+                    pageLoadedCallback(status, current_font_size);
+            });
+    }
+    
+    $('#text_elem #text_frame')
+        .attr('data-page', pp_val)
+        // .empty()
+        .load("data/output_data/"+edition+"/page_"+pp_val+"_"+edition+".html #text_frame #text", 
+            function( response, status, xhr ){
+                pageLoadedCallback(status, current_font_size);
         });
     
     // IT: Aggiorna l'indirizzo del frame secondario per il testo
     if ($("#text_cont-add").length > 0){ //SISTEMARE
         edition_add = $("#span_ee_select-add .option_container .option.selected").text().toLowerCase();
 
-        $('#text_elem-add').load("data/output_data/"+edition_add+"/page_"+pp_val+"_"+edition_add+".html #text_frame", 
-            function( response, status, xhr ){
-                if (status === 'error') {
-                    if ($('#text_elem-add .errorMsg').length == 0) {
-                        var errorMsg = window.lang.convert('ERROR_LOADING_TEXT', window.lang.currentLang);
-                        $('<span class="errorMsg">')
-                            .text(errorMsg)
-                            .appendTo('#text_elem-add');
-                    }
-                } else {
-                    $('#text_cont-add')
-                        .css({
-                            'font-size': current_font_size+'px',
-                            'line-height': (current_font_size+10)+'px'
-                        });
-                    //IT: Attiva occorrenza in lista 
-                    var left_frame = $('#main_left_frame');
-                    if ( left_frame.find('.list').length > 0 &&
-                         left_frame.find('.list_element.list_element_opened').length > 0 ) {
-                        
-                        left_frame.find('.selected_from_list').removeClass('selected_from_list')
-                        left_frame.find('.list_element_opened').each(function() {
-                            var ref;
-                            ref = $(this).attr('id');
-                            $("#text span[data-ref='"+ref+"']").addClass('selected_from_list');
-                        });
-                    }
-                    if (!$('#imgd_link').hasClass('current_mode')){
-                        updateLinesWidth(left_frame);
-                    }
-                    //IT: Riattiva filtri attivi
-                    left_frame
-                        .find('.like_select.filter')
-                            .find('.option.selected')
-                                .removeClass('selected')
-                                .trigger('click');
-
-                    // Aggiorna eventi sul click negli elementi del text
-                    var current_tt, current_doc_title;
-                    current_tt = $('#span_tt_select-add .option_container .option.selected').attr('data-value');
-                    
-                    if($('#text_cont-add').find('.doc').length <= 0){
-                        $('#text_cont-add')
-                            .find('#text')
-                            .addClass('doc')
-                            .addClass('current')
-                            .attr('data-doc', current_tt);
-                    } else {
-                        $("#text_cont-add .doc[data-doc!='"+current_tt+"']").addClass('not_current');
-                        current_doc_title = $("#text_cont-add .doc[data-doc='"+current_tt+"']").attr('title');
-                        
-                        $("#text_cont-add .doc[data-doc='"+current_tt+"']")
-                            .attr('tempTitle', current_doc_title)
-                            .removeAttr('title')
-                            .addClass('current');
-
-                        if ($('#text_cont-add:visible .doc').length > 0) {
-                            $('#text_cont-add').scrollTop($('#text_cont-add .doc.current').position().top);
-
-                            $("#text_cont-add .doc").unbind('click').click(function(){
-                                selectDocumentInPage(this);
-                            });
-                        }
-                    }
-
-                    InitializePopup();
-                    InitializeRefs();
-                    InitializeSearch();
-                    /* Integration by LS */
-                    window.lang.run();  
-                    /* /end Integration by LS */
-                }
+        $('#text_elem-add #front_frame-add').empty()
+        if ( $(".main_pp_select .option[data-value='"+pp_val+"']").attr('data-has-front') === 'true' ) {
+            $('#text_elem-add #front_frame-add')
+                .load("data/output_data/"+edition_add+"/page_"+pp_val+"-front_"+edition_add+".html #text_frame #text",
+                    function( response, status, xhr ){
+                        pageLoadedCallbackAdd(status, current_font_size);
+                });
+        }
+        $('#text_elem-add #text_frame-add')
+            // .empty()
+            .load("data/output_data/"+edition_add+"/page_"+pp_val+"_"+edition_add+".html #text_frame #text", 
+                function( response, status, xhr ){
+                    pageLoadedCallbackAdd(status, current_font_size);
         });
             
         // IT: Aggiorna le informazioni all'interno dell'etichetta destra   
@@ -361,71 +390,86 @@ function gotoedition(pp_val, ee_val, pp_el, frame_id){
     if (HSon === true){
         UnInitializeHS(true);
     } //Add by JK for HS
-    $('#'+pp_el)
-        .empty()
-        .load("data/output_data/"+ee_val+"/page_"+pp_val+"_"+ee_val+".html #text_frame",
-            function( response, status, xhr ) {
-                if (status === 'error') {
-                    var elem = $('#'+frame_id+" div[id*='text_elem']");
-                    if (elem.find(".errorMsg").length == 0) {
-                        var errorMsg = window.lang.convert('ERROR_LOADING_TEXT', window.lang.currentLang);
-                        $('<span class="errorMsg">')
-                            .text(errorMsg)
-                            .appendTo(elem);
-                    }
-                } else {
-                    if($('#'+frame_id).find('.doc').length <= 0){
-                        $('#'+frame_id)
-                            .find('#text')
-                            .addClass('doc')
-                            .addClass('current')
-                            .attr('data-doc', tt_val);
-                    } else {
-                        $('#'+frame_id+" .doc[data-doc!='"+tt_val+"']").addClass('not_current');
-                    }
+    
+    var editionLoadedCallback = function(status) {
+        if (status === 'error') {
+            var elem = $('#'+frame_id+" div[id*='text_elem']");
+            if (elem.find(".errorMsg").length == 0) {
+                var errorMsg = window.lang.convert('ERROR_LOADING_TEXT', window.lang.currentLang);
+                $('<span class="errorMsg">')
+                    .text(errorMsg)
+                    .appendTo(elem);
+            }
+        } else {
+            if($('#'+frame_id).find('.doc').length <= 0){
+                $('#'+frame_id)
+                    .find('#text')
+                    .addClass('doc')
+                    .addClass('current')
+                    .attr('data-doc', tt_val);
+            } else {
+                $('#'+frame_id+" .doc[data-doc!='"+tt_val+"']").addClass('not_current');
+            }
 
-                    // IT: se il pulsante ITL è attivo e non sono in modalità txttxt, attiva ITL
-                    if ($("#switchITL i").hasClass('fa fa-chain')){
-                        if(!($('.current_mode').attr('id') === 'txttxt_link')){
-                            Initialize();
-                        }
-                    } /*Add by JK for ITL*/
-                    if ($("#switchHS i").hasClass('fa fa-dot-circle-o')){
-                        if(!($('.current_mode').attr('id') === 'txttxt_link')){
-                            InitializeHS();
-                        }
-                    } /*Add by JK for HS*/
-                    
-                    if (!$('#imgd_link').hasClass('current_mode')){
-                        updateLinesWidth($('#main_right_frame'));
-                        updateLinesWidth($('#main_left_frame'));
-                    }
-                    
-                    var current_doc = $('#span_tt_select .label_selected').attr('data-value');
-                    if ( $(".doc[data-doc='"+current_doc+"']").length > 0 ) {
-                        $(".doc[data-doc='"+current_doc+"']").addClass('current');
-                    }
-                    
-                    InitializePopup();
-                    InitializeRefs();
-                    InitializeSearch();
-                    
-                    $("#text_cont .doc, #text_cont-add .doc").unbind('click').click(function(){
-                        selectDocumentInPage(this);
-                    });
-                    if($("#"+pp_el).parents("div[id*='frame']").find('.like_select.filter')){
-                        $("#"+pp_el)
-                            .parents("div[id*='frame']")
-                                .find('.like_select.filter')
-                                    .find('.option_container .option.selected')
-                                        .removeClass('selected')
-                                        .trigger('click');
-                                        
-                    }
-                    /* Integration by LS */
-                    window.lang.run();  
-                    /* /end Integration by LS */
+            // IT: se il pulsante ITL è attivo e non sono in modalità txttxt, attiva ITL
+            if ($("#switchITL i").hasClass('fa fa-chain')){
+                if(!($('.current_mode').attr('id') === 'txttxt_link')){
+                    Initialize();
                 }
+            } /*Add by JK for ITL*/
+            if ($("#switchHS i").hasClass('fa fa-dot-circle-o')){
+                if(!($('.current_mode').attr('id') === 'txttxt_link')){
+                    InitializeHS();
+                }
+            } /*Add by JK for HS*/
+            
+            if (!$('#imgd_link').hasClass('current_mode')){
+                updateLinesWidth($('#main_right_frame'));
+                updateLinesWidth($('#main_left_frame'));
+            }
+            
+            var current_doc = $('#span_tt_select .label_selected').attr('data-value');
+            if ( $(".doc[data-doc='"+current_doc+"']").length > 0 ) {
+                $(".doc[data-doc='"+current_doc+"']").addClass('current');
+            }
+            
+            InitializePopup();
+            InitializeRefs();
+            InitializeSearch();
+            
+            $("#text_cont .doc, #text_cont-add .doc").unbind('click').click(function(){
+                selectDocumentInPage(this);
+            });
+            if($("#"+pp_el).parents("div[id*='frame']").find('.like_select.filter')){
+                $("#"+pp_el)
+                    .parents("div[id*='frame']")
+                        .find('.like_select.filter')
+                            .find('.option_container .option.selected')
+                                .removeClass('selected')
+                                .trigger('click');
+                                
+            }
+            /* Integration by LS */
+            window.lang.run();  
+            /* /end Integration by LS */
+        }
+    }
+
+    $("#"+pp_el+" div[id*='front_frame']").empty()
+    if ( $(".main_pp_select .option[data-value='"+pp_val+"']").attr('data-has-front') === 'true' ) {
+        $("#"+pp_el+" div[id*='front_frame']")
+            .attr('data-page', pp_val)
+            .load("data/output_data/"+ee_val+"/page_"+pp_val+"-front_"+ee_val+".html #text_frame #text", 
+                function( response, status, xhr ){
+                    editionLoadedCallback(status);
+            });
+    }
+
+    $("#"+pp_el+" div[id*='text_frame']")
+        // .empty()
+        .load("data/output_data/"+ee_val+"/page_"+pp_val+"_"+ee_val+".html #text_frame #text",
+            function( response, status, xhr ) {
+                editionLoadedCallback(status);
             }
         );
 

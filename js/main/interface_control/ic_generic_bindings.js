@@ -305,10 +305,10 @@ function bindFontSizeControllerBtnClick() {
 
     $('#decrease_font_size').click(function(){
         var currentFontSize, currentFontSizeNum, newFontSize;
-        currentFontSize = $('#text_frame').css('font-size');
+        currentFontSize = $('#text_frame, #front_frame').css('font-size');
         currentFontSizeNum = parseFloat(currentFontSize, 10);
         
-        $('#text_frame').css({
+        $('#text_frame, #front_frame').css({
             'font-size': newFontSize,
             'line-height': (newFontSize+10)+'px'
         });
