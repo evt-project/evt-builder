@@ -66,6 +66,7 @@ $(function() {
 		url: "data/output_data/structure.xml",
 		dataType: "xml",
 		success: function(xml) {
+			
 			/* =================== */
 			/* LOAD EDITION LEVELS */
 			$(xml).find('editions edition').each(function(){
@@ -329,51 +330,53 @@ $(function() {
 				});
 				
 				$(xml).find('liste').children().each(function(){
-					var listName, listLabel;
-					listName = $(this).get(0).tagName;
-					listLabel = $(this).text();
-					$('<div />')
-						.attr('id', 'list_'+listName)
-						.addClass('list')
-						.appendTo('#lists_cont')
-					;
-					$('<span />')
-						.addClass('labelList')
-						.attr('id', 'header_'+listName)
-						.attr('lang', 'def')
-						.text(listLabel)
-						.click(function(){
-							openList(this, listName);
-						})
-						.appendTo('#list_header');
-					$('#lists_cont').find('.list').first().addClass('list_opened').show();
-					$('#lists_cont').find('.labelList').first().addClass('active');
-					$('.list_filter').first().trigger('click');
+					if ($(this).attr('active') == '1'){
+						var listName, listLabel;
+						listName = $(this).get(0).tagName;
+						listLabel = $(this).text();
+						$('<div />')
+							.attr('id', 'list_'+listName)
+							.addClass('list')
+							.appendTo('#lists_cont')
+						;
+						$('<span />')
+							.addClass('labelList')
+							.attr('id', 'header_'+listName)
+							.attr('lang', 'def')
+							.text(listLabel)
+							.click(function(){
+								openList(this, listName);
+							})
+							.appendTo('#list_header');
+						$('#lists_cont').find('.list').first().addClass('list_opened').show();
+						$('#lists_cont').find('.labelList').first().addClass('active');
+						$('.list_filter').first().trigger('click');
 
-					$('#list_'+listName).load("data/output_data/liste/"+listName+".html #"+listName, function(){
+						$('#list_'+listName).load("data/output_data/liste/"+listName+".html #"+listName, function(){
 
-						if ( $('#list_'+listName).find('li').length == 0 ) {
-							$('#list_'+listName).remove();
-							$('#header_'+listName).remove();
+							if ( $('#list_'+listName).find('li').length == 0 ) {
+								$('#list_'+listName).remove();
+								$('#header_'+listName).remove();
 
-							if ( $('#list_header').find('.labelList').length == 0 ) {
-								$('#lists_cont').remove();
-								$('#list_link').remove();
+								if ( $('#list_header').find('.labelList').length == 0 ) {
+									$('#lists_cont').remove();
+									$('#list_link').remove();
+								}
+							} else {
+								$('#list_'+listName)
+									.find('.list_element').find('.toggle_list_element, .entity_name').click(function(){
+										showListElementOccurrences($(this).parent(), listName);
+									});
 							}
-						} else {
-							$('#list_'+listName)
-								.find('.list_element').find('.toggle_list_element, .entity_name').click(function(){
-									showListElementOccurrences($(this).parent(), listName);
-								});
-						}
-						/* Integration by LS */
-				        if ( $("[lang!='"+window.lang.currentLang+"']").length > 0 ) {
-				        	window.lang.update(window.lang.currentLang);
-				        }
-				        /* /end Integration by LS */
-				        InitializeRefs();
-				        $('.list_filter:first').trigger('click');
-					});
+							/* Integration by LS */
+					        if ( $("[lang!='"+window.lang.currentLang+"']").length > 0 ) {
+					        	window.lang.update(window.lang.currentLang);
+					        }
+					        /* /end Integration by LS */
+					        InitializeRefs();
+					        $('.list_filter:first').trigger('click');
+						});
+					}
 				});
 				if ($.browser.safari) {
 					$('#list_header .labelList').css('top', '1px');
