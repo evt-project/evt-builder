@@ -33,6 +33,7 @@ doc/
 *.rar
 *.tar
 *.zip
+*.xpr
 
 # Logs and databases #
 ######################

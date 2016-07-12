@@ -49,7 +49,7 @@
 					<link rel="stylesheet" type="text/css" href="{$html_path}/css/page_data-include-{$output}.css"/>
 				</xsl:otherwise>
 			</xsl:choose>
-
+			<link rel="stylesheet" type="text/css" href="{$html_path}/config/evt_builder-custom-styles.css"/>
 			<xsl:comment>jQuery lib</xsl:comment>
 			<script type="text/javascript" src="{$html_path}/js/jquery_lib/jquery-latest.js"/>
 			<script type="text/javascript" src="{$html_path}/js/jquery_lib/jquery-ui-latest.js"/>
