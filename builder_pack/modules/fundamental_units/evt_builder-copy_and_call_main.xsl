@@ -123,7 +123,7 @@
 	<!--IT: Per ogni pagina chiama il template page -->
 	<xsl:template match="*" mode="splitPages">
 		<!--<xsl:copy-of select="*"></xsl:copy-of>-->
-		<xsl:for-each-group select="//node()[name()=$ed_content]/descendant-or-self::node()[@type='original-front']/node()" group-starting-with="//tei:pb">
+		<xsl:for-each-group select="//node()[name()=$ed_content]/descendant-or-self::node()[@type='document_front']/node()" group-starting-with="//tei:pb">
 			<xsl:if test="self::tei:pb"> <!--IT: test per non creare una pagina per un gruppo che non inizia con pb (puo succedere al primo gruppo)  -->
 				<xsl:call-template name="page"/> <!-- See: evt_builder-main -->
 			</xsl:if>
