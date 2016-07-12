@@ -26,7 +26,9 @@
 	-->
 
 	<xsl:template match="/" mode="ITL">
-		<xsl:variable name="n" select="tei:pb/@xml:id"/>
+		<xsl:variable name="n" select="replace(tei:pb/@xml:id, '-front', '')"/>
+
+		
 		<!-- EN: The menu of categories and annotations. -->
 		<!-- IT: Il menu di categorie e associazioni. -->
 		<xsl:element name="div">
