@@ -195,7 +195,7 @@
 				</xsl:when>
 				<!-- IT: Se c'è il surface viene creato un albero temporaneo che corrisponde al gruppo corrente trasformato in base al livello di edizione;
 										 a questo viene applicato il template per il collegamento testo-immagine-->
-				<xsl:when test="$root//tei:facsimile/tei:surface[translate(@corresp, '#', '')=$pb_n]//tei:zone[@rendition='Line']">
+				<xsl:when test="$root//tei:facsimile/tei:surface[translate(@corresp, '#', '')=replace($pb_n, '-front', '')]//tei:zone[@rendition='Line']">
 					<!--<xsl:copy-of select="current-group()"/>--> <!-- <-use this to find split errors -->
 					<xsl:variable name="text"><xsl:apply-templates select="current-group()" mode="dipl"/></xsl:variable>
 					<!-- IT: aggiungi elementi div per linee di testo -->
@@ -237,7 +237,7 @@
 				</xsl:when>
 				<!-- IT: Se c'è il surface viene creato un albero temporaneo che corrisponde al gruppo corrente trasformato in base al livello di edizione;
 										 a questo viene applicato il template per il collegamento testo-immagine-->
-				<xsl:when test="$root//tei:facsimile/tei:surface[translate(@corresp, '#', '')=$pb_n]//tei:zone[@rendition='Line']">
+				<xsl:when test="$root//tei:facsimile/tei:surface[translate(@corresp, '#', '')=replace($pb_n, '-front', '')]//tei:zone[@rendition='Line']">
 					<!--<xsl:copy-of select="current-group()"/>--> <!-- <-use this to find split errors -->
 					<xsl:variable name="text"><xsl:apply-templates select="current-group()" mode="interp"/></xsl:variable>
 					<xsl:variable name="text2">
