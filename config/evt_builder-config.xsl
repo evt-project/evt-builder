@@ -17,8 +17,8 @@
 	</xd:doc>
 	
 	<!-- GLOBAL -->
-	<!-- EN: The global variable $root is in the file evt_builder-copy_and_call_main.xsl-->
-	<!-- IT: La variabile globale $root si trova nel file evt_builder-copy_and_call_main.xsl-->
+	<!-- EN: The global variable $root is in the file evt_builder-main.xsl-->
+	<!-- IT: La variabile globale $root si trova nel file evt_builder-main.xsl-->
 	
 	<!-- Parameters -->
 	<!-- EN: It is possible to modify these prefixes so that they point to a custom web site, for instance:
@@ -86,12 +86,12 @@
 	<!-- EN: On/Off regesto -->
 	<!-- IT: Attiva/Disattiva regesto -->
 	<!-- default: false() -->
-	<xsl:param name="regesto" select="true()"/>
+	<xsl:param name="regesto" select="false()"/>
 	
 	<!-- EN: On/Off Front Information -->
 	<!-- IT: Attiva/Disattiva Front Information -->
 	<!-- default: true() -->
-	<xsl:param name="frontInfo" select="false()"/>
+	<xsl:param name="frontInfo" select="true()"/>
 	
 	<!-- EN: On/Off Manuscript Description -->
 	<!-- IT: Attiva/Disattiva Descrizione del manoscritto-->
