@@ -654,6 +654,35 @@
 		</xsl:element>
 	</xsl:template>
 	
+	<!-- ORG NAME  -->
+	<xsl:template match="tei:orgName" mode="interp">
+		<xsl:choose>
+			<xsl:when test="@type">
+				<xsl:element name="span">
+					<xsl:attribute name="class">popup orgName</xsl:attribute>
+					<xsl:element name="span">
+						<xsl:attribute name="class">trigger</xsl:attribute>
+						<xsl:apply-templates mode="#current"/>
+					</xsl:element>
+					<xsl:element name="span">
+						<xsl:attribute name="class">tooltip</xsl:attribute>
+						<xsl:element name="span"><xsl:attribute name="class">before</xsl:attribute></xsl:element>
+						<xsl:if test="@type">
+							<xsl:value-of select="replace(@type, '-', '/')"/>
+						</xsl:if>
+					</xsl:element>
+				</xsl:element>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:element name="span">
+					<xsl:attribute name="class">orgName no-info</xsl:attribute>
+					<xsl:apply-templates mode="#current"/>
+				</xsl:element>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
+	
+	
 	<!-- PLACE NAME place name -->
 	<xsl:template match="tei:placeName[starts-with(@ref,'#')]" mode="interp">
 		<xsl:choose>

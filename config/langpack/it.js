@@ -152,6 +152,7 @@ jquery_lang_js.prototype.lang.it = {
     "persName": "Persone",
     "placeName": "Luoghi",
     "roleName": "Mestieri/Ruoli",
+    "orgName":"Enti religiosi",
     "measure": "Monete",
     "date": "Date",
     "clear": "Nessuna selezione",

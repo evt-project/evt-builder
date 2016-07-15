@@ -578,7 +578,7 @@ span.term, span.emph span.term{
 	font-style:italic;
 }
 
-span.persName, span.measure, span.roleName, span.placeName, span.date
+span.persName, span.measure, span.orgName, span.roleName, span.placeName, span.date
 span.popup.persName, span.popup.measure, span.popup.roleName, span.popup.placeName, span.popup.date{
     display:inline;
 }
@@ -609,6 +609,21 @@ div[id*='regesto'] span.trigger:hover, div[id*='regesto'] .popup.opened span.tri
 }
 .option[data-value="measure"] .filter_color{
 	color: #ffecb3;
+}
+
+.doc.current span.orgName.list_active, 
+.doc.current span.orgName.over,
+.doc.current span.orgName.list_active span.trigger, 
+.doc.current span.orgName.over span.trigger, 
+.doc.current span.orgName.opened span.trigger{
+    background-color: #ffb74d;    
+    cursor:pointer;
+}
+.option[data-value="orgName"] .filter_color{
+	color: #ffb74d;
+}
+.doc.current span.orgName.no-info, .doc.current span.orgName.no-info{ 
+    color: #ffb74d;
 }
 
 .doc.current span.roleName.list_active, 
