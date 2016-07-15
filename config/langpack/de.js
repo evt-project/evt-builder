@@ -154,6 +154,7 @@ jquery_lang_js.prototype.lang.de = {
     "persName": "Personen",
     "placeName": "Orte",
     "roleName": "Gewerbe/Rollen",
+    "orgName":"Religi&ouml;se organisationen",
     "measure": "W&auml;hrungen",
     "date": "Daten",
     "clear": "Keine Auswahl",

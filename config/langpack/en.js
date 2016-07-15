@@ -154,6 +154,7 @@ jquery_lang_js.prototype.lang.en = {
     "persName": "People",
     "placeName": "Places",
     "roleName": "Crafts/Roles",
+    "orgName":"Religious organizations",
     "measure": "Currencies",
     "date": "Dates",
     "clear": "No selection",

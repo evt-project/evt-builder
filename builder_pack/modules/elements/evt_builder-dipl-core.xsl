@@ -411,6 +411,11 @@
 		<xsl:apply-templates mode="#current"/>
 	</xsl:template>
 	
+	<!-- ORG NAME  -->
+	<xsl:template match="tei:orgName" mode="dipl">
+		<xsl:apply-templates mode="#current"/>
+	</xsl:template>
+	
 	<!-- PLACE NAME personal name -->
 	<xsl:template match="tei:placeName[starts-with(@ref,'#')]" mode="dipl">
 		<xsl:apply-templates mode="#current"/>

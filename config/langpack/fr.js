@@ -152,6 +152,7 @@ jquery_lang_js.prototype.lang.fr = {
     "persName": "Gens",
     "placeName": "Lieux",
     "roleName": "Artisanat/Rôles",
+    "orgName":"Organismes religieux",
     "measure": "Monnaies",
     "date": "Dates",
     "clear": "Pas de sélection",
