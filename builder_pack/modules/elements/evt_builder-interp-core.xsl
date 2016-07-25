@@ -73,12 +73,7 @@
 			<xsl:text> </xsl:text><!--important-->
 		</xsl:if>
 	</xsl:template>
-	
-	<!-- DESC -->
-	<xsl:template match="tei:desc" mode="interp">
-		<xsl:text> </xsl:text>
-	</xsl:template>
-	
+		
 	<xsl:template match="node()[@attachment]" mode="interp">
 		<xsl:element name="div">
 			<xsl:attribute name="class" select="$ed_name2, 'attachment'" separator="-" />
@@ -453,6 +448,14 @@
 		
 	</xsl:template>
 	
+	<!-- DESC Desc-->
+	<xsl:template match="tei:desc" mode="interp">
+		<xsl:element name="span">
+			<xsl:attribute name="class">desc</xsl:attribute>
+			<xsl:apply-templates mode="#current"/>
+		</xsl:element>
+	</xsl:template>
+	
 	<!-- TITLEs in NOTE emphasized  -->
 	<xsl:template match="tei:note//tei:title" mode="interp">
 		<xsl:element name="span">
@@ -704,12 +707,9 @@
 						<xsl:text> (</xsl:text><xsl:value-of select="replace(tei:orgName/@type, '-', '/')"/><xsl:text>). </xsl:text>
 					</xsl:if>
 				</xsl:if>
-				<xsl:if test="current()/tei:desc">
-					<xsl:value-of select="current()/tei:desc"/>
-				</xsl:if>
 				<span class="toggle_list_element"><i class="fa fa-angle-right"></i></span>
-				<xsl:if test="current()/tei:note and current()/tei:note != ''">
-					<span class='small-note'>[<xsl:apply-templates select="current()/tei:note" mode="interp"/>]</span>
+				<xsl:if test="current()/tei:desc and current()/tei:desc != ''">
+					<span class='small-note'>[<xsl:apply-templates select="current()/tei:desc" mode="interp"/>]</span>
 				</xsl:if>
 			</xsl:when>
 			<xsl:otherwise>
@@ -720,6 +720,7 @@
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
+	
 	
 	<!-- PLACE NAME place name -->
 	<xsl:template match="tei:placeName[starts-with(@ref,'#')]" mode="interp">
