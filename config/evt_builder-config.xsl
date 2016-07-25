@@ -297,6 +297,11 @@
 	<!-- default: true() -->
 	<xsl:param name="list_place" select="true()"/>
 	
+	<!-- EN: On/Off orgName list -->
+	<!-- IT: Attiva/disattiva lista organizzazioni -->
+	<!-- default: true() -->
+	<xsl:param name="list_org" select="true()"/>
+	
 	<!-- EN: It is possibile to personalize the elements in the filter select element that will select and highlight particular (groups of) words.
 			 In order to change the label it is necessary to change the text inside the corresponding element.
 			 In order to remove an elemento from the list in the application it is possibile both to remove the element itself or to delete the text inside it.

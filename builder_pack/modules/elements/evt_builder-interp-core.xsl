@@ -657,31 +657,69 @@
 	<!-- ORG NAME  -->
 	<xsl:template match="tei:orgName" mode="interp">
 		<xsl:choose>
-			<xsl:when test="@type">
-				<xsl:element name="span">
-					<xsl:attribute name="class">popup orgName</xsl:attribute>
-					<xsl:element name="span">
-						<xsl:attribute name="class">trigger</xsl:attribute>
-						<xsl:apply-templates mode="#current"/>
-					</xsl:element>
-					<xsl:element name="span">
-						<xsl:attribute name="class">tooltip</xsl:attribute>
-						<xsl:element name="span"><xsl:attribute name="class">before</xsl:attribute></xsl:element>
-						<xsl:if test="@type">
-							<xsl:value-of select="replace(@type, '-', '/')"/>
-						</xsl:if>
-					</xsl:element>
-				</xsl:element>
+			<xsl:when test="ancestor-or-self::node()/tei:org">
+				<!-- DO NOTHING -->
 			</xsl:when>
 			<xsl:otherwise>
-				<xsl:element name="span">
-					<xsl:attribute name="class">orgName no-info</xsl:attribute>
-					<xsl:apply-templates mode="#current"/>
-				</xsl:element>
+				<xsl:choose>
+					<xsl:when test="@ref and @ref!='' and $root//tei:org[@xml:id=substring-after(current()/@ref,'#')]">
+						<xsl:element name="span">
+							<xsl:attribute name="class" select="'popup orgName'"/>
+							<xsl:attribute name="data-ref" select="translate(@ref, '#', '')" />
+							<xsl:element name="span">
+								<xsl:attribute name="class" select="'trigger'"/>
+								<xsl:apply-templates mode="#current"/>
+							</xsl:element>
+							<xsl:element name="span">
+								<xsl:attribute name="class" select="'tooltip'"/>
+								<xsl:element name="span"><xsl:attribute name="class" select="'before'"/></xsl:element>
+								<xsl:for-each select="$root//tei:org[@xml:id=substring-after(current()/@ref,'#')]">
+									<xsl:call-template name="org"/>
+								</xsl:for-each>
+							</xsl:element>
+						</xsl:element>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:element name="span">
+							<xsl:attribute name="class" select="concat('placeName', 'no-info', substring-after(current()/@ref,'#'))"/>
+							<xsl:attribute name="title" select="substring-after(current()/@ref,'#')" />
+							<xsl:apply-templates mode="#current" />
+						</xsl:element>
+					</xsl:otherwise>
+				</xsl:choose>
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
 	
+	<xsl:template name="org">
+		<xsl:choose>
+			<xsl:when test="current()//tei:orgName or current()//tei:desc">
+				<xsl:if test="current()/tei:orgName">
+					<xsl:element name="span">
+						<xsl:attribute name="class">entity_name <xsl:if test="$list_org=true()"> link_active</xsl:if></xsl:attribute>
+						<xsl:attribute name="data-ref" select="@xml:id" />
+						<xsl:value-of select="tei:orgName"/>
+					</xsl:element>
+					<xsl:if test="tei:orgName/@type">
+						<xsl:text> (</xsl:text><xsl:value-of select="replace(tei:orgName/@type, '-', '/')"/><xsl:text>). </xsl:text>
+					</xsl:if>
+				</xsl:if>
+				<xsl:if test="current()/tei:desc">
+					<xsl:value-of select="current()/tei:desc"/>
+				</xsl:if>
+				<span class="toggle_list_element"><i class="fa fa-angle-right"></i></span>
+				<xsl:if test="current()/tei:note and current()/tei:note != ''">
+					<span class='small-note'>[<xsl:apply-templates select="current()/tei:note" mode="interp"/>]</span>
+				</xsl:if>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:element name="span">
+					<xsl:attribute name="class" select="'display-block'"/>
+					<xsl:text>Nessuna informazione.</xsl:text>
+				</xsl:element>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
 	
 	<!-- PLACE NAME place name -->
 	<xsl:template match="tei:placeName[starts-with(@ref,'#')]" mode="interp">
