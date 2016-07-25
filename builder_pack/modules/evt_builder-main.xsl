@@ -122,6 +122,16 @@
 					</xsl:element>
 				</xsl:result-document>
 			</xsl:if>
+			<xsl:if test="$list_org=true()">
+				<xsl:result-document method="html" encoding="UTF-8" media-type="text/plain" byte-order-mark="yes" href="{$filePrefix}/data/output_data/liste/listOrg.html" indent="yes">
+					<xsl:element name="div">
+						<xsl:attribute name="id">listOrg</xsl:attribute>
+						<xsl:attribute name="class">can-change-font-size</xsl:attribute>
+						<xsl:call-template name="listOrg"></xsl:call-template>
+						<xsl:apply-templates select="$step0" mode="listOrgOccurences"></xsl:apply-templates>
+					</xsl:element>
+				</xsl:result-document>
+			</xsl:if>
 			
 			<!-- SEARCH -->
 			<xsl:if test="$search=true()">
@@ -327,15 +337,14 @@
 	<!-- LIST PERSON -->
 	<xsl:template name="listPerson">
 			<xsl:element name="ul">
-				<xsl:attribute name="id">ul_listPerson</xsl:attribute>
-				<xsl:attribute name="class">ul_list</xsl:attribute>
+				<xsl:attribute name="id" select="'ul_listPerson'"/>
+				<xsl:attribute name="class" select="'ul_list'"/>
 				<xsl:for-each select="$root//tei:listPerson/person">
 					<xsl:element name="li">
-						<xsl:attribute name="id"><xsl:value-of select="@xml:id" /></xsl:attribute>
-						<xsl:attribute name="class">list_element</xsl:attribute>
-						<xsl:attribute name="data-order-list"><xsl:value-of select="substring(tei:persName/tei:forename, 1, 1)"/>
+						<xsl:attribute name="id" select="@xml:id" />
+						<xsl:attribute name="class" select="'list_element'"/>
+						<xsl:attribute name="data-order-list" select="substring(tei:persName/tei:forename, 1, 1)"/>
 							<!--<xsl:value-of select="substring(@xml:id, 1, 1)"/>-->
-						</xsl:attribute>
 						<xsl:call-template name="person" />
 					</xsl:element>
 				</xsl:for-each>
@@ -345,16 +354,31 @@
 	<!-- LIST PLACE -->
 	<xsl:template name="listPlace">
 		<xsl:element name="ul">
-			<xsl:attribute name="id">ul_listPlace</xsl:attribute>
-			<xsl:attribute name="class">ul_list</xsl:attribute>
+			<xsl:attribute name="id" select="'ul_listPlace'"/>
+			<xsl:attribute name="class" select="'ul_list'"/>
 			<xsl:for-each select="$root//tei:listPlace/place">
 				<xsl:element name="li">
-					<xsl:attribute name="id"><xsl:value-of select="@xml:id" /></xsl:attribute>
-					<xsl:attribute name="class">list_element</xsl:attribute>
-					<xsl:attribute name="data-order-list"><xsl:value-of select="substring(tei:settlement, 1, 1)"/>
+					<xsl:attribute name="id" select="@xml:id" />
+					<xsl:attribute name="class" select="'list_element'"/>
+					<xsl:attribute name="data-order-list" select="substring(tei:settlement, 1, 1)"/>
 						<!--<xsl:value-of select="substring(@xml:id, 1, 1)"/>-->
-					</xsl:attribute>
 					<xsl:call-template name="place" />
+				</xsl:element>
+			</xsl:for-each>
+		</xsl:element>
+	</xsl:template>
+	
+	<!-- LIST ORG -->
+	<xsl:template name="listOrg">
+		<xsl:element name="ul">
+			<xsl:attribute name="id" select="'ul_listOrg'"/>
+			<xsl:attribute name="class" select="'ul_list'"/>
+			<xsl:for-each select="$root//tei:listOrg/org">
+				<xsl:element name="li">
+					<xsl:attribute name="id" select="@xml:id" />
+					<xsl:attribute name="class" select="'list_element'"/>
+					<xsl:attribute name="data-order-list" select="substring(@xml:id, 1, 1)"/>
+					<xsl:call-template name="org" />
 				</xsl:element>
 			</xsl:for-each>
 		</xsl:element>

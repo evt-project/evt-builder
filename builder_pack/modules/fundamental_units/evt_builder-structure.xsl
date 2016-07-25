@@ -98,6 +98,9 @@
                     <xsl:if test="$list_place=true()">
                         <listPlace active="1" lang="def">LIST_PLACE</listPlace>
                     </xsl:if>
+                    <xsl:if test="$list_org=true()">
+                        <listOrg active="1" lang="def">LIST_ORG</listOrg>
+                    </xsl:if>
                 </liste>
                 <editions>
                     <xsl:for-each select="$edition_array">

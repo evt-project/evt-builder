@@ -120,6 +120,7 @@ jquery_lang_js.prototype.lang.fr = {
 	"ADDITIONAL_MATERIALS": "Matériaux supplémentaires",
 	"LIST_PERSON": "Liste des personnes",
 	"LIST_PLACE": "Liste des lieux",
+	"LIST_ORG": "Liste des institutions",
 	"NO_ELEMENTS": "Rien",
     "PAGE_MISSING": "(miss)",
     "PAGE_MISSING_RIGHT": " - (miss)",
