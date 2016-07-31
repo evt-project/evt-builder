@@ -121,7 +121,7 @@ jquery_lang_js.prototype.lang.de = {
 	"LIST_PERSON": "Personenliste",
 	"LIST_PLACE": "Ortliste",
 	"LIST_ORG": "Liste der Institutionen",
-	"NO_ELEMENTS": "Keine Elemente.",
+	"NO_ELEMENTS": "Keine elemente",
     "PAGE_MISSING": "(miss)",
     "PAGE_MISSING_RIGHT": " - (miss)",
     "PAGE_MISSING_LEFT": "(miss) - ",
@@ -184,6 +184,14 @@ jquery_lang_js.prototype.lang.de = {
 
     "ERROR_LOADING_TEXT": "Fehler beim Laden des Textes.",
     "ERROR_LOADING_IMAGE": "Fehler beim Laden des Bildes. Das Transkript f&uuml;r diese Seite steht m&ouml;glicherweise noch nicht zur Verf&uuml;gung. Für weitere Informationen kontaktieren Sie bitte die Kuratoren.",
-    "ERROR_LOADING_HI_IMAGE": "Es gab ein Problem beim Laden des hochaufl&ouml;senden Bildes."
+    "ERROR_LOADING_HI_IMAGE": "Es gab ein Problem beim Laden des hochaufl&ouml;senden Bildes.",
+
+    "NO_INFO": "Keine information",
+    
+    "AFTER": "nach",
+    "BEFORE": "vor",
+    "FROM": "von",
+    "TO": "bis",
+    "membership": "Mitgliedschaft"
 }
 

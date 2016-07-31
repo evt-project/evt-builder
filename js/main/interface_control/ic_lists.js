@@ -135,8 +135,9 @@ function filterListElements(filter){
             $('<li />')
                 .addClass('list_element')
                 .addClass('no_elements')
-                .append("<span lang='"+window.lang.currentLang+"'>"+window.lang.convert('NO_ELEMENTS', window.lang.currentLang)+"</span>")
+                .append("<span lang='def'>NO_ELEMENTS</span>")
                 .appendTo('.ul_list:visible');
+            window.lang.run();
         }
     }
 

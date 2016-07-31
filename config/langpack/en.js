@@ -121,7 +121,7 @@ jquery_lang_js.prototype.lang.en = {
 	"LIST_PERSON": "List of persons",
 	"LIST_PLACE": "List of places",
 	"LIST_ORG": "List of organizations",
-	"NO_ELEMENTS": "No elements.",
+	"NO_ELEMENTS": "No elements",
     "PAGE_MISSING": "(miss)",
     "PAGE_MISSING_RIGHT": " - (miss)",
     "PAGE_MISSING_LEFT": "(miss) - ",
@@ -184,6 +184,14 @@ jquery_lang_js.prototype.lang.en = {
 
     "ERROR_LOADING_TEXT": "There was an error in loading the text. The transcript for this page may not yet be available. ",
     "ERROR_LOADING_IMAGE": "There was an error in loading the image. For more informations, please contact the curators.",
-    "ERROR_LOADING_HI_IMAGE": "There was a problem while loading the hi-res image."
+    "ERROR_LOADING_HI_IMAGE": "There was a problem while loading the hi-res image.",
+    
+    "NO_INFO": "No information",
+    
+    "AFTER": "after",
+    "BEFORE": "before",
+    "FROM": "from",
+    "TO": "to",
+    "membership": "Membership"
 }
 

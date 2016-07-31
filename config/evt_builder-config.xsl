@@ -303,12 +303,10 @@
 	<xsl:param name="list_org" select="true()"/>
 	
 	<!-- EN: It is possibile to personalize the elements in the filter select element that will select and highlight particular (groups of) words.
-			 In order to change the label it is necessary to change the text inside the corresponding element.
-			 In order to remove an elemento from the list in the application it is possibile both to remove the element itself or to delete the text inside it.
+			 In order to remove an element from the list in the application just remove the element itself.
 			 In order to add a new element to the list you simply need to know that the tag corresponds to the class name that has be given to the html element referring to the particular words to be selected. -->
 	<!-- IT: E' possibile personalizzare gli elementi che compariranno nell'elenco dei filtri che selezionano particolari paroli o gruppi di parole. 
-			 Per cambiare l'etichetta basta cambiare il testo dentro l'elemento corrispondente. 
-			 Per rimuovere un elemento basta eliminare o tutto l'elemento di interesse o anche solo il testo al suo interno.
+			 Per rimuovere un elemento basta eliminare tutto l'elemento di interesse.
 			 Per aggiungere un elemento alla lista basta sapere che il tag fa riferimento alla classe data all'elemento html con il quale sono state marcate le parole "particolari" da selezionare. -->
 	<xsl:variable name="lists" as="element()*">
 		<persName/>
