@@ -626,6 +626,10 @@ div[id*='regesto'] span.trigger:hover, div[id*='regesto'] .popup.opened span.tri
     color: #ffb74d;
 }
 
+.orgName-state {
+	display: block;
+}
+
 .doc.current span.roleName.list_active, 
 .doc.current span.roleName.list_active span.trigger, 
 .doc.current span.roleName.over > span.trigger, 

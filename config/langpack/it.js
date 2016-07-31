@@ -121,7 +121,7 @@ jquery_lang_js.prototype.lang.it = {
 	"LIST_PERSON": "Lista delle persone",
 	"LIST_PLACE": "Lista dei luoghi",
 	"LIST_ORG": "Lista di enti",
-	"NO_ELEMENTS": "Nessun elemento.",
+	"NO_ELEMENTS": "Nessun elemento",
     "PAGE_MISSING": "(miss)",
     "PAGE_MISSING_RIGHT": " - (miss)",
     "PAGE_MISSING_LEFT": "(miss) - ",
@@ -183,6 +183,14 @@ jquery_lang_js.prototype.lang.it = {
 
     "ERROR_LOADING_TEXT": "Si è verificato un errore nel caricamento del testo. La trascrizione per questa pagina potrebbe non essere disponibile. Per ulteriori informazioni contattare i curatori dell'edizione.",
     "ERROR_LOADING_IMAGE": "Si è verificato un errore durante il caricamento dell'immagine.",
-    "ERROR_LOADING_HI_IMAGE": "Si è verificato un errore durante il caricamento dell'immagine ad alta risoluzione."
+    "ERROR_LOADING_HI_IMAGE": "Si è verificato un errore durante il caricamento dell'immagine ad alta risoluzione.",
+    
+    "NO_INFO": "Nessuna informazione",
+    
+    "AFTER": "dopo il",
+    "BEFORE": "prima del",
+    "FROM": "dal",
+    "TO": "al",
+    "membership": "Membri"
 }
 

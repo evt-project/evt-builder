@@ -582,13 +582,14 @@
 				</xsl:if>
 				<span class="toggle_list_element"><i class="fa fa-angle-right"></i></span>
 				<xsl:if test="current()/tei:note and current()/tei:note != ''">
-					<span class='small-note'>[<xsl:apply-templates select="tei:note" mode="interp"/>]</span>
+					<span class='small-note'><xsl:apply-templates select="tei:note" mode="interp"/></span>
 				</xsl:if>
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:element name="span">
 					<xsl:attribute name="class">display-block</xsl:attribute>
-					Nessuna informazione.
+					<span lang="def">NO_INFO</span>
+					<xsl:text>.</xsl:text>
 				</xsl:element>
 			</xsl:otherwise>
 		</xsl:choose>
@@ -696,26 +697,95 @@
 	
 	<xsl:template name="org">
 		<xsl:choose>
-			<xsl:when test="current()//tei:orgName or current()//tei:desc">
+			<xsl:when test="current()[@type] or current()[@subtype] or current()[@role] or current()/tei:orgName or current()/tei:desc">
 				<xsl:if test="current()/tei:orgName">
 					<xsl:element name="span">
 						<xsl:attribute name="class">entity_name <xsl:if test="$list_org=true()"> link_active</xsl:if></xsl:attribute>
 						<xsl:attribute name="data-ref" select="@xml:id" />
-						<xsl:value-of select="tei:orgName"/>
+						<xsl:for-each select="current()/tei:orgName">
+							<xsl:value-of select="current()"/>
+							<xsl:if test="@type or @subtype or @notAfter or @notBefore or @from or @to">
+								<xsl:text>&#xA0;(</xsl:text>
+								<xsl:if test="@type">
+									<xsl:value-of select="replace(@type, '-', '/')"/>
+									<xsl:text>&#xA0;</xsl:text>
+								</xsl:if>
+								<xsl:if test="@subtype">
+									<xsl:value-of select="replace(@subtype, '-', '/')"/>
+									<xsl:text>&#xA0;</xsl:text>
+								</xsl:if>
+								<xsl:if test="@notAfter">
+									<span lang="def">AFTER</span>
+									<xsl:text>&#xA0;</xsl:text>
+									<xsl:value-of select="@notAfter"/>
+								</xsl:if>
+								<xsl:if test="@notBefore">
+									<span lang="def">BEFORE</span>
+									<xsl:text>&#xA0;</xsl:text>
+									<xsl:value-of select="@notBefore"/>
+								</xsl:if>
+								<xsl:if test="@from">
+									<span lang="def">FROM</span>
+									<xsl:text>&#xA0;</xsl:text>
+									<xsl:value-of select="@from"/>
+								</xsl:if>
+								<xsl:if test="@to">
+									<xsl:text>&#xA0;</xsl:text>
+									<span lang="def">TO</span>
+									<xsl:text>&#xA0;</xsl:text>
+									<xsl:value-of select="@to"/>
+								</xsl:if>
+								<xsl:text>). </xsl:text>
+							</xsl:if>
+							
+						</xsl:for-each>
 					</xsl:element>
-					<xsl:if test="tei:orgName/@type">
-						<xsl:text> (</xsl:text><xsl:value-of select="replace(tei:orgName/@type, '-', '/')"/><xsl:text>). </xsl:text>
-					</xsl:if>
 				</xsl:if>
 				<span class="toggle_list_element"><i class="fa fa-angle-right"></i></span>
 				<xsl:if test="current()/tei:desc and current()/tei:desc != ''">
-					<span class='small-note'>[<xsl:apply-templates select="current()/tei:desc" mode="interp"/>]</span>
+					<span class='small-note'><xsl:apply-templates select="current()/tei:desc" mode="interp"/></span>
 				</xsl:if>
+				<xsl:if test="current()/tei:state">
+					<xsl:for-each select="current()/tei:state">
+						<span class='small-note orgName-state'>
+							<xsl:if test="current()/@type">
+								<span lang="def"><xsl:value-of select="replace(current()/@type, '-', '/')"/></span>
+								<xsl:text>&#xA0;</xsl:text>
+							</xsl:if>
+							<xsl:if test="current()/@notAfter">
+								<span lang="def">AFTER</span>
+								<xsl:text>&#xA0;</xsl:text>
+								<xsl:value-of select="current()/@notAfter"/>
+							</xsl:if>
+							<xsl:if test="current()/@notBefore">
+								<span lang="def">BEFORE</span>
+								<xsl:text>&#xA0;</xsl:text>
+								<xsl:value-of select="current()/@notBefore"/>
+							</xsl:if>
+							<xsl:if test="current()/@from">
+								<span lang="def">FROM</span>
+								<xsl:text>&#xA0;</xsl:text>
+								<xsl:value-of select="current()/@from"/>
+							</xsl:if>
+							<xsl:if test="current()/@to">
+								<xsl:text>&#xA0;</xsl:text>
+								<span lang="def">TO</span>
+								<xsl:text>&#xA0;</xsl:text>
+								<xsl:value-of select="current()/@to"/>
+							</xsl:if>
+							<xsl:text>:&#xA0;</xsl:text>
+							<xsl:apply-templates mode="interp" />
+							<xsl:text>.</xsl:text>
+						</span>
+						
+					</xsl:for-each>
+					</xsl:if>
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:element name="span">
 					<xsl:attribute name="class" select="'display-block'"/>
-					<xsl:text>Nessuna informazione.</xsl:text>
+					<span lang="def">NO_INFO</span>
+					<xsl:text>.</xsl:text>
 				</xsl:element>
 			</xsl:otherwise>
 		</xsl:choose>
@@ -803,13 +873,14 @@
 				</xsl:if>
 				<span class="toggle_list_element"><i class="fa fa-angle-right"></i></span>
 				<xsl:if test="current()/tei:note and current()/tei:note != ''">
-					<span class='small-note'>[<xsl:apply-templates select="tei:note" mode="interp"/>]</span>
+					<span class='small-note'><xsl:apply-templates select="tei:note" mode="interp"/></span>
 				</xsl:if>
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:element name="span">
 					<xsl:attribute name="class">display-block</xsl:attribute>
-					Nessuna informazione.
+					<span lang="def">NO_INFO</span>
+					<xsl:text>.</xsl:text>
 				</xsl:element>
 			</xsl:otherwise>
 		</xsl:choose>
