@@ -393,7 +393,7 @@
 	<!-- REF References to additional text -->
 	<xsl:template match="tei:ref" mode="interp">
 		<xsl:choose>
-			<xsl:when test="node()/ancestor::tei:note">
+			<xsl:when test="node()/ancestor::tei:note or node()/ancestor::tei:desc">
 				<xsl:element name="span">
 					<xsl:attribute name="class">ref</xsl:attribute>
 					<xsl:attribute name="data-target"><xsl:value-of select="@target"/></xsl:attribute>
@@ -707,11 +707,11 @@
 							<xsl:if test="@type or @subtype or @notAfter or @notBefore or @from or @to">
 								<xsl:text>&#xA0;(</xsl:text>
 								<xsl:if test="@type">
-									<xsl:value-of select="replace(@type, '-', '/')"/>
+									<xsl:value-of select="replace(replace(@type, '-', '/'), '_', ' ')"/>
 									<xsl:text>&#xA0;</xsl:text>
 								</xsl:if>
 								<xsl:if test="@subtype">
-									<xsl:value-of select="replace(@subtype, '-', '/')"/>
+									<xsl:value-of select="replace(replace(@subtype, '-', '/'), '_', ' ')"/>
 									<xsl:text>&#xA0;</xsl:text>
 								</xsl:if>
 								<xsl:if test="@notAfter">
