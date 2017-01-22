@@ -137,6 +137,10 @@
 		<xsl:copy-of select="."/>
 	</xsl:template>
 	
+	<!-- Column break -->
+	<xsl:template match="tei:cb" mode="interp">
+		<xsl:copy-of select="."/>
+	</xsl:template>
 	
 	<!--               -->
 	<!-- Transcription -->

@@ -23,19 +23,19 @@
 	
 	<!-- EN: Close and open back elements when you find a pb or an lb -->
 	<!-- IT: Chiudi e riapri i tag quando trovi un pb o un lb -->
-	<xsl:template match="node()[name()=$start_split]//node()[lb|pb][not(descendant::node()[lb|pb])]" mode="splitLbPb">
-		<xsl:for-each-group select="node()" group-starting-with="lb|pb">
+	<xsl:template match="node()[name()=$start_split]//node()[lb|pb|cb][not(descendant::node()[lb|pb|cb])]" mode="splitLbPb">
+		<xsl:for-each-group select="node()" group-starting-with="lb|pb|cb">
 			<!-- EN: copy lb/pb if present in this group -->
 			<!-- IT: copia lb/pb se presente nel gruppo -->
-			<xsl:if test="current-group()/(descendant-or-self::lb|descendant-or-self::pb)">
-				<xsl:sequence select="current-group()/(descendant-or-self::lb|descendant-or-self::pb)"/>
+			<xsl:if test="current-group()/(descendant-or-self::lb|descendant-or-self::pb|descendant-or-self::cb)">
+				<xsl:sequence select="current-group()/(descendant-or-self::lb|descendant-or-self::pb|descendant-or-self::cb)"/>
 			</xsl:if>
 			<!-- EN: Copies the elements in the group except lb/pb -->
 			<xsl:element name="{parent::node()/name()}" xmlns="http://www.tei-c.org/ns/1.0">
 				<xsl:copy-of select="parent::node()/@* except (parent::node()/@part)"/>
 				<xsl:attribute name="part" select="position()"></xsl:attribute>
 				<xsl:attribute name="id" select="generate-id(parent::node())"></xsl:attribute>
-				<xsl:sequence select="current-group()[not(self::lb|self::pb)]"/>
+				<xsl:sequence select="current-group()[not(self::lb|self::pb|self::cb)]"/>
 			</xsl:element>
 		</xsl:for-each-group>	
 	</xsl:template>

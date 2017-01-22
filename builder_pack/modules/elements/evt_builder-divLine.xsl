@@ -39,4 +39,26 @@
         </xsl:for-each-group>
     </xsl:template>
     
+    
+    <xsl:template name="divCb">
+        <xsl:param name="text"/>
+        <xsl:param name="ed_name"/>
+        <xsl:for-each-group select="$text/node()" group-starting-with="//tei:cb">
+            <xsl:choose>
+                <xsl:when test="self::tei:cb">
+                    <xsl:element name="div">
+                        <xsl:attribute name="class" select="$ed_name"/>
+                        <xsl:element name="div"> <!-- IT: aggiungi div con classe edition_rend -->
+                            <xsl:attribute name="class" select="if(@rend) then ($ed_name1, 'column', translate(@rend, '.', '_')) else ($ed_name, 'column', 'left')" separator="-"/>
+                            <xsl:copy-of select="current-group()[not(self::tei:cb)]"/>
+                        </xsl:element>
+                    </xsl:element>
+                </xsl:when>
+                <xsl:otherwise> <!--IT: Gruppo che non ha un lb (puo succedere nel primo gruppo)  -->
+                    <xsl:copy-of select="current-group()"></xsl:copy-of>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:for-each-group>
+    </xsl:template>
+    
 </xsl:stylesheet>

@@ -210,21 +210,35 @@
 					<xsl:variable name="text"><xsl:apply-templates select="current-group()" mode="dipl"/></xsl:variable>
 					<!-- IT: aggiungi elementi div per linee di testo -->
 					<xsl:variable name="text2">
-						<xsl:call-template name="divLine">
+						<xsl:call-template name="divCb">
 							<xsl:with-param name="text" select="$text"/>
 							<xsl:with-param name="ed_name" select="$ed_name1"/>
 						</xsl:call-template>
 					</xsl:variable>
+					
+					<xsl:variable name="text3">
+						<xsl:call-template name="divLine">
+							<xsl:with-param name="text" select="$text2"/>
+							<xsl:with-param name="ed_name" select="$ed_name1"/>
+						</xsl:call-template>
+					</xsl:variable>
 					<!-- IT: trasforma el per ITL e HS-->
-					<xsl:apply-templates select="$text2" mode="ITL"/>
+					<xsl:apply-templates select="$text3" mode="ITL"/>
 				</xsl:when>
 				<!-- EN: If the surface element is not present only the diplomatic edition templates are applied -->
 				<!-- IT: Se non c'è il surface devo applicare direttamente i templates per l'edizione diplomatica -->
 				<xsl:otherwise>
-					<xsl:variable name="text"><xsl:apply-templates select="current-group()" mode="dipl"/></xsl:variable>
+					<xsl:variable name="text">
+						<xsl:apply-templates select="current-group()" mode="dipl"/></xsl:variable>
 					<!-- IT: aggiungi elementi div per linee di testo -->
+					<xsl:variable name="text2">
+						<xsl:call-template name="divCb">
+							<xsl:with-param name="text" select="$text"/>
+							<xsl:with-param name="ed_name" select="$ed_name1"/>
+						</xsl:call-template>
+					</xsl:variable>
 					<xsl:call-template name="divLine">
-						<xsl:with-param name="text" select="$text"/>
+						<xsl:with-param name="text" select="$text2"/>
 						<xsl:with-param name="ed_name" select="$ed_name1"/>
 					</xsl:call-template>
 				</xsl:otherwise>
@@ -256,14 +270,27 @@
 							<xsl:with-param name="ed_name" select="$ed_name2"/>
 						</xsl:call-template>
 					</xsl:variable>
-					<xsl:apply-templates select="$text2" mode="ITL"/>
+					<xsl:variable name="text3">
+						<xsl:call-template name="divLine">
+							<xsl:with-param name="text" select="$text2"/>
+							<xsl:with-param name="ed_name" select="$ed_name2"/>
+						</xsl:call-template>
+					</xsl:variable>
+					<xsl:apply-templates select="$text3" mode="ITL"/>
 				</xsl:when>
 				<!-- EN: If the surface element is not present only the diplomatic edition templates are applied -->
 				<!-- IT: Se non c'è il surface devo applicare direttamente i templates per l'edizione diplomatica-->
 				<xsl:otherwise>
-					<xsl:variable name="text"><xsl:apply-templates select="current-group()" mode="interp"/></xsl:variable>
+					<xsl:variable name="text">
+						<xsl:apply-templates select="current-group()" mode="interp"/></xsl:variable>
+					<xsl:variable name="text2">
+						<xsl:call-template name="divCb">
+							<xsl:with-param name="text" select="$text"/>
+							<xsl:with-param name="ed_name" select="$ed_name2"/>
+						</xsl:call-template>
+					</xsl:variable>
 					<xsl:call-template name="divLine">
-						<xsl:with-param name="text" select="$text"/>
+						<xsl:with-param name="text" select="$text2"/>
 						<xsl:with-param name="ed_name" select="$ed_name2"/>
 					</xsl:call-template>
 				</xsl:otherwise>
