@@ -378,8 +378,28 @@
 	</xsl:template>
 	
 	<!-- REF References to additional text -->
-	<xsl:template match="tei:ref[starts-with(@target,'#')]" mode="dipl">
-		<!-- Do nothing -->
+	<xsl:template match="tei:ref" mode="dipl">
+		<xsl:choose>
+			<xsl:when test="starts-with(@target,'#')">
+				<xsl:choose>
+					<xsl:when test="node()/ancestor::tei:note">
+						<!-- Se il tei:ref si trova all'interno di una nota diventa soltanto un trigger -->
+						<xsl:element name="span">
+							<xsl:attribute name="class">ref</xsl:attribute>
+							<xsl:attribute name="data-target"><xsl:value-of select="@target"/></xsl:attribute>
+							<xsl:attribute name="data-type"><xsl:value-of select="@type"/></xsl:attribute>
+							<xsl:apply-templates mode="#current"/>
+						</xsl:element>
+					</xsl:when>
+					<xsl:otherwise>
+						<!-- Do nothing -->
+					</xsl:otherwise>
+				</xsl:choose>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:apply-templates mode="#current"/>
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:template>
 	
 	<xsl:template match="tei:front" mode="dipl">
@@ -410,7 +430,17 @@
 	
 	<!-- EMPH emphasized  -->
 	<xsl:template match="tei:emph" mode="dipl">
-		<xsl:apply-templates mode="#current" />
+		<xsl:choose>
+			<xsl:when test="node()/ancestor::tei:note">
+				<xsl:element name="span">
+					<xsl:attribute name="class">emph</xsl:attribute>
+					<xsl:apply-templates mode="#current" />
+				</xsl:element>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:apply-templates mode="#current" />
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:template>
 	
 	<!-- TERM -->
@@ -458,7 +488,18 @@
 	
 	<!-- PTR Pointer -->
 	<xsl:template match="tei:ptr" mode="dipl">
-		<!-- Do nothing -->
+		<xsl:choose>
+			<xsl:when test="@type='noteAnchor'">
+				<xsl:if test="@target and @target!='' and $root//tei:note[@xml:id=substring-after(current()/@target,'#')]">
+					<xsl:for-each select="$root//tei:note[@xml:id=substring-after(current()/@target,'#')]">
+						<xsl:call-template name="notePopup"/>
+					</xsl:for-each>
+				</xsl:if>
+			</xsl:when>
+			<xsl:otherwise>
+				<!-- Do nothing -->
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:template>
 	
 	<!-- QUOTE Quotes -->

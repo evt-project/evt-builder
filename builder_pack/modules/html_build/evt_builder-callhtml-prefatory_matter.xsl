@@ -101,7 +101,16 @@
 							</p>
 							<p class="crit_notes">
 								<xsl:for-each select="tei:front//tei:div[@type='crit_notes']/tei:note">
-									<xsl:apply-templates mode="interp"/>
+									<xsl:choose>
+										<xsl:when test="$root//tei:ptr[@type='noteAnchor'][@target=concat('#',current()/@xml:id)]">
+											<!-- DO NOTHING -->
+											<!-- Se nel testo esiste un pointer a questa nota, la nota NON deve essere renderizzata nel punto in cui è stata codificata, 
+							                    ma verrà visualizzata nel punto in cui compare il pointer. La sua trasformazione verrà dunque gestita dal template per il pointer -->
+										</xsl:when>
+										<xsl:otherwise>
+											<xsl:apply-templates mode="interp"/>
+										</xsl:otherwise>
+									</xsl:choose>
 								</xsl:for-each>
 							</p>
 						</div>
@@ -164,5 +173,52 @@
 	
 	<xsl:template match="tei:front//tei:lb">
 		<xsl:value-of disable-output-escaping="yes">&lt;br/&gt;</xsl:value-of>
+	</xsl:template>
+	
+	<xsl:template match="tei:front//tei:ptr">
+		<xsl:choose>
+			<xsl:when test="@type='noteAnchor'">
+				<xsl:if test="@target and @target!='' and $root//tei:note[@xml:id=substring-after(current()/@target,'#')]">
+					<xsl:for-each select="$root//tei:note[@xml:id=substring-after(current()/@target,'#')]">
+						<xsl:call-template name="notePopup"/>
+					</xsl:for-each>
+				</xsl:if>
+			</xsl:when>
+			<xsl:otherwise>
+				<!-- DO NOTHING -->
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
+	
+	<xsl:template match="tei:front//tei:ref">
+		<xsl:choose>
+			<xsl:when test="@target[contains(., 'www')] or @target[contains(., 'http')]">
+				<xsl:element name="a">
+					<xsl:attribute name="href" select="if(@target[contains(., 'http')]) then(@target) else(concat('http://', @target))" />
+					<xsl:attribute name="target" select="'_blank'"/>
+					<xsl:attribute name="data-type"><xsl:value-of select="@type"/></xsl:attribute>
+					<xsl:apply-templates/>
+				</xsl:element>
+			</xsl:when>
+			<xsl:when test="starts-with(@target,'#')">
+				<xsl:choose>
+					<xsl:when test="node()/ancestor::tei:note">
+						<!-- Se il tei:ref si trova all'interno di una nota diventa soltanto un trigger -->
+						<xsl:element name="span">
+							<xsl:attribute name="class">ref</xsl:attribute>
+							<xsl:attribute name="data-target"><xsl:value-of select="@target"/></xsl:attribute>
+							<xsl:attribute name="data-type"><xsl:value-of select="@type"/></xsl:attribute>
+							<xsl:apply-templates/>
+						</xsl:element>
+					</xsl:when>
+					<xsl:otherwise>
+						<!-- Do nothing -->
+					</xsl:otherwise>
+				</xsl:choose>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:apply-templates/>
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:template>
 </xsl:stylesheet>
