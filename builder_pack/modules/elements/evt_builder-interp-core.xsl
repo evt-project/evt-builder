@@ -397,7 +397,17 @@
 	<!-- REF References to additional text -->
 	<xsl:template match="tei:ref" mode="interp">
 		<xsl:choose>
+			<!-- Se il @target fa riferiemento ad una risorsa online, allora lo trasformo in link HTML -->
+			<xsl:when test="@target[contains(., 'www')] or @target[contains(., 'http')]">
+				<xsl:element name="a">
+					<xsl:attribute name="href" select="if(@target[contains(., 'http')]) then(@target) else(concat('http://', @target))" />
+					<xsl:attribute name="target" select="'_blank'"/>
+					<xsl:attribute name="data-type"><xsl:value-of select="@type"/></xsl:attribute>
+					<xsl:apply-templates mode="#current"/>
+				</xsl:element>
+			</xsl:when>
 			<xsl:when test="node()/ancestor::tei:note or node()/ancestor::tei:desc">
+			<!-- Se il tei:ref si trova all'interno di una nota o della descrizione allora diventa soltanto un trigger -->
 				<xsl:element name="span">
 					<xsl:attribute name="class">ref</xsl:attribute>
 					<xsl:attribute name="data-target"><xsl:value-of select="@target"/></xsl:attribute>
@@ -406,6 +416,7 @@
 				</xsl:element>
 			</xsl:when>
 			<xsl:otherwise>
+			<!-- Altrimenti si trasforma in popup -->
 				<xsl:element name="span">
 					<xsl:attribute name="class">popup ref</xsl:attribute>
 					<xsl:element name="span">
