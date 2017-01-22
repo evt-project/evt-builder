@@ -344,6 +344,14 @@
 		</xsl:element>
 	</xsl:template>
 	
+	<xsl:template match="tei:supplied" mode="interp">
+		<xsl:element name="span">
+			<xsl:attribute name="class" select="$ed_name2, name()" separator="-"/>
+			<xsl:attribute name="data-reason" select="@reason" />
+			<xsl:apply-templates mode="#current"/>
+		</xsl:element>
+	</xsl:template>
+	
 	<xsl:template match="tei:seg" mode="interp">
 		<xsl:element name="span">
 			<xsl:choose>

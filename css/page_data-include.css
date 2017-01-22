@@ -177,6 +177,16 @@ SPAN.dipl-damage {
 	background-color: rgba(193,193,193, 0.7); 
 }
 
+SPAN.dipl-supplied {
+
+}
+SPAN.dipl-supplied[data-reason='omitted'] {
+
+}
+SPAN.dipl-supplied[data-reason='illeggibile'] {
+
+}
+
 span.dipl-choice_popup { 
 	display: inline-table;
     /*white-space: nowrap;*/
@@ -426,9 +436,17 @@ span.interp-ex {
 	font-style: italic; 
 }
 
-
-/* New Release */
 /* CDP */
+
+span.interp-supplied {
+
+}
+span.interp-supplied[data-reason='omitted'] {
+	
+}
+span.interp-supplied[data-reason='illeggibile'] {
+	
+}
 
 span.tooltip {
 	font-size: 80%;

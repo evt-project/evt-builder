@@ -297,6 +297,33 @@
 		</xsl:element>
 	</xsl:template>
 	
+	
+	<xsl:template match="tei:supplied" mode="dipl">
+		<xsl:choose>
+			<xsl:when test="@reason='omitted'">
+				[<xsl:element name="span">
+					<xsl:attribute name="class" select="$ed_name1, name()" separator="-"/>
+					<xsl:attribute name="data-reason" select="@reason"/>
+					<xsl:apply-templates mode="#current"/>
+				</xsl:element>]	
+			</xsl:when>
+			<xsl:when test="@reason='illeggibile'">
+				<xsl:element name="span">
+					<xsl:attribute name="class" select="$ed_name1, name()" separator="-"/>
+					<xsl:attribute name="data-reason" select="@reason"/>
+					<xsl:apply-templates mode="#current"/>
+				</xsl:element>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:element name="span">
+					<xsl:attribute name="class" select="$ed_name1, name()" separator="-"/>
+					<xsl:attribute name="data-reason" select="@reason"/>
+					<xsl:apply-templates mode="#current"/>
+				</xsl:element>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
+	
 	<xsl:template match="tei:seg" mode="dipl" priority="2">
 		<xsl:element name="span">
 			<xsl:choose>
