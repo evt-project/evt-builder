@@ -694,3 +694,29 @@ span.tooltip span.entity_name.link_active{
 .list_element span.entity_name:hover{
     text-decoration: underline;
 }
+
+/* TABLE */
+.table {
+    font-size:85%;
+    margin-bottom: 20px;
+	border: 1px solid rgba(185, 170, 153, 0.3);
+}
+.table > div {
+	padding-left: .5em;
+}
+.table .table-row:nth-child(even){
+	background: rgba(185, 170, 153, .1);
+}
+.table-cell {
+    width: 45%;
+    margin: 0 2%;
+    vertical-align: middle;
+    display: inline-table;
+    margin: 0 2% 0 0;
+}
+
+.table-cell:last-child {
+    right: 0;
+    text-align: right;
+    margin: 0 0 2%;
+}

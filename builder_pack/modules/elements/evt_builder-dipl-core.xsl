@@ -112,6 +112,14 @@
 		<xsl:copy-of select="."/>
 	</xsl:template>
 	
+	<!-- Column break -->
+	<xsl:template match="tei:cb" mode="dipl">
+		<xsl:element name="tei:cb">
+			<xsl:copy-of select="@* except(@xml:id)"></xsl:copy-of>
+			<xsl:attribute name="{@xml:id/name()}" select="if(ends-with(@xml:id, 'orig')) then(replace(@xml:id, 'orig', '')) else(@xml:id)"/>
+		</xsl:element>
+	</xsl:template>
+	
 	
 	
 	<!--               -->

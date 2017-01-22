@@ -3007,3 +3007,10 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 #EVTinfo_content {
 	font-size: 95%;
 }
+
+/* COLUMNS BREAKS */
+.dipl-column-1of2{
+    width: 46%;
+    float: left;
+    margin-right: 4%;
+}
