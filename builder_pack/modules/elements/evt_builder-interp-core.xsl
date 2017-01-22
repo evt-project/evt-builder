@@ -911,28 +911,39 @@
 	
 	<!-- PTR Pointer -->
 	<xsl:template match="tei:ptr" mode="interp">
-		<xsl:if test="@target">
-			<xsl:element name="span">
-				<xsl:attribute name="class">popup image</xsl:attribute>
-				<xsl:element name="span">
-					<xsl:attribute name="class">trigger</xsl:attribute>
-					<xsl:element name="i">
-						<xsl:attribute name="class">fa fa-picture-o</xsl:attribute>
-					</xsl:element>
-				</xsl:element>
-				<xsl:element name="span">
-					<xsl:attribute name="class">tooltip</xsl:attribute>
-					<xsl:element name="span"><xsl:attribute name="class">before</xsl:attribute></xsl:element>
-					<xsl:for-each select="$root//tei:item[@xml:id=current()/@target]">
-						<xsl:element name="img">
-							<xsl:attribute name="src">data/input_data/<xsl:value-of select=".//tei:graphic/@url"/></xsl:attribute>
-							<xsl:attribute name="width">180px</xsl:attribute>
-						</xsl:element>
+		<xsl:choose>
+			<xsl:when test="@type='noteAnchor'">
+				<xsl:if test="@target and @target!='' and $root//tei:note[@xml:id=substring-after(current()/@target,'#')]">
+					<xsl:for-each select="$root//tei:note[@xml:id=substring-after(current()/@target,'#')]">
+						<xsl:call-template name="notePopup"/>
 					</xsl:for-each>
-					<!-- aggiungere riferimento ad entita specifica e relative info  -->
-				</xsl:element>
-			</xsl:element>
-		</xsl:if>
+				</xsl:if>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:if test="@target">
+					<xsl:element name="span">
+						<xsl:attribute name="class">popup image</xsl:attribute>
+						<xsl:element name="span">
+							<xsl:attribute name="class">trigger</xsl:attribute>
+							<xsl:element name="i">
+								<xsl:attribute name="class">fa fa-picture-o</xsl:attribute>
+							</xsl:element>
+						</xsl:element>
+						<xsl:element name="span">
+							<xsl:attribute name="class">tooltip</xsl:attribute>
+							<xsl:element name="span"><xsl:attribute name="class">before</xsl:attribute></xsl:element>
+							<xsl:for-each select="$root//tei:item[@xml:id=current()/@target]">
+								<xsl:element name="img">
+									<xsl:attribute name="src">data/input_data/<xsl:value-of select=".//tei:graphic/@url"/></xsl:attribute>
+									<xsl:attribute name="width">180px</xsl:attribute>
+								</xsl:element>
+							</xsl:for-each>
+							<!-- aggiungere riferimento ad entita specifica e relative info  -->
+						</xsl:element>
+					</xsl:element>
+				</xsl:if>
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:template>
 	
 	<!-- QUOTE Quotes -->
