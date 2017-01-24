@@ -1874,12 +1874,16 @@ div.doc.not_current:hover{
     right: 0;
     left: 0;
     overflow: hidden;
+    min-height: 0px;
 }
 #search_cont, #search_cont-add {
 	overflow: visible;
 }
 #search_sub_header, #search_sub_header-add {
-	margin-top: 45px;
+	margin-top: 33px;
+	padding-top: 6px;
+	height: 74px;
+	max-height: 74px;
 }
 #search_cont_results, #search_cont_results-add {
 	padding: 20px;
@@ -1907,6 +1911,8 @@ div.doc.not_current:hover{
 }
 #search_foot, #search_foot-add {
 	padding: 8px;
+	height: 26px;
+	max-height: 42px;
 }
 #tipue_search_foot_boxes li, #tipue_search_foot_boxes-add li {
 	list-style-type: none;
@@ -2186,7 +2192,7 @@ div.doc.not_current:hover{
 }
 
 #lists_cont .list{
-	overflow: scroll;
+	overflow-y: scroll;
 	height: 80%;
 	height: -moz-calc(100% - 90px);
 	height: -webkit-calc(100% - 90px);
