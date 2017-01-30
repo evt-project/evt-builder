@@ -3015,8 +3015,20 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 }
 
 /* COLUMNS BREAKS */
-.dipl-column-1of2{
+.dipl-column-2col_layout{
     width: 46%;
+    float: left;
+    margin-right: 4%;
+}
+
+.dipl-column-3col_layout{
+    width: 29.33%;
+    float: left;
+    margin-right: 4%;
+}
+
+.dipl-column-4col_layout{
+    width: 21%;
     float: left;
     margin-right: 4%;
 }
