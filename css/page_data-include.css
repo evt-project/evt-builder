@@ -178,13 +178,7 @@ SPAN.dipl-damage {
 }
 
 SPAN.dipl-supplied {
-
-}
-SPAN.dipl-supplied[data-reason='omitted'] {
-
-}
-SPAN.dipl-supplied[data-reason='illeggibile'] {
-
+	display: none !important;
 }
 
 span.dipl-choice_popup { 
@@ -441,11 +435,26 @@ span.interp-ex {
 span.interp-supplied {
 
 }
-span.interp-supplied[data-reason='omitted'] {
-	
+/* <supplied> default */
+span.interp-supplied::before {
+	content: "[";
 }
-span.interp-supplied[data-reason='illeggibile'] {
-	
+span.interp-supplied::after {
+	content: "]";
+}
+/* <supplied> @reason="omitted" */
+span.interp-supplied[data-reason='omitted']::before {
+	content : "<";
+}
+span.interp-supplied[data-reason='omitted']::after {
+	content : ">";
+}
+/* <supplied> @reason="illegible" */
+span.interp-supplied[data-reason='illegible']::before {
+	content: "[";
+}
+span.interp-supplied[data-reason='illegible']::after {
+	content: "]";
 }
 
 span.tooltip {
