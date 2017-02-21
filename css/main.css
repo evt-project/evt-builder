@@ -2900,10 +2900,11 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 
 #poweredBy {
     width: 100%;
-	position: relative;
+	position: absolute;
 	text-align: right;
-	font-size: 12px;
-	margin: 10px auto auto -4.5%;	
+	font-size: 0.3rem;
+	right: 3px;
+	bottom: 0;
 }
 
 #poweredBy:hover{
