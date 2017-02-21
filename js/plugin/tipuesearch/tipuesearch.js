@@ -1,16 +1,16 @@
-
 /**
-* Tipue Search 3.1
-* Copyright (c) 2013 Tipue
-* Tipue Search is released under the MIT License
-* http://www.tipue.com/search
-* 
-* changes by Jacopo Pugliese - JP 
-* @since 2013
-* 
-* changes by ChiaraDipi - CDP
-* @since 2015 
-*/ 
+ * Tipue Search 3.1
+ *
+ * Copyright (c) 2013 Tipue
+ * Tipue Search is released under the MIT License
+ * http://www.tipue.com/search
+ * 
+ * changes by Jacopo Pugliese - JP 
+ * @since 2013 @to 2015
+ * 
+ * changes by ChiaraDipi - CDP
+ * @since 2015 
+ */ 
 
 
 (function($) {

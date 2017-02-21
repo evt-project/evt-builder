@@ -1,4 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+    Copyright (C) 2013-2017 the EVT Development Team.
+    
+    EVT 1 is free software: you can redistribute it 
+    and/or modify it under the terms of the 
+    GNU General Public License version 2
+    available in the LICENSE file (or see <http://www.gnu.org/licenses/>).
+    
+    EVT 1 is distributed in the hope that it will be useful, 
+    but WITHOUT ANY WARRANTY; without even the implied 
+    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
+    See the GNU General Public License for more details. 
+-->
 <xsl:stylesheet xpath-default-namespace="http://www.tei-c.org/ns/1.0"
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="2.0"
     xmlns:xs="http://www.w3.org/2001/XMLSchema" 
