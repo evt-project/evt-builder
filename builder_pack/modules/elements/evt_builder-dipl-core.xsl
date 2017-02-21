@@ -302,6 +302,7 @@
 		<xsl:element name="span">
 			<xsl:attribute name="class" select="$ed_name1, name()" separator="-"/>
 			<xsl:attribute name="data-reason" select="@reason"/>
+			<xsl:attribute name="data-type" select="@type"/>
 			<xsl:apply-templates mode="#current"/>
 		</xsl:element>
 	</xsl:template>

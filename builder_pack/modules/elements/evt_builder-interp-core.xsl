@@ -348,22 +348,7 @@
 		<xsl:element name="span">
 			<xsl:attribute name="class" select="$ed_name2, name()" separator="-"/>
 			<xsl:attribute name="data-reason" select="@reason" />
-			<xsl:choose>
-				<xsl:when test="@reason = 'illeggibile'">
-					<xsl:text>[</xsl:text>
-					<xsl:apply-templates mode="#current"/>
-					<xsl:text>]</xsl:text>
-				</xsl:when>
-				<xsl:when test="@reason = 'omitted'">
-					<xsl:text>&lt;</xsl:text>
-					<xsl:apply-templates mode="#current"/>
-					<xsl:text>&gt;</xsl:text>
-				</xsl:when>
-				<xsl:otherwise>
-					<xsl:apply-templates mode="#current"/>
-				</xsl:otherwise>
-			</xsl:choose>
-			
+			<xsl:apply-templates mode="#current"/>
 		</xsl:element>
 	</xsl:template>
 	
