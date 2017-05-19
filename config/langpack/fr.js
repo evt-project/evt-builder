@@ -156,6 +156,8 @@ jquery_lang_js.prototype.lang.fr = {
     "orgName":"Organismes religieux",
     "measure": "Monnaies",
     "date": "Dates",
+    "term": "Term",
+    "gloss": "Gloss",
     "clear": "Pas de sélection",
 	"multi": "Multi sélection",
 

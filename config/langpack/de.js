@@ -157,6 +157,8 @@ jquery_lang_js.prototype.lang.de = {
     "orgName":"Religi&ouml;se organisationen",
     "measure": "W&auml;hrungen",
     "date": "Daten",
+    "term": "Term",
+    "gloss": "Gloss",
     "clear": "Keine Auswahl",
     "multi": "Mehrfachauswahl",
     "Multi selection": "Mehrfachauswahl",

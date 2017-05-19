@@ -156,6 +156,8 @@ jquery_lang_js.prototype.lang.it = {
     "orgName":"Enti religiosi",
     "measure": "Monete",
     "date": "Date",
+    "term": "Term",
+    "gloss": "Gloss",
     "clear": "Nessuna selezione",
     "multi": "Selezione multipla",
 
