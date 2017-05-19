@@ -35,6 +35,9 @@
 	<xsl:template match="tei:p" mode="dipl">
 		<xsl:element name="span">
 			<xsl:attribute name="class" select="$ed_name1,name()" separator="-"/>
+			<xsl:if test="@part">
+				<xsl:attribute name="data-part" select="@part"/>
+			</xsl:if>
 			<xsl:apply-templates mode="#current"> </xsl:apply-templates>
 		</xsl:element>
 	</xsl:template>
@@ -101,10 +104,10 @@
 		<xsl:choose>
 			<xsl:when test="@xml:id">
 				<xsl:choose>
-					<xsl:when test="not(ends-with(@xml:id, 'reg'))">
+					<xsl:when test="(not(ends-with(@xml:id, 'reg')) and not(ends-with(@xml:id, 'corr')))">
 						<xsl:element name="tei:lb">
 							<xsl:copy-of select="@* except(@xml:id)"></xsl:copy-of>
-							<xsl:attribute name="{@xml:id/name()}" select="if(ends-with(@xml:id, 'orig')) then(replace(@xml:id, 'orig', '')) else(@xml:id)"/>
+							<xsl:attribute name="{@xml:id/name()}" select="if(ends-with(@xml:id, 'orig')) then(replace(@xml:id, 'orig', '')) else(if(ends-with(@xml:id, 'sic')) then(replace(@xml:id, 'sic', '')) else(@xml:id))"/>
 						</xsl:element>
 						<xsl:if test="@n">
 							<xsl:element name="span">

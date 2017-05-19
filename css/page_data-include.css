@@ -277,6 +277,9 @@ div.interp-zone{
 .interp-p{
 	display: block;
 }
+.interp-p[data-part] {
+	display: inline;
+}
 
 div.interp-center, span.interp-center {
 	/*margin-left: 0.5cm;
@@ -713,6 +716,33 @@ span.no-info{
     color: #69513a;
 }
 
+
+/* Style for TERM */
+.doc.current span.term.list_active, 
+.doc.current span.term.over,
+.doc.current span.term.list_active span.trigger, 
+.doc.current span.term.over span.trigger, 
+.doc.current span.term.opened span.trigger{
+    background-color: #f0d4b7;    
+    cursor:pointer;
+}
+.option[data-value="term"] .filter_color{
+	color: #f0d4b7;
+}
+
+/* Syle for GLOSS */
+.doc.current span.gloss.list_active, 
+.doc.current span.gloss.over,
+.doc.current span.gloss.list_active span.trigger, 
+.doc.current span.gloss.over span.trigger, 
+.doc.current span.gloss.opened span.trigger{
+    background-color: #2ca49e;    
+    cursor:pointer;
+}
+.option[data-value="gloss"] .filter_color{
+	color: #2ca49e;
+}
+
 .doc.current span.opened > span.trigger{
 	/*text-shadow:0px 0px 1px rgba(0,0,0,0.8);*/
 	text-shadow:0px 0px 0.3px rgba(0,0,0,0.8);
@@ -760,3 +790,7 @@ span.tooltip span.entity_name.link_active{
     text-align: right;
     margin: 0 0 2%;
 }
+
+ .line[data-type='rubric']{
+     color: #f00 !important;
+ }
