@@ -36,6 +36,14 @@
 				</a>
 			</li>
 			
+			<xsl:if test="tei:fileDesc/editionStmt">
+				<li data-tab="#editionStmt_tab"> 
+					<a href="javascript:void(0)" lang="def" title="EDITION_STATEMENT">
+						<span lang="def">EDITION_STATEMENT</span>							
+					</a>
+				</li>
+			</xsl:if>
+			
 			<xsl:if test="tei:fileDesc/publicationStmt">
 				<li data-tab="#publicationInfo_tab"> 
 					<a href="javascript:void(0)" lang="def" title="PUBLICATION_INFORMATION">
@@ -113,6 +121,25 @@
 						</div>
 					</xsl:for-each>
 				</xsl:if>				
+			</div>
+			
+			<div id="editionStmt_tab" class="box_tab">
+				<xsl:if test="tei:fileDesc//editionStmt/edition and tei:fileDesc//editionStmt/edition/normalize-space() != ''">
+					<div>
+						<p class="title"><span lang="def">EDITION</span></p>
+						<p class="information"><xsl:apply-templates select="tei:fileDesc//edition"/></p>						
+					</div>
+				</xsl:if>
+				<xsl:if test="tei:fileDesc//editionStmt/respStmt and tei:fileDesc//editionStmt/respStmt/normalize-space() != ''">
+					<div>
+						<p class="title"><span lang="def">RESPONSIBILITY_STATEMENT</span></p>
+						<p class="information"><ul>
+							<xsl:for-each select="tei:fileDesc//editionStmt/respStmt">
+								<li><xsl:apply-templates select="current()"/></li>
+							</xsl:for-each></ul>
+						</p>						
+					</div>
+				</xsl:if>
 			</div>
 			
 			<div id="publicationInfo_tab" class="box_tab">
