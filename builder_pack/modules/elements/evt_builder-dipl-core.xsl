@@ -395,12 +395,12 @@
 	<xsl:template match="tei:corr" mode="dipl" priority="2">
 		<!-- Do nothing -->
 	</xsl:template>	
-	<xsl:template match="tei:expan[ancestor::tei:reg]" mode="dipl" priority="2">
+	<!--<xsl:template match="tei:expan[ancestor::tei:reg]" mode="dipl" priority="2">
 		<xsl:element name="span">
 			<xsl:attribute name="class" select="$ed_name1,name()" separator="-"/>
 			<xsl:apply-templates mode="#current"/> 
 		</xsl:element>
-	</xsl:template>
+	</xsl:template>-->
 	
 	<!-- HI Highlighted text -->
 	<xsl:template match="tei:hi" mode="dipl" priority="2">

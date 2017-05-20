@@ -354,7 +354,8 @@
 								<xsl:element name="span">
 									<xsl:attribute name="class" select="$ed_name2,'choice_popup'" separator="-"/>
 									<xsl:if test="tei:orig"><xsl:apply-templates select="tei:orig" mode="#current"/>
-										<xsl:sequence select="' '"/><!--important--></xsl:if>
+										<xsl:sequence select="' '"/><!--important-->
+									</xsl:if>
 									<xsl:apply-templates select="tei:reg" mode="#current"> </xsl:apply-templates>
 								</xsl:element>
 							</xsl:when>
@@ -437,6 +438,8 @@
 		CORR Correction
 		REG Regularization
 		ORIG Original form
+		ABBR Abbreviation
+		SIC
 	-->
 	<xsl:template match="tei:expan|tei:damage|tei:ex|tei:corr|tei:reg|tei:orig|tei:abbr|tei:sic" mode="interp">
 		<xsl:element name="span">
