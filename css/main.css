@@ -3009,7 +3009,7 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 
 #headerInfo_box_tabs .title {
     width: 100%;
-    height: 15px;
+	margin-bottom: 0;
     display: block;
     margin-top: 20px;
     font-weight: bold; 

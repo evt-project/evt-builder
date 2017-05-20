@@ -68,6 +68,8 @@ jquery_lang_js.prototype.lang.en = {
 	"TITLE": "Title of the edition",
 	"TEXT_AUTHOR": "Text author",
 	"PRINCIPAL_INVESTIGATOR": "Principal investigator",
+	"EDITION_STATEMENT": "Edition Statement",
+	"RESPONSIBILITY_STATEMENT": "Statement of responsibility",
 	"PUBLICATION_INFORMATION": "Publication information",
 	"EDITORIAL_DECLARATION": "Editorial declaration",
 	"AUTORITY": "Release autority",

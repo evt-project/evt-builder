@@ -68,6 +68,8 @@ jquery_lang_js.prototype.lang.de = {
 	"TITLE": "Titel der Ausgabe",
 	"TEXT_AUTHOR": "Urheber",
 	"PRINCIPAL_INVESTIGATOR": "Hauptkoordinator",
+	"EDITION_STATEMENT": "Edition Statement",
+	"RESPONSIBILITY_STATEMENT": "Verantwortungserklärung",
 	"PUBLICATION_INFORMATION": "Angaben zur Ver&ouml;ffentlichung",
 	"EDITORIAL_DECLARATION": "Redaktionserkl&auml;rung",
 	"AUTORITY": "Herausgeberschaft",
