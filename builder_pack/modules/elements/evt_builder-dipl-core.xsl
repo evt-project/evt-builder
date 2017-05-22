@@ -169,8 +169,10 @@
 				REG: <xsl:copy-of select="orig/ancestor::node()[parent::node()[name()=$start_split]]/following-sibling::node()[not(self::lb)][position() lt 3]//tei:reg/node()"/>
 				--> 
 				<xsl:element name="span">
-					<xsl:attribute name="class" select="$ed_name1,'choice_popup'" separator="-"/>
-					<xsl:if test="@id">
+					<xsl:if test="not(tei:sic)">
+						<xsl:attribute name="class" select="$ed_name1,'choice_popup'" separator="-"/>
+					</xsl:if>
+					<xsl:if test="@id and not(tei:sic)">
 						<xsl:variable name="vApos">'</xsl:variable>
 						<xsl:attribute name="class" select="$ed_name1,'-choice_popup ',@id" separator=""/>
 						<xsl:attribute name="onmouseover" select="'overChoice(',$vApos,@id,$vApos,')'" separator=""/>
@@ -205,6 +207,9 @@
 						<xsl:when test="tei:orig">
 							<xsl:apply-templates select="tei:orig" mode="#current"> </xsl:apply-templates>
 						</xsl:when>
+						<xsl:when  test="tei:sic">
+							<xsl:apply-templates select="tei:sic" mode="#current"> </xsl:apply-templates>
+						</xsl:when>
 						<xsl:when test="tei:abbr">
 							<xsl:apply-templates select="tei:abbr" mode="#current"> </xsl:apply-templates>
 						</xsl:when>
@@ -219,21 +224,26 @@
 			<xsl:when test="@part and not(@part=1)">
 				<xsl:element name="span">
 					<xsl:attribute name="class" select="$ed_name1,'choice_popup'" separator="-"/>
-					<xsl:if test="@id">
+					<xsl:if test="@id and not(tei:sic)">
 						<xsl:variable name="vApos">'</xsl:variable>
 						<xsl:attribute name="class" select="$ed_name1,'-choice_popup ',@id" separator=""/>
 						<xsl:attribute name="onmouseover" select="'overChoice(',$vApos,@id,$vApos,')'" separator=""/>
 						<xsl:attribute name="onmouseout" select="'outChoice(',$vApos,@id,$vApos,')'" separator=""/>
 					</xsl:if>
-					<xsl:if test="tei:orig">
-						<xsl:apply-templates select="tei:orig" mode="#current"/>
-					</xsl:if>
-					<xsl:if test="tei:abbr">
-						<xsl:apply-templates select="tei:abbr" mode="#current"/>
-					</xsl:if>
-					<xsl:if test="tei:seg[@type='original']">
-						<xsl:apply-templates select="tei:seg[@type='original']" mode="#current"/>
-					</xsl:if>
+					<xsl:choose>
+						<xsl:when test="tei:orig">
+							<xsl:apply-templates select="tei:orig" mode="#current"/>
+						</xsl:when>
+						<xsl:when  test="tei:sic">
+							<xsl:apply-templates select="tei:sic" mode="#current"> </xsl:apply-templates>
+						</xsl:when>
+						<xsl:when test="tei:abbr">
+							<xsl:apply-templates select="tei:abbr" mode="#current"/>
+						</xsl:when>
+						<xsl:when test="tei:seg[@type='original']">
+							<xsl:apply-templates select="tei:seg[@type='original']" mode="#current"/>
+						</xsl:when>
+					</xsl:choose>
 				</xsl:element>
 			</xsl:when>
 			<!-- IT: Questo è per i casi in cui CHOICE non è suddiviso in più parti-->
