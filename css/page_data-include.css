@@ -791,6 +791,6 @@ span.tooltip span.entity_name.link_active{
     margin: 0 0 2%;
 }
 
- .line[data-type='rubric']{
+.line[data-type='rubric'], .line[data-type="rubric"] *{
      color: #f00 !important;
- }
+}
