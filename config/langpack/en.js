@@ -123,6 +123,8 @@ jquery_lang_js.prototype.lang.en = {
 	"LIST_PERSON": "List of persons",
 	"LIST_PLACE": "List of places",
 	"LIST_ORG": "List of organizations",
+	"LIST_TERM": "List of words",
+	"LIST_GLOSS": "List of glosses",
 	"NO_ELEMENTS": "No elements",
     "PAGE_MISSING": "(miss)",
     "PAGE_MISSING_RIGHT": " - (miss)",
@@ -136,7 +138,8 @@ jquery_lang_js.prototype.lang.en = {
     "FOL": "Fol.",
     "DOC": "Doc.",
     "MULTI_SELECTION": "Multi selection",
-
+    "ALL": "All",
+    
     "SHOWING_RESULTS_FOR_THE_WORD": "Showing results for the word ",
     "SEARCH_FOR": "Search for ",
     "WE_HAVE_FOUND": "We have found ",

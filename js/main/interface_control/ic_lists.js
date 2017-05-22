@@ -130,7 +130,12 @@ function filterListElements(filter){
     $('.list_element_opened').removeClass('list_element_opened');
 
     $('.list_element').hide();
-    var listsElementsFiltered = $(".list_element[data-order-list='"+filterValue.toLowerCase()+"'], .list_element[data-order-list='"+filterValue.toUpperCase()+"']");
+    var listsElementsFiltered;
+    if (filterValue === '*') {
+        listsElementsFiltered = $(".list_element[data-order-list!='']");
+    } else {
+        listsElementsFiltered = $(".list_element[data-order-list='"+filterValue.toLowerCase()+"'], .list_element[data-order-list='"+filterValue.toUpperCase()+"']");
+    }
     listsElementsFiltered.show();
     if (filterValue.toLowerCase() == 'c') {
         $(".list_element[data-order-list='Ç']").show();
@@ -147,6 +152,13 @@ function filterListElements(filter){
                 .appendTo('.ul_list:visible');
             window.lang.run();
         }
+    } else {
+        if ( $( '.no_elements' ).length > 0) {
+            $( '.no_elements' ).hide();
+        }
+        // $('.ul_list:visible').find(listsElementsFiltered).sort(function(a, b) {
+        //     return a.getAttribute('id') > b.getAttribute('id');
+        // }).appendTo($('.ul_list:visible'));
     }
 
     $("div[id*='list_']").scrollTop(0);
@@ -198,8 +210,8 @@ function prepareOccurrencesList(elem, listName){
     var list_ref, list_occ;
     list_ref = $(elem).attr('id');
     list_occ = $("<div/>").addClass('occurences');
-    occ_ref = $('#'+listName)
-                    .find('#occorrenze')
+    occ_ref = $('#list_'+listName)
+                    .find('#occorrenze_'+listName)
                         .find("span[data-ref='"+list_ref+"']");
     if(occ_ref.length > 0){
         occ_ref.each(function(){

@@ -146,6 +146,17 @@
 				</xsl:result-document>
 			</xsl:if>
 			
+			<xsl:if test="$list_term=true()">
+				<xsl:result-document method="html" encoding="UTF-8" media-type="text/plain" byte-order-mark="yes" href="{$filePrefix}/data/output_data/liste/listTerm.html" indent="yes">
+					<xsl:element name="div">
+						<xsl:attribute name="id">listTerm</xsl:attribute>
+						<xsl:attribute name="class">can-change-font-size</xsl:attribute>
+						<xsl:call-template name="listTerm"></xsl:call-template>
+						<xsl:apply-templates select="$step0" mode="listTermOccurences"></xsl:apply-templates>
+					</xsl:element>
+				</xsl:result-document>
+			</xsl:if>
+			
 			<!-- SEARCH -->
 			<xsl:if test="$search=true()">
 				<xsl:apply-templates select="$step0" mode="file4search"></xsl:apply-templates>
@@ -380,6 +391,7 @@
 				<xsl:attribute name="id" select="'ul_listPerson'"/>
 				<xsl:attribute name="class" select="'ul_list'"/>
 				<xsl:for-each select="$root//tei:listPerson/person">
+					<xsl:sort select="lower-case(tei:persName/tei:forename)" order="ascending" />
 					<xsl:element name="li">
 						<xsl:attribute name="id" select="@xml:id" />
 						<xsl:attribute name="class" select="'list_element'"/>
@@ -397,6 +409,7 @@
 			<xsl:attribute name="id" select="'ul_listPlace'"/>
 			<xsl:attribute name="class" select="'ul_list'"/>
 			<xsl:for-each select="$root//tei:listPlace/place">
+				<xsl:sort select="lower-case(tei:settlement)" order="ascending" />
 				<xsl:element name="li">
 					<xsl:attribute name="id" select="@xml:id" />
 					<xsl:attribute name="class" select="'list_element'"/>
@@ -414,11 +427,42 @@
 			<xsl:attribute name="id" select="'ul_listOrg'"/>
 			<xsl:attribute name="class" select="'ul_list'"/>
 			<xsl:for-each select="$root//tei:listOrg/org">
+				<xsl:sort select="lower-case(@xml:id)" order="ascending" />
 				<xsl:element name="li">
 					<xsl:attribute name="id" select="@xml:id" />
 					<xsl:attribute name="class" select="'list_element'"/>
 					<xsl:attribute name="data-order-list" select="substring(@xml:id, 1, 1)"/>
 					<xsl:call-template name="org" />
+				</xsl:element>
+			</xsl:for-each>
+		</xsl:element>
+	</xsl:template>
+	
+	<!-- LIST TERM -->
+	<xsl:template name="listTerm">
+		<xsl:element name="ul">
+			<xsl:attribute name="id" select="'ul_listTerm'"/>
+			<xsl:attribute name="class" select="'ul_list'"/>
+			<xsl:for-each select="$root//tei:term">
+				<xsl:sort select="if(@xml:id) then(lower-case(@xml:id)) else (lower-case(normalize-space(current())))" order="ascending" />
+				<xsl:variable name="termText"><xsl:apply-templates select="current()"/></xsl:variable>
+				<xsl:element name="li">
+					<xsl:attribute name="id">
+						<xsl:choose>
+							<xsl:when test="@xml:id">
+								<xsl:value-of select="@xml:id"/>
+							</xsl:when>
+							<xsl:otherwise>
+								<xsl:value-of select="normalize-space($termText)"/>
+							</xsl:otherwise>
+						</xsl:choose>
+					</xsl:attribute>
+					<xsl:attribute name="class" select="'list_element'"/>
+					<xsl:attribute name="data-order-list" select="substring($termText, 1, 1)"/>
+					<xsl:element name="span">
+						<xsl:attribute name="class" select="'toggle_list_element'"/>
+						<xsl:apply-templates select="current()"/>
+					</xsl:element>
 				</xsl:element>
 			</xsl:for-each>
 		</xsl:element>

@@ -348,3 +348,7 @@
 		<p>If you have any suggestions or spot an error/bug please contact us at <a href="mailto:evt.developers@gmail.com">evt.developers@gmail.com</a></p>
 	</xsl:param>
 </xsl:stylesheet>
+	<!-- default: true() -->
+	<!-- IT: Attiva/disattiva lista terms -->
+	<!-- default: true() -->
+	<xsl:param name="list_term" select="true()"/>

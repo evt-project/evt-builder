@@ -147,7 +147,9 @@
 	<xsl:template match="tei:cb" mode="dipl">
 		<xsl:element name="tei:cb">
 			<xsl:copy-of select="@* except(@xml:id)"></xsl:copy-of>
-			<xsl:attribute name="{@xml:id/name()}" select="if(ends-with(@xml:id, 'orig')) then(replace(@xml:id, 'orig', '')) else(@xml:id)"/>
+			<xsl:if test="@xml:id">
+				<xsl:attribute name="{@xml:id/name()}" select="if(ends-with(@xml:id, 'orig')) then(replace(@xml:id, 'orig', '')) else(@xml:id)"/>
+			</xsl:if>
 		</xsl:element>
 	</xsl:template>
 	
@@ -503,7 +505,18 @@
 	<xsl:template match="tei:term" mode="dipl">
 		<xsl:element name="span">
 			<xsl:attribute name="class">term</xsl:attribute>
-			<xsl:apply-templates mode="#current" />
+			<xsl:variable name="termText"><xsl:apply-templates mode="#current"/></xsl:variable>
+			<xsl:attribute name="data-ref">
+				<xsl:choose>
+					<xsl:when test="@xml:id">
+						<xsl:value-of select="@xml:id"/>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:value-of select="normalize-space($termText)"/>
+					</xsl:otherwise>
+				</xsl:choose>
+			</xsl:attribute>
+			<xsl:value-of select="$termText"/>
 		</xsl:element>
 	</xsl:template>
 	

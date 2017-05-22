@@ -955,6 +955,7 @@
 									<span class="list_filter" data-filter-type="first_letter" data-value="X">X</span>
 									<span class="list_filter" data-filter-type="first_letter" data-value="Y">Y</span>
 									<span class="list_filter" data-filter-type="first_letter" data-value="Z">Z</span>
+									<span lang="def" class="list_filter" data-filter-type="first_letter" data-value="*">ALL</span>
 								</div>
 							</div>
 							<xsl:if test="$document_navigation=true()">
@@ -984,7 +985,7 @@
 										<i class="fa fa-search"></i>
 									</xsl:element>
 								</xsl:if>
-								<xsl:if test="$list_person=true()">
+								<xsl:if test="$list_person=true() or $list_place=true() or $list_org=true() or $list_term=true()">
 									<xsl:element name="span">
 										<xsl:attribute name="id" select="'list_link'"/>
 										<xsl:attribute name="class" select="'mainButtons'"/>
