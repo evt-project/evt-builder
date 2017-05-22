@@ -597,20 +597,21 @@
 	
 	<!-- TERM -->
 	<xsl:template match="tei:term" mode="interp">
-		<xsl:choose>
-			<xsl:when test="ancestor::tei:front">
-				<xsl:element name="span">
-					<xsl:attribute name="class">term</xsl:attribute>
-					<xsl:apply-templates mode="#current" />
-				</xsl:element>	
-			</xsl:when>
-			<xsl:otherwise>
-				<xsl:element name="span">
-					<xsl:attribute name="class">term</xsl:attribute>
-					<xsl:apply-templates mode="#current" />
-				</xsl:element>
-			</xsl:otherwise>
-		</xsl:choose>
+		<xsl:element name="span">
+			<xsl:attribute name="class">term</xsl:attribute>
+			<xsl:variable name="termText"><xsl:apply-templates mode="#current"/></xsl:variable>
+			<xsl:attribute name="data-ref">
+				<xsl:choose>
+					<xsl:when test="@xml:id">
+						<xsl:value-of select="@xml:id"/>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:value-of select="normalize-space($termText)"/>
+					</xsl:otherwise>
+				</xsl:choose>
+			</xsl:attribute>
+			<xsl:value-of select="$termText"/>
+		</xsl:element>
 	</xsl:template>
 	
 	<!-- DATE -->

@@ -123,6 +123,8 @@ jquery_lang_js.prototype.lang.de = {
 	"LIST_PERSON": "Personenliste",
 	"LIST_PLACE": "Ortliste",
 	"LIST_ORG": "Liste der Institutionen",
+	"LIST_TERM": "Liste der Begriffe",
+	"LIST_GLOSS": "Liste der Glossen",
 	"NO_ELEMENTS": "Keine elemente",
     "PAGE_MISSING": "(miss)",
     "PAGE_MISSING_RIGHT": " - (miss)",
@@ -136,6 +138,7 @@ jquery_lang_js.prototype.lang.de = {
     "FOL": "Fol.",
     "DOC": "Doc.",
     "MULTI_SELECTION": "Mehrfachauswahl",
+    "ALL": "Alles",
 
     "SHOWING_RESULTS_FOR_THE_WORD": "Zeige Suchergebnisse f&uuml;r ",
     "SEARCH_FOR": "Suche nach ",
