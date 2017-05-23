@@ -303,6 +303,16 @@
 	<!-- default: true() -->
 	<xsl:param name="list_org" select="true()"/>
 	
+	<!-- default: true() -->
+	<!-- IT: Attiva/disattiva lista terms -->
+	<!-- default: true() -->
+	<xsl:param name="list_term" select="true()"/>
+	
+	<!-- default: true() -->
+	<!-- IT: Attiva/disattiva lista glosses -->
+	<!-- default: true() -->
+	<xsl:param name="list_gloss" select="true()"/>
+	
 	<!-- EN: It is possibile to personalize the elements in the filter select element that will select and highlight particular (groups of) words.
 			 In order to remove an element from the list in the application just remove the element itself.
 			 In order to add a new element to the list you simply need to know that the tag corresponds to the class name that has be given to the html element referring to the particular words to be selected. -->
@@ -348,7 +358,3 @@
 		<p>If you have any suggestions or spot an error/bug please contact us at <a href="mailto:evt.developers@gmail.com">evt.developers@gmail.com</a></p>
 	</xsl:param>
 </xsl:stylesheet>
-	<!-- default: true() -->
-	<!-- IT: Attiva/disattiva lista terms -->
-	<!-- default: true() -->
-	<xsl:param name="list_term" select="true()"/>

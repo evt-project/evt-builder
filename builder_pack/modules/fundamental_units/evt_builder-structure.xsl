@@ -114,8 +114,11 @@
                     <xsl:if test="$list_org=true()">
                         <listOrg active="1" lang="def">LIST_ORG</listOrg>
                     </xsl:if>
-                     <xsl:if test="$list_term=true()">
+                    <xsl:if test="$list_term=true()">
                         <listTerm active="1" lang="def">LIST_TERM</listTerm>
+                    </xsl:if>
+                    <xsl:if test="$list_gloss=true()">
+                        <listGloss active="1" lang="def">LIST_GLOSS</listGloss>
                     </xsl:if>
                 </liste>
                 <editions>

@@ -2298,12 +2298,14 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 	display: none !important;
 }
 #text span.popup.selected_from_list .trigger,
-#text span.term.selected_from_list {
+#text span.term.selected_from_list,
+#text span.gloss.selected_from_list {
 	background: #ffc !important;
 	text-shadow:0px 0px 1px #000;
 }
 #text span.popup.selected_from_list .tooltip,
-#text span.term.selected_from_list {
+#text span.term.selected_from_list,
+#text span.gloss.selected_from_list {
 	background: rgb(229, 218, 196) !important;
 	text-shadow:none !important;
 }
