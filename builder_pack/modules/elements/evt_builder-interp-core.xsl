@@ -614,6 +614,25 @@
 		</xsl:element>
 	</xsl:template>
 	
+	<!-- GLOSS -->
+	<xsl:template match="tei:gloss" mode="interp">
+		<xsl:element name="span">
+			<xsl:attribute name="class">gloss</xsl:attribute>
+			<xsl:variable name="glossText"><xsl:apply-templates mode="#current"/></xsl:variable>
+			<xsl:attribute name="data-ref">
+				<xsl:choose>
+					<xsl:when test="@xml:id">
+						<xsl:value-of select="@xml:id"/>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:value-of select="normalize-space($glossText)"/>
+					</xsl:otherwise>
+				</xsl:choose>
+			</xsl:attribute>
+			<xsl:value-of select="$glossText"/>
+		</xsl:element>
+	</xsl:template>
+	
 	<!-- DATE -->
 	<xsl:template match="tei:date" mode="interp">
 		<xsl:choose>

@@ -145,7 +145,6 @@
 					</xsl:element>
 				</xsl:result-document>
 			</xsl:if>
-			
 			<xsl:if test="$list_term=true()">
 				<xsl:result-document method="html" encoding="UTF-8" media-type="text/plain" byte-order-mark="yes" href="{$filePrefix}/data/output_data/liste/listTerm.html" indent="yes">
 					<xsl:element name="div">
@@ -153,6 +152,16 @@
 						<xsl:attribute name="class">can-change-font-size</xsl:attribute>
 						<xsl:call-template name="listTerm"></xsl:call-template>
 						<xsl:apply-templates select="$step0" mode="listTermOccurences"></xsl:apply-templates>
+					</xsl:element>
+				</xsl:result-document>
+			</xsl:if>
+			<xsl:if test="$list_gloss=true()">
+				<xsl:result-document method="html" encoding="UTF-8" media-type="text/plain" byte-order-mark="yes" href="{$filePrefix}/data/output_data/liste/listGloss.html" indent="yes">
+					<xsl:element name="div">
+						<xsl:attribute name="id">listGloss</xsl:attribute>
+						<xsl:attribute name="class">can-change-font-size</xsl:attribute>
+						<xsl:call-template name="listGloss"></xsl:call-template>
+						<xsl:apply-templates select="$step0" mode="listGlossOccurences"></xsl:apply-templates>
 					</xsl:element>
 				</xsl:result-document>
 			</xsl:if>
@@ -453,12 +462,42 @@
 								<xsl:value-of select="@xml:id"/>
 							</xsl:when>
 							<xsl:otherwise>
-								<xsl:value-of select="normalize-space($termText)"/>
+								<xsl:value-of select="translate(normalize-space($termText), ' ', '')"/>
 							</xsl:otherwise>
 						</xsl:choose>
 					</xsl:attribute>
 					<xsl:attribute name="class" select="'list_element'"/>
 					<xsl:attribute name="data-order-list" select="substring($termText, 1, 1)"/>
+					<xsl:element name="span">
+						<xsl:attribute name="class" select="'toggle_list_element'"/>
+						<xsl:apply-templates select="current()"/>
+					</xsl:element>
+				</xsl:element>
+			</xsl:for-each>
+		</xsl:element>
+	</xsl:template>
+	
+	<!-- LIST GLOSS -->
+	<xsl:template name="listGloss">
+		<xsl:element name="ul">
+			<xsl:attribute name="id" select="'ul_listGloss'"/>
+			<xsl:attribute name="class" select="'ul_list'"/>
+			<xsl:for-each select="$root//tei:gloss">
+				<xsl:sort select="if(@xml:id) then(lower-case(@xml:id)) else (lower-case(normalize-space(current())))" order="ascending" />
+				<xsl:variable name="glossText"><xsl:apply-templates select="current()"/></xsl:variable>
+				<xsl:element name="li">
+					<xsl:attribute name="id">
+						<xsl:choose>
+							<xsl:when test="@xml:id">
+								<xsl:value-of select="@xml:id"/>
+							</xsl:when>
+							<xsl:otherwise>
+								<xsl:value-of select="translate(normalize-space($glossText), ' ', '')"/>
+							</xsl:otherwise>
+						</xsl:choose>
+					</xsl:attribute>
+					<xsl:attribute name="class" select="'list_element'"/>
+					<xsl:attribute name="data-order-list" select="substring($glossText, 1, 1)"/>
 					<xsl:element name="span">
 						<xsl:attribute name="class" select="'toggle_list_element'"/>
 						<xsl:apply-templates select="current()"/>
