@@ -610,7 +610,7 @@
 					</xsl:otherwise>
 				</xsl:choose>
 			</xsl:attribute>
-			<xsl:value-of select="$termText"/>
+			<xsl:apply-templates mode="#current"/>
 		</xsl:element>
 	</xsl:template>
 	
@@ -629,7 +629,7 @@
 					</xsl:otherwise>
 				</xsl:choose>
 			</xsl:attribute>
-			<xsl:value-of select="$glossText"/>
+			<xsl:apply-templates mode="#current"/>
 		</xsl:element>
 	</xsl:template>
 	
