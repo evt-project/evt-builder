@@ -199,13 +199,13 @@ span.dipl-choice_popup {
     /*white-space: nowrap;*/
 }
 
-span.dipl-reg:before {
+span.dipl-reg:before, span.dipl-expan:before  {
 	content: url("../images/popup_before.png");
 	left: 15%;
 	position: absolute;
 	top: -13px; }
 
-span.dipl-reg {
+span.dipl-reg, span.dipl-expan {
 	font-size: 80%;
 	position: absolute;
 	line-height: 16px;
@@ -222,24 +222,29 @@ span.dipl-reg {
 	padding: 0.4%;
 	margin-top: 30px; }
 
-span.dipl-reg span{
+span.dipl-reg span, span.dipl-expan span{
 	background: transparent;
  }
 	
 span.dipl-choice_popup:hover span.dipl-reg,
-span.dipl-choice_popup.hover span.dipl-reg {
+span.dipl-choice_popup.hover span.dipl-reg,
+span.dipl-choice_popup:hover span.dipl-expan,
+span.dipl-choice_popup.hover span.dipl-expan  {
 	display: inline;
 	min-width: 20px;
 	text-align: center; 
 }
 
-span.dipl-choice_popup span.dipl-orig { 
+span.dipl-choice_popup span.dipl-orig,
+span.dipl-choice_popup span.dipl-abbr { 
 	/*color: #999966;*/
 	color: #69513a; /*background-color: rgba(255,255,204,0.8);*/ 
 }
 
 span.dipl-choice_popup:hover span.dipl-orig,
-span.dipl-choice_popup.hover span.dipl-orig {
+span.dipl-choice_popup.hover span.dipl-orig,
+span.dipl-choice_popup:hover span.dipl-abbr,
+span.dipl-choice_popup.hover span.dipl-abbr {
 	color: #561c0a;
 	text-decoration: underline; 
 }
@@ -333,7 +338,8 @@ span.interp-choice_popup, span.interp-choice_popup_corr{
     /*white-space: nowrap;*/
 }
 
-span.interp-choice_popup span.interp-orig:before {
+span.interp-choice_popup span.interp-orig:before,
+span.interp-choice_popup span.interp-abbr:before {
 	content: url("../images/popup_before.png");
 	left: 15%;
 	position: absolute;
@@ -347,7 +353,8 @@ span.interp-choice_popup_corr span.interp-corr:before {
 	top: -13px; 
 }
 
-span.interp-choice_popup span.interp-orig {
+span.interp-choice_popup span.interp-orig,
+span.interp-choice_popup span.interp-abbr {
 	font-size: 80%;
 	position: absolute;
 	line-height: 16px;
@@ -383,19 +390,20 @@ span.interp-choice_popup_corr span.interp-corr {
 	margin-top: 30px; 
 }
 
-span.interp-choice_popup:hover span.interp-orig, span.interp-choice_popup_corr:hover span.interp-corr,
-span.interp-choice_popup.hover span.interp-orig, span.interp-choice_popup_corr.hover span.interp-corr{
+span.interp-choice_popup:hover span.interp-orig, span.interp-choice_popup_corr:hover span.interp-corr, span.interp-choice_popup:hover span.interp-abbr,
+span.interp-choice_popup.hover span.interp-orig, span.interp-choice_popup_corr.hover span.interp-corr, span.interp-choice_popup.hover span.interp-abbr{
 	display: inline;
 	min-width: 20px;
 	text-align: center; 
 }
 
-span.interp-choice_popup:hover span.interp-reg, span.interp-choice_popup_corr:hover span.interp-sic,
-span.interp-choice_popup.hover span.interp-reg, span.interp-choice_popup_corr.hover span.interp-sic{ 
+span.interp-choice_popup:hover span.interp-reg, span.interp-choice_popup_corr:hover span.interp-sic, span.interp-choice_popup:hover span.interp-expan,
+span.interp-choice_popup.hover span.interp-reg, span.interp-choice_popup_corr.hover span.interp-sic, span.interp-choice_popup.hover span.interp-expan, { 
 	text-decoration: underline; 
 }
 
-span.interp-choice_popup span.interp-reg { 
+span.interp-choice_popup span.interp-reg,
+span.interp-choice_popup span.interp-expan { 
 	color: #69513a; /*background-color: rgba(255,255,204,0.8);*/ 
 }
 
@@ -403,8 +411,8 @@ span.interp-choice_popup_corr span.interp-sic {
 	color: #934d4d; /*background-color: rgba(255,255,204,0.8);*/ 
 }
 
-span.interp-choice_popup span.interp-reg:hover, span.interp-choice_popup_corr span.interp-sic:hover,
-span.interp-choice_popup span.interp-reg.hover, span.interp-choice_popup_corr span.interp-sic.hover{ 
+span.interp-choice_popup span.interp-reg:hover, span.interp-choice_popup_corr span.interp-sic:hover, span.interp-choice_popup span.interp-expan:hover, 
+span.interp-choice_popup span.interp-reg.hover, span.interp-choice_popup_corr span.interp-sic.hover, span.interp-choice_popup span.interp-expan.hover{ 
 	color: #561c0a; /*background-color: rgba(255,255,204,0.8);*/ 
 }
 
@@ -724,7 +732,7 @@ span.no-info{
 .doc.current span.term.over span.trigger, 
 .doc.current span.term.opened span.trigger{
     background-color: #f0d4b7;    
-    cursor:pointer;
+    /*cursor:pointer;*/
 }
 .option[data-value="term"] .filter_color{
 	color: #f0d4b7;
@@ -737,7 +745,7 @@ span.no-info{
 .doc.current span.gloss.over span.trigger, 
 .doc.current span.gloss.opened span.trigger{
     background-color: #2ca49e;    
-    cursor:pointer;
+    /*cursor:pointer;*/
 }
 .option[data-value="gloss"] .filter_color{
 	color: #2ca49e;

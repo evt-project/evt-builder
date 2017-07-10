@@ -799,11 +799,11 @@ function bindEEselectClick() {
                             .css('opacity', "1")
                             .removeClass('not_active'); 
             } else {
-                $("#"+contextual_parent)
-                    .parents("div[id*='frame']")
-                        .find('.like_select.filter')
-                            .css('opacity', "0.5")
-                            .addClass('not_active'); 
+                // $("#"+contextual_parent)
+                //     .parents("div[id*='frame']")
+                //         .find('.like_select.filter')
+                //             .css('opacity', "0.5")
+                //             .addClass('not_active'); 
             }
         
             // Se ho il regesto, e questo è aperto, lo chiudo
@@ -842,11 +842,11 @@ function bindEEselectClick() {
                                 .css('opacity', "1")
                                 .removeClass('not_active'); 
                     } else {
-                        $("#"+other_parent)
-                            .parents("div[id*='frame']")
-                                .find('.like_select.filter')
-                                    .css('opacity', "0.5")
-                                    .addClass('not_active'); 
+                        // $("#"+other_parent)
+                        //     .parents("div[id*='frame']")
+                        //         .find('.like_select.filter')
+                        //             .css('opacity', "0.5")
+                        //             .addClass('not_active'); 
                     }
                     // carico nell'altro frame il nuovo livello di edizione trovato
                     gotoedition(pp_val, other_ee_val, other_frame, other_parent);
