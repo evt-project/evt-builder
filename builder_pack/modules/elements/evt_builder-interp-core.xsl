@@ -663,6 +663,9 @@
 	<!-- PERS NAME personal name -->
 	<xsl:template match="tei:persName[starts-with(@ref,'#')]" mode="interp">
 		<xsl:choose>
+			<xsl:when test="count(ancestor::tei:teiHeader)>0">
+				<xsl:apply-templates mode="#current" />
+			</xsl:when>
 			<xsl:when test="@ref and @ref!='' and $root//tei:person[@xml:id=substring-after(current()/@ref,'#')]">
 				<xsl:element name="span">
 					<xsl:attribute name="class">popup persName</xsl:attribute>
