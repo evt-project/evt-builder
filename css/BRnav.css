@@ -1,0 +1,208 @@
+/* CSS per BRnav e altri elementi */
+#BRnav{
+	text-align: center;
+	overflow: visible;
+	margin-top: 30px;
+	position: relative;	
+	bottom: 0;
+	left: 4.5%;
+	width: 91%;
+	height: 70px;
+	z-index: 99999;
+	
+	-moz-box-shadow:0 10px 5px -6px rgba(0,0,0,0.8);
+	-webkit-box-shadow:0 10px 5px -6px rgba(0,0,0,0.8);
+	-o-box-shadow:0 10px 5px -6px rgba(0,0,0,0.8);
+	-khtml-box-shadow:0 10px 5px -6px rgba(0,0,0,0.8);
+	-ms-box-shadow:0 10px 5px -6px rgba(0,0,0,0.8);
+	box-shadow:0 10px 5px -6px rgba(0,0,0,0.8);
+	background-color: #362D28;
+}
+
+#newButton {
+	width: 10%;
+	height: 70px;
+	display: block;
+	position: relative;  /* Relativo all'elemento contenitore ("nav") */
+	float: left;  /* Elementi uno dopo l'altro */
+}
+
+#thumb_elem {
+	height: 40px;
+	margin: 17px;
+	padding: 0;
+	border: 0;
+	float: left;
+}
+
+#viscoll {
+	width: 40px;
+	height: 40px;
+	margin-top: 17px;
+	margin-bottom: 17px;
+	margin-left: -25px;
+	padding: 0;
+	border: 0;
+	background-image: url(BRnav-image/viscoll-icon.png);
+	background-size: 40px 40px;
+	background-repeat: no-repeat;
+	background-position: center;
+	border-radius: 5px;
+	clear: left;
+}
+
+/* Contiene lo slider */
+#BRnavpos {
+	width: 75%;
+	height: 70px;
+	display: block;
+	position: relative;  /* Relativo all'elemento contenitore ("nav") */
+	float: left;
+}
+
+#BRpager {
+	padding-left: 12px;
+	text-align: right;
+    /*position: relative;*/
+    margin-left: 10px;
+    margin-right: 10px;
+	margin-top: 27px;
+    height: 14px;
+	background-color: #F5EAD4;
+	border-radius: 10px;
+	box-shadow: inset 0px 1px 1px 0px rgba(155,154,155,0.39);
+}
+
+#BRslider {
+    position: absolute;
+    top: 13px;
+    height: 27px;
+}
+
+#BRnavline {
+    position: relative;
+    height: 1px;
+    width: auto;
+    background-color: #000;
+    top: -7px;
+    margin: 0 10px;
+}
+
+.BRnavend {
+    position: absolute;
+    top: -2px;
+    width: 1px;
+    height: 6px;
+    background-color: #000;
+}
+
+#BRnavleft {
+    left: 0;
+}
+
+#BRnavright {
+    right: 0;
+}
+
+/* Contiene i pulsanti */
+#BRpage {
+    width: 150px;
+    padding-left: 20px;
+	padding-right: 20px;
+    text-align: right;
+	float: right;
+}
+
+.BRicon_book_left, .BRicon_book_right {
+    display: block;
+    float: left;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    margin: 15px 0 15px 0;
+    vertical-align: middle;
+    border: none;
+    cursor: pointer;
+    background-color: #F5EAD4;
+    background-image: url(BRnav-image/BRicons.png);
+    background-repeat: no-repeat;
+}
+
+.BRicon_book_left {
+	border-bottom-left-radius: 5px;
+	border-top-left-radius: 5px;
+	margin-left: 10px;
+	border-right: 1px solid #362D28;
+}
+
+.BRicon_book_right {
+	margin-right: 15px;
+	border-bottom-right-radius: 5px;
+	border-top-right-radius: 5px;
+	border-left: 1px solid #362D28;
+}
+
+.BRicon_book_left {background-position:-440px 0;}
+.BRicon_book_left:hover { box-shadow: inset 1px 2px 3px rgba(0, 0, 0, 0.7);}
+.BRicon_book_right {background-position:-520px 0;}
+.BRicon_book_right:hover { box-shadow: inset 1px 2px 3px rgba(0, 0, 0, 0.7);}
+
+.BRnavCntl {
+    background-color: #362D28;
+    position: absolute;
+    right: 20px;
+    width: 40px;
+    height: 30px;
+    cursor: pointer;
+}
+
+#BRnavCntlBtm {
+    bottom: 50px;
+    -moz-border-radius-topright: 8px;
+    -webkit-border-top-right-radius: 8px;
+    -moz-border-radius-topleft: 8px;
+    -webkit-border-top-left-radius: 8px;
+}
+#BRnavCntlTop {
+    top: 40px;
+    -moz-border-radius-bottomright: 8px;
+    -webkit-border-bottom-right-radius: 8px;
+    -moz-border-radius-bottomleft: 8px;
+    -webkit-border-bottom-left-radius: 8px;
+    display: none;
+}
+
+.BRup {
+    background-image: url("BRnav-image/nav_control-up.png");
+    background-repeat: no-repeat;
+}
+
+.BRdn {
+    background-image: url("BRnav-image/nav_control-dn.png");
+    background-repeat: no-repeat;
+}
+
+#BRnavCntlBtm.BRup,#BRnavCntlBtm.BRdn {
+    background-position: 8px 4px;
+}
+
+#BRnavCntlTop.BRup,#BRnavCntlTop.BRdn {
+    background-position: 8px 4px;
+}
+
+/* Contiene il numero della pagina visualizzata */
+#pagenum {
+    position: absolute;
+	width: 100%;
+	height: 15px;
+	text-align: center;
+	padding: 0 0 0 0;
+	font-size: 0.6em;
+	font-family: Junicode, Times, serif;
+	color: #000;
+}
+
+#pagenum span {
+    text-align: center;
+    font-style: italic;
+}

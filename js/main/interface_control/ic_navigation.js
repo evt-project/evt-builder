@@ -955,11 +955,11 @@ function bindThumbClick() {
 /*= BIND ARROWS BUTTONS CLICK EVENT =*/
 function bindArrowsBtnsClick() {
     // Go to previous page;
-    $(".main_left_arrow").click(function(){
+    $(".main_left_arrow , .BRicon_book_left").click(function(){
         arrow("left");
     });
     // Go to next page;
-    $(".main_right_arrow").click(function(){
+    $(".main_right_arrow , .BRicon_book_right").click(function(){
         arrow("right");
     });
 

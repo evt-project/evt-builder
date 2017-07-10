@@ -57,6 +57,8 @@
 						href="{$html_path}/css/font-awesome.min.css" />
 					<link rel="stylesheet" type="text/css"
 						href="{$html_path}/css/evt-icons.css" />
+					<link rel="stylesheet" type="text/css"
+						href="{$html_path}/css/BRnav.css" />
 				</xsl:when>
 				<xsl:otherwise>
 					<link rel="stylesheet" type="text/css" href="{$html_path}/css/page_data-include-{$output}.css"/>
@@ -129,6 +131,10 @@
 					<script type="text/javascript" src="{$html_path}/js/main/search.js"/>
 					<xsl:comment>/search</xsl:comment>
 				</xsl:if>
+				
+				<xsl:comment>BRnav</xsl:comment>
+				<script type="text/javascript" src="{$html_path}/js/main/ic_BRnav.js"/>
+				<xsl:comment>/BRnav</xsl:comment>
 				
 				<!-- Integrations by LS -->
 				<script type="text/javascript" src="{$html_path}/js/plugin/jquery-lang.js"/>
@@ -517,6 +523,7 @@
 										</xsl:if>
 										<xsl:if test="$image_frame=true()">
 											<div id="image_menu">
+												<!-- E' stato spostato in basso
 												<xsl:if test="$thumbs_button=true()">
 													<xsl:element name="span">
 														<xsl:attribute name="class" select="'imageTopTool mainButtons thumb_link'"/>
@@ -527,7 +534,7 @@
 														<span lang="def">THUMBS</span>
 														<i class="fa fa-th"></i>
 													</xsl:element>
-												</xsl:if>
+												</xsl:if> -->
 												<xsl:if test="$mag_button=true()">
 													<xsl:element name="span">
 														<xsl:attribute name="class" select="'imageTopTool mainButtons'"/>
@@ -1035,6 +1042,54 @@
 						<input id="folio_page_number" type="hidden" value=""/>
 					</section>
 					<div id="poweredBy">Powered by EVT</div>
+					<!-- Creo il div che conterrà la barra di navigazione -->
+					<div id="BRnav">
+						<div id="newButton">
+							<!-- Sposto l'icona Thumbnails -->
+							<xsl:if test="$thumbs_button=true()">
+								<xsl:element name="span">
+									<xsl:attribute name="class" select="'imageTopTool mainButtons thumb_link'"/>
+									<xsl:attribute name="id" select="'thumb_elem'"/>
+									<xsl:attribute name="value" select="'th'"/>
+									<xsl:attribute name="title" select="'THUMBNAILS'"/>
+									<!--<xsl:attribute name="lang" select="'def'"/>
+									<span lang="def">THUMBS</span>-->
+									<i class="fa fa-th"></i>
+								</xsl:element>
+							</xsl:if>
+							<xsl:element name="button">
+								<xsl:attribute name="id" select="'viscoll'"/>
+							</xsl:element>
+						</div>
+						<div id="BRnavpos">
+							<div id="BRpager">
+							</div>
+							<div id="BRnavline">
+								<div id="BRnavleft">
+									<xsl:attribute name="class" select="'BRnavend'"/>
+								</div>
+								<div id="BRnavright">
+									<xsl:attribute name="class" select="'BRnavend'"/>
+								</div>
+							</div>
+						</div>
+						<!-- Conterrà la pagina sul totale -->
+						<div id="pagenum">
+						</div>
+						<!-- Creo le icone per navigare  -->
+						<div id="BRpage">
+							<xsl:element name="button">
+								<xsl:attribute name="class" select="'BRicon_book_left'"/>
+							</xsl:element>
+							<xsl:element name="button">
+								<xsl:attribute name="class" select="'BRicon_book_right'"/>
+							</xsl:element>
+						</div>
+						<!-- Pulsante per ridurre la barra -->
+						<div id="BRnavCntlBtm">
+							<xsl:attribute name="class" select="'BRnavCntl BRdn'"/>
+						</div>
+					</div>
 					<footer>
 						<p>2012 - 2015 @ EVT team – University of Pisa</p>
 					</footer>
