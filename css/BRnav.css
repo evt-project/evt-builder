@@ -30,6 +30,7 @@
 #BRnav .mainButtons { 
 	height: 40px;
 	width: 40px;
+	min-width: auto;
 	margin-top: 15px;
 	margin-bottom: 15px;
 	margin-left: 17px;
