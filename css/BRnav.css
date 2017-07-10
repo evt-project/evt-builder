@@ -43,7 +43,7 @@
 	margin-left: -25px;
 	padding: 0;
 	border: 0;
-	background-image: url(BRnav-image/viscoll-icon.png);
+	background-image: url(../images/BRnav-image/viscoll-icon.png);
 	background-size: 40px 40px;
 	background-repeat: no-repeat;
 	background-position: center;
@@ -124,7 +124,7 @@
     border: none;
     cursor: pointer;
     background-color: #F5EAD4;
-    background-image: url(BRnav-image/BRicons.png);
+    background-image: url(../images/BRnav-image/BRicons.png);
     background-repeat: no-repeat;
 }
 
@@ -173,12 +173,12 @@
 }
 
 .BRup {
-    background-image: url("BRnav-image/nav_control-up.png");
+    background-image: url("../images/BRnav-image/nav_control-up.png");
     background-repeat: no-repeat;
 }
 
 .BRdn {
-    background-image: url("BRnav-image/nav_control-dn.png");
+    background-image: url("../images/BRnav-image/nav_control-dn.png");
     background-repeat: no-repeat;
 }
 
