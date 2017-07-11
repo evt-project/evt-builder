@@ -1079,15 +1079,18 @@
 						<!-- Creo le icone per navigare  -->
 						<div id="BRpage">
 							<xsl:element name="button">
-								<xsl:attribute name="class" select="'BRicon_book_left'"/>
+								<xsl:attribute name="id" select="'BRicon_book_left'"/>
+								<i class="fa fa-arrow-left fa-2x"></i>
 							</xsl:element>
 							<xsl:element name="button">
-								<xsl:attribute name="class" select="'BRicon_book_right'"/>
+								<xsl:attribute name="id" select="'BRicon_book_right'"/>
+								<i class="fa fa-arrow-right fa-2x"></i>
 							</xsl:element>
 						</div>
 						<!-- Pulsante per ridurre la barra -->
 						<div id="BRnavCntlBtm">
 							<xsl:attribute name="class" select="'BRnavCntl BRdn'"/>
+							<i class="fa fa-caret-down fa-lg"></i>
 						</div>
 					</div>
 					<footer>
