@@ -171,7 +171,7 @@ footer{
 
 #central_wrapper{
 	margin: 0 auto 0 auto;
-	height:87.5%; /*86*/
+	height: 77.5%; /*86*/ /* Per evitare lo scrolling e far entrare la barra */
 	width: 91%;
 	/*border: 3px solid black;*/
 

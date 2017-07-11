@@ -3,7 +3,7 @@
 	text-align: center;
 	overflow: visible;
 	margin-top: 30px;
-	position: relative;	
+	position: fixed;	
 	bottom: 0;
 	left: 4.5%;
 	width: 91%;
@@ -31,10 +31,7 @@
 	height: 40px;
 	width: 40px;
 	min-width: auto;
-	margin-top: 15px;
-	margin-bottom: 15px;
-	margin-left: 17px;
-	margin-right: 17px;
+	margin: 17px;
 	padding: 0;
 	border: 0;
 	float: left;
@@ -43,12 +40,12 @@
 #viscoll {
 	width: 40px;
 	height: 40px;
-	margin-top: 15px;
-	margin-bottom: 15px;
+	margin-top: 17px;
+	margin-bottom: 17px;
 	margin-left: -30px;
 	padding: 0;
 	border: 0;
-	background-image: url(../images/BRnav-image/viscoll-icon.png);
+	background-image: url(Viscoll/viscoll-icon3.png);
 	background-size: 40px 40px;
 	background-repeat: no-repeat;
 	background-position: center;
@@ -71,7 +68,7 @@
     /*position: relative;*/
     margin-left: 10px;
     margin-right: 10px;
-	margin-top: 27px;
+	margin-top: 29px;
     height: 14px;
 	background-color: #F5EAD4;
 	border-radius: 10px;
@@ -118,51 +115,52 @@
 	float: right;
 }
 
-.BRicon_book_left, .BRicon_book_right {
+#BRicon_book_left, #BRicon_book_right {
     display: block;
     float: left;
     width: 40px;
     height: 40px;
     padding: 0;
-    margin: 15px 0 15px 0;
+    margin: 17px 0 17px 0;
     vertical-align: middle;
     border: none;
     cursor: pointer;
     background-color: #F5EAD4;
-    background-image: url(../images/BRnav-image/BRicons.png);
+    /*background-image: url(BRnav-image/BRicons.png);*/
     background-repeat: no-repeat;
 }
 
-.BRicon_book_left {
+#BRicon_book_left {
 	border-bottom-left-radius: 5px;
 	border-top-left-radius: 5px;
 	margin-left: 10px;
 	border-right: 1px solid #362D28;
 }
 
-.BRicon_book_right {
+#BRicon_book_right {
 	margin-right: 15px;
 	border-bottom-right-radius: 5px;
 	border-top-right-radius: 5px;
 	border-left: 1px solid #362D28;
 }
 
-.BRicon_book_left {background-position:-440px 0;}
-.BRicon_book_left:hover { box-shadow: inset 1px 2px 3px rgba(0, 0, 0, 0.7);}
-.BRicon_book_right {background-position:-520px 0;}
-.BRicon_book_right:hover { box-shadow: inset 1px 2px 3px rgba(0, 0, 0, 0.7);}
+#BRicon_book_left {background-position:-440px 0;}
+#BRicon_book_left:hover {box-shadow: inset 1px 2px 3px rgba(0, 0, 0, 0.7);}
+#BRicon_book_right {background-position:-520px 0;}
+#BRicon_book_right:hover {box-shadow: inset 1px 2px 3px rgba(0, 0, 0, 0.7);}
 
 .BRnavCntl {
     background-color: #362D28;
     position: absolute;
     right: 20px;
     width: 40px;
-    height: 30px;
+    height: 35px;
     cursor: pointer;
 }
 
 #BRnavCntlBtm {
     bottom: 50px;
+	color: black;
     -moz-border-radius-topright: 8px;
     -webkit-border-top-right-radius: 8px;
     -moz-border-radius-topleft: 8px;
@@ -170,6 +168,7 @@
 }
 #BRnavCntlTop {
     top: 40px;
+	color: black;
     -moz-border-radius-bottomright: 8px;
     -webkit-border-bottom-right-radius: 8px;
     -moz-border-radius-bottomleft: 8px;
@@ -178,12 +177,10 @@
 }
 
 .BRup {
-    background-image: url("../images/BRnav-image/nav_control-up.png");
     background-repeat: no-repeat;
 }
 
 .BRdn {
-    background-image: url("../images/BRnav-image/nav_control-dn.png");
     background-repeat: no-repeat;
 }
 
