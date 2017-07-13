@@ -1080,11 +1080,11 @@
 						<div id="BRpage">
 							<xsl:element name="button">
 								<xsl:attribute name="id" select="'BRicon_book_left'"/>
-								<i class="fa fa-arrow-left fa-2x"></i>
+								<i class="fa fa-arrow-left fa-lg"></i>
 							</xsl:element>
 							<xsl:element name="button">
 								<xsl:attribute name="id" select="'BRicon_book_right'"/>
-								<i class="fa fa-arrow-right fa-2x"></i>
+								<i class="fa fa-arrow-right fa-lg"></i>
 							</xsl:element>
 						</div>
 						<!-- Pulsante per ridurre la barra -->
