@@ -196,6 +196,9 @@ function openTxtImgMode(){
     if ($('#search_link-add').hasClass('active')) {
         closeSearchBox(0, '-add');
     }
+	
+	createSliderTxtImg();  // Invoco la funzione che crea lo slider al click sul TxtImg
+
 }
 
 /*= OPEN TEXT/TEXT VIEW MODE =*/
@@ -213,6 +216,8 @@ function openTxtTxtMode() {
         .addClass("current_mode")
         .siblings()
             .removeClass("current_mode");
+			
+	createSliderTxtTxt();
     
     // Nascondo menu, pulsanti e selettori relativi alle immagini /bookreader
     $("#image_menu, #mag, #image_cont, #msDesc_cont, #span_dd_select").hide();
@@ -438,6 +443,8 @@ function openBookreaderMode(){
     }
 
     $("#imgd_link").addClass("current_mode").siblings().removeClass("current_mode");
+	
+	createSliderBookreader();
 
     $(".main_dd_select").trigger("imgd_mode");
     $('#span_pp_select, #span_tt_select').hide();
