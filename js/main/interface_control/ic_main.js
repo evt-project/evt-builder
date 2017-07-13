@@ -46,6 +46,7 @@ var first_pp, last_pp;
 var first_dd, last_dd;
 var groupingPagesByDoc, optionTooltipInPages;
 var image_ext;
+var arrayPages = []; 
 
 $(function() {
 	image_ext = $('#global_wrapper').attr('data-image-extension') || 'jpg';
@@ -267,6 +268,7 @@ $(function() {
 					page_current_id = page_current_id.replace('-front', '')
 					
     				var page_current_label = $(this).attr("n");
+					arrayPages.push(page_current_label);  // Inserisco le pagine singole nell'array
     				if( ( groupingPagesByDoc && $(".main_pp_select [data-doc-group='"+current_id+"'] .option[data-value='"+page_current_id+"']").length <= 0)|| 
     					(!groupingPagesByDoc && $(".main_pp_select .option_container .option[data-value='"+page_current_id+"']").length <= 0)) {
     					var newOption = $('<div/>')
@@ -310,6 +312,8 @@ $(function() {
     				}
 				});
 			});
+			
+			createBrnav(arrayPages); // Invoca la funzione per creare la barra al primo caricamento dell'index
 			
 			$('.main_tt_select .option_container div.option:first-child').addClass('selected');
 			$('.main_tt_select .label_selected')
@@ -944,7 +948,10 @@ $(function() {
 		bindListsBtnClick();
 
 		/*= VIEW MODES =*/
-		bindViewModesBtnsClick();	
+		bindViewModesBtnsClick();
+
+		/*= ARROWS BRnav =*/
+		bindArrowsBRnavClick();
 
 		/* ****************** */
 		/* Integrazione by LS */
