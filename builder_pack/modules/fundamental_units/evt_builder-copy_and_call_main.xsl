@@ -108,7 +108,12 @@
 	</xsl:variable>
 	
 	<xsl:variable name="step-10">
-		<xsl:apply-templates select="//node()[name()=$ed_content]" mode="splitLbPb"/>
+		<xsl:apply-templates select="$step-11" mode="splitLbPb"/>
+	</xsl:variable>
+	
+	<xsl:variable name="step-11">
+		<!--  <xsl:apply-templates select="//node()[name()=$ed_content]" mode="splitLbPb"/>-->
+		<xsl:apply-templates select="//tei:TEI" mode="splitLbPb"/>
 	</xsl:variable>
 	
 	<!-- ADD NEW STEP -->
@@ -154,7 +159,7 @@
 	<!-- CDP: Listes -->
 	<xsl:template match="*" mode="listPersonOccurences">
 		<xsl:element name="div">
-			<xsl:attribute name="id">occorrenze_listPerson</xsl:attribute>
+			<xsl:attribute name="id">occorrenze</xsl:attribute>
 			<xsl:for-each-group select="//node()[name()=$ed_content]/descendant-or-self::node()[name()=$start_split]/node()" group-starting-with="//tei:pb">
 				<xsl:if test="self::tei:pb">
 					<xsl:variable name="pb_id" select="@xml:id" />
@@ -187,7 +192,7 @@
 	
 	<xsl:template match="*" mode="listPlaceOccurences">
 		<xsl:element name="div">
-			<xsl:attribute name="id">occorrenze_listPlace</xsl:attribute>
+			<xsl:attribute name="id">occorrenze</xsl:attribute>
 			<xsl:for-each-group select="//node()[name()=$ed_content]/descendant-or-self::node()[name()=$start_split]/node()" group-starting-with="//tei:pb">
 				<xsl:if test="self::tei:pb">
 					<xsl:variable name="pb_id" select="@xml:id" />
@@ -220,7 +225,7 @@
 	
 	<xsl:template match="*" mode="listOrgOccurences">
 		<xsl:element name="div">
-			<xsl:attribute name="id">occorrenze_listOrg</xsl:attribute>
+			<xsl:attribute name="id">occorrenze</xsl:attribute>
 			<xsl:for-each-group select="//node()[name()=$ed_content]/descendant-or-self::node()[name()=$start_split]/node()" group-starting-with="//tei:pb">
 				<xsl:if test="self::tei:pb">
 					<xsl:variable name="pb_id" select="@xml:id" />
@@ -241,76 +246,6 @@
 						</xsl:variable>
 						<xsl:element name="span">
 							<xsl:attribute name="data-ref"><xsl:value-of select="translate(@ref, '#', '')"/></xsl:attribute>
-							<xsl:attribute name="data-doc"><xsl:value-of select="$doc_id"/></xsl:attribute>
-							<xsl:attribute name="data-pb"><xsl:value-of select="$pb_id"/></xsl:attribute>
-							<xsl:attribute name="data-pb-n"><xsl:value-of select="$pb_n"/></xsl:attribute>
-						</xsl:element>
-					</xsl:for-each>
-				</xsl:if>
-			</xsl:for-each-group>
-		</xsl:element>
-	</xsl:template>
-	
-	<!-- TERM OCCURRENCES -->
-	<xsl:template match="*" mode="listTermOccurences">
-		<xsl:element name="div">
-			<xsl:attribute name="id">occorrenze_listTerm</xsl:attribute>
-			<xsl:for-each-group select="//node()[name()=$ed_content]/descendant-or-self::node()[name()=$start_split]/node()" group-starting-with="//tei:pb">
-				<xsl:if test="self::tei:pb">
-					<xsl:variable name="pb_id" select="@xml:id" />
-					<xsl:variable name="pb_n" select="@n" />
-					<xsl:for-each select="current-group()/descendant::tei:term">
-						<xsl:variable name="doc_id">
-							<xsl:choose>
-								<xsl:when test="current()/ancestor::tei:text[1]/@xml:id">
-									<xsl:value-of select="current()/ancestor::tei:text[1]/@xml:id"/>
-								</xsl:when>
-								<xsl:when test="current()/ancestor::tei:body[1]/tei:div[@subtype='edition_text']/@xml:id">
-									<xsl:value-of select="current()/ancestor::tei:body[1]/tei:div[@subtype='edition_text']/@xml:id"/>
-								</xsl:when>
-								<xsl:otherwise>
-									<xsl:value-of select="count(current()/ancestor::tei:text[1]/preceding-sibling::tei:text) + 1"/>
-								</xsl:otherwise>
-							</xsl:choose>
-						</xsl:variable>
-						<xsl:element name="span">
-							<xsl:variable name="termText"><xsl:apply-templates select="current()"/></xsl:variable>
-							<xsl:attribute name="data-ref" select="translate(normalize-space($termText), ' ', '')"/>
-							<xsl:attribute name="data-doc"><xsl:value-of select="$doc_id"/></xsl:attribute>
-							<xsl:attribute name="data-pb"><xsl:value-of select="$pb_id"/></xsl:attribute>
-							<xsl:attribute name="data-pb-n"><xsl:value-of select="$pb_n"/></xsl:attribute>
-						</xsl:element>
-					</xsl:for-each>
-				</xsl:if>
-			</xsl:for-each-group>
-		</xsl:element>
-	</xsl:template>
-	
-	<!-- GLOSS OCCURRENCES -->
-	<xsl:template match="*" mode="listGlossOccurences">
-		<xsl:element name="div">
-			<xsl:attribute name="id">occorrenze_listGloss</xsl:attribute>
-			<xsl:for-each-group select="//node()[name()=$ed_content]/descendant-or-self::node()[name()=$start_split]/node()" group-starting-with="//tei:pb">
-				<xsl:if test="self::tei:pb">
-					<xsl:variable name="pb_id" select="@xml:id" />
-					<xsl:variable name="pb_n" select="@n" />
-					<xsl:for-each select="current-group()/descendant::tei:gloss">
-						<xsl:variable name="doc_id">
-							<xsl:choose>
-								<xsl:when test="current()/ancestor::tei:text[1]/@xml:id">
-									<xsl:value-of select="current()/ancestor::tei:text[1]/@xml:id"/>
-								</xsl:when>
-								<xsl:when test="current()/ancestor::tei:body[1]/tei:div[@subtype='edition_text']/@xml:id">
-									<xsl:value-of select="current()/ancestor::tei:body[1]/tei:div[@subtype='edition_text']/@xml:id"/>
-								</xsl:when>
-								<xsl:otherwise>
-									<xsl:value-of select="count(current()/ancestor::tei:text[1]/preceding-sibling::tei:text) + 1"/>
-								</xsl:otherwise>
-							</xsl:choose>
-						</xsl:variable>
-						<xsl:element name="span">
-							<xsl:variable name="glossText"><xsl:apply-templates select="current()"/></xsl:variable>
-							<xsl:attribute name="data-ref" select="translate(normalize-space($glossText), ' ', '')"/>
 							<xsl:attribute name="data-doc"><xsl:value-of select="$doc_id"/></xsl:attribute>
 							<xsl:attribute name="data-pb"><xsl:value-of select="$pb_id"/></xsl:attribute>
 							<xsl:attribute name="data-pb-n"><xsl:value-of select="$pb_n"/></xsl:attribute>

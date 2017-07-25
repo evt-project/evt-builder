@@ -15,9 +15,7 @@
 
 function overChoice(choiceId){
    $("."+choiceId).each(function() {
-        if ($(this).text().trim() !== "") {
-        	$(this).addClass("hover");
-        }
+        $(this).addClass("hover");
     });
 }
 

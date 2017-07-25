@@ -69,6 +69,18 @@
 	<xsl:include href="modules/elements/evt_builder-interp-multi_module.xsl"/>
 	<!--<xsl:include href="modules/elements/evt_builder-interp-textstructure.xsl"/>-->
 	
+	<!-- Elements for prova version -->  <!-- Added By FS -->
+	<xsl:include href="modules/elements/evt_builder-pro-core.xsl"/>
+	<xsl:include href="modules/elements/evt_builder-pro-multi_module.xsl"/>
+	
+	<!-- Elements for translation version -->  <!-- Added By FS -->
+	<xsl:include href="modules/elements/evt_builder-trad-core.xsl"/>	
+
+	
+	<!-- Elements for facsimile version-->
+	<xsl:include href="modules/elements/evt_builder-facs-core.xsl"/>
+	<xsl:include href="modules/elements/evt_builder-facs-multi_module.xsl"/>
+	
 	<!-- Generic transformations -->
 	<xsl:include href="modules/elements/evt_builder-general.xsl"/>
 	

@@ -84,7 +84,7 @@ $(function() {
 						.attr("data-value", current_id.toLowerCase())
 						.attr("lang", 'def')
 						.addClass('option')
-						.text(current_id.toUpperCase())
+						.text(current_id.toLowerCase())
 				);
 			});
 			
@@ -111,7 +111,7 @@ $(function() {
 
 			var firstEE = $('.main_ee_select .option_container div:first').text();
 			$('.main_ee_select .label_selected')
-				.text(window.lang.convert(firstEE.toUpperCase(), window.lang.currentLang))
+				.text(window.lang.convert(firstEE.toLowerCase(), window.lang.currentLang))
 				.attr("data-value", $('.main_ee_select .option_container div:first').attr('data-value'))
 				.trigger('change');
 
@@ -360,7 +360,7 @@ $(function() {
 						$('#lists_cont').find('.labelList').first().addClass('active');
 						$('.list_filter').first().trigger('click');
 
-						$('#list_'+listName).load("data/output_data/liste/"+listName+".html div", function(){
+						$('#list_'+listName).load("data/output_data/liste/"+listName+".html #"+listName, function(){
 
 							if ( $('#list_'+listName).find('li').length == 0 ) {
 								$('#list_'+listName).remove();
@@ -371,10 +371,6 @@ $(function() {
 									$('#list_link').remove();
 								}
 							} else {
-								$('[id]').each(function(){
-									$('[id="' + this.id + '"]:gt(0)').remove();
-								});
-								
 								$('#list_'+listName)
 									.find('.list_element').find('.toggle_list_element, .entity_name').click(function(){
 										showListElementOccurrences($(this).parent(), listName);
