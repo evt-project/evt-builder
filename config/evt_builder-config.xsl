@@ -87,12 +87,12 @@
 	<!-- EN: On/Off regesto -->
 	<!-- IT: Attiva/Disattiva regesto -->
 	<!-- default: false() -->
-	<xsl:param name="regesto" select="false()"/>
+	<xsl:param name="regesto" select="true()"/>
 	
 	<!-- EN: On/Off Front Information -->
 	<!-- IT: Attiva/Disattiva Front Information -->
 	<!-- default: true() -->
-	<xsl:param name="frontInfo" select="true()"/>
+	<xsl:param name="frontInfo" select="false()"/>
 	
 	<!-- EN: On/Off Manuscript Description -->
 	<!-- IT: Attiva/Disattiva Descrizione del manoscritto-->
@@ -115,7 +115,7 @@
 	<!-- EN: It is possible to skip production of pages for a specific edition simply removing the textual part of the corresponding item. -->
 	<!-- IT: E' possibile rimuovere la produzione di pagine di una determinata edizione semplicemente rimuovendo la parte testuale dell'item corrispondente. -->
 	<xsl:variable name="edition_array" as="element()*">
-		<edition>Diplomatic</edition> 
+		<edition></edition> 
 		<!-- EN: If you have diplomatic edition put <edition>Diplomatic</edition>.  
 			 	 If you DON'T have diplomatic edition put <edition></edition> -->
 		<!-- IT: Se si ha l'edizione diplomatica scrivere <edition>Diplomatic</edition>.  
@@ -134,14 +134,15 @@
 		<!-- EN: To add a new edition it is necessary to add a new line here and -forcedly- a declaration concerning output file in the modules/evt_builder-main.xsl file, under the <xsl:if test="$edition_array[2]!=''" condition>
 				For instance: <edition>New_edition</edition> -->
 		<!-- IT: Per aggiungere una nuova edizione, bisognerà inserire una nuova riga qui e -necessariamente- la dichiarazione per i file di output nel file modules/evt_builder-main.xsl, sotto la condizione <xsl:if test="$edition_array[2]!=''">
-				Esempio: <edition>Nuova_edizione</edition> -->    
+				Esempio: <edition>Nuova_edizione</edition> Add by FS -->
+		<edition>prova</edition>
 	</xsl:variable>
 	
 	<!-- EN: It is possibile to customize the prefix used in the creation of the classes of the html elements of the edition -->
 	<!-- IT: E' possibile personalizzare il prefisso usato nella creazione delle classi degli elementi html di un edizione. -->
 	<xsl:variable name="ed_name1">dipl</xsl:variable>
 	<xsl:variable name="ed_name2">interp</xsl:variable>
-	
+	<xsl:variable name="ed_name3">pro</xsl:variable> <!-- Addedd by FS -->
 	<!-- Variable -->
 	
 	<!-- Thumb image -->
@@ -173,7 +174,7 @@
 				then(//tei:text/tei:group/name()) 
 		else( 
 			if(count(//tei:body/tei:div[@subtype='edition_text'])>1) 
-				then(//tei:body/tei:div[@subtype='edition_text']/name()) 
+				then(//tei:body/tei:div[@subtype='edition_text']/name())
 			else(//tei:text/tei:body/name() ))"/>
 	
 	<!-- EN: Indicate the maximum depth of pb/lb with relatively to the element stated in the variable $start_split-->
@@ -253,7 +254,7 @@
 	<!-- EN: Show/Hide Edition level selector in interface -->
 	<!-- IT: Mostra/Nascondi selettore Livello/i Edizione nell'interfaccia web -->
 	<!-- default: true() -->
-	<xsl:param name="edition_level_selector" select="false()"/>
+	<xsl:param name="edition_level_selector" select="true()"/>
 	
 	<!-- IT: Choose page selector position -->
 	<!-- IT: Scegli posizione Selettore pagina -->
@@ -302,16 +303,6 @@
 	<!-- IT: Attiva/disattiva lista organizzazioni -->
 	<!-- default: true() -->
 	<xsl:param name="list_org" select="true()"/>
-	
-	<!-- default: true() -->
-	<!-- IT: Attiva/disattiva lista terms -->
-	<!-- default: true() -->
-	<xsl:param name="list_term" select="true()"/>
-	
-	<!-- default: true() -->
-	<!-- IT: Attiva/disattiva lista glosses -->
-	<!-- default: true() -->
-	<xsl:param name="list_gloss" select="true()"/>
 	
 	<!-- EN: It is possibile to personalize the elements in the filter select element that will select and highlight particular (groups of) words.
 			 In order to remove an element from the list in the application just remove the element itself.

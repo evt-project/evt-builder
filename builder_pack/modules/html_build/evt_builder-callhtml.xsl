@@ -44,7 +44,8 @@
 
 			<xsl:choose>
 				<xsl:when test="$html_tc!='datastructure'">
-					<link rel="stylesheet" type="text/css" href="{$html_path}/css/main.css"/>
+					<link rel="stylesheet" type="text/css" 
+						href="{$html_path}/css/main.css"/>
 					<link rel="stylesheet" type="text/css"
 						href="{$html_path}/css/page_data-include.css"/>
 					<link rel="stylesheet" type="text/css"
@@ -59,10 +60,12 @@
 						href="{$html_path}/css/evt-icons.css" />
 				</xsl:when>
 				<xsl:otherwise>
-					<link rel="stylesheet" type="text/css" href="{$html_path}/css/page_data-include-{$output}.css"/>
+					<link rel="stylesheet" type="text/css" 
+						href="{$html_path}/css/page_data-include-{$output}.css"/>
 				</xsl:otherwise>
 			</xsl:choose>
-			<link rel="stylesheet" type="text/css" href="{$html_path}/config/evt_builder-custom-styles.css"/>
+			<link rel="stylesheet" type="text/css" 
+				href="{$html_path}/config/evt_builder-custom-styles.css"/>
 			<xsl:comment>jQuery lib</xsl:comment>
 			<script type="text/javascript" src="{$html_path}/js/jquery_lib/jquery-latest.js"/>
 			<script type="text/javascript" src="{$html_path}/js/jquery_lib/jquery-ui-latest.js"/>
@@ -79,10 +82,10 @@
 				<script type="text/javascript" src="{$html_path}/js/main/interface_control/ic_prefatory_matter.js"/>
 				<script type="text/javascript" src="{$html_path}/js/main/interface_control/ic_resizings.js"/>
 				<script type="text/javascript" src="{$html_path}/js/main/interface_control/ic_search.js"/>
-				<script type="text/javascript" src="{$html_path}/js/main/interface_control/ic_viewModes.js"/>
-				
+				<script type="text/javascript" src="{$html_path}/js/main/interface_control/ic_viewModes.js"/>				
 				<script type="text/javascript" src="{$html_path}/js/main/interface_control/ic_main.js"/>
 				<xsl:comment>/interface control</xsl:comment>
+				<!-- Inserire qui file js per nuova modalità di visualizzazione-->
 				
 				<script type="text/javascript" src="{$html_path}/js/main/utils.js"/>
 				<xsl:comment>/main lib</xsl:comment>
@@ -345,6 +348,8 @@
 									</xsl:element>
 								</xsl:if>
 							</div>
+							<!--                          Aggiungere qui TOOL per Mostra virtuale       add by FS                            -->
+							
 						
 							<!-- Integration by AB -->
 							<!--<xsl:if test="$headerInfo=true()">
@@ -427,6 +432,7 @@
 							<xsl:attribute name="title" select="'NEXT_PAGE'"/>
 							<xsl:attribute name="lang" select="'def'"/>
 						</xsl:element>
+						
 						<xsl:if test="$image_frame=true() or count($edition_array) &gt; 1">
 							<xsl:variable name="viewStatus" select="if($image_frame=false()) then 'width:0px; border-left-width:0px; border-right-width:0px;' else ''"/>
 							<div id="main_left_frame" class="main_frame" style="{$viewStatus}">
@@ -483,11 +489,10 @@
 										<xsl:if test="count($edition_array) &gt; 1">
 											<xsl:element name="span">
 												<xsl:attribute name="id" select="'span_ee_select-add'"/>
-												<xsl:attribute name="class">
-													like_select <xsl:if test="$edition_level_selector=false()"> hidden</xsl:if>
+												<xsl:attribute name="class"> like_select <xsl:if test="$edition_level_selector=false()"> hidden</xsl:if>
 												</xsl:attribute>
 												<xsl:attribute name="title" select="'SELECTOR_EDITION_LEVEL'"/>
-												<xsl:attribute name="lang" select="'def'"/>
+												<xsl:attribute name="lang" select="'en'"/>
 												<xsl:call-template name="div_select_build">
 													<xsl:with-param name="html_div_class" select="'main_ee_select'"/>
 												</xsl:call-template>
@@ -631,6 +636,7 @@
 										<div id="search_foot-add" class="bottomBoxFooter"></div>
 									</div>	
 								</xsl:if>
+								
 								<xsl:if test="count($edition_array) &gt; 1">
 									<!-- Text frame bottom menu -->
 									<div id="text_tool-add" class="bottom-menu hidden">
@@ -814,7 +820,7 @@
 									<xsl:element name="span">
 										<xsl:attribute name="id" select="'span_ee_select'"/>
 										<xsl:attribute name="title" select="'SELECTOR_EDITION_LEVEL'"/>
-										<xsl:attribute name="lang" select="'def'"/>
+										<xsl:attribute name="lang" select="'it'"/>
 										<xsl:attribute name="class">like_select <xsl:if test="$edition_level_selector=false()"> hidden </xsl:if></xsl:attribute>
 										<xsl:call-template name="div_select_build">
 											<xsl:with-param name="html_div_class" select="'main_ee_select'"/>
@@ -955,7 +961,6 @@
 									<span class="list_filter" data-filter-type="first_letter" data-value="X">X</span>
 									<span class="list_filter" data-filter-type="first_letter" data-value="Y">Y</span>
 									<span class="list_filter" data-filter-type="first_letter" data-value="Z">Z</span>
-									<span lang="def" class="list_filter" data-filter-type="first_letter" data-value="*">ALL</span>
 								</div>
 							</div>
 							<xsl:if test="$document_navigation=true()">
@@ -985,7 +990,7 @@
 										<i class="fa fa-search"></i>
 									</xsl:element>
 								</xsl:if>
-								<xsl:if test="$list_person=true() or $list_place=true() or $list_org=true() or $list_term=true() or $list_gloss=true()">
+								<xsl:if test="$list_person=true()">
 									<xsl:element name="span">
 										<xsl:attribute name="id" select="'list_link'"/>
 										<xsl:attribute name="class" select="'mainButtons'"/>
