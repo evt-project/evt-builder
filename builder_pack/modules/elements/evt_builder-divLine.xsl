@@ -35,16 +35,7 @@
                 <xsl:when test="self::tei:lb">
                     <xsl:copy-of select="current-group()/self::tei:lb"/> <!-- IT: copia lb -->
                     <xsl:element name="div">
-                        <xsl:attribute name="class" select="concat($ed_name, ' line')"/>
-                        <xsl:if test="@type">
-                            <xsl:attribute name="data-type" select="@type"/>
-                        </xsl:if>
-                        <xsl:if test="@rend">
-                            <xsl:attribute name="data-rend" select="@rend"/>
-                        </xsl:if>
-                        <xsl:if test="@rendition">
-                            <xsl:attribute name="data-rendition" select="@rendition"/>
-                        </xsl:if>
+                        <xsl:attribute name="class" select="$ed_name"/>
                         <xsl:if test="current-group()/self::node()[name()='span'][@class=concat($ed_name,'-lineN')]">
                             <xsl:copy-of select="current-group()/self::node()[name()='span'][@class=concat($ed_name,'-lineN')]"></xsl:copy-of> <!-- IT: copia n linea -->
                         </xsl:if>
