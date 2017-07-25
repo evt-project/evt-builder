@@ -31,10 +31,57 @@ function createBrnav(array) {
 	$('#BRpager').slider({
         min: 0,
         max: array.length-1,
-    })
-	.bind('slide', function(event, ui) {
-		$("#pagenum").text(array[ui.value] + "/" + array[array.length-1]);  // Cambia la pagine in base allo spostamento
-    });
+		/*slide: function(event, ui) {  // E' lanciato durante il trascinamento del cursore
+			$("#pagenum").text(array[ui.value] + "/" + array[array.length-1]);
+		},*/
+		change: function(event, ui) {
+			//alert(ui.value);
+			if ( !$("#imgd_link").hasClass("current_mode")) {
+				if (groupingPagesByDoc) {
+					var current_opt = $('.main_pp_select .option_container .option.selected:first');
+					var current_pp = current_opt.attr("data-value"); // Pagina corrente					
+					var newPage = array[ui.value]; // Elemento dell'array di indice ui.value (sarà quello su cui si sposta lo slider)
+					
+					if(current_opt.siblings().hasClass('option')) {
+						var new_pp_opt = $("div[data-value='fol_"+newPage+"'"+"]");  // La variabile prende il div con attributo fol_+newPage (cioè la nuova pagina)
+					}
+				}
+					
+				if(new_pp_opt != null) {
+					var new_tt_val = new_pp_opt.attr('data-first-doc');
+				}
+				
+			}else{
+				$('#span_dd_select .label_selected').attr('data-last-hash-txtimg', '');
+				current_opt = $('.main_dd_select .option_container .option.selected');
+				current_pp = current_opt.attr('data-value');				
+				var newPage = array[ui.value];
+				newPage = newPage.replace(" - ", "+fol_"); // Sostituisco (ad esempio 214v - 215r con 241v+fol_215r)
+				
+				if(current_opt.siblings().hasClass('option')) {
+					var new_pp_opt = $("div[data-value='fol_"+newPage+"'"+"]");  // La variabile prende il div con attributo fol_+newPage (cioè la nuova pagina)
+				}
+				
+				if(new_pp_opt != null) {
+					new_tt_val = new_pp_opt.attr('data-first-page-first-doc');
+				}				
+			}
+			
+			if (new_pp_opt != null) {
+				new_pp_val = new_pp_opt.attr('data-value'); // Pagina risultante dallo slider
+				//alert(new_pp_val);
+        
+				var current_tt_val = $(".main_tt_select .label_selected").attr("data-value"); 
+				var current_tt_first_page = $(".main_tt_select .option_container .option.selected").attr('data-first-page');
+				if(current_tt_first_page === new_pp_val) {
+					updateHash(current_tt_val, new_pp_val, "");  // Aggiorno la hash
+				}else{
+					updateHash(new_tt_val, new_pp_val, "");
+				}
+			}
+			$("#pagenum").text(array[ui.value] + "/" + array[array.length-1]); 
+		}
+	});
 }
 
 function bindArrowsBRnavClick() {
