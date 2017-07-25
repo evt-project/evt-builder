@@ -1,4 +1,4 @@
-﻿/**
+x/**
  * Copyright (C) 2013-2017 the EVT Development Team.
  * 
  * EVT 1 is free software: you can redistribute it 
@@ -129,6 +129,7 @@ div.AnnText{
     padding: 0;
 }
 
+
 /*.AnnSubmenu>li{
     margin-left: 0.5em;
 }*/
@@ -159,32 +160,32 @@ div.AnnText{
     color: #000000;
 }
 /* CDP provvisorio */
-.HighlightedAnnMenuItem div.dipl-right, .HighlightedAnnMenuItem div.dipl-center, .HighlightedAnnMenuItem div.interp-right, .HighlightedAnnMenuItem div.interp-center,
-.SelectedAnnMenuItem div.dipl-right, .SelectedAnnMenuItem div.dipl-center, .SelectedAnnMenuItem div.interp-right, .SelectedAnnMenuItem div.interp-center{
+.HighlightedAnnMenuItem div.dipl-right, .HighlightedAnnMenuItem div.dipl-center, .HighlightedAnnMenuItem div.interp-right, .HighlightedAnnMenuItem div.interp-center, .HighlightedAnnMenuItem div.pro-right, .HighlightedAnnMenuItem div.pro-center,
+.SelectedAnnMenuItem div.dipl-right, .SelectedAnnMenuItem div.dipl-center, .SelectedAnnMenuItem div.interp-right, .SelectedAnnMenuItem div.interp-center .SelectedAnnMenuItem div.pro-right, .SelectedAnnMenuItem div.pro-center {
     background-color: transparent;
 }
-
+/*FS : cambio colore di evidenziazione Image Text Link*/
 div.AreaHS{
     border: 1px solid #4c2f2f;
     background-color: #c67261;
-   	opacity: 0.4;
-	filter:alpha(opacity=40); /* For IE8 and earlier */
+   	opacity: 0.2;
+	filter:alpha(opacity=20); /* For IE8 and earlier */
 }
 
 div.SelectedArea,
 div.SelectedAreaHS{
     border: 1px solid #4c2f2f;
 	background-color: #9c4837;
-	opacity: 0.5;
-	filter:alpha(opacity=50); /* For IE8 and earlier */
+	opacity: 0.2;
+	filter:alpha(opacity=20); /* For IE8 and earlier */
 }
 
 div.HighlightedArea, 
 div.HighlightedAreaHS{
     border: 1px solid #4c2f2f;
 	background-color: #c67261;
-	opacity: 0.4;
-	filter:alpha(opacity=40); /* For IE8 and earlier */
+	opacity: 0.2;
+	filter:alpha(opacity=20); /* For IE8 and earlier */
 }
 
 /*p{
