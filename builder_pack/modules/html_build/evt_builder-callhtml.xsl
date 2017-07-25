@@ -133,7 +133,7 @@
 				</xsl:if>
 				
 				<xsl:comment>BRnav</xsl:comment>
-				<script type="text/javascript" src="{$html_path}/js/main/ic_BRnav.js"/>
+				<script type="text/javascript" src="{$html_path}/js/main/interface_control/ic_BRnav.js"/>
 				<xsl:comment>/BRnav</xsl:comment>
 				
 				<!-- Integrations by LS -->
