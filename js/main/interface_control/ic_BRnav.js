@@ -3,7 +3,9 @@ function createSliderTxtImg() {
 	var arrayPages = [];  // Array che conterrà il numero delle pagine
 	if($('.main_pp_select')) {
 		$('.main_pp_select .option_container .optionGroup div').each(function() {
-			var val_page = $(this).text();
+			var val_page = $(this).attr('data-value');
+			//alert(val_page);
+			//var val_page = $(this).text();
 			arrayPages.push(val_page); // Lo mette nell'array
 		});
 	createBrnav(arrayPages);  // Restituisce l'array contenente le pagine
@@ -16,8 +18,9 @@ function createSliderBookreader() {
 	var arrayPagePairs = [];
 	if($('.main_dd_select')) { 
 		$('.main_dd_select .option_container .option').each(function() {
-			//val_pages = $(this).attr('data-value');
-			val_pages = $(this).text();
+			val_pages = $(this).attr('data-value');
+			//val_pages = $(this).text();
+			//alert(val_pages);
 			arrayPagePairs.push(val_pages);
 		});
 	createBrnav(arrayPagePairs);
@@ -41,9 +44,10 @@ function createBrnav(array) {
 					var current_opt = $('.main_pp_select .option_container .option.selected:first');
 					var current_pp = current_opt.attr("data-value"); // Pagina corrente					
 					var newPage = array[ui.value]; // Elemento dell'array di indice ui.value (sarà quello su cui si sposta lo slider)
+					//alert(newPage);
 					
 					if(current_opt.siblings().hasClass('option')) {
-						var new_pp_opt = $("div[data-value='fol_"+newPage+"'"+"]");  // La variabile prende il div con attributo fol_+newPage (cioè la nuova pagina)
+						var new_pp_opt = $("div[data-value='"+newPage+"'"+"]");  // La variabile prende il div con attributo fol_+newPage (cioè la nuova pagina)
 					}
 				}
 					
@@ -56,10 +60,11 @@ function createBrnav(array) {
 				current_opt = $('.main_dd_select .option_container .option.selected');
 				current_pp = current_opt.attr('data-value');				
 				var newPage = array[ui.value];
-				newPage = newPage.replace(" - ", "+fol_"); // Sostituisco (ad esempio 214v - 215r con 241v+fol_215r)
+				//alert(newPage);				
 				
+				//newPage = newPage.replace(" - ", "+fol_"); // Sostituisco (ad esempio 214v - 215r con 241v+fol_215r)
 				if(current_opt.siblings().hasClass('option')) {
-					var new_pp_opt = $("div[data-value='fol_"+newPage+"'"+"]");  // La variabile prende il div con attributo fol_+newPage (cioè la nuova pagina)
+					var new_pp_opt = $("div[data-value='"+newPage+"'"+"]");  // La variabile prende il div con attributo fol_+newPage (cioè la nuova pagina)
 				}
 				
 				if(new_pp_opt != null) {
