@@ -268,7 +268,10 @@ $(function() {
 					page_current_id = page_current_id.replace('-front', '')
 					
     				var page_current_label = $(this).attr("n");
-					arrayPages.push(page_current_id);  // Inserisco le pagine singole nell'array
+					arrayPages.push({
+						id: page_current_id,
+						label: page_current_label,
+						firstDoc: current_id });  // Inserisco le pagine singole nell'array
     				if( ( groupingPagesByDoc && $(".main_pp_select [data-doc-group='"+current_id+"'] .option[data-value='"+page_current_id+"']").length <= 0)|| 
     					(!groupingPagesByDoc && $(".main_pp_select .option_container .option[data-value='"+page_current_id+"']").length <= 0)) {
     					var newOption = $('<div/>')
