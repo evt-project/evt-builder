@@ -42,7 +42,34 @@ function createSliderBookreader() {
 // Funzione per creare lo slider (gli viene passato l'array a seconda che è stata cliccata un tipo di modalità)
 function createBrnav(array) {
 	//alert(array);
-	var pageNum = array && array.length > 0 ? array[0].label + "/" + array[array.length - 1].label : '';
+	/*if ( !$("#imgd_link").hasClass("current_mode")) { // Caso ImgTxt
+		alert("Ciao");
+	}else{
+		alert("Ciao2");
+	}*/
+	var hashPart = location.hash;
+	if(hashPart == "") {
+		//alert("Siamo nell'index");
+		var pageNum = array && array.length > 0 ? array[0].label + "/" + array[array.length - 1].label : '';
+	}else{
+		alert(location.hash);
+		hashPart = location.hash.substr(1).split('&');  // Parto dal carattere in posizione 1 e tolgo il carattere &
+		for(var i=0; i<hashPart.length; i++) {
+			if(hashPart[i].indexOf("page") != -1) {
+				var temp_id = hashPart[i].substr(5);  // Prendo l'id
+				//alert("temp_pp e': " + temp_id); // Ad esempio fol_215v
+			}
+		}
+		for(i in array) {  // Scorro l'array
+			//alert(array[i].id);
+			var elem = array[i].id;  // Memorizzo l'elemento id in posizione i
+			//alert(elem);
+			if(elem.indexOf(temp_id) != -1) {  // Controllo se esiste una sequenza uguale a temp_id (se non è null)
+				var pageNum = array && array.length > 0 ? array[i].label + "/" + array[array.length - 1].label : ''; // Il pagenum prende il valore di label di indice selezionato
+			}
+		}		
+	}
+	//var pageNum = array && array.length > 0 ? array[0].label + "/" + array[array.length - 1].label : '';
 	$("#pagenum").text(pageNum); // Mostra il numero della pagina sul totale della pagine
 	$('#BRpager').slider({
 		min: 0,
