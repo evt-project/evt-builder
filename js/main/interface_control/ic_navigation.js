@@ -562,6 +562,7 @@ function arrow(toward){ //duplicata temporaneamente in jquery.rafmas-keydown
                 
                 if (current_opt.prev().hasClass('option')) {
                     new_pp_opt = current_opt.prev();
+					moveSlider(current_pp, new_pp_opt);
                 } 
                 // se la pagina corrente e' la prima di un gruppo
                 else if (current_opt.prev().is('span')) {
@@ -578,6 +579,7 @@ function arrow(toward){ //duplicata temporaneamente in jquery.rafmas-keydown
                 // se la pagina corrente non e' l'ultima di un gruppo
                 if ( current_opt.next().length > 0 && current_opt.next().hasClass('option')) {
                     new_pp_opt = current_opt.next();
+					moveSlider(current_pp, new_pp_opt);
                 } else {
                     // se il gruppo della pagina corrente non e' l'ultimo
                     if (current_opt.parent().next().length > 0 ) {
@@ -605,9 +607,11 @@ function arrow(toward){ //duplicata temporaneamente in jquery.rafmas-keydown
         current_pp = current_opt.attr('data-value');
         if (toward === "left" && ! $(current_opt).is(":first-child")){
             new_pp_opt = current_opt.prev();
+			moveSlider(current_pp, new_pp_opt);
         }
         if (toward === "right" && ! $(current_opt).is(":last-child")){
             new_pp_opt = current_opt.next();
+			moveSlider(current_pp, new_pp_opt);
         }
         if ( new_pp_opt != null ) {
             new_tt_val = new_pp_opt.attr('data-first-page-first-doc'); // primo documento contenuto.    
@@ -625,6 +629,23 @@ function arrow(toward){ //duplicata temporaneamente in jquery.rafmas-keydown
             updateHash(new_tt_val, new_pp_val, "");
         }
     }
+}
+
+function moveSlider(current_pp, new_pp_opt) {
+	//alert(current_pp + new_pp_opt);
+	var val, new_val;
+	var new_pp_opt_val = new_pp_opt.attr("data-value");
+	if(new_pp_opt_val < current_pp) {  // Se il valore della nuova pagina è minore di quella corrente
+		//Va' a sinistra
+		val = $("#BRpager").slider("value");
+		new_val = val -1;
+		$("#BRpager").slider("value", new_val);
+	}else{  // Altrimenti muove lo slider a destra
+		//Va' a destra
+		val = $("#BRpager").slider("value");
+		new_val = val +1;
+		$("#BRpager").slider("value", new_val);
+	}
 }
 
 /*= SIMULATE TRIGGER CLICK EVENT ON OPTION TO HANDLE EXCHANGE OF EDITION LEVELS IN TEXT-TEXT VIEW MODE =*/
@@ -651,7 +672,7 @@ function bindPPselectClick() {
         if(! $(this).hasClass('selected')){
             var new_pp_val, new_pp_lab, new_tt_val;
             var current_tt_val, current_tt_first_page;
-            
+			
             new_pp_val = $(this).attr('data-value'); // id pagina cliccata
             new_pp_lab = $(this).text(); 
             new_tt_val = $(this).attr('data-first-doc'); // primo documento contenuto.
@@ -663,12 +684,37 @@ function bindPPselectClick() {
             current_tt_first_page = $(".main_tt_select .option_container .option.selected").attr('data-first-page');
             if(current_tt_first_page === new_pp_val){
                 updateHash(current_tt_val, new_pp_val, "");
+				var current_page = $(".main_pp_select .label_selected").attr("data-value");
+				moveSliderSelector(current_page, new_pp_val)
             } else {
                 updateHash(new_tt_val, new_pp_val, "");
+				var current_page = $(".main_pp_select .label_selected").attr("data-value");
+				moveSliderSelector(current_page, new_pp_val)
             }
             $(this).removeClass('selected');
         }
     });
+}
+
+function moveSliderSelector(current_pp, new_pp_val) {
+	//alert(current_pp + new_pp_val);
+	if(new_pp_val < current_pp) {  // Se il valore della nuova pagina è minore di quella corrente
+		//Va' a sinistra
+		for(i in arrayPages) {
+			if(new_pp_val == arrayPages[i].id) {  // Deve prendere l'indice dell'elemento dell'array corrispondente alla pagina cliccata
+				//alert(arrayPages[i].id + i);
+				$("#BRpager").slider("value", i);
+			}
+		}
+	}else{  // Altrimenti muove lo slider a destra
+		//Va' a destra"
+		for(i in arrayPages) {
+			if(new_pp_val == arrayPages[i].id) {
+				//alert(arrayPages[i].id + i);
+				$("#BRpager").slider("value", i);
+			}
+		}
+	}
 }
 
 /*= BIND SELECT DOCUMENT EVENT ON OPTION CLICK =*/
