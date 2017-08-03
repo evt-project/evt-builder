@@ -443,10 +443,11 @@ function openBookreaderMode(){
     }
 
     $("#imgd_link").addClass("current_mode").siblings().removeClass("current_mode");
-	
-	createSliderBookreader();
 
     $(".main_dd_select").trigger("imgd_mode");
+	
+	createSliderBookreader();
+	
     $('#span_pp_select, #span_tt_select').hide();
 
     if ( $('#main_left_frame').find('#regesto_cont') ){
