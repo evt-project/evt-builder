@@ -347,9 +347,7 @@
 										<!--<i class="fa evt-bookreader"></i>-->
 									</xsl:element>
 								</xsl:if>
-							</div>
-							<!--                          Aggiungere qui TOOL per Mostra virtuale       add by FS                            -->
-							
+							</div>											
 						
 							<!-- Integration by AB -->
 							<!--<xsl:if test="$headerInfo=true()">
