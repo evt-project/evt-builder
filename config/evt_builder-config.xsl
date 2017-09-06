@@ -123,7 +123,7 @@
 		
 		<!-- EN: For processing in the modules: $edition_array[1] --> <!-- IT: Per l'elaborazione nei moduli: $edition_array[1] -->
 		
-		<edition>Interpretative</edition>	
+		<edition></edition>	
 		<!-- EN: If you have diplomatic edition put <edition>Interpretative</edition>.  
 			 	 If you don't have diplomatic edition put <edition></edition> -->
 		<!-- IT: Se si ha l'edizione interpretativa scrivere <edition>Interpretative</edition>.  
@@ -135,7 +135,10 @@
 				For instance: <edition>New_edition</edition> -->
 		<!-- IT: Per aggiungere una nuova edizione, bisognerà inserire una nuova riga qui e -necessariamente- la dichiarazione per i file di output nel file modules/evt_builder-main.xsl, sotto la condizione <xsl:if test="$edition_array[2]!=''">
 				Esempio: <edition>Nuova_edizione</edition> Add by FS -->
-		<edition>prova</edition>
+		<edition>Diplomatic</edition>
+
+		<edition>Critical</edition>
+
 	</xsl:variable>
 	
 	<!-- EN: It is possibile to customize the prefix used in the creation of the classes of the html elements of the edition -->
@@ -143,6 +146,7 @@
 	<xsl:variable name="ed_name1">dipl</xsl:variable>
 	<xsl:variable name="ed_name2">interp</xsl:variable>
 	<xsl:variable name="ed_name3">pro</xsl:variable> <!-- Addedd by FS -->
+	<xsl:variable name="ed_name4">crit</xsl:variable>
 	<!-- Variable -->
 	
 	<!-- Thumb image -->
@@ -234,7 +238,7 @@
 	<!-- EN: Show/Hide Txt/Img Link Button in interface -->
 	<!-- IT: Mostra/Nascondi pulsante Txt/Img Link nell'interfaccia web -->
 	<!-- default: true() -->
-	<xsl:param name="txtimg_link_button" select="true()"/>
+	<xsl:param name="txtimg_link_button" select="false()"/>
 	
 	<!-- EN: Show/Hide Hotspot Button in interface -->
 	<!-- IT: Mostra/Nascondi pulsante Hotspot nell'interfaccia web -->
