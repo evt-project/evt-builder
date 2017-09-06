@@ -74,12 +74,12 @@
 	<xsl:include href="modules/elements/evt_builder-pro-multi_module.xsl"/>
 	
 	<!-- Elements for translation version -->  <!-- Added By FS -->
-	<xsl:include href="modules/elements/evt_builder-trad-core.xsl"/>	
+	<xsl:include href="modules/elements/evt_builder-trad-core.xsl"/>
 
+	<!-- Elements for critical version -->  <!-- Added By FS -->
+	<xsl:include href="modules/elements/evt_builder-crit-core.xsl"/>		
 	
-	<!-- Elements for facsimile version-->
-	<xsl:include href="modules/elements/evt_builder-facs-core.xsl"/>
-	<xsl:include href="modules/elements/evt_builder-facs-multi_module.xsl"/>
+	<!-- Elements for facsimile version -->
 	
 	<!-- Generic transformations -->
 	<xsl:include href="modules/elements/evt_builder-general.xsl"/>
