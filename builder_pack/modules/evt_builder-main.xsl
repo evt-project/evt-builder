@@ -150,8 +150,14 @@
 			<xsl:if test="$search=true()">
 				<xsl:apply-templates select="$step0" mode="file4search"></xsl:apply-templates>
 			</xsl:if>
-			
 		</xsl:if>
+		
+		<xsl:result-document method="html" encoding="UTF-8" href="{$filePrefix}/data/output_data/viscoll/viscoll-output.html" indent="yes">
+			<xsl:apply-templates select="$viscoll_process4" mode="viscoll5"></xsl:apply-templates> <!-- Applica le regole dell'elemento selezionato -->
+		</xsl:result-document>
+		
+		
+		
 		<!-- EN: The index and structure generation are the same for both the parallel and the embedded  -->
 		<!-- IT: La generazione dell'index e della struttura sono uguali sia per la parallel sia per l'embedded -->
 		<xsl:call-template name="index"></xsl:call-template>
@@ -859,4 +865,5 @@
 			<xsl:apply-templates/>
 		</xsl:element>
 	</xsl:template>
+		
 </xsl:stylesheet>
