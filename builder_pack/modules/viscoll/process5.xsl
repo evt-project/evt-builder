@@ -15,7 +15,7 @@
     
     <xsl:template match="@*|node()|comment()" mode="viscoll5">
         <xsl:copy>
-            <xsl:apply-templates select="@*|node()|comment()" mode="viscoll5"/>
+            <xsl:apply-templates select="@*|node()|comment()" mode="#current"/>
         </xsl:copy>
     </xsl:template>
     
@@ -30,7 +30,7 @@
                         <xsl:value-of select="@positions"/>
                     </xsl:attribute>
                     <units>
-                        <xsl:apply-templates select="units"/>
+                        <xsl:apply-templates select="units" mode="viscoll5"/>
                     </units>
                 </quire>
             </xsl:for-each>
@@ -74,29 +74,29 @@
         </manuscript>
     </xsl:template>
     
-    <xsl:template match="units">
+    <xsl:template match="units" mode="viscoll5">
         <xsl:for-each select="unit">
             <unit>
                 <xsl:attribute name="n" select="@n"/>
                 <inside>
-                    <xsl:apply-templates select="inside"/>
+                    <xsl:apply-templates select="inside" mode="viscoll5"/>
                 </inside>
                 <outside>
-                    <xsl:apply-templates select="outside"/>
+                    <xsl:apply-templates select="outside" mode="viscoll5"/>
                 </outside>
             </unit>
         </xsl:for-each>
     </xsl:template>
     
-    <xsl:template match="inside">
-        <xsl:apply-templates/>
+    <xsl:template match="inside" mode="viscoll5">
+        <xsl:apply-templates mode="viscoll5"/>
     </xsl:template>
     
-    <xsl:template match="outside">
-        <xsl:apply-templates/>
+    <xsl:template match="outside" mode="viscoll5">
+        <xsl:apply-templates mode="viscoll5"/>
     </xsl:template>
     
-    <xsl:template match="left">
+    <xsl:template match="left" mode="viscoll5">
         <xsl:variable name="the_pos" select="@pos"/>
         <xsl:choose>
             <xsl:when
@@ -180,7 +180,7 @@
         </xsl:choose>
     </xsl:template>
     
-    <xsl:template match="right">
+    <xsl:template match="right" mode="viscoll5">
         <xsl:variable name="the_pos" select="@pos"/>
         <xsl:choose>
             <xsl:when
