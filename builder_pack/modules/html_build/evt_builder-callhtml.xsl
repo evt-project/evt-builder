@@ -1059,6 +1059,8 @@
 							</xsl:if>
 							<xsl:element name="button">
 								<xsl:attribute name="id" select="'viscoll'"/>
+								<xsl:attribute name="class" select="'viscoll_link'"/>
+								<xsl:attribute name="title" select="'VISCOLL'"/>
 							</xsl:element>
 						</div>
 						<div id="BRnavpos">

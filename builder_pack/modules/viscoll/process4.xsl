@@ -23,7 +23,7 @@
     
     <xsl:template match="@*|node()|comment()" mode="viscoll4">
         <xsl:copy>
-            <xsl:apply-templates select="@*|node()|comment()" mode="viscoll4"/>
+            <xsl:apply-templates select="@*|node()|comment()" mode="#current"/>
         </xsl:copy>
     </xsl:template>
 

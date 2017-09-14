@@ -82,6 +82,10 @@
 	<xsl:include href="modules/viscoll/evt_builder-viscoll.xsl"/>
 	<xsl:include href="modules/viscoll/process4.xsl"/>
 	<xsl:include href="modules/viscoll/process5.xsl"/>
+	<xsl:include href="modules/viscoll/process6-prova.xsl"/>
+	<xsl:include href="modules/viscoll/process7.xsl"/>
+	<xsl:include href="modules/viscoll/process7-diagrams.xsl"/>
+	
 	
 	
 	<!-- Generation of text label from id. -->

@@ -152,9 +152,12 @@
 			</xsl:if>
 		</xsl:if>
 		
+	
 		<xsl:result-document method="html" encoding="UTF-8" href="{$filePrefix}/data/output_data/viscoll/viscoll-output.html" indent="yes">
-			<xsl:apply-templates select="$viscoll_process4" mode="viscoll5"></xsl:apply-templates> <!-- Applica le regole dell'elemento selezionato -->
+			<xsl:call-template name="viscoll"></xsl:call-template>  <!-- Chiama il template dell'elemento selezionato -->
 		</xsl:result-document>
+
+		
 		
 		
 		

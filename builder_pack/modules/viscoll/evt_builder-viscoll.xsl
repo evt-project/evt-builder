@@ -10,18 +10,29 @@
     exclude-result-prefixes="#all">
       
     
-    <xsl:variable name="path" select="doc('CP.xml')"/>
     
+    <xsl:template name="viscoll">    
+        <xsl:variable name="path" select="doc('../../../data/input_data/text/CP.xml')"/>
+        <xsl:variable name="viscoll_process4">  <!-- Definisco variabile viscoll_process4 per la trasformazione process4.xsl-->
+            <xsl:apply-templates select="$path" mode="viscoll4">  <!-- Gli associo il percorso del file con attributo mode, cioe' il modello da applicare, in base al tipo e al contesto di ogni nodo selezionato. -->
+            </xsl:apply-templates>
+        </xsl:variable>
     
-    <xsl:variable name="viscoll_process4">  <!-- Definisco variabile viscoll_process4 per la trasformazione process4.xsl-->
-        <xsl:apply-templates select="$path" mode="viscoll4">  <!-- Gli associo il percorso del file con attributo mode, cioe' il modello da applicare, in base al tipo e al contesto di ogni nodo selezionato. -->
+        <xsl:variable name="viscoll_process5">
+            <xsl:apply-templates select="$viscoll_process4" mode="viscoll5">
+            </xsl:apply-templates>
+        </xsl:variable>
+        
+        <xsl:variable name="viscoll_process6">
+        <xsl:apply-templates select="$viscoll_process5" mode="viscoll6">
         </xsl:apply-templates>
-   </xsl:variable>
-    
-   <xsl:variable name="viscoll_process5">
-       <xsl:apply-templates select="$viscoll_process4" mode="viscoll5">
+        </xsl:variable>
+        
+        <xsl:apply-templates select="$viscoll_process6" mode="viscoll7">
         </xsl:apply-templates>
-   </xsl:variable>
+        
+        
+    </xsl:template>
 
 
 </xsl:stylesheet>
