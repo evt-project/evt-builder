@@ -30,37 +30,56 @@
 	<!--             -->
 	<!-- Page layout -->
 	<!--             -->
+	<!-- P Paragraphs and L Verse line -->
+	<!--  Template creato per creare div differenziati in base al tipo di testo contenuto in P o L -->
+	<!-- se l'elemento contiene l'attributo rend, crea un div con il type = al valore del rend (translate) -->
 	
 	<!-- P Paragraphs -->
-	<xsl:template match="tei:p" mode="pro">
-		<xsl:element name="span">
-			<xsl:attribute name="data-id" select="@xml:id"/>			
-			<xsl:if test="current()[not((string-length(normalize-space()))= 0)]">
-				<xsl:attribute name="class" select="$ed_name3,name()" separator="-"/>
-				<xsl:apply-templates mode="#current"> </xsl:apply-templates>
-			</xsl:if>
-		</xsl:element>
-	</xsl:template>
+	<xsl:template match="tei:p|l" mode="pro">
+		<xsl:choose>
+			<xsl:when test="@rend='translate'">
+				<xsl:element name="div">
+					<xsl:attribute name="class" select="$ed_name3,name()" separator="-"/>
+					<xsl:attribute name="type" select="@rend"/>
+					<xsl:attribute name="lang" select="@xml:lang"/>					
+					<xsl:apply-templates mode="#current"/>			
+					<xsl:text></xsl:text>
+				</xsl:element>							
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:element name="div">
+					<xsl:attribute name="data-id" select="@xml:id"/>		
+					<xsl:if test="current()[not((string-length(normalize-space()))= 0)]">
+						<xsl:attribute name="class" select="$ed_name3,name()" separator="-"/>
+						<xsl:apply-templates mode="#current"> </xsl:apply-templates>				
+					</xsl:if>
+					<xsl:text></xsl:text>
+				</xsl:element>
+			</xsl:otherwise>
+		</xsl:choose>		
+	</xsl:template>	
 	
-	<!-- L Verse line-->
+	<!-- L Verse line 
 	<xsl:template match="tei:l" mode="pro">
+		<xsl:element name="div">
 		<xsl:apply-templates mode="#current"/> 
-		<xsl:text> </xsl:text><!--important-->
-	</xsl:template>
+		<xsl:text> </xsl:text>
+		</xsl:element>
+	</xsl:template> -->
 	
 	<!-- CDP:embedded - copied from evt_builder-interp-core.xsl --> 
-	<!-- LINE Verse line-->
+	<!-- LINE Verse line -->
 	<xsl:template match="tei:line" mode="pro">
 		<xsl:if test="current()[not((string-length(normalize-space()))= 0)]">
 			<xsl:element name="div">
-				<xsl:attribute name="class" select="$ed_name1"/>
+				<xsl:attribute name="class" select="$ed_name3"/>
 				<xsl:element name="span">
 					<xsl:attribute name="class" select="'pro-lineN'"/>
 					<xsl:value-of select="if(@n) then (if(string-length(@n) &gt; 1) then(@n) else(concat('&#xA0;&#xA0;',@n))) else ('&#xA0;&#xA0;&#xA0;')"/><xsl:text>&#xA0;&#xA0;</xsl:text>
 				</xsl:element>
 				<xsl:element name="div">
 					<!-- Aggiungi il valore di @rend alla classe. Se in @rend è presente un '.' viene sostituito con un '_' -->					
-					<xsl:attribute name="class" select="if(@rend) then ($ed_name1, translate(@rend, '.', '_')) else ($ed_name1, 'left')" separator="-"/>
+					<xsl:attribute name="class" select="if(@rend) then ($ed_name3, translate(@rend, '.', '_')) else ($ed_name3, 'left')" separator="-"/>
 					<xsl:apply-templates mode="#current"/>
 					<xsl:text> </xsl:text><!--important-->
 				</xsl:element>
@@ -74,7 +93,7 @@
 			<xsl:choose>
 				<xsl:when test="not(current()[@lrx][@lry][@ulx][@uly])"><!-- in questo modo se non c'e' collegamento testo immagine le zone vengono separate -->
 					<xsl:element name="div">
-						<xsl:attribute name="class"><xsl:value-of select="$ed_name1, 'zone'" separator="-" /></xsl:attribute>
+						<xsl:attribute name="class"><xsl:value-of select="$ed_name3, 'zone'" separator="-" /></xsl:attribute>
 						<xsl:apply-templates mode="#current"/>
 						<xsl:text> </xsl:text><!--important-->
 					</xsl:element>

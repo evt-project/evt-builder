@@ -1,6 +1,8 @@
 jquery_lang_js.prototype.lang.it = {
     "DIPLOMATIC": "Diplomatica",
     "INTERPRETATIVE": "Interpretativa",
+    "CRITICAL": "Critica",
+    "TRANSLATE":"Traduzione",
 	
     "MODE_SINGLE_TEXT": "Testo singolo",
 	"MODE_IMAGE_TEXT": "Immagine-Testo",
