@@ -138,6 +138,8 @@
 		<edition>Diplomatic</edition>
 
 		<edition>Critical</edition>
+		
+		<edition>Translate</edition>
 
 	</xsl:variable>
 	
@@ -147,6 +149,7 @@
 	<xsl:variable name="ed_name2">interp</xsl:variable>
 	<xsl:variable name="ed_name3">pro</xsl:variable> <!-- Addedd by FS -->
 	<xsl:variable name="ed_name4">crit</xsl:variable>
+	<xsl:variable name="ed_name5">trad</xsl:variable>
 	<!-- Variable -->
 	
 	<!-- Thumb image -->

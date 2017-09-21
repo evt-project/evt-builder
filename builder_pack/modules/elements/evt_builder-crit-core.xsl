@@ -21,46 +21,58 @@
 	
 	<xd:doc type="stylesheet">
 		<xd:short>
-			EN: Templates used to process the TEI elements of the CORE module. Stylesheet add by FS.
+			EN: Templates used to critcess the TEI elements of the CORE module. Stylesheet add by FS.
 			IT: I template per la trasformazione degli elementi TEI del modulo CORE. Foglio di stile aggiunto da FS. 
 		</xd:short>
 	</xd:doc>
 	
-	
+
 	<!--             -->
 	<!-- Page layout -->
 	<!--             -->
 	
-	<!-- P Paragraphs -->
-	<xsl:template match="tei:p" mode="crit">
-		<xsl:element name="span">
-			<xsl:attribute name="data-id" select="@xml:id"/>			
-			<xsl:if test="current()[not((string-length(normalize-space()))= 0)]">
-				<xsl:attribute name="class" select="$ed_name4,name()" separator="-"/>
-				<xsl:apply-templates mode="#current"> </xsl:apply-templates>
-			</xsl:if>
-		</xsl:element>
+	<!-- P Paragraphs and L Verse line -->
+	<!--  Template creato per creare div differenziati in base al tipo di testo contenuto in P o L -->
+	<!-- se l'elemento contiene l'attributo rend, crea un div con il type = al valore del rend (translate) -->
+	
+	<xsl:template match="tei:p|l" mode="crit">
+		<xsl:choose>
+			<xsl:when test="@rend='translate'">
+				<xsl:element name="div">
+					<xsl:attribute name="class" select="$ed_name4,name()" separator="-"/>
+					<xsl:attribute name="type" select="@rend"/>
+					<xsl:attribute name="lang" select="@xml:lang"/>					
+					<xsl:apply-templates mode="#current"/>			
+					<xsl:text></xsl:text>
+				</xsl:element>							
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:element name="div">
+					<xsl:attribute name="data-id" select="@xml:id"/>		
+					<xsl:if test="current()[not((string-length(normalize-space()))= 0)]">
+						<xsl:attribute name="class" select="$ed_name4,name()" separator="-"/>
+						<xsl:apply-templates mode="#current"> </xsl:apply-templates>				
+					</xsl:if>
+					<xsl:text></xsl:text>
+				</xsl:element>
+			</xsl:otherwise>
+		</xsl:choose>		
 	</xsl:template>
 	
-	<!-- L Verse line-->
-	<xsl:template match="tei:l" mode="crit">
-		<xsl:apply-templates mode="#current"/> 
-		<xsl:text> </xsl:text><!--important-->
-	</xsl:template>
 	
 	<!-- CDP:embedded - copied from evt_builder-interp-core.xsl --> 
 	<!-- LINE Verse line-->
 	<xsl:template match="tei:line" mode="crit">
 		<xsl:if test="current()[not((string-length(normalize-space()))= 0)]">
 			<xsl:element name="div">
-				<xsl:attribute name="class" select="$ed_name1"/>
+				<xsl:attribute name="class" select="$ed_name4"/>
 				<xsl:element name="span">
 					<xsl:attribute name="class" select="'crit-lineN'"/>
 					<xsl:value-of select="if(@n) then (if(string-length(@n) &gt; 1) then(@n) else(concat('&#xA0;&#xA0;',@n))) else ('&#xA0;&#xA0;&#xA0;')"/><xsl:text>&#xA0;&#xA0;</xsl:text>
 				</xsl:element>
 				<xsl:element name="div">
 					<!-- Aggiungi il valore di @rend alla classe. Se in @rend è presente un '.' viene sostituito con un '_' -->					
-					<xsl:attribute name="class" select="if(@rend) then ($ed_name1, translate(@rend, '.', '_')) else ($ed_name1, 'left')" separator="-"/>
+					<xsl:attribute name="class" select="if(@rend) then ($ed_name4, translate(@rend, '.', '_')) else ($ed_name4, 'left')" separator="-"/>
 					<xsl:apply-templates mode="#current"/>
 					<xsl:text> </xsl:text><!--important-->
 				</xsl:element>
@@ -74,7 +86,7 @@
 			<xsl:choose>
 				<xsl:when test="not(current()[@lrx][@lry][@ulx][@uly])"><!-- in questo modo se non c'e' collegamento testo immagine le zone vengono separate -->
 					<xsl:element name="div">
-						<xsl:attribute name="class"><xsl:value-of select="$ed_name1, 'zone'" separator="-" /></xsl:attribute>
+						<xsl:attribute name="class"><xsl:value-of select="$ed_name4, 'zone'" separator="-" /></xsl:attribute>
 						<xsl:apply-templates mode="#current"/>
 						<xsl:text> </xsl:text><!--important-->
 					</xsl:element>
@@ -92,34 +104,6 @@
 			<xsl:attribute name="class" select="$ed_name4, 'attachment'" separator="-" />
 			<xsl:apply-templates mode="#current" />
 		</xsl:element>
-	</xsl:template>
-		
-	
-	<!-- Criteri edizione -1- Riproduzione della disposizione in righe dell’originale, con numerazione di ciascuna riga. - Add by FS-->
-	<!-- Line break -->
-	<!-- IT: Ignora i lb che hanno xml:id che termina con 'o' e riporta quelli che hanno xml:id che termina con 'r' eliminando quest'ultimo carattere -->
-	<xsl:template match="tei:lb" mode="crit">
-		<xsl:choose>
-			<xsl:when test="@xml:id">
-				<xsl:choose>
-					<xsl:when test="not(ends-with(@xml:id, 'orig'))">
-						<xsl:element name="tei:lb">
-							<xsl:copy-of select="@* except(@xml:id)"></xsl:copy-of>
-							<xsl:attribute name="{@xml:id/name()}" select="if(ends-with(@xml:id, 'reg')) then(replace(@xml:id, 'reg', '')) else(@xml:id)"/>
-						</xsl:element>
-						<xsl:if test="@n">
-							<xsl:element name="span">
-								<xsl:attribute name="class" select="'crit-lineN'"/>
-								<xsl:value-of select="if(string-length(@n) &gt; 1) then(@n) else(concat('&#xA0;&#xA0;',@n))"/><xsl:text>&#xA0;&#xA0;</xsl:text>
-							</xsl:element>
-						</xsl:if>
-					</xsl:when>
-					<xsl:when test="ends-with(@xml:id, 'orig')"></xsl:when>
-					<xsl:otherwise/>
-				</xsl:choose>
-			</xsl:when>
-			<xsl:otherwise><xsl:copy-of select="."/></xsl:otherwise>
-		</xsl:choose>
 	</xsl:template>
 	
 	<!-- Page break -->
@@ -460,7 +444,9 @@
 		<!-- do nothing -->
 	</xsl:template>
 	
-	<xsl:template match="tei:body" mode="crit">
+	<!-- EN : Hidden Template, the xml:id is integrated directly as element's attribute  -->
+	<!-- IT : Template Commentato perchè ridondante, l' xml:id è integrato come attributo dell'elemento -->
+	<!-- <xsl:template match="tei:body" mode="crit">
 		
 			<xsl:element name="div">
 				<xsl:attribute name="class">doc</xsl:attribute>
@@ -482,7 +468,7 @@
 				<xsl:apply-templates mode="#current"/>
 			</xsl:element>
 		
-	</xsl:template>
+	</xsl:template> -->
 	
 	<!-- DESC Desc-->
 	<xsl:template match="tei:desc" mode="crit">
