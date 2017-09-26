@@ -37,10 +37,9 @@
 	
 	<xsl:template match="tei:p|l" mode="crit">
 		<xsl:choose>
-			<xsl:when test="@rend='translate'">
+			<xsl:when test="@xml:lang='ita'">
 				<xsl:element name="div">
 					<xsl:attribute name="class" select="$ed_name4,name()" separator="-"/>
-					<xsl:attribute name="type" select="@rend"/>
 					<xsl:attribute name="lang" select="@xml:lang"/>					
 					<xsl:apply-templates mode="#current"/>			
 					<xsl:text></xsl:text>
@@ -104,8 +103,8 @@
 			<xsl:attribute name="class" select="$ed_name4, 'attachment'" separator="-" />
 			<xsl:apply-templates mode="#current" />
 		</xsl:element>
-	</xsl:template>
-	
+	</xsl:template>	
+
 	<!-- Page break -->
 	<xsl:template match="tei:pb" mode="crit">
 		<xsl:copy-of select="."/>

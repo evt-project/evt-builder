@@ -274,6 +274,13 @@ span.dipl-hi-double {
 	font-size: 120%; 
 }
 
+div.dipl-p[lang='ita']{
+	display: none;
+}
+div.dipl-l[lang='ita']{
+	display: none;
+}
+
 
 /**EDIZIONE INTERPRETATIVA**/
 
@@ -474,6 +481,13 @@ span.interp-supplied[data-reason='illegible']::before {
 }
 span.interp-supplied[data-reason='illegible']::after {
 	content: "]";
+}
+
+div.interp-p[lang='ita']{
+	display: none;
+}
+div.interp-l[lang='ita']{
+	display: none;
 }
 
 /**EDIZIONE DI PROVA*/
@@ -690,6 +704,13 @@ span.pro-add {
 	font-size: 80%;
 }
 
+div.pro-p[lang='ita']{
+	display: none;
+}
+div.pro-l[lang='ita']{
+	display: none;
+}
+
 /** EDIZIONE CRITICA **/
 
 div.crit-p[type='translate'] {
@@ -896,20 +917,27 @@ span.crit-supplied[data-reason='illegible']::after {
 	content: "]";
 }
 
+div.crit-p[lang='ita']{
+	display: none;
+}
+div.crit-l[lang='ita']{
+	display: none;
+}
+
 /**EDIZIONE DI TRADUZIONE */
 
 
-div.trad-p[type='translate'] {
+div.trad-p[lang='ita'] {
 	display: inline-table;
 }
-div.trad-l[type='translate'] {
+div.trad-l[lang='ita'] {
 	display: inline-table;
 }
-/** elementi con attributo type=original non visibili nell'edizione di traduzione **/
-div.trad-p[type='original'] {
+/** elementi con attributo lang non ita non visibili nell'edizione di traduzione **/
+div.trad-p[lang='lat'] {
 	display: none;
 }
-div.trad-l[type='original'] {
+div.trad-l[lang='lat'] {
 	display: none;
 }
 

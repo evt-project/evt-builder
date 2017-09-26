@@ -42,7 +42,7 @@
 	<!-- EN: Index title -->
 	<!-- IT: Titolo edizione -->
 	<!-- default: 'Codex Viewer' -->
-	<xsl:param name="index_title" select="'Codex Viewer'"/>
+	<xsl:param name="index_title" select="'Documenti e lettere di Matilde di Canossa'"/>
 	
 	<!-- EN: Welcome Message -->
 	<!-- IT: Messaggio di benvenuto -->
@@ -97,12 +97,17 @@
 	<!-- EN: On/Off Manuscript Description -->
 	<!-- IT: Attiva/Disattiva Descrizione del manoscritto-->
 	<!-- default: true() -->
-	<xsl:param name="msDesc" select="true()"/>
+	<xsl:param name="msDesc" select="false()"/>
 	
 	<!-- EN: On/Off Header information -->
 	<!-- IT: Attiva/Disattiva Informazioni generali -->
 	<!-- default: true() -->
 	<xsl:param name="headerInfo" select="true()"/>
+	
+	<!-- EN: On/Off Traduzione -->
+	<!-- IT: Attiva/Disattiva Traduzione -->
+	<!-- default: true() -->
+	<xsl:param name="trad" select="true()"/>
 	
 	<!-- ############## -->
 	<!-- EDITION LEVELS -->
@@ -241,7 +246,7 @@
 	<!-- EN: Show/Hide Txt/Img Link Button in interface -->
 	<!-- IT: Mostra/Nascondi pulsante Txt/Img Link nell'interfaccia web -->
 	<!-- default: true() -->
-	<xsl:param name="txtimg_link_button" select="false()"/>
+	<xsl:param name="txtimg_link_button" select="true()"/>
 	
 	<!-- EN: Show/Hide Hotspot Button in interface -->
 	<!-- IT: Mostra/Nascondi pulsante Hotspot nell'interfaccia web -->

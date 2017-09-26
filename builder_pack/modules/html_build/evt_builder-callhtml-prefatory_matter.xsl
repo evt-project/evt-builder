@@ -73,6 +73,19 @@
 		</html>
 	</xsl:template>
 	
+	<!-- ###################### -->
+	<!-- TRANSLATE DOCUMENTS    -->
+	<!-- ###################### -->
+	<xsl:template name="trad_generation">
+		<html lang="en-US">
+			<body>
+				<div id="tradEdition">
+					<xsl:apply-templates select="//tei:p[@xml:lang='ita']"/>
+				</div>
+			</body>
+		</html>
+	</xsl:template>
+	
 	<!-- ####### -->
 	<!-- REGESTO -->
 	<!-- ####### -->
