@@ -321,10 +321,11 @@
 										<xsl:attribute name="class" select="'current_mode mode_view'"/>
 										<xsl:attribute name="title" select="'MODE_IMAGE_TEXT'"/>
 										<xsl:attribute name="lang" select="'def'"/>
-										<img src="images/img-txt.png" class="mainHeaderimg"/>
+									<img src="images/img-txt.png" class="mainHeaderimg"/>
 										<!--<i class="fa evt-imgtxt"></i>-->
 									</xsl:element>
 								</xsl:if>
+								<!-- MODIFIED BY FS : quando si seleziona il bottone text-text appare la traduzione del testo nel selettore delle edizioni -->
 								<xsl:if test="count($edition_array) &gt; 1">
 									<xsl:element name="a">
 										<xsl:attribute name="href" select="'javascript:void(0);'"/>
@@ -582,6 +583,21 @@
 													</xsl:element>
 												</xsl:if>
 												<!-- /end Integration by AB -->
+												
+												<!-- Integration by FS -->
+												<xsl:if test="$image_frame=true() and $trad=true()">
+													<xsl:element name="span">
+														<xsl:attribute name="id" select="'switch_tradEdition'"/>
+														<xsl:attribute name="title" select="'TRANSLATION_EDITION'"/>
+														<xsl:attribute name="lang" select="'ita'"/>
+														<xsl:attribute name="class">mainButtons <xsl:if test="$left_frame_default_content='info'"> active</xsl:if></xsl:attribute>
+														<span lang="def">TRAD_ED</span>
+														<xsl:element name="i">
+															<xsl:attribute name="class" select="'fa fa-info-circle'"/>
+														</xsl:element>
+													</xsl:element>
+												</xsl:if>
+												<!-- /end Integration by AB -->
 											</div>
 										</xsl:if>
 									</div>
@@ -701,6 +717,16 @@
 										</xsl:element>
 									</xsl:if>
 									<!-- /end Integration by AB -->
+									
+									<!-- Integration byFS -->
+									<xsl:if test="$image_frame=true() and $trad=true()">
+										<xsl:element name="div">
+											<xsl:attribute name="id">trad_cont</xsl:attribute>
+											<xsl:attribute name="class">inner_frame <xsl:if test="$left_frame_default_content='info'"> open</xsl:if></xsl:attribute>
+										</xsl:element>
+									</xsl:if>
+									<!-- /end Integration by AB -->
+									
 									<div id="image_cont" class="inner_frame">
 										<div id="image_fade">
 											<div id="image_elem"></div>
@@ -824,6 +850,8 @@
 											<xsl:with-param name="html_div_class" select="'main_ee_select'"/>
 										</xsl:call-template>
 									</xsl:element>
+									<!-- MODIFIED BY FS -->
+									
 									<xsl:if test="$regesto=true()">
 										<xsl:element name="span">
 											<xsl:attribute name="class">

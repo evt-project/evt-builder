@@ -86,6 +86,11 @@
 				<xsl:call-template name="msDesc"/>
 			</xsl:if>
 			
+			<!-- TRADUZIONE -->
+			<xsl:if test="$trad=true()">
+				<xsl:call-template name="trad"/>
+			</xsl:if>
+			
 			<!-- REGESTO -->
 			<xsl:if test="$regesto=true()">
 				<xsl:for-each select="tei:TEI/tei:text/tei:group/tei:text">
@@ -481,12 +486,21 @@
 			<xsl:call-template name="headerInfo_generation"/>
 		</xsl:result-document>
 	</xsl:template>
+	
 	<!-- MS DESCRIPTION -->
 	<xsl:template name="msDesc">
 		<xsl:result-document method="html" encoding="UTF-8" media-type="text/plain" byte-order-mark="yes" href="{$filePrefix}/data/output_data/prefatory_matter/ms_desc.html" indent="yes">
 			<xsl:call-template name="msDesc_generation"/>
 		</xsl:result-document>
 	</xsl:template>
+	
+	<!-- TRADUZIONE -->
+	<xsl:template name="trad">
+	<xsl:param name="pb_n"></xsl:param>
+		<xsl:result-document method="html" encoding="UTF-8" media-type="text/plain" byte-order-mark="yes" href="{$filePrefix}/data/output_data/translate/page_{$pb_n}_translate.html" indent="yes">
+			<xsl:call-template name="msDesc_generation"/>
+		</xsl:result-document>
+	</xsl:template>	
 	
 	<!-- FRONT -->
 	<xsl:template name="front">

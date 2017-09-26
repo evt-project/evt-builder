@@ -37,10 +37,9 @@
 	<!-- P Paragraphs -->
 	<xsl:template match="tei:p|l" mode="pro">
 		<xsl:choose>
-			<xsl:when test="@rend='translate'">
+			<xsl:when test="@xml:lang='ita'">
 				<xsl:element name="div">
 					<xsl:attribute name="class" select="$ed_name3,name()" separator="-"/>
-					<xsl:attribute name="type" select="@rend"/>
 					<xsl:attribute name="lang" select="@xml:lang"/>					
 					<xsl:apply-templates mode="#current"/>			
 					<xsl:text></xsl:text>

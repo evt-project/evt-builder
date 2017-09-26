@@ -667,6 +667,20 @@ $(function() {
 			    });
 			}
 			
+			/* ====================== */
+			/* TRANSLATE */
+			if (($(xml).find('trad').attr('active')==1)){
+			    $('#trad_cont').load("data/output_data/translate/page__translate.html #trad", function(){
+			    	if ( $('#trad_cont').is(':empty') ) {
+				    	$('#switch_trad, #trad_cont').remove();
+				    	resizeButtonsAndSelects();
+				    } else {
+				    	bindMsDescBtnClick();
+				    }
+			        resizeGlobalTopBar();
+			    });
+			}
+
 			/* ============ */
 			/* FRONT MATTER */
 			if (($(xml).find('headerInfo').length > 0) && ($(xml).find('headerInfo').attr('active')==1)){

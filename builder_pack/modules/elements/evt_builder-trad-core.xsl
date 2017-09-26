@@ -34,13 +34,12 @@
 	
 	<!-- P Paragraphs and L Verse line -->
 	<!--  Template creato per creare div differenziati in base al tipo di testo contenuto in P o L -->
-	<!-- se l'elemento contiene l'attributo rend, crea un div con il type = al valore del rend (translate) -->
+	<!-- se l'elemento contiene l'attributo xml:lang, crea un div divverente per ogni lingua -->
 	<xsl:template match="tei:p|tei:l" mode="trad">
 		<xsl:choose>
-			<xsl:when test="@rend">
+			<xsl:when test="@xml:lang='ita'">
 				<xsl:element name="div">
-					<xsl:attribute name="class" select="$ed_name5,name()" separator="-"/>
-					<xsl:attribute name="type" select="@rend"/>
+					<xsl:attribute name="class" select="$ed_name5,name()" separator="-"/>					
 					<xsl:attribute name="lang" select="@xml:lang"/>					
 					<xsl:apply-templates mode="#current"/>			
 					<xsl:text></xsl:text>
@@ -50,7 +49,6 @@
 			<xsl:otherwise>							
 				<xsl:element name="div">
 					<xsl:attribute name="class" select="$ed_name5,name()" separator="-"/>	
-					<xsl:attribute name="type" select="'original'"/>
 					<xsl:attribute name="lang" select="@xml:lang"/>
 					<xsl:apply-templates mode="#current"> </xsl:apply-templates>
 					<xsl:text></xsl:text>

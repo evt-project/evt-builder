@@ -160,8 +160,8 @@ div.AnnText{
     color: #000000;
 }
 /* CDP provvisorio */
-.HighlightedAnnMenuItem div.dipl-right, .HighlightedAnnMenuItem div.dipl-center, .HighlightedAnnMenuItem div.interp-right, .HighlightedAnnMenuItem div.interp-center, .HighlightedAnnMenuItem div.pro-right, .HighlightedAnnMenuItem div.pro-center,
-.SelectedAnnMenuItem div.dipl-right, .SelectedAnnMenuItem div.dipl-center, .SelectedAnnMenuItem div.interp-right, .SelectedAnnMenuItem div.interp-center .SelectedAnnMenuItem div.pro-right, .SelectedAnnMenuItem div.pro-center {
+.HighlightedAnnMenuItem div.dipl-right, .HighlightedAnnMenuItem div.dipl-center, .HighlightedAnnMenuItem div.interp-right, .HighlightedAnnMenuItem div.interp-center, .HighlightedAnnMenuItem div.pro-right, .HighlightedAnnMenuItem div.pro-center, .HighlightedAnnMenuItem div.crit-right, .HighlightedAnnMenuItem div.crit-center, .HighlightedAnnMenuItem div.trad-right, .HighlightedAnnMenuItem div.trad-center,
+.SelectedAnnMenuItem div.dipl-right, .SelectedAnnMenuItem div.dipl-center, .SelectedAnnMenuItem div.interp-right, .SelectedAnnMenuItem div.interp-center .SelectedAnnMenuItem div.pro-right, .SelectedAnnMenuItem div.pro-center, .SelectedAnnMenuItem div.crit-right, .SelectedAnnMenuItem div.crit-center, .SelectedAnnMenuItem div.trad-right, .SelectedAnnMenuItem div.trad-center {
     background-color: transparent;
 }
 /*FS : cambio colore di evidenziazione Image Text Link*/
