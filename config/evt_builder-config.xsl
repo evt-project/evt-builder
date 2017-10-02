@@ -144,7 +144,7 @@
 
 		<edition>Critical</edition>
 		
-		<edition>Translate</edition>
+		<edition>Translation</edition>
 
 	</xsl:variable>
 	

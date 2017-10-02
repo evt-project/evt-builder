@@ -30,41 +30,22 @@
 	<!--             -->
 	<!-- Page layout -->
 	<!--             -->
-	<!-- P Paragraphs and L Verse line -->
-	<!--  Template creato per creare div differenziati in base al tipo di testo contenuto in P o L -->
-	<!-- se l'elemento contiene l'attributo rend, crea un div con il type = al valore del rend (translate) -->
-	
 	<!-- P Paragraphs -->
-	<xsl:template match="tei:p|l" mode="pro">
-		<xsl:choose>
-			<xsl:when test="@xml:lang='ita'">
-				<xsl:element name="div">
-					<xsl:attribute name="class" select="$ed_name3,name()" separator="-"/>
-					<xsl:attribute name="lang" select="@xml:lang"/>					
-					<xsl:apply-templates mode="#current"/>			
-					<xsl:text></xsl:text>
-				</xsl:element>							
-			</xsl:when>
-			<xsl:otherwise>
-				<xsl:element name="div">
-					<xsl:attribute name="data-id" select="@xml:id"/>		
-					<xsl:if test="current()[not((string-length(normalize-space()))= 0)]">
-						<xsl:attribute name="class" select="$ed_name3,name()" separator="-"/>
-						<xsl:apply-templates mode="#current"> </xsl:apply-templates>				
-					</xsl:if>
-					<xsl:text></xsl:text>
-				</xsl:element>
-			</xsl:otherwise>
-		</xsl:choose>		
-	</xsl:template>	
-	
-	<!-- L Verse line 
-	<xsl:template match="tei:l" mode="pro">
-		<xsl:element name="div">
-		<xsl:apply-templates mode="#current"/> 
-		<xsl:text> </xsl:text>
+	<xsl:template match="tei:p" mode="pro">
+		<xsl:element name="span">
+			<xsl:attribute name="data-id" select="@xml:id"/>			
+			<xsl:if test="current()[not((string-length(normalize-space()))= 0)]">
+				<xsl:attribute name="class" select="$ed_name3,name()" separator="-"/>
+				<xsl:apply-templates mode="#current"> </xsl:apply-templates>
+			</xsl:if>
 		</xsl:element>
-	</xsl:template> -->
+	</xsl:template>
+	
+	<!-- L Verse line-->
+	<xsl:template match="tei:l" mode="pro">
+		<xsl:apply-templates mode="#current"/> 
+		<xsl:text> </xsl:text><!--important-->
+	</xsl:template>
 	
 	<!-- CDP:embedded - copied from evt_builder-interp-core.xsl --> 
 	<!-- LINE Verse line -->
@@ -149,10 +130,6 @@
 	<xsl:template match="tei:cb" mode="pro">
 		<xsl:copy-of select="."/>
 	</xsl:template>
-	
-	<!--               -->
-	<!-- Transcription -->
-	<!--               -->
 	
 	<!-- Criteri edizione - Seleziona solo elementi reg. - Add by FS-->
 	<!-- Choice -->
@@ -984,4 +961,27 @@
 			&#171;<xsl:apply-templates mode="#current" />&#187;
 		</xsl:element>
 	</xsl:template>
+	
+	<!-- BACK - DIV - Container of Translation Edition -->	
+	<xsl:template match="tei:back/tei:div[@type='translate']" mode="pro">
+		<!-- DO NOTHING -->
+	</xsl:template>	
+	
+	<!-- PUNCTUATION -->
+	<xsl:template match="tei:pc" mode="pro">
+		<!-- DO NOTHING -->
+	</xsl:template>
+	
+	<!-- UPPERCASE AFTER PUNCTUATION -->
+	<xsl:template match="tei:seg[@type='maiusc-aft-dot']" mode="pro">
+		<!-- DO NOTHING -->
+	</xsl:template>
+	
+	<!-- CAPITALIZATION - riproduzione delle litterae notabiliores dell’originale con maiuscole -->
+	<xsl:template match="tei:seg[@type='maiusc-lit-not']" mode="pro">
+		<xsl:element name="span">
+			<xsl:attribute name="class" select="$ed_name3, @type" separator="-"/>			
+		</xsl:element>
+	</xsl:template>	
+	
 </xsl:stylesheet>
