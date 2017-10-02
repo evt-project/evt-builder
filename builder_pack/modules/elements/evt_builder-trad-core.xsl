@@ -25,76 +25,56 @@
 			IT: I template per la trasformazione degli elementi TEI del modulo CORE. Foglio di stile aggiunto da FS. 
 		</xd:short>
 	</xd:doc>
-	
+
+	<!-- TRANSLATION - BACK - DIV - Container of Translation Edition -->
+	<xsl:template match="tei:back/tei:div[@type='translate']" mode="trad">
+	<xsl:element name="div">
+		<xsl:attribute name="class">doc</xsl:attribute>
+		<xsl:attribute name="data-doc" select="current()/(replace (@xml:id, '_trad', ''))"/>
+		<xsl:attribute name="title"><xsl:text>Doc. </xsl:text>
+			<xsl:choose>
+				<xsl:when test="current()/@n">
+					<xsl:value-of select="current()/@n"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="generateTextLabel">
+						<xsl:with-param name="text_id">
+							<xsl:value-of select="current()/(replace (@xml:id, '_trad', ''))" />
+						</xsl:with-param>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:attribute>
+		<xsl:apply-templates mode="#current"/>
+	</xsl:element>
+	</xsl:template>
 	
 	<!--             -->
 	<!-- Page layout -->
 	<!--             -->
+		
+	<!-- P Paragraphs -->
+	<xsl:template match="tei:p" mode="trad">
+		<xsl:element name="span">
+			<xsl:attribute name="data-id" select="@xml:id"/>			
+			<xsl:if test="current()[not((string-length(normalize-space()))= 0)]">
+				<xsl:attribute name="class" select="$ed_name5,name()" separator="-"/>
+				<xsl:apply-templates mode="#current"> </xsl:apply-templates>
+			</xsl:if>
+		</xsl:element>
+	</xsl:template>
 	
-	
-	<!-- P Paragraphs and L Verse line -->
-	<!--  Template creato per creare div differenziati in base al tipo di testo contenuto in P o L -->
-	<!-- se l'elemento contiene l'attributo xml:lang, crea un div divverente per ogni lingua -->
-	<xsl:template match="tei:p|tei:l" mode="trad">
-		<xsl:choose>
-			<xsl:when test="@xml:lang='ita'">
-				<xsl:element name="div">
-					<xsl:attribute name="class" select="$ed_name5,name()" separator="-"/>					
-					<xsl:attribute name="lang" select="@xml:lang"/>					
-					<xsl:apply-templates mode="#current"/>			
-					<xsl:text></xsl:text>
-				</xsl:element>					
-			</xsl:when>
-	<!-- altrimenti crea un div con type = original -->
-			<xsl:otherwise>							
-				<xsl:element name="div">
-					<xsl:attribute name="class" select="$ed_name5,name()" separator="-"/>	
-					<xsl:attribute name="lang" select="@xml:lang"/>
-					<xsl:apply-templates mode="#current"> </xsl:apply-templates>
-					<xsl:text></xsl:text>
-				</xsl:element>
-			</xsl:otherwise>
-		</xsl:choose>					
+	<!-- L Verse line-->
+	<xsl:template match="tei:l" mode="trad">
+		<xsl:apply-templates mode="#current"/> 
+		<xsl:text> </xsl:text><!--important-->
 	</xsl:template>
 	
 	<!-- CDP:embedded - copied from evt_builder-interp-core.xsl --> 
 	<!-- LINE Verse line-->
 	<xsl:template match="tei:line" mode="trad">
-		<xsl:if test="current()[not((string-length(normalize-space()))= 0)]">
-			<xsl:element name="div">
-				<xsl:attribute name="class" select="$ed_name5"/>
-				<xsl:element name="span">
-					<xsl:attribute name="class" select="'trad-lineN'"/>
-					<xsl:value-of select="if(@n) then (if(string-length(@n) &gt; 1) then(@n) else(concat('&#xA0;&#xA0;',@n))) else ('&#xA0;&#xA0;&#xA0;')"/><xsl:text>&#xA0;&#xA0;</xsl:text>
-				</xsl:element>
-				<xsl:element name="div">
-					<!-- Aggiungi il valore di @rend alla classe. Se in @rend è presente un '.' viene sostituito con un '_' -->					
-					<xsl:attribute name="class" select="if(@rend) then ($ed_name5, translate(@rend, '.', '_')) else ($ed_name5,name())" separator="-"/>
-					<xsl:apply-templates mode="#current"/>
-					<xsl:text> </xsl:text><!--important-->
-				</xsl:element>
-			</xsl:element>
-		</xsl:if>
-	</xsl:template>
-	
-	<!-- ZONE -->
-	<xsl:template match="tei:zone" mode="trad">
-		<xsl:if test="current()[not((string-length(normalize-space()))= 0)]"><!-- Escludo elementi <line> vuoti -->
-			<xsl:choose>
-				<xsl:when test="not(current()[@lrx][@lry][@ulx][@uly])"><!-- in questo modo se non c'e' collegamento testo immagine le zone vengono separate -->
-					<xsl:element name="div">
-						<xsl:attribute name="class"><xsl:value-of select="$ed_name5, 'zone'" separator="-" /></xsl:attribute>
-						<xsl:apply-templates mode="#current"/>
-						<xsl:text> </xsl:text><!--important-->
-					</xsl:element>
-				</xsl:when>
-				<xsl:otherwise>
-					<xsl:apply-templates mode="#current"/>
-				</xsl:otherwise>
-			</xsl:choose>
-			<xsl:text> </xsl:text><!--important-->
-		</xsl:if>
-	</xsl:template>
+		<!-- DO NOTHING -->
+	</xsl:template>	
 		
 	<xsl:template match="node()[@attachment]" mode="trad">
 		<xsl:element name="div">
@@ -112,21 +92,9 @@
 	<xsl:template match="tei:cb" mode="trad">
 		<xsl:copy-of select="."/>
 	</xsl:template>	
-
 	
-	<!-- For Embedded  Transcription -->
-	<xsl:template match="node()[name()='div'][@id='areaAnnotations']" mode="trad">
-		<xsl:copy-of select="." />
-	</xsl:template>
-	
-	<xsl:template match="node()[name()='div'][@id='AnnMenu' or @class='AnnMenuItem']|node()[name()='div'][contains(@class, 'AnnSubmenu')]" mode="trad">
-		<xsl:element name="{name()}">
-			<xsl:copy-of select="@*"/>
-			<xsl:apply-templates mode="#current" />
-		</xsl:element>
-	</xsl:template>
-	
-	
+	<!-- For Embedded  Transcription no usefull -->
+		
 	<!-- REF References to additional text -->
 	<xsl:template match="tei:ref" mode="trad">
 		<xsl:choose>
@@ -175,27 +143,7 @@
 	</xsl:template>
 	
 	<xsl:template match="tei:body" mode="trad">
-		
-			<xsl:element name="div">
-				<xsl:attribute name="class">doc</xsl:attribute>
-				<xsl:attribute name="data-doc" select="current()/parent::tei:text/@xml:id"/>
-				<xsl:attribute name="title"><xsl:text>Doc. </xsl:text>
-					<xsl:choose>
-						<xsl:when test="current()/parent::tei:text/@n">
-							<xsl:value-of select="current()/parent::tei:text/@n"/>
-						</xsl:when>
-						<xsl:otherwise>
-							<xsl:call-template name="generateTextLabel">
-								<xsl:with-param name="text_id">
-									<xsl:value-of select="current()/parent::tei:text/@xml:id" />
-								</xsl:with-param>
-							</xsl:call-template>
-						</xsl:otherwise>
-					</xsl:choose>
-				</xsl:attribute>
-				<xsl:apply-templates mode="#current"/>
-			</xsl:element>
-		
+		<!-- DO NOTHING -->
 	</xsl:template>
 	
 	<!-- DESC Desc-->
@@ -674,10 +622,13 @@
 	</xsl:template>
 	
 	<!-- QUOTE Quotes -->
-	<xsl:template match="tei:quote" mode="trad">
+	<xsl:template match="tei:quote" mode="trad">		
 		<xsl:element name="span">
 			<xsl:attribute name="class">quote</xsl:attribute>
 			&#171;<xsl:apply-templates mode="#current" />&#187;
 		</xsl:element>
 	</xsl:template>
+	
+	
+	
 </xsl:stylesheet>
