@@ -1,6 +1,8 @@
 jquery_lang_js.prototype.lang.fr = {
 	"DIPLOMATIC": "Diplomatique",
     "INTERPRETATIVE": "Interprétatif",
+    "CRITICAL": "Critique",
+    "TRANSLATION":"Traduction",
 
     "MODE_SINGLE_TEXT": "Mode Texte",
 	"MODE_IMAGE_TEXT": "Mode Image|Texte",
