@@ -948,21 +948,28 @@
 	
 	<!-- PUNCTUATION -->
 	<xsl:template match="tei:pc" mode="crit">
-		<!-- DO NOTHING -->
+		<xsl:element name="span">
+			<xsl:attribute name="class" select="$ed_name4, name()" separator="-"/>			
+			<xsl:apply-templates mode="#current" />
+		</xsl:element>
+		
 	</xsl:template>
 	
 	<!-- UPPERCASE AFTER PUNCTUATION -->
 	<xsl:template match="tei:seg[@type='maiusc-aft-dot']" mode="crit">
 		<xsl:element name="span">
-			<xsl:attribute name="class" select="$ed_name4, @type" separator="-"/>			
+			<xsl:attribute name="class" select="$ed_name4, @type" separator="-"/>
+			<xsl:apply-templates/>			
 		</xsl:element>
+		
 	</xsl:template>
 	
 	<!-- CAPITALIZATION - riproduzione delle litterae notabiliores dell’originale con maiuscole -->
 	<xsl:template match="tei:seg[@type='maiusc-lit-not']" mode="crit">
 		<xsl:element name="span">
-			<xsl:attribute name="class" select="$ed_name4, @type" separator="-"/>			
-		</xsl:element>
+			<xsl:attribute name="class" select="$ed_name4, @type" separator="-"/>
+			<xsl:apply-templates/>			
+		</xsl:element>	
 	</xsl:template>	
 	
 	

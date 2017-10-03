@@ -114,6 +114,7 @@
 							<div class="align-center"><span class="intestazione inline"> </span><xsl:value-of select="$front/tei:titlePart[@type='misure']"/></div>
 							
 						</div>
+						
 						<!-- ADD BY FS -->
 						<div class="reg_title">
 							<xsl:apply-templates select="$front/tei:div[@type='titoloatto']" mode="pro"/>
@@ -125,7 +126,6 @@
 						<div class="reg_note">
 							<hr/>
 							<p class="bibliografia">
-								<!--<xsl:value-of select="$front//tei:div[@type='orig_doc']"/>-->
 								<xsl:apply-templates select="$front//tei:div[@type='orig_doc']" mode="pro"></xsl:apply-templates>
 							</p>
 							<p class="bibliografia">

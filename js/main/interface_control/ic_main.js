@@ -84,7 +84,7 @@ $(function() {
 						.attr("data-value", current_id.toLowerCase())
 						.attr("lang", 'def')
 						.addClass('option')
-						.text(current_id.toLowerCase())
+						.text(current_id.toUpperCase())
 				);
 			});
 			
@@ -111,9 +111,16 @@ $(function() {
 
 			var firstEE = $('.main_ee_select .option_container div:first').text();
 			$('.main_ee_select .label_selected')
-				.text(window.lang.convert(firstEE.toLowerCase(), window.lang.currentLang))
+				.text(window.lang.convert(firstEE.toUpperCase(), window.lang.currentLang))
 				.attr("data-value", $('.main_ee_select .option_container div:first').attr('data-value'))
 				.trigger('change');
+
+			// ADD BY FS 	
+			//Se ho più di un'edizione e non è attiva la modalità txttxt non visualizzare l'opzione per la selezione dell'edizione di traduzione 
+        	if( (!$('#txttxt_link').hasClass('current_mode')) && $(xml).find('editions edition').length > 0 ) {
+				$("#span_ee_select .option_container .option[data-value='translation']").hide();
+        	}
+
 
 			/* ==/ LOAD EDITION LEVELS */
 			/* ======================= */

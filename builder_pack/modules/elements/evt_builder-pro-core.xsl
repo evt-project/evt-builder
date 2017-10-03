@@ -974,14 +974,20 @@
 	
 	<!-- UPPERCASE AFTER PUNCTUATION -->
 	<xsl:template match="tei:seg[@type='maiusc-aft-dot']" mode="pro">
-		<!-- DO NOTHING -->
+		<xsl:element name="span">
+			<xsl:attribute name="class" select="$ed_name3, @type" separator="-"></xsl:attribute>		
+			<xsl:apply-templates/>
+		</xsl:element>
+		
 	</xsl:template>
 	
 	<!-- CAPITALIZATION - riproduzione delle litterae notabiliores dell’originale con maiuscole -->
 	<xsl:template match="tei:seg[@type='maiusc-lit-not']" mode="pro">
 		<xsl:element name="span">
-			<xsl:attribute name="class" select="$ed_name3, @type" separator="-"/>			
+			<xsl:attribute name="class" select="$ed_name3, @type" separator="-"></xsl:attribute>			
+			<xsl:apply-templates/>
 		</xsl:element>
+		
 	</xsl:template>	
 	
 </xsl:stylesheet>
