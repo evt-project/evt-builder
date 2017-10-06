@@ -71,13 +71,14 @@
 	
 	<!-- Elements for prova version -->  <!-- Added By FS -->
 	<xsl:include href="modules/elements/evt_builder-pro-core.xsl"/>
-	<xsl:include href="modules/elements/evt_builder-pro-multi_module.xsl"/>
+	<!--  <xsl:include href="modules/elements/evt_builder-pro-multi_module.xsl"/>-->
 	
 	<!-- Elements for translation version -->  <!-- Added By FS -->
 	<xsl:include href="modules/elements/evt_builder-trad-core.xsl"/>
 
 	<!-- Elements for critical version -->  <!-- Added By FS -->
-	<xsl:include href="modules/elements/evt_builder-crit-core.xsl"/>		
+	<xsl:include href="modules/elements/evt_builder-crit-core.xsl"/>
+	<!--<xsl:include href="modules/elements/evt_builder-crit-multi_module.xsl"/>-->
 	
 	<!-- Elements for facsimile version -->
 	
