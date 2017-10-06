@@ -207,12 +207,11 @@
 						</xsl:element>						
 					</xsl:when>
 					
-					<!-- IT: Criteri edizione -2- Seleziona solo elementi expan contenuti in reg. - Add by FS-->
-					
+					<!-- IT: Criteri edizione -2- Seleziona elementi expan contenuti in reg. - Add by FS-->					
 					<xsl:when test="tei:expan">
 						<xsl:apply-templates select="tei:expan" mode="#current"/> 
 					</xsl:when>
-					<!-- IT: Criteri edizione -3- Seleziona la punteggiatura originale. - Add by FS-->
+					<!-- IT: Criteri edizione -3- Seleziona la punteggiatura moderna - Add by FS-->
 					<xsl:when test="tei:reg">
 						<xsl:choose>
 							<!-- IT: 1. escludi i choice che contengono reg vuoti (che contengono solo white-spaces) usati per la punteggiatura
@@ -255,11 +254,11 @@
 		</xsl:choose>
 	</xsl:template>
 	
-	<!-- Criteri edizione -5- adeguato a criteri moderni e normalizzato l’uso di u, v e w  -->
+	<!-- Criteri edizione -5- -->
 	
-	<xsl:template match="tei:choice/tei:orig//tei:g" mode="crit">
+	<xsl:template match="tei:g" mode="crit">
 		<xsl:variable name="id" select="substring-after(@ref,'#')"/>
-		<xsl:apply-templates select="if($root//tei:charDecl//tei:glyph[@xml:id=$id]/tei:mapping[@type='diplomatic']) then($root//tei:charDecl//tei:glyph[@xml:id=$id]/tei:mapping[@type='diplomatic']) else($root//tei:charDecl//tei:char[@xml:id=$id]/tei:mapping[@type='diplomatic'])" mode="#current"/>
+		<xsl:apply-templates select="if($root//tei:charDecl//tei:glyph[@xml:id=$id]/tei:mapping[@type='normalized']) then($root//tei:charDecl//tei:glyph[@xml:id=$id]/tei:mapping[@type='normalized']) else($root//tei:charDecl//tei:char[@xml:id=$id]/tei:mapping[@type='normalized'])" mode="#current"/>
 	</xsl:template>
 	
 	<!-- Criteri edizione -4- Lettere o parole da espungere, perchè frutto di errori materiali dello scrivente sono riportate. del, barrato - add colorato . -->
@@ -949,28 +948,10 @@
 	<!-- PUNCTUATION -->
 	<xsl:template match="tei:pc" mode="crit">
 		<xsl:element name="span">
-			<xsl:attribute name="class" select="$ed_name4, name()" separator="-"/>			
+			<xsl:attribute name="class" select="$ed_name4, name(), @type" separator="-"/>			
 			<xsl:apply-templates mode="#current" />
 		</xsl:element>
 		
 	</xsl:template>
-	
-	<!-- UPPERCASE AFTER PUNCTUATION -->
-	<xsl:template match="tei:seg[@type='maiusc-aft-dot']" mode="crit">
-		<xsl:element name="span">
-			<xsl:attribute name="class" select="$ed_name4, @type" separator="-"/>
-			<xsl:apply-templates/>			
-		</xsl:element>
-		
-	</xsl:template>
-	
-	<!-- CAPITALIZATION - riproduzione delle litterae notabiliores dell’originale con maiuscole -->
-	<xsl:template match="tei:seg[@type='maiusc-lit-not']" mode="crit">
-		<xsl:element name="span">
-			<xsl:attribute name="class" select="$ed_name4, @type" separator="-"/>
-			<xsl:apply-templates/>			
-		</xsl:element>	
-	</xsl:template>	
-	
 	
 </xsl:stylesheet>
