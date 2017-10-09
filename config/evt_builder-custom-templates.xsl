@@ -16,4 +16,8 @@
             </xd:short>
         </xd:doc>
     <!-- In order to make it work properly you need to add mode="interp dipl #default" to each template -->
+    <xsl:template match="tei:lb" mode="interp dipl #default">
+        <span class="spazio"></span>
+        <!--<sup class="doppione"><xsl:value-of select="@n"/></sup>-->
+    </xsl:template>
 </xsl:stylesheet>
