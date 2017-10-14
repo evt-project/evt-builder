@@ -197,6 +197,11 @@ function bindBtnClick() {
     $(".thumb_link").click(function(){
         var countThumbs = 0;
         var thumbsElems = document.getElementsByClassName('thumb_single_img');
+		// Al click sulle thumbnails se viscoll ha class active (cioè è attivo), gli tolgo la classe e tolgo l'iframe
+		if($('#viscoll').hasClass('active')) {
+			$('#viscoll').removeClass('active');
+			$('iframe').remove();
+		}
         
         var getThumbsSrc = setInterval(function (){
             for (var i = 0; i < 10 && countThumbs < thumbsElems.length; i++) {
@@ -217,6 +222,7 @@ function bindBtnClick() {
             $('#switch_msDesc').removeClass('active');
             $('#msDesc_cont').hide();
         }
+			
         if (magnifierON == false) { 
             if($("#image_loading").css('display')!=="none"){$("#image_loading").hide()}
             if($("#image_elem").css('display') === "none"){
@@ -246,6 +252,7 @@ function bindBtnClick() {
         }
         $(this).toggleClass('active');
     });
+	
 }
 
 /*= BIND FONT SIZE CONTROLLER BUTTONS CLICK EVENT =*/
