@@ -719,6 +719,16 @@ $(function() {
 
 			    resizeGlobalTopBar();
 			}
+			
+			// GM
+			if( $(xml).find('idno')) { // Se l'elemento xml idno esiste
+				var shelfmark = $(xml).find('idno').text();  // La variabile shelfmark prende l'elementto text dell'elemento idno
+				//alert(shelfmark);
+				$('<div />')  // Creo un div con id uguale a shelfmark
+					.attr('id', shelfmark)
+					.addClass('viscoll_idno')
+					.appendTo('#viscoll');	
+			}
 
 			/* *********************** */
 			/* Fine integrazione by AB */
