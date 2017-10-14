@@ -167,6 +167,7 @@ footer{
 	height:100%;
 	width: 100%;
 	position:absolute;
+	overflow-y: hidden; /* GM */
 }
 
 #central_wrapper{
@@ -2900,11 +2901,11 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 
 #poweredBy {
     width: 100%;
-	position: absolute;
+	position: relative; /* Prima era absolute */
 	text-align: right;
 	font-size: 0.3rem;
-	right: 3px;
-	bottom: 0;
+	right: 10%; /* GM */
+	bottom: -5px; /* Prima era 0 */
 }
 
 #poweredBy:hover{
