@@ -38,7 +38,7 @@
         </xsl:variable>
         <!-- GM -->
             <xsl:variable name="filename-diagrams" select="concat($idno,'-diagrams.html')"/>
-        <xsl:result-document method="html" encoding="UTF-8" href="{concat('../../../data_output_data/viscoll/',$idno,'/',$filename-diagrams)}" indent="yes">
+        <xsl:result-document method="html" encoding="UTF-8" href="{concat('../../../data/output_data/viscoll/',$idno,'/',$filename-diagrams)}" indent="yes">
                 <html xmlns="http://www.w3.org/1999/xhtml">
                     <!--  -->
                     <head>

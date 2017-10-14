@@ -110,7 +110,7 @@
                 </xsl:attribute>
             </xsl:if>
             <xsl:if test="@mode='missing'">
-                <xsl:attribute name="url">../../data/input_data/images/images-viscoll/x.jpg</xsl:attribute>
+                <xsl:attribute name="url">../../../input_data/images/images-viscoll/x.jpg</xsl:attribute>
             </xsl:if>
             <xsl:attribute name="pos">
                 <xsl:value-of select="@pos"/>
@@ -143,7 +143,7 @@
             </xsl:if>
             
             <xsl:if test="@mode='missing'">
-                <xsl:attribute name="url">../../data/input_data/images/images-viscoll/x.jpg</xsl:attribute>
+                <xsl:attribute name="url">../../../input_data/images/images-viscoll/x.jpg</xsl:attribute>
             </xsl:if>
             <xsl:attribute name="pos">
                 <xsl:value-of select="@pos"/>

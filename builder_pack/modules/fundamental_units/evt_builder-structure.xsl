@@ -235,9 +235,17 @@
                         </xsl:for-each-group>
                     </xsl:if>
                 </pages>
+                
+                <!-- GM -->
+                <idno>
+                    <xsl:if test="$viscoll_info">
+                    <xsl:call-template name="idno_process"></xsl:call-template>
+                    </xsl:if>
+                </idno>
             </xml>
         </xsl:result-document>
     </xsl:template>
+
     
     <xsl:template name="generateTextStructure">
         <text>
