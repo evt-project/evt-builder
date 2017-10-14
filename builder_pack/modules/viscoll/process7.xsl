@@ -57,7 +57,7 @@
             <!-- GM (modifica) Crea la cartella CP/quires con dentro i file CP-20.html, CP-21.html, ecc... -->
             <xsl:result-document method="html" encoding="UTF-8" href="{concat('../../../data/output_data/viscoll/',$idno,'/quires/',$filename)}" indent="yes">
                 
-                <html xmlns="http://www.w3.org/1999/xhtml">
+                <html>
                     <!--  -->
                     <head>
                         <title>Collation - Quire <xsl:value-of select="$quireNo"/></title>
@@ -736,14 +736,22 @@
                 <head>
                     <title>Quires - Quire <xsl:value-of select="$msname"/></title>
                     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-                    <script type="text/javascript" src="https://cdn.rawgit.com/leoba/VisColl/master/data/support/jquery-1.10.1.min.js">x</script><script type="text/javascript" src="https://cdn.rawgit.com/leoba/VisColl/master/data/support/jquery.fancybox.js?v=2.1.5">x</script><link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/leoba/VisColl/master/data/support/jquery.fancybox.css?v=2.1.5" media="screen"></link>
-                    <link href="https://cdn.rawgit.com/leoba/VisColl/master/data/support/jquery.fancybox.css" rel="stylesheet" type="text/css"></link><script type="text/javascript" src="https://cdn.rawgit.com/leoba/VisColl/master/data/support/iframescript.js">x</script><link href="https://cdn.rawgit.com/leoba/VisColl/master/data/support/collation.css" rel="stylesheet" type="text/css"></link><script type="text/javascript" src="https://cdn.rawgit.com/leoba/VisColl/master/data/support/querys.js">x</script><script type="text/javascript" src="https://cdn.rawgit.com/leoba/VisColl/master/data/support/collation.js">x</script>
+                    <!-- Non è più data/output_data/viscoll/support/ ma ./../viscoll/support/... con <iframe> -->
+                    <script type="text/javascript" src="../../viscoll/support/jquery-1.10.1.min.js">x</script>
+                    <script type="text/javascript" src="../../viscoll/support/jquery.fancybox.js?v=2.1.5">x</script>
+                    <link rel="stylesheet" type="text/css" href="../../viscoll/support/jquery.fancybox.css?v=2.1.5" media="screen"></link>
+                    <link href="../../viscoll/support/jquery.fancybox.css" rel="stylesheet" type="text/css"></link>
+                    <!--<script type="text/javascript" src="../../viscoll/support/iframescript.js">x</script>-->
+                    <link href="../../viscoll/support/collation.css" rel="stylesheet" type="text/css"></link>
+                    <script type="text/javascript" src="../../viscoll/support/querys.js">x</script>
+                    <script type="text/javascript" src="../../viscoll/support/collation.js">x</script>
+                    <!--<link href="css/collation.css" rel="stylesheet" type="text/css"></link>-->
                     
                 </head>
 
                 <body>
                     <!-- this div is the same for all quires -->
-                    <div id="divtop">
+                    <!-- GM <div id="divtop">
                         <span class="topheader"><a href="http://www.library.upenn.edu" target="_blank">
                             <img
                                 src="https://cdn.rawgit.com/leoba/VisColl/master/data/support/pennlogo.gif"
@@ -757,13 +765,15 @@
                                 href="https://github.com/leoba/VisColl" target="blank">
                                  Collation Modeler</a>
                         </span>
-                    </div>
+                    </div>-->
+                    
+                    <div id="quires_cont">
 
                     <div id="listofquires"><span class="mstitle"><a target="_blank" href="{$msurl}">Collation diagrams for <xsl:value-of select="$msname"/>, <xsl:value-of select="$idno"/></a></span></div>
                     
 
-                    <span class="helptext">Select a Quire to display/hide, or </span>
-                    <br/>
+                    <!--<span class="helptext">Select a Quire to display/hide, or </span>
+                    <br/>-->
                     <span class="btn2">Show All Quires</span>
                     <xsl:text> </xsl:text>
                     <xsl:text> </xsl:text>
@@ -1019,9 +1029,9 @@
 
                                     <svg xmlns="http://www.w3.org/2000/svg"
                                         xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
-                                        x="0" y="0" width="100mm" height="90mm"
+                                        x="0" y="0" width="39mm" height="42.3mm"
                                         preserveAspectRatio="xMidYMid meet"
-                                        style="background: #415a6c;" viewBox="0 0 100 90">
+                                        style="background: #415a6c;" viewBox="0 -3 110 90"> <!-- GM: modificata height da 100 a 42.3, width da 90 a 39 e la viewBox da 0 0 100 90 a 0 -3 110 90-->
 
                                         <defs>
                                             <filter id="f1" filterUnits="userSpaceOnUse">
@@ -1031,10 +1041,10 @@
                                         </defs>
                                         <desc>Collation diagram Quire <xsl:value-of
                                                 select="$quireNo"/></desc>
-                                        <text x="20" y="5" class="bititle">Quire <xsl:value-of
+                                        <text x="8" y="0" class="bititle">Quire <xsl:value-of
                                                 select="$quireNo"/>, Unit <xsl:value-of
                                                 select="$leftFol"/>, <xsl:value-of
-                                                select="$rightFol"/></text>
+                                                select="$rightFol"/></text>  <!-- Modificata la x da 20 a 8 e la y da 5 a 0 -->
 
 
 
@@ -1232,26 +1242,26 @@
 
                                 </div>
 
-                                <div class="img1">
+                                <div class="img1"> <!-- GM -->
                                     <a class="fancybox fancybox.iframe" rel="set{$quireNo}.{@n}"
-                                        title="(Quire {$quireNo}, Unit {$leftFol}.{$rightFol}, inside)"
-                                        href="units/{$leftFolFileName}_{$rightFolFileName}_i.html">
+                                        title="(Quire {$quireNo}, Unit {$leftFol}.{$rightFol}, inside)"> <!-- Ho tolto href -->
+                                        <!-- href="units/{$leftFolFileName}_{$rightFolFileName}_i.html"> -->
                                         <xsl:choose>
                                             <xsl:when test="contains($insideLeftImg,'.')">
-                                                <img height="225" src="{$insideLeftImg}"
-                                                  alt="{$insideLeftFolNo}"/>
+                                                <img height="145" src="{$insideLeftImg}"
+                                                  alt="{$insideLeftFolNo}"/> <!-- Modificata height da 225 a 145 -->
                                             </xsl:when>
                                             <xsl:otherwise/>
                                         </xsl:choose>
                                         <xsl:choose>
                                             <xsl:when test="contains($insideRightImg,'.')">
-                                                <img height="225" src="{$insideRightImg}"
-                                                  alt="{$insideRightFolNo}"/>
+                                                <img height="145" src="{$insideRightImg}"
+                                                  alt="{$insideRightFolNo}"/> <!-- Modificata height da 225 a 145 -->
                                             </xsl:when>
                                             <xsl:otherwise/>
                                         </xsl:choose>
                                     </a>
-                                    <br/>
+                                    <!--<br/>--> <!-- GM: tolto -->
                                     <xsl:value-of select="$insideLeftFolNo"/>
                                     <xsl:if
                                         test="contains($insideRightImg,'.') and contains($insideLeftImg,'.')">
@@ -1261,26 +1271,26 @@
                                     </xsl:if>
                                     <xsl:value-of select="$insideRightFolNo"/>
                                 </div>
-                                <div class="img2">
+                                <div class="img2"> <!-- GM -->
                                     <a class="fancybox fancybox.iframe" rel="set{$quireNo}.{@n}"
-                                        title="(Quire {$quireNo}, Unit {$leftFol}.{$rightFol}, outside)"
-                                        href="units/{$leftFolFileName}_{$rightFolFileName}_o.html">
+                                        title="(Quire {$quireNo}, Unit {$leftFol}.{$rightFol}, outside)">
+                                        <!-- href="units/{$leftFolFileName}_{$rightFolFileName}_o.html"> --> <!-- Ho tolto href -->
                                         <xsl:choose>
                                             <xsl:when test="contains($outsideLeftImg,'.')">
-                                                <img height="225" src="{$outsideLeftImg}"
-                                                  alt="{$outsideLeftFolNo}"/>
+                                                <img height="145" src="{$outsideLeftImg}"
+                                                  alt="{$outsideLeftFolNo}"/> <!-- Modificata height da 225 a 145 -->
                                             </xsl:when>
                                             <xsl:otherwise/>
                                         </xsl:choose>
                                         <xsl:choose>
                                             <xsl:when test="contains($outsideRightImg,'.')">
-                                                <img height="225" src="{$outsideRightImg}"
-                                                  alt="{$outsideRightFolNo}"/>
+                                                <img height="145" src="{$outsideRightImg}"
+                                                  alt="{$outsideRightFolNo}"/> <!-- Modificata height da 225 a 145 -->
                                             </xsl:when>
                                             <xsl:otherwise/>
                                         </xsl:choose>
                                     </a>
-                                    <br/>
+                                    <!--<br/>--> <!-- GM: tolto -->
                                     <xsl:value-of select="$outsideLeftFolNo"/>
                                     <xsl:if
                                         test="contains($outsideLeftImg,'.') and contains($outsideRightImg,'.')">
@@ -1314,11 +1324,19 @@
                                             <table id="tblimages">
                                                 <tr>
                                                   <td>
-                                                  <img src="{$insideLeftImg}" class="bifolimage"
+                                                  <!-- GM -->
+                                                  <xsl:variable name="img_pathLeftInside">
+                                                    <xsl:value-of select="concat('../../data/',$insideLeftImg)"/>
+                                                  </xsl:variable>
+                                                  <img src="{$img_pathLeftInside}" class="bifolimage"
                                                   alt="{$insideLeftFolNo}"/>
                                                   </td>
                                                   <td>
-                                                  <img src="{$insideRightImg}" class="bifolimage"
+                                                  <!-- GM -->
+                                                  <xsl:variable name="img_pathRightInside">
+                                                    <xsl:value-of select="concat('../../data/',$insideRightImg)"/>
+                                                  </xsl:variable>
+                                                  <img src="{$img_pathRightInside}" class="bifolimage"
                                                   alt="{$insideRightFolNo}"/>
                                                   </td>
                                                 </tr>
@@ -1360,11 +1378,19 @@
                                             <table id="tblimages">
                                                 <tr>
                                                   <td>
-                                                  <img src="{$outsideLeftImg}" class="bifolimage"
+                                                  <!-- GM -->
+                                                  <xsl:variable name="img_pathLeftOutside">
+                                                    <xsl:value-of select="concat('../../data/',$outsideLeftImg)"/>
+                                                  </xsl:variable>
+                                                      <img src="{$img_pathLeftOutside}" class="bifolimage"
                                                   alt="{$outsideLeftFolNo}"/>
                                                   </td>
                                                   <td>
-                                                  <img src="{$outsideRightImg}" class="bifolimage"
+                                                  <!-- GM -->
+                                                  <xsl:variable name="img_pathRightOutside">
+                                                    <xsl:value-of select="concat('../../data/',$outsideRightImg)"/>
+                                                  </xsl:variable>
+                                                      <img src="{$img_pathRightOutside}" class="bifolimage"
                                                   alt="{$outsideRightFolNo}"/>
                                                   </td>
                                                 </tr>
@@ -1384,6 +1410,15 @@
                             </xsl:result-document>
                         </xsl:for-each>
                     </xsl:for-each>
+                        <!--<script type="text/javascript" src="data/output_data/viscoll/support/jquery-1.10.1.min.js">x</script>
+                        <script type="text/javascript" src="data/output_data/viscoll/support/jquery.fancybox.js?v=2.1.5">x</script>
+                        <link rel="stylesheet" type="text/css" href="data/output_data/viscoll/support/jquery.fancybox.css?v=2.1.5" media="screen"></link>
+                        <link href="data/output_data/viscoll/support/jquery.fancybox.css" rel="stylesheet" type="text/css"></link>
+                        <script type="text/javascript" src="data/output_data/viscoll/support/iframescript.js">x</script>
+                        <link href="data/output_data/viscoll/support/collation.css" rel="stylesheet" type="text/css"></link>
+                        <script type="text/javascript" src="data/output_data/viscoll/support/querys.js">x</script>
+                        <script type="text/javascript" src="data/output_data/viscoll/support/support/collation.js">x</script>-->
+                    </div>
                 </body>
 
             </html>

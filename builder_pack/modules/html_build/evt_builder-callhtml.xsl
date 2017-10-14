@@ -119,7 +119,7 @@
 				<xsl:comment>highlight</xsl:comment>
 				<script type="text/javascript" src="{$html_path}/js/plugin/jquery.highlight_mod.js"/>
 				<xsl:comment>/highlight</xsl:comment>
-
+				
 				<xsl:if test="$search=true()">
 					<xsl:comment>TipueSearch</xsl:comment>
 					<script type="text/javascript" src="{$html_path}/js/plugin/tipuesearch/tipuesearch.js"/>
@@ -135,6 +135,10 @@
 				<xsl:comment>BRnav</xsl:comment>
 				<script type="text/javascript" src="{$html_path}/js/main/interface_control/ic_BRnav.js"/>
 				<xsl:comment>/BRnav</xsl:comment>
+				
+				<xsl:comment>VisColl</xsl:comment>
+				<script type="text/javascript" src="{$html_path}/js/main/interface_control/ic_viscoll.js"/>
+				<xsl:comment>/VisColl</xsl:comment>
 				
 				<!-- Integrations by LS -->
 				<script type="text/javascript" src="{$html_path}/js/plugin/jquery-lang.js"/>
@@ -964,6 +968,7 @@
 									<span class="list_filter" data-filter-type="first_letter" data-value="Z">Z</span>
 								</div>
 							</div>
+							
 							<xsl:if test="$document_navigation=true()">
 								<xsl:element name="span">
 									<xsl:attribute name="id" select="'inside_left_arrow'"/>

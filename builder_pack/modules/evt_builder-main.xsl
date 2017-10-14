@@ -81,6 +81,7 @@
 				<xsl:call-template name="headerInfo"/>
 			</xsl:if>
 			
+			
 			<!-- MANUSCRIPT DESCRIPTION -->
 			<xsl:if test="$msDesc=true()">
 				<xsl:call-template name="msDesc"/>
@@ -152,11 +153,23 @@
 			</xsl:if>
 		</xsl:if>
 		
-	
-		<xsl:result-document method="html" encoding="UTF-8" href="{$filePrefix}/data/output_data/viscoll/viscoll-output.html" indent="yes">
-			<xsl:call-template name="viscoll"></xsl:call-template>  <!-- Chiama il template dell'elemento selezionato -->
+		<!-- GM -->
+		<xsl:if test="$viscoll_info">
+			<xsl:result-document method="html" encoding="UTF-8" media-type="text/plain" byte-order-mark="yes" href="{$filePrefix}/data/output_data/viscoll/viscoll-idno.html" indent="yes">
+				<xsl:element name="div">
+					<xsl:attribute name="id">viscoll_idno</xsl:attribute>
+					<xsl:call-template name="idno_process"></xsl:call-template>
+				</xsl:element>
 		</xsl:result-document>
-
+		</xsl:if>
+		
+		<!-- GM -->
+		<xsl:if test="$viscoll_info">
+			<xsl:result-document method="html" encoding="UTF-8" href="{$filePrefix}/data/output_data/viscoll/viscoll-output.html" indent="yes">
+				<xsl:call-template name="viscoll"></xsl:call-template>  <!-- Chiama il template dell'elemento selezionato -->
+			</xsl:result-document>
+			
+		</xsl:if>
 		
 		
 		
@@ -432,6 +445,15 @@
 			</xsl:for-each>
 		</xsl:element>
 	</xsl:template>
+	
+	<!-- GM -->
+	<xsl:template name="idno_process">
+		<xsl:variable name="path" select="doc('../../data/input_data/text/CP.xml')"/>
+			<xsl:apply-templates select="$path" mode="find_idno"></xsl:apply-templates>
+			
+	</xsl:template>
+	
+	
 	
 	<xsl:template match="text()" mode="deleteSpaces">
 		<xsl:choose>
