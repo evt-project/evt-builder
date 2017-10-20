@@ -197,11 +197,6 @@ function bindBtnClick() {
     $(".thumb_link").click(function(){
         var countThumbs = 0;
         var thumbsElems = document.getElementsByClassName('thumb_single_img');
-		// Al click sulle thumbnails se viscoll ha class active (cioè è attivo), gli tolgo la classe e tolgo l'iframe
-		if($('#viscoll').hasClass('active')) {
-			$('#viscoll').removeClass('active');
-			$('iframe').remove();
-		}
         
         var getThumbsSrc = setInterval(function (){
             for (var i = 0; i < 10 && countThumbs < thumbsElems.length; i++) {
@@ -222,6 +217,7 @@ function bindBtnClick() {
             $('#switch_msDesc').removeClass('active');
             $('#msDesc_cont').hide();
         }
+		
 			
         if (magnifierON == false) { 
             if($("#image_loading").css('display')!=="none"){$("#image_loading").hide()}
@@ -251,6 +247,19 @@ function bindBtnClick() {
             }
         }
         $(this).toggleClass('active');
+		
+		// Passaggio da viscoll a thumbnails
+		if($('#thumb_elem').hasClass('active')) {
+			// Al click sulle thumbnails se viscoll ha class active (cioè è attivo), gli tolgo la classe e tolgo l'iframe
+			if($('#viscoll').hasClass('active')) {
+				$('#viscoll').removeClass('active');
+				$('iframe').remove();
+				$('#thumb_cont').show();
+				$("#image_elem").hide();
+				$("#image_fade").hide();
+				$("#image_tool").hide();
+			}
+		}
     });
 	
 }
