@@ -434,6 +434,12 @@ function openTxtTxtMode() {
 function openBookreaderMode(){
     UnInitialize(); //Add by JK for ITL
     UnInitializeHS(); //Add by JK for HS
+	if($('#viscoll').is(':visible')) { // Se passo a bookreader mentre ero su viscoll
+		$('iframe').hide();
+		$('#BRpager').slider( "option", "disabled", false );
+		$('#BRicon_book_left').prop("disabled", false);
+		$('#BRicon_book_right').prop("disabled", false);
+	}
     if (!$('#msDesc_cont').is(':visible')) {
         $('#switch_msDesc').removeClass('active');
     }

@@ -2,7 +2,7 @@ function bindViscollClick(array) {
 	//alert(array);
 	$('#viscoll').click(
         function(){
-			// Se thumbnails ha class active gliela tolgo e la nascondo
+			// Se thumbnails ha class active gliela tolgo e la nascondo (passaggio thumbnails - viscoll)
 			if($('#thumb_elem').hasClass('active')) {
 				$('#thumb_elem').removeClass('active');
 				$('#thumb_cont').hide();
@@ -15,13 +15,17 @@ function bindViscollClick(array) {
 				$("#image_fade").show();
 				$("#image_tool").show();
 				$('#BRpager').slider( "option", "disabled", false );
+				$('#BRicon_book_left').prop("disabled", false);
+				$('#BRicon_book_right').prop("disabled", false);
 			}else{
 				// Altrimenti gli aggiungo la class active e nascondo gli altri elementi
 				var viscoll = $('#viscoll').addClass('active');
 				$("#image_elem").hide();
 				$("#image_fade").hide();
 				$("#image_tool").hide();
-				$('#BRpager').slider( "option", "disabled", true );	
+				$('#BRpager').slider( "option", "disabled", true );
+				$('#BRicon_book_left').prop("disabled", true);
+				$('#BRicon_book_right').prop("disabled", true);
 
 				var id_idno = $('.viscoll_idno').attr('id');
 				//$('#image_cont').load("data/output_data/viscoll/"+id_idno+"/"+id_idno+".html");
@@ -146,7 +150,7 @@ function myFunction(array) {
     });
 	
 }
-
+		
 function returnImgTxtMode(page_selected_text) {
 	if($('#mode_switch #txtimg_link').hasClass('current_mode')) {
 		$('#viscoll').removeClass('active');

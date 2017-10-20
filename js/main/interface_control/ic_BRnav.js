@@ -18,9 +18,9 @@ function createSliderTxtImg() {
 
 // TODO: create function fo click on TxtTxt
 function createSliderTxtTxt() {
-	/*var arrayTexts = [];
-	if($('.span_pp_select-add')) {
-		$('.span_pp_select-add .main_pp_select .option_container .optionGroup div').each(function() {
+	var arrayTexts = [];
+	if($('.main_pp_select')) {
+		$('.main_pp_select .option_container .optionGroup div').each(function() {
 			var pageId = $(this).attr('data-value');
 			var pageLabel = $(this).text();
 			var docId = $(this).attr('data-first-doc');
@@ -31,7 +31,7 @@ function createSliderTxtTxt() {
 			}); // Lo mette nell'array
 		});
 		createBrnav(arrayTexts); // Restituisce l'array contenente le pagine
-	}*/
+	}
 } 
 
 // Funzione al click su Bookreader
