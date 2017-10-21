@@ -1071,14 +1071,6 @@
 						<div id="BRnavpos">
 							<div id="BRpager">
 							</div>
-							<div id="BRnavline">
-								<div id="BRnavleft">
-									<xsl:attribute name="class" select="'BRnavend'"/>
-								</div>
-								<div id="BRnavright">
-									<xsl:attribute name="class" select="'BRnavend'"/>
-								</div>
-							</div>
 						</div>
 						<!-- Conterrà la pagina sul totale -->
 						<div id="pagenum">

@@ -250,6 +250,9 @@ function bindBtnClick() {
 		
 		// Passaggio da viscoll a thumbnails
 		if($('#thumb_elem').hasClass('active')) {
+			$('#BRpager').slider( "option", "disabled", false ); // Riabilito lo slider
+			$('#BRicon_book_left').prop("disabled", false);
+			$('#BRicon_book_right').prop("disabled", false);
 			// Al click sulle thumbnails se viscoll ha class active (cioè è attivo), gli tolgo la classe e tolgo l'iframe
 			if($('#viscoll').hasClass('active')) {
 				$('#viscoll').removeClass('active');

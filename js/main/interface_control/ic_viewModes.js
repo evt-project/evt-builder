@@ -435,6 +435,7 @@ function openBookreaderMode(){
     UnInitialize(); //Add by JK for ITL
     UnInitializeHS(); //Add by JK for HS
 	if($('#viscoll').is(':visible')) { // Se passo a bookreader mentre ero su viscoll
+		$('#viscoll').removeClass('active');
 		$('iframe').hide();
 		$('#BRpager').slider( "option", "disabled", false );
 		$('#BRicon_book_left').prop("disabled", false);
