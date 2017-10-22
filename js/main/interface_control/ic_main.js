@@ -967,6 +967,7 @@ $(function() {
 		resizeButtonsAndSelects();
 		
 		/* ***************************** */
+		initializeProse();
 		/* / END Gestione click e eventi */
 		/* ***************************** */
 
