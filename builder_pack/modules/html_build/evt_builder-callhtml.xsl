@@ -80,6 +80,7 @@
 				<script type="text/javascript" src="{$html_path}/js/main/interface_control/ic_resizings.js"/>
 				<script type="text/javascript" src="{$html_path}/js/main/interface_control/ic_search.js"/>
 				<script type="text/javascript" src="{$html_path}/js/main/interface_control/ic_viewModes.js"/>
+				<script type="text/javascript" src="{$html_path}/js/main/interface_control/ic_viewVerses.js"/>
 				
 				<script type="text/javascript" src="{$html_path}/js/main/interface_control/ic_main.js"/>
 				<xsl:comment>/interface control</xsl:comment>
