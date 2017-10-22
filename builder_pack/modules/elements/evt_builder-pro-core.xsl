@@ -140,7 +140,7 @@
 				<xsl:element name="span">
 					<xsl:attribute name="class" select="$ed_name3,'choice_popup'" separator="-"/>
 					<!-- FS -->
-						<xsl:attribute name="style" select="$ed_name3, name(), @style" separator="-"></xsl:attribute>							
+					<xsl:attribute name="style" select="$ed_name3, name(), @style" separator="-"></xsl:attribute>							
 					<xsl:if test="@id">
 						<xsl:variable name="vApos">'</xsl:variable>
 						<xsl:attribute name="class" select="$ed_name3,'-choice_popup ',@id" separator=""/>
@@ -208,10 +208,6 @@
 								tei:reg[descendant::tei:pc][node()[not(self::tei:pc)][normalize-space()]]">
 								<xsl:element name="span">
 									<xsl:attribute name="class" select="$ed_name3,'choice_popup'" separator="-"/>
-									<!-- ADD BY FS - Style indicates when choice is related to capitalization after a dot -->
-									<xsl:if test="@style='cap'">
-										<xsl:attribute name="style" select="@style"></xsl:attribute>		
-									</xsl:if>
 									<xsl:apply-templates select="tei:reg" mode="#current"> </xsl:apply-templates>
 									<xsl:sequence select="' '"/>
 									<xsl:apply-templates select="tei:orig" mode="#current"> </xsl:apply-templates>
@@ -248,7 +244,7 @@
 		</xsl:choose>
 	</xsl:template>
 	
-	<!-- Criteri edizione -5-   -->
+	<!-- Criteri edizione -5-  -->
 	
 	<xsl:template match="tei:g" mode="pro">
 		<xsl:variable name="id" select="substring-after(@ref,'#')"/>
@@ -932,6 +928,14 @@
 		</xsl:element>
 	</xsl:template>
 	
+	<!-- C - CHARACTER -->
+	<xsl:template match="tei:c" mode="pro">
+		<xsl:element name="span">
+			<xsl:attribute name="class" select="$ed_name3, name()" separator="-"></xsl:attribute>		
+			<xsl:apply-templates/>
+		</xsl:element>
+	</xsl:template>
+	
 	<!-- BACK - DIV - Container of Translation Edition -->	
 	<xsl:template match="tei:back/tei:div[@type='translate']" mode="pro">
 		<!-- DO NOTHING -->
@@ -940,15 +944,7 @@
 	<!-- PUNCTUATION -->
 	<xsl:template match="tei:pc" mode="pro">
 		<xsl:element name="span">
-			<xsl:attribute name="class" select="$ed_name3, name(), @type" separator="-"></xsl:attribute>		
-			<xsl:apply-templates/>
-		</xsl:element>
-	</xsl:template>
-	
-	<!-- REGOLIZE CAPITAL LETTERS AFTER PUNCTUATION -->
-	<xsl:template match="tei:choice[@style='cap']" mode="pro">
-		<xsl:element name="span">
-			<xsl:attribute name="class" select="$ed_name3, name(), @style" separator="-"></xsl:attribute>		
+			<xsl:attribute name="class" select="$ed_name3, name()" separator="-"></xsl:attribute>		
 			<xsl:apply-templates/>
 		</xsl:element>
 	</xsl:template>

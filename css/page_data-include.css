@@ -480,7 +480,6 @@ span.interp-supplied[data-reason='illegible']::before {
 span.interp-supplied[data-reason='illegible']::after {
 	content: "]";
 }
-
 /**EDIZIONE DI PROVA*/
 
 div.pro-zone{
@@ -534,19 +533,29 @@ span.pro-lineN {
 }
 
 span.pro-orig { 
-	color: #69513a; /*background-color: rgba(255,255,204,0.8);*/  
+	color: #69513a; /*background-color: rgba(255,255,204,0.8);*/ 
 }
 
+span.pro-expan { 
+	display: inline; 
+}
 span.pro-ex { 
-	font-style: italic;
-	font-stretch: 5px;
+	font-style: italic; 
+}
+span.pro-abbr { 
+	display: none; 
+}
+span.pro-choice_popup { 
+	display: inline-table;    
 }
 
-span.pro-choice_popup, span.pro-choice_popup_corr{ 
-    display: inline-table;
-}
+span.pro-reg:before {
+	content: url("../images/popup_before.png");
+	left: 15%;
+	position: absolute;
+	top: -13px; }
 
-span.pro-choice_popup span.pro-reg {
+span.pro-reg {
 	font-size: 80%;
 	position: absolute;
 	line-height: 16px;
@@ -561,49 +570,35 @@ span.pro-choice_popup span.pro-reg {
 	-khtml-box-shadow: 2px 2px 2px #7e7067;
 	-ms-box-shadow: 2px 2px 2px #7e7067;
 	padding: 0.4%;
-	margin-top: 30px; 
-}
+	margin-top: 30px; }
 
-span.pro-choice_popup_corr span.pro-corr {
-	font-size: 80%;
-	position: absolute;
-	line-height: 16px;
-	display: none;
-	background: #f99069;
-	border: 2.5px solid black;
-	border-radius: 3px;
-	box-shadow: 2px 2px 2px #7e7067;
-	-moz-box-shadow: 2px 2px 2px #7e7067;
-	-webkit-box-shadow: 2px 2px 2px #7e7067;
-	-o-box-shadow: 2px 2px 2px #7e7067;
-	-khtml-box-shadow: 2px 2px 2px #7e7067;
-	-ms-box-shadow: 2px 2px 2px #7e7067;
-	padding: 0.4%;
-	margin-top: 30px; 
-}
-
-/*span.pro-choice_popup:hover*/ span.pro-orig, /*span.pro-choice_popup_corr:hover*/ span.pro-corr,
-span.pro-choice_popup.hover span.pro-orig, span.pro-choice_popup_corr.hover span.pro-corr {
+span.pro-reg span{
+	background: transparent;
+ }
+	
+span.pro-choice_popup:hover span.pro-reg,
+span.pro-choice_popup.hover span.pro-reg {
 	display: inline;
 	min-width: 20px;
 	text-align: center; 
 }
 
-/*span.pro-choice_popup:hover*/ span.pro-reg, /*span.pro-choice_popup_corr:hover*/ span.pro-sic,
-span.pro-choice_popup.hover span.pro-reg, span.pro-choice_popup_corr.hover span.pro-sic{ 
-	text-decoration: none;
+span.pro-choice_popup span.pro-orig { 
+	/*color: #999966;*/
+	color: #69513a; /*background-color: rgba(255,255,204,0.8);*/ 
+}
+span.pro-choice_popup:hover span.pro-orig,
+span.pro-choice_popup.hover span.pro-orig {
+	color: #561c0a;
+	text-decoration: underline; 
 }
 
-span.pro-choice_popup_corr span.pro-sic { 
-	color: #934d4d; /*background-color: rgba(255,255,204,0.8);*/ 
-}
+span.pro-seg span{
+	color: #561c0a;
+	text-decoration: underline; 	
+ }
 
-/*span.pro-choice_popup span.pro-reg:hover*/, span.pro-choice_popup_corr /*span.pro-sic:hover*/,
-span.pro-choice_popup span.pro-reg.hover, span.pro-choice_popup_corr span.pro-sic.hover{ 
-	color: #561c0a; /*background-color: rgba(255,255,204,0.8);*/ 
-}
-
-span.pro-choice_popup span.pro-sup {
+ span.pro-choice_popup span.pro-sup {
     line-height: 20px;
 	vertical-align: 20%; 
 }
@@ -613,26 +608,29 @@ span.pro-choice_popup span.pro-under {
 	vertical-align: -20%; 
 }
 
+/* NOT CHANGE COLOR FOR PUNCTUATION */
+span.pro-pc {
+	color: #000;
+}
 span.pro-corr-resp { 
 	font-weight: bold; 
 }
-
 span.pro-red { 
 	color: red; 
 }
-
 span.pro-hi-7init {
 	font-size: 140% 
 }
-
 span.pro-hi-init3_1 { 
 	font-size: 120%; /*font-weight: bold;*/ 
 }
 
 span.pro-hi-cap { 
-	text-transform: capitalize; 
+	text-transform: uppercase; 
 }
-
+span.pro-hi-min { 
+	text-transform: unset; 
+}
 span.pro-hi-double { 
 	font-size: 120%; 
 }
@@ -669,11 +667,6 @@ span.pro-del {
 span.pro-add {
 	vertical-align: super;
 	font-size: 80%;
-}
-
-/* PUNTEGGIATURA  */
-span.pro-pc-modern {
-	display: none;
 }
 
 /** EDIZIONE CRITICA **/
@@ -836,16 +829,9 @@ span.crit-supplied[data-reason='illegible']::after {
 	content: "]";
 }
 
-/* CAPITALIZATION AFTER PUNCTUATION */
-span.crit-maiusc-aft-dot {
-	text-transform: capitalize;
-}
-span.crit-maiusc-lit-not {
-	text-transform: none;
+span.crit-pc {
+	color: #000;
 } 
-span.crit-maiusc-pers-name {
-	text-transform: capitalize;
-}  
 
 /**EDIZIONE DI TRADUZIONE */
 
