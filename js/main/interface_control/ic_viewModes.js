@@ -4,26 +4,26 @@
  * Version 0.3 (201601)
  *
  * Copyright (C) 2013-2017 the EVT Development Team.
- * 
- * EVT 1 is free software: you can redistribute it 
- * and/or modify it under the terms of the 
+ *
+ * EVT 1 is free software: you can redistribute it
+ * and/or modify it under the terms of the
  * GNU General Public License version 2
  * available in the LICENSE file (or see <http://www.gnu.org/licenses/>).
- * 
- * EVT 1 is distributed in the hope that it will be useful, 
- * but WITHOUT ANY WARRANTY; without even the implied 
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
+ *
+ * EVT 1 is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU General Public License for more details.
  *
- * 
- * @author RafMas 
+ *
+ * @author RafMas
  * @since 2012 @to 2015
- * 
+ *
  * @author Julia Kenny - JK
- * @from 2012 @to 2014  
+ * @from 2012 @to 2014
  *
  * @author ChiaraDipi - CDP
- * @since 2013  
+ * @since 2013
  *
  **/
 
@@ -31,7 +31,7 @@
 function openTxtImgMode(){
     var ppSelector = $('#span_pp_select'),
         ttSelector = $('#span_tt_select');
-    updateHash(ttSelector.find('.label_selected').attr('data-value'), 
+    updateHash(ttSelector.find('.label_selected').attr('data-value'),
                ppSelector.find('.label_selected').attr('data-value'), "");
 
     $("#txtimg_link")
@@ -41,7 +41,7 @@ function openTxtImgMode(){
     if ( $('#span_ee_select .label_selected').attr('data-value')!='diplomatic' ) {
         $('.like_select.filter').removeClass('not_active');
     }
-    
+
     // Nascondo pulsanti visibili solo nelle altre modalità
     $("#text_cont-add").remove();
     $("#span_ee_select-add").hide();
@@ -50,7 +50,7 @@ function openTxtImgMode(){
     if ( $('#main_left_frame').find('#regesto_cont') ){
         var current_font_size;
         if ( $('#text_cont').attr('data-font-size') && $('#text_cont').attr('data-font-size') != '') {
-            current_font_size = parseFloat($('#text_cont').attr('data-font-size')); 
+            current_font_size = parseFloat($('#text_cont').attr('data-font-size'));
         } else {
             current_font_size = parseFloat($('#text_cont').css('font-size'));
         }
@@ -63,9 +63,9 @@ function openTxtImgMode(){
             .attr('data-font-size', current_font_size)
             .detach()
             .insertAfter("#right_header")
-        ;   
+        ;
     }
-    
+
     if ( $('#switch_msDesc').hasClass('active') ) {
         $("#msDesc_cont").show();
     }
@@ -92,9 +92,9 @@ function openTxtImgMode(){
             }
         }
     }
-    
+
     $("#span_dd_select").hide();
-    
+
     // Risistemo gli eventuali selettori spostati precedentemente
     var rightMenu = $("#right_menu");
     if ( $("#left_menu").find("#span_pp_select").length == 0 && ppSelector.hasClass('left_menu')) {
@@ -117,7 +117,7 @@ function openTxtImgMode(){
     }
 
     if ( !ttSelector.is(':visible') ){
-        ttSelector.show();    
+        ttSelector.show();
     }
     if ( !ppSelector.is(':visible') ) {
         ppSelector.show();
@@ -140,9 +140,9 @@ function openTxtImgMode(){
     $("#image_cont").show();
 
     $('#text_tool-add').hide().addClass('hidden');
-    
+
     $('#search_cont-add').hide();
-    
+
     var insideRightArrow = $('#inside_right_arrow'),
         insideLeftArrow = $('#inside_left_arrow');
     if ( insideLeftArrow.length > 0 || insideRightArrow.length > 0 ) {
@@ -153,7 +153,7 @@ function openTxtImgMode(){
                     navDoc("left");
                 }
             });
-        
+
         insideRightArrow
             .unbind('click')
             .click(function(){
@@ -163,14 +163,14 @@ function openTxtImgMode(){
             });
     }
 
-    
+
     $('#right_header.menuClosed').hide();
-    
+
     $('#thumb_elem').show();
     $('#zvalint').show();
 
     fitFrame();
-    
+
     $('#header_collapse').animate({
         left: "50%",
         marginLeft: "-10px"
@@ -188,7 +188,7 @@ function openTxtImgMode(){
             InitializeHS();
         }
     }/*Add by JK for HS*/
-     
+
     $('.go-full-left.onWhite').removeClass('onWhite');
 
     $('#span_pp_select-add, #span_tt_select-add').remove();
@@ -196,7 +196,12 @@ function openTxtImgMode(){
     if ($('#search_link-add').hasClass('active')) {
         closeSearchBox(0, '-add');
     }
-	
+
+
+    if($('#viscoll')) {
+        $('#viscoll').attr('disabled', false);
+    }
+
 	createSliderTxtImg();  // Invoco la funzione che crea lo slider al click sul TxtImg
 
 }
@@ -205,20 +210,20 @@ function openTxtImgMode(){
 function openTxtTxtMode() {
     var ppSelector = $('#span_pp_select'),
         ttSelector = $('#span_tt_select');
-    updateHash(ttSelector.find('.label_selected').attr('data-value'), 
+    updateHash(ttSelector.find('.label_selected').attr('data-value'),
                ppSelector.find('.label_selected').attr('data-value'), "");
 
     var main_text_edition, first_new_edition, second_new_edition, noMenu_height;
     UnInitialize();//Add by JK for ITL
     UnInitializeHS();//Add by JK for HS
-    
+
     $("#txttxt_link")
         .addClass("current_mode")
         .siblings()
             .removeClass("current_mode");
-			
+
 	createSliderTxtTxt();
-    
+
     // Nascondo menu, pulsanti e selettori relativi alle immagini /bookreader
     $("#image_menu, #mag, #image_cont, #msDesc_cont, #span_dd_select").hide();
 
@@ -229,11 +234,11 @@ function openTxtTxtMode() {
         insideLeftArrow.show();
         insideRightArrow.show();
     }
-    
+
     // GESTIONE SELETTORI PAGINE E DOCUMENTO
-    
+
     $('#span_pp_select:not(:visible)').show();
-    
+
     $('#span_tt_select:not(:visible)').show();
 
     // GESTIONE MENU STRUMENTI TESTO BOX SINISTRO
@@ -244,10 +249,10 @@ function openTxtTxtMode() {
     // Se il box di destra non e' aperto, lo apro
     $("#main_right_frame:not(:visible)").show();
 
-    // Se i menu erano stati chiusi in modalità bookreader, 
+    // Se i menu erano stati chiusi in modalità bookreader,
     // chiudo quello di destra...che magari era rimasto aperto.
     $('#right_header.menuClosed').hide();
-    
+
     // Mostro il box di sinistra,
     $("#main_left_frame").animate({
         width: '49.8%',
@@ -258,7 +263,7 @@ function openTxtTxtMode() {
         $("#text_cont").show();
 
         var lineNwidth = $('#main_right_frame').find('.dipl-lineN:last').outerWidth();
-        var textInnerWidt = $('#main_right_frame').find("div#text_cont").innerWidth()*85/100;    
+        var textInnerWidt = $('#main_right_frame').find("div#text_cont").innerWidth()*85/100;
         $('#main_right_frame, #main_left_frame').find('.dipl-left, .interp-left').each(function(){
             $(this).css({
                 'max-width': (textInnerWidt-lineNwidth-43)+'px'
@@ -266,7 +271,7 @@ function openTxtTxtMode() {
         });
     });
     // - fine gestione passaggio bookreader --> txttxt
-    
+
     // Clono il contenuto testuale del box di destra, nel box di sinistra
     // aggiungendo "-add" agli identificativi degli elementi principali
     $('#text_cont')
@@ -343,7 +348,7 @@ function openTxtTxtMode() {
         //     $('#switchReg').trigger('click').addClass('active');
         // }
         //$('#regesto_cont').hide('drop',  {direction: 'up'}, 'linear');
-        
+
         // ...nascondo il pulsante del Regesto dal menu di sinistra e il toggle in fondo al regesto di sinistra
         $('#switchReg-add').hide();
 
@@ -354,7 +359,7 @@ function openTxtTxtMode() {
                 .attr('data-value', 'regesto')
                 .text('Regesto')
                 .trigger('change');
-        
+
         // Sposto il selettore dei testi a sinistra
         // if ( $('#left_menu').find('#span_tt_select').length == 0 ){
         //  $('#span_tt_select').detach().prependTo('#left_menu').css({'display':'inline-block'});
@@ -366,7 +371,7 @@ function openTxtTxtMode() {
 
         //$('#inside_left_arrow, #inside_right_arrow').hide();
         //$('#inside_left_arrow-add, #inside_right_arrow-add').show();
-    } 
+    }
     else {
         $('#span_ee_select-add')
             .css({display: "inline-block"})
@@ -405,9 +410,9 @@ function openTxtTxtMode() {
         left: "50%",
         marginLeft: "-10px"
     });
-    
+
     $('.go-full-right:not(:visible)').show();
-    
+
     if($('#left_header').hasClass('menuClosed')){
         noMenu_height = $('#image_cont').height();
         $('#text_cont-add').css({
@@ -420,7 +425,7 @@ function openTxtTxtMode() {
         $('.go-full-left').addClass('onWhite');
     }
     var lineNwidth = $('#main_right_frame').find('.dipl-lineN:last').outerWidth();
-    var textInnerWidt = $('#main_right_frame').find("div#text_cont").innerWidth()*85/100;    
+    var textInnerWidt = $('#main_right_frame').find("div#text_cont").innerWidth()*85/100;
     $('#main_left_frame').find('.dipl-left, .interp-left').each(function(){
         $(this).css({
             'max-width': (textInnerWidt-lineNwidth-43)+'px'
@@ -441,10 +446,14 @@ function openBookreaderMode(){
 		$('#BRicon_book_left').prop("disabled", false);
 		$('#BRicon_book_right').prop("disabled", false);
 	}
+    if($('#viscoll')) {
+        $('#viscoll').attr('disabled', true);
+    }
+
     if (!$('#msDesc_cont').is(':visible')) {
         $('#switch_msDesc').removeClass('active');
     }
-    
+
     if ( $('#search_link-add').hasClass('active') ) {
         closeSearchBox(0, '-add');
     }
@@ -452,17 +461,17 @@ function openBookreaderMode(){
     $("#imgd_link").addClass("current_mode").siblings().removeClass("current_mode");
 
     $(".main_dd_select").trigger("imgd_mode");
-	
+
 	createSliderBookreader();
-	
+
     $('#span_pp_select, #span_tt_select').hide();
 
     if ( $('#main_left_frame').find('#regesto_cont') ){
-        $('#regesto_cont').hide();  
+        $('#regesto_cont').hide();
     }
     $("#switchReg-add").hide();
     $('#text_tool-add').hide().addClass('hidden');
-    
+
     var ddSelector = $('#span_dd_select');
 
     $("#right_menu").hide();
@@ -487,7 +496,7 @@ function openBookreaderMode(){
     $("#image_cont").show();
     $('#switchITL').hide();
     $('#switchHS').hide();
-    
+
     $('#header_collapse').animate({
         left: "100%",
         marginLeft: "-30px"
@@ -507,10 +516,10 @@ function openTxtSingleMode(){
         borderLeftWidth: '0px',
         borderRightWidth: '0px'
     }, function(){
-        $("#text_cont-add").remove(); 
+        $("#text_cont-add").remove();
     });
     $('#header_collapse').animate({
-        left: '15px' 
+        left: '15px'
     });
 }
 
@@ -533,14 +542,14 @@ function bindViewModesBtnsClick() {
             openTxtTxtMode();
         }
     });
-    
+
     // TOGGLE BOOKREADER MODE VIEW
     $("#imgd_link").click(function(){
         if(!$(this).hasClass("current_mode")){
             openBookreaderMode();
         }
     });
-    
+
     // TOGGLE TXT SINGLE MODE VIEW
     $("#txt_single").click(function(){
         if(!$(this).hasClass("current_mode")){
