@@ -197,11 +197,6 @@ function openTxtImgMode(){
         closeSearchBox(0, '-add');
     }
 
-
-    if($('#viscoll')) {
-        $('#viscoll').attr('disabled', false);
-    }
-
 	createSliderTxtImg();  // Invoco la funzione che crea lo slider al click sul TxtImg
 
 }
@@ -446,9 +441,6 @@ function openBookreaderMode(){
 		$('#BRicon_book_left').prop("disabled", false);
 		$('#BRicon_book_right').prop("disabled", false);
 	}
-    if($('#viscoll')) {
-        $('#viscoll').attr('disabled', true);
-    }
 
     if (!$('#msDesc_cont').is(':visible')) {
         $('#switch_msDesc').removeClass('active');
