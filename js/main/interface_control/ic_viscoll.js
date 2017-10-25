@@ -1,6 +1,6 @@
 function bindViscollClick(array) {
 	//alert(array);
-	$('#viscoll').click(
+	$('#viscoll').unbind('click').click(
         function(){
 			// Se thumbnails ha class active gliela tolgo e la nascondo (passaggio thumbnails - viscoll)
 			if($('#thumb_elem').hasClass('active')) {
@@ -49,7 +49,7 @@ function bindViscollClick(array) {
 			myFunction(array);
 
 	});
-	
+
 }
 
 function myFunction(array) {
@@ -58,7 +58,7 @@ function myFunction(array) {
 	var page_selected = window.parent.$(".main_pp_select .option_container .optionGroup .selected"); // Prendo l'elemento con classe .selected dalla pagina genitore
 	//alert(page_selected.text());
 	var page_selected_text = page_selected.text();
-	
+
 	/*var frame = document.getElementById('viscoll_iframe').contentWindow.document;
 	console.log(frame);
 	var page_frame = frame.childNodes;
@@ -71,15 +71,15 @@ function myFunction(array) {
 	console.log(x);
 	var body = x.nextElementSibling;
 	console.log(body);*/
-	
-	/*var iframe = window.frames['viscoll_iframe'].document;
-	console.log(iframe);*/ 
 
-    $("#viscoll_iframe").load(function () {  
+	/*var iframe = window.frames['viscoll_iframe'].document;
+	console.log(iframe);*/
+
+    $("#viscoll_iframe").load(function () {
 		$('img', frames['viscoll_iframe'].document).bind("click",function(){ // Al click sull'elemento img nel frame
 			var alt = $(this).attr('alt');
 			//alert(alt);
-			
+
 			if(page_selected_text == alt) { // Se la pagina cliccata è quella che era selezionata
 				returnImgTxtMode(page_selected_text);
 			}else{
@@ -113,8 +113,8 @@ function myFunction(array) {
 
 				});
 			}
-			
-			
+
+
 			/*var i, j, x, z;
 			console.log(frames["viscoll_iframe"].document.body);
 			var body = frames["viscoll_iframe"].document.body; // Prendo l'elemento body
@@ -135,7 +135,7 @@ function myFunction(array) {
 					if(img1) { // Se img1 esiste
 						var figli_img1 = img1.childNodes; // Prendo i figli
 						var img1_text = figli_img1[1].nodeValue; // Prendo il valore del figlio in posizione 1
-						//alert(img1_text);	
+						//alert(img1_text);
 						if(img1_text == page_text) {
 							alert(img1_text + page_text);
 							returnImgTxtMode();
@@ -148,9 +148,9 @@ function myFunction(array) {
 					}*/
 		});
     });
-	
+
 }
-		
+
 function returnImgTxtMode(page_selected_text) {
 	if($('#mode_switch #txtimg_link').hasClass('current_mode')) {
 		$('#viscoll').removeClass('active');

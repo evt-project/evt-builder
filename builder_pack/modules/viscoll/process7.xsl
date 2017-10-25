@@ -24,7 +24,7 @@
             <xd:p><xd:b>Modified on:</xd:b>April 29, 2016</xd:p>
             <xd:p><xd:b>Modified by:</xd:b> Dot Porter</xd:p>
             <xd:p>This document takes as its input the output from process6.xsl.
-                It generates 
+                It generates
                 * several HTML files that make up a collation site for a manuscript.
                 * a single HTML document (with -diagrams appended) containing diagrams for each quire.
                 * a single HTML document containing digrams and bifolia view for the entire manuscript
@@ -34,7 +34,7 @@
             </xd:p>
         </xd:desc>
     </xd:doc>
-    
+
     <xsl:template match="/" mode="viscoll7">
         <xsl:apply-templates mode="viscoll7"/>
     </xsl:template>
@@ -46,17 +46,17 @@
         <xsl:variable name="msurl">
             <xsl:value-of select="@msURL"/>
         </xsl:variable>
-        
+
         <xsl:for-each select="quire">  <!-- Elemento quire con n, positions e filename con concatenzaione con CP-20-21-numeroQuire.html -->
             <xsl:variable name="quireNo" select="@n"/>
             <xsl:variable name="positions" select="@positions"/>
             <xsl:variable name="filename" select="concat($idno,'-',$quireNo,'.html')"/> <!-- Crea la variabile filename con valore CP-19_20_21_22.html -->
-            
+
             <!-- Multiple HTML Files output below -->
-            
+
             <!-- GM (modifica) Crea la cartella CP/quires con dentro i file CP-20.html, CP-21.html, ecc... -->
             <xsl:result-document method="html" encoding="UTF-8" href="{concat('../../../data/output_data/viscoll/',$idno,'/quires/',$filename)}" indent="yes">
-                
+
                 <html>
                     <!--  -->
                     <head>
@@ -85,8 +85,8 @@
                             <span class="topheader"><a href="http://www.library.upenn.edu" target="_blank">
                                 <img src="https://cdn.rawgit.com/leoba/VisColl/master/data/support/pennlogo.gif" width="28" height="27"
                                     style="align:left;" alt="UPenn"/>
-                            </a>Generated using the 
-                                
+                            </a>Generated using the
+
                                 <xsl:text> </xsl:text>
                                 <a href="http://www.schoenberginstitute.org" target="blank"
                                     ><xsl:text> </xsl:text><xsl:text> </xsl:text>Schoenberg Institute
@@ -103,7 +103,7 @@
                             <select name="quirelist" id="quirelist"
                                 onchange="MM_jumpMenu('parent',this,1)">
                                 <option>Select a Quire</option>
-                                
+
                                 <xsl:for-each select="parent::manuscript/quire">
                                     <xsl:element name="option">
                                         <xsl:attribute name="value"><xsl:value-of
@@ -235,9 +235,9 @@
                                             select="$folNoX"/></xsl:when>
                                     <xsl:otherwise><xsl:value-of select="$rightFolTest"
                                         /></xsl:otherwise>
-                                </xsl:choose></xsl:variable> 
-                            
-                            
+                                </xsl:choose></xsl:variable>
+
+
                             <xsl:variable name="leftFolFileName">
                                 <xsl:choose>
                                     <xsl:when test="$leftFol = $folNoX"><xsl:value-of select="concat($folNoX,$quireNo,$bi1)"/></xsl:when>
@@ -250,12 +250,12 @@
                                     <xsl:otherwise><xsl:value-of select="$rightFol"/></xsl:otherwise>
                                 </xsl:choose>
                             </xsl:variable>
-                            
-                            
+
+
                             <xsl:variable name="divsetNo" select="@n"/>
-                            
+
                             <xsl:comment> If you would like to include the ability to show and hide quires, uncommend the code below </xsl:comment>
-                            
+
                             <xsl:comment><div class="bititles">Quire
                                     <xsl:value-of select="$quireNo"/>, Unit <xsl:value-of
                                     select="$leftFol"/>, <xsl:value-of select="$rightFol"/>
@@ -271,8 +271,8 @@
                                 <xsl:attribute name="id">divset<xsl:value-of select="$divsetNo"
                                     /></xsl:attribute>
                                 <div class="bif">
-                                    
-                                    
+
+
 <!-- L'attributo preserveAspectRatio prende due valori: il primo indica come la casella di visualizzazione (viewBox) è allineata nella finestra di visualizzazione (allinea la metà della casella di visualizzazione nella parte centrale della finestra di visualizzazione) mentre il secondo indica come deve essere conservato il rapporto di aspetto (conserva il rapporto di aspetto e scala la casella di visualizzazione (viewBox) per adattarsi alla finestra di visualizzazione) -->
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
      version="1.1"
@@ -283,7 +283,7 @@
      preserveAspectRatio="xMidYMid meet"
 	 style="background: #415a6c;"
      viewBox="0 0 100 90">
-     
+
    <defs> <!-- Elemento contenitore per gli elementi di riferimento -->
        <filter id="f1" filterUnits="userSpaceOnUse">  <!-- Definisce una regione sul canvas che applica un determinato effetto filtro e fornisce una risoluzione per tutte le immagini (l'attributo fedinisce il sistema di coordinata x, y, width e height: in questo caso è userSpaceOnUse cioè rappresenta i valori nel sistema di coordinate attualmente in vigore al momento in cui viene indicato il filtro -->
            <feGaussianBlur in="SourceGraphic" stdDeviation="1"/> <!-- Questo filtro primitivo esegue una sfocatura gaussiana sull'immagine di ingresso: in identifica l'input per filtro primitivo dato, cioè SourceGraphic che è una parola chiave che rappresenta gli elementi grafici che erano l'input originale nell'elemento filtro mentre stdDeviation è la deviazione per l'operazione di sfocatura. -->
@@ -292,9 +292,9 @@
    <desc>Collation diagram Quire <xsl:value-of select="$quireNo"/></desc>
     <text x="20" y="5" class="bititle">Quire <xsl:value-of select="$quireNo"/>, Unit <xsl:value-of
         select="$leftFol"/>, <xsl:value-of select="$rightFol"/></text>
-    
-    
-    
+
+
+
     <xsl:for-each select="ancestor::quire">
         <xsl:variable name="positions" select="@positions"/>
         <xsl:for-each select="1 to $positions"> <!-- Per ogni positions (da 1 al valore di positions) -->
@@ -307,23 +307,23 @@
                 <xsl:if test=".&lt;=($positions div 2)"><xsl:attribute name="y"><xsl:value-of select="10 + 6*(.-1)"/></xsl:attribute>
                 <xsl:value-of select="."/>
                 </xsl:if>
-                
+
             </text>-->
                 <xsl:if test=". = $bi1"><text class="labels" x="75">
                     <xsl:attribute name="y"><xsl:value-of select="4 + 6*."/></xsl:attribute><xsl:choose><xsl:when test="$insideLeftFolNo = $folNoX"><xsl:value-of select="$folNoX"/></xsl:when><xsl:otherwise><xsl:value-of select="$leftFolTest"/></xsl:otherwise></xsl:choose></text></xsl:if>
                 <xsl:if test=". = $bi2"><text class="labels" x="75">
                     <xsl:attribute name="y"><xsl:value-of select="17 + 6*(.-1)"/></xsl:attribute><xsl:choose><xsl:when test="$insideRightFolNo = $folNoX"><xsl:value-of select="$folNoX"/></xsl:when><xsl:otherwise><xsl:value-of select="$rightFolTest"/></xsl:otherwise></xsl:choose></text></xsl:if>
-            
-            
+
+
         </xsl:for-each>
     </xsl:for-each>
 
     <svg x="0" y="0">
         <xsl:for-each select="parent::units">
             <xsl:variable name="positions" select="parent::quire/@positions"/>
-            
+
             <xsl:for-each select="unit"><desc>Unit #<xsl:value-of select="@n"/></desc>
-                
+
                 <xsl:variable name="leftPos" select="inside/left/@pos"/>
                 <xsl:variable name="rightPos" select="inside/right/@pos"/>
                 <xsl:variable name="path1-left">
@@ -391,29 +391,31 @@
                         </path>
                     </g>
                 </g>
-                
+
             </xsl:for-each>
         </xsl:for-each>
     </svg>
-    
-   
+
+
 </svg>
-                                
-                                
-                                
-                                
-                                
-                                
+
+
+
+
+
+
                                 </div>
-                                
+
                                 <div class="img1">
                                     <a class="fancybox fancybox.iframe" rel="set{@n}"
                                         title="(Quire {$quireNo}, Unit {$leftFol}.{$rightFol}, inside)"
                                         href="../units/{$leftFolFileName}_{$rightFolFileName}_i.html">
                                         <xsl:choose><xsl:when test="contains($insideLeftImg,'.')"><img height="225" src="{$insideLeftImg}"
-                                            alt="{$insideLeftFolNo}"/></xsl:when><xsl:otherwise/></xsl:choose>
+                                            alt="{$insideLeftFolNo}"
+                                            onError="this.onerror=null;this.src='../../../../images/no-image.png';" /></xsl:when><xsl:otherwise/></xsl:choose>
                                         <xsl:choose><xsl:when test="contains($insideRightImg,'.')"><img height="225" src="{$insideRightImg}"
-                                            alt="{$insideRightFolNo}"/></xsl:when><xsl:otherwise/></xsl:choose></a>
+                                            alt="{$insideRightFolNo}"
+                                            onError="this.onerror=null;this.src='../../../../images/no-image.png';" /></xsl:when><xsl:otherwise/></xsl:choose></a>
                                     <br/><xsl:value-of select="$insideLeftFolNo"/><xsl:if test="contains($insideRightImg,'.') and contains($insideLeftImg,'.')"><span
                                         class="spacer"><xsl:text> </xsl:text></span></xsl:if><xsl:value-of
                                         select="$insideRightFolNo"/>
@@ -424,7 +426,7 @@
                                         href="../units/{$leftFolFileName}_{$rightFolFileName}_o.html">
                                         <xsl:choose><xsl:when test="contains($outsideLeftImg,'.')"><img height="225" src="{$outsideLeftImg}"
                                             alt="{$outsideLeftFolNo}"/></xsl:when><xsl:otherwise/></xsl:choose>
-                                        <xsl:choose><xsl:when test="contains($outsideRightImg,'.')"><img height="225" src="{$outsideRightImg}" 
+                                        <xsl:choose><xsl:when test="contains($outsideRightImg,'.')"><img height="225" src="{$outsideRightImg}"
                                             alt="{$outsideRightFolNo}"
                                         /></xsl:when><xsl:otherwise/></xsl:choose></a>
                                     <br/><xsl:value-of select="$outsideLeftFolNo"/><xsl:if test="contains($outsideLeftImg,'.') and contains($outsideRightImg,'.')"><span
@@ -432,23 +434,23 @@
                                         select="$outsideRightFolNo"/>
                                 </div>
                             </div>
-                            
+
                         </xsl:for-each>
                     </body>
                 </html>
             </xsl:result-document>
-            
+
         </xsl:for-each>
-        
-         <!--Diagram HTML output below--> 
-        
+
+         <!--Diagram HTML output below-->
+
         <!-- GM -->
         <xsl:variable name="filename-diagrams" select="concat('../../../../data/output_data/viscoll/',$idno,'/',$idno,'-diagrams.html')"/>
         <xsl:result-document method="html" encoding="UTF-8" href="{concat($idno,'/',$filename-diagrams)}" indent="yes">
         <!--<xsl:result-document href="{concat($idno,'/',$filename-diagrams)}" format="html">-->
-            
-            
-            
+
+
+
             <html xmlns="http://www.w3.org/1999/xhtml">
                 <!--  -->
                 <head>
@@ -463,15 +465,15 @@
                     <script type="text/javascript" src="https://cdn.rawgit.com/leoba/VisColl/master/data/support/fancybox/querys.js">x</script>
                     <script type="text/javascript" src="https://cdn.rawgit.com/leoba/VisColl/master/data/support/fancybox/collation.js">x</script>
                 </head>
-                
+
                 <body>
                     <!-- this div is the same for all quires -->
                     <div id="divtop">
                         <span class="topheader"><a href="http://www.library.upenn.edu" target="_blank">
                             <img src="https://cdn.rawgit.com/leoba/VisColl/master/data/support/pennlogo.gif" width="28" height="27"
                                 style="align:left;" alt="UPenn"/>
-                        </a>Generated using the 
-                            
+                        </a>Generated using the
+
                             <xsl:text> </xsl:text>
                             <a href="http://www.schoenberginstitute.org" target="blank"
                                 ><xsl:text> </xsl:text><xsl:text> </xsl:text>Schoenberg Institute
@@ -479,20 +481,20 @@
                                     href="https://github.com/leoba/VisColl" target="blank">
                                      Collation Modeler</a></span>
                     </div>
-                    
+
                     <div id="listofquires"><span class="mstitle"><a target="_blank" href="{$msurl}">Collation diagrams for <xsl:value-of select="$msname"/>, <xsl:value-of select="$idno"/></a></span></div>
                     <br/>
                     <span class="helptext">Select a unit to display/hide, or </span><br /><span class="btn2">Show All Units</span><xsl:text> </xsl:text><xsl:text> </xsl:text><span class="btn1">Hide All Units</span><xsl:text> </xsl:text><xsl:text> </xsl:text><xsl:text> </xsl:text>
-                    
+
                     <br/>
-                    
+
                     <xsl:for-each select="quire">
                         <xsl:variable name="quireNo" select="@n"/>
                         <xsl:variable name="positions" select="@positions"/>
-                        
+
                         <!-- Here we get one div class newquire, and then a quireset with three divs - one svg and two images (img1 and img2) -->
-                        
-                        
+
+
                         <xsl:comment>
                                 begin set
                             </xsl:comment>
@@ -500,7 +502,7 @@
                         <!--Variables set for the left and right positions, inside-->
                         <xsl:variable name="bi1" select="inside/left/@pos"/>
                         <xsl:variable name="bi2" select="inside/right/@pos"/>
-                        
+
                         <!-- Variable setting "X", to be used when another folio number is empty -->
                         <xsl:variable name="folNoX">X</xsl:variable>
                         <!-- Variables setting the folio numbers (including r and v), used as checks in the next bunch of variables -->
@@ -576,21 +578,21 @@
                                 select="$folNoX"/></xsl:when>
                             <xsl:otherwise><xsl:value-of select="$rightFolTest"
                             /></xsl:otherwise>
-                        </xsl:choose></xsl:variable> 
-                        
-                        
-                        
-                        
-                        
+                        </xsl:choose></xsl:variable>
+
+
+
+
+
                         <div class="newquire"><span class="bititles"><a href="javascript:void(0);">Quire
                             <xsl:value-of select="$quireNo"/>
                         </a></span></div>
-                        
+
                         <div class="quireset">
                             <div class="bif">
-                                
-                                
-                                
+
+
+
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                     version="1.1"
                                     x="0"
@@ -600,7 +602,7 @@
                                     preserveAspectRatio="xMidYMid meet"
                                     style="background: #415a6c;"
                                     viewBox="0 0 100 90">
-                                    
+
                                     <defs>
                                         <filter id="f1" filterUnits="userSpaceOnUse">
                                             <feGaussianBlur in="SourceGraphic" stdDeviation="1"/>
@@ -608,15 +610,15 @@
                                     </defs>
                                     <desc>Collation diagram Quire <xsl:value-of select="$quireNo"/></desc>
                                     <text x="20" y="5" class="bititle">Quire <xsl:value-of select="$quireNo"/></text>
-                                    
-                                    
+
+
                                     <svg x="0" y="0">
                                         <xsl:for-each select="units">
                                             <xsl:variable name="positions" select="parent::quire/@positions"/>
-                                            
+
                                             <xsl:for-each select="unit">
                                                 <desc>Unit #<xsl:value-of select="@n"/></desc>
-                                                
+
                                                 <xsl:variable name="leftPos" select="inside/left/@pos"/>
                                                 <xsl:variable name="rightPos" select="inside/right/@pos"/>
                                                 <xsl:variable name="path1-left">
@@ -625,18 +627,18 @@
                                                 <xsl:variable name="path1-right">
                                                     <xsl:value-of select="9 + 6*$rightPos"/>
                                                 </xsl:variable>
-                                                
+
                                                 <!-- page/folio numbers for first and last leaves in a quire -->
-                                                
+
                                                 <xsl:if test="@n='1'">
                                                     <!--<xsl:if test=". = $bi1">--><text class="labels" x="75">
                                                         <xsl:attribute name="y"><xsl:value-of select="$path1-left + 1"/></xsl:attribute><xsl:choose><xsl:when test="$insideLeftFolNo = $folNoX"><xsl:value-of select="$folNoX"/></xsl:when><xsl:otherwise><xsl:value-of select="$leftFolTest"/></xsl:otherwise></xsl:choose></text><!--</xsl:if>-->
                                                     <!--<xsl:if test=". = $bi2">--><text class="labels" x="75">
                                                         <xsl:attribute name="y"><xsl:value-of select="$path1-right + 1"/></xsl:attribute><xsl:choose><xsl:when test="$insideRightFolNo = $folNoX"><xsl:value-of select="$folNoX"/></xsl:when><xsl:otherwise><xsl:value-of select="$rightFolTest"/></xsl:otherwise></xsl:choose></text><!--</xsl:if>-->
-                                                    
+
                                                 </xsl:if>
-                                                
-                                                
+
+
                                                 <xsl:variable name="count" select="$positions div 2"/>
                                                 <xsl:variable name="max" select="$count * 6"/>
                                                 <xsl:variable name="path2" select="$max - ($leftPos - 1)*6"/>
@@ -696,40 +698,40 @@
                                                         </path>
                                                     </g>
                                                 </g>
-                                                
+
                                             </xsl:for-each>
                                         </xsl:for-each>
                                     </svg>
-                                    
-                                    
+
+
                                 </svg>
-                                
-                                
-                                
-                                
-                                
-                                
+
+
+
+
+
+
                             </div>
                         </div>
                     </xsl:for-each>
                 </body>
-                
+
             </html>
-            
+
         </xsl:result-document>
-        
+
          <!--One single page for all bifolia output below -->
-        
+
         <!-- GM -->
         <xsl:variable name="filename" select="concat($idno,'.html')"/>
-        <xsl:result-document method="html" encoding="UTF-8" href="{concat('../../../data/output_data/viscoll/',$idno,'/',$filename)}" indent="yes">     
+        <xsl:result-document method="html" encoding="UTF-8" href="{concat('../../../data/output_data/viscoll/',$idno,'/',$filename)}" indent="yes">
 <!--<xsl:result-document href="{concat($idno,'/',$filename)}" format="html">-->
 
             <!-- NEEDS DOCTYPE TO WORK: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> -->
             <!--<xsl:text disable-output-escaping="yes">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;</xsl:text>
-           --> 
+           -->
     <xsl:comment>&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;</xsl:comment>
-    
+
     <html xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:xd="http://www.oxygenxml.com/ns/doc/xsl">
                 <!--  -->
@@ -737,16 +739,16 @@
                     <title>Quires - Quire <xsl:value-of select="$msname"/></title>
                     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
                     <!-- Non è più data/output_data/viscoll/support/ ma ./../viscoll/support/... con <iframe> -->
-                    <script type="text/javascript" src="../../viscoll/support/jquery-1.10.1.min.js">x</script>
-                    <script type="text/javascript" src="../../viscoll/support/jquery.fancybox.js?v=2.1.5">x</script>
-                    <link rel="stylesheet" type="text/css" href="../../viscoll/support/jquery.fancybox.css?v=2.1.5" media="screen"></link>
-                    <link href="../../viscoll/support/jquery.fancybox.css" rel="stylesheet" type="text/css"></link>
-                    <!--<script type="text/javascript" src="../../viscoll/support/iframescript.js">x</script>-->
-                    <link href="../../viscoll/support/collation.css" rel="stylesheet" type="text/css"></link>
-                    <script type="text/javascript" src="../../viscoll/support/querys.js">x</script>
-                    <script type="text/javascript" src="../../viscoll/support/collation.js">x</script>
+                    <script type="text/javascript" src="../../../../js/plugin/support_viscoll/jquery-1.10.1.min.js">x</script>
+                    <script type="text/javascript" src="../../../../js/plugin/support_viscoll/jquery.fancybox.js?v=2.1.5">x</script>
+                    <link rel="stylesheet" type="text/css" href="../../../../js/plugin/support_viscoll/jquery.fancybox.css?v=2.1.5" media="screen"></link>
+                    <link href="../../../../js/plugin/support_viscoll/jquery.fancybox.css" rel="stylesheet" type="text/css"></link>
+                    <!--<script type="text/javascript" src="../../../../js/plugin/support_viscoll/iframescript.js">x</script>-->
+                    <link href="../../../../js/plugin/support_viscoll/collation.css" rel="stylesheet" type="text/css"></link>
+                    <script type="text/javascript" src="../../../../js/plugin/support_viscoll/querys.js">x</script>
+                    <script type="text/javascript" src="../../../../js/plugin/support_viscoll/collation.js">x</script>
                     <!--<link href="css/collation.css" rel="stylesheet" type="text/css"></link>-->
-                    
+
                 </head>
 
                 <body>
@@ -756,8 +758,8 @@
                             <img
                                 src="https://cdn.rawgit.com/leoba/VisColl/master/data/support/pennlogo.gif"
                                 width="28" height="27" style="align:left;" alt="UPenn"/>
-                        </a>Generated using the 
-                            
+                        </a>Generated using the
+
                             <xsl:text> </xsl:text>
                             <a href="http://www.schoenberginstitute.org" target="blank"
                                 ><xsl:text> </xsl:text><xsl:text> </xsl:text>Schoenberg Institute
@@ -766,11 +768,11 @@
                                  Collation Modeler</a>
                         </span>
                     </div>-->
-                    
+
                     <div id="quires_cont">
 
                     <div id="listofquires"><span class="mstitle"><a target="_blank" href="{$msurl}">Collation diagrams for <xsl:value-of select="$msname"/>, <xsl:value-of select="$idno"/></a></span></div>
-                    
+
 
                     <!--<span class="helptext">Select a Quire to display/hide, or </span>
                     <br/>-->
@@ -1060,7 +1062,7 @@
                 <xsl:if test=".&lt;=($positions div 2)"><xsl:attribute name="y"><xsl:value-of select="10 + 6*(.-1)"/></xsl:attribute>
                 <xsl:value-of select="."/>
                 </xsl:if>
-                
+
             </text>-->
                                                 <xsl:if test=". = $bi1">
                                                   <text class="labels" x="75">
@@ -1249,14 +1251,16 @@
                                         <xsl:choose>
                                             <xsl:when test="contains($insideLeftImg,'.')">
                                                 <img height="145" src="{$insideLeftImg}"
-                                                  alt="{$insideLeftFolNo}"/> <!-- Modificata height da 225 a 145 -->
+                                                  alt="{$insideLeftFolNo}"
+                                                  onError="this.onerror=null;this.src='../../../../images/no-image.png';" /> <!-- Modificata height da 225 a 145 -->
                                             </xsl:when>
                                             <xsl:otherwise/>
                                         </xsl:choose>
                                         <xsl:choose>
                                             <xsl:when test="contains($insideRightImg,'.')">
                                                 <img height="145" src="{$insideRightImg}"
-                                                  alt="{$insideRightFolNo}"/> <!-- Modificata height da 225 a 145 -->
+                                                  alt="{$insideRightFolNo}"
+                                                  onError="this.onerror=null;this.src='../../../../images/no-image.png';" /> <!-- Modificata height da 225 a 145 -->
                                             </xsl:when>
                                             <xsl:otherwise/>
                                         </xsl:choose>
@@ -1278,14 +1282,16 @@
                                         <xsl:choose>
                                             <xsl:when test="contains($outsideLeftImg,'.')">
                                                 <img height="145" src="{$outsideLeftImg}"
-                                                  alt="{$outsideLeftFolNo}"/> <!-- Modificata height da 225 a 145 -->
+                                                  alt="{$outsideLeftFolNo}"
+                                                  onError="this.onerror=null;this.src='../../../../images/no-image.png';" /> <!-- Modificata height da 225 a 145 -->
                                             </xsl:when>
                                             <xsl:otherwise/>
                                         </xsl:choose>
                                         <xsl:choose>
                                             <xsl:when test="contains($outsideRightImg,'.')">
                                                 <img height="145" src="{$outsideRightImg}"
-                                                  alt="{$outsideRightFolNo}"/> <!-- Modificata height da 225 a 145 -->
+                                                  alt="{$outsideRightFolNo}"
+                                                  onError="this.onerror=null;this.src='../../../../images/no-image.png';" /> <!-- Modificata height da 225 a 145 -->
                                             </xsl:when>
                                             <xsl:otherwise/>
                                         </xsl:choose>
@@ -1329,7 +1335,8 @@
                                                     <xsl:value-of select="concat('../../data/',$insideLeftImg)"/>
                                                   </xsl:variable>
                                                   <img src="{$img_pathLeftInside}" class="bifolimage"
-                                                  alt="{$insideLeftFolNo}"/>
+                                                  alt="{$insideLeftFolNo}"
+                                                  onError="this.onerror=null;this.src='../../../../images/no-image.png';" />
                                                   </td>
                                                   <td>
                                                   <!-- GM -->
@@ -1337,7 +1344,8 @@
                                                     <xsl:value-of select="concat('../../data/',$insideRightImg)"/>
                                                   </xsl:variable>
                                                   <img src="{$img_pathRightInside}" class="bifolimage"
-                                                  alt="{$insideRightFolNo}"/>
+                                                  alt="{$insideRightFolNo}"
+                                                  onError="this.onerror=null;this.src='../../../../images/no-image.png';" />
                                                   </td>
                                                 </tr>
                                                 <tr>
@@ -1354,7 +1362,7 @@
                                     </html>
                                 </xsl:for-each>
                             </xsl:result-document>
-                            
+
                             <!-- GM -->
                             <xsl:result-document method="html" encoding="UTF-8"
                                 href="../../../data/output_data/viscoll/{$idno}/units/{$leftFolFileName}_{$rightFolFileName}_o.html"
@@ -1383,7 +1391,8 @@
                                                     <xsl:value-of select="concat('../../data/',$outsideLeftImg)"/>
                                                   </xsl:variable>
                                                       <img src="{$img_pathLeftOutside}" class="bifolimage"
-                                                  alt="{$outsideLeftFolNo}"/>
+                                                  alt="{$outsideLeftFolNo}"
+                                                  onError="this.onerror=null;this.src='../../../../images/no-image.png';" />
                                                   </td>
                                                   <td>
                                                   <!-- GM -->
@@ -1391,7 +1400,8 @@
                                                     <xsl:value-of select="concat('../../data/',$outsideRightImg)"/>
                                                   </xsl:variable>
                                                       <img src="{$img_pathRightOutside}" class="bifolimage"
-                                                  alt="{$outsideRightFolNo}"/>
+                                                  alt="{$outsideRightFolNo}"
+                                                  onError="this.onerror=null;this.src='../../../../images/no-image.png';" />
                                                   </td>
                                                 </tr>
                                                 <tr>
@@ -1424,9 +1434,9 @@
             </html>
 
         </xsl:result-document>
-        
+
         <!-- Collation Formulas -->
-        
+
         <xsl:variable name="filename-formulas" select="concat($idno,'-formulas.html')"/>
         <xsl:result-document method="html" encoding="UTF-8" href="{concat('../../../data/output_data/viscoll/',$idno,'/',$filename-formulas)}" indent="yes">
             <html xmlns="http://www.w3.org/1999/xhtml">
@@ -1443,14 +1453,14 @@
                     <script type="text/javascript" src="https://cdn.rawgit.com/leoba/VisColl/master/data/support/fancybox/querys.js">x</script>
                     <script type="text/javascript" src="https://cdn.rawgit.com/leoba/VisColl/master/data/support/fancybox/collation.js">x</script>
                 </head>
-                
+
                     <!-- this div is the same for all quires -->
                     <div id="divtop">
                         <span class="topheader"><a href="http://www.library.upenn.edu" target="_blank">
                             <img src="https://cdn.rawgit.com/leoba/VisColl/master/data/support/pennlogo.gif" width="28" height="27"
                                 style="align:left;" alt="UPenn"/>
-                        </a>Generated using the 
-                            
+                        </a>Generated using the
+
                             <xsl:text> </xsl:text>
                             <a href="http://www.schoenberginstitute.org" target="blank"
                                 ><xsl:text> </xsl:text><xsl:text> </xsl:text>Schoenberg Institute
@@ -1458,11 +1468,11 @@
                                     href="https://github.com/leoba/VisColl" target="blank">
                                     Collation Modeler</a></span>
                     </div>
-                    
+
                     <body>
                         <p>Collation Formula for <a href="{$msurl}"><xsl:value-of select="$msname"/></a>
                             </p>
-                        <p>Formula 1: 
+                        <p>Formula 1:
                             <xsl:for-each select="//quireCopy">
                                 <!-- to be in the format 1(8, -4, +3) -->
                                 <xsl:variable name="quire-no" select="@n"/>
@@ -1474,7 +1484,7 @@
                                             select="@n"/> has been replaced</xsl:for-each>),<xsl:text> </xsl:text>
                             </xsl:for-each>
                         </p>
-                        <p>Formula 2: 
+                        <p>Formula 2:
                             <xsl:for-each select="//quireCopy">
                                 <!-- to be in the format 1(8, leaf missing between fol. X and fol. Y, leaf added after fol. X) -->
                                 <xsl:variable name="quire-no" select="@n"/>
@@ -1495,11 +1505,11 @@
                             </xsl:for-each>
                         </p>
                     </body>
-                
-                
+
+
             </html>
         </xsl:result-document>
     </xsl:template>
-    
-    
+
+
 </xsl:stylesheet>
