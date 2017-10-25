@@ -8,10 +8,10 @@
 	left: 4.5%;
 	width: 91%;
 	max-height: 50px;
-	
+
 	/*box-shadow:0 10px 0px 5px #362D28;*/
 	border-style: solid;
-	
+
 
 	background-color: #362D28;
 	z-index: 9999 !important;
@@ -26,7 +26,7 @@
 	float: left;  /* Elementi uno dopo l'altro */
 }
 
-#BRnav .mainButtons { 
+#BRnav .mainButtons {
 	height: 28px;
 	width: 28px;
 	min-width: auto;
@@ -61,8 +61,18 @@
 	left: 0px;
 	display: inline-block;
 	position: relative;
-	
-	
+
+
+}
+
+#viscoll.active {
+	background-color: #E3C89C;
+}
+
+#viscoll[disabled] {
+    opacity: .7;
+    cursor: default;
+    box-shadow: none !important;
 }
 
 #viscoll:hover {
