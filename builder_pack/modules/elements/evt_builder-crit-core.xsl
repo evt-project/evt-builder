@@ -21,7 +21,7 @@
 	
 	<xd:doc type="stylesheet">
 		<xd:short>
-			EN: Templates used to critcess the TEI elements of the CORE module. Stylesheet add by FS.
+			EN: Templates used to process the TEI elements of the CORE module. Stylesheet add by FS.
 			IT: I template per la trasformazione degli elementi TEI del modulo CORE. Foglio di stile aggiunto da FS. 
 		</xd:short>
 	</xd:doc>
@@ -34,11 +34,13 @@
 	<!-- P Paragraphs -->
 	<xsl:template match="tei:p" mode="crit">
 		<xsl:element name="span">
-			<xsl:attribute name="data-id" select="@xml:id"/>			
-			<xsl:if test="current()[not((string-length(normalize-space()))= 0)]">
-				<xsl:attribute name="class" select="$ed_name4,name()" separator="-"/>
+			<xsl:attribute name="data-id" select="@xml:id"/>
+			<xsl:attribute name="class" select="$ed_name4, name()" separator="-"/>			
+			 <xsl:if test="current()[not((string-length(normalize-space()))= 0)]">
+				<xsl:attribute name="class" select="$ed_name4, name()" separator="-"/>
 				<xsl:apply-templates mode="#current"> </xsl:apply-templates>
 			</xsl:if>
+			<xsl:text> </xsl:text>
 		</xsl:element>
 	</xsl:template>
 	
@@ -74,7 +76,7 @@
 			<xsl:choose>
 				<xsl:when test="not(current()[@lrx][@lry][@ulx][@uly])"><!-- in questo modo se non c'e' collegamento testo immagine le zone vengono separate -->
 					<xsl:element name="div">
-						<xsl:attribute name="class"><xsl:value-of select="$ed_name4, 'zone'" separator="-" /></xsl:attribute>
+						<xsl:attribute name="class"><xsl:value-of select="$ed_name4,'zone'" separator="-" /></xsl:attribute>
 						<xsl:apply-templates mode="#current"/>
 						<xsl:text> </xsl:text><!--important-->
 					</xsl:element>
@@ -433,9 +435,8 @@
 	</xsl:template>
 	
 	<!-- EN : Hidden Template, the xml:id is integrated directly as element's attribute  -->
-	<!-- IT : Template Commentato perchè ridondante, l' xml:id è integrato come attributo dell'elemento -->
-	<xsl:template match="tei:body" mode="crit">
-		
+	<!-- IT : Template Commentato perchè ridondante, l' xml:id è integrato come attributo dell'elemento 
+	<xsl:template match="tei:body" mode="crit">		
 			<xsl:element name="div">
 				<xsl:attribute name="class">doc</xsl:attribute>
 				<xsl:attribute name="data-doc" select="current()/parent::tei:text/@xml:id"/>
@@ -455,7 +456,7 @@
 				</xsl:attribute>
 				<xsl:apply-templates mode="#current"/>
 			</xsl:element>		
-	</xsl:template> 
+	</xsl:template> -->
 	
 	<!-- DESC Desc-->
 	<xsl:template match="tei:desc" mode="crit">
@@ -924,7 +925,6 @@
 									<xsl:attribute name="width">180px</xsl:attribute>
 								</xsl:element>
 							</xsl:for-each>
-							<!-- aggiungere riferimento ad entita specifica e relative info  -->
 						</xsl:element>
 					</xsl:element>
 				</xsl:if>
@@ -940,6 +940,16 @@
 		</xsl:element>
 	</xsl:template>
 	
+	
+	<!-- SURPLUS -->
+	<!-- Lettere o parole da espugnere, perchè frutto di errori materiali dello scrivente, sono poste tra parentesi angolari (CSS) -->
+	<xsl:template match="tei:surplus" mode="crit">
+		<xsl:element name="span">
+			<xsl:attribute name="class" select="$ed_name4, name()" separator="-"/>	
+			<xsl:apply-templates mode="#current" />
+		</xsl:element>		
+	</xsl:template>
+		
 	<!-- BACK - DIV - Container of Translation Edition -->	
 	<xsl:template match="tei:back/tei:div[@type='translate']" mode="crit">
 		<!-- DO NOTHING -->
@@ -950,8 +960,16 @@
 		<xsl:element name="span">
 			<xsl:attribute name="class" select="$ed_name4, name()" separator="-"/>			
 			<xsl:apply-templates mode="#current" />
-		</xsl:element>
-		
+		</xsl:element>		
+	</xsl:template>
+	
+	<!-- No wordwrap when a <lb/> is placed in a word - for CSS -->
+	<xsl:template match="tei:w" mode="crit">
+		<xsl:element name="span">
+			<xsl:attribute name="class" select="$ed_name4, name()" separator="-"/>
+			<xsl:text></xsl:text>			
+			 <xsl:apply-templates mode="#current" />
+		</xsl:element>		
 	</xsl:template>
 	
 </xsl:stylesheet>

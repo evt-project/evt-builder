@@ -258,7 +258,7 @@ function openTxtTxtMode() {
 
         var lineNwidth = $('#main_right_frame').find('.dipl-lineN:last').outerWidth();
         var textInnerWidt = $('#main_right_frame').find("div#text_cont").innerWidth()*85/100;    
-        $('#main_right_frame, #main_left_frame').find('.dipl-left, .interp-left, .pro-left, .crit-left, .trad-left').each(function(){
+        $('#main_right_frame, #main_left_frame').find('.dipl-left, .interp-left, .tdipl-left, .crit-left, .trad-left').each(function(){
             $(this).css({
                 'max-width': (textInnerWidt-lineNwidth-43)+'px'
             });
@@ -422,9 +422,9 @@ function openTxtTxtMode() {
         });
         $('.go-full-left').addClass('onWhite');
     }
-    var lineNwidth = $('#main_right_frame').find('.dipl-lineN:last, interp-lineN:last, pro-lineN:last, trad-lineN:last').outerWidth();
+    var lineNwidth = $('#main_right_frame').find('.dipl-lineN:last, .interp-lineN:last, .tdipl-lineN:last, .trad-lineN:last').outerWidth();
     var textInnerWidt = $('#main_right_frame').find("div#text_cont").innerWidth()*85/100;    
-    $('#main_left_frame').find('.dipl-left, .interp-left, .pro-left, crit-left, trad-left').each(function(){
+    $('#main_left_frame').find('.dipl-left, .interp-left, .tdipl-left, .crit-left, .trad-left').each(function(){
         $(this).css({
             'max-width': (textInnerWidt-lineNwidth-43)+'px'
         });

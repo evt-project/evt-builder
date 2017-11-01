@@ -30,32 +30,32 @@
     </xd:doc>
     
     <!-- NOTE Note or annotation -->
-    <xsl:template match="//tei:table" mode="interp dipl pro crit #default">
+    <xsl:template match="//tei:table" mode="interp dipl tdipl crit #default">
         <div class="table">
             <xsl:apply-templates mode="#current"/>
         </div>
     </xsl:template>
     
-    <xsl:template match="//tei:table/tei:head" mode="interp dipl pro crit #default">
+    <xsl:template match="//tei:table/tei:head" mode="interp dipl tdipl crit #default">
         <div class="table-head">
             <xsl:apply-templates mode="#current"/>
         </div>
     </xsl:template>
     
-    <xsl:template match="//tei:table/tei:row" mode="interp dipl pro crit #default">
+    <xsl:template match="//tei:table/tei:row" mode="interp dipl tdipl crit #default">
         <div class="table-row">
             <xsl:apply-templates mode="#current"/>
         </div>
     </xsl:template>
     
-    <xsl:template match="//tei:table/tei:row/tei:cell" mode="interp dipl pro crit #default">
+    <xsl:template match="//tei:table/tei:row/tei:cell" mode="interp dipl tdipl crit #default">
         <div class="table-cell">
             <xsl:apply-templates mode="#current"/>
         </div>
     </xsl:template>
     
     <!-- NOTE Note or annotation -->
-    <xsl:template match="//tei:note" mode="interp dipl pro crit #default">
+    <xsl:template match="//tei:note" mode="interp dipl tdipl crit #default">
         <xsl:choose>
             <xsl:when test="$root//tei:ptr[@type='noteAnchor'][@target=concat('#',current()/@xml:id)]">
                 <!-- DO NOTHING -->

@@ -138,6 +138,10 @@
 		</xsl:choose>
 	</xsl:template>
 	
+	<xsl:template match="tei:note[@place='foot']" mode="trad">
+		<!-- do nothing -->
+	</xsl:template>
+	
 	<xsl:template match="tei:front" mode="trad">
 		<!-- do nothing -->
 	</xsl:template>
@@ -627,8 +631,6 @@
 			<xsl:attribute name="class">quote</xsl:attribute>
 			&#171;<xsl:apply-templates mode="#current" />&#187;
 		</xsl:element>
-	</xsl:template>
-	
-	
-	
+	</xsl:template>	
+		
 </xsl:stylesheet>
