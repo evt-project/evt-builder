@@ -42,7 +42,7 @@
 	<!-- EN: Index title -->
 	<!-- IT: Titolo edizione -->
 	<!-- default: 'Codex Viewer' -->
-	<xsl:param name="index_title" select="'Documenti e lettere di Matilde di Canossa'"/>
+	<xsl:param name="index_title" select="'Documenti di Matilde di Canossa a Lucca'"/>
 	
 	<!-- EN: Welcome Message -->
 	<!-- IT: Messaggio di benvenuto -->
@@ -51,11 +51,11 @@
 		<div>
 			<p class="title main">Welcome to an edition created with EVT!</p> 
 		</div>
-		<div>This archive includes a few examples of editions created using EVT, 
-			by default you are showed a small excerpt of the 
-			<a href="http://pelavicino.labcd.unipi.it/" target="blank">
-				Codice Pelavicino Digitale edition</a>.
-		</div>
+		<div><p>The digital edition of “Documents of Matilde di Canossa in Lucca” has been realized with the 
+			intention to collect and to present to the audience the important witness about Matilde in the 
+			“Archivio storico Diocesano in Lucca”. To allow to an extended audience to have access to the documents,
+			there is also an Italian translation.
+		</p></div>
 		<div>It is recommended to go to full screen mode so that all available screen space is used to show the manuscript images and the transcription text.</div>
 		<div>For more information refer to the EVT Manual in the "doc" folder. 
 			If you have any suggestions or spot an error/bug please contact us at <a href="mailto:evt.developers@gmail.com">evt.developers@gmail.com</a></div>
@@ -78,7 +78,7 @@
 	<!-- EN: On/Off doubleview -->
 	<!-- IT: Attiva/Disattiva vista doppia pagina -->
 	<!-- default: true() -->
-	<xsl:param name="double_view" select="true()"/>
+	<xsl:param name="double_view" select="false()"/>
 	
 	<!-- ################ -->
 	<!-- PREFATORY MATTER -->
@@ -103,11 +103,6 @@
 	<!-- IT: Attiva/Disattiva Informazioni generali -->
 	<!-- default: true() -->
 	<xsl:param name="headerInfo" select="true()"/>
-	
-	<!-- EN: On/Off Traduzione -->
-	<!-- IT: Attiva/Disattiva Traduzione -->
-	<!-- default: true() -->
-	<xsl:param name="trad" select="true()"/>
 	
 	<!-- ############## -->
 	<!-- EDITION LEVELS -->
@@ -152,9 +147,9 @@
 	<!-- IT: E' possibile personalizzare il prefisso usato nella creazione delle classi degli elementi html di un edizione. -->
 	<xsl:variable name="ed_name1">dipl</xsl:variable>
 	<xsl:variable name="ed_name2">interp</xsl:variable>
-	<xsl:variable name="ed_name3">pro</xsl:variable> <!-- Addedd by FS -->
-	<xsl:variable name="ed_name4">crit</xsl:variable>
-	<xsl:variable name="ed_name5">trad</xsl:variable>
+	<xsl:variable name="ed_name3">tdipl</xsl:variable> <!-- Addedd by FS -->
+	<xsl:variable name="ed_name4">crit</xsl:variable> <!-- Addedd by FS -->
+	<xsl:variable name="ed_name5">trad</xsl:variable> <!-- Addedd by FS -->
 	<!-- Variable -->
 	
 	<!-- Thumb image -->

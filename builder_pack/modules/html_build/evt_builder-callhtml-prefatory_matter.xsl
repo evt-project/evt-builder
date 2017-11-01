@@ -72,19 +72,7 @@
 			</body>
 		</html>
 	</xsl:template>
-	
-	<!-- ###################### -->
-	<!-- TRANSLATE DOCUMENTS    -->
-	<!-- ###################### -->
-	<xsl:template name="trad_generation">
-		<html lang="en-US">
-			<body>
-				<div id="tradEdition">
-					<xsl:apply-templates select="//tei:p[@xml:lang='ita']"/>
-				</div>
-			</body>
-		</html>
-	</xsl:template>
+
 	
 	<!-- ####### -->
 	<!-- REGESTO -->
@@ -103,11 +91,11 @@
 					<div class="front">
 						<div class="info">
 							<div class="align-center"><span class="intestazione inline"> </span><xsl:value-of select="$front/tei:titlePart[@type='titoloatto']"/></div>
-							<div class="align-center"><span class="intestazione inline">A.S.D.Lu, A.C.Lu,</span><xsl:value-of select="$front/tei:titlePart[@type='segnatura']"/></div>
+							<div class="align-center"><span class="intestazione inline">A.S.D.Lu, A.A.Lu,</span><xsl:value-of select="$front/tei:titlePart[@type='segnatura']"/></div>
 						
 							<div class="align-center">
 								<span class="intestazione inline">
-									<xsl:apply-templates mode="pro" select="$front/tei:docDate"/>
+									<xsl:apply-templates mode="tdipl" select="$front/tei:docDate"/>
 								</span>
 							</div>
 							<div class="align-center"><span class="intestazione inline"> </span><xsl:value-of select="$front/tei:titlePart[@type='tipoatto']"/></div>
@@ -117,23 +105,23 @@
 						
 						<!-- ADD BY FS -->
 						<div class="reg_title">
-							<xsl:apply-templates select="$front/tei:div[@type='titoloatto']" mode="pro"/>
+							<xsl:apply-templates select="$front/tei:div[@type='titoloatto']" mode="tdipl"/>
 						</div>
 						<div class="reg_text">
 							<!--<xsl:value-of select="$front/tei:div[@type='regesto']"/>-->
-							<xsl:apply-templates select="$front/tei:div[@type='regesto']" mode="pro"/>
+							<xsl:apply-templates select="$front/tei:div[@type='regesto']" mode="tdipl"/>
 						</div>
 						<div class="reg_note">
 							<hr/>
 							<p class="bibliografia">
-								<xsl:apply-templates select="$front//tei:div[@type='orig_doc']" mode="pro"></xsl:apply-templates>
+								<xsl:apply-templates select="$front//tei:div[@type='orig_doc']" mode="tdipl"></xsl:apply-templates>
 							</p>
 							<p class="bibliografia">
 								<xsl:for-each select="$front//tei:div[@type='biblio']/tei:p">
-									<xsl:apply-templates mode='pro'/>
+									<xsl:apply-templates mode='tdipl'/>
 								</xsl:for-each>
 								<xsl:for-each select="$front//tei:div[@type='edizione']/tei:p">
-									<xsl:apply-templates mode='pro'/>
+									<xsl:apply-templates mode='tdipl'/>
 								</xsl:for-each>
 							</p>
 							<p class="crit_notes">
@@ -145,7 +133,7 @@
 							                    ma verrà visualizzata nel punto in cui compare il pointer. La sua trasformazione verrà dunque gestita dal template per il pointer -->
 										</xsl:when>
 										<xsl:otherwise>
-											<xsl:apply-templates mode="pro"/>
+											<xsl:apply-templates mode="tdipl"/>
 										</xsl:otherwise>
 									</xsl:choose>
 								</xsl:for-each>

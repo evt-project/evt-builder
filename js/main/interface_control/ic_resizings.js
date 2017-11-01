@@ -538,7 +538,7 @@ function cropLongTextLabel(text_label, min_char_num) {
 function updateLinesWidth(mainFrameElem){
     var lineNwidth = $('.dipl-lineN:last').outerWidth();
     var textInnerWidt = mainFrameElem.find("div[id*='text_cont']").innerWidth()*85/100;
-    $(mainFrameElem).find('.dipl-left, .interp-left, .pro-left').each(function(){
+    $(mainFrameElem).find('.dipl-left, .interp-left, .tdipl-left, .crit-left, .trad-left').each(function(){
         $(this).css({
             'max-width': (textInnerWidt-lineNwidth-43)+'px'
         });
