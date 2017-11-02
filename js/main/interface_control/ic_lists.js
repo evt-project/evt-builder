@@ -401,12 +401,6 @@ function bindListsBtnClick() {
                 closeSearchBox('fast', boxSuffix);
             }
             openListsBox(speed);
-
-            if ( !$('#lists_cont').hasClass('collapsed') ) {
-                if ( $('#span_list_select').length > 0 ) {
-                    $('#span_list_select').addClass('not_active').css('opacity', '0.5');
-                }
-            }
         }
     });
 }

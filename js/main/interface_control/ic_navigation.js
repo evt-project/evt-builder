@@ -298,7 +298,7 @@ function gotopage(pp_val, pp_lab, state){
             left_frame
                 .find('.like_select.filter')
                     .find('.option.selected')
-                        .removeClass('selected')
+                        .addClass('selected')
                         .trigger('click');
 
             // Aggiorna eventi sul click negli elementi del text
@@ -792,7 +792,8 @@ function bindEEselectClick() {
             
             // Faccio un controllo sul livello di edizione da attivare sul frame corrente
             // e se sto passando all'edizione diplomatica disattivo i filtri e le liste
-            if ( ee_val != 'diplomatic' ){ 
+            // Commentato da FS mostra filtri e liste anche in edizione diplomatica
+            if (( ee_val == 'diplomatic' )||( ee_val == 'critical' )||( ee_val == 'translation' )){ 
                 $("#"+contextual_parent)
                     .parents("div[id*='frame']")
                         .find('.like_select.filter')
@@ -835,7 +836,9 @@ function bindEEselectClick() {
                     
                     // Se sto attivando l'edizione diplomatica nell'altro frame
                     // Disattivo le liste e i filtri
-                    if ( (other_ee_val != 'diplomatic') && (!$("#"+other_parent).parents("div[id*='frame']").find('.toggleReg').hasClass('active'))) {
+                    // Commentto da FS - Mostra filtri e liste anche in ed diplomatica
+                    if ( (other_ee_val == 'diplomatic') || (other_ee_val == 'critical') || (other_ee_val == 'translation')
+                     && (!$("#"+other_parent).parents("div[id*='frame']").find('.toggleReg').hasClass('active'))) {
                         $("#"+other_parent)
                             .parents("div[id*='frame']")
                             .find('.like_select.filter')
@@ -844,9 +847,9 @@ function bindEEselectClick() {
                     } else {
                         $("#"+other_parent)
                             .parents("div[id*='frame']")
-                                .find('.like_select.filter')
-                                    .css('opacity', "0.5")
-                                    .addClass('not_active'); 
+                            .find('.like_select.filter')
+                                .css('opacity', "0.5")
+                                .addClass('not_active'); 
                     }
                     // carico nell'altro frame il nuovo livello di edizione trovato
                     gotoedition(pp_val, other_ee_val, other_frame, other_parent);
