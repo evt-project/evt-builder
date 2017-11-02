@@ -645,13 +645,6 @@ span.tdipl-supplied::before {
 span.tdipl-supplied::after {
 	content: "]";
 }
-/* <supplied> @reason="omitted" */
-span.tdipl-supplied[data-reason='omitted']::before {
-	content : "<";
-}
-span.tdipl-supplied[data-reason='omitted']::after {
-	content : ">";
-}
 /* <supplied> @reason="illegible" */
 span.tdipl-supplied[data-reason='illegible']::before {
 	content: "[";
@@ -660,7 +653,6 @@ span.tdipl-supplied[data-reason='illegible']::after {
 	content: "]";
 }
 
-/* ADD by FS */
 span.tdipl-del {
 	text-decoration: line-through; 
 }
@@ -673,7 +665,17 @@ span.tdipl-add {
 span.tdipl-surplus {
 	color: #934d4d;
 }
-
+SPAN.tdipl-damage { 
+	background-color: rgba(193,193,193, 0.7); 
+}
+span.tdipl-gap::before {
+	content: "[...";
+	color:rgba(193,193,193, 0.7);
+}
+span.tdipl-gap::after {
+	content: "]";
+	color:rgba(193,193,193, 0.7);
+}
 
 /** EDIZIONE CRITICA **/
 div.crit-zone{
@@ -869,6 +871,14 @@ span.crit-del {
 }
 span.crit-w {
 	display: inline-block;
+}
+span.crit-gap::before {
+	content: "[...";
+	color:rgba(193,193,193, 0.7);
+}
+span.crit-gap::after {
+	content: "]";
+	color:rgba(193,193,193, 0.7);
 }
 
 /**EDIZIONE DI TRADUZIONE */

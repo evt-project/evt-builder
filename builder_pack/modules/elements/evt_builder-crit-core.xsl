@@ -30,20 +30,7 @@
 	<!--             -->
 	<!-- Page layout -->
 	<!--             -->
-	
-	<!-- P Paragraphs -->
-	<xsl:template match="tei:p" mode="crit">
-		<xsl:element name="span">
-			<xsl:attribute name="data-id" select="@xml:id"/>
-			<xsl:attribute name="class" select="$ed_name4, name()" separator="-"/>			
-			 <xsl:if test="current()[not((string-length(normalize-space()))= 0)]">
-				<xsl:attribute name="class" select="$ed_name4, name()" separator="-"/>
-				<xsl:apply-templates mode="#current"> </xsl:apply-templates>
-			</xsl:if>
-			<xsl:text> </xsl:text>
-		</xsl:element>
-	</xsl:template>
-	
+		
 	<!-- L Verse line-->
 	<xsl:template match="tei:l" mode="crit">
 		<xsl:apply-templates mode="#current"/> 
