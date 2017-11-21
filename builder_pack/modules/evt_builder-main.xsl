@@ -153,8 +153,15 @@
 			</xsl:if>
 		</xsl:if>
 		
+		
+		
+		
 		<!-- GM -->
 		<xsl:if test="$viscoll_info">
+			<xsl:result-document method="xml" encoding="UTF-8" href="{$filePrefix}/data/output_data/listImage.xml" indent="yes">
+				<xsl:call-template name="prova"></xsl:call-template>
+			</xsl:result-document>
+			
 			<xsl:result-document method="html" encoding="UTF-8" media-type="text/plain" byte-order-mark="yes" href="{$filePrefix}/data/output_data/viscoll/viscoll-idno.html" indent="yes">
 				<xsl:element name="div">
 					<xsl:attribute name="id">viscoll_idno</xsl:attribute>
@@ -444,6 +451,10 @@
 				</xsl:element>
 			</xsl:for-each>
 		</xsl:element>
+	</xsl:template>
+	
+	<xsl:template name="prova">
+		<xsl:apply-templates select="tei:TEI//tei:facsimile" mode="create_imageList"></xsl:apply-templates>	
 	</xsl:template>
 	
 	<!-- GM -->
