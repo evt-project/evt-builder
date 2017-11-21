@@ -441,6 +441,7 @@ function openBookreaderMode(){
 		$('#BRicon_book_left').prop("disabled", false);
 		$('#BRicon_book_right').prop("disabled", false);
 	}
+	
 
     if (!$('#msDesc_cont').is(':visible')) {
         $('#switch_msDesc').removeClass('active');
