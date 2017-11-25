@@ -44,7 +44,7 @@ body {
 	border-bottom-color: #acacac;
 	border-left-color: #acacac;
 	float: left;
-	margin-left: 0px;
+	margin-left: -10px; /* Prima era 0px */
 	max-width: 150px; /* GM */
 }
 
@@ -76,13 +76,13 @@ body {
 	height: auto; /* Prima era 295px */
 	text-decoration: none;
 	width: 260px; /* Prima era 400px */
-	position: static;
+	position: relative; /* Prima era static */
 	background-color: #415a6c;
 	border-bottom-width: 4px;
 	border-bottom-style: solid;
 	border-bottom-color: #acacac;
 	float: left;
-	margin-left: 2.5px;
+	margin-left: 6px; /* Prima era 2.5px */
 	text-align: center;
 	vertical-align: bottom;
 	padding-top: 15px;
@@ -99,18 +99,19 @@ body {
 	height: auto; /* Prima era 295px */
 	text-decoration: none;
 	width: 260px; /* Prima era 400 px */
-	position: static;
+	position: relative; /* Prima era static */
 	background-color: #415a6c;
 	border-top-right-radius: 20px;
 	border-bottom-width: 4px;
 	border-bottom-style: solid;
 	border-bottom-color: #acacac;
-	float: left;
+	/*float: left;*/
 	text-align: center;
 	vertical-align: bottom;
 	padding-right: 5px;
 	padding-top: 15px;
-	margin-left: 2.5px;
+	margin-left: 416px; /* Prima era 2.5px */
+	margin-top: 0px; /* Prima non c'era */
 }
 
 #imgleft {
