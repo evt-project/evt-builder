@@ -380,6 +380,11 @@ function bindCollapseMenuBtnClick() {
             setMagHeight(); //Add for Mag
             $(this).attr('data-action', 'collapse');
         }
+		
+		// GM: Se viscoll è attivo non si deve vedere image_tool
+		if($('#viscoll').hasClass('active')) {
+			$("#image_tool").hide();
+		}
 
         // Modifico lo stile e la posizione dell'icona
         if($(this).hasClass('fa-caret-up')){
