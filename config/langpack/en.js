@@ -125,6 +125,7 @@ jquery_lang_js.prototype.lang.en = {
 	"LIST_ORG": "List of organizations",
 	"LIST_TERM": "List of words",
 	"LIST_GLOSS": "List of glosses",
+	"LIST_DOC": "Chronological index",
 	"NO_ELEMENTS": "No elements",
     "PAGE_MISSING": "(miss)",
     "PAGE_MISSING_RIGHT": " - (miss)",
