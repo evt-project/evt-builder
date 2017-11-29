@@ -313,6 +313,12 @@
 	<!-- default: true() -->
 	<xsl:param name="list_gloss" select="true()"/>
 	
+	
+	<!-- default: true() -->
+	<!-- IT: Attiva/disattiva indice cronologico -->
+	<!-- default: true() -->
+	<xsl:param name="list_doc" select="true()"/>
+	
 	<!-- EN: It is possibile to personalize the elements in the filter select element that will select and highlight particular (groups of) words.
 			 In order to remove an element from the list in the application just remove the element itself.
 			 In order to add a new element to the list you simply need to know that the tag corresponds to the class name that has be given to the html element referring to the particular words to be selected. -->
