@@ -120,6 +120,9 @@
                     <xsl:if test="$list_gloss=true()">
                         <listGloss active="1" lang="def">LIST_GLOSS</listGloss>
                     </xsl:if>
+                    <xsl:if test="$list_doc=true()">
+                        <listDoc active="1" lang="def">LIST_DOC</listDoc>
+                    </xsl:if>
                 </liste>
                 <editions>
                     <xsl:for-each select="$edition_array">

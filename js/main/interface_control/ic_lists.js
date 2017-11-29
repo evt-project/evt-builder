@@ -212,8 +212,8 @@ function prepareOccurrencesList(elem, listName){
     list_occ = $("<div/>").addClass('occurences');
     occ_ref = $('#list_'+listName)
                     .find('#occorrenze_'+listName)
-                        .find("span[data-ref='"+list_ref+"']");
-    if(occ_ref.length > 0){
+                        .find("span[data-ref='"+list_ref+"']"); // per l'indice cronologico non c'è un data-ref come attributo. 
+    if(occ_ref.length > 0){                                     //E' per questo che non visualizza i link anche se li mette nella lista HTML?   
         occ_ref.each(function(){
             var pb, doc, pb_n;
             var doc_lab;

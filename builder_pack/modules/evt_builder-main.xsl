@@ -165,6 +165,18 @@
 					</xsl:element>
 				</xsl:result-document>
 			</xsl:if>
+			<!--indice cronlogico-->	
+				<xsl:if test="$list_doc=true()">
+					<xsl:result-document method="html" encoding="UTF-8" media-type="text/plain" byte-order-mark="yes" href="{$filePrefix}/data/output_data/liste/listDoc.html" indent="yes">
+						<xsl:element name="div">
+							<xsl:attribute name="id">listDoc</xsl:attribute>
+							<xsl:attribute name="class">can-change-font-size</xsl:attribute>
+							<xsl:call-template name="listDoc"></xsl:call-template>
+							<xsl:apply-templates select="$step0" mode="listDocLink"></xsl:apply-templates>
+						</xsl:element>
+					</xsl:result-document>
+				</xsl:if>
+			
 			
 			<!-- SEARCH -->
 			<xsl:if test="$search=true()">

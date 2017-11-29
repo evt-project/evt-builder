@@ -16,41 +16,71 @@
             </xd:short>
         </xd:doc>
     <!-- In order to make it work properly you need to add mode="interp dipl #default" to each template -->
-    
-    <xsl:param name="list_doc" select="true()"/>
-    
-    <xsl:output indent="yes" method="html" encoding="UTF-8" media-type="text/plain"
-        doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN"
-        doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
-    
-    <xsl:template match="/" priority="9" mode="interp dipl #default">
-        <xsl:if test="$list_doc=true()">
-            <xsl:result-document method="html" encoding="UTF-8" media-type="text/plain" byte-order-mark="yes" href="{$filePrefix}/data/output_data/liste/listDoc.html" indent="yes">
-                <xsl:element name="div">
-                    <xsl:attribute name="id">listDoc</xsl:attribute>
-                    <xsl:attribute name="class">can-change-font-size</xsl:attribute>
-                    <xsl:call-template name="listDoc"></xsl:call-template>
-                </xsl:element>
-            </xsl:result-document>
-        </xsl:if>
-    </xsl:template>
-    
+   
     <xsl:template name="listDoc">
         <xsl:element name="ul">
             <xsl:attribute name="id" select="'ul_listDocument'"/>
             <xsl:attribute name="class" select="'ul_list'"/>
-            <xsl:for-each select="$root//tei:text/tei:group/tei:text"><!--Se non c'è group non ha senso, giusto?-->
+            <xsl:for-each select="$root//tei:text/tei:group/tei:text">
                 <xsl:element name="li">
                     <xsl:attribute name="id" select="@xml:id" />
-                    <xsl:attribute name="class" select="'list_element'"/>
-                    <!--<xsl:attribute name="data-order-list" select=""/>--><!--Per l'ordinamento questo ci va?-->
-                    <!--<xsl:value-of select="substring(@xml:id, 1, 1)"/>-->
+                    <xsl:attribute name="class" select="'list_element'"/> 
+                    <xsl:attribute name="data-sort-date">
+                       <xsl:choose>
+                           <xsl:when test="current()//tei:docDate//tei:date[@when]">
+                            <xsl:call-template name="dateValue">
+                                <xsl:with-param name="date"><xsl:value-of select="tei:front//tei:docDate//(tei:date[@when])[1]/@when"/></xsl:with-param>
+                            </xsl:call-template>  
+                           </xsl:when>
+                           <xsl:when test="current()//tei:docDate//tei:date[@notBefore]">
+                               <xsl:call-template name="dateValue">
+                                   <xsl:with-param name="date"><xsl:value-of select="tei:front//tei:docDate//tei:date/@notBefore"/></xsl:with-param>
+                               </xsl:call-template>  
+                           </xsl:when>
+                           <xsl:when test="current()//tei:docDate//tei:date[@from]">
+                               <xsl:call-template name="dateValue">
+                               <xsl:with-param name="date"><xsl:value-of select="tei:front//tei:docDate//tei:date/@from"/></xsl:with-param>
+                               </xsl:call-template>  
+                           </xsl:when>  
+                           
+                         <!-- per <date> sono ammessi altri attributi non usati nel CP. Si devono prendere in considerazione?-->
+                        <!--   <xsl:otherwise>
+                               <xsl:call-template name="dateValue">
+                               <xsl:with-param name="date"><xsl:value-of select="tei:front//tei:docDate//tei:date/@"/></xsl:with-param>
+                               </xsl:call-template>  
+                           </xsl:otherwise>-->
+                      </xsl:choose>        
+                    </xsl:attribute>
+                    <xsl:attribute name="data-sort-num">
+                           <xsl:value-of select="current()//tei:front//tei:titlePart[@type='numerazioneNuova']"/>
+                    </xsl:attribute>
                     <xsl:call-template name="document" />
                 </xsl:element>
             </xsl:for-each>
         </xsl:element>
     </xsl:template>
     
+    
+    
+    <xsl:template name="dateValue">
+        <xsl:param name="date"/>
+        <xsl:choose>
+            <!--funziona correttamente solo usando questo ordine per i match-->
+            <xsl:when test="matches($date, '\d{4}-\d{2}-\d{2}')">
+               <xsl:value-of select="$date"/> 
+            </xsl:when>
+            <xsl:when test="matches($date, '\d{4}-\d{2}')">
+                <xsl:value-of select="concat($date, '-01')"/>
+            </xsl:when>
+            <xsl:when test="matches($date, '\d{4}')">
+                <xsl:value-of select="concat($date, '-01', '-01')"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="$date"/>
+            </xsl:otherwise>
+        </xsl:choose>      
+    </xsl:template>
+
     <xsl:template name="document">
         <xsl:choose>
             <xsl:when test="current()//tei:front">
@@ -64,7 +94,7 @@
                             <xsl:choose>
                                 <xsl:when test="current()//tei:docDate//tei:date[@when]">
                                     <!--voglio solo la prima data nell'ordine cronologico. Il caso dell'attributo when è l'unico in cui posso avere più date-->
-                                    <xsl:attribute name="data-value"><xsl:value-of select="tei:front//tei:docDate//(tei:date[@when])[1]/@when"/></xsl:attribute>
+                                    
                                     <xsl:value-of select="tei:front//tei:docDate//(tei:date[@when])[1]"/>
                                     <xsl:text>&#xA0;</xsl:text>   
                                 </xsl:when> 
@@ -151,7 +181,7 @@
                     </xsl:if>
                 </xsl:element>
                 
-               <!-- <span class="toggle_list_element"><i class="fa fa-angle-right"></i></span> questo c'è nelle altre liste. Funzione?-->
+             <span class="toggle_list_element"><i class="fa fa-angle-right"></i></span>
             </xsl:when>
             
             <xsl:otherwise>    
