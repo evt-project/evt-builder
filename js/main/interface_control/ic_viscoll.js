@@ -18,38 +18,52 @@ function bindViscollClick(array) {
 				$('#BRicon_book_left').prop("disabled", false);
 				$('#BRicon_book_right').prop("disabled", false);
 			}else{
-				// Altrimenti gli aggiungo la class active e nascondo gli altri elementi
-				var viscoll = $('#viscoll').addClass('active');
-				$("#image_elem").hide();
-				$("#image_fade").hide();
-				$("#image_tool").hide();
-				$('#BRpager').slider( "option", "disabled", true );
-				$('#BRicon_book_left').prop("disabled", true);
-				$('#BRicon_book_right').prop("disabled", true);
+				$("#image_tool").hide(); /* A volte lo nasconde e a volte no, perchè? */
+				var img = $('#iviewerImage');
+				var loaded_img = imgControl(img);  // Se l'immagine è stata caricata
+				if(loaded_img == true) {
+					// Altrimenti gli aggiungo la class active e nascondo gli altri elementi
+					var viscoll = $('#viscoll').addClass('active');
+					$("#image_elem").hide();
+					$("#image_fade").hide();
+					//Nascondo #image_tool sopra (spostato)
+					$('#BRpager').slider( "option", "disabled", true );
+					$('#BRicon_book_left').prop("disabled", true);
+					$('#BRicon_book_right').prop("disabled", true);
 
-				var id_idno = $('.viscoll_idno').attr('id');
-				//$('#image_cont').load("data/output_data/viscoll/"+id_idno+"/"+id_idno+".html");
-				$('<iframe></iframe>').appendTo('#image_cont');
-				$("iframe").attr({
-					"id": "viscoll_iframe",
-					"name": "viscoll_iframe",
-					"src": "data/output_data/viscoll/"+id_idno+"/"+id_idno+".html",
-					"min-width": "436px",
-					"width": "100%",
-					"height": "100%",
-					"scrolling": "auto",
-					"overflow": "auto",
-					"overflow-x": "hidden",
-					"position": "absolute",
-					"top": "0px"
-				});
-
+					var id_idno = $('.viscoll_idno').attr('id');
+					//$('#image_cont').load("data/output_data/viscoll/"+id_idno+"/"+id_idno+".html");
+					$('<iframe></iframe>').appendTo('#image_cont');
+					$("iframe").attr({
+						"id": "viscoll_iframe",
+						"name": "viscoll_iframe",
+						"src": "data/output_data/viscoll/"+id_idno+"/"+id_idno+".html",
+						"min-width": "436px",
+						"width": "100%",
+						"height": "100%",
+						"scrolling": "auto",
+						"overflow": "auto",
+						"overflow-x": "hidden",
+						"position": "absolute",
+						"top": "0px"
+					});
+				}
 			}
 
 			myFunction(array);
 
 	});
 
+}
+
+function imgControl (img) {
+    var imageOk;
+    if (img.is(':visible')) { // Se l'immagine è visibile
+		imageOk = true;
+	}else{
+		imageOk = false;
+	}
+	return imageOk;
 }
 
 function myFunction(array) {
