@@ -63,6 +63,11 @@ jquery_lang_js.prototype.lang.en = {
 	"OPEN_LISTS": "Open Lists",
 	"LISTS": "Lists",
 	
+	"ASCENDING_ORDER":"Ascending", 
+	"DESCNDING_ORDER":"Descending",
+	"SORT_ORDER":"Choose sorting order",
+	"SELECTOR_SORT_ATTRIBUTE":"Select sort attribute",
+	
 	"EVT_INFORMATION": "EVT information",
 	"GENERAL_INFORMATION": "General information",
 	"TITLE": "Title of the edition",
