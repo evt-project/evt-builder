@@ -337,6 +337,7 @@ $(function() {
 					filterListElements(this);
 				});
 				
+				var listContainer = $('#lists_cont');
 				$(xml).find('liste').children().each(function(){
 					if ($(this).attr('active') == '1'){
 						var listName, listLabel;
@@ -356,26 +357,23 @@ $(function() {
 								openList(this, listName);
 							})
 							.appendTo('#list_header');
-						$('#lists_cont').find('.list').first().addClass('list_opened').show();
-						$('#lists_cont').find('.labelList').first().addClass('active');
-						$('.list_filter').first().trigger('click');
 
-						$('#list_'+listName).load("data/output_data/liste/"+listName+".html div", function(){
-
-							if ( $('#list_'+listName).find('li').length == 0 ) {
-								$('#list_'+listName).remove();
+						var listElement = $('#list_'+listName);
+						listElement.load("data/output_data/liste/"+listName+".html div", function(){
+							if ( listElement.find('li').length == 0 ) {
+								listElement.remove();
 								$('#header_'+listName).remove();
 
 								if ( $('#list_header').find('.labelList').length == 0 ) {
-									$('#lists_cont').remove();
+									listContainer.remove();
 									$('#list_link').remove();
 								}
 							} else {
-								$('[id]').each(function(){
+								listElement.find('[id]').each(function(){
 									$('[id="' + this.id + '"]:gt(0)').remove();
 								});
 								
-								$('#list_'+listName)
+								listElement
 									.find('.list_element').find('.toggle_list_element, .entity_name').click(function(){
 										showListElementOccurrences($(this).parent(), listName);
 									});
@@ -386,17 +384,24 @@ $(function() {
 					        }
 					        /* /end Integration by LS */
 					        InitializeRefs();
-					        $('.list_filter:first').trigger('click');
+
+					        // If chronological index there are no letters
+					        if (listName !== 'listDoc') {
+					        	$('.list_filter:first').trigger('click');
+					        }
 						});
 					}
 				});
+				listContainer.find('.list').first().addClass('list_opened').show();
+				listContainer.find('.labelList').first().addClass('active');
+				
 				if ($.browser.safari) {
 					$('#list_header .labelList').css('top', '1px');
 				} else if ($.browser.webkit) {
 					$('#list_header .labelList').css('top', '-8.5px');
 				}
 			} else {
-				$('#lists_cont').remove();
+				listContainer.remove();
 				$('#list_link').remove();
 			}
 
@@ -632,9 +637,13 @@ $(function() {
 			/* FILTER SELECT CLICK */
 			bindFilterOptionClick();
 			
+			/* BIND LIST TOOL SELECT CLICK */
+			bindDocListSortSelectClick();
+
 			/* GENERIC SELECT CLICK */
 			bindOptionClick();
 			
+
 			/* GENERIC SELECT HOVER */
 			bindOptionHover();
 
@@ -946,6 +955,7 @@ $(function() {
 
 		/*= LISTS =*/
 		bindListsBtnClick();
+		bindListsSortinOrderBtnClick();
 
 		/*= VIEW MODES =*/
 		bindViewModesBtnsClick();	

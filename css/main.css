@@ -2158,6 +2158,7 @@ div.doc.not_current:hover{
 	margin: auto;
 	text-align: center;
 }
+
 .bold_search{
 	font-weight: bold;
 }
@@ -2166,7 +2167,9 @@ div.doc.not_current:hover{
 	color: #999;
 	font-size: 90%;
 }
-
+#lists_cont[data-list-active="listDoc"] #list_letters {
+	display: none;
+}
 #lists_cont #list_letters span:hover{
 	cursor: pointer;
 	color:#000;
@@ -2219,12 +2222,39 @@ div.doc.not_current:hover{
 	padding: 0px 30px;
 }
 
+#lists_cont[data-list-active="listDoc"] .list {
+	height: 90%;
+	height: -moz-calc(100% - 86px);
+	height: -webkit-calc(100% - 86px);
+    height: -o-calc(100% - 86px);
+	height: calc(100% - 86px);
+    top: 34px;
+}
+
 #lists_cont .list{
 	display: none;
 }
 
 #lists_cont.collapsed .list{
 	top: 40px;
+}
+
+#list_tools {
+	top: 34px;
+	position: relative;
+	margin: auto;
+	text-align: right;
+	display: none;
+	padding: 9.5px 7px 7px;
+}
+#lists_cont[data-list-active="listDoc"] #list_tools {
+	display: block;
+}
+#list_tools .like_select {
+	display: inline-block;
+}
+#list_tools .like_select .option_container {
+	width: auto !important;
 }
 ul.ul_list li{
 	list-style-type: none;

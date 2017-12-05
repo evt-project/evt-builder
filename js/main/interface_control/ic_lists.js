@@ -136,6 +136,9 @@ function filterListElements(filter){
     } else {
         listsElementsFiltered = $(".list_element[data-order-list='"+filterValue.toLowerCase()+"'], .list_element[data-order-list='"+filterValue.toUpperCase()+"']");
     }
+    
+    // Elements in chronological index (listDoc) should always be visible 
+    $('#listDoc .list_element').show();
     listsElementsFiltered.show();
     if (filterValue.toLowerCase() == 'c') {
         $(".list_element[data-order-list='Ç']").show();
@@ -168,13 +171,15 @@ function filterListElements(filter){
 
 /*= OPEN SINGLE LIST =*/
 function openList(elem, listName){
-    if ( $('#lists_cont').hasClass('collapsed') ) {
+    var listCont = $('#lists_cont');
+    if ( listCont.hasClass('collapsed') ) {
         $('#toggle_list_cont').trigger('click');
     }
     $('.labelList.active').removeClass('active');
     $(elem).addClass('active');
     $('.list.list_opened').hide();
     $('#list_'+listName).addClass('list_opened').show();
+    listCont.attr('data-list-active', listName);
 }
 
 /*= SHOW LIST ELEMENT OCCURRENCES =*/
@@ -420,6 +425,24 @@ function bindListsBtnClick() {
                 }
             }
         }
+    });
+}
+
+function bindDocListSortSelectClick() {
+    $(".docList_sort__attribute_select .option_container .option").click(function(){
+        console.log($(this).attr('data-value'));
+        if(! $(this).hasClass('selected')){
+            // Is not currently selected
+        } else {
+            // Is currently selected
+        }
+    });
+}
+
+function bindListsSortinOrderBtnClick() {
+    $('#sortingOrder').click(function(){
+        // Update sorting order
+        console.log("TODO: Update Sorting Order");
     });
 }
 
