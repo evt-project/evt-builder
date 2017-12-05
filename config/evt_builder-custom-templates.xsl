@@ -14,41 +14,22 @@
 
 
     <xsl:template name="sortOptions">
-        <xsl:element name="div">
-            <xsl:attribute name="id" select="'span_listDoc_select'"/>
-            <xsl:attribute name="class" select="'like_select'"/>
-            <xsl:attribute name="title" select="'SELECTOR_SORT_ATTRIBUTE'"/>
-            <xsl:attribute name="lang" select="'def'"/>
-            
+        <span id="span_listDoc_select" class="like_select" title="SELECTOR_SORT_ATTRIBUTE" lang="def">
             <div class="docList_sort__attribute_select">
                 <span data-value="sort_date" class="label_selected" lang="def">DATE</span>
                 <div class="open_select open_down">
                     <i class="fa fa-sort-desc"></i>
                 </div>
                 <div class="option_container down">      
-                        <xsl:element name="div">
-                            <xsl:attribute name="class">option </xsl:attribute>
-                            <xsl:attribute name="data-value" select="'sort_date'"/>          
-                            <span lang="def">DATE</span>
-                        </xsl:element>
-                    <xsl:element name="div">
-                        <xsl:attribute name="class">option </xsl:attribute>
-                        <xsl:attribute name="data-value" select="'sort_document'"/>          
-                        <span lang="def">DOCUMENT</span>
-                    </xsl:element>  
+                    <div class="option" data-value="sort_date" lang="def">DATE</div>
+                    <div class="option" data-value="sort_document" lang="def">DOCUMENT</div>
                 </div>
             </div>
-            <xsl:element name="div">
-                <xsl:attribute name="id" select="'sortingOrder'"/>
-                <xsl:attribute name="class" select="'mainButtons'"/>
-                <xsl:attribute name="title" select="'SORT_ORDER'"/>
-                <xsl:attribute name="lang" select="'def'"/>
-                <span lang="def">ASCENDING_ORDER</span>
-                <i class="fa fa-sort-amount-asc"></i>
-            </xsl:element>
-            
-        </xsl:element>
-
+        </span>
+        <div id="sortingOrder" class="mainButtons" title="SORT_ORDER" lang="def">
+            <span lang="def">ASCENDING_ORDER</span>
+            <i class="fa fa-sort-amount-asc"></i>
+        </div>
     </xsl:template>
     
     

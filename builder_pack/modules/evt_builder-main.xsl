@@ -172,7 +172,6 @@
 							<xsl:attribute name="id">listDoc</xsl:attribute>
 							<xsl:attribute name="class">can-change-font-size</xsl:attribute>
 							<!-- template per la select e il pulsante per l'ordinamento asc/desc-->
-							<xsl:call-template name="sortOptions"></xsl:call-template>
 							<xsl:call-template name="listDoc"></xsl:call-template>
 							<xsl:apply-templates select="$step0" mode="listDocLink"></xsl:apply-templates>
 						</xsl:element>

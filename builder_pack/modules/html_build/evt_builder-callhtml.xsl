@@ -957,6 +957,9 @@
 									<span class="list_filter" data-filter-type="first_letter" data-value="Z">Z</span>
 									<span lang="def" class="list_filter" data-filter-type="first_letter" data-value="*">ALL</span>
 								</div>
+								<div id="list_tools" class="bottomBoxContent">
+									<xsl:call-template name="sortOptions"></xsl:call-template>
+								</div>
 							</div>
 							<xsl:if test="$document_navigation=true()">
 								<xsl:element name="span">
