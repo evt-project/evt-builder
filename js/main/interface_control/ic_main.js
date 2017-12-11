@@ -955,7 +955,10 @@ $(function() {
 
 		/*= LISTS =*/
 		bindListsBtnClick();
-		bindListsSortinOrderBtnClick();
+		//bindListsSortinOrderBtnClick();
+		
+		
+		bindDocListSortSelectClick();
 
 		/*= VIEW MODES =*/
 		bindViewModesBtnsClick();	
