@@ -241,14 +241,15 @@ function chooseZoomMag() {
 		$("#mag_image_elem, #thumb_cont").css({
 			"display": "none"
 		});
+		
+        if (!$('#viscoll').hasClass('active') && !$('#image_tool').hasClass('menuClosed')) {
+            console.console.log('chooseZoomMag menuClosed');
+            $("#image_tool").css({
+                "display": "block",
+                "overflow": "hidden"
+            }); //Add by CDP per gestire la scomparsa del menu
+        }
 
-		if (!$('#viscoll').hasClass('active') && !$('#image_tool').hasClass('menuClosed')) {
-			console.console.log('chooseZoomMag menuClosed');
-			$("#image_tool").css({
-				"display": "block",
-				"overflow": "hidden"
-			}); //Add by CDP per gestire la scomparsa del menu
-		}
 	}
 }
 

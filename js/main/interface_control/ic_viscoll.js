@@ -20,7 +20,7 @@ function bindViscollClick(array) {
 			}else{
 				$("#image_tool").hide(); /* A volte lo nasconde e a volte no, perchè? */
 				var img = $('#iviewerImage');
-				var loaded_img = imgControl(img);  // Se l'immagine è stata caricata
+				var loaded_img = isImgOk(img);  // Se l'immagine è stata caricata
 				if(loaded_img == true) {
 					// Altrimenti gli aggiungo la class active e nascondo gli altri elementi
 					var viscoll = $('#viscoll').addClass('active');
@@ -47,6 +47,7 @@ function bindViscollClick(array) {
 						"position": "absolute",
 						"top": "0px"
 					});
+					emptyImageControl();
 				}
 			}
 
@@ -56,14 +57,34 @@ function bindViscollClick(array) {
 
 }
 
-function imgControl (img) {
-    var imageOk;
+function isImgOk (img) {
+    var isImageOk;
     if (img.is(':visible')) { // Se l'immagine è visibile
-		imageOk = true;
+		isImageOk = true;
+		//alert("E' stata caricata");
 	}else{
-		imageOk = false;
+		isImageOk = false;
+		//alert("Non è stata caricata");
 	}
-	return imageOk;
+	return isImageOk;
+}
+
+function emptyImageControl() {
+// Nel fil XSLT ho aggiunto una variabile (emptyImage) che permette di aggiungere lo <span> anche quando l'immagine non è stata inserita
+	var i = 0;
+	$("#viscoll_iframe").load(function () {  // Se il frame è stato caricato
+		var fancy = $("#viscoll_iframe").contents().find(".fancybox"); // Trovo tutti gli elementi a con classe .fancybox
+		//console.log(fancy);
+		while(i != fancy.length) {
+			var elem = fancy[i];
+			var sibling = elem.nextSibling;
+			var text_node = sibling.nodeValue;
+			if(elem.childNodes.length == 0) {
+				$('<img src="../../../../images/empty-image.jpg" height="145"/><img src="../../../../images/empty-image.jpg" height="145"/>').appendTo(elem);
+			}
+			i++;
+		}
+	});
 }
 
 function myFunction(array) {
