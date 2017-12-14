@@ -405,7 +405,7 @@
 
 
                                 </div>
-
+                                
                                 <div class="img1">
                                     <a class="fancybox fancybox.iframe" rel="set{@n}"
                                         title="(Quire {$quireNo}, Unit {$leftFol}.{$rightFol}, inside)"
@@ -1244,6 +1244,8 @@
 
                                 </div>
 
+                                <xsl:variable name="emptyImage1" select="'true'"/> <!-- GM: caso in cui l'utente ha inserito più fogli ma non ci sono le immagini -->
+                                <xsl:variable name="emptyImage2" select="'true'"/>
                                 <div class="img1"> <!-- GM -->
                                     <a class="fancybox fancybox.iframe" rel="set{$quireNo}.{@n}"
                                         title="(Quire {$quireNo}, Unit {$leftFol}.{$rightFol}, inside)"> <!-- Ho tolto href -->
@@ -1268,7 +1270,7 @@
                                     <!--<br/>--> <!-- GM: tolto -->
                                     <xsl:value-of select="$insideLeftFolNo"/>
                                     <xsl:if
-                                        test="contains($insideRightImg,'.') and contains($insideLeftImg,'.')">
+                                        test="contains($insideRightImg,'.') and contains($insideLeftImg,'.') or $emptyImage1='true'"> <!-- GM -->
                                         <span class="spacer">
                                             <xsl:text> </xsl:text>
                                         </span>
@@ -1299,7 +1301,7 @@
                                     <!--<br/>--> <!-- GM: tolto -->
                                     <xsl:value-of select="$outsideLeftFolNo"/>
                                     <xsl:if
-                                        test="contains($outsideLeftImg,'.') and contains($outsideRightImg,'.')">
+                                        test="contains($outsideLeftImg,'.') and contains($outsideRightImg,'.') or $emptyImage2='true'"> <!-- GM -->
                                         <span class="spacer">
                                             <xsl:text> </xsl:text>
                                         </span>
