@@ -16,27 +16,5 @@
             </xd:short>
         </xd:doc>
     <!-- In order to make it work properly you need to add mode="interp dipl #default" to each template -->
-    <xsl:template match="tei:lb" mode="interp dipl #default">
-        <span class="spazio"></span>
-    </xsl:template>
-    <xsl:template match="tei:l" mode="interp dipl #default">
-        <xsl:choose>
-            <xsl:when test="@n=1">
-                <p class="verso"><sup class="cerchio"><xsl:value-of select="@n"/></sup><xsl:apply-templates mode="#current"/></p>
-            </xsl:when>
-            <xsl:when test="@n != preceding::tei:l[1]/@n"> <!-- first part of l -->
-                <xsl:choose>
-                    <xsl:when test="@n=9">
-                        <p class="verso"><sup class="cerchio"><xsl:value-of select="@n"/></sup><xsl:apply-templates mode="#current"/><xsl:value-of select="following::tei:l[1]"/><xsl:value-of select="following::tei:l[2]"/></p>
-                    </xsl:when>
-                    <xsl:when test="@n != following::tei:l[1]/@n"> <!--  if l has only one part -->
-                        <p class="verso"><sup class="cerchio"><xsl:value-of select="@n"/></sup><xsl:apply-templates mode="#current"/></p>
-                    </xsl:when>
-                    <xsl:otherwise> <!-- not first part of l -->
-                        <p class="verso"><sup class="cerchio"><xsl:value-of select="@n"/></sup><xsl:apply-templates mode="#current"/><xsl:value-of select="following::tei:l[1]"/></p>
-                    </xsl:otherwise>
-                </xsl:choose>               
-            </xsl:when>
-        </xsl:choose>
-    </xsl:template>
+    
 </xsl:stylesheet>
