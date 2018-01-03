@@ -975,6 +975,18 @@
 							</xsl:if>
 							<!-- Text frame bottom menu -->
 							<div id="text_tool" class="bottom-menu">
+								<xsl:if test="$versi_prosa=true()">
+									<xsl:element name="span">
+										<xsl:attribute name="id" select="'versi'"/>
+										<xsl:attribute name="class" select="'mainButtons'"/>
+										<xsl:attribute name="data-boxsuffix" select="''"/>
+										<xsl:attribute name="onclick" select="'visualizzaVersi()'"/>
+										<xsl:attribute name="title" select="'versi/prosa'"/>
+										<xsl:attribute name="lang" select="'def'"/>
+										<span lang="def">Versi</span>
+										<i class="fa fa-align-left" aria-hidden="true"></i>				
+									</xsl:element>
+								</xsl:if>
 								<xsl:if test="$search=true()">
 									<xsl:element name="span">
 										<xsl:attribute name="id" select="'search_link'"/>
