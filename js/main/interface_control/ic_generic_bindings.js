@@ -75,10 +75,14 @@ function bindOpenSelectClick() {
                         scrollTop: 0,
                         height:"toggle"
                     }, 0, function(){
-                        var scroll = $(this).find('.option.selected').position().top;
-                        option_container.animate({
-                            scrollTop: scroll
-                        }, 0);
+                        var optionSelected = $(this).find('.option.selected'), 
+                            optionSelectedPosition = optionSelected.position();
+                        var scroll = optionSelectedPosition !== undefined ? optionSelectedPosition.top : undefined;
+                        if (scroll !== undefined) {
+                            option_container.animate({
+                                scrollTop: scroll
+                            }, 0);
+                        }
                     });
                 }
             }
