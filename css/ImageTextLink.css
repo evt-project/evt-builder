@@ -152,11 +152,22 @@ div.AnnText{
 
 .SelectedAnnMenuItem{
     cursor: pointer;
-	background-color: rgba(213,177,125,0.9);
-	/*opacity: 0.9;
-	filter:alpha(opacity=90);  For IE8 and earlier */
-	border: 1px solid #b99562;
+    background-color: rgba(213,177,125,0.9);
+    /*opacity: 0.9;
+    filter:alpha(opacity=90);  For IE8 and earlier */
+    border: 1px solid #b99562;
     color: #000000;
+}
+
+/* Modifiche per gestione VERSI/PROSA */
+.AnnMenuItem,
+.HighlightedAnnMenuItem,
+.SelectedAnnMenuItem,
+div.dipl-left,
+.dipl.line,
+div.interp-left,
+.interp.line {
+    display: inline;
 }
 /* CDP provvisorio */
 .HighlightedAnnMenuItem div.dipl-right, .HighlightedAnnMenuItem div.dipl-center, .HighlightedAnnMenuItem div.interp-right, .HighlightedAnnMenuItem div.interp-center,

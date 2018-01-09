@@ -142,7 +142,7 @@
 			<xsl:when test="@xml:id">
 				<xsl:choose>
 					<xsl:when test="(not(ends-with(@xml:id, 'reg')) and not(ends-with(@xml:id, 'corr')) and not(ends-with(@xml:id, 'expan')))">
-						<!--<xsl:element name="tei:lb">
+						<xsl:element name="tei:lb">
 							<xsl:copy-of select="@* except(@xml:id)"></xsl:copy-of>
 							<xsl:attribute name="{@xml:id/name()}">
 								<xsl:choose>
@@ -160,8 +160,6 @@
 									</xsl:otherwise>
 								</xsl:choose>	
 							</xsl:attribute>
-						</xsl:element>-->
-						<xsl:element name="span">
 							<xsl:attribute name="class" select="'lb'" separator="-"/>
 						</xsl:element>
 						<xsl:if test="@n">
