@@ -980,7 +980,7 @@
 										<xsl:attribute name="id" select="'versi'"/>
 										<xsl:attribute name="class" select="'mainButtons'"/>
 										<xsl:attribute name="data-boxsuffix" select="''"/>
-										<xsl:attribute name="onclick" select="'visualizzaVersi()'"/>
+										<xsl:attribute name="onclick" select="'viewVerses()'"/>
 										<xsl:attribute name="title" select="'versi/prosa'"/>
 										<xsl:attribute name="lang" select="'def'"/>
 										<span lang="def">Versi</span>
