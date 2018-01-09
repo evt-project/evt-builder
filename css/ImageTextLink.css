@@ -167,7 +167,7 @@ div.dipl-left,
 .dipl.line,
 div.interp-left,
 .interp.line {
-    display: inline;
+    display: inline-block;
 }
 /* CDP provvisorio */
 .HighlightedAnnMenuItem div.dipl-right, .HighlightedAnnMenuItem div.dipl-center, .HighlightedAnnMenuItem div.interp-right, .HighlightedAnnMenuItem div.interp-center,

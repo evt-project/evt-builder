@@ -15,6 +15,8 @@ function viewVerses(){
     var numeriP=document.getElementsByClassName("dipl-lineN");
     var lb=document.getElementsByClassName("lb");
     
+    $(".AnnMenuItem,.HighlightedAnnMenuItem,.SelectedAnnMenuItem,div.dipl-left,.dipl.line,div.interp-left,.interp.line").css('display', 'inline');
+    
     for (var i=1; i<lb.length; i++){
         lb[i].innerHTML="";
     }
@@ -55,6 +57,8 @@ function viewProse(){
     var numeri=document.getElementsByClassName("cerchio");
     var numeriP=document.getElementsByClassName("dipl-lineN");
     var lb=document.getElementsByClassName("lb");
+    
+    $(".AnnMenuItem,.HighlightedAnnMenuItem,.SelectedAnnMenuItem,div.dipl-left,.dipl.line,div.interp-left,.interp.line").css('display', 'inline-block');
     
     for (var i=1; i<lb.length; i++){
         lb[i].innerHTML="<br />";
