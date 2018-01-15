@@ -955,11 +955,11 @@ $(function() {
 
 		/*= LISTS =*/
 		bindListsBtnClick();
-		//bindListsSortinOrderBtnClick();
+		bindListsSortingOrderBtnClick();	
 		
-		
-		bindDocListSortSelectClick();
-
+		bindChronologicalIndex();
+		showOrHideRegesto();
+	
 		/*= VIEW MODES =*/
 		bindViewModesBtnsClick();	
 

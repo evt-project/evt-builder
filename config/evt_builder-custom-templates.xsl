@@ -14,25 +14,26 @@
 
 
     <xsl:template name="sortOptions">
-        <span id="span_listDoc_select" class="like_select" title="SELECTOR_SORT_ATTRIBUTE" lang="def">
-            <div class="docList_sort__attribute_select">
+        <span id="span_listDoc_select" class="like_select" title="SELECTOR_SORT_ATTRIBUTE"
+            lang="def">
+            <div class="docList_sort_attribute_select">
                 <span data-value="sort_date" class="label_selected" lang="def">DATE</span>
                 <div class="open_select open_down">
-                    <i class="fa fa-sort-desc"></i>
+                    <i class="fa fa-sort-desc"/>
                 </div>
-                <div class="option_container down">      
+                <div class="option_container down">
                     <div class="option" data-value="sort_date" lang="def">DATE</div>
                     <div class="option" data-value="sort_document" lang="def">DOCUMENT</div>
                 </div>
             </div>
         </span>
         <div id="sortingOrder" class="mainButtons" title="SORT_ORDER" lang="def">
-            <span lang="def">ASCENDING_ORDER</span>
-            <i class="fa fa-sort-amount-asc"></i>
+            <span lang="def"></span>
+            <i></i>
         </div>
     </xsl:template>
-    
-    
+
+
     <xsl:template name="listDoc">
         <xsl:element name="ul">
             <xsl:attribute name="id" select="'ul_listDocument'"/>
@@ -47,7 +48,8 @@
                                 <xsl:call-template name="dateValue">
                                     <xsl:with-param name="date">
                                         <xsl:value-of
-                                            select="tei:front//tei:docDate//(tei:date[@when])[1]/@when"/>
+                                            select="tei:front//tei:docDate//(tei:date[@when])[1]/@when"
+                                        />
                                     </xsl:with-param>
                                 </xsl:call-template>
                             </xsl:when>
@@ -78,15 +80,14 @@
                     </xsl:attribute>
                     <xsl:attribute name="data-sort-num">
                         <xsl:value-of
-                            select="current()//tei:front//tei:titlePart[@type = 'numerazioneNuova']"/>
+                            select="current()//tei:front//tei:titlePart[@type = 'numerazioneNuova']"
+                        />
                     </xsl:attribute>
                     <xsl:call-template name="document"/>
                 </xsl:element>
             </xsl:for-each>
         </xsl:element>
     </xsl:template>
-
-
 
     <xsl:template name="dateValue">
         <xsl:param name="date"/>
@@ -107,13 +108,14 @@
         </xsl:choose>
     </xsl:template>
 
+
     <xsl:template name="document">
         <xsl:choose>
             <xsl:when test="current()//tei:front">
 
                 <!--creo uno span per le date-->
                 <xsl:element name="span">
-                    <xsl:attribute name="class">document_list_info</xsl:attribute>
+                    <xsl:attribute name="class">document_list_data</xsl:attribute>
                     <xsl:if test="current()//tei:docDate">
                         <xsl:if test="current()//tei:docDate//tei:date">
 
@@ -121,33 +123,34 @@
                                 <xsl:when test="current()//tei:docDate//tei:date[@when]">
                                     <xsl:for-each select="current()//tei:docDate//tei:date[@when]">
                                         <xsl:choose>
-                                            <xsl:when test="position()&lt;last()">
-                                            <xsl:value-of select="."/><xsl:text>,&#xA0;</xsl:text>
-                                        </xsl:when>
-                                        <xsl:when test="position()=last()">
-                                             <xsl:value-of select="."/><xsl:text>.&#xA0;</xsl:text>
-                                        </xsl:when>
-                                        </xsl:choose>                 
+                                            <xsl:when test="position() &lt; last()">
+                                                <xsl:value-of select="."/>
+                                                <xsl:text>,&#xA0;</xsl:text>
+                                            </xsl:when>
+                                            <xsl:when test="position() = last()">
+                                                <xsl:value-of select="."/>
+                                                <xsl:text>;&#xA0;</xsl:text>
+                                            </xsl:when>
+                                        </xsl:choose>
                                     </xsl:for-each>
                                 </xsl:when>
 
                                 <!--Se l'elemento date ha gli attributi @notBefore e @notAfter-->
                                 <xsl:when
                                     test="current()//tei:docDate//tei:date[@notBefore] and current()//tei:docDate//tei:date[@notAfter]">
-                                    
-                                        <xsl:value-of
-                                            select="tei:front//tei:docDate//tei:date"/>
-        
-                                    <xsl:text>.&#xA0;</xsl:text>
-      
+
+                                    <xsl:value-of select="tei:front//tei:docDate//tei:date"/>
+
+                                    <xsl:text>;&#xA0;</xsl:text>
+
                                 </xsl:when>
 
                                 <!--se l'elemento date ha gli attributi @from e @to-->
                                 <xsl:when
                                     test="current()//tei:docDate//tei:date[@from] and current()//tei:docDate//tei:date[@to]">
                                     <xsl:value-of select="tei:front//tei:docDate//tei:date"/>
-                                    <xsl:text>.&#xA0;</xsl:text>
-                                   
+                                    <xsl:text>;&#xA0;</xsl:text>
+
                                 </xsl:when>
 
                                 <!-- se non si verifica nessuno dei casi precedenti. Questo però può dare problemi per l'ordinamento-->
@@ -161,72 +164,54 @@
                     </xsl:if>
                 </xsl:element>
 
-                <!-- Non nella lista, nel link al documento
-                   
-                per la numerazione originale
-                <xsl:element name="span"> 
-                    <xsl:attribute name="class">document_list_info <xsl:if test="$list_doc=true()"> link_active</xsl:if></xsl:attribute>
-                    <xsl:attribute name="data-ref">
-                        <xsl:value-of select="@xml:id" />
-                    </xsl:attribute>
-                    <xsl:if test="current()//tei:titlePart[@type='numerazioneOrig']">
-                        <xsl:value-of select="tei:front//tei:titlePart[@type='numerazioneOrig']"/>
-                        <xsl:text>&#xA0;</xsl:text>
-                    </xsl:if>
-                </xsl:element> 
-                
-                <xsl:text>-</xsl:text>
-                per la numerazione nuova
-                <xsl:element name="span"> 
-                    <xsl:attribute name="class">document_list_info <xsl:if test="$list_doc=true()"> link_active</xsl:if></xsl:attribute>
-                    <xsl:attribute name="data-ref">
-                        <xsl:value-of select="@xml:id" />
-                    </xsl:attribute>
-                    <xsl:if test="current()//tei:titlePart[@type='numerazioneNuova']">
-                        <xsl:value-of select="tei:front//tei:titlePart[@type='numerazioneNuova']"/>
-                        <xsl:text>&#xA0;</xsl:text>
-                    </xsl:if>
-                </xsl:element> -->
-
                 <!--creo uno span per i luoghi-->
                 <xsl:element name="span">
-                    <xsl:attribute name="class">document_list_info</xsl:attribute>          
-                        <xsl:if test="current()//tei:docDate//tei:placeName">
-                            <xsl:for-each select="current()//tei:docDate//tei:placeName">
-                               
-                                    <xsl:choose>
-                                        <xsl:when test="position()&lt;last()">
-                                            <xsl:value-of select="."/><xsl:text>,&#xA0;</xsl:text>
-                                        </xsl:when>
-                                        <xsl:when test="position()=last()">
-                                            <xsl:value-of select="."/>
-                                        </xsl:when>
-                                    </xsl:choose>                 
-                                
-                            </xsl:for-each>
-                        </xsl:if>
-                            <!--chiudo l'if per il placeName-->
-                        <!--chiudo l'if per il docDate-->
-                    
+                    <xsl:attribute name="class">document_list_place</xsl:attribute>
+                    <xsl:if test="current()//tei:docDate//tei:placeName">
+                        <xsl:for-each select="current()//tei:docDate//tei:placeName">
+
+                            <xsl:choose>
+                                <xsl:when test="position() &lt; last()">
+                                    <xsl:value-of select="."/>
+                                    <xsl:text>,&#xA0;</xsl:text>
+                                </xsl:when>
+                                <xsl:when test="position() = last()">
+                                    <xsl:value-of select="."/>
+                                </xsl:when>
+                            </xsl:choose>
+
+                        </xsl:for-each>
+                    </xsl:if>
+                    <!--chiudo l'if per il placeName-->
+                    <!--chiudo l'if per il docDate-->
+
                 </xsl:element>
-                
+
+                <br/>
+                <!--span provvisorio per la numerazione-->
+                <xsl:element name="span">
+                    <xsl:attribute name="class">document_list_num</xsl:attribute>
+                    <xsl:if test="current()//tei:front//tei:titlePart[@type = 'numerazioneNuova']">    
+                        <xsl:value-of
+                            select="tei:front//tei:titlePart[@type = 'numerazioneNuova']"
+                        /> 
+                    </xsl:if>
+                </xsl:element>
                 <br/>
 
                 <!--creo uno span per il regesto-->
 
-                <xsl:element name="span">  
-                    <xsl:attribute name="class">document_list_info</xsl:attribute>
+                <xsl:element name="span">
                     <xsl:attribute name="class">document_list_regesto</xsl:attribute>
-                    <xsl:if test="current()//tei:div[@type = 'regesto']">              
+                    <xsl:if test="current()//tei:div[@type = 'regesto']">    
                         <xsl:value-of select="tei:front//tei:div[@type = 'regesto']"/>
-                        <xsl:text/>
                         <!--chiudo l'if per il div-->
                     </xsl:if>
                 </xsl:element>
 
-                <span class="toggle_list_element">
+                <!--<span class="toggle_list_element">
                     <i class="fa fa-angle-right"/>
-                </span>
+                </span>-->
             </xsl:when>
 
             <xsl:otherwise>
@@ -238,5 +223,5 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-    
- </xsl:stylesheet>
+
+</xsl:stylesheet>
