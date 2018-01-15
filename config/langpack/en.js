@@ -64,9 +64,11 @@ jquery_lang_js.prototype.lang.en = {
 	"LISTS": "Lists",
 	
 	"ASCENDING_ORDER":"Ascending", 
-	"DESCNDING_ORDER":"Descending",
+	"DESCENDING_ORDER":"Descending",
 	"SORT_ORDER":"Choose sorting order",
 	"SELECTOR_SORT_ATTRIBUTE":"Select sort attribute",
+	 "MORE":"show more",
+    "LESS": "show less",
 	
 	"EVT_INFORMATION": "EVT information",
 	"GENERAL_INFORMATION": "General information",
@@ -205,6 +207,8 @@ jquery_lang_js.prototype.lang.en = {
     "BEFORE": "before",
     "FROM": "from",
     "TO": "to",
-    "membership": "Membership"
+    "membership": "Membership",
+
+    
 }
 

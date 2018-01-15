@@ -2313,6 +2313,21 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 	background:transparent;	
 	color: #ccc;
 }
+
+/* Chronological index list */
+#ul_listDocument li .document_list_data {
+    font-weight:bold;
+}
+
+#ul_listDocument li .document_list_regesto {
+    text-align:justify;
+}
+
+#ul_listDocument li .document_list_regesto a.more, #ul_listDocument li .document_list_regesto a.less {
+    text-decoration:none;
+    font-weight:bold;
+    color: #4e443c;
+}
 .small-note {
 	font-size: 90%;
 	display: none;
