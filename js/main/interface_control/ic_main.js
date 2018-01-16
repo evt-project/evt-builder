@@ -959,6 +959,7 @@ $(function() {
 		
 		bindChronologicalIndex();
 		showOrHideRegesto();
+		bindDocumentLinkChronologicalIndex();
 	
 		/*= VIEW MODES =*/
 		bindViewModesBtnsClick();	
@@ -979,7 +980,7 @@ $(function() {
 		/*= RESIZE =*/
 		resizeButtonsAndSelects();
 		
-		/* ***************************** */
+		up/* ***************************** */
 		/* / END Gestione click e eventi */
 		/* ***************************** */
 

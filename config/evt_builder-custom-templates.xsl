@@ -28,8 +28,8 @@
             </div>
         </span>
         <div id="sortingOrder" class="mainButtons" title="SORT_ORDER" lang="def">
-            <span lang="def"></span>
-            <i></i>
+            <span lang="def"/>
+            <i/>
         </div>
     </xsl:template>
 
@@ -184,26 +184,30 @@
                     </xsl:if>
                     <!--chiudo l'if per il placeName-->
                     <!--chiudo l'if per il docDate-->
+                   
 
-                </xsl:element>
-
-                <br/>
-                <!--span provvisorio per la numerazione-->
+                </xsl:element> 
+                <br />
+                <!--span per il link al documento ?-->
                 <xsl:element name="span">
-                    <xsl:attribute name="class">document_list_num</xsl:attribute>
-                    <xsl:if test="current()//tei:front//tei:titlePart[@type = 'numerazioneNuova']">    
-                        <xsl:value-of
-                            select="tei:front//tei:titlePart[@type = 'numerazioneNuova']"
-                        /> 
-                    </xsl:if>
+                    <xsl:attribute name="class">document_list_doc_link</xsl:attribute>
+                    <xsl:attribute name="data-value">
+                        <xsl:value-of select="@xml:id"/>
+                    </xsl:attribute> 
+                    <!--da sistemare-->
+                    <xsl:text>Doc.&#xA0;</xsl:text>
+                    <xsl:value-of select="tei:front//tei:titlePart[@type = 'numerazioneOrig']"/>
+                    <xsl:text>_</xsl:text>
+                    <xsl:value-of select="tei:front//tei:titlePart[@type = 'numerazioneNuova']"
+                    />
                 </xsl:element>
                 <br/>
-
+           
                 <!--creo uno span per il regesto-->
 
                 <xsl:element name="span">
                     <xsl:attribute name="class">document_list_regesto</xsl:attribute>
-                    <xsl:if test="current()//tei:div[@type = 'regesto']">    
+                    <xsl:if test="current()//tei:div[@type = 'regesto']">
                         <xsl:value-of select="tei:front//tei:div[@type = 'regesto']"/>
                         <!--chiudo l'if per il div-->
                     </xsl:if>
