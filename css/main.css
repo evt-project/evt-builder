@@ -2303,7 +2303,7 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 	border:none;
 	color: #ccc;
 }
-.occurences span:hover{
+.occurences span:hover, #ul_listDocument .list_element .document_list_doc_link{
 	text-shadow:0px 0px 1px #000;
 	background: rgba(204, 204, 204,0.4);
 }
@@ -2319,7 +2319,7 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
     font-weight:bold;
 }
 
-#ul_listDocument li .document_list_regesto {
+#ul_listDocument .list_element .document_list_regesto {
     text-align:justify;
 }
 
@@ -2328,6 +2328,22 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
     font-weight:bold;
     color: #4e443c;
 }
+
+#ul_listDocument .list_element .document_list_doc_link {
+    cursor: pointer;
+	border-radius: 4px;
+	padding: 3px 6px;
+	display: inline-block;
+	border: 1px solid rgb(204, 204, 204);
+	margin-right: 3px;
+	font-size: 100%;
+	/*  margin-bottom: 3px; */  
+}
+#ul_listDocument .list_element br:first-of-type {
+    display:none;
+} 
+
+/* fine aggiunte per indice cronologico */
 .small-note {
 	font-size: 90%;
 	display: none;

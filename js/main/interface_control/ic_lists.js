@@ -485,6 +485,7 @@ function bindChronologicalIndex() {
             '<a href="#" class="less"> ' + window.lang.convert('LESS', window.lang.currentLang) + '</a></span>');
         });
         showOrHideRegesto();
+        bindDocumentLinkChronologicalIndex();
     });
 }
 
@@ -522,6 +523,7 @@ function bindDocListSortSelectClick() {
             } else if (value === "sort_document") {
                 sortDocument(container, items);
                 showOrHideRegesto();
+                bindDocumentLinkChronologicalIndex();
             }
             $(this).removeClass('selected');
         } else {
@@ -561,6 +563,7 @@ function bindListsSortingOrderBtnClick() {
             }
             /* Se non invoco ancora la funzione mi dà problemi */
             showOrHideRegesto();
+            bindDocumentLinkChronologicalIndex();
             /* Se il pulsante per l'ordinamento è correntemente settato su 'Ascending' ma 'al contrario'*/
         } else if (sortingOrderButtonValue === 'desc') {
             sortingOrderButton.attr('button_sort', 'asc');
@@ -573,6 +576,24 @@ function bindListsSortingOrderBtnClick() {
                 sortDate(container, items);
             }
             showOrHideRegesto();
+            bindDocumentLinkChronologicalIndex();
         }
+    });
+}
+
+/* Gestione del link alla prima pagina del documento corrispondente all'elemento della lista per l'indice cronologico */
+function bindDocumentLinkChronologicalIndex() {
+    $('#ul_listDocument .list_element .document_list_doc_link').click(function () {
+    /* quando si clicca sullo span della lista che contiene la numerazione, si recupera il valore di 'data-value' che corrisponde al numero del documento */
+        var elementListDoc = $(this).attr('data-value');
+        /* vado a recuperare nella select dei documenti l'opzione che ha il valore dell'attributo 'data-value' uguale a quello appena recuperato */
+        var navSelectDoc = $('#span_tt_select .main_tt_select .option_container').find(".option[data-value='" + elementListDoc + "']");
+        var numero = navSelectDoc.attr('data-value');
+        /* il valore dell'attributo 'data-first-page' dell'opzione recuperata mi dà il valore della prima pagina del documento  */
+        var docFirstPage = navSelectDoc.attr('data-first-page');
+        console.log(elementListDoc + " " + numero + " " + docFirstPage);
+        updateHash(elementListDoc, docFirstPage, "");
+        
+        /* funzione definita in ic_navigation.js */
     });
 }

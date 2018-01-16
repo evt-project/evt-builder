@@ -321,8 +321,9 @@
 		</xsl:element>
 	</xsl:template>
 	
-	<!--indice cronologico-->
-	<xsl:template match="*" mode="listDocLink">
+	<!--occorrenze indice cronologico-->
+	<!--sostituite con link alla prima pagina del documento in ic_list.js--> 
+	<!--<xsl:template match="*" mode="listDocLink">
 		<xsl:element name="div">
 			<xsl:attribute name="id">occorrenze_listDoc</xsl:attribute>
 			<xsl:for-each-group select="//node()[name()=$ed_content]/descendant-or-self::node()[name()=$start_split]/node()" group-starting-with="//tei:pb">
@@ -344,9 +345,6 @@
 							</xsl:choose>
 						</xsl:variable>
 						<xsl:element name="span">
-							<!--affinchè funzioni correttamente, deve esserci data-ref. Non avendo un riferimento vero e proprio, ho usato l'id 
-								del documento, che ora compare due volte in due attributi. In questo modo però non è necessario intervenire
-								sul codice jQuery-->
 							<xsl:attribute name="data-ref" select="$doc_id"/>
 							<xsl:attribute name="data-doc"><xsl:value-of select="$doc_id"/></xsl:attribute>
 							<xsl:attribute name="data-pb"><xsl:value-of select="$pb_id"/></xsl:attribute>
@@ -356,7 +354,7 @@
 				</xsl:if>
 			</xsl:for-each-group>
 		</xsl:element>
-	</xsl:template>
+	</xsl:template>-->
 	
 	
 	<!--CDP:embedded -->
