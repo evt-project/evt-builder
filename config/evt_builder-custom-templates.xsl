@@ -122,16 +122,8 @@
                             <xsl:choose>
                                 <xsl:when test="current()//tei:docDate//tei:date[@when]">
                                     <xsl:for-each select="current()//tei:docDate//tei:date[@when]">
-                                        <xsl:choose>
-                                            <xsl:when test="position() &lt; last()">
-                                                <xsl:value-of select="."/>
-                                                <xsl:text>,&#xA0;</xsl:text>
-                                            </xsl:when>
-                                            <xsl:when test="position() = last()">
-                                                <xsl:value-of select="."/>
-                                                <xsl:text>;&#xA0;</xsl:text>
-                                            </xsl:when>
-                                        </xsl:choose>
+                                        <xsl:value-of select="."/>
+                                        <xsl:text>,&#xA0;</xsl:text>
                                     </xsl:for-each>
                                 </xsl:when>
 
@@ -141,7 +133,7 @@
 
                                     <xsl:value-of select="tei:front//tei:docDate//tei:date"/>
 
-                                    <xsl:text>;&#xA0;</xsl:text>
+                                    <xsl:text>,&#xA0;</xsl:text>
 
                                 </xsl:when>
 
@@ -149,7 +141,7 @@
                                 <xsl:when
                                     test="current()//tei:docDate//tei:date[@from] and current()//tei:docDate//tei:date[@to]">
                                     <xsl:value-of select="tei:front//tei:docDate//tei:date"/>
-                                    <xsl:text>;&#xA0;</xsl:text>
+                                    <xsl:text>,&#xA0;</xsl:text>
 
                                 </xsl:when>
 
@@ -184,25 +176,28 @@
                     </xsl:if>
                     <!--chiudo l'if per il placeName-->
                     <!--chiudo l'if per il docDate-->
-                   
 
-                </xsl:element> 
-                <br />
+
+                </xsl:element>
+
+                <br/>
                 <!--span per il link al documento ?-->
                 <xsl:element name="span">
                     <xsl:attribute name="class">document_list_doc_link</xsl:attribute>
                     <xsl:attribute name="data-value">
                         <xsl:value-of select="@xml:id"/>
-                    </xsl:attribute> 
+                    </xsl:attribute>
                     <!--da sistemare-->
                     <xsl:text>Doc.&#xA0;</xsl:text>
                     <xsl:value-of select="tei:front//tei:titlePart[@type = 'numerazioneOrig']"/>
                     <xsl:text>_</xsl:text>
-                    <xsl:value-of select="tei:front//tei:titlePart[@type = 'numerazioneNuova']"
-                    />
+                    <xsl:value-of select="tei:front//tei:titlePart[@type = 'numerazioneNuova']"/>
+                    
+                    <!--oppure-->
+                    <!--<xsl:value-of select="@xml:id"/>-->
                 </xsl:element>
-                <br/>
-           
+                <br />
+
                 <!--creo uno span per il regesto-->
 
                 <xsl:element name="span">
