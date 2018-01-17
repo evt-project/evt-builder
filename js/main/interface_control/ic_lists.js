@@ -520,6 +520,7 @@ function bindDocListSortSelectClick() {
                  * dopo aver effettuato un cambio nell'ordinamento nel testo si visualizza
                  * show more/show less che però non espandono né riducono il regesto. */
                 showOrHideRegesto();
+                bindDocumentLinkChronologicalIndex();
             } else if (value === "sort_document") {
                 sortDocument(container, items);
                 showOrHideRegesto();
@@ -591,7 +592,6 @@ function bindDocumentLinkChronologicalIndex() {
         var numero = navSelectDoc.attr('data-value');
         /* il valore dell'attributo 'data-first-page' dell'opzione recuperata mi dà il valore della prima pagina del documento  */
         var docFirstPage = navSelectDoc.attr('data-first-page');
-        console.log(elementListDoc + " " + numero + " " + docFirstPage);
         updateHash(elementListDoc, docFirstPage, "");
         
         /* funzione definita in ic_navigation.js */

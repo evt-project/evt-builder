@@ -980,7 +980,7 @@ $(function() {
 		/*= RESIZE =*/
 		resizeButtonsAndSelects();
 		
-		up/* ***************************** */
+		/* ***************************** */
 		/* / END Gestione click e eventi */
 		/* ***************************** */
 
