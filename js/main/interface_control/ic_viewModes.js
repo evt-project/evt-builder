@@ -434,14 +434,14 @@ function openTxtTxtMode() {
 function openBookreaderMode(){
     UnInitialize(); //Add by JK for ITL
     UnInitializeHS(); //Add by JK for HS
-	if($('#viscoll').is(':visible')) { // Se passo a bookreader mentre ero su viscoll
-		$('#viscoll').removeClass('active');
-		$('iframe').hide();
-		$('#BRpager').slider( "option", "disabled", false );
-		$('#BRicon_book_left').prop("disabled", false);
-		$('#BRicon_book_right').prop("disabled", false);
-	}
-	
+    if($('#viscoll').is(':visible')) { // Se passo a bookreader mentre ero su viscoll
+        $('#viscoll').removeClass('active');
+        $('iframe').hide();
+        $('#BRpager').slider( "option", "disabled", false );
+        $('#BRicon_book_left').prop("disabled", false);
+        $('#BRicon_book_right').prop("disabled", false);
+    }
+    createSliderBookreader();
 
     if (!$('#msDesc_cont').is(':visible')) {
         $('#switch_msDesc').removeClass('active');
@@ -454,8 +454,6 @@ function openBookreaderMode(){
     $("#imgd_link").addClass("current_mode").siblings().removeClass("current_mode");
 
     $(".main_dd_select").trigger("imgd_mode");
-
-	createSliderBookreader();
 
     $('#span_pp_select, #span_tt_select').hide();
 
@@ -476,6 +474,16 @@ function openBookreaderMode(){
         ddSelector.css({display: "inline-block"});
         updateSelectLength(ddSelector);
         fitFrame();
+        $("#image_cont").show(0, function() {
+            $("#image_menu").show(0, function() {
+                $('#image_elem').show(0, function() {
+                    console.log('DONE');
+                    setTimeout(function() {
+                        $('#zoom_fit').trigger('click');
+                    }, 420);
+                });
+            });
+        });
     });
 
     //$("#image_cont-add").remove();
@@ -485,8 +493,6 @@ function openBookreaderMode(){
     //$("#text_cont").hide();
 
     $("#mag").show();
-    $("#image_menu").show();
-    $("#image_cont").show();
     $('#switchITL').hide();
     $('#switchHS').hide();
 
@@ -498,7 +504,6 @@ function openBookreaderMode(){
     $('.go-full-left.onWhite').removeClass('onWhite');
 
     $('#span_pp_select-add, #span_tt_select-add').remove();
-
 }
 
 /*= OPEN SINGLE TEXT VIEW MODE =*/
