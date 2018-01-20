@@ -1003,7 +1003,7 @@ $(function() {
             		}
             	} catch(e){}
 			} else {
-				console.log('Error occurred: '+errorMsg);
+				console.log('Error occurred: '+errorMsg, "URL: ", url, "Line: ", lineNumber);
 			}
 		    return true;
 		}

@@ -29,10 +29,29 @@
 
 /*= OPEN IMAGE/TEXT VIEW MODE =*/
 function openTxtImgMode(){
+    var viscollBtn = document.getElementById("viscoll");
+    if (viscollBtn) {
+        viscollBtn.disabled = false;
+    }
+    var thumbsBtn = $("#thumb_elem");
+    if (thumbsBtn) {
+        thumbsBtn.removeClass("disabled");
+        thumbsBtn.removeClass("active");
+    }
+
     var ppSelector = $('#span_pp_select'),
         ttSelector = $('#span_tt_select');
     updateHash(ttSelector.find('.label_selected').attr('data-value'),
                ppSelector.find('.label_selected').attr('data-value'), "");
+
+    var viscollActive = $('#viscoll_iframe').is(":visible");
+    if (viscollActive) { // Se passo a bookreader mentre ero su viscoll
+        $('#viscoll').removeClass('active');
+        $('iframe').hide();
+        $('#BRpager').slider( "option", "disabled", false );
+        $('#BRicon_book_left').prop("disabled", false);
+        $('#BRicon_book_right').prop("disabled", false);
+    }
 
     $("#txtimg_link")
         .addClass("current_mode")
@@ -123,21 +142,28 @@ function openTxtImgMode(){
         ppSelector.show();
     }
 
-    $("#main_right_frame").show();
     $("#main_left_frame").animate({
         'width': '49.8%'
     }, function(){
-        $("#right_menu").show();
-        $("#text_cont").show();
+        document.getElementById("main_right_frame").style.display = "block";
+        document.getElementById("right_menu").style.display = "block";
+        document.getElementById("text_cont").style.display = "block";
+        document.getElementById("image_tool").style.display = "block";
+        document.getElementById("image_cont").style.display = "block";
+        document.getElementById("image_menu").style.display = "inline";
+        document.getElementById("image_elem").style.display = "block";
+        
+        setTimeout(function() {
+            $('#zoom_fit').trigger('click');
+        }, 42);
+        
         resizeButtonsAndSelects();
         updateLinesWidth($('#main_right_frame'));
     });
 
     $("#mag").show();
-    $("#image_menu").show();
     $('#switchITL').show();
     $('#switchHS').show();
-    $("#image_cont").show();
 
     $('#text_tool-add').hide().addClass('hidden');
 
@@ -166,7 +192,7 @@ function openTxtImgMode(){
 
     $('#right_header.menuClosed').hide();
 
-    $('#thumb_elem').show();
+    //$('#thumb_elem').show();
     $('#zvalint').show();
 
     fitFrame();
@@ -203,6 +229,17 @@ function openTxtImgMode(){
 
 /*= OPEN TEXT/TEXT VIEW MODE =*/
 function openTxtTxtMode() {
+    var viscollBtn = document.getElementById("viscoll");
+    if (viscollBtn) {
+        viscollBtn.disabled = true;
+    }
+
+    var thumbsBtn = $("#thumb_elem");
+    if (thumbsBtn) {
+        thumbsBtn.addClass("disabled");
+        thumbsBtn.removeClass("active");
+    }
+
     var ppSelector = $('#span_pp_select'),
         ttSelector = $('#span_tt_select');
     updateHash(ttSelector.find('.label_selected').attr('data-value'),
@@ -240,31 +277,40 @@ function openTxtTxtMode() {
     $('#text_tool-add:not(.menuClosed)').show();
     $('#text_tool-add').removeClass('hidden');
 
-    // GESTIONE PASSAGGIO BOOKREADER --> TXT-TXT
-    // Se il box di destra non e' aperto, lo apro
-    $("#main_right_frame:not(:visible)").show();
-
     // Se i menu erano stati chiusi in modalità bookreader,
     // chiudo quello di destra...che magari era rimasto aperto.
     $('#right_header.menuClosed').hide();
-
+    var hiddenRightFrame = $("#main_right_frame:not(:visible)");
     // Mostro il box di sinistra,
     $("#main_left_frame").animate({
         width: '49.8%',
         borderLeftWidth: '2px',
         borderRightWidth: '2px'
     }, function(){
-        $("#right_menu").show();
-        $("#text_cont").show();
+        // GESTIONE PASSAGGIO BOOKREADER --> TXT-TXT
+        // Se il box di destra non e' aperto, lo apro
+        if (hiddenRightFrame && hiddenRightFrame.length > 0) {
+            hiddenRightFrame[0].style.display = 'block';
+        }
 
-        var lineNwidth = $('#main_right_frame').find('.dipl-lineN:last').outerWidth();
-        var textInnerWidt = $('#main_right_frame').find("div#text_cont").innerWidth()*85/100;
-        $('#main_right_frame, #main_left_frame').find('.dipl-left, .interp-left').each(function(){
+        document.getElementById("right_menu").style.display = "block";
+        document.getElementById("text_cont").style.display = "block";
+        
+        var mainRightFrame = $('#main_right_frame');
+        var lineNwidth = mainRightFrame.find('.dipl-lineN:last').outerWidth();
+        var textInnerWidt = mainRightFrame.find("div#text_cont").innerWidth()*85/100;
+        mainRightFrame.find('.dipl-left, .interp-left').each(function(){
+            $(this).css({
+                'max-width': (textInnerWidt-lineNwidth-43)+'px'
+            });
+        });
+        $('#main_left_frame').find('.dipl-left, .interp-left').each(function(){
             $(this).css({
                 'max-width': (textInnerWidt-lineNwidth-43)+'px'
             });
         });
     });
+
     // - fine gestione passaggio bookreader --> txttxt
 
     // Clono il contenuto testuale del box di destra, nel box di sinistra
@@ -277,18 +323,17 @@ function openTxtTxtMode() {
     $('#text_cont-add>#text_elem')
         .attr("id", "text_elem-add")
     ;
-    $('#text_elem-add')
-            .find('#text_frame')
-                .attr('id', 'text_frame-add')
-                .find('#text')
-                    .attr('id', 'text-add')
-                    .css('display', 'inline-block');
-    $('#text_elem-add')
-            .find('#front_frame')
-                .attr('id', 'front_frame-add')
-                .find('#text')
-                    .attr('id', 'text-add')
-                    .css('display', 'inline-block');
+    var textElemAdd = $('#text_elem-add');
+    textElemAdd.find('#text_frame')
+            .attr('id', 'text_frame-add')
+            .find('#text')
+                .attr('id', 'text-add')
+                .css('display', 'inline-block');
+    textElemAdd.find('#front_frame')
+            .attr('id', 'front_frame-add')
+            .find('#text')
+                .attr('id', 'text-add')
+                .css('display', 'inline-block');
     if ($('#text_cont-add .doc').length > 0) {
         $('#text_cont-add').scrollTop($('#text_cont-add .doc.current').position().top);
     }
@@ -419,8 +464,9 @@ function openTxtTxtMode() {
         });
         $('.go-full-left').addClass('onWhite');
     }
-    var lineNwidth = $('#main_right_frame').find('.dipl-lineN:last').outerWidth();
-    var textInnerWidt = $('#main_right_frame').find("div#text_cont").innerWidth()*85/100;
+    var mainRightFrame = $('#main_right_frame');
+    var lineNwidth = mainRightFrame.find('.dipl-lineN:last').outerWidth();
+    var textInnerWidt = mainRightFrame.find("div#text_cont").innerWidth()*85/100;
     $('#main_left_frame').find('.dipl-left, .interp-left').each(function(){
         $(this).css({
             'max-width': (textInnerWidt-lineNwidth-43)+'px'
@@ -432,9 +478,14 @@ function openTxtTxtMode() {
 
 /*= OPEN BOOKREADER VIEW MODE =*/
 function openBookreaderMode(){
+    var viscollBtn = document.getElementById("viscoll");
+    if (viscollBtn) {
+        viscollBtn.disabled = false;
+    }
+
     UnInitialize(); //Add by JK for ITL
     UnInitializeHS(); //Add by JK for HS
-    if($('#viscoll').is(':visible')) { // Se passo a bookreader mentre ero su viscoll
+    if ($('#viscoll_iframe').is(":visible")) { // Se passo a bookreader mentre ero su viscoll
         $('#viscoll').removeClass('active');
         $('iframe').hide();
         $('#BRpager').slider( "option", "disabled", false );
@@ -443,6 +494,15 @@ function openBookreaderMode(){
     }
     createSliderBookreader();
 
+    var thumbsBtn = $("#thumb_elem");
+    if (thumbsBtn) {
+        thumbsBtn.removeClass("disabled");
+        if (thumbsBtn.hasClass('active')) {
+            thumbsBtn.removeClass('active');
+            document.getElementById("thumb_cont").style.display = 'none';
+        }
+    }
+    
     if (!$('#msDesc_cont').is(':visible')) {
         $('#switch_msDesc').removeClass('active');
     }
@@ -474,16 +534,14 @@ function openBookreaderMode(){
         ddSelector.css({display: "inline-block"});
         updateSelectLength(ddSelector);
         fitFrame();
-        $("#image_cont").show(0, function() {
-            $("#image_menu").show(0, function() {
-                $('#image_elem').show(0, function() {
-                    console.log('DONE');
-                    setTimeout(function() {
-                        $('#zoom_fit').trigger('click');
-                    }, 420);
-                });
-            });
-        });
+
+        document.getElementById("image_tool").style.display = "block";
+        document.getElementById("image_cont").style.display = "block";
+        document.getElementById("image_menu").style.display = "inline";
+        document.getElementById("image_elem").style.display = "block";
+        setTimeout(function() {
+            $('#zoom_fit').trigger('click');
+        }, 42);
     });
 
     //$("#image_cont-add").remove();

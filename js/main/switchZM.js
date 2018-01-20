@@ -243,7 +243,6 @@ function chooseZoomMag() {
 		});
 		
         if (!$('#viscoll').hasClass('active') && !$('#image_tool').hasClass('menuClosed')) {
-            console.console.log('chooseZoomMag menuClosed');
             $("#image_tool").css({
                 "display": "block",
                 "overflow": "hidden"

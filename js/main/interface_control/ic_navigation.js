@@ -984,7 +984,7 @@ function bindThumbClick() {
             updateHash(tt_val, pp_val, "");
         }
         // if(current_pp_val === pp_val){
-            $("#thumb_elem").trigger('click');
+            //$("#thumb_elem").trigger('click');
         // }
 
         if ( ! magnifierON ){
