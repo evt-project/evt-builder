@@ -195,74 +195,76 @@ function bindBtnClick() {
 
     // THUMBNAILS BUTTON
     $(".thumb_link").click(function(){
-        var countThumbs = 0;
-        var thumbsElems = document.getElementsByClassName('thumb_single_img');
-        
-        var getThumbsSrc = setInterval(function (){
-            for (var i = 0; i < 10 && countThumbs < thumbsElems.length; i++) {
-                var thumbEl = thumbsElems[countThumbs];
-                if (thumbEl.getAttribute('src') == undefined || thumbEl.getAttribute('src') == '') {
-                    if (thumbEl.getAttribute('data-src') !== undefined){
-                        thumbEl.setAttribute('src', thumbEl.getAttribute('data-src'));
+        if (!$(this).hasClass('disabled')) {
+            var countThumbs = 0;
+            var thumbsElems = document.getElementsByClassName('thumb_single_img');
+            
+            var getThumbsSrc = setInterval(function (){
+                for (var i = 0; i < 10 && countThumbs < thumbsElems.length; i++) {
+                    var thumbEl = thumbsElems[countThumbs];
+                    if (thumbEl.getAttribute('src') == undefined || thumbEl.getAttribute('src') == '') {
+                        if (thumbEl.getAttribute('data-src') !== undefined){
+                            thumbEl.setAttribute('src', thumbEl.getAttribute('data-src'));
+                        }
                     }
+                    countThumbs++;
                 }
-                countThumbs++;
+                if (countThumbs == thumbsElems.length) {
+                    clearInterval(getThumbsSrc);
+                }
+            }, 2500);
+            
+            if ( $('#msDesc_cont').length > 0 && $('#msDesc_cont').is(':visible') ) {
+                $('#switch_msDesc').removeClass('active');
+                $('#msDesc_cont').hide();
             }
-            if (countThumbs == thumbsElems.length) {
-                clearInterval(getThumbsSrc);
-            }
-        }, 2500);
-        
-        if ( $('#msDesc_cont').length > 0 && $('#msDesc_cont').is(':visible') ) {
-            $('#switch_msDesc').removeClass('active');
-            $('#msDesc_cont').hide();
-        }
-		
-			
-        if (magnifierON == false) { 
-            if($("#image_loading").css('display')!=="none"){$("#image_loading").hide()}
-            if($("#image_elem").css('display') === "none"){
-                $("#image_elem").show();
-                $("#image_fade").show();
-                if(!$('#left_header').hasClass('menuClosed') ){
+            
+                
+            if (magnifierON == false) { 
+                if($("#image_loading").css('display')!=="none"){$("#image_loading").hide()}
+                if($("#image_elem").css('display') === "none"){
+                    $("#image_elem").show();
+                    $("#image_fade").show();
+                    if(!$('#left_header').hasClass('menuClosed') ){
+                        $("#image_tool").show();
+                    }
+                    $("#thumb_cont").hide();
+                } else{
+                    $("#image_elem").hide();
+                    $("#image_fade").hide();
+                    $("#image_tool").hide();
+                    $("#thumb_cont").show();
+                }
+            } else {                  //modalità magnifier attivo JK
+                if($("#mag_image_elem").css('display') === "none"){
+                    $("#mag_image_elem").show();
                     $("#image_tool").show();
+                    $("#thumb_cont").hide();
+                    $('#switchMag').addClass('active');
+                } else{
+                    $("#mag_image_elem").hide();
+                    $("#image_tool").hide();
+                    $("#thumb_cont").show();
                 }
-                $("#thumb_cont").hide();
-            } else{
-                $("#image_elem").hide();
-                $("#image_fade").hide();
-                $("#image_tool").hide();
-                $("#thumb_cont").show();
             }
-        } else {                  //modalità magnifier attivo JK
-            if($("#mag_image_elem").css('display') === "none"){
-                $("#mag_image_elem").show();
-                $("#image_tool").show();
-                $("#thumb_cont").hide();
-                $('#switchMag').addClass('active');
-            } else{
-                $("#mag_image_elem").hide();
-                $("#image_tool").hide();
-                $("#thumb_cont").show();
+            $(this).toggleClass('active');
+            
+            // Passaggio da viscoll a thumbnails
+            if($('#thumb_elem').hasClass('active')) {
+                $('#BRpager').slider( "option", "disabled", false ); // Riabilito lo slider
+                $('#BRicon_book_left').prop("disabled", false);
+                $('#BRicon_book_right').prop("disabled", false);
+                // Al click sulle thumbnails se viscoll ha class active (cioè è attivo), gli tolgo la classe e tolgo l'iframe
+                if($('#viscoll').hasClass('active')) {
+                    $('#viscoll').removeClass('active');
+                    $('iframe').remove();
+                    $('#thumb_cont').show();
+                    $("#image_elem").hide();
+                    $("#image_fade").hide();
+                    $("#image_tool").hide();
+                }
             }
         }
-        $(this).toggleClass('active');
-		
-		// Passaggio da viscoll a thumbnails
-		if($('#thumb_elem').hasClass('active')) {
-			$('#BRpager').slider( "option", "disabled", false ); // Riabilito lo slider
-			$('#BRicon_book_left').prop("disabled", false);
-			$('#BRicon_book_right').prop("disabled", false);
-			// Al click sulle thumbnails se viscoll ha class active (cioè è attivo), gli tolgo la classe e tolgo l'iframe
-			if($('#viscoll').hasClass('active')) {
-				$('#viscoll').removeClass('active');
-				$('iframe').remove();
-				$('#thumb_cont').show();
-				$("#image_elem").hide();
-				$("#image_fade").hide();
-				$("#image_tool").hide();
-			}
-		}
     });
 	
 }

@@ -3,12 +3,18 @@ function bindViscollClick(array) {
 	$('#viscoll').unbind('click').click(
         function(){
 			// Se thumbnails ha class active gliela tolgo e la nascondo (passaggio thumbnails - viscoll)
-			if($('#thumb_elem').hasClass('active')) {
-				$('#thumb_elem').removeClass('active');
-				$('#thumb_cont').hide();
-			}
+			var thumbsBtn = $("#thumb_elem");
+			var thumbsOpened = false;
+		    if (thumbsBtn) {
+		    	thumbsOpened = thumbsBtn.hasClass('active');
+		        if (thumbsOpened) {
+		            thumbsBtn.removeClass('active');
+		            document.getElementById("thumb_cont").style.display = 'none';
+		        }
+		    }
+		    
 			// Se viscoll ha class active (è già stato cliccato) gliela tolgo e mostro gli altri elementi
-			if($('#viscoll').hasClass('active')) {
+			if ($('#viscoll').hasClass('active')) {
 				$('#viscoll').removeClass('active');
 				$('iframe').remove();
 				$("#image_elem").show();
@@ -17,11 +23,12 @@ function bindViscollClick(array) {
 				$('#BRpager').slider( "option", "disabled", false );
 				$('#BRicon_book_left').prop("disabled", false);
 				$('#BRicon_book_right').prop("disabled", false);
-			}else{
-				$("#image_tool").hide(); /* A volte lo nasconde e a volte no, perchè? */
+			} else {
+				//$("#image_tool").hide(); /* A volte lo nasconde e a volte no, perchè? => è jQuery che a volte si incarta */
+				document.getElementById("image_tool").style.display = "none";
 				var img = $('#iviewerImage');
 				var loaded_img = isImgOk(img);  // Se l'immagine è stata caricata
-				if(loaded_img == true) {
+				if(loaded_img === true || thumbsOpened === true) {
 					// Altrimenti gli aggiungo la class active e nascondo gli altri elementi
 					var viscoll = $('#viscoll').addClass('active');
 					$("#image_elem").hide();
