@@ -492,8 +492,7 @@ function openBookreaderMode(){
         $('#BRicon_book_left').prop("disabled", false);
         $('#BRicon_book_right').prop("disabled", false);
     }
-    createSliderBookreader();
-
+    
     var thumbsBtn = $("#thumb_elem");
     if (thumbsBtn) {
         thumbsBtn.removeClass("disabled");
@@ -515,6 +514,8 @@ function openBookreaderMode(){
 
     $(".main_dd_select").trigger("imgd_mode");
 
+    createSliderBookreader();
+    
     $('#span_pp_select, #span_tt_select').hide();
 
     if ( $('#main_left_frame').find('#regesto_cont') ){
