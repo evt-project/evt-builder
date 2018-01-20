@@ -898,6 +898,7 @@ $(function() {
 		}
 
 		resizeGlobalTopBar();
+		createSliderTxtImg();
 		
 		$('.mainButtons').each(function(){
 			var full_button_width = $(this).outerWidth();
