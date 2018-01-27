@@ -58,7 +58,7 @@ function bindViscollClick(array) {
 				}
 			}
 
-			myFunction(array);
+			iframeNavigation(array);
 
 	});
 
@@ -77,7 +77,7 @@ function isImgOk (img) {
 }
 
 function emptyImageControl() {
-// Nel fil XSLT ho aggiunto una variabile (emptyImage) che permette di aggiungere lo <span> anche quando l'immagine non è stata inserita
+// Nel file XSLT ho aggiunto una variabile (emptyImage) che permette di aggiungere lo <span> anche quando l'immagine non è stata inserita
 	var i = 0;
 	$("#viscoll_iframe").load(function () {  // Se il frame è stato caricato
 		var fancy = $("#viscoll_iframe").contents().find(".fancybox"); // Trovo tutti gli elementi a con classe .fancybox
@@ -94,7 +94,7 @@ function emptyImageControl() {
 	});
 }
 
-function myFunction(array) {
+function iframeNavigation(array) {
 	var arrayImg = [];
 	// Caso base (pagina selezionata)
 	var page_selected = window.parent.$(".main_pp_select .option_container .optionGroup .selected"); // Prendo l'elemento con classe .selected dalla pagina genitore
@@ -143,6 +143,8 @@ function myFunction(array) {
 							$("#image_fade").show();
 							$("#image_tool").show();
 							$('#BRpager').slider( "option", "disabled", false );
+							$('#BRicon_book_left').prop("disabled", false); /* GM: riabilito anche le frecce direzionali */
+							$('#BRicon_book_right').prop("disabled", false);
 							for(i in array) { // Scorro l'array per trovare l'elemento uguale alla pagina cliccata
 								if(id == array[i].id) {
 									//alert(id + array[i]);
@@ -201,5 +203,7 @@ function returnImgTxtMode(page_selected_text) {
 		$("#image_fade").show();
 		$("#image_tool").show();
 		$('#BRpager').slider( "option", "disabled", false );
+		$('#BRicon_book_left').prop("disabled", false); /* GM: riabilito anche le frecce direzionali */
+		$('#BRicon_book_right').prop("disabled", false);
 	}
 }

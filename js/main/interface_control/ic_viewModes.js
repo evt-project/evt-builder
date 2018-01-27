@@ -32,6 +32,9 @@ function openTxtImgMode(){
     var viscollBtn = document.getElementById("viscoll");
     if (viscollBtn) {
         viscollBtn.disabled = false;
+		$('#BRpager').slider( "option", "disabled", false ); /* GM: riabilito lo slider e le frecce quando torna a img-txt */
+        $('#BRicon_book_left').prop("disabled", false); /* GM */
+        $('#BRicon_book_right').prop("disabled", false); /* GM */
     }
     var thumbsBtn = $("#thumb_elem");
     if (thumbsBtn) {
