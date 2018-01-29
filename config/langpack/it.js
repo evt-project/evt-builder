@@ -125,7 +125,6 @@ jquery_lang_js.prototype.lang.it = {
 	"LIST_ORG": "Lista di enti",
 	"LIST_TERM": "Lista di parole",
 	"LIST_GLOSS": "Lista di glosse",
-	"LIST_DOC": "Indice cronologico",
 	"NO_ELEMENTS": "Nessun elemento",
     "PAGE_MISSING": "(miss)",
     "PAGE_MISSING_RIGHT": " - (miss)",
@@ -200,6 +199,14 @@ jquery_lang_js.prototype.lang.it = {
     "BEFORE": "prima del",
     "FROM": "dal",
     "TO": "al",
-    "membership": "Membri"
+    "membership": "Membri",
+	
+    "LIST_DOC": "Indice cronologico",
+	"SELECTOR_SORT_ATTRIBUTE": "Scegli parametro di ordinamento",
+	"SORT_ORDER" : "Scegli modalità di ordinamento",
+	"ASCENDING_ORDER" : "Ascendente",
+	"DESCENDING_ORDER" : "Discendente",
+	"MORE" : "espandi",
+	"LESS" : "riduci",
 }
 
