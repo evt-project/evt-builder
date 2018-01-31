@@ -72,7 +72,7 @@ html, body {
 	}
 
 body{
-	min-height: 600px;
+	min-height: 0px; /* GM: Era 600px */
 }
 
 footer{

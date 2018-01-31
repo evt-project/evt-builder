@@ -57,6 +57,14 @@ $(document).keydown(function(e){
 			return false;
 		}
 	}
+	
+	if ((e.ctrlKey) && (e.keyCode == 32)) { // GM: CTRL+space
+		if ($('#BRnavCntlBtm').hasClass('BRdn')) { // La barra di navigazione si abbassa
+			$('#BRnavCntlBtm').trigger('click');
+        } else if($('#BRnavCntlBtm').hasClass('BRup')) { // La barra di navigazione si alza
+			$('#BRnavCntlBtm').trigger('click');
+		}
+    }
 
 	if ((e.keyCode == 102 || e.keyCode == 70) && (e.ctrlKey||e.metaKey) && e.altKey && e.shiftKey) { 
 		e.preventDefault();

@@ -770,8 +770,8 @@
                     </div>-->
 
                     <div id="quires_cont">
-
-                    <div id="listofquires"><span class="mstitle"><a target="_blank" href="{$msurl}">Collation diagrams for <xsl:value-of select="$msname"/>, <xsl:value-of select="$idno"/></a></span></div>
+                    <!-- Tolto href="{$msurl} da <a target... -->
+                    <div id="listofquires"><span class="mstitle"><a target="_blank">Collation diagrams for <xsl:value-of select="$msname"/>, <xsl:value-of select="$idno"/></a></span></div>
 
 
                     <!--<span class="helptext">Select a Quire to display/hide, or </span>
