@@ -216,6 +216,7 @@ $(function() {
 						$('.main_dd_select .option_container').append(
 		    				$('<div/>')
 		    					.attr("data-value", current_id)
+		    					.attr("data-label", current_label)
 		    					.attr("data-first-page-first-doc", first_text_ref)
 								.addClass('option')
 								.append(current_label)
@@ -276,6 +277,7 @@ $(function() {
     					(!groupingPagesByDoc && $(".main_pp_select .option_container .option[data-value='"+page_current_id+"']").length <= 0)) {
     					var newOption = $('<div/>')
 				    						.attr("data-value", page_current_id)
+				    						.attr("data-label", page_current_label)
 				    						.attr("data-first-doc", current_id)
 				    						.attr("data-has-front", pageInFront)
 				    						.addClass('option')
