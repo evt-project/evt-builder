@@ -341,6 +341,10 @@ float:right;
 	display: none;
 	
 }
+.quireset img:hover {
+    cursor: pointer;
+    opacity: .9;
+}
 .newquire {
 	margin-top: 10px;
 	clear: both;

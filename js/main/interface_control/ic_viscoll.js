@@ -124,38 +124,73 @@ function iframeNavigation(array) {
 
 			if(page_selected_text == alt) { // Se la pagina cliccata è quella che era selezionata
 				returnImgTxtMode(page_selected_text);
-			}else{
-				window.parent.$(".main_pp_select .option_container .optionGroup div").each(function() { // Prendo tutti i div
-					var pageId = $(this).attr('data-value');  // La variabile pageId prende fol_215v
-					var pageLabel = $(this).text(); // La variabile pageLabel prende 215v
-					var docId = $(this).attr('data-first-doc');
-					//console.log(pageId);
-					//console.log(pageLabel);
-					if(pageLabel == alt) { // Se pageLabel è uguale ad alt (all'elemento cliccato)
-						var id = pageId;
-						var label = pageLabel;
-						var firstDoc = docId;
-						if($('#mode_switch #txtimg_link').hasClass('current_mode')) {
-							//alert("ciao");
-							$('#viscoll').removeClass('active');
-							$('iframe').remove();
-							$("#image_elem").show();
-							$("#image_fade").show();
-							$("#image_tool").show();
-							$('#BRpager').slider( "option", "disabled", false );
-							$('#BRicon_book_left').prop("disabled", false); /* GM: riabilito anche le frecce direzionali */
-							$('#BRicon_book_right').prop("disabled", false);
-							for(i in array) { // Scorro l'array per trovare l'elemento uguale alla pagina cliccata
-								if(id == array[i].id) {
-									//alert(id + array[i]);
-									$('#BRpager').slider("value", i); // Aggiorno lo slider alla pagina cliccata
-								}
-							}
+			} else {
+				var pageElem, pageId, docId;
+				if ($('#mode_switch #txtimg_link').hasClass('current_mode')) {
+					pageElem = $("#span_pp_select [data-label*='"+alt+"']");
+					docId = pageElem ? pageElem.attr('data-first-doc') : undefined;
+				} else if ($('#mode_switch #imgd_link').hasClass('current_mode')) {
+					pageElem = $("#span_dd_select [data-label*='"+alt+"']");
+					docId = pageElem ? pageElem.attr('data-first-page-first-doc') : undefined;
+				}
+				if (pageElem) {
+					pageId = pageElem.attr('data-value');
+				}
+				if (pageId && docId) {
+					$('#viscoll').removeClass('active');
+					$('iframe').remove();
+					$("#image_elem").show();
+					$("#image_fade").show();
+					$("#image_tool").show();
+					$('#BRpager').slider( "option", "disabled", false );
+					$('#BRicon_book_left').prop("disabled", false); /* GM: riabilito anche le frecce direzionali */
+					$('#BRicon_book_right').prop("disabled", false);
+					var sliderIndex, 
+						i = 0;
+					while (sliderIndex === undefined && i < array.length) { // Scorro l'array per trovare l'elemento uguale alla pagina cliccata
+						if (array[i].id.indexOf(pageId) >= 0) {
+							sliderIndex = i;
+						} else {
+							i++;
 						}
-						updateHash(firstDoc, id, '');
 					}
+					if (sliderIndex !== undefined) {
+						$('#BRpager').slider("value", sliderIndex); // Aggiorno lo slider alla pagina cliccata
+					}
+					updateHash(docId, pageId, '');
+				}
+				
+				// window.parent.$(".main_pp_select .option_container .optionGroup div").each(function() { // Prendo tutti i div
+				// 	var pageId = $(this).attr('data-value');  // La variabile pageId prende fol_215v
+				// 	var pageLabel = $(this).text(); // La variabile pageLabel prende 215v
+				// 	var docId = $(this).attr('data-first-doc');
+				// 	//console.log(pageId);
+				// 	//console.log(pageLabel);
+				// 	if(pageLabel == alt) { // Se pageLabel è uguale ad alt (all'elemento cliccato)
+				// 		var id = pageId;
+				// 		var label = pageLabel;
+				// 		var firstDoc = docId;
+				// 		if($('#mode_switch #txtimg_link').hasClass('current_mode')) {
+				// 			//alert("ciao");
+				// 			$('#viscoll').removeClass('active');
+				// 			$('iframe').remove();
+				// 			$("#image_elem").show();
+				// 			$("#image_fade").show();
+				// 			$("#image_tool").show();
+				// 			$('#BRpager').slider( "option", "disabled", false );
+				// 			$('#BRicon_book_left').prop("disabled", false); /* GM: riabilito anche le frecce direzionali */
+				// 			$('#BRicon_book_right').prop("disabled", false);
+				// 			for(i in array) { // Scorro l'array per trovare l'elemento uguale alla pagina cliccata
+				// 				if(id == array[i].id) {
+				// 					//alert(id + array[i]);
+				// 					$('#BRpager').slider("value", i); // Aggiorno lo slider alla pagina cliccata
+				// 				}
+				// 			}
+				// 		}
+				// 		updateHash(firstDoc, id, '');
+				// 	}
 
-				});
+				// });
 			}
 
 
@@ -196,7 +231,16 @@ function iframeNavigation(array) {
 }
 
 function returnImgTxtMode(page_selected_text) {
-	if($('#mode_switch #txtimg_link').hasClass('current_mode')) {
+	if ($('#mode_switch #txtimg_link').hasClass('current_mode')) {
+		$('#viscoll').removeClass('active');
+		$('iframe').remove();
+		$("#image_elem").show();
+		$("#image_fade").show();
+		$("#image_tool").show();
+		$('#BRpager').slider( "option", "disabled", false );
+		$('#BRicon_book_left').prop("disabled", false); /* GM: riabilito anche le frecce direzionali */
+		$('#BRicon_book_right').prop("disabled", false);
+	} else if ($('#mode_switch #imgd_link').hasClass('current_mode')) {
 		$('#viscoll').removeClass('active');
 		$('iframe').remove();
 		$("#image_elem").show();
