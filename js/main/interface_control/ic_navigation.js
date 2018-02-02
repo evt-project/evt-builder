@@ -569,7 +569,8 @@ function arrow(toward){ //duplicata temporaneamente in jquery.rafmas-keydown
                     // se il gruppo della pagina corrente non e' il primo gruppo
                     if (current_opt.parent().prev().length > 0 ) {
                         // seleziono l'ultima pagina del gruppo precedente
-                        new_pp_opt = current_opt.parent().prev().find('.option:last')
+                        new_pp_opt = current_opt.parent().prev().find('.option:last');
+						moveSlider(current_pp, new_pp_opt);
                     }
                 }
             }
@@ -585,6 +586,7 @@ function arrow(toward){ //duplicata temporaneamente in jquery.rafmas-keydown
                     if (current_opt.parent().next().length > 0 ) {
                         // seleziono l'ultima pagina del gruppo precedente
                         new_pp_opt = current_opt.parent().next().find('.option:first')
+						moveSlider(current_pp, new_pp_opt);
                     }   
                 }
             }
@@ -614,7 +616,7 @@ function arrow(toward){ //duplicata temporaneamente in jquery.rafmas-keydown
 			moveSlider(current_pp, new_pp_opt);
         }
         if ( new_pp_opt != null ) {
-            new_tt_val = new_pp_opt.attr('data-first-page-first-doc'); // primo documento contenuto.    
+            new_tt_val = new_pp_opt.attr('data-first-page-first-doc'); // primo documento contenuto.
         }
     }
     if ( new_pp_opt != null ) {
@@ -741,6 +743,7 @@ function bindTTselectClick() {
                 var new_tt_first_page_lab;
                 new_tt_first_page_lab = $("#span_pp_select .option_container ")
                                             .find(".option[data-value='"+new_tt_first_page+"']").text();
+			moveSliderSelectorTT(current_pp_val, new_tt_first_page);
             } else {
                 $("#text_cont .doc[data-doc!='"+new_tt_val+"']").hide();
             }
@@ -750,23 +753,69 @@ function bindTTselectClick() {
     });
 }
 
+function moveSliderSelectorTT(current_pp_val, new_tt_first_page) {
+	//alert(current_pp + new_pp_val);
+	if(new_tt_first_page < current_pp_val) {  // Se il valore della nuova pagina del documento di riferimento è minore di quella corrente
+		//Va' a sinistra
+		for(i in arrayPages) {
+			if(new_tt_first_page == arrayPages[i].id) {  // Deve prendere l'indice dell'elemento dell'array corrispondente alla pagina cliccata
+				//alert(arrayPages[i].id + i);
+				$("#BRpager").slider("value", i);
+			}
+		}
+	}else{  // Altrimenti muove lo slider a destra
+		//Va' a destra"
+		for(i in arrayPages) {
+			if(new_tt_first_page == arrayPages[i].id) {
+				//alert(arrayPages[i].id + i);
+				$("#BRpager").slider("value", i);
+			}
+		}
+	}
+}
+
 /*= BIND SELECT DOUBLE PAGE EVENT ON OPTION CLICK =*/
 function bindDDselectClick() {
     $('.main_dd_select .option_container .option').click(function(){
         var pp_val, pp_lab, tt_val, first_page_id;
-        pp_val = $(this).attr('data-value') || '';
+		
+		var arrayPagePairs = [];
+		$('.main_dd_select .option_container .option').each(function() {
+			var pageId = $(this).attr('data-value');
+			//console.log(pageId);
+			arrayPagePairs.push(pageId);
+		});
+		
+        pp_val = $(this).attr('data-value') || ''; // pagine cliccate
         tt_val = $(this).attr('data-first-page-first-doc') || '';
         pp_lab = $(this).text() || '';
+		//console.log(pp_val);
         $('#span_dd_select .label_selected')
             .attr("data-value", pp_val)
             .attr("data-first-doc", tt_val)
             .attr('data-last-hash-txtimg', '')
             .text(pp_lab);
         first_page_id = pp_val.split("+")[0];
-        $("#span_pp_select .option_container .option[data-value='"+first_page_id+"']").trigger('click');                
+		//alert(first_page_id);
+        $("#span_pp_select .option_container .option[data-value='"+first_page_id+"']").trigger('click'); 
+		moveSliderSelectorDD(arrayPagePairs, pp_val);
         updateHash(tt_val, pp_val, "");
         $(this).removeClass('selected');
     });
+}
+
+function moveSliderSelectorDD(arrayPagePairs, pp_val) {
+	var j;
+	for(j=0; j<=arrayPagePairs.length;j++) {
+		if(arrayPagePairs[j].indexOf(pp_val) != -1) { // Se nell'elemento esiste una stringa uguale a pp_val
+			//alert(arrayPagePairs[j]);
+			$('#BRpager').slider({ // Modifico lo slider e il valore prende l'elemento in indice j
+				min: 0,
+				max: arrayPagePairs.length - 1,
+				value: j
+			});
+		}
+	}
 }
 
 /* BIND SELECT EDITION LEVEL EVENT ON OPTION CLICK / SWITCH ON/OFF REGESTO */
