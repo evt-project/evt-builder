@@ -634,7 +634,7 @@ function arrow(toward){ //duplicata temporaneamente in jquery.rafmas-keydown
 }
 
 function moveSlider(current_pp, new_pp_opt) {
-	//alert(current_pp + new_pp_opt);
+	console.log(current_pp + new_pp_opt);
 	var val, new_val;
 	var new_pp_opt_val = new_pp_opt.attr("data-value");
 	if(new_pp_opt_val < current_pp) {  // Se il valore della nuova pagina è minore di quella corrente
@@ -805,8 +805,8 @@ function bindDDselectClick() {
 }
 
 function moveSliderSelectorDD(arrayPagePairs, pp_val) {
-	var j;
-	for(j=0; j<=arrayPagePairs.length;j++) {
+	var j = 0, found = false;
+    while(j < arrayPagePairs.length && !found) {
 		if(arrayPagePairs[j].indexOf(pp_val) != -1) { // Se nell'elemento esiste una stringa uguale a pp_val
 			//alert(arrayPagePairs[j]);
 			$('#BRpager').slider({ // Modifico lo slider e il valore prende l'elemento in indice j
@@ -814,8 +814,10 @@ function moveSliderSelectorDD(arrayPagePairs, pp_val) {
 				max: arrayPagePairs.length - 1,
 				value: j
 			});
+            found = true;
 		}
-	}
+        j++;
+    }
 }
 
 /* BIND SELECT EDITION LEVEL EVENT ON OPTION CLICK / SWITCH ON/OFF REGESTO */
