@@ -23,6 +23,9 @@ function bindViscollClick(array) {
 				$('#BRpager').slider( "option", "disabled", false );
 				$('#BRicon_book_left').prop("disabled", false);
 				$('#BRicon_book_right').prop("disabled", false);
+				$('.main_tt_select div.option_container div.option').removeClass('ui-state-disabled').bind('click', bindTTselectClick());
+				$('.main_pp_select div.option_container div.optionGroup div.option').removeClass('ui-state-disabled').bind('click', bindPPselectClick());
+				$('#span_dd_select.like_select div.main_dd_select div.option_container div.option').removeClass('ui-state-disabled').bind('click', bindDDselectClick());
 			} else {
 				//$("#image_tool").hide(); /* A volte lo nasconde e a volte no, perchè? => è jQuery che a volte si incarta */
 				document.getElementById("image_tool").style.display = "none";
@@ -37,7 +40,10 @@ function bindViscollClick(array) {
 					$('#BRpager').slider( "option", "disabled", true );
 					$('#BRicon_book_left').prop("disabled", true);
 					$('#BRicon_book_right').prop("disabled", true);
-
+					$('.main_tt_select div.option_container div.option').addClass('ui-state-disabled').unbind('click');
+					$('.main_pp_select div.option_container div.optionGroup div.option').addClass('ui-state-disabled').unbind('click');
+					$('#span_dd_select.like_select div.main_dd_select div.option_container div.option').addClass('ui-state-disabled').unbind('click');
+					
 					var id_idno = $('.viscoll_idno').attr('id');
 					//$('#image_cont').load("data/output_data/viscoll/"+id_idno+"/"+id_idno+".html");
 					$('<iframe></iframe>').appendTo('#image_cont');
