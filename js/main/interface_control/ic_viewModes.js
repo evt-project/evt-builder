@@ -35,6 +35,11 @@ function openTxtImgMode(){
 		$('#BRpager').slider( "option", "disabled", false ); /* GM: riabilito lo slider e le frecce quando torna a img-txt */
         $('#BRicon_book_left').prop("disabled", false); /* GM */
         $('#BRicon_book_right').prop("disabled", false); /* GM */
+		$('iframe').hide();
+		if($('.main_tt_select div.option_container div.option').hasClass('ui-state-disabled') && $('.main_pp_select div.option_container div.optionGroup div.option').hasClass('ui-state-disabled')) {
+			$('.main_tt_select div.option_container div.option').removeClass('ui-state-disabled').bind('click', bindTTselectClick());
+			$('.main_pp_select div.option_container div.optionGroup div.option').removeClass('ui-state-disabled').bind('click', bindPPselectClick());
+		}
     }
     var thumbsBtn = $("#thumb_elem");
     if (thumbsBtn) {
@@ -251,6 +256,18 @@ function openTxtTxtMode() {
     var main_text_edition, first_new_edition, second_new_edition, noMenu_height;
     UnInitialize();//Add by JK for ITL
     UnInitializeHS();//Add by JK for HS
+	
+	if ($('#viscoll_iframe').is(":visible")) { // Se passo a txt-txt mentre ero su viscoll
+		$('#viscoll').removeClass('active');
+        $('iframe').hide();
+        $('#BRpager').slider( "option", "disabled", false );
+        $('#BRicon_book_left').prop("disabled", false);
+        $('#BRicon_book_right').prop("disabled", false);
+		if($('.main_tt_select div.option_container div.option').hasClass('ui-state-disabled') && $('.main_pp_select div.option_container div.optionGroup div.option').hasClass('ui-state-disabled')) {
+			$('.main_tt_select div.option_container div.option').removeClass('ui-state-disabled').bind('click', bindTTselectClick());
+			$('.main_pp_select div.option_container div.optionGroup div.option').removeClass('ui-state-disabled').bind('click', bindPPselectClick());
+		}
+	}
 
     $("#txttxt_link")
         .addClass("current_mode")
@@ -484,6 +501,7 @@ function openBookreaderMode(){
     var viscollBtn = document.getElementById("viscoll");
     if (viscollBtn) {
         viscollBtn.disabled = false;
+		$('#span_dd_select.like_select div.main_dd_select div.option_container div.option').removeClass('ui-state-disabled').bind('click', bindDDselectClick());
     }
 
     UnInitialize(); //Add by JK for ITL
@@ -494,6 +512,9 @@ function openBookreaderMode(){
         $('#BRpager').slider( "option", "disabled", false );
         $('#BRicon_book_left').prop("disabled", false);
         $('#BRicon_book_right').prop("disabled", false);
+		if($('#span_dd_select.like_select div.main_dd_select div.option_container div.option').hasClass('ui-state-disabled')) {
+			$('#span_dd_select.like_select div.main_dd_select div.option_container div.option').removeClass('ui-state-disabled').bind('click', bindDDselectClick());
+		}
     }
     
     var thumbsBtn = $("#thumb_elem");

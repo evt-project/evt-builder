@@ -634,7 +634,7 @@ function arrow(toward){ //duplicata temporaneamente in jquery.rafmas-keydown
 }
 
 function moveSlider(current_pp, new_pp_opt) {
-	console.log(current_pp + new_pp_opt);
+	//console.log(current_pp + new_pp_opt);
 	var val, new_val;
 	var new_pp_opt_val = new_pp_opt.attr("data-value");
 	if(new_pp_opt_val < current_pp) {  // Se il valore della nuova pagina è minore di quella corrente
