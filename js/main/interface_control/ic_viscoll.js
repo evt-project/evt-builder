@@ -23,9 +23,12 @@ function bindViscollClick(array) {
 				$('#BRpager').slider( "option", "disabled", false );
 				$('#BRicon_book_left').prop("disabled", false);
 				$('#BRicon_book_right').prop("disabled", false);
-				$('.main_tt_select div.option_container div.option').removeClass('ui-state-disabled').bind('click', bindTTselectClick());
-				$('.main_pp_select div.option_container div.optionGroup div.option').removeClass('ui-state-disabled').bind('click', bindPPselectClick());
-				$('#span_dd_select.like_select div.main_dd_select div.option_container div.option').removeClass('ui-state-disabled').bind('click', bindDDselectClick());
+				$('.main_tt_select div.option_container div.option').removeClass('ui-state-disabled');
+				bindTTselectClick();
+				$('.main_pp_select div.option_container div.optionGroup div.option').removeClass('ui-state-disabled');
+				bindPPselectClick();
+				$('#span_dd_select.like_select div.main_dd_select div.option_container div.option').removeClass('ui-state-disabled');
+				bindDDselectClick();
 			} else {
 				//$("#image_tool").hide(); /* A volte lo nasconde e a volte no, perchè? => è jQuery che a volte si incarta */
 				document.getElementById("image_tool").style.display = "none";
