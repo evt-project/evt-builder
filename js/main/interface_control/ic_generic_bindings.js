@@ -254,6 +254,12 @@ function bindBtnClick() {
                 $('#BRpager').slider( "option", "disabled", false ); // Riabilito lo slider
                 $('#BRicon_book_left').prop("disabled", false);
                 $('#BRicon_book_right').prop("disabled", false);
+				$('.main_tt_select div.option_container div.option').removeClass('ui-state-disabled');
+				bindTTselectClick();
+				$('.main_pp_select div.option_container div.optionGroup div.option').removeClass('ui-state-disabled');
+				bindPPselectClick();
+				$('#span_dd_select.like_select div.main_dd_select div.option_container div.option').removeClass('ui-state-disabled');
+				bindDDselectClick();
                 // Al click sulle thumbnails se viscoll ha class active (cioè è attivo), gli tolgo la classe e tolgo l'iframe
                 if($('#viscoll').hasClass('active')) {
                     $('#viscoll').removeClass('active');

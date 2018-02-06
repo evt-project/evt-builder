@@ -37,8 +37,10 @@ function openTxtImgMode(){
         $('#BRicon_book_right').prop("disabled", false); /* GM */
 		$('iframe').hide();
 		if($('.main_tt_select div.option_container div.option').hasClass('ui-state-disabled') && $('.main_pp_select div.option_container div.optionGroup div.option').hasClass('ui-state-disabled')) {
-			$('.main_tt_select div.option_container div.option').removeClass('ui-state-disabled').bind('click', bindTTselectClick());
-			$('.main_pp_select div.option_container div.optionGroup div.option').removeClass('ui-state-disabled').bind('click', bindPPselectClick());
+			$('.main_tt_select div.option_container div.option').removeClass('ui-state-disabled');
+			bindTTselectClick();
+			$('.main_pp_select div.option_container div.optionGroup div.option').removeClass('ui-state-disabled');
+			bindPPselectClick();
 		}
     }
     var thumbsBtn = $("#thumb_elem");
@@ -264,8 +266,10 @@ function openTxtTxtMode() {
         $('#BRicon_book_left').prop("disabled", false);
         $('#BRicon_book_right').prop("disabled", false);
 		if($('.main_tt_select div.option_container div.option').hasClass('ui-state-disabled') && $('.main_pp_select div.option_container div.optionGroup div.option').hasClass('ui-state-disabled')) {
-			$('.main_tt_select div.option_container div.option').removeClass('ui-state-disabled').bind('click', bindTTselectClick());
-			$('.main_pp_select div.option_container div.optionGroup div.option').removeClass('ui-state-disabled').bind('click', bindPPselectClick());
+			$('.main_tt_select div.option_container div.option').removeClass('ui-state-disabled');
+			bindTTselectClick();
+			$('.main_pp_select div.option_container div.optionGroup div.option').removeClass('ui-state-disabled');
+			bindPPselectClick();
 		}
 	}
 
@@ -501,7 +505,8 @@ function openBookreaderMode(){
     var viscollBtn = document.getElementById("viscoll");
     if (viscollBtn) {
         viscollBtn.disabled = false;
-		$('#span_dd_select.like_select div.main_dd_select div.option_container div.option').removeClass('ui-state-disabled').bind('click', bindDDselectClick());
+		$('#span_dd_select.like_select div.main_dd_select div.option_container div.option').removeClass('ui-state-disabled');
+		bindDDselectClick();
     }
 
     UnInitialize(); //Add by JK for ITL
