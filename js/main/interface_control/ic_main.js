@@ -115,6 +115,13 @@ $(function() {
 				.attr("data-value", $('.main_ee_select .option_container div:first').attr('data-value'))
 				.trigger('change');
 
+			// ADD BY FS 	
+			//Se ho più di un'edizione e non è attiva la modalità txttxt non visualizzare l'opzione per la selezione dell'edizione di traduzione 
+        	if( (!$('#txttxt_link').hasClass('current_mode')) && $(xml).find('editions edition').length > 0 ) {
+				$("#span_ee_select .option_container .option[data-value='translation']").hide();
+        	}
+
+
 			/* ==/ LOAD EDITION LEVELS */
 			/* ======================= */
 			
@@ -360,7 +367,7 @@ $(function() {
 						$('#lists_cont').find('.labelList').first().addClass('active');
 						$('.list_filter').first().trigger('click');
 
-						$('#list_'+listName).load("data/output_data/liste/"+listName+".html div", function(){
+						$('#list_'+listName).load("data/output_data/liste/"+listName+".html #"+listName, function(){
 
 							if ( $('#list_'+listName).find('li').length == 0 ) {
 								$('#list_'+listName).remove();
@@ -371,10 +378,6 @@ $(function() {
 									$('#list_link').remove();
 								}
 							} else {
-								$('[id]').each(function(){
-									$('[id="' + this.id + '"]:gt(0)').remove();
-								});
-								
 								$('#list_'+listName)
 									.find('.list_element').find('.toggle_list_element, .entity_name').click(function(){
 										showListElementOccurrences($(this).parent(), listName);
@@ -671,6 +674,20 @@ $(function() {
 			    });
 			}
 			
+			/* ====================== */
+			/* TRANSLATE */
+			if (($(xml).find('trad').attr('active')==1)){
+			    $('#trad_cont').load("data/output_data/translate/page__translate.html #trad", function(){
+			    	if ( $('#trad_cont').is(':empty') ) {
+				    	$('#switch_trad, #trad_cont').remove();
+				    	resizeButtonsAndSelects();
+				    } else {
+				    	bindMsDescBtnClick();
+				    }
+			        resizeGlobalTopBar();
+			    });
+			}
+
 			/* ============ */
 			/* FRONT MATTER */
 			if (($(xml).find('headerInfo').length > 0) && ($(xml).find('headerInfo').attr('active')==1)){

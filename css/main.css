@@ -572,12 +572,11 @@ footer{
 }
 
 #text_elem, #text_elem-add, #regesto, #regesto-add{
-	width: 99.4%;
 	width: 100%;
 	min-height: 456px;
 	overflow: visible;
 	position: relative;
-	top: 51px;
+	top: 5px;
 	/*overflow-x: hidden;*/
 }
 #regesto, #regesto-add{
@@ -587,6 +586,7 @@ footer{
 	min-height: -webkit-calc(100%-98px);
 	min-height: -o-calc(100%-98px);
 	min-height: calc(100%-98px);
+	top: 51px;
 }
 /*Chiara
 #text_cont{
@@ -2297,15 +2297,11 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 .tooltip .toggle_list_element{
 	display: none !important;
 }
-#text span.popup.selected_from_list .trigger,
-#text span.term.selected_from_list,
-#text span.gloss.selected_from_list {
+#text span.popup.selected_from_list .trigger{
 	background: #ffc !important;
 	text-shadow:0px 0px 1px #000;
 }
-#text span.popup.selected_from_list .tooltip,
-#text span.term.selected_from_list,
-#text span.gloss.selected_from_list {
+#text span.popup.selected_from_list .tooltip{
 	background: rgb(229, 218, 196) !important;
 	text-shadow:none !important;
 }
@@ -3013,7 +3009,7 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 
 #headerInfo_box_tabs .title {
     width: 100%;
-	margin-bottom: 0;
+    height: 15px;
     display: block;
     margin-top: 20px;
     font-weight: bold; 

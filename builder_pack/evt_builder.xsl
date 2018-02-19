@@ -69,6 +69,19 @@
 	<xsl:include href="modules/elements/evt_builder-interp-multi_module.xsl"/>
 	<!--<xsl:include href="modules/elements/evt_builder-interp-textstructure.xsl"/>-->
 	
+	<!-- Elements for trascrizione diplomatica version -->  <!-- Added By FS -->
+	<xsl:include href="modules/elements/evt_builder-tdipl-core.xsl"/>
+	<!--  <xsl:include href="modules/elements/evt_builder-tdipl-multi_module.xsl"/>-->
+	
+	<!-- Elements for translation version -->  <!-- Added By FS -->
+	<xsl:include href="modules/elements/evt_builder-trad-core.xsl"/>
+
+	<!-- Elements for critical version -->  <!-- Added By FS -->
+	<xsl:include href="modules/elements/evt_builder-crit-core.xsl"/>
+	<!--<xsl:include href="modules/elements/evt_builder-crit-multi_module.xsl"/>-->
+	
+	<!-- Elements for facsimile version -->
+	
 	<!-- Generic transformations -->
 	<xsl:include href="modules/elements/evt_builder-general.xsl"/>
 	

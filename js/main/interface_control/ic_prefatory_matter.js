@@ -106,7 +106,7 @@ function updateFrontContent(current_doc){
                 //  .click(function(){ hide_front(id_front_cont, id_front); })
                 //  .appendTo(id_front_cont); // solo nel box di destra
 
-                if ( ($('#span_ee_select .label_selected').attr('data-value') != 'diplomatic') &&
+                if ( ($('#span_ee_select .label_selected').attr('data-value') == 'diplomatic') || ($('#span_ee_select .label_selected').attr('data-value') == 'critical') &&
                      (!$('#switchFront').hasClass('active')) ) {
                     $("#main_right_frame").find('.like_select.filter')
                         .css('opacity', "1")
@@ -124,7 +124,7 @@ function updateFrontContent(current_doc){
                         .addClass('not_active'); 
                 } else if ($("#span_ee_select").find('.option').length > 0) {
                     // ...altrimenti
-                    if ( $('#span_ee_select-add .label_selected').attr('data-value') != 'front' ) {
+                    if ( $('#span_ee_select-add .label_selected').attr('data-value') == 'front' ) {
                         // Se nel frame ho il front visibile, il selettore dei filtri rimane opacizzato...
                         $("#main_left_frame").find('.like_select.filter')
                             .css('opacity', "0.5")
@@ -171,7 +171,7 @@ function toggleFront(front_cont){
         $(front_cont).hide('drop',  {direction: 'up'}, 'linear', function(){
             var ee_val;
             ee_val = $(front_cont).parents("div[id*='frame']").find('.main_ee_select .label_selected').attr('data-value');
-            if ( ee_val.toLowerCase() != 'diplomatic' ) {
+            if ( (ee_val.toLowerCase() == 'diplomatic')|| (ee_val.toLowerCase() == 'critical') || (ee_val.toLowerCase() == 'translation')) {
                 $(front_cont)
                     .parents("div[id*='frame']")
                         .find('.like_select.filter')
@@ -180,16 +180,16 @@ function toggleFront(front_cont){
             }
         });
         
-    } else {
+     /*} else {
         $(front_cont).show('drop',  {direction: 'up'}, 'linear', function(){
-            // Disattivare filtri liste nell'edizione diplomatica
+            Disattivare filtri liste nell'edizione diplomatica
             $(front_cont)
                 .parents("div[id*='frame']")
                     .find('.like_select.filter')
                         .css('opacity', "0.5")
                         .addClass('not_active');
             
-        });
+        });*/
     }
 }
 /* ==/ FRONT END */
@@ -277,7 +277,8 @@ function updateRegestoContent(current_doc){
                 //  .click(function(){ hide_regesto(id_regesto_cont, id_regesto); })
                 //  .appendTo(id_regesto_cont); // solo nel box di destra
 
-                if ( ($('#span_ee_select .label_selected').attr('data-value') != 'diplomatic') &&
+                if ( ($('#span_ee_select .label_selected').attr('data-value') == 'diplomatic') || ($('#span_ee_select .label_selected').attr('data-value') == 'critical') ||
+                    ($('#span_ee_select .label_selected').attr('data-value') == 'translation') &&
                      (!$('#switchReg').hasClass('active')) ) {
                     $("#main_right_frame").find('.like_select.filter')
                         .css('opacity', "1")
@@ -295,7 +296,7 @@ function updateRegestoContent(current_doc){
                         .addClass('not_active'); 
                 } else if ($("#span_ee_select").find('.option').length > 0) {
                     // ...altrimenti
-                    if ( $('#span_ee_select-add .label_selected').attr('data-value') != 'regesto' ) {
+                    if ( $('#span_ee_select-add .label_selected').attr('data-value') == 'regesto' ) {
                         // Se nel frame ho il regesto visibile, il selettore dei filtri rimane opacizzato...
                         $("#main_left_frame").find('.like_select.filter')
                             .css('opacity', "0.5")
@@ -332,7 +333,7 @@ function toggleReg(cont){
             $(cont).removeClass('open');
             var ee_val;
             ee_val = $(cont).parents("div[id*='frame']").find('.main_ee_select .label_selected').attr('data-value');
-            if ( ee_val.toLowerCase() != 'diplomatic' ) {
+            if (( ee_val.toLowerCase() == 'diplomatic' )||( ee_val.toLowerCase() == 'critical')||( ee_val.toLowerCase() == 'translation') ){
                 $(cont)
                     .parents("div[id*='frame']")
                         .find('.like_select.filter')

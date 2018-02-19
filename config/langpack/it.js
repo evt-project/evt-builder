@@ -1,6 +1,8 @@
 jquery_lang_js.prototype.lang.it = {
     "DIPLOMATIC": "Diplomatica",
     "INTERPRETATIVE": "Interpretativa",
+    "CRITICAL": "Critica",
+    "TRANSLATION":"Traduzione",
 	
     "MODE_SINGLE_TEXT": "Testo singolo",
 	"MODE_IMAGE_TEXT": "Immagine-Testo",
@@ -68,8 +70,6 @@ jquery_lang_js.prototype.lang.it = {
 	"TITLE": "Titolo dell'edizione",
 	"TEXT_AUTHOR": "Autore del testo",
 	"PRINCIPAL_INVESTIGATOR": "Coordinatore principale",
-	"EDITION_STATEMENT": "Dichiarazione dell'edizione",
-	"RESPONSIBILITY_STATEMENT": "Dichiarazione di responsabilità",
 	"PUBLICATION_INFORMATION": "Informazioni sulla pubblicazione",
 	"EDITORIAL_DECLARATION": "Dichiarazione editoriale ",
 	"AUTORITY": "Autorità di pubblicazione",
@@ -123,8 +123,6 @@ jquery_lang_js.prototype.lang.it = {
 	"LIST_PERSON": "Lista delle persone",
 	"LIST_PLACE": "Lista dei luoghi",
 	"LIST_ORG": "Lista di enti",
-	"LIST_TERM": "Lista di parole",
-	"LIST_GLOSS": "Lista di glosse",
 	"NO_ELEMENTS": "Nessun elemento",
     "PAGE_MISSING": "(miss)",
     "PAGE_MISSING_RIGHT": " - (miss)",
@@ -137,8 +135,6 @@ jquery_lang_js.prototype.lang.it = {
     "DOCUMENT": "Documento",
     "FOL": "Fol.",
     "DOC": "Doc.",
-    "ALL": "Tutti",
-    
     "MULTI_SELECTION": "Selezione multipla",
     "SHOWING_RESULTS_FOR_THE_WORD": "Di seguito i risultati per ",
     "SEARCH_FOR": "Ricerca di ",
@@ -162,8 +158,6 @@ jquery_lang_js.prototype.lang.it = {
     "orgName":"Enti religiosi",
     "measure": "Monete",
     "date": "Date",
-    "term": "Term",
-    "gloss": "Gloss",
     "clear": "Nessuna selezione",
     "multi": "Selezione multipla",
 

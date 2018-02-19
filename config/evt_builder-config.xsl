@@ -42,7 +42,7 @@
 	<!-- EN: Index title -->
 	<!-- IT: Titolo edizione -->
 	<!-- default: 'Codex Viewer' -->
-	<xsl:param name="index_title" select="'Codex Viewer'"/>
+	<xsl:param name="index_title" select="'Documenti di Matilde di Canossa a Lucca'"/>
 	
 	<!-- EN: Welcome Message -->
 	<!-- IT: Messaggio di benvenuto -->
@@ -51,11 +51,11 @@
 		<div>
 			<p class="title main">Welcome to an edition created with EVT!</p> 
 		</div>
-		<div>This archive includes a few examples of editions created using EVT, 
-			by default you are showed a small excerpt of the 
-			<a href="http://pelavicino.labcd.unipi.it/" target="blank">
-				Codice Pelavicino Digitale edition</a>.
-		</div>
+		<div><p>The digital edition of “Documents of Matilde di Canossa in Lucca” has been realized with the 
+			intention to collect and to present to the audience the important witness about Matilde in the 
+			“Archivio storico Diocesano in Lucca”. To allow to an extended audience to have access to the documents,
+			there is also an Italian translation.
+		</p></div>
 		<div>It is recommended to go to full screen mode so that all available screen space is used to show the manuscript images and the transcription text.</div>
 		<div>For more information refer to the EVT Manual in the "doc" folder. 
 			If you have any suggestions or spot an error/bug please contact us at <a href="mailto:evt.developers@gmail.com">evt.developers@gmail.com</a></div>
@@ -78,7 +78,7 @@
 	<!-- EN: On/Off doubleview -->
 	<!-- IT: Attiva/Disattiva vista doppia pagina -->
 	<!-- default: true() -->
-	<xsl:param name="double_view" select="true()"/>
+	<xsl:param name="double_view" select="false()"/>
 	
 	<!-- ################ -->
 	<!-- PREFATORY MATTER -->
@@ -87,17 +87,17 @@
 	<!-- EN: On/Off regesto -->
 	<!-- IT: Attiva/Disattiva regesto -->
 	<!-- default: false() -->
-	<xsl:param name="regesto" select="false()"/>
+	<xsl:param name="regesto" select="true()"/>
 	
 	<!-- EN: On/Off Front Information -->
 	<!-- IT: Attiva/Disattiva Front Information -->
 	<!-- default: true() -->
-	<xsl:param name="frontInfo" select="true()"/>
+	<xsl:param name="frontInfo" select="false()"/>
 	
 	<!-- EN: On/Off Manuscript Description -->
 	<!-- IT: Attiva/Disattiva Descrizione del manoscritto-->
 	<!-- default: true() -->
-	<xsl:param name="msDesc" select="true()"/>
+	<xsl:param name="msDesc" select="false()"/>
 	
 	<!-- EN: On/Off Header information -->
 	<!-- IT: Attiva/Disattiva Informazioni generali -->
@@ -115,7 +115,7 @@
 	<!-- EN: It is possible to skip production of pages for a specific edition simply removing the textual part of the corresponding item. -->
 	<!-- IT: E' possibile rimuovere la produzione di pagine di una determinata edizione semplicemente rimuovendo la parte testuale dell'item corrispondente. -->
 	<xsl:variable name="edition_array" as="element()*">
-		<edition>Diplomatic</edition> 
+		<edition></edition> 
 		<!-- EN: If you have diplomatic edition put <edition>Diplomatic</edition>.  
 			 	 If you DON'T have diplomatic edition put <edition></edition> -->
 		<!-- IT: Se si ha l'edizione diplomatica scrivere <edition>Diplomatic</edition>.  
@@ -123,7 +123,7 @@
 		
 		<!-- EN: For processing in the modules: $edition_array[1] --> <!-- IT: Per l'elaborazione nei moduli: $edition_array[1] -->
 		
-		<edition>Interpretative</edition>	
+		<edition></edition>	
 		<!-- EN: If you have diplomatic edition put <edition>Interpretative</edition>.  
 			 	 If you don't have diplomatic edition put <edition></edition> -->
 		<!-- IT: Se si ha l'edizione interpretativa scrivere <edition>Interpretative</edition>.  
@@ -134,14 +134,22 @@
 		<!-- EN: To add a new edition it is necessary to add a new line here and -forcedly- a declaration concerning output file in the modules/evt_builder-main.xsl file, under the <xsl:if test="$edition_array[2]!=''" condition>
 				For instance: <edition>New_edition</edition> -->
 		<!-- IT: Per aggiungere una nuova edizione, bisognerà inserire una nuova riga qui e -necessariamente- la dichiarazione per i file di output nel file modules/evt_builder-main.xsl, sotto la condizione <xsl:if test="$edition_array[2]!=''">
-				Esempio: <edition>Nuova_edizione</edition> -->    
+				Esempio: <edition>Nuova_edizione</edition> Add by FS -->
+		<edition>Diplomatic</edition>
+
+		<edition>Critical</edition>
+		
+		<edition>Translation</edition>
+
 	</xsl:variable>
 	
 	<!-- EN: It is possibile to customize the prefix used in the creation of the classes of the html elements of the edition -->
 	<!-- IT: E' possibile personalizzare il prefisso usato nella creazione delle classi degli elementi html di un edizione. -->
 	<xsl:variable name="ed_name1">dipl</xsl:variable>
 	<xsl:variable name="ed_name2">interp</xsl:variable>
-	
+	<xsl:variable name="ed_name3">tdipl</xsl:variable> <!-- Addedd by FS -->
+	<xsl:variable name="ed_name4">crit</xsl:variable> <!-- Addedd by FS -->
+	<xsl:variable name="ed_name5">trad</xsl:variable> <!-- Addedd by FS -->
 	<!-- Variable -->
 	
 	<!-- Thumb image -->
@@ -173,7 +181,7 @@
 				then(//tei:text/tei:group/name()) 
 		else( 
 			if(count(//tei:body/tei:div[@subtype='edition_text'])>1) 
-				then(//tei:body/tei:div[@subtype='edition_text']/name()) 
+				then(//tei:body/tei:div[@subtype='edition_text']/name())
 			else(//tei:text/tei:body/name() ))"/>
 	
 	<!-- EN: Indicate the maximum depth of pb/lb with relatively to the element stated in the variable $start_split-->
@@ -253,7 +261,7 @@
 	<!-- EN: Show/Hide Edition level selector in interface -->
 	<!-- IT: Mostra/Nascondi selettore Livello/i Edizione nell'interfaccia web -->
 	<!-- default: true() -->
-	<xsl:param name="edition_level_selector" select="false()"/>
+	<xsl:param name="edition_level_selector" select="true()"/>
 	
 	<!-- IT: Choose page selector position -->
 	<!-- IT: Scegli posizione Selettore pagina -->
@@ -302,16 +310,6 @@
 	<!-- IT: Attiva/disattiva lista organizzazioni -->
 	<!-- default: true() -->
 	<xsl:param name="list_org" select="true()"/>
-	
-	<!-- default: true() -->
-	<!-- IT: Attiva/disattiva lista terms -->
-	<!-- default: true() -->
-	<xsl:param name="list_term" select="true()"/>
-	
-	<!-- default: true() -->
-	<!-- IT: Attiva/disattiva lista glosses -->
-	<!-- default: true() -->
-	<xsl:param name="list_gloss" select="true()"/>
 	
 	<!-- EN: It is possibile to personalize the elements in the filter select element that will select and highlight particular (groups of) words.
 			 In order to remove an element from the list in the application just remove the element itself.
