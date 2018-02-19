@@ -938,7 +938,7 @@
 	</xsl:template>
 		
 	<!-- BACK - DIV - Container of Translation Edition -->	
-	<xsl:template match="tei:back/tei:div[@type='translate']" mode="crit">
+	<xsl:template match="tei:back/tei:div[starts-with(@type,'transl')] | tei:back/tei:div[starts-with(@type,'trad')]" mode="crit">
 		<!-- DO NOTHING -->
 	</xsl:template>	
 	

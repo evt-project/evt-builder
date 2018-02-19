@@ -27,26 +27,26 @@
 	</xd:doc>
 
 	<!-- TRANSLATION - BACK - DIV - Container of Translation Edition -->
-	<xsl:template match="tei:back/tei:div[@type='translate']" mode="trad">
-	<xsl:element name="div">
-		<xsl:attribute name="class">doc</xsl:attribute>
-		<xsl:attribute name="data-doc" select="current()/(replace (@xml:id, '_trad', ''))"/>
-		<xsl:attribute name="title"><xsl:text>Doc. </xsl:text>
-			<xsl:choose>
-				<xsl:when test="current()/@n">
-					<xsl:value-of select="current()/@n"/>
-				</xsl:when>
-				<xsl:otherwise>
-					<xsl:call-template name="generateTextLabel">
-						<xsl:with-param name="text_id">
-							<xsl:value-of select="current()/(replace (@xml:id, '_trad', ''))" />
-						</xsl:with-param>
-					</xsl:call-template>
-				</xsl:otherwise>
-			</xsl:choose>
-		</xsl:attribute>
-		<xsl:apply-templates mode="#current"/>
-	</xsl:element>
+	<xsl:template match="tei:back/tei:div[starts-with(@type,'transl')] | tei:back/tei:div[starts-with(@type,'trad')]" mode="trad">
+		<xsl:element name="div">
+			<xsl:attribute name="class">doc</xsl:attribute>
+			<xsl:attribute name="data-doc" select="current()/(replace (@xml:id, '_trad', ''))"/>
+			<xsl:attribute name="title"><xsl:text>Doc. </xsl:text>
+				<xsl:choose>
+					<xsl:when test="current()/@n">
+						<xsl:value-of select="current()/@n"/>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:call-template name="generateTextLabel">
+							<xsl:with-param name="text_id">
+								<xsl:value-of select="current()/(replace (@xml:id, '_trad', ''))" />
+							</xsl:with-param>
+						</xsl:call-template>
+					</xsl:otherwise>
+				</xsl:choose>
+			</xsl:attribute>
+			<xsl:apply-templates mode="#current"/>
+		</xsl:element>
 	</xsl:template>
 	
 	<!--             -->

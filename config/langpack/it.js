@@ -188,7 +188,7 @@ jquery_lang_js.prototype.lang.it = {
     "ERROR_LOADING_HI_IMAGE": "Si è verificato un errore durante il caricamento dell'immagine ad alta risoluzione.",
     
     "NO_INFO": "Nessuna informazione",
-    
+    "NO_TRANSLATION_AVAILABLE": "Nessuna traduzione disponibile.",
     "AFTER": "dopo il",
     "BEFORE": "prima del",
     "FROM": "dal",
