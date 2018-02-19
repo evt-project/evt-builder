@@ -1,6 +1,8 @@
 jquery_lang_js.prototype.lang.fr = {
 	"DIPLOMATIC": "Diplomatique",
     "INTERPRETATIVE": "Interprétatif",
+    "CRITICAL": "Critique",
+    "TRANSLATION":"Traduction",
 
     "MODE_SINGLE_TEXT": "Mode Texte",
 	"MODE_IMAGE_TEXT": "Mode Image|Texte",
@@ -68,8 +70,6 @@ jquery_lang_js.prototype.lang.fr = {
 	"TITLE": "Titre de l'édition",
 	"TEXT_AUTHOR": "Auteur du texte",
 	"PRINCIPAL_INVESTIGATOR": "Principal coordinateur",
-	"EDITION_STATEMENT": "Déclaration d'édition",
-	"RESPONSIBILITY_STATEMENT": "Déclaration de responsabilité",
 	"PUBLICATION_INFORMATION": "Information sur la publication",
 	"EDITORIAL_DECLARATION": "Déclaration éditoriale",
 	"AUTORITY": "Publié autorités",
@@ -123,8 +123,6 @@ jquery_lang_js.prototype.lang.fr = {
 	"LIST_PERSON": "Liste des personnes",
 	"LIST_PLACE": "Liste des lieux",
 	"LIST_ORG": "Liste des institutions",
-	"LIST_TERM": "Liste des mots",
-	"LIST_GLOSS": "Liste des gloses",
 	"NO_ELEMENTS": "Rien",
     "PAGE_MISSING": "(miss)",
     "PAGE_MISSING_RIGHT": " - (miss)",
@@ -137,8 +135,6 @@ jquery_lang_js.prototype.lang.fr = {
     "DOCUMENT": "Document",
     "FOL": "Fol.",
     "DOC": "Doc.",
-    "ALL": "Tous",
-
     "MULTI_SELECTION": "Sélection multiple",
     "SHOWING_RESULTS_FOR_THE_WORD": "Présentant les résultats le mot ",
     "SEARCH_FOR": "Rechercher ",
@@ -162,8 +158,6 @@ jquery_lang_js.prototype.lang.fr = {
     "orgName":"Organismes religieux",
     "measure": "Monnaies",
     "date": "Dates",
-    "term": "Term",
-    "gloss": "Gloss",
     "clear": "Pas de sélection",
 	"multi": "Multi sélection",
 

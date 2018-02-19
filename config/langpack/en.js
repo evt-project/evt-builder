@@ -1,6 +1,8 @@
 jquery_lang_js.prototype.lang.en = {
 	"DIPLOMATIC": "Diplomatic",
     "INTERPRETATIVE": "Interpretative",
+   	"CRITICAL": "Critical",
+    "TRANSLATION":"Translation",
 
     "MODE_SINGLE_TEXT": "Single Text Mode",
 	"MODE_IMAGE_TEXT": "Image Text Mode",
@@ -68,8 +70,6 @@ jquery_lang_js.prototype.lang.en = {
 	"TITLE": "Title of the edition",
 	"TEXT_AUTHOR": "Text author",
 	"PRINCIPAL_INVESTIGATOR": "Principal investigator",
-	"EDITION_STATEMENT": "Edition Statement",
-	"RESPONSIBILITY_STATEMENT": "Statement of responsibility",
 	"PUBLICATION_INFORMATION": "Publication information",
 	"EDITORIAL_DECLARATION": "Editorial declaration",
 	"AUTORITY": "Release autority",
@@ -123,8 +123,6 @@ jquery_lang_js.prototype.lang.en = {
 	"LIST_PERSON": "List of persons",
 	"LIST_PLACE": "List of places",
 	"LIST_ORG": "List of organizations",
-	"LIST_TERM": "List of words",
-	"LIST_GLOSS": "List of glosses",
 	"NO_ELEMENTS": "No elements",
     "PAGE_MISSING": "(miss)",
     "PAGE_MISSING_RIGHT": " - (miss)",
@@ -138,8 +136,7 @@ jquery_lang_js.prototype.lang.en = {
     "FOL": "Fol.",
     "DOC": "Doc.",
     "MULTI_SELECTION": "Multi selection",
-    "ALL": "All",
-    
+
     "SHOWING_RESULTS_FOR_THE_WORD": "Showing results for the word ",
     "SEARCH_FOR": "Search for ",
     "WE_HAVE_FOUND": "We have found ",
@@ -162,8 +159,6 @@ jquery_lang_js.prototype.lang.en = {
     "orgName":"Religious organizations",
     "measure": "Currencies",
     "date": "Dates",
-    "term": "Term",
-    "gloss": "Gloss",
     "clear": "No selection",
     "multi": "Multi selection",
     "Multi selection": "Multi selection",

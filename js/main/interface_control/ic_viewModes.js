@@ -38,9 +38,13 @@ function openTxtImgMode(){
         .addClass("current_mode")
         .siblings()
             .removeClass("current_mode");
+
     if ( $('#span_ee_select .label_selected').attr('data-value')!='diplomatic' ) {
         $('.like_select.filter').removeClass('not_active');
     }
+
+    // Nascondo selettore dell'edizione di traduzione visibile solo nell'altra modalità txtxt
+    $("#span_ee_select .option_container .option[data-value='translation']").hide();
     
     // Nascondo pulsanti visibili solo nelle altre modalità
     $("#text_cont-add").remove();
@@ -254,7 +258,7 @@ function openTxtTxtMode() {
 
         var lineNwidth = $('#main_right_frame').find('.dipl-lineN:last').outerWidth();
         var textInnerWidt = $('#main_right_frame').find("div#text_cont").innerWidth()*85/100;    
-        $('#main_right_frame, #main_left_frame').find('.dipl-left, .interp-left').each(function(){
+        $('#main_right_frame, #main_left_frame').find('.dipl-left, .interp-left, .tdipl-left, .crit-left, .trad-left').each(function(){
             $(this).css({
                 'max-width': (textInnerWidt-lineNwidth-43)+'px'
             });
@@ -308,7 +312,6 @@ function openTxtTxtMode() {
             updateSelectLength(listSelectAdd);
         }
     }
-
 
     // Se ho il REGESTO e un solo livello di edizione
     if ( !$('#regesto_cont').hasClass('disable') && $("#span_ee_select").find('.option').length == 1 ) {
@@ -367,7 +370,12 @@ function openTxtTxtMode() {
             .css({display: "inline-block"})
             .find('.selected').removeClass('selected');
         var current_right_edition = $('#span_ee_select').find('.label_selected').attr('data-value');
-        $("#span_ee_select-add .option_container .option[data-value!='"+current_right_edition+"']:first").trigger('click');
+        $("#span_ee_select-add .option_container .option[data-value='translation']:first").trigger('click');
+      	$("#span_ee_select .option_container .option[data-value='critical']:first").trigger('click');
+        /* $("#span_ee_select-add .option_container .option[data-value!='"+current_right_edition+"']:first").trigger('click');*/
+        // ADD BY FS 
+        // Imposto i valori di default per la modalità txtxtx
+
 
         // DUPLICO PULSANTI DI NAVIGAZIONE PRESENTI NEL FRAME DI DESTRA
         if ( $('#span_pp_select').hasClass('right_menu') ) {
@@ -414,9 +422,9 @@ function openTxtTxtMode() {
         });
         $('.go-full-left').addClass('onWhite');
     }
-    var lineNwidth = $('#main_right_frame').find('.dipl-lineN:last').outerWidth();
+    var lineNwidth = $('#main_right_frame').find('.dipl-lineN:last, .interp-lineN:last, .tdipl-lineN:last, .trad-lineN:last').outerWidth();
     var textInnerWidt = $('#main_right_frame').find("div#text_cont").innerWidth()*85/100;    
-    $('#main_left_frame').find('.dipl-left, .interp-left').each(function(){
+    $('#main_left_frame').find('.dipl-left, .interp-left, .tdipl-left, .crit-left, .trad-left').each(function(){
         $(this).css({
             'max-width': (textInnerWidt-lineNwidth-43)+'px'
         });
@@ -498,6 +506,9 @@ function openTxtSingleMode(){
         left: '15px' 
     });
 }
+/*= MOSTRA VIRTUALE VIEW MODE =*/
+
+
 
 /* ******** */
 /* BINDINGS */
