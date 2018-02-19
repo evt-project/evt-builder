@@ -88,9 +88,18 @@
 			
 			<!-- REGESTO -->
 			<xsl:if test="$regesto=true()">
-				<xsl:for-each select="tei:TEI/tei:text/tei:group/tei:text">
-					<xsl:call-template name="regesto"/>	
-				</xsl:for-each>
+				<xsl:choose>
+					<xsl:when test="tei:TEI/tei:text/tei:group/tei:text">
+						<xsl:for-each select="tei:TEI/tei:text/tei:group/tei:text">
+							<xsl:call-template name="regesto"/>	
+						</xsl:for-each>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:for-each select="tei:TEI/tei:text">
+							<xsl:call-template name="regesto"/>	
+						</xsl:for-each>
+					</xsl:otherwise>
+				</xsl:choose>
 			</xsl:if>
 			
 			<!-- FRONT INFORMATION -->
@@ -142,6 +151,28 @@
 						<xsl:attribute name="class">can-change-font-size</xsl:attribute>
 						<xsl:call-template name="listOrg"></xsl:call-template>
 						<xsl:apply-templates select="$step0" mode="listOrgOccurences"></xsl:apply-templates>
+					</xsl:element>
+				</xsl:result-document>
+			</xsl:if>
+			
+			<xsl:if test="$list_term=true()">
+				<xsl:result-document method="html" encoding="UTF-8" media-type="text/plain" byte-order-mark="yes" href="{$filePrefix}/data/output_data/liste/listTerm.html" indent="yes">
+					<xsl:element name="div">
+						<xsl:attribute name="id">listTerm</xsl:attribute>
+						<xsl:attribute name="class">can-change-font-size</xsl:attribute>
+						<xsl:call-template name="listTerm"></xsl:call-template>
+						<xsl:apply-templates select="$step0" mode="listTermOccurences"></xsl:apply-templates>
+					</xsl:element>
+				</xsl:result-document>
+			</xsl:if>
+			
+			<xsl:if test="$list_gloss=true()">
+				<xsl:result-document method="html" encoding="UTF-8" media-type="text/plain" byte-order-mark="yes" href="{$filePrefix}/data/output_data/liste/listGloss.html" indent="yes">
+					<xsl:element name="div">
+						<xsl:attribute name="id">listGloss</xsl:attribute>
+						<xsl:attribute name="class">can-change-font-size</xsl:attribute>
+						<xsl:call-template name="listGloss"></xsl:call-template>
+						<xsl:apply-templates select="$step0" mode="listGlossOccurences"></xsl:apply-templates>
 					</xsl:element>
 				</xsl:result-document>
 			</xsl:if>
@@ -219,7 +250,7 @@
 				</xsl:when>
 				<!-- IT: Se c'è il surface viene creato un albero temporaneo che corrisponde al gruppo corrente trasformato in base al livello di edizione;
 										 a questo viene applicato il template per il collegamento testo-immagine-->
-				<xsl:when test="$root//tei:facsimile/tei:surface[translate(@corresp, '#', '')=replace($pb_n, '-front', '')]//tei:zone[@rendition='Line']">
+				<xsl:when test="$root//tei:facsimile/tei:surface[translate(@corresp, '#', '')=replace($pb_n, '-front', '')]//tei:zone[@rendition='Line'] | $root//tei:facsimile/tei:surface[translate(@corresp, '#', '')=replace($pb_n, '-front', '')]//tei:zone[@rendition='HotSpot']">
 					<!--<xsl:copy-of select="current-group()"/>--> <!-- <-use this to find split errors -->
 					<xsl:variable name="text"><xsl:apply-templates select="current-group()" mode="dipl"/></xsl:variable>
 					<!-- IT: aggiungi elementi div per linee di testo -->
@@ -275,7 +306,7 @@
 				</xsl:when>
 				<!-- IT: Se c'è il surface viene creato un albero temporaneo che corrisponde al gruppo corrente trasformato in base al livello di edizione;
 										 a questo viene applicato il template per il collegamento testo-immagine-->
-				<xsl:when test="$root//tei:facsimile/tei:surface[translate(@corresp, '#', '')=replace($pb_n, '-front', '')]//tei:zone[@rendition='Line']">
+				<xsl:when test="$root//tei:facsimile/tei:surface[translate(@corresp, '#', '')=replace($pb_n, '-front', '')]//tei:zone[@rendition='Line'] | $root//tei:facsimile/tei:surface[translate(@corresp, '#', '')=replace($pb_n, '-front', '')]//tei:zone[@rendition='HotSpot']">
 					<!--<xsl:copy-of select="current-group()"/>--> <!-- <-use this to find split errors -->
 					<xsl:variable name="text"><xsl:apply-templates select="current-group()" mode="interp"/></xsl:variable>
 					<xsl:variable name="text2">
@@ -328,7 +359,7 @@
 				</xsl:when>
 				<!-- IT: Se c'è il surface viene creato un albero temporaneo che corrisponde al gruppo corrente trasformato in base al livello di edizione;
 										 a questo viene applicato il template per il collegamento testo-immagine-->
-				<xsl:when test="$root//tei:facsimile/tei:surface[translate(@corresp, '#', '')=replace($pb_n, '-front', '')]//tei:zone[@rendition='Line']">
+				<xsl:when test="$root//tei:facsimile/tei:surface[translate(@corresp, '#', '')=replace($pb_n, '-front', '')]//tei:zone[@rendition='Line'] | $root//tei:facsimile/tei:surface[translate(@corresp, '#', '')=replace($pb_n, '-front', '')]//tei:zone[@rendition='HotSpot']">
 					<!--<xsl:copy-of select="current-group()"/>--> <!-- <-use this to find split errors -->
 					<xsl:variable name="text"><xsl:apply-templates select="current-group()" mode="tdipl"/></xsl:variable>
 					<xsl:variable name="text2">
@@ -382,7 +413,7 @@
 				</xsl:when>
 				<!-- IT: Se c'è il surface viene creato un albero temporaneo che corrisponde al gruppo corrente trasformato in base al livello di edizione;
 										 a questo viene applicato il template per il collegamento testo-immagine-->
-				<xsl:when test="$root//tei:facsimile/tei:surface[translate(@corresp, '#', '')=replace($pb_n, '-front', '')]//tei:zone[@rendition='Line']">
+				<xsl:when test="$root//tei:facsimile/tei:surface[translate(@corresp, '#', '')=replace($pb_n, '-front', '')]//tei:zone[@rendition='Line'] | $root//tei:facsimile/tei:surface[translate(@corresp, '#', '')=replace($pb_n, '-front', '')]//tei:zone[@rendition='HotSpot']">
 					<!--<xsl:copy-of select="current-group()"/>--> <!-- <-use this to find split errors -->
 					<xsl:variable name="text"><xsl:apply-templates select="current-group()" mode="crit"/></xsl:variable>
 					<xsl:variable name="text2">
@@ -513,6 +544,7 @@
 				<xsl:attribute name="id" select="'ul_listPerson'"/>
 				<xsl:attribute name="class" select="'ul_list'"/>
 				<xsl:for-each select="$root//tei:listPerson/person">
+					<xsl:sort select="lower-case(tei:persName/tei:forename)" order="ascending" />
 					<xsl:element name="li">
 						<xsl:attribute name="id" select="@xml:id" />
 						<xsl:attribute name="class" select="'list_element'"/>
@@ -530,6 +562,7 @@
 			<xsl:attribute name="id" select="'ul_listPlace'"/>
 			<xsl:attribute name="class" select="'ul_list'"/>
 			<xsl:for-each select="$root//tei:listPlace/place">
+				<xsl:sort select="lower-case(tei:settlement)" order="ascending" />
 				<xsl:element name="li">
 					<xsl:attribute name="id" select="@xml:id" />
 					<xsl:attribute name="class" select="'list_element'"/>
@@ -547,11 +580,72 @@
 			<xsl:attribute name="id" select="'ul_listOrg'"/>
 			<xsl:attribute name="class" select="'ul_list'"/>
 			<xsl:for-each select="$root//tei:listOrg/org">
+				<xsl:sort select="lower-case(@xml:id)" order="ascending" />
 				<xsl:element name="li">
 					<xsl:attribute name="id" select="@xml:id" />
 					<xsl:attribute name="class" select="'list_element'"/>
 					<xsl:attribute name="data-order-list" select="substring(@xml:id, 1, 1)"/>
 					<xsl:call-template name="org" />
+				</xsl:element>
+			</xsl:for-each>
+		</xsl:element>
+	</xsl:template>
+	
+	<!-- LIST TERM -->
+	<xsl:template name="listTerm">
+		<xsl:element name="ul">
+			<xsl:attribute name="id" select="'ul_listTerm'"/>
+			<xsl:attribute name="class" select="'ul_list'"/>
+			<xsl:for-each select="$root//tei:term">
+				<xsl:sort select="if(@xml:id) then(lower-case(@xml:id)) else (lower-case(normalize-space(current())))" order="ascending" />
+				<xsl:variable name="termText"><xsl:apply-templates select="current()"/></xsl:variable>
+				<xsl:element name="li">
+					<xsl:attribute name="id">
+						<xsl:choose>
+							<xsl:when test="@xml:id">
+								<xsl:value-of select="@xml:id"/>
+							</xsl:when>
+							<xsl:otherwise>
+								<xsl:value-of select="translate(normalize-space($termText), ' ', '')"/>
+							</xsl:otherwise>
+						</xsl:choose>
+					</xsl:attribute>
+					<xsl:attribute name="class" select="'list_element'"/>
+					<xsl:attribute name="data-order-list" select="substring($termText, 1, 1)"/>
+					<xsl:element name="span">
+						<xsl:attribute name="class" select="'toggle_list_element'"/>
+						<xsl:apply-templates select="current()"/>
+					</xsl:element>
+				</xsl:element>
+			</xsl:for-each>
+		</xsl:element>
+	</xsl:template>
+	
+	<!-- LIST GLOSS -->
+	<xsl:template name="listGloss">
+		<xsl:element name="ul">
+			<xsl:attribute name="id" select="'ul_listGloss'"/>
+			<xsl:attribute name="class" select="'ul_list'"/>
+			<xsl:for-each select="$root//tei:gloss">
+				<xsl:sort select="if(@xml:id) then(lower-case(@xml:id)) else (lower-case(normalize-space(current())))" order="ascending" />
+				<xsl:variable name="glossText"><xsl:apply-templates select="current()"/></xsl:variable>
+				<xsl:element name="li">
+					<xsl:attribute name="id">
+						<xsl:choose>
+							<xsl:when test="@xml:id">
+								<xsl:value-of select="@xml:id"/>
+							</xsl:when>
+							<xsl:otherwise>
+								<xsl:value-of select="translate(normalize-space($glossText), ' ', '')"/>
+							</xsl:otherwise>
+						</xsl:choose>
+					</xsl:attribute>
+					<xsl:attribute name="class" select="'list_element'"/>
+					<xsl:attribute name="data-order-list" select="substring($glossText, 1, 1)"/>
+					<xsl:element name="span">
+						<xsl:attribute name="class" select="'toggle_list_element'"/>
+						<xsl:apply-templates select="current()"/>
+					</xsl:element>
 				</xsl:element>
 			</xsl:for-each>
 		</xsl:element>

@@ -90,34 +90,56 @@
 				<div id="regesto">
 					<div class="front">
 						<div class="info">
-							<div class="align-center"><span class="intestazione inline"> </span><xsl:value-of select="$front/tei:titlePart[@type='titoloatto']"/></div>
-							<div class="align-center"><span class="intestazione inline">A.S.D.Lu, A.A.Lu,</span><xsl:value-of select="$front/tei:titlePart[@type='segnatura']"/></div>
+							<xsl:if test="$front/tei:titlePart[@type='numerazioneNuova']">
+								<div class="align-center"><span class="intestazione inline">Numerazione nuova: </span><xsl:value-of select="$front/tei:titlePart[@type='numerazioneNuova']"/></div>
+							</xsl:if>
+							<xsl:if test="$front/tei:titlePart[@type='numerazioneOrig']">
+								<div class="align-center"><span class="intestazione inline">Numerazione originale: </span><xsl:value-of select="$front/tei:titlePart[@type='numerazioneOrig']"/></div>
+							</xsl:if>
+							
+							<xsl:if test="$front/tei:titlePart[@type='titoloatto']">
+								<div class="align-center"><span class="intestazione inline"> </span><xsl:value-of select="$front/tei:titlePart[@type='titoloatto']"/></div>
+							</xsl:if>
+							
+							<xsl:if test="$front/tei:titlePart[@type='segnatura']">
+								<div class="align-center"><span class="intestazione inline">A.S.D.Lu, A.A.Lu,</span><xsl:value-of select="$front/tei:titlePart[@type='segnatura']"/></div>
+							</xsl:if>
 						
 							<div class="align-center">
 								<span class="intestazione inline">
+									<!-- <xsl:apply-templates mode="interp" select="$front/tei:docDate"/> --> <!-- TODO: Ask FS why she changed it -->
 									<xsl:apply-templates mode="tdipl" select="$front/tei:docDate"/>
 								</span>
 							</div>
-							<div class="align-center"><span class="intestazione inline"> </span><xsl:value-of select="$front/tei:titlePart[@type='tipoatto']"/></div>
-							<div class="align-center"><span class="intestazione inline"> </span><xsl:value-of select="$front/tei:titlePart[@type='misure']"/></div>
+							
+							<xsl:if test="$front/tei:titlePart[@type='tipoatto']">
+								<div class="align-center"><span class="intestazione inline"> </span><xsl:value-of select="$front/tei:titlePart[@type='tipoatto']"/></div>
+							</xsl:if>
+							<xsl:if test="$front/tei:titlePart[@type='misure']">
+								<div class="align-center"><span class="intestazione inline"> </span><xsl:value-of select="$front/tei:titlePart[@type='misure']"/></div>
+							</xsl:if>
 							
 						</div>
 						
 						<!-- ADD BY FS -->
-						<div class="reg_title">
-							<xsl:apply-templates select="$front/tei:div[@type='titoloatto']" mode="tdipl"/>
-						</div>
+						<xsl:if test="$front/tei:div[@type='titoloatto']">
+							<div class="reg_title">
+								<xsl:apply-templates select="$front/tei:div[@type='titoloatto']" mode="tdipl"/>
+							</div>
+						</xsl:if>
 						<div class="reg_text">
-							<!--<xsl:value-of select="$front/tei:div[@type='regesto']"/>-->
+							<!-- <xsl:value-of select="$front/tei:div[@type='regesto']" mode="interp"/> --><!-- TODO: Ask FS why she changed it -->
 							<xsl:apply-templates select="$front/tei:div[@type='regesto']" mode="tdipl"/>
 						</div>
 						<div class="reg_note">
 							<hr/>
 							<p class="bibliografia">
-								<xsl:apply-templates select="$front//tei:div[@type='orig_doc']" mode="tdipl"></xsl:apply-templates>
+								<!-- <xsl:apply-templates select="$front//tei:div[@type='orig_doc']" mode="interp"/> --> <!-- TODO: Ask FS why she changed it -->
+								<xsl:apply-templates select="$front//tei:div[@type='orig_doc']" mode="tdipl"/>
 							</p>
 							<p class="bibliografia">
 								<xsl:for-each select="$front//tei:div[@type='biblio']/tei:p">
+									<!-- <xsl:apply-templates mode='interp'/> --> <!-- TODO: Ask FS why she changed it -->
 									<xsl:apply-templates mode='tdipl'/>
 								</xsl:for-each>
 								<xsl:for-each select="$front//tei:div[@type='edizione']/tei:p">
@@ -133,6 +155,7 @@
 							                    ma verrà visualizzata nel punto in cui compare il pointer. La sua trasformazione verrà dunque gestita dal template per il pointer -->
 										</xsl:when>
 										<xsl:otherwise>
+											<!-- <xsl:apply-templates mode="interp"/> --> <!-- TODO: Ask FS why she changed it -->
 											<xsl:apply-templates mode="tdipl"/>
 										</xsl:otherwise>
 									</xsl:choose>

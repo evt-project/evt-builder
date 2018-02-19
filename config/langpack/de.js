@@ -68,6 +68,8 @@ jquery_lang_js.prototype.lang.de = {
 	"TITLE": "Titel der Ausgabe",
 	"TEXT_AUTHOR": "Urheber",
 	"PRINCIPAL_INVESTIGATOR": "Hauptkoordinator",
+	"EDITION_STATEMENT": "Edition Statement",
+  	"RESPONSIBILITY_STATEMENT": "Verantwortungserklï¿½rung",
 	"PUBLICATION_INFORMATION": "Angaben zur Ver&ouml;ffentlichung",
 	"EDITORIAL_DECLARATION": "Redaktionserkl&auml;rung",
 	"AUTORITY": "Herausgeberschaft",
@@ -121,6 +123,8 @@ jquery_lang_js.prototype.lang.de = {
 	"LIST_PERSON": "Personenliste",
 	"LIST_PLACE": "Ortliste",
 	"LIST_ORG": "Liste der Institutionen",
+	"LIST_TERM": "Liste der Begriffe",
+  	"LIST_GLOSS": "Liste der Glossen",
 	"NO_ELEMENTS": "Keine elemente",
     "PAGE_MISSING": "(miss)",
     "PAGE_MISSING_RIGHT": " - (miss)",
@@ -134,6 +138,7 @@ jquery_lang_js.prototype.lang.de = {
     "FOL": "Fol.",
     "DOC": "Doc.",
     "MULTI_SELECTION": "Mehrfachauswahl",
+    "ALL": "Alles",
 
     "SHOWING_RESULTS_FOR_THE_WORD": "Zeige Suchergebnisse f&uuml;r ",
     "SEARCH_FOR": "Suche nach ",
@@ -157,6 +162,8 @@ jquery_lang_js.prototype.lang.de = {
     "orgName":"Religi&ouml;se organisationen",
     "measure": "W&auml;hrungen",
     "date": "Daten",
+    "term": "Term",
+    "gloss": "Gloss",
     "clear": "Keine Auswahl",
     "multi": "Mehrfachauswahl",
     "Multi selection": "Mehrfachauswahl",
@@ -183,11 +190,11 @@ jquery_lang_js.prototype.lang.de = {
     "NEVER_SHOW_AGAIN" : "Nie wieder anzeigen",
 
     "ERROR_LOADING_TEXT": "Fehler beim Laden des Textes.",
-    "ERROR_LOADING_IMAGE": "Fehler beim Laden des Bildes. Das Transkript f&uuml;r diese Seite steht m&ouml;glicherweise noch nicht zur Verf&uuml;gung. Für weitere Informationen kontaktieren Sie bitte die Kuratoren.",
+    "ERROR_LOADING_IMAGE": "Fehler beim Laden des Bildes. Das Transkript f&uuml;r diese Seite steht m&ouml;glicherweise noch nicht zur Verf&uuml;gung. FÃ¼r weitere Informationen kontaktieren Sie bitte die Kuratoren.",
     "ERROR_LOADING_HI_IMAGE": "Es gab ein Problem beim Laden des hochaufl&ouml;senden Bildes.",
 
     "NO_INFO": "Keine information",
-    "NO_TRANSLATION_AVAILABLE": "Keine Übersetzung verfügbar.",
+    "NO_TRANSLATION_AVAILABLE": "Keine Ãœbersetzung verfÃ¼gbar.",
     
     "AFTER": "nach",
     "BEFORE": "vor",

@@ -367,7 +367,7 @@ $(function() {
 						$('#lists_cont').find('.labelList').first().addClass('active');
 						$('.list_filter').first().trigger('click');
 
-						$('#list_'+listName).load("data/output_data/liste/"+listName+".html #"+listName, function(){
+						$('#list_'+listName).load("data/output_data/liste/"+listName+".html div", function(){ 
 
 							if ( $('#list_'+listName).find('li').length == 0 ) {
 								$('#list_'+listName).remove();
@@ -378,6 +378,9 @@ $(function() {
 									$('#list_link').remove();
 								}
 							} else {
+								$('[id]').each(function(){ 
+				                  $('[id="' + this.id + '"]:gt(0)').remove(); 
+				              	});
 								$('#list_'+listName)
 									.find('.list_element').find('.toggle_list_element, .entity_name').click(function(){
 										showListElementOccurrences($(this).parent(), listName);
