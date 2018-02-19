@@ -189,6 +189,7 @@ jquery_lang_js.prototype.lang.en = {
     "ERROR_LOADING_HI_IMAGE": "There was a problem while loading the hi-res image.",
     
     "NO_INFO": "No information",
+    "NO_TRANSLATION_AVAILABLE": "No translation available.",
     
     "AFTER": "after",
     "BEFORE": "before",

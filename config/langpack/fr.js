@@ -187,6 +187,7 @@ jquery_lang_js.prototype.lang.fr = {
     "ERROR_LOADING_HI_IMAGE": "Il y avait un problème lors du chargement de l'image de salut-res.",
     
     "NO_INFO": "Aucune information",
+    "NO_TRANSLATION_AVAILABLE": "Pas de traduction disponible.",
     
     "AFTER": "après",
     "BEFORE": "avant",

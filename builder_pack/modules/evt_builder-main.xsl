@@ -421,6 +421,8 @@
 		
 		<!-- Add By FS - TRADUZIONE -->
 		<xsl:if test="$edition_pos=5">
+			<xsl:choose>
+				<xsl:when test="current-group()//tei:back/tei:div[starts-with(@type,'transl')] | current-group()//tei:back/tei:div[starts-with(@type,'trad')]">
 					<xsl:variable name="text">
 						<xsl:apply-templates select="current-group()" mode="trad"/></xsl:variable>
 					<xsl:variable name="text2">
@@ -433,6 +435,11 @@
 						<xsl:with-param name="text" select="$text2"/>
 						<xsl:with-param name="ed_name" select="$ed_name5"/>
 					</xsl:call-template>
+				</xsl:when>
+				<xsl:otherwise>
+					<div lang="def">NO_TRANSLATION_AVAILABLE</div>
+				</xsl:otherwise>
+			</xsl:choose>
 		</xsl:if>
 		
 	</xsl:template>
