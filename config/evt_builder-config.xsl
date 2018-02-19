@@ -42,7 +42,7 @@
 	<!-- EN: Index title -->
 	<!-- IT: Titolo edizione -->
 	<!-- default: 'Codex Viewer' -->
-	<xsl:param name="index_title" select="'Documenti di Matilde di Canossa a Lucca'"/>
+	<xsl:param name="index_title" select="'Codex Viewer'"/>
 	
 	<!-- EN: Welcome Message -->
 	<!-- IT: Messaggio di benvenuto -->
@@ -51,11 +51,11 @@
 		<div>
 			<p class="title main">Welcome to an edition created with EVT!</p> 
 		</div>
-		<div><p>The digital edition of “Documents of Matilde di Canossa in Lucca” has been realized with the 
-			intention to collect and to present to the audience the important witness about Matilde in the 
-			“Archivio storico Diocesano in Lucca”. To allow to an extended audience to have access to the documents,
-			there is also an Italian translation.
-		</p></div>
+		<div>This archive includes a few examples of editions created using EVT,  
+			by default you are showed a small excerpt of the  
+			<a href="http://pelavicino.labcd.unipi.it/" target="blank"> 
+				Codice Pelavicino Digitale edition</a>. 
+		</div> 
 		<div>It is recommended to go to full screen mode so that all available screen space is used to show the manuscript images and the transcription text.</div>
 		<div>For more information refer to the EVT Manual in the "doc" folder. 
 			If you have any suggestions or spot an error/bug please contact us at <a href="mailto:evt.developers@gmail.com">evt.developers@gmail.com</a></div>
@@ -78,7 +78,7 @@
 	<!-- EN: On/Off doubleview -->
 	<!-- IT: Attiva/Disattiva vista doppia pagina -->
 	<!-- default: true() -->
-	<xsl:param name="double_view" select="false()"/>
+	<xsl:param name="double_view" select="true()"/>
 	
 	<!-- ################ -->
 	<!-- PREFATORY MATTER -->
@@ -97,7 +97,7 @@
 	<!-- EN: On/Off Manuscript Description -->
 	<!-- IT: Attiva/Disattiva Descrizione del manoscritto-->
 	<!-- default: true() -->
-	<xsl:param name="msDesc" select="false()"/>
+	<xsl:param name="msDesc" select="true()"/>
 	
 	<!-- EN: On/Off Header information -->
 	<!-- IT: Attiva/Disattiva Informazioni generali -->
@@ -246,7 +246,7 @@
 	<!-- EN: Show/Hide Hotspot Button in interface -->
 	<!-- IT: Mostra/Nascondi pulsante Hotspot nell'interfaccia web -->
 	<!-- default: true() -->
-	<xsl:param name="hs_button" select="false()"/>
+	<xsl:param name="hs_button" select="true()"/>
 	
 	<!-- EN: Show/Hide Magnifier Button in interface -->
 	<!-- IT: Mostra/Nascondi pulsante Lente di ingrandimento nell'interfaccia web -->
@@ -310,6 +310,16 @@
 	<!-- IT: Attiva/disattiva lista organizzazioni -->
 	<!-- default: true() -->
 	<xsl:param name="list_org" select="true()"/>
+	
+	<!-- default: true() --> 
+	<!-- IT: Attiva/disattiva lista terms --> 
+	<!-- default: true() --> 
+	<xsl:param name="list_term" select="true()"/> 
+	
+	<!-- default: true() --> 
+	<!-- IT: Attiva/disattiva lista glosses --> 
+	<!-- default: true() --> 
+	<xsl:param name="list_gloss" select="true()"/> 
 	
 	<!-- EN: It is possibile to personalize the elements in the filter select element that will select and highlight particular (groups of) words.
 			 In order to remove an element from the list in the application just remove the element itself.

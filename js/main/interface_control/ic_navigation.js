@@ -298,7 +298,7 @@ function gotopage(pp_val, pp_lab, state){
             left_frame
                 .find('.like_select.filter')
                     .find('.option.selected')
-                        .addClass('selected')
+                        .removeClass('selected') 
                         .trigger('click');
 
             // Aggiorna eventi sul click negli elementi del text

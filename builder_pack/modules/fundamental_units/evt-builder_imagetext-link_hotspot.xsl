@@ -151,7 +151,7 @@
 		</xsl:for-each>
 	</xsl:template>
 	
-	<xsl:template match="a" mode="ITLembedded">
+	<xsl:template match="." mode="ITLembedded">
 		<xsl:param name="edition_level"/>
 		<!-- EN: The menu of categories and annotations. -->
 		<!-- IT: Il menu di categorie e associazioni. -->
