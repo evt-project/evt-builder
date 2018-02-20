@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- 
+hangInd<!-- 
     Copyright (C) 2013-2017 the EVT Development Team.
     
     EVT 1 is free software: you can redistribute it 
@@ -58,20 +58,50 @@
         <p class="hangInd">
             
             <xsl:choose>
-                <xsl:when test=".//author/surname and .//author/forename">
-                    <xsl:apply-templates select=".//author/surname"/>,
-                    <xsl:variable name="forename" select=".//author/forename"/>
-                    <xsl:value-of select="translate(normalize-space(translate($forename,'. ',' .')),'. ',' .')"/>.
+                <xsl:when test=".//author/descendant::surname and .//author/descendant::forename"> 
+                    <xsl:for-each select=".//author/descendant::surname"> 
+                        <xsl:apply-templates select="current()"/>, 
+                        <xsl:variable name="forename">  
+                            <xsl:choose> 
+                                <xsl:when test="current()/following-sibling::forename"> 
+                                    <xsl:value-of select="current()/following-sibling::forename" /> 
+                                </xsl:when> 
+                                <xsl:when test="current()/preceding-sibling::forename"> 
+                                    <xsl:value-of select="current()/preceding-sibling::forename" /> 
+                                </xsl:when> 
+                            </xsl:choose> 
+                        </xsl:variable> 
+                        <xsl:value-of select="translate(normalize-space(translate($forename,'. ',' .')),'. ',' .')"/>.
+                    </xsl:for-each>
+                </xsl:when>
+                <xsl:when test=".//editor/descendant::surname and .//editor/descendant::forename"> 
+                    <xsl:for-each select=".//editor/descendant::surname"> 
+                        <xsl:apply-templates select="current()"/>, 
+                        <xsl:variable name="forename">  
+                            <xsl:choose> 
+                                <xsl:when test="current()/following-sibling::forename"> 
+                                    <xsl:value-of select="current()/following-sibling::forename" /> 
+                                </xsl:when> 
+                                <xsl:when test="current()/preceding-sibling::forename"> 
+                                    <xsl:value-of select="current()/preceding-sibling::forename" /> 
+                                </xsl:when> 
+                            </xsl:choose> 
+                        </xsl:variable> 
+                        <xsl:value-of select="translate(normalize-space(translate($forename,'. ',' .')),'. ',' .')"/>. 
+                    </xsl:for-each> 
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:variable name="author" select=".//author"/>
-                    <xsl:value-of select="translate(normalize-space(translate($author,'. ',' .')),'. ',' .')"/>.
+                    <xsl:for-each select=".//author"> 
+                        <xsl:variable name="author" select="current()"/> 
+                        <xsl:value-of select="translate(normalize-space(translate($author,'. ',' .')),'. ',' .')"/>.
+                    </xsl:for-each> 
                 </xsl:otherwise>
             </xsl:choose>
                         
             <xsl:apply-templates select=".//date"/>.
-            &quot;<xsl:apply-templates select="./analytic/title"/>.&quot;
-                        
+            <xsl:if test="./analytic/title">
+                &quot;<xsl:apply-templates select="./analytic/title"/>.&quot;
+            </xsl:if>        
             <xsl:choose>
                 <xsl:when test=".//title[@level='j'] or biblStruct[@type='journalArticle']">
                     <xsl:apply-templates select=".//title[@level='j']"/>,
