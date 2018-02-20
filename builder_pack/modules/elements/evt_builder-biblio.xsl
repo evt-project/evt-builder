@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-hangInd<!-- 
+<!-- 
     Copyright (C) 2013-2017 the EVT Development Team.
     
     EVT 1 is free software: you can redistribute it 
