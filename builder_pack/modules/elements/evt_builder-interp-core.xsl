@@ -690,7 +690,6 @@
 	</xsl:template>
 
 	<xsl:template match="tei:body" mode="interp">
-
 		<xsl:element name="div">
 			<xsl:attribute name="class">doc</xsl:attribute>
 			<xsl:attribute name="data-doc" select="current()/parent::tei:text/@xml:id"/>
@@ -711,7 +710,6 @@
 			</xsl:attribute>
 			<xsl:apply-templates mode="#current"/>
 		</xsl:element>
-
 	</xsl:template>
 
 	<!-- DESC Desc-->

@@ -422,27 +422,25 @@
 	</xsl:template>
 	
 	<xsl:template match="tei:body" mode="tdipl">
-		
-			<xsl:element name="div">
-				<xsl:attribute name="class">doc</xsl:attribute>
-				<xsl:attribute name="data-doc" select="current()/parent::tei:text/@xml:id"/>
-				<xsl:attribute name="title"><xsl:text>Doc. </xsl:text>
-					<xsl:choose>
-						<xsl:when test="current()/parent::tei:text/@n">
-							<xsl:value-of select="current()/parent::tei:text/@n"/>
-						</xsl:when>
-						<xsl:otherwise>
-							<xsl:call-template name="generateTextLabel">
-								<xsl:with-param name="text_id">
-									<xsl:value-of select="current()/parent::tei:text/@xml:id" />
-								</xsl:with-param>
-							</xsl:call-template>
-						</xsl:otherwise>
-					</xsl:choose>
-				</xsl:attribute>
-				<xsl:apply-templates mode="#current"/>
-			</xsl:element>
-		
+		<xsl:element name="div">
+			<xsl:attribute name="class">doc</xsl:attribute>
+			<xsl:attribute name="data-doc" select="current()/parent::tei:text/@xml:id"/>
+			<xsl:attribute name="title"><xsl:text>Doc. </xsl:text>
+				<xsl:choose>
+					<xsl:when test="current()/parent::tei:text/@n">
+						<xsl:value-of select="current()/parent::tei:text/@n"/>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:call-template name="generateTextLabel">
+							<xsl:with-param name="text_id">
+								<xsl:value-of select="current()/parent::tei:text/@xml:id" />
+							</xsl:with-param>
+						</xsl:call-template>
+					</xsl:otherwise>
+				</xsl:choose>
+			</xsl:attribute>
+			<xsl:apply-templates mode="#current"/>
+		</xsl:element>
 	</xsl:template>
 	
 	<!-- DESC Desc-->
