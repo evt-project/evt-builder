@@ -422,7 +422,7 @@
 	</xsl:template>
 	
 	<!-- EN : Hidden Template, the xml:id is integrated directly as element's attribute  -->
-	<!-- IT : Template Commentato perchè ridondante, l' xml:id è integrato come attributo dell'elemento 
+	<!-- IT : Template Commentato perchè ridondante, l' xml:id è integrato come attributo dell'elemento => in realtà serve per gestire più documenti su un'unica pagina --> 
 	<xsl:template match="tei:body" mode="crit">		
 			<xsl:element name="div">
 				<xsl:attribute name="class">doc</xsl:attribute>
@@ -443,7 +443,7 @@
 				</xsl:attribute>
 				<xsl:apply-templates mode="#current"/>
 			</xsl:element>		
-	</xsl:template> -->
+	</xsl:template>
 	
 	<!-- DESC Desc-->
 	<xsl:template match="tei:desc" mode="crit">

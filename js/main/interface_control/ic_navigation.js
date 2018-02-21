@@ -359,7 +359,7 @@ function gotopage(pp_val, pp_lab, state){
             if(re.test(hash_parts[i]))
                 return hash_parts[i];
         })());
-    var transText = hash_parts[ind].replace(/doc=/ig, ""); //TODO: check better way to retrieve current text id
+    var transText = hash_parts && hash_parts[ind] ? hash_parts[ind].replace(/doc=/ig, "") : ""; //TODO: check better way to retrieve current text id
     if (edition === "translation") {
         $('#text_elem #front_frame')
             .attr('data-page', pp_val)
@@ -568,8 +568,9 @@ function navDoc(toward){
 
     new_pp = new_tt.attr('data-first-page');
     new_tt_val = new_tt.attr('data-value');
-    if ( $(".doc[data-doc='"+new_tt_val+"']").length > 0 && $(".optionGroup[data-doc-group='"+new_tt_val+"']").find(".option[data-value='"+new_pp+"']").length>0) {
-        $(".doc[data-doc='"+new_tt_val+"']").trigger('click');
+    if ( $(".doc[data-doc='"+new_tt_val+"']").length > 0 && 
+        $(".optionGroup[data-doc-group='"+new_tt_val+"']").find(".option[data-value='"+current_pp+"']").length>0) {
+        //$(".doc[data-doc='"+new_tt_val+"']").trigger('click');
         //selectTT(new_tt_val);
         $('#text_cont').scrollTop($('.doc.current').position().top);
         updateHash(new_tt_val, current_pp, "");        

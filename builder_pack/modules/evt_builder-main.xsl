@@ -503,7 +503,7 @@
 				<body>
 					<section id="central_wrapper">
 						<div id="text_frame">
-							<div id="text">
+							<div id="text" class="translation">
 								<xsl:choose>
 									<xsl:when test="current()/tei:back/tei:div[starts-with(@type,'transl')]">
 										<xsl:variable name="text">

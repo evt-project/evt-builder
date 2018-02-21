@@ -1871,6 +1871,9 @@ div.doc.not_current:hover{
 	cursor: pointer;
 	opacity: .6;
 }
+.translation .doc.not_current {
+	opacity: 1 !important;
+}	
 
 #front .document_front {
 	display: none;
