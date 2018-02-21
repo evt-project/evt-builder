@@ -339,22 +339,43 @@ function gotopage(pp_val, pp_lab, state){
     }
 
     $('#text_elem #front_frame').empty()
+    var tt_val = $(".main_tt_select .label_selected").attr("data-value"); 
     if ( $(".main_pp_select .option[data-value='"+pp_val+"']").attr('data-has-front') === 'true' ) {
+        if (edition !== "translation") {
+            $('#text_elem #front_frame')
+                .attr('data-page', pp_val)
+                .load("data/output_data/"+edition+"/page_"+pp_val+"-front_"+edition+".html #text_frame #text", 
+                    function( response, status, xhr ){
+                        pageLoadedCallback(status, current_font_size);
+                });
+        }
+    }
+    
+    var re = /doc=/; 
+    var hash_parts = location.hash.substr(1).split('&');
+    var ind = hash_parts.indexOf((function(){
+        var i;
+        for(i in hash_parts)
+            if(re.test(hash_parts[i]))
+                return hash_parts[i];
+        })());
+    var transText = hash_parts[ind].replace(/doc=/ig, ""); //TODO: check better way to retrieve current text id
+    if (edition === "translation") {
         $('#text_elem #front_frame')
             .attr('data-page', pp_val)
-            .load("data/output_data/"+edition+"/page_"+pp_val+"-front_"+edition+".html #text_frame #text", 
+            .load("data/output_data/"+edition+"/translation_"+transText+".html #text_frame #text", 
+                function( response, status, xhr ){
+                    pageLoadedCallback(status, current_font_size);
+            });
+    } else {
+        $('#text_elem #text_frame')
+            .attr('data-page', pp_val)
+            // .empty()
+            .load("data/output_data/"+edition+"/page_"+pp_val+"_"+edition+".html #text_frame #text", 
                 function( response, status, xhr ){
                     pageLoadedCallback(status, current_font_size);
             });
     }
-    
-    $('#text_elem #text_frame')
-        .attr('data-page', pp_val)
-        // .empty()
-        .load("data/output_data/"+edition+"/page_"+pp_val+"_"+edition+".html #text_frame #text", 
-            function( response, status, xhr ){
-                pageLoadedCallback(status, current_font_size);
-        });
     
     // IT: Aggiorna l'indirizzo del frame secondario per il testo
     if ($("#text_cont-add").length > 0){ //SISTEMARE
@@ -362,18 +383,29 @@ function gotopage(pp_val, pp_lab, state){
 
         $('#text_elem-add #front_frame-add').empty()
         if ( $(".main_pp_select .option[data-value='"+pp_val+"']").attr('data-has-front') === 'true' ) {
-            $('#text_elem-add #front_frame-add')
-                .load("data/output_data/"+edition_add+"/page_"+pp_val+"-front_"+edition_add+".html #text_frame #text",
+            if (edition_add !== "translation") {
+                $('#text_elem-add #front_frame-add')
+                    .load("data/output_data/"+edition_add+"/page_"+pp_val+"-front_"+edition_add+".html #text_frame #text",
+                        function( response, status, xhr ){
+                            pageLoadedCallbackAdd(status, current_font_size);
+                    });
+            }
+        }
+        if (edition_add === "translation") {
+            $('#text_elem-add #text_frame-add')
+                // .empty()
+                .load("data/output_data/"+edition_add+"/translation_"+transText+".html #text_frame #text", 
                     function( response, status, xhr ){
                         pageLoadedCallbackAdd(status, current_font_size);
-                });
+            });
+        } else {
+            $('#text_elem-add #text_frame-add')
+                // .empty()
+                .load("data/output_data/"+edition_add+"/page_"+pp_val+"_"+edition_add+".html #text_frame #text", 
+                    function( response, status, xhr ){
+                        pageLoadedCallbackAdd(status, current_font_size);
+            });
         }
-        $('#text_elem-add #text_frame-add')
-            // .empty()
-            .load("data/output_data/"+edition_add+"/page_"+pp_val+"_"+edition_add+".html #text_frame #text", 
-                function( response, status, xhr ){
-                    pageLoadedCallbackAdd(status, current_font_size);
-        });
             
         // IT: Aggiorna le informazioni all'interno dell'etichetta destra   
         $('#zvalopz')
@@ -465,21 +497,42 @@ function gotoedition(pp_val, ee_val, pp_el, frame_id){
 
     $("#"+pp_el+" div[id*='front_frame']").empty()
     if ( $(".main_pp_select .option[data-value='"+pp_val+"']").attr('data-has-front') === 'true' ) {
-        $("#"+pp_el+" div[id*='front_frame']")
-            .attr('data-page', pp_val)
-            .load("data/output_data/"+ee_val+"/page_"+pp_val+"-front_"+ee_val+".html #text_frame #text", 
-                function( response, status, xhr ){
-                    editionLoadedCallback(status);
-            });
+        if (ee_val !== "translation") {
+            $("#"+pp_el+" div[id*='front_frame']")
+                .attr('data-page', pp_val)
+                .load("data/output_data/"+ee_val+"/page_"+pp_val+"-front_"+ee_val+".html #text_frame #text", 
+                    function( response, status, xhr ){
+                        editionLoadedCallback(status);
+                });
+        }
     }
 
-    $("#"+pp_el+" div[id*='text_frame']")
-        // .empty()
-        .load("data/output_data/"+ee_val+"/page_"+pp_val+"_"+ee_val+".html #text_frame #text",
-            function( response, status, xhr ) {
-                editionLoadedCallback(status);
-            }
-        );
+    if (ee_val === "translation") {
+        var re = /doc=/; 
+        var hash_parts = location.hash.substr(1).split('&');
+        var ind = hash_parts.indexOf((function(){
+            var i;
+            for(i in hash_parts)
+                if(re.test(hash_parts[i]))
+                    return hash_parts[i];
+            })());
+        var transText = hash_parts[ind].replace(/doc=/ig, "");
+        $("#"+pp_el+" div[id*='text_frame']")
+            // .empty()
+            .load("data/output_data/"+ee_val+"/translation_"+transText+".html #text_frame #text",
+                function( response, status, xhr ) {
+                    editionLoadedCallback(status);
+                }
+            );
+    } else {
+        $("#"+pp_el+" div[id*='text_frame']")
+            // .empty()
+            .load("data/output_data/"+ee_val+"/page_"+pp_val+"_"+ee_val+".html #text_frame #text",
+                function( response, status, xhr ) {
+                    editionLoadedCallback(status);
+                }
+            );
+    }
 
     var pp_el_upp = pp_el;
     pp_el_upp = pp_el_upp.toLowerCase().replace(/\b[a-z]/g, function(letter) {

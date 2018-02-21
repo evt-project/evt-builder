@@ -314,12 +314,12 @@
 	<!-- default: true() --> 
 	<!-- IT: Attiva/disattiva lista terms --> 
 	<!-- default: true() --> 
-	<xsl:param name="list_term" select="true()"/> 
+	<xsl:param name="list_term" select="false()"/> 
 	
 	<!-- default: true() --> 
 	<!-- IT: Attiva/disattiva lista glosses --> 
 	<!-- default: true() --> 
-	<xsl:param name="list_gloss" select="true()"/> 
+	<xsl:param name="list_gloss" select="false()"/> 
 	
 	<!-- EN: It is possibile to personalize the elements in the filter select element that will select and highlight particular (groups of) words.
 			 In order to remove an element from the list in the application just remove the element itself.
