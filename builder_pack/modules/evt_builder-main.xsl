@@ -91,12 +91,14 @@
 				<xsl:choose>
 					<xsl:when test="tei:TEI/tei:text/tei:group/tei:text">
 						<xsl:for-each select="tei:TEI/tei:text/tei:group/tei:text">
-							<xsl:call-template name="regesto"/>	
+							<xsl:call-template name="regesto"/>
+							<xsl:call-template name="translate"/><!-- TODO: CHECK IF TRANSLATION IS ACTIVE-->
 						</xsl:for-each>
 					</xsl:when>
 					<xsl:otherwise>
 						<xsl:for-each select="tei:TEI/tei:text">
-							<xsl:call-template name="regesto"/>	
+							<xsl:call-template name="regesto"/>
+							<xsl:call-template name="translate"/><!-- TODO: CHECK IF TRANSLATION IS ACTIVE-->
 						</xsl:for-each>
 					</xsl:otherwise>
 				</xsl:choose>
@@ -220,13 +222,15 @@
 		<xsl:for-each select="$edition_array">
 			<xsl:if test=".!=''">
 				<xsl:variable name="edition_current" select="lower-case(.)"/>
-				<xsl:result-document method="html" encoding="UTF-8" media-type="text/plain" byte-order-mark="yes" href="{$filePrefix}/data/output_data/{$edition_current}/page_{$pb_n}_{$edition_current}.html" indent="yes">
-					<xsl:call-template name="data_structure">
-						<xsl:with-param name="output" select="$edition_current"/>
-						<xsl:with-param name="pb_n" select="$pb_n"/>
-						<xsl:with-param name="edition_pos" select="position()"></xsl:with-param>
-					</xsl:call-template>
-				</xsl:result-document>
+				<xsl:if test="position()!=5"><!-- TRANSLATION IS HANDLED DIFFERENTLY -->
+					<xsl:result-document method="html" encoding="UTF-8" media-type="text/plain" byte-order-mark="yes" href="{$filePrefix}/data/output_data/{$edition_current}/page_{$pb_n}_{$edition_current}.html" indent="yes">
+						<xsl:call-template name="data_structure">
+							<xsl:with-param name="output" select="$edition_current"/>
+							<xsl:with-param name="pb_n" select="$pb_n"/>
+							<xsl:with-param name="edition_pos" select="position()"></xsl:with-param>
+						</xsl:call-template>
+					</xsl:result-document>
+				</xsl:if>
 			</xsl:if>
 		</xsl:for-each>
     </xsl:template>
@@ -450,12 +454,13 @@
 			</xsl:choose>
 		</xsl:if>
 		
-		<!-- Add By FS - TRADUZIONE -->
-		<xsl:if test="$edition_pos=5">
+		<!-- Add By FS - TRADUZIONE => TRANSLATION IS HANDLED DIRFFERENTLY -->
+		<!--<xsl:if test="$edition_pos=5">
 			<xsl:choose>
 				<xsl:when test="current-group()//tei:back/tei:div[starts-with(@type,'transl')] | current-group()//tei:back/tei:div[starts-with(@type,'trad')]">
 					<xsl:variable name="text">
-						<xsl:apply-templates select="current-group()" mode="trad"/></xsl:variable>
+						<xsl:apply-templates select="current-group()" mode="trad"/>
+					</xsl:variable>
 					<xsl:variable name="text2">
 						<xsl:call-template name="divCb">
 							<xsl:with-param name="text" select="$text"/>
@@ -471,7 +476,60 @@
 					<div lang="def">NO_TRANSLATION_AVAILABLE</div>
 				</xsl:otherwise>
 			</xsl:choose>
-		</xsl:if>
+		</xsl:if>-->
+	</xsl:template>
+	
+	<xsl:template name="translate">
+		<xsl:variable name="doc_id">
+			<xsl:choose>
+				<xsl:when test="current()/@xml:id">
+					<xsl:value-of select="current()/@xml:id"/>
+				</xsl:when>
+				<xsl:when test="current()/tei:body/tei:div[@subtype='edition_text']/@xml:id">
+					<xsl:value-of select="current()/tei:body/tei:div[@subtype='edition_text']/@xml:id"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:value-of select="count(preceding-sibling::tei:text) + 1"/>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:variable>
+		<xsl:result-document method="html" encoding="UTF-8" media-type="text/plain" byte-order-mark="yes" href="{$filePrefix}/data/output_data/translation/translation_{$doc_id}.html" indent="yes">
+			<html lang="en-US">
+				<xsl:call-template name="html_head">
+					<xsl:with-param name="html_path" select="$dataPrefix"/>
+					<xsl:with-param name="html_tc" select="'datastructure'"/>
+					<xsl:with-param name="output" select="translation"/>
+				</xsl:call-template>
+				<body>
+					<section id="central_wrapper">
+						<div id="text_frame">
+							<div id="text">
+								<xsl:choose>
+									<xsl:when test="current()/tei:back/tei:div[starts-with(@type,'transl')]">
+										<xsl:variable name="text">
+											<xsl:apply-templates select="current()/tei:back/tei:div[starts-with(@type,'transl')]" mode="trad"/>
+										</xsl:variable>
+										<xsl:variable name="text2">
+											<xsl:call-template name="divCb">
+												<xsl:with-param name="text" select="$text"/>
+												<xsl:with-param name="ed_name" select="$ed_name5"/>
+											</xsl:call-template>
+										</xsl:variable>
+										<xsl:call-template name="divLine">
+											<xsl:with-param name="text" select="$text2"/>
+											<xsl:with-param name="ed_name" select="$ed_name5"/>
+										</xsl:call-template>
+									</xsl:when>
+									<xsl:otherwise>
+										<div lang="def">NO_TRANSLATION_AVAILABLE</div>
+									</xsl:otherwise>
+								</xsl:choose>
+							</div>
+						</div>
+					</section>
+				</body>
+			</html>
+		</xsl:result-document>
 		
 	</xsl:template>
 	
