@@ -1006,52 +1006,41 @@
 									</xsl:variable>
 									<xsl:variable name="current_text1">
 										<xsl:apply-templates select="$current_text"
-											mode="delete_el1"/>
+											mode="delete_el2"/>
 									</xsl:variable>
 									<xsl:variable name="current_text2">
 										<xsl:apply-templates
 											select="$current_text1//text()[not(ancestor::span)]"
 											mode="deleteSpaces"/>
-									</xsl:variable> { "line" : "<xsl:call-template
-										name="line_refs4search"/>", "text" : "<xsl:copy-of
-										select="replace($current_text2, '(\\|/)', '$1$1')"/>",
-									"tags" : "<xsl:call-template name="doc_refs4search"/>", "loc" :
-										"<xsl:call-template name="page_refs4search"/>" }, </xsl:if>
-							</xsl:for-each-group>
-						</xsl:when>
-						<xsl:when test="current-group()/(descendant-or-self::p)">
-							<!--<xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:pb)]" mode="interp"/></xsl:variable>
-								<xsl:copy-of select="$var//text()"></xsl:copy-of>-->
-							<xsl:for-each-group select="current-group()/descendant::p"
-								group-starting-with="//tei:p">
+									</xsl:variable>
+									{
+									"line" : "<xsl:call-template name="paragraph_refs4search"/>",
+									"text" : "<xsl:copy-of select="replace($current_text2, '(\\|/)', '$1$1')"/>",
+									"tags" : "<xsl:call-template name="doc_refs4search"/>",
+									"loc" : "<xsl:call-template name="page_refs4search"/>"
+									},
+								</xsl:for-each-group>
+							</xsl:when>
+							<xsl:otherwise>
+								<!-- TEXTUAL CONTENT -->
 								<xsl:variable name="current_text">
 									<xsl:apply-templates select="current-group()[not(self::tei:pb)]"
-										mode="inter"/>
-								</xsl:variable> { "line" : "<xsl:call-template
-									name="paragraph_refs4search"/>", "text" : "<xsl:value-of
-									select="fn:normalize-space($current_text)"/>", "tags" :
-									"<xsl:call-template name="doc_refs4search"/>", "loc" :
-									"<xsl:call-template name="page_refs4search"/>" },
-							</xsl:for-each-group>
-						</xsl:when>
-						<xsl:otherwise>
-							<!-- TEXTUAL CONTENT -->
-							<xsl:variable name="current_text">
-								<xsl:apply-templates select="current-group()[not(self::tei:pb)]"
-									mode="dipl"/>
-							</xsl:variable>
-							<xsl:variable name="current_text1">
-								<xsl:apply-templates select="$current_text" mode="delete_el1"/>
-							</xsl:variable>
-							<xsl:variable name="current_text2">
-								<xsl:apply-templates
-									select="$current_text1//text()[not(ancestor::span)]"
-									mode="deleteSpaces"/>
-							</xsl:variable> { "line" : "<xsl:call-template name="line_refs4search"
-							/>", "text" : "<xsl:copy-of
-								select="replace($current_text2, '(\\|/)', '$1$1')"/>", "tags" :
-								"<xsl:call-template name="doc_refs4search"/>", "loc" :
-								"<xsl:call-template name="page_refs4search"/>" }, </xsl:otherwise>
+										mode="dipl"/>
+								</xsl:variable>
+								<xsl:variable name="current_text1">
+									<xsl:apply-templates select="$current_text" mode="delete_el1"/>
+								</xsl:variable>
+								<xsl:variable name="current_text2">
+									<xsl:apply-templates
+										select="$current_text1//text()[not(ancestor::span)]"
+										mode="deleteSpaces"/>
+								</xsl:variable> 
+								{ 
+									"line" : "<xsl:call-template name="line_refs4search"/>", 
+									"text" : "<xsl:copy-of select="replace($current_text2, '(\\|/)', '$1$1')"/>", 
+									"tags" : "<xsl:call-template name="doc_refs4search"/>", 
+									"loc" : "<xsl:call-template name="page_refs4search"/>" }, 
+							</xsl:otherwise>
 					</xsl:choose>
 				</xsl:for-each-group> { "line" : "", "text" : "", "tags" : "", "loc" : "" }]}
 			</xsl:result-document>
@@ -1101,47 +1090,36 @@
 										<xsl:apply-templates
 											select="$current_text1//text()[not(ancestor::span)]"
 											mode="deleteSpaces"/>
-									</xsl:variable> { "line" : "<xsl:call-template
-										name="line_refs4search"/>", "text" : "<xsl:copy-of
-										select="replace($current_text2, '(\\|/)', '$1$1')"/>",
-									"tags" : "<xsl:call-template name="doc_refs4search"/>", "loc" :
-										"<xsl:call-template name="page_refs4search"/>" }, </xsl:if>
-							</xsl:for-each-group>
-						</xsl:when>
-						<xsl:when test="current-group()/(descendant-or-self::p)">
-							<!--<xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:pb)]" mode="interp"/></xsl:variable>
-								<xsl:copy-of select="$var//text()"></xsl:copy-of>-->
-							<xsl:for-each-group select="current-group()/descendant::p"
-								group-starting-with="//tei:p">
+									</xsl:variable> 
+									{ 
+										"line" : "<xsl:call-template name="line_refs4search"/>", 
+										"text" : "<xsl:copy-of select="replace($current_text2, '(\\|/)', '$1$1')"/>",
+										"tags" : "<xsl:call-template name="doc_refs4search"/>", 
+										"loc" : "<xsl:call-template name="page_refs4search"/>" },
+								</xsl:for-each-group>
+							</xsl:when>
+							<xsl:otherwise>
 								<xsl:variable name="current_text">
 									<xsl:apply-templates select="current-group()[not(self::tei:pb)]"
-										mode="dipl"/>
-								</xsl:variable> { "line" : "<xsl:call-template
-									name="paragraph_refs4search"/>", "text" : "<xsl:value-of
-									select="fn:normalize-space($current_text)"/>", "tags" :
-									"<xsl:call-template name="doc_refs4search"/>", "loc" :
-									"<xsl:call-template name="page_refs4search"/>" },
-							</xsl:for-each-group>
-						</xsl:when>
-						<xsl:otherwise>
-							<xsl:variable name="current_text">
-								<xsl:apply-templates select="current-group()[not(self::tei:pb)]"
-									mode="interp"/>
-							</xsl:variable>
-							<xsl:variable name="current_text1">
-								<xsl:apply-templates select="$current_text" mode="delete_el2"/>
-							</xsl:variable>
-							<xsl:variable name="current_text2">
-								<xsl:apply-templates
-									select="$current_text1//text()[not(ancestor::span)]"
-									mode="deleteSpaces"/>
-							</xsl:variable> { "line" : "<xsl:call-template
-								name="paragraph_refs4search"/>", "text" : "<xsl:copy-of
-								select="replace($current_text2, '(\\|/)', '$1$1')"/>", "tags" :
-								"<xsl:call-template name="doc_refs4search"/>", "loc" :
-								"<xsl:call-template name="page_refs4search"/>" }, </xsl:otherwise>
-					</xsl:choose>
-				</xsl:for-each-group> { "line" : "", "text" : "", "tags" : "", "loc" : "" }]}
+										mode="interp"/>
+								</xsl:variable>
+								<xsl:variable name="current_text1">
+									<xsl:apply-templates select="$current_text" mode="delete_el2"/>
+								</xsl:variable>
+								<xsl:variable name="current_text2">
+									<xsl:apply-templates
+										select="$current_text1//text()[not(ancestor::span)]"
+										mode="deleteSpaces"/>
+								</xsl:variable> 
+								{ 
+									"line" : "<xsl:call-template name="paragraph_refs4search"/>", 
+									"text" : "<xsl:copy-of select="replace($current_text2, '(\\|/)', '$1$1')"/>", 
+									"tags" : "<xsl:call-template name="doc_refs4search"/>", 
+									"loc" : "<xsl:call-template name="page_refs4search"/>" }, 
+							</xsl:otherwise>
+						</xsl:choose>
+					</xsl:for-each-group> 
+				{ "line" : "", "text" : "", "tags" : "", "loc" : "" }]}
 			</xsl:result-document>
 		</xsl:if>
 		
