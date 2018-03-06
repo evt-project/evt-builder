@@ -201,5 +201,13 @@ jquery_lang_js.prototype.lang.fr = {
     "BEFORE": "avant",
     "FROM": "à partir de",
     "TO": "à",
-    "membership": "Composition"
+    "membership": "Composition", 
+	
+	"LIST_DOC": "Index chronologique",
+	"SELECTOR_SORT_ATTRIBUTE": "Choisissez le paramètre de tri",
+	"SORT_ORDER" : "Choisissez le mode de tri",
+	"ASCENDING_ORDER" : "Ascendant",
+	"DESCENDING_ORDER" : "Descendant",
+	"MORE" : "étendre",
+	"LESS" : "diminuer",
 }
