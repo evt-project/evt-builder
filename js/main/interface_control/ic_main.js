@@ -895,7 +895,8 @@ $(function() {
 	});
 
 	$(document).ready(function(){
-		var welcomeCookie = getCookie('welcome');
+		var editionIdentifier = document.getElementById("home_title").textContent.replace(/\s/g, "");
+		var welcomeCookie = getCookie('welcome_'+editionIdentifier);
 		if (welcomeCookie === undefined || welcomeCookie === '') {
 			$('#welcomeInfo_cont').show('fade', 0);
 		}
