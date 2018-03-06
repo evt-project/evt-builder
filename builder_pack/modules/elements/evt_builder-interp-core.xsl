@@ -33,10 +33,13 @@
 	<xsl:template match="tei:p" mode="interp">
 		<xsl:element name="span">
 			<xsl:attribute name="data-id" select="@xml:id"/>
-			<xsl:if test="current()[not((string-length(normalize-space())) = 0)]">
-				<xsl:attribute name="class" select="$ed_name2, name()" separator="-"/>
-				<xsl:apply-templates mode="#current"> </xsl:apply-templates>
+			<!-- <xsl:if test="current()[not((string-length(normalize-space()))= 0)]"> -->
+			<xsl:attribute name="class" select="$ed_name2, name()" separator="-"/>
+			<xsl:if test="@part">
+				<xsl:attribute name="data-part" select="@part"/>
 			</xsl:if>
+			<xsl:apply-templates mode="#current"> </xsl:apply-templates>
+			<!-- </xsl:if> -->
 		</xsl:element>
 	</xsl:template>
 
@@ -236,7 +239,10 @@
 										<xsl:attribute name="class" select="$ed_name2, 'corr'"
 											separator="-"/>
 										<xsl:apply-templates
-											select="corr/ancestor::node()[parent::node()[name() = $start_split]]/preceding-sibling::node()[not(self::lb)][position() lt 2]//tei:choice[@id = $choiceId]//tei:corr/node(), corr/ancestor::node()[parent::node()[name() = $start_split]]//tei:choice[@id = $choiceId]//tei:corr/node(), corr/ancestor::node()[parent::node()[name() = $start_split]]/following-sibling::node()[not(self::lb)][position() lt 3]//tei:choice[@id = $choiceId]//tei:corr/node()"
+											select="
+												corr/ancestor::node()[parent::node()[name() = $start_split]]/preceding-sibling::node()[not(self::lb)][position() lt 2]//tei:choice[@id = $choiceId]//tei:corr/node(), 
+												corr/ancestor::node()[parent::node()[name() = $start_split]]//tei:choice[@id = $choiceId]//tei:corr/node(), 
+												corr/ancestor::node()[parent::node()[name() = $start_split]]/following-sibling::node()[not(self::lb)][position() lt 3]//tei:choice[@id = $choiceId]//tei:corr/node()"
 											mode="#current"/>
 									</xsl:element>
 								</xsl:if>
@@ -266,7 +272,10 @@
 									<xsl:attribute name="class" select="$ed_name2, 'abbr'"
 										separator="-"/>
 									<xsl:apply-templates
-										select="abbr/ancestor::node()[parent::node()[name() = $start_split]]/preceding-sibling::node()[not(self::lb)][position() lt 2]//tei:choice[@id = $choiceId]//tei:abbr/node(), abbr/ancestor::node()[parent::node()[name() = $start_split]]//tei:choice[@id = $choiceId]//tei:abbr/node(), abbr/ancestor::node()[parent::node()[name() = $start_split]]/following-sibling::node()[not(self::lb)][position() lt 3]//tei:choice[@id = $choiceId]//tei:abbr/node()"
+										select="
+											abbr/ancestor::node()[parent::node()[name() = $start_split]]/preceding-sibling::node()[not(self::lb)][position() lt 2]//tei:choice[@id = $choiceId]//tei:abbr/node(), 
+											abbr/ancestor::node()[parent::node()[name() = $start_split]]//tei:choice[@id = $choiceId]//tei:abbr/node(), 
+											abbr/ancestor::node()[parent::node()[name() = $start_split]]/following-sibling::node()[not(self::lb)][position() lt 3]//tei:choice[@id = $choiceId]//tei:abbr/node()"
 										mode="#current"/>
 								</xsl:element>
 								<xsl:sequence select="' '"/>
@@ -292,8 +301,7 @@
 									/>
 								</xsl:if>
 								<xsl:element name="span">
-									<xsl:attribute name="class" select="$ed_name2, 'orig'"
-										separator="'-'"/>
+									<xsl:attribute name="class" select="$ed_name2, 'orig'" separator="'-'"/>
 									<xsl:apply-templates
 										select="
 											orig/ancestor::node()[parent::node()[name() = $start_split]]/preceding-sibling::node()[not(self::lb)][position() lt 2]//tei:choice[@id = $choiceId]//tei:orig/node(),
@@ -407,7 +415,9 @@
 						<xsl:choose>
 							<!-- IT: 1. escludi i choice che contengono expan vuoti (che contengono solo white-spaces)-->
 							<xsl:when
-								test="tei:expan[not(descendant::tei:pc)][normalize-space()] or tei:expan[descendant::tei:pc][node()[not(self::tei:pc)][normalize-space()]]">
+								test="
+									tei:expan[not(descendant::tei:pc)][normalize-space()] or 
+									tei:expan[descendant::tei:pc][node()[not(self::tei:pc)][normalize-space()]]">
 								<xsl:element name="span">
 									<xsl:attribute name="class" select="$ed_name2, 'choice_popup'"
 										separator="-"/>
@@ -597,7 +607,6 @@
 	<xsl:template match="tei:sic" mode="interp">
 		<!-- do nothing -->
 	</xsl:template>
-
 	<!-- DEL Deletions -->
 	<xsl:template match="tei:del" mode="interp">
 		<xsl:element name="span">
@@ -810,8 +819,8 @@
 	<!-- PERS NAME personal name -->
 	<xsl:template match="tei:persName[starts-with(@ref, '#')]" mode="interp">
 		<xsl:choose>
-			<xsl:when test="count(ancestor::tei:teiHeader)>0">
-				<xsl:apply-templates mode="#current" />
+			<xsl:when test="count(ancestor::tei:teiHeader) > 0">
+				<xsl:apply-templates mode="#current"/>
 			</xsl:when>
 			<xsl:when
 				test="@ref and @ref != '' and $root//tei:person[@xml:id = substring-after(current()/@ref, '#')]">
@@ -1225,6 +1234,93 @@
 						<xsl:apply-templates select="tei:note" mode="interp"/>
 					</span>
 				</xsl:if>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:element name="span">
+					<xsl:attribute name="class">display-block</xsl:attribute>
+					<span lang="def">NO_INFO</span>
+					<xsl:text>.</xsl:text>
+				</xsl:element>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
+
+	<!--template for list doc-->
+	<xsl:template name="document">
+		<xsl:choose>
+			<xsl:when test="current()//tei:front">
+				<xsl:element name="span">
+					<xsl:attribute name="class">document_list_data</xsl:attribute>
+					<xsl:if test="current()//tei:docDate">
+						<xsl:if test="current()//tei:docDate//tei:date">
+
+							<xsl:choose>
+								<xsl:when test="current()//tei:docDate//tei:date[@when]">
+									<xsl:for-each select="current()//tei:docDate//tei:date[@when]">
+										<xsl:value-of select="."/>
+										<xsl:text>,&#xA0;</xsl:text>
+									</xsl:for-each>
+								</xsl:when>
+								<xsl:when
+									test="current()//tei:docDate//tei:date[@notBefore] and current()//tei:docDate//tei:date[@notAfter]">
+
+									<xsl:value-of select="tei:front//tei:docDate//tei:date"/>
+
+									<xsl:text>,&#xA0;</xsl:text>
+								</xsl:when>
+								<xsl:when
+									test="current()//tei:docDate//tei:date[@from] and current()//tei:docDate//tei:date[@to]">
+									<xsl:value-of select="tei:front//tei:docDate//tei:date"/>
+									<xsl:text>,&#xA0;</xsl:text>
+								</xsl:when>
+								<!--<xsl:otherwise>
+									<xsl:value-of select="tei:front//tei:docDate//tei:date"/>
+								</xsl:otherwise>-->	
+							</xsl:choose>
+						</xsl:if>
+					</xsl:if>
+				</xsl:element>
+				<xsl:element name="span">
+					<xsl:attribute name="class">document_list_place</xsl:attribute>
+					<xsl:if test="current()//tei:docDate//tei:placeName">
+						<xsl:for-each select="current()//tei:docDate//tei:placeName">
+
+							<xsl:choose>
+								<xsl:when test="position() &lt; last()">
+									<xsl:value-of select="."/>
+									<xsl:text>,&#xA0;</xsl:text>
+								</xsl:when>
+								<xsl:when test="position() = last()">
+									<xsl:value-of select="."/>
+								</xsl:when>
+							</xsl:choose>
+
+						</xsl:for-each>
+					</xsl:if>
+				</xsl:element>
+				<br/>
+				<xsl:element name="span">
+					<xsl:attribute name="class">document_list_doc_link</xsl:attribute>
+					<xsl:attribute name="data-value">
+						<xsl:value-of select="@xml:id"/>
+					</xsl:attribute>
+					<xsl:text>Doc.&#xA0;</xsl:text>
+					<xsl:value-of select="tei:front//tei:titlePart[@type = 'numerazioneOrig']"/>
+					<xsl:text>_</xsl:text>
+					<xsl:value-of select="tei:front//tei:titlePart[@type = 'numerazioneNuova']"/>
+					<!--OR-->
+					<!--<xsl:value-of select="@xml:id"/>-->
+				</xsl:element>
+				<br/>
+				<xsl:element name="span">
+					<xsl:attribute name="class">document_list_regesto</xsl:attribute>
+					<xsl:if test="current()//tei:div[@type = 'regesto']">
+						<xsl:value-of select="tei:front//tei:div[@type = 'regesto']"/>
+					</xsl:if>
+				</xsl:element>
+				<!--<span class="toggle_list_element">
+                    <i class="fa fa-angle-right"/>
+                </span>-->
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:element name="span">

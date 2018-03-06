@@ -200,6 +200,14 @@ jquery_lang_js.prototype.lang.de = {
     "BEFORE": "vor",
     "FROM": "von",
     "TO": "bis",
-    "membership": "Mitgliedschaft"
+    "membership": "Mitgliedschaft", 
+	
+	"LIST_DOC": "Chronologischer Index",
+	"SELECTOR_SORT_ATTRIBUTE": "Wählen Sie den Sortierparameter",
+	"SORT_ORDER" : "Wählen Sie den Sortiermodus",
+	"ASCENDING_ORDER" : "Aufsteigend",
+	"DESCENDING_ORDER" : "Absteigend",
+	"MORE" : "erweitern",
+	"LESS" : "abnehmen",
 }
 
