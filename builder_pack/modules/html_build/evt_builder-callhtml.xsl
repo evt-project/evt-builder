@@ -1043,7 +1043,7 @@
 					<section id="central_button">
 						<input id="folio_page_number" type="hidden" value=""/>
 					</section>
-					<div id="poweredBy">Powered by EVT</div>
+					<div id="poweredBy">Powered by EVT <xsl:value-of select="$evtVersion"/></div>
 					<footer>
 						<p>2012 - 2015 @ EVT team – University of Pisa</p>
 					</footer>
