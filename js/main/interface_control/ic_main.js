@@ -343,7 +343,8 @@ $(function() {
 				$('.list_filter').click(function() {
 					filterListElements(this);
 				});
-				
+
+				var listContainer = $('#lists_cont');				
 				$(xml).find('liste').children().each(function(){
 					if ($(this).attr('active') == '1'){
 						var listName, listLabel;
@@ -363,14 +364,15 @@ $(function() {
 								openList(this, listName);
 							})
 							.appendTo('#list_header');
-						$('#lists_cont').find('.list').first().addClass('list_opened').show();
-						$('#lists_cont').find('.labelList').first().addClass('active');
+						listContainer.find('.list').first().addClass('list_opened').show();
+						listContainer.find('.labelList').first().addClass('active');
 						$('.list_filter').first().trigger('click');
 
-						$('#list_'+listName).load("data/output_data/liste/"+listName+".html div", function(){ 
+						var listElement = $('#list_'+listName);
+						listElement.load("data/output_data/liste/"+listName+".html div", function(){ 
 
-							if ( $('#list_'+listName).find('li').length == 0 ) {
-								$('#list_'+listName).remove();
+							if ( listElement.find('li').length == 0 ) {
+								listElement.remove();
 								$('#header_'+listName).remove();
 
 								if ( $('#list_header').find('.labelList').length == 0 ) {
@@ -381,7 +383,7 @@ $(function() {
 								$('[id]').each(function(){ 
 				                  $('[id="' + this.id + '"]:gt(0)').remove(); 
 				              	});
-								$('#list_'+listName)
+								listElement
 									.find('.list_element').find('.toggle_list_element, .entity_name').click(function(){
 										showListElementOccurrences($(this).parent(), listName);
 									});
@@ -392,17 +394,23 @@ $(function() {
 					        }
 					        /* /end Integration by LS */
 					        InitializeRefs();
-					        $('.list_filter:first').trigger('click');
+					        // If chronological index there are no letters
+					        if (listName !== 'listDoc') {
+					        	$('.list_filter:first').trigger('click');
+					        }
 						});
 					}
 				});
+				listContainer.find('.list').first().addClass('list_opened').show();
+				listContainer.find('.labelList').first().addClass('active');
+
 				if ($.browser.safari) {
 					$('#list_header .labelList').css('top', '1px');
 				} else if ($.browser.webkit) {
 					$('#list_header .labelList').css('top', '-8.5px');
 				}
 			} else {
-				$('#lists_cont').remove();
+				listContainer.remove();
 				$('#list_link').remove();
 			}
 
@@ -638,6 +646,9 @@ $(function() {
 			/* FILTER SELECT CLICK */
 			bindFilterOptionClick();
 			
+			/* BIND LIST TOOL SELECT CLICK */
+			bindDocListSortSelectClick();
+
 			/* GENERIC SELECT CLICK */
 			bindOptionClick();
 			
@@ -895,7 +906,8 @@ $(function() {
 	});
 
 	$(document).ready(function(){
-		var welcomeCookie = getCookie('welcome');
+		var editionIdentifier = document.getElementById("home_title").textContent.replace(/\s/g, "");
+		var welcomeCookie = getCookie('welcome_'+editionIdentifier);
 		if (welcomeCookie === undefined || welcomeCookie === '') {
 			$('#welcomeInfo_cont').show('fade', 0);
 		}
@@ -966,6 +978,10 @@ $(function() {
 
 		/*= LISTS =*/
 		bindListsBtnClick();
+		bindListsSortingOrderBtnClick(); 
+		bindChronologicalIndex();
+		showOrHideRegesto();
+		bindDocumentLinkChronologicalIndex();
 
 		/*= VIEW MODES =*/
 		bindViewModesBtnsClick();	
@@ -1030,4 +1046,4 @@ function getCookie(cname) {
         if (c.indexOf(name) == 0) return c.substring(name.length,c.length);
     }
     return '';
-} 
+}

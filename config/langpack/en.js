@@ -64,7 +64,6 @@ jquery_lang_js.prototype.lang.en = {
 	"TOGGLE_LISTS": "Toggle lists",
 	"OPEN_LISTS": "Open Lists",
 	"LISTS": "Lists",
-	
 	"EVT_INFORMATION": "EVT information",
 	"GENERAL_INFORMATION": "General information",
 	"TITLE": "Title of the edition",
@@ -202,6 +201,14 @@ jquery_lang_js.prototype.lang.en = {
     "BEFORE": "before",
     "FROM": "from",
     "TO": "to",
-    "membership": "Membership"
+    "membership": "Membership",
+	
+	"LIST_DOC": "Chronological index",
+	"ASCENDING_ORDER":"Ascending", 
+	"DESCENDING_ORDER":"Descending",
+	"SORT_ORDER":"Choose sorting order",
+	"SELECTOR_SORT_ATTRIBUTE":"Choose sort attribute",
+	"MORE":"show more",
+    "LESS": "show less"   
 }
 

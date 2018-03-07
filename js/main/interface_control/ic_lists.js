@@ -136,6 +136,9 @@ function filterListElements(filter){
     } else { 
         listsElementsFiltered = $(".list_element[data-order-list='"+filterValue.toLowerCase()+"'], .list_element[data-order-list='"+filterValue.toUpperCase()+"']"); 
     }
+   
+    // Elements in chronological index (listDoc) should always be visible
+    $('#listDoc .list_element').show();
     listsElementsFiltered.show();
     if (filterValue.toLowerCase() == 'c') {
         $(".list_element[data-order-list='Ç']").show();
@@ -168,13 +171,15 @@ function filterListElements(filter){
 
 /*= OPEN SINGLE LIST =*/
 function openList(elem, listName){
-    if ( $('#lists_cont').hasClass('collapsed') ) {
+    var listCont = $('#lists_cont');
+    if ( listCont.hasClass('collapsed') ) {
         $('#toggle_list_cont').trigger('click');
     }
     $('.labelList.active').removeClass('active');
     $(elem).addClass('active');
     $('.list.list_opened').hide();
     $('#list_'+listName).addClass('list_opened').show();
+    listCont.attr('data-list-active', listName);
 }
 
 /*= SHOW LIST ELEMENT OCCURRENCES =*/
@@ -419,5 +424,200 @@ function bindListsBtnClick() {
                 } 
             }
         }
+    });
+}
+
+/* --funzioni per la gestione dell'indice cronologico-- */
+
+/* Ho creato una funzione esterna per l'ordinamento della data, che prende in input
+ * il contenitore della lista e gli elementi.  */
+function sortDate(container, items) {
+    sortingOrder = container.attr('sort');
+    // Recupero il valore dell'attributo 'sort' del contenitore (#ul_listDocument) nel quale ho memorizzato il tipo di ordinamento (asc/desc)
+    items.each(function () {
+        /* per ogni items converto il valore della data in una forma più standard. Creo un attributo 'data-normalized-sort-date' e gli assegno questo valore */
+        var date = $(this).attr("data-sort-date").split("-");
+        var standardDate = date[0] + " " + date[1] + " " + date[2];
+        standardDate = new Date(standardDate).getTime();
+        $(this).attr("data-normalized-sort-date", standardDate);
+    });
+    items.sort(function (a, b) {
+        /* Ordino gli elementi sulla base del valore del nuovo attributo */
+        a = parseFloat($(a).attr("data-normalized-sort-date"));
+        b = parseFloat($(b).attr("data-normalized-sort-date"));
+        /* verifico se l'ordinamento deve essere ascendente o discendente e restituisco il risultato conseguente */
+        if (sortingOrder === "asc") {
+            return a < b ? -1: a > b ? 1: 0;
+        } else if (sortingOrder === "desc") {
+            return a > b ? -1: a < b ? 1: 0;
+        }
+    });
+    /* inserisco gli elementi nel contenitore dopo averlo svuotato */
+    container.empty().prepend(items);
+}
+
+/* Anche per l'ordinamento dei documenti ho creato una funzione esterna, in cui recupero il valore
+ * dell'attributo 'sort' del contenitore e ordino gli elementi di conseguenza, poi li inserisco nel contenitore */
+function sortDocument(container, items) {
+    var sortingOrder = container.attr('sort');
+    items.sort(function (a, b) {
+        a = parseFloat($(a).attr("data-sort-num"));
+        b = parseFloat($(b).attr("data-sort-num"));
+        if (sortingOrder === 'asc') {
+            return a > b ? -1: a < b ? 1: 0;
+        } else if (sortingOrder === 'desc') {
+            return a < b ? -1: a > b ? 1: 0;
+        }
+    }).each(function () {
+        container.prepend(this);
+    });
+}
+
+/* Ho creato una funzione di preparazione dell'indice cronologico, che viene eseguita quando si clicca sull'etichetta corrispondente.
+Quello che voglio ottenere all'apertura è un indice già ordinato per data crescente, dalla più antica alla più recente,
+ * e visualizzare solo i primi caratteri (ho messo 300) del regesto, con la possibilità di espanderlo e poi ridurlo */
+function bindChronologicalIndex() {
+    $('#header_listDoc').click(function () {
+        /* Recupero lo span del pulsante per l'ordinamento */
+        var sortingButtonSpan = $('#sortingOrder span');
+        /* Voglio che le date siano ordinate in modo ascendente, il pulsante all'inizio dovrà avere valore 'Ascendente'.
+         * Per fare questo ho assegnato allo span un attributo 'button_sort' con valore 'asc' e un testo 'ASCENDING_ORDER'
+         * (visualizzato poi 'Ascending). */
+        sortingButtonSpan.attr('button_sort', 'asc');
+        sortingButtonSpan.text(window.lang.convert('ASCENDING_ORDER', window.lang.currentLang));
+        /* Gesisco l'icona in modo che venga visualizzato il simbolo di ascendente */
+        $('#sortingOrder i').attr('class', 'fa fa-sort-amount-asc');
+        /* Recupero il contenitore della lista e gli assegno un attributo 'sort' che sarà inizialmente 'asc' */
+        var container = $("#ul_listDocument");
+        container.attr('sort', 'asc');
+        var items = $("#ul_listDocument .list_element");
+        /* Invoco la funzione per l'ordinamento delle date */
+        sortDate(container, items);
+        
+        /* Gestisco la riduzione del regesto */
+        var minimized_text = $('#ul_listDocument .list_element .document_list_regesto');
+        var minimized_character_count = 300;
+        
+        minimized_text.each(function () {
+            var text = $(this).text();
+            if (text.length < minimized_character_count) return;
+            
+            $(this).html (
+            text.slice(0, minimized_character_count) + '<span>... </span><a href="#" class="more">' +
+            window.lang.convert('MORE', window.lang.currentLang) + '</a>' +
+            '<span style = "display:none;">' + text.slice(minimized_character_count, text.length) +
+            '<a href="#" class="less"> ' + window.lang.convert('LESS', window.lang.currentLang) + '</a></span>');
+        });
+        showOrHideRegesto();
+        bindDocumentLinkChronologicalIndex();
+    });
+}
+
+/* Ho gestito questa parte del codice per la gestione del regesto in una funzione esterna per non
+ * doverla ripetere più volte. */
+function showOrHideRegesto() {
+    $('#ul_listDocument .list_element .document_list_regesto a.more').click(function (event) {
+        event.preventDefault();
+        $(this).hide().prev().hide();
+        $(this).next().show();
+    });
+    
+    $('#ul_listDocument .list_element .document_list_regesto a.less').click(function (event) {
+        event.preventDefault();
+        $(this).parent().hide().prev().show().prev().show();
+    });
+}
+
+/* La funzione per la gestione della selezione del parametro di ordinamento è ridotta rispetto alla versione
+ * precedente. */
+function bindDocListSortSelectClick() {
+    $(".docList_sort_attribute_select .option_container .option").click(function () {
+        if (! $(this).hasClass('selected')) {
+            /* se l'opzione non è già selezionata, recupero il contenitori, gli elementi della lista e il valore su cui effettuare l'ordinamento */
+            var container = $("#ul_listDocument");
+            var items = $("#ul_listDocument .list_element");
+            var value = $(this).attr('data-value');
+            /* In base a cosa devo ordinare, invoco la funzione per l'ordinamento delle date o dei documenti */
+            if (value === "sort_date") {
+                sortDate(container, items)
+                /* Devo invocare questa funzione sia qui che nell'else. Se non lo faccio,
+                 * dopo aver effettuato un cambio nell'ordinamento nel testo si visualizza
+                 * show more/show less che però non espandono né riducono il regesto. */
+                showOrHideRegesto();
+                bindDocumentLinkChronologicalIndex();
+            } else if (value === "sort_document") {
+                sortDocument(container, items);
+                showOrHideRegesto();
+                bindDocumentLinkChronologicalIndex();
+            }
+            $(this).removeClass('selected');
+        } else {
+            //Is currently selected
+            return;
+        }
+    })
+}
+
+/* Questa funzione gestisce il cambio ascendente/discendente */
+function bindListsSortingOrderBtnClick() {
+    $('#sortingOrder').click(function () {
+        // Update sorting order
+        /* Recupero lo span del pulsante di ordinamento e il valore del suo attributo 'button_sort'. La prima
+         * volta che viene eseguito questo codice, questo sarà 'asc', perché così impostato all'apertura della lista */
+        var sortingOrderButton = $('#sortingOrder span');
+        var sortingOrderButtonValue = sortingOrderButton.attr('button_sort');
+        /* Recupero l'opzione della select correntemente selezionata*/
+        var selectedLabelValue = $('#span_listDoc_select .docList_sort_attribute_select .label_selected').attr('data-value');
+        /*Recupero il contenitore della lista e gli elementi  */
+        var container = $("#ul_listDocument");
+        var items = $("#ul_listDocument .list_element");
+        /* Se il pulsante per l'ordinamento è correntemente settato su 'Ascending' */
+        if (sortingOrderButtonValue === 'asc') {
+            /* Cambio il valore del suo attributo 'button_sort' in 'desc' e assegno questo valore anche all'attributo 'sort' di #ul_listDocument */
+            sortingOrderButton.attr('button_sort', 'desc');
+            container.attr('sort', 'desc');
+            /* Cambio la scritta sul pulsante */
+            sortingOrderButton.text(window.lang.convert('DESCENDING_ORDER', window.lang.currentLang));
+            /* Cambio il simbolo nel pulsante */
+            $('#sortingOrder i').attr('class', 'fa fa-sort-amount-desc');
+            /* A seconda di qual è l'opzione selezionata correntemente, invoco la funzione per l'ordinamento delle date o dei documenti */
+            if (selectedLabelValue === 'sort_document') {
+                sortDocument(container, items);
+            } else if (selectedLabelValue === 'sort_date') {
+                sortDate(container, items);
+            }
+            /* Se non invoco ancora la funzione mi dà problemi */
+            showOrHideRegesto();
+            bindDocumentLinkChronologicalIndex();
+            /* Se il pulsante per l'ordinamento è correntemente settato su 'Ascending' ma 'al contrario'*/
+        } else if (sortingOrderButtonValue === 'desc') {
+            sortingOrderButton.attr('button_sort', 'asc');
+            container.attr('sort', 'asc');
+            sortingOrderButton.text(window.lang.convert('ASCENDING_ORDER', window.lang.currentLang));
+            $('#sortingOrder i').attr('class', 'fa fa-sort-amount-asc');
+            if (selectedLabelValue === 'sort_document') {
+                sortDocument(container, items);
+            } else if (selectedLabelValue === 'sort_date') {
+                sortDate(container, items);
+            }
+            showOrHideRegesto();
+            bindDocumentLinkChronologicalIndex();
+        }
+    });
+}
+
+/* Gestione del link alla prima pagina del documento corrispondente all'elemento della lista per l'indice cronologico */
+function bindDocumentLinkChronologicalIndex() {
+    $('#ul_listDocument .list_element .document_list_doc_link').click(function () {
+    /* quando si clicca sullo span della lista che contiene la numerazione, si recupera il valore di 'data-value' che corrisponde al numero del documento */
+        var elementListDoc = $(this).attr('data-value');
+        /* vado a recuperare nella select dei documenti l'opzione che ha il valore dell'attributo 'data-value' uguale a quello appena recuperato */
+        var navSelectDoc = $('#span_tt_select .main_tt_select .option_container').find(".option[data-value='" + elementListDoc + "']");
+        var numero = navSelectDoc.attr('data-value');
+        /* il valore dell'attributo 'data-first-page' dell'opzione recuperata mi dà il valore della prima pagina del documento  */
+        var docFirstPage = navSelectDoc.attr('data-first-page');
+        updateHash(elementListDoc, docFirstPage, "");
+        
+        /* funzione definita in ic_navigation.js */
     });
 }

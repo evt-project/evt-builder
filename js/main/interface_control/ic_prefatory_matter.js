@@ -446,7 +446,8 @@ function bindHeaderInfoBtnClick() {
         var target = $(this).attr('data-dialog');
         if (target !== undefined && target !== '') {
             if ($('#'+target).find('.neverShowAgain').is(':checked')) {
-                setCookie('welcome', 'neverShowAgain', 1);
+                var editionIdentifier = document.getElementById("home_title").textContent.replace(/\s/g, "");
+                setCookie('welcome_'+editionIdentifier, 'neverShowAgain', 365);
             }
             $('#'+target).hide('fade', 0);
         }
