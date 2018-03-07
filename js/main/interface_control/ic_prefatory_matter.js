@@ -333,13 +333,13 @@ function toggleReg(cont){
             $(cont).removeClass('open');
             var ee_val;
             ee_val = $(cont).parents("div[id*='frame']").find('.main_ee_select .label_selected').attr('data-value');
-            if (( ee_val.toLowerCase() == 'diplomatic' )||( ee_val.toLowerCase() == 'critical')||( ee_val.toLowerCase() == 'translation') ){
+            //if (( ee_val.toLowerCase() == 'diplomatic' )||( ee_val.toLowerCase() == 'critical')||( ee_val.toLowerCase() == 'translation') ){
                 $(cont)
                     .parents("div[id*='frame']")
                         .find('.like_select.filter')
                             .css('opacity', "1")
                             .removeClass('not_active'); 
-            }
+            //}
         });
         
     } else {
