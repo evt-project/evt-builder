@@ -965,6 +965,9 @@
 									<span class="list_filter" data-filter-type="first_letter" data-value="Z">Z</span>
 									<span lang="def" class="list_filter" data-filter-type="first_letter" data-value="*">ALL</span>
 								</div>
+								<div id="list_tools" class="bottomBoxContent">
+									<xsl:call-template name="sortOptions"></xsl:call-template>
+								</div>
 							</div>
 							<xsl:if test="$document_navigation=true()">
 								<xsl:element name="span">
@@ -993,7 +996,7 @@
 										<i class="fa fa-search"></i>
 									</xsl:element>
 								</xsl:if>
-								<xsl:if test="$list_person=true() or $list_place=true() or $list_org=true() or $list_term=true() or $list_gloss=true()">
+								<xsl:if test="$list_person=true() or $list_place=true() or $list_org=true() or $list_term=true() or $list_gloss=true() or $list_doc=true()">
 									<xsl:element name="span">
 										<xsl:attribute name="id" select="'list_link'"/>
 										<xsl:attribute name="class" select="'mainButtons'"/>
@@ -1034,16 +1037,18 @@
 									<i class="fa fa-minus"></i>
 								</span>
 								<span class="mainButtons small font-size-controller" data-action="increase" title="INCREASE_FONT_SIZE" lang="def">
-									<i class="fa fa-font"></i>
-									<i class="fa fa-plus"></i>
-								</span>
-							</div>
+						<i class="fa fa-font"></i>
+						<i class="fa fa-plus"></i>
+							</span> 
 						</div>
+				</div>
 					</section>
+					
+					
 					<section id="central_button">
 						<input id="folio_page_number" type="hidden" value=""/>
 					</section>
-					<div id="poweredBy">Powered by EVT</div>
+					<div id="poweredBy">Powered by EVT <xsl:value-of select="$evtVersion"/></div>
 					<footer>
 						<p>2012 - 2015 @ EVT team – University of Pisa</p>
 					</footer>

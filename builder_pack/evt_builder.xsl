@@ -40,6 +40,8 @@
 	<xsl:include href="modules/evt_builder-main.xsl"/>
 	<xsl:include href="../config/evt_builder-config.xsl"/>
 
+	<xsl:variable name="evtVersion" select="'1.3'"/>
+
 	<xsl:include href="modules/fundamental_units/evt_builder-copy_and_call_main.xsl"/>
 	<xsl:include href="modules/fundamental_units/evt_builder-structure.xsl"/>
 	
