@@ -363,7 +363,7 @@ $(function() {
 							.click(function(){
 								openList(this, listName);
 							})
-							.appendTo('#list_header');
+							.appendTo('#list_header_elements_contents');
 						listContainer.find('.list').first().addClass('list_opened').show();
 						listContainer.find('.labelList').first().addClass('active');
 						$('.list_filter').first().trigger('click');
@@ -375,7 +375,7 @@ $(function() {
 								listElement.remove();
 								$('#header_'+listName).remove();
 
-								if ( $('#list_header').find('.labelList').length == 0 ) {
+								if ( $('#list_header_elements_contents').find('.labelList').length == 0 ) {
 									$('#lists_cont').remove();
 									$('#list_link').remove();
 								}

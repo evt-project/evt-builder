@@ -935,6 +935,11 @@
 										<xsl:attribute name="lang" select="'def'"/>
 										<i class='fa fa-angle-double-down'></i>
 									</xsl:element>
+									<div id="list_header_elements">
+										<div id="list_header_elements_contents"></div>	
+									</div>
+									<span id="navListHeadersLx" class="mainButtons small no-margin"><i class='fa fa-angle-left'></i></span>
+									<span id="navListHeadersRx" class="mainButtons small"><i class='fa fa-angle-right'></i></span>
 								</div>
 								<div id="list_letters" class="bottomBoxContent">
 									<span class="list_filter" data-filter-type="first_letter" data-value="A">A</span>
