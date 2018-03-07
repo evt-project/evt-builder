@@ -929,6 +929,14 @@
 		<!-- DO NOTHING -->
 	</xsl:template>
 	
+	<xsl:template match="node()[name() = 'span'][@class = 'tooltip_text']" mode="delete_el2">
+		<!-- DO NOTHING -->
+	</xsl:template>
+	
+	<xsl:template match="node()[name() = 'span'][@class = 'tooltip' ]" mode="delete_el2">
+		<!-- DO NOTHING -->
+	</xsl:template>
+	
 	<xsl:template match="@*|node()" mode="delete_el3">
 		<xsl:copy>
 			<xsl:apply-templates select="@*|node()" mode="#current"/>
@@ -1090,11 +1098,11 @@
 										<xsl:apply-templates
 											select="$current_text1//text()[not(ancestor::span)]"
 											mode="deleteSpaces"/>
-									</xsl:variable> 
-									{ 
+									</xsl:variable>
+									{
 										"line" : "<xsl:call-template name="line_refs4search"/>", 
 										"text" : "<xsl:copy-of select="replace($current_text2, '(\\|/)', '$1$1')"/>",
-										"tags" : "<xsl:call-template name="doc_refs4search"/>", 
+										"tags" : "<xsl:call-template name="doc_refs4search"/>",
 										"loc" : "<xsl:call-template name="page_refs4search"/>" },
 								</xsl:for-each-group>
 							</xsl:when>
