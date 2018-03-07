@@ -114,6 +114,16 @@ function openListsBox(speed){
         
     };
     $.when( openDivLists() ).done(function() {
+        var totListHeadersWidth = 0; 
+        $('.labelList').each(function(el){ 
+            totListHeadersWidth += $(this).outerWidth(); 
+        });
+        var totInnerWidth = $('#list_header_elements').innerWidth();
+        
+        if (totListHeadersWidth <  totInnerWidth) {
+            $('#navListHeadersLx').hide();
+            $('#navListHeadersRx').hide();
+        }
         updateTextContHeight();
     });
 }
@@ -390,6 +400,32 @@ function InitializeLinkTextList(){
 
 /*= BIND TOGGLE LISTS BUTTON CLICK EVENT =*/
 function bindListsBtnClick() {
+    /* TODO: move */
+    var listHeaderContents = $('#list_header_elements_contents');
+    $('#navListHeadersLx').click(function(event){
+        // Scroll fino a left = 0;
+        var currentLeft = parseInt(listHeaderContents.css('left').replace(/px/g, ""));
+        if (currentLeft < -29) {
+            listHeaderContents.animate({'left': currentLeft+30}, 42);
+        } else {
+            listHeaderContents.animate({'left': 0}, 42);
+        }
+    });
+    $('#navListHeadersRx').click(function(event){
+        var listHeadersWidth = 0; 
+        $('.labelList').each(function(el){ 
+            listHeadersWidth += $(this).outerWidth(); 
+        });
+        var listHeadersInnerWidth = $('#list_header_elements').innerWidth();
+        // Scroll fino a left = listHeadersInnerWidth - listHeadersWidth
+        var currentLeft = parseInt(listHeaderContents.css('left').replace(/px/g, ""));
+        if (currentLeft > (listHeadersInnerWidth - listHeadersWidth + 29)) {
+            listHeaderContents.animate({'left': currentLeft-30}, 42);
+        } else {
+            listHeaderContents.animate({'left': listHeadersInnerWidth - listHeadersWidth}, 42);
+        }
+    });
+
     $('#list_link').click(function(event) {
         var speed;
         if($('#lists_cont').hasClass('collapsed')){

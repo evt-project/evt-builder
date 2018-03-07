@@ -1043,6 +1043,9 @@ footer{
 #text_tool .mainButtons, #text_tool-add .mainButtons {
 	top:7px;
 }
+.no-margin {
+	margin: 0 !important;
+}
 /*#text_tool-add #search_link-add {
 	top:0px;
 }*/
@@ -1992,6 +1995,10 @@ div.doc.not_current:hover{
 	/*box-shadow: 0px 1px 3px -1px #000;*/
 	height: 30px;	
 }
+#list_header {
+	padding: 0px;
+	height: 33px;
+}
 #search_header .mainButtons.small, #search_header-add .mainButtons.small,
 #tipue_search_input_div, #tipue_search_input_div-add {
 	overflow: hidden;
@@ -2002,7 +2009,7 @@ div.doc.not_current:hover{
 	cursor: pointer;
 }
 
-#list_header #toggle_list_cont, 
+#list_header #toggle_list_cont, #navListHeadersRx, #navListHeadersLx,
 #search_header #toggle_search_cont, #search_header-add #toggle_search_cont-add {
 	min-width: 0;
 	/*left: -2px;*/
@@ -2017,6 +2024,22 @@ div.doc.not_current:hover{
 	-ms-box-shadow: none;
 	box-shadow: none;
 	margin: 0px 3px 0px 2px;
+}
+
+#navListHeadersRx:hover, #navListHeadersLx:hover {
+	-moz-box-shadow:inset  1px 2px 3px  rgba(0, 0, 0, 0.7);
+	-webkit-box-shadow:inset  1px 2px 3px  rgba(0, 0, 0, 0.7);
+	-o-box-shadow:inset 1px 2px 3px  rgba(0, 0, 0, 0.7);
+	-khtml-box-shadow:inset 1px 2px 3px  rgba(0, 0, 0, 0.7);
+	-ms-box-shadow:inset 1px 2px 3px  rgba(0, 0, 0, 0.7);
+    box-shadow:inset 1px 2px 3px  rgba(0, 0, 0, 0.7);
+	text-shadow: none !important;
+	/*background: rgb(187,174,153);*/
+}
+#navListHeadersLx, #navListHeadersRx {
+	top: -2.5px;
+	position: relative;
+	display: inline-block;
 }
 
 #search_header #toggle_search_cont:hover, #search_header-add #toggle_search_cont-add:hover,
@@ -2157,6 +2180,19 @@ div.doc.not_current:hover{
 	border: 2px solid rgba(245, 234, 212, 1);
 }
 
+#list_header_elements {
+	display: inline-block;
+	width: calc(100% - 96px);
+	overflow-y: hidden;
+	height: 33px;
+	overflow-x: hidden;
+	margin-right: 4px;
+}
+#list_header_elements_contents {
+	width: 9999px;
+	position: relative;
+	left: 0;
+}
 #lists_cont #list_letters{
 	top: 50px;
 	position: relative;
@@ -2187,30 +2223,32 @@ div.doc.not_current:hover{
 
 #list_header .labelList{
 	cursor: pointer;
-	padding-top: 2px;
+	padding-top: 5.5px;
 	position: relative;
 	/*border-right: 1px solid rgb(227, 200, 156);*/
 	padding-right: 15px;
 	padding-left: 15px;
-	top:-7.5px;
 	min-height: 28px;
-	display: inline-block;
+	display: inline;
+	line-height: 36px;
 }
 #toggle_list_cont.small, #toggle_list_cont-add.small{
-	top: 0.5px;
+	top: -1.6px;
 }
 #list_header .labelList:hover{
 	border-radius: 4px 4px 0px 0px;
-	background: rgba(227, 200, 156, .5)
+	background: rgba(227, 200, 156, .5);
+	border-bottom: 4px solid rgba(227, 200, 156, 0);
 }
 #list_header .labelList.active:hover{
 	background: rgba(227, 200, 156, 1);
 	cursor: default;
+	border-bottom: 4px solid rgba(227, 200, 156, 0);
 }
 
 #list_header .labelList.active{
 	border-radius: 4px 4px 0px 0px;
-	border-bottom: 1px solid rgb(227, 200, 156);
+	border-bottom: 4px solid rgb(227, 200, 156);
 }
 
 #lists_cont .list{
