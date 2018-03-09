@@ -519,8 +519,10 @@ function bindChronologicalIndex() {
         /* Voglio che le date siano ordinate in modo ascendente, il pulsante all'inizio dovrà avere valore 'Ascendente'.
          * Per fare questo ho assegnato allo span un attributo 'data-button-sort' con valore 'asc' e un testo 'ASCENDING_ORDER'
          * (visualizzato poi 'Ascending). */
-        sortingButtonSpan.attr('data-button-sort', 'asc');
-        sortingButtonSpan.text(window.lang.convert('ASCENDING_ORDER', window.lang.currentLang));
+        sortingButtonSpan
+            .attr('data-button-sort', 'asc')
+            .attr('data-lang', 'ASCENDING_ORDER')
+            .text(window.lang.convert('ASCENDING_ORDER', window.lang.currentLang));
         /* Gesisco l'icona in modo che venga visualizzato il simbolo di ascendente */
         $('#sortingOrder i').attr('class', 'fa fa-sort-amount-asc');
         /* Recupero il contenitore della lista e gli assegno un attributo 'sort' che sarà inizialmente 'asc' */
@@ -539,10 +541,8 @@ function bindChronologicalIndex() {
             if (text.length < minimized_character_count) return;
             
             $(this).html (
-            text.slice(0, minimized_character_count) + '<span>... </span><a href="#" class="more">' +
-            window.lang.convert('MORE', window.lang.currentLang) + '</a>' +
-            '<span style = "display:none;">' + text.slice(minimized_character_count, text.length) +
-            '<a href="#" class="less"> ' + window.lang.convert('LESS', window.lang.currentLang) + '</a></span>');
+            text.slice(0, minimized_character_count) + '<span class="regestoEllipsis">... </span>' +
+            '<span class="regestoExpansion">' + text.slice(minimized_character_count, text.length) +'</span>');
         });
         showOrHideRegesto();
         bindDocumentLinkChronologicalIndex();
@@ -552,15 +552,19 @@ function bindChronologicalIndex() {
 /* Ho gestito questa parte del codice per la gestione del regesto in una funzione esterna per non
  * doverla ripetere più volte. */
 function showOrHideRegesto() {
-    $('#ul_listDocument .list_element .document_list_regesto a.more').click(function (event) {
-        event.preventDefault();
-        $(this).hide().prev().hide();
-        $(this).next().show();
-    });
-    
-    $('#ul_listDocument .list_element .document_list_regesto a.less').click(function (event) {
-        event.preventDefault();
-        $(this).parent().hide().prev().show().prev().show();
+    $('#ul_listDocument .list_element .toggleRegestoInList').click(function (event) {
+        var action = $(this).attr('data-action');
+        $(this).siblings('.toggleRegestoInList').addClass('active');
+        $(this).removeClass('active');
+        if (action === 'expand') {
+            // Sto gestendo il pulsante MORE
+            $(this).parent().find('.document_list_regesto .regestoExpansion').show();
+            $(this).parent().find('.document_list_regesto .regestoEllipsis').hide();
+        } else {
+            // Sto gestendo il pulsante LESS
+            $(this).parent().find('.document_list_regesto .regestoExpansion').hide();
+            $(this).parent().find('.document_list_regesto .regestoEllipsis').show();
+        }
     });
 }
 
@@ -611,10 +615,12 @@ function bindListsSortingOrderBtnClick() {
         /* Se il pulsante per l'ordinamento è correntemente settato su 'Ascending' */
         if (sortingOrderButtonValue === 'asc') {
             /* Cambio il valore del suo attributo 'data-button-sort' in 'desc' e assegno questo valore anche all'attributo 'sort' di #ul_listDocument */
-            sortingOrderButton.attr('data-button-sort', 'desc');
+            /* Poi Cambio la scritta sul pulsante */
+            sortingOrderButton
+                .attr('data-button-sort', 'desc')
+                .attr('data-lang', 'DESCENDING_ORDER')
+                .text(window.lang.convert('DESCENDING_ORDER', window.lang.currentLang));
             container.attr('data-sort', 'desc');
-            /* Cambio la scritta sul pulsante */
-            sortingOrderButton.text(window.lang.convert('DESCENDING_ORDER', window.lang.currentLang));
             /* Cambio il simbolo nel pulsante */
             sortinOrderBtnIcon
                 .removeClass('fa-sort-amount-asc')
@@ -630,9 +636,11 @@ function bindListsSortingOrderBtnClick() {
             bindDocumentLinkChronologicalIndex();
             /* Se il pulsante per l'ordinamento è correntemente settato su 'Ascending' ma 'al contrario'*/
         } else if (sortingOrderButtonValue === 'desc') {
-            sortingOrderButton.attr('data-button-sort', 'asc');
+            sortingOrderButton
+                .attr('data-lang', 'ASCENDING_ORDER')
+                .attr('data-button-sort', 'asc')
+                .text(window.lang.convert('ASCENDING_ORDER', window.lang.currentLang));
             container.attr('data-sort', 'asc');
-            sortingOrderButton.text(window.lang.convert('ASCENDING_ORDER', window.lang.currentLang));
             sortinOrderBtnIcon
                 .removeClass('fa-sort-amount-desc')
                 .addClass('fa-sort-amount-asc');

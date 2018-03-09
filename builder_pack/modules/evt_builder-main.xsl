@@ -779,7 +779,7 @@
 			</div>
 		</span>
 		<div id="sortingOrder" class="mainButtons" title="SORT_ORDER" lang="def">
-			<span lang="def"/>
+			<span lang="def" />
 			<i class="fa"/>
 		</div>
 	</xsl:template>

@@ -1318,6 +1318,8 @@
 						<xsl:value-of select="tei:front//tei:div[@type = 'regesto']"/>
 					</xsl:if>
 				</xsl:element>
+				<span class="toggleRegestoInList active" data-lang="MORE" lang="def" data-action="expand">MORE</span>
+				<span class="toggleRegestoInList" data-lang="LESS" lang="def" data-action="collapse">LESS</span>
 				<!--<span class="toggle_list_element">
                     <i class="fa fa-angle-right"/>
                 </span>-->
