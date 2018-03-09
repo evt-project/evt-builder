@@ -2380,6 +2380,27 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 #ul_listDocument .list_element br:first-of-type {
     display:none;
 } 
+
+.toggleRegestoInList {
+	display: none;
+	cursor: pointer;
+	font-variant: small-caps;
+	opacity: .8;
+}
+
+.toggleRegestoInList.active{
+	display: inline;
+}
+.toggleRegestoInList:hover {
+	opacity: 1;
+}
+.regestoEllipsis {
+
+}
+
+.regestoExpansion {
+	display: none;
+}
 /* fine aggiunte per indice cronologico */
 .small-note {
 	font-size: 90%;

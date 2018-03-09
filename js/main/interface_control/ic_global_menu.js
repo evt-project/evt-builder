@@ -166,7 +166,7 @@ function initializeLang() {
 
         // Translate edition level label
         translateEEselectedLabel();
-
+        translateLabelInChronologicalIndex();
         updateSelectLength($('#span_ee_select'));
         if ($('#span_ee_select-add').length > 0) { updateSelectLength($('#span_ee_select-add')) }
         if ($('#span_dd_select').length > 0) { updateSelectLength($('#span_dd_select')) }
@@ -183,6 +183,17 @@ function initializeLang() {
     if ($('#span_dd_select').length > 0) { updateSelectLength($('#span_dd_select')) }
 }
 /* TEMPORARY*/
+function translateLabelInChronologicalIndex() {
+    var sortingOrderButton = $('#sortingOrder span');
+    console.log(sortingOrderButton.attr('data-lang'));
+    sortingOrderButton
+        .text(window.lang.convert(sortingOrderButton.attr('data-lang'), window.lang.currentLang));
+    var toggleRegestoInListBtns = $('.toggleRegestoInList');
+    toggleRegestoInListBtns.each(function() {
+        console.log($(this).attr('data-lang'));
+        $(this).text(window.lang.convert($(this).attr('data-lang'), window.lang.currentLang));
+    })
+}
 function translateEEselectedLabel(){
     var firstEE = $('#span_ee_select .option_container .selected').attr('data-value');
     if (firstEE){
