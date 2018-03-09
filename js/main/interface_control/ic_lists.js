@@ -468,7 +468,7 @@ function bindListsBtnClick() {
 /* Ho creato una funzione esterna per l'ordinamento della data, che prende in input
  * il contenitore della lista e gli elementi.  */
 function sortDate(container, items) {
-    sortingOrder = container.attr('sort');
+    sortingOrder = container.attr('data-sort');
     // Recupero il valore dell'attributo 'sort' del contenitore (#ul_listDocument) nel quale ho memorizzato il tipo di ordinamento (asc/desc)
     items.each(function () {
         /* per ogni items converto il valore della data in una forma più standard. Creo un attributo 'data-normalized-sort-date' e gli assegno questo valore */
@@ -495,7 +495,7 @@ function sortDate(container, items) {
 /* Anche per l'ordinamento dei documenti ho creato una funzione esterna, in cui recupero il valore
  * dell'attributo 'sort' del contenitore e ordino gli elementi di conseguenza, poi li inserisco nel contenitore */
 function sortDocument(container, items) {
-    var sortingOrder = container.attr('sort');
+    var sortingOrder = container.attr('data-sort');
     items.sort(function (a, b) {
         a = parseFloat($(a).attr("data-sort-num"));
         b = parseFloat($(b).attr("data-sort-num"));
@@ -517,15 +517,15 @@ function bindChronologicalIndex() {
         /* Recupero lo span del pulsante per l'ordinamento */
         var sortingButtonSpan = $('#sortingOrder span');
         /* Voglio che le date siano ordinate in modo ascendente, il pulsante all'inizio dovrà avere valore 'Ascendente'.
-         * Per fare questo ho assegnato allo span un attributo 'button_sort' con valore 'asc' e un testo 'ASCENDING_ORDER'
+         * Per fare questo ho assegnato allo span un attributo 'data-button-sort' con valore 'asc' e un testo 'ASCENDING_ORDER'
          * (visualizzato poi 'Ascending). */
-        sortingButtonSpan.attr('button_sort', 'asc');
+        sortingButtonSpan.attr('data-button-sort', 'asc');
         sortingButtonSpan.text(window.lang.convert('ASCENDING_ORDER', window.lang.currentLang));
         /* Gesisco l'icona in modo che venga visualizzato il simbolo di ascendente */
         $('#sortingOrder i').attr('class', 'fa fa-sort-amount-asc');
         /* Recupero il contenitore della lista e gli assegno un attributo 'sort' che sarà inizialmente 'asc' */
         var container = $("#ul_listDocument");
-        container.attr('sort', 'asc');
+        container.attr('data-sort', 'asc');
         var items = $("#ul_listDocument .list_element");
         /* Invoco la funzione per l'ordinamento delle date */
         sortDate(container, items);
@@ -598,10 +598,11 @@ function bindDocListSortSelectClick() {
 function bindListsSortingOrderBtnClick() {
     $('#sortingOrder').click(function () {
         // Update sorting order
-        /* Recupero lo span del pulsante di ordinamento e il valore del suo attributo 'button_sort'. La prima
+        /* Recupero lo span del pulsante di ordinamento e il valore del suo attributo 'data-button-sort'. La prima
          * volta che viene eseguito questo codice, questo sarà 'asc', perché così impostato all'apertura della lista */
         var sortingOrderButton = $('#sortingOrder span');
-        var sortingOrderButtonValue = sortingOrderButton.attr('button_sort');
+        var sortingOrderButtonValue = sortingOrderButton.attr('data-button-sort');
+        var sortinOrderBtnIcon = $('#sortingOrder i');
         /* Recupero l'opzione della select correntemente selezionata*/
         var selectedLabelValue = $('#span_listDoc_select .docList_sort_attribute_select .label_selected').attr('data-value');
         /*Recupero il contenitore della lista e gli elementi  */
@@ -609,13 +610,15 @@ function bindListsSortingOrderBtnClick() {
         var items = $("#ul_listDocument .list_element");
         /* Se il pulsante per l'ordinamento è correntemente settato su 'Ascending' */
         if (sortingOrderButtonValue === 'asc') {
-            /* Cambio il valore del suo attributo 'button_sort' in 'desc' e assegno questo valore anche all'attributo 'sort' di #ul_listDocument */
-            sortingOrderButton.attr('button_sort', 'desc');
-            container.attr('sort', 'desc');
+            /* Cambio il valore del suo attributo 'data-button-sort' in 'desc' e assegno questo valore anche all'attributo 'sort' di #ul_listDocument */
+            sortingOrderButton.attr('data-button-sort', 'desc');
+            container.attr('data-sort', 'desc');
             /* Cambio la scritta sul pulsante */
             sortingOrderButton.text(window.lang.convert('DESCENDING_ORDER', window.lang.currentLang));
             /* Cambio il simbolo nel pulsante */
-            $('#sortingOrder i').attr('class', 'fa fa-sort-amount-desc');
+            sortinOrderBtnIcon
+                .removeClass('fa-sort-amount-asc')
+                .addClass('fa-sort-amount-desc');
             /* A seconda di qual è l'opzione selezionata correntemente, invoco la funzione per l'ordinamento delle date o dei documenti */
             if (selectedLabelValue === 'sort_document') {
                 sortDocument(container, items);
@@ -627,10 +630,12 @@ function bindListsSortingOrderBtnClick() {
             bindDocumentLinkChronologicalIndex();
             /* Se il pulsante per l'ordinamento è correntemente settato su 'Ascending' ma 'al contrario'*/
         } else if (sortingOrderButtonValue === 'desc') {
-            sortingOrderButton.attr('button_sort', 'asc');
-            container.attr('sort', 'asc');
+            sortingOrderButton.attr('data-button-sort', 'asc');
+            container.attr('data-sort', 'asc');
             sortingOrderButton.text(window.lang.convert('ASCENDING_ORDER', window.lang.currentLang));
-            $('#sortingOrder i').attr('class', 'fa fa-sort-amount-asc');
+            sortinOrderBtnIcon
+                .removeClass('fa-sort-amount-desc')
+                .addClass('fa-sort-amount-asc');
             if (selectedLabelValue === 'sort_document') {
                 sortDocument(container, items);
             } else if (selectedLabelValue === 'sort_date') {
