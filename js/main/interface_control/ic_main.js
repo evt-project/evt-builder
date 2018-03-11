@@ -1003,6 +1003,7 @@ $(function() {
 		/*= RESIZE =*/
 		resizeButtonsAndSelects();
 		
+		initializeProse();
 		/* ***************************** */
 		/* / END Gestione click e eventi */
 		/* ***************************** */

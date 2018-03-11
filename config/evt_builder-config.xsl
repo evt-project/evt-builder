@@ -294,6 +294,11 @@
 	<!-- default: false() -->
 	<xsl:param name="document_navigation" select="true()"/>
 	
+	<!-- EN: Lines/Prose visualization Button -->
+	<!-- IT: Bottone di visualizzazione Versi/Prosa  -->
+	<!-- default: true() -->
+	<xsl:param name="versi_prosa" select="true()"/>
+	
 	<!-- LISTS -->
 	
 	<!-- EN: On/Off persons list -->
