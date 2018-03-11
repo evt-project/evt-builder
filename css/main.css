@@ -2198,6 +2198,7 @@ div.doc.not_current:hover{
 	position: relative;
 	margin: auto;
 	text-align: center;
+	overflow-x:auto; 
 }
 .bold_search{
 	font-weight: bold;
