@@ -45,9 +45,45 @@
 
 	<!-- L Verse line-->
 	<xsl:template match="tei:l" mode="interp">
-		<xsl:apply-templates mode="#current"/>
-		<xsl:text> </xsl:text>
-		<!--important-->
+		<xsl:choose>		
+			<xsl:when test="@n > 9">
+				<xsl:choose>
+					<xsl:when test="@n != preceding::tei:l[1]/@n"> <!-- se è il primo pezzo di l -->
+						<xsl:choose>
+							<xsl:when test="@n != following::tei:l[1]/@n"> <!-- se è l'ultimo pezzo di l -->
+								<span class="spazio"></span><sup class="cerchio"><xsl:value-of select="@n"/></sup><xsl:text> </xsl:text>
+							</xsl:when>
+							<xsl:otherwise>
+								<span class="spazio"></span><sup class="cerchio"><xsl:value-of select="@n"/></sup><xsl:text> </xsl:text>
+							</xsl:otherwise>
+						</xsl:choose>               
+					</xsl:when>
+					<xsl:otherwise>
+					</xsl:otherwise>
+				</xsl:choose>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:choose>
+					<xsl:when test="@n=1">
+						<span class="spazio"></span><sup class="cerchio"><xsl:text>0</xsl:text><xsl:value-of select="@n"/></sup><xsl:text> </xsl:text>
+					</xsl:when>
+					<xsl:when test="@n != preceding::tei:l[1]/@n"> <!-- se è il primo pezzo di l -->
+						<xsl:choose>
+							<xsl:when test="@n != following::tei:l[1]/@n"> <!-- se è l'ultimo pezzo di l -->
+								<span class="spazio"></span><sup class="cerchio"><xsl:text>0</xsl:text><xsl:value-of select="@n"/></sup><xsl:text> </xsl:text>
+							</xsl:when>
+							<xsl:otherwise>
+								<span class="spazio"></span><sup class="cerchio"><xsl:text>0</xsl:text><xsl:value-of select="@n"/></sup><xsl:text> </xsl:text>
+							</xsl:otherwise>
+						</xsl:choose>               
+					</xsl:when>
+					<xsl:otherwise>
+					</xsl:otherwise>
+				</xsl:choose>
+			</xsl:otherwise>
+		</xsl:choose>
+		<xsl:apply-templates mode="#current"/> 
+		<xsl:text> </xsl:text><!--important-->
 	</xsl:template>
 
 	<!-- CDP:embedded -->
@@ -169,6 +205,7 @@
 									</xsl:otherwise>
 								</xsl:choose>
 							</xsl:attribute>
+							<xsl:attribute name="class" select="'lb'" separator="-"/>
 						</xsl:element>
 						<xsl:if test="@n">
 							<xsl:element name="span">

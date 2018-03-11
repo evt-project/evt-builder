@@ -2,3 +2,16 @@
  * EN: This file has been prepared for you to add your personal CSS styles
  * IT: Questo file è stato predisposto per accogliere regole CSS personalizzate
  */
+ 
+.cerchio {
+	width:16px;
+	height:16px;
+	border-radius:8px;
+	border:1px solid black;
+	background:blue;
+	padding:1px;
+	text-align:center;
+	font-size:12px;
+	color:white;
+}
+

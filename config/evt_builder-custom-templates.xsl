@@ -16,4 +16,5 @@
             </xd:short>
         </xd:doc>
     <!-- In order to make it work properly you need to add mode="interp dipl #default" to each template -->
+    
 </xsl:stylesheet>
