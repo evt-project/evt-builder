@@ -114,18 +114,26 @@ function openListsBox(speed){
         
     };
     $.when( openDivLists() ).done(function() {
-        var totListHeadersWidth = 0; 
-        $('.labelList').each(function(el){ 
-            totListHeadersWidth += $(this).outerWidth(); 
-        });
-        var totInnerWidth = $('#list_header_elements').innerWidth();
-        
-        if (totListHeadersWidth <  totInnerWidth) {
-            $('#navListHeadersLx').hide();
-            $('#navListHeadersRx').hide();
-        }
-        updateTextContHeight();
+        showHideListsNavBtn();
     });
+}
+
+function showHideListsNavBtn() {
+    var totListHeadersWidth = 0; 
+    $('.labelList').each(function(el){ 
+        totListHeadersWidth += $(this).outerWidth(); 
+    });
+    var totInnerWidth = $('#list_header_elements').innerWidth();
+    
+    if (totListHeadersWidth <  totInnerWidth) {
+        $('#navListHeadersLx').hide();
+        $('#navListHeadersRx').hide();
+        $('#list_header_elements_contents').animate({'left': 0}, 42);
+    } else {
+        $('#navListHeadersLx').show();
+        $('#navListHeadersRx').show();
+    }
+    updateTextContHeight();
 }
 
 /*= HANDLE NAVIGATION LIST ELEMENTS PER LETTER =*/

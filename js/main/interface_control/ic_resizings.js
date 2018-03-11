@@ -560,6 +560,7 @@ $(function() {
             });
             setMagHeight();
             resizeButtonsAndSelects();
+            showHideListsNavBtn();
             fitFrame();
             // clearTimeout(window.resizeEvt);
             // window.resizeEvt = setTimeout(function()
