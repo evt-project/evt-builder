@@ -993,7 +993,7 @@
 							<div id="text_tool" class="bottom-menu">
 								<xsl:if test="$versi_prosa=true()">
 									<xsl:element name="span">
-										<xsl:attribute name="id" select="'versi'"/>
+										<xsl:attribute name="id" select="'toggleVersesProseBtn'"/>
 										<xsl:attribute name="class" select="'mainButtons'"/>
 										<xsl:attribute name="data-boxsuffix" select="''"/>
 										<xsl:attribute name="onclick" select="'viewVerses()'"/>

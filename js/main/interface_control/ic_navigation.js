@@ -860,7 +860,15 @@ function bindEEselectClick() {
                             .css('opacity', "0.5")
                             .addClass('not_active'); 
             }
-        
+            
+            var verseProseBtn = $('#toggleVersesProseBtn');
+            if (verseProseBtn) {
+                if (( ee_val == 'diplomatic' )||( ee_val == 'interpretative' )){
+                    verseProseBtn.show();    
+                } else {
+                    verseProseBtn.hide();
+                } 
+            }
             // Se ho il regesto, e questo è aperto, lo chiudo
             if ($(regesto_cont).length > 0 && $(regesto_cont).is(":visible")) {
                 $(regesto_button).trigger('click');
