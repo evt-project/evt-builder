@@ -198,6 +198,7 @@ function openList(elem, listName){
     $('.list.list_opened').hide();
     $('#list_'+listName).addClass('list_opened').show();
     listCont.attr('data-list-active', listName);
+    $('.filter_active').trigger('click');
 }
 
 /*= SHOW LIST ELEMENT OCCURRENCES =*/
