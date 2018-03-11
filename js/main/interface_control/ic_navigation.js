@@ -338,7 +338,7 @@ function gotopage(pp_val, pp_lab, state){
         }
     }
 
-    $('#text_elem #front_frame').empty()
+    $('#text_elem #front_frame').empty();
     var tt_val = $(".main_tt_select .label_selected").attr("data-value"); 
     if ( $(".main_pp_select .option[data-value='"+pp_val+"']").attr('data-has-front') === 'true' ) {
         if (edition !== "translation") {
@@ -379,7 +379,7 @@ function gotopage(pp_val, pp_lab, state){
     
     // IT: Aggiorna l'indirizzo del frame secondario per il testo
     if ($("#text_cont-add").length > 0){ //SISTEMARE
-        edition_add = $("#span_ee_select-add .option_container .option.selected").text().toLowerCase();
+        edition_add = $("#span_ee_select-add .option_container .option.selected").attr('data-value').toLowerCase();
 
         $('#text_elem-add #front_frame-add').empty()
         if ( $(".main_pp_select .option[data-value='"+pp_val+"']").attr('data-has-front') === 'true' ) {

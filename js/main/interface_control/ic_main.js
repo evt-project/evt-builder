@@ -116,10 +116,11 @@ $(function() {
 				.trigger('change');
 
 			// ADD BY FS 	
-			//Se ho più di un'edizione e non è attiva la modalità txttxt non visualizzare l'opzione per la selezione dell'edizione di traduzione 
-        	if( (!$('#txttxt_link').hasClass('current_mode')) && $(xml).find('editions edition').length > 0 ) {
-				$("#span_ee_select .option_container .option[data-value='translation']").hide();
-        	}
+			// Se ho più di un'edizione e non è attiva la modalità txttxt non visualizzare l'opzione per la selezione dell'edizione di traduzione 
+			// => per EVT in generale si è deciso di permettere visualizzare l'opzione per la selezione della traduzione in ogni caso
+			// if( (!$('#txttxt_link').hasClass('current_mode')) && $(xml).find('editions edition').length > 0 ) {
+			// 	$("#span_ee_select .option_container .option[data-value='translation']").hide();
+			// }
 
 
 			/* ==/ LOAD EDITION LEVELS */

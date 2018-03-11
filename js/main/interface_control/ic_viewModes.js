@@ -43,9 +43,6 @@ function openTxtImgMode(){
         $('.like_select.filter').removeClass('not_active');
     }
 
-    // Nascondo selettore dell'edizione di traduzione visibile solo nell'altra modalità txtxt
-    $("#span_ee_select .option_container .option[data-value='translation']").hide();
-    
     // Nascondo pulsanti visibili solo nelle altre modalità
     $("#text_cont-add").remove();
     $("#span_ee_select-add").hide();
@@ -289,7 +286,9 @@ function openTxtTxtMode() {
                     .attr('id', 'text-add')
                     .css('display', 'inline-block');
     if ($('#text_cont-add .doc').length > 0) {
-        $('#text_cont-add').scrollTop($('#text_cont-add .doc.current').position().top);
+        var currentDocEl = $('#text_cont-add .doc.current'),
+            scrollTop = currentDocEl && currentDocEl.position() ? currentDocEl.position().top : 0;
+        $('#text_cont-add').scrollTop(scrollTop);
     }
 
     // Aggiorno (eventualmente) le dimensioni del selettore delle edizioni nel menu di sinistra
@@ -370,9 +369,9 @@ function openTxtTxtMode() {
             .css({display: "inline-block"})
             .find('.selected').removeClass('selected');
         var current_right_edition = $('#span_ee_select').find('.label_selected').attr('data-value');
-        $("#span_ee_select-add .option_container .option[data-value='translation']:first").trigger('click');
+        //$("#span_ee_select-add .option_container .option[data-value='translation']:first").trigger('click');
       	$("#span_ee_select .option_container .option[data-value='critical']:first").trigger('click');
-        /* $("#span_ee_select-add .option_container .option[data-value!='"+current_right_edition+"']:first").trigger('click');*/
+        $("#span_ee_select-add .option_container .option[data-value!='"+current_right_edition+"']:first").trigger('click');
         // ADD BY FS 
         // Imposto i valori di default per la modalità txtxtx
 
