@@ -167,7 +167,10 @@ DIV.dipl-attachment{
 SPAN.dipl-lineN {
 	color: grey;
 	font-size: 0.8em; 
-	}
+	display: inline-block;
+	margin-top: 2px;
+	vertical-align: top;
+}
 
 SPAN.dipl-subst { 
 	text-decoration: underline; 
@@ -204,14 +207,15 @@ span.dipl-choice_popup {
 	display: inline-table; 
 	/*white-space: nowrap;*/ 
 }
-
-span.dipl-reg:before, span.dipl-expan:before  { 
+span.dipl-choice_popup > span.dipl-reg:before, 
+span.dipl-choice_popup > span.dipl-expan:before  { 
 	content: url("../images/popup_before.png");
 	left: 15%;
 	position: absolute;
 	top: -13px; }
 
-span.dipl-reg, span.dipl-expan { 
+span.dipl-choice_popup > span.dipl-reg, 
+span.dipl-choice_popup > span.dipl-expan { 
 	font-size: 80%;
 	position: absolute;
 	line-height: 16px;
@@ -226,7 +230,8 @@ span.dipl-reg, span.dipl-expan {
 	-khtml-box-shadow: 2px 2px 2px #7e7067;
 	-ms-box-shadow: 2px 2px 2px #7e7067;
 	padding: 0.4%;
-	margin-top: 30px; }
+	margin-top: 30px; 
+}
 
 
 span.dipl-reg span, span.dipl-expan span { 
