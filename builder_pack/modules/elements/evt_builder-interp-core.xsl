@@ -45,45 +45,71 @@
 
 	<!-- L Verse line-->
 	<xsl:template match="tei:l" mode="interp">
-		<xsl:choose>		
+		<xsl:choose>
 			<xsl:when test="@n > 9">
 				<xsl:choose>
-					<xsl:when test="@n != preceding::tei:l[1]/@n"> <!-- se è il primo pezzo di l -->
+					<xsl:when test="@n != preceding::tei:l[1]/@n">
+						<!-- se è il primo pezzo di l -->
 						<xsl:choose>
-							<xsl:when test="@n != following::tei:l[1]/@n"> <!-- se è l'ultimo pezzo di l -->
-								<span class="spazio"></span><sup class="cerchio"><xsl:value-of select="@n"/></sup><xsl:text> </xsl:text>
+							<xsl:when test="@n != following::tei:l[1]/@n">
+								<!-- se è l'ultimo pezzo di l -->
+								<span class="spazio"/>
+								<sup class="cerchio">
+									<xsl:value-of select="@n"/>
+								</sup>
+								<xsl:text> </xsl:text>
 							</xsl:when>
 							<xsl:otherwise>
-								<span class="spazio"></span><sup class="cerchio"><xsl:value-of select="@n"/></sup><xsl:text> </xsl:text>
+								<span class="spazio"/>
+								<sup class="cerchio">
+									<xsl:value-of select="@n"/>
+								</sup>
+								<xsl:text> </xsl:text>
 							</xsl:otherwise>
-						</xsl:choose>               
+						</xsl:choose>
 					</xsl:when>
-					<xsl:otherwise>
-					</xsl:otherwise>
+					<xsl:otherwise> </xsl:otherwise>
 				</xsl:choose>
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:choose>
-					<xsl:when test="@n=1">
-						<span class="spazio"></span><sup class="cerchio"><xsl:text>0</xsl:text><xsl:value-of select="@n"/></sup><xsl:text> </xsl:text>
+					<xsl:when test="@n = 1">
+						<span class="spazio"/>
+						<sup class="cerchio">
+							<xsl:text>0</xsl:text>
+							<xsl:value-of select="@n"/>
+						</sup>
+						<xsl:text> </xsl:text>
 					</xsl:when>
-					<xsl:when test="@n != preceding::tei:l[1]/@n"> <!-- se è il primo pezzo di l -->
+					<xsl:when test="@n != preceding::tei:l[1]/@n">
+						<!-- se è il primo pezzo di l -->
 						<xsl:choose>
-							<xsl:when test="@n != following::tei:l[1]/@n"> <!-- se è l'ultimo pezzo di l -->
-								<span class="spazio"></span><sup class="cerchio"><xsl:text>0</xsl:text><xsl:value-of select="@n"/></sup><xsl:text> </xsl:text>
+							<xsl:when test="@n != following::tei:l[1]/@n">
+								<!-- se è l'ultimo pezzo di l -->
+								<span class="spazio"/>
+								<sup class="cerchio">
+									<xsl:text>0</xsl:text>
+									<xsl:value-of select="@n"/>
+								</sup>
+								<xsl:text> </xsl:text>
 							</xsl:when>
 							<xsl:otherwise>
-								<span class="spazio"></span><sup class="cerchio"><xsl:text>0</xsl:text><xsl:value-of select="@n"/></sup><xsl:text> </xsl:text>
+								<span class="spazio"/>
+								<sup class="cerchio">
+									<xsl:text>0</xsl:text>
+									<xsl:value-of select="@n"/>
+								</sup>
+								<xsl:text> </xsl:text>
 							</xsl:otherwise>
-						</xsl:choose>               
+						</xsl:choose>
 					</xsl:when>
-					<xsl:otherwise>
-					</xsl:otherwise>
+					<xsl:otherwise> </xsl:otherwise>
 				</xsl:choose>
 			</xsl:otherwise>
 		</xsl:choose>
-		<xsl:apply-templates mode="#current"/> 
-		<xsl:text> </xsl:text><!--important-->
+		<xsl:apply-templates mode="#current"/>
+		<xsl:text> </xsl:text>
+		<!--important-->
 	</xsl:template>
 
 	<!-- CDP:embedded -->
@@ -277,8 +303,8 @@
 											separator="-"/>
 										<xsl:apply-templates
 											select="
-												corr/ancestor::node()[parent::node()[name() = $start_split]]/preceding-sibling::node()[not(self::lb)][position() lt 2]//tei:choice[@id = $choiceId]//tei:corr/node(), 
-												corr/ancestor::node()[parent::node()[name() = $start_split]]//tei:choice[@id = $choiceId]//tei:corr/node(), 
+												corr/ancestor::node()[parent::node()[name() = $start_split]]/preceding-sibling::node()[not(self::lb)][position() lt 2]//tei:choice[@id = $choiceId]//tei:corr/node(),
+												corr/ancestor::node()[parent::node()[name() = $start_split]]//tei:choice[@id = $choiceId]//tei:corr/node(),
 												corr/ancestor::node()[parent::node()[name() = $start_split]]/following-sibling::node()[not(self::lb)][position() lt 3]//tei:choice[@id = $choiceId]//tei:corr/node()"
 											mode="#current"/>
 									</xsl:element>
@@ -310,8 +336,8 @@
 										separator="-"/>
 									<xsl:apply-templates
 										select="
-											abbr/ancestor::node()[parent::node()[name() = $start_split]]/preceding-sibling::node()[not(self::lb)][position() lt 2]//tei:choice[@id = $choiceId]//tei:abbr/node(), 
-											abbr/ancestor::node()[parent::node()[name() = $start_split]]//tei:choice[@id = $choiceId]//tei:abbr/node(), 
+											abbr/ancestor::node()[parent::node()[name() = $start_split]]/preceding-sibling::node()[not(self::lb)][position() lt 2]//tei:choice[@id = $choiceId]//tei:abbr/node(),
+											abbr/ancestor::node()[parent::node()[name() = $start_split]]//tei:choice[@id = $choiceId]//tei:abbr/node(),
 											abbr/ancestor::node()[parent::node()[name() = $start_split]]/following-sibling::node()[not(self::lb)][position() lt 3]//tei:choice[@id = $choiceId]//tei:abbr/node()"
 										mode="#current"/>
 								</xsl:element>
@@ -338,7 +364,8 @@
 									/>
 								</xsl:if>
 								<xsl:element name="span">
-									<xsl:attribute name="class" select="$ed_name2, 'orig'" separator="'-'"/>
+									<xsl:attribute name="class" select="$ed_name2, 'orig'"
+										separator="'-'"/>
 									<xsl:apply-templates
 										select="
 											orig/ancestor::node()[parent::node()[name() = $start_split]]/preceding-sibling::node()[not(self::lb)][position() lt 2]//tei:choice[@id = $choiceId]//tei:orig/node(),
@@ -453,7 +480,7 @@
 							<!-- IT: 1. escludi i choice che contengono expan vuoti (che contengono solo white-spaces)-->
 							<xsl:when
 								test="
-									tei:expan[not(descendant::tei:pc)][normalize-space()] or 
+									tei:expan[not(descendant::tei:pc)][normalize-space()] or
 									tei:expan[descendant::tei:pc][node()[not(self::tei:pc)][normalize-space()]]">
 								<xsl:element name="span">
 									<xsl:attribute name="class" select="$ed_name2, 'choice_popup'"
@@ -501,8 +528,8 @@
 					</xsl:when>
 					<xsl:when test="tei:seg[@type = 'alter']">
 						<xsl:choose>
-							<!-- IT: 1. escludi i choice che contengono reg vuoti (che contengono solo white-spaces) usati per la punteggiatura
-									 2. escludi i choice che contengono reg che contengono solo punteggiatura-->
+							<!-- IT: 1. escludi i choice che contengono seg vuoti (che contengono solo white-spaces) usati per la punteggiatura
+									 2. escludi i choice che contengono seg che contengono solo punteggiatura-->
 							<xsl:when
 								test="
 									tei:seg[@type = 'alter'][not(descendant::tei:pc)][normalize-space()] or
@@ -1312,7 +1339,7 @@
 								</xsl:when>
 								<!--<xsl:otherwise>
 									<xsl:value-of select="tei:front//tei:docDate//tei:date"/>
-								</xsl:otherwise>-->	
+								</xsl:otherwise>-->
 							</xsl:choose>
 						</xsl:if>
 					</xsl:if>
@@ -1355,8 +1382,10 @@
 						<xsl:value-of select="tei:front//tei:div[@type = 'regesto']"/>
 					</xsl:if>
 				</xsl:element>
-				<span class="toggleRegestoInList active" data-lang="MORE" lang="def" data-action="expand">MORE</span>
-				<span class="toggleRegestoInList" data-lang="LESS" lang="def" data-action="collapse">LESS</span>
+				<span class="toggleRegestoInList active" data-lang="MORE" lang="def"
+					data-action="expand">MORE</span>
+				<span class="toggleRegestoInList" data-lang="LESS" lang="def" data-action="collapse"
+					>LESS</span>
 				<!--<span class="toggle_list_element">
                     <i class="fa fa-angle-right"/>
                 </span>-->

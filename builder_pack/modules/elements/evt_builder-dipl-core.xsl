@@ -296,6 +296,14 @@
 							<xsl:apply-templates select="tei:orig" mode="#current"
 							> </xsl:apply-templates>
 						</xsl:when>
+						<xsl:when test="tei:sic">
+							<xsl:apply-templates select="tei:sic" mode="#current"
+								> </xsl:apply-templates>
+						</xsl:when>
+						<xsl:when test="tei:abbr">
+							<xsl:apply-templates select="tei:abbr" mode="#current"
+								> </xsl:apply-templates>
+						</xsl:when>
 						<xsl:when test="tei:seg[@type = 'original']">
 							<xsl:apply-templates select="tei:seg" mode="#current"
 							> </xsl:apply-templates>
