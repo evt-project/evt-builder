@@ -235,9 +235,6 @@
 	<!-- Choice -->
 	<xsl:template match="tei:choice" mode="dipl" priority="3">
 		<xsl:choose>
-			<xsl:when test="tei:expan">
-				<xsl:apply-templates select="tei:expan" mode="#current"/>
-			</xsl:when>
 			<!-- IT: Questo è per la prima parte di CHOICE (che contine un el ORIG), la parte che dovrà contenere la tooltip -->
 			<xsl:when test="@part = 1">
 				<!--ORIG 1: <xsl:copy-of select="tei:orig"></xsl:copy-of>
