@@ -3173,3 +3173,15 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
     float: left;
     margin-right: 4%;
 }
+ 
+.cerchio {
+	width:16px;
+	height:16px;
+	border-radius:8px;
+	border:1px solid black;
+	background:maroon;
+	padding:1px;
+	text-align:center;
+	font-size:12px;
+	color:white;
+}
