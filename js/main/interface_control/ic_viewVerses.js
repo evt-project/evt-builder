@@ -34,10 +34,7 @@ function viewVerses() {
 
     for (var l = x; l < numeri.length; l = l + 5) {
         if (numeri[l] && numeri[l].style) {
-            numeri[l].style.visibility = "visible";
-            numeri[l].style.border = "none";
-            numeri[l].style.background = "none";
-            numeri[l].style.color = "grey";
+            $(numeri[l]).addClass("lineNumberPoetry");
         }
     }
 
@@ -74,10 +71,7 @@ function viewProse() {
     }
 
     for (var l = 4; l < numeri.length; l = l + 5) {
-        numeri[l].style.border = "1px solid black";
-        numeri[l].style.background = "blue";
-        numeri[l].style.color = "white";
-
+        $(numeri[l]).removeClass("lineNumberPoetry");
     }
 
     for (var i = 0; i < numeriP.length; i++) {
