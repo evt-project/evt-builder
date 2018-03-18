@@ -53,18 +53,22 @@
 						<xsl:choose>
 							<xsl:when test="@n != following::tei:l[1]/@n">
 								<!-- se è l'ultimo pezzo di l -->
-								<span class="spazio"/>
-								<sup class="cerchio">
-									<xsl:value-of select="@n"/>
-								</sup>
-								<xsl:text> </xsl:text>
+								<xsl:if test="$prose_verses_toggler=true()">
+									<span class="spazio"/>
+									<sup class="cerchio">
+										<xsl:value-of select="@n"/>
+									</sup>
+									<xsl:text> </xsl:text>
+								</xsl:if>
 							</xsl:when>
 							<xsl:otherwise>
-								<span class="spazio"/>
-								<sup class="cerchio">
-									<xsl:value-of select="@n"/>
-								</sup>
-								<xsl:text> </xsl:text>
+								<xsl:if test="$prose_verses_toggler=true()">
+									<span class="spazio"/>
+									<sup class="cerchio">
+										<xsl:value-of select="@n"/>
+									</sup>
+									<xsl:text> </xsl:text>
+								</xsl:if>
 							</xsl:otherwise>
 						</xsl:choose>
 					</xsl:when>
@@ -74,32 +78,38 @@
 			<xsl:otherwise>
 				<xsl:choose>
 					<xsl:when test="@n = 1">
-						<span class="spazio"/>
-						<sup class="cerchio">
-							<xsl:text>0</xsl:text>
-							<xsl:value-of select="@n"/>
-						</sup>
-						<xsl:text> </xsl:text>
+						<xsl:if test="$prose_verses_toggler=true()">
+							<span class="spazio"/>
+							<sup class="cerchio">
+								<xsl:text>0</xsl:text>
+								<xsl:value-of select="@n"/>
+							</sup>
+							<xsl:text> </xsl:text>
+						</xsl:if>
 					</xsl:when>
 					<xsl:when test="@n != preceding::tei:l[1]/@n">
 						<!-- se è il primo pezzo di l -->
 						<xsl:choose>
 							<xsl:when test="@n != following::tei:l[1]/@n">
 								<!-- se è l'ultimo pezzo di l -->
-								<span class="spazio"/>
-								<sup class="cerchio">
-									<xsl:text>0</xsl:text>
-									<xsl:value-of select="@n"/>
-								</sup>
-								<xsl:text> </xsl:text>
+								<xsl:if test="$prose_verses_toggler=true()">
+									<span class="spazio"/>
+									<sup class="cerchio">
+										<xsl:text>0</xsl:text>
+										<xsl:value-of select="@n"/>
+									</sup>
+									<xsl:text> </xsl:text>
+								</xsl:if>
 							</xsl:when>
 							<xsl:otherwise>
-								<span class="spazio"/>
-								<sup class="cerchio">
-									<xsl:text>0</xsl:text>
-									<xsl:value-of select="@n"/>
-								</sup>
-								<xsl:text> </xsl:text>
+								<xsl:if test="$prose_verses_toggler=true()">
+									<span class="spazio"/>
+									<sup class="cerchio">
+										<xsl:text>0</xsl:text>
+										<xsl:value-of select="@n"/>
+									</sup>
+									<xsl:text> </xsl:text>
+								</xsl:if>
 							</xsl:otherwise>
 						</xsl:choose>
 					</xsl:when>

@@ -1003,7 +1003,9 @@ $(function() {
 		/*= RESIZE =*/
 		resizeButtonsAndSelects();
 		
-		initializeProse();
+		if ($("[id*='toggleVersesProseBtn']")) {
+			initializeProse();
+		}
 		/* ***************************** */
 		/* / END Gestione click e eventi */
 		/* ***************************** */

@@ -256,6 +256,17 @@ function gotopage(pp_val, pp_lab, state){
             InitializeRefs();
             InitializeSearch();
 
+            // Riattiva prosa/versi
+            var proseVersesToggler = $("#toggleVersesProseBtn");
+            if (proseVersesToggler) {
+                var activeStatus = proseVersesToggler.attr("data-active-status");
+                var frame = proseVersesToggler.closest(".main_frame");
+                if (activeStatus === "prose") {
+                    viewProse(frame);
+                } else if (activeStatus === "verses") {
+                    viewVerses(frame);
+                } 
+            }
             
             if ($('.selected_from_list').length > 0) {
                 $('#text_cont.reachingOccurence')
@@ -332,6 +343,19 @@ function gotopage(pp_val, pp_lab, state){
             InitializePopup();
             InitializeRefs();
             InitializeSearch();
+
+            // Riattiva prosa/versi
+            var proseVersesToggler = $("#toggleVersesProseBtn-add");
+            if (proseVersesToggler) {
+                var activeStatus = proseVersesToggler.attr("data-active-status");
+                var frame = proseVersesToggler.closest(".main_frame");
+                if (activeStatus === "prose") {
+                    viewProse(frame);
+                } else if (activeStatus === "verses") {
+                    viewVerses(frame);
+                } 
+            }
+
             /* Integration by LS */
             window.lang.run();  
             /* /end Integration by LS */
@@ -476,6 +500,18 @@ function gotoedition(pp_val, ee_val, pp_el, frame_id){
             InitializePopup();
             InitializeRefs();
             InitializeSearch();
+
+            // Riattiva prosa/versi
+            var frame = $("#"+pp_el).parents("div[id*='frame']")
+            var proseVersesToggler = frame.find("[id*='toggleVersesProseBtn']");
+            if (proseVersesToggler) {
+                var activeStatus = proseVersesToggler.attr("data-active-status");
+                if (activeStatus === "prose") {
+                    viewProse(frame);
+                } else if (activeStatus === "verses") {
+                    viewVerses(frame);
+                } 
+            }
             
             $("#text_cont .doc, #text_cont-add .doc").unbind('click').click(function(){
                 selectDocumentInPage(this);
