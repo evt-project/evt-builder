@@ -297,7 +297,7 @@
 	<!-- EN: Lines/Prose visualization Button -->
 	<!-- IT: Bottone di visualizzazione Versi/Prosa  -->
 	<!-- default: true() -->
-	<xsl:param name="prose_verses_toggler" select="true()"/>
+	<xsl:param name="prose_verses_toggler" select="false()"/>
 	
 	<!-- LISTS -->
 	
