@@ -210,5 +210,8 @@ jquery_lang_js.prototype.lang.it = {
 	"DESCENDING_ORDER" : "Discendente",
 	"MORE" : "espandi",
 	"LESS" : "riduci",
+
+	"VERSES": "Versi",
+	"PROSE": "Prosa"
 }
 

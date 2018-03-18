@@ -209,6 +209,9 @@ jquery_lang_js.prototype.lang.en = {
 	"SORT_ORDER":"Choose sorting order",
 	"SELECTOR_SORT_ATTRIBUTE":"Choose sort attribute",
 	"MORE":"show more",
-    "LESS": "show less"   
+    "LESS": "show less",
+
+	"VERSES": "Verses",
+	"PROSE": "Prose"
 }
 

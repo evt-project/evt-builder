@@ -115,7 +115,7 @@
 	<!-- EN: It is possible to skip production of pages for a specific edition simply removing the textual part of the corresponding item. -->
 	<!-- IT: E' possibile rimuovere la produzione di pagine di una determinata edizione semplicemente rimuovendo la parte testuale dell'item corrispondente. -->
 	<xsl:variable name="edition_array" as="element()*">
-		<edition></edition> 
+		<edition>Diplomatic</edition> 
 		<!-- EN: If you have diplomatic edition put <edition>Diplomatic</edition>.  
 			 	 If you DON'T have diplomatic edition put <edition></edition> -->
 		<!-- IT: Se si ha l'edizione diplomatica scrivere <edition>Diplomatic</edition>.  
@@ -123,7 +123,7 @@
 		
 		<!-- EN: For processing in the modules: $edition_array[1] --> <!-- IT: Per l'elaborazione nei moduli: $edition_array[1] -->
 		
-		<edition></edition>	
+		<edition>Interpretative</edition>	
 		<!-- EN: If you have diplomatic edition put <edition>Interpretative</edition>.  
 			 	 If you don't have diplomatic edition put <edition></edition> -->
 		<!-- IT: Se si ha l'edizione interpretativa scrivere <edition>Interpretative</edition>.  
@@ -135,9 +135,9 @@
 				For instance: <edition>New_edition</edition> -->
 		<!-- IT: Per aggiungere una nuova edizione, bisognerà inserire una nuova riga qui e -necessariamente- la dichiarazione per i file di output nel file modules/evt_builder-main.xsl, sotto la condizione <xsl:if test="$edition_array[2]!=''">
 				Esempio: <edition>Nuova_edizione</edition> Add by FS -->
-		<edition>Diplomatic</edition>
+		<edition></edition>
 
-		<edition>Critical</edition>
+		<edition></edition>
 		
 		<edition>Translation</edition>
 
@@ -297,7 +297,7 @@
 	<!-- EN: Lines/Prose visualization Button -->
 	<!-- IT: Bottone di visualizzazione Versi/Prosa  -->
 	<!-- default: true() -->
-	<xsl:param name="versi_prosa" select="true()"/>
+	<xsl:param name="prose_verses_toggler" select="true()"/>
 	
 	<!-- LISTS -->
 	

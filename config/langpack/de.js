@@ -209,5 +209,8 @@ jquery_lang_js.prototype.lang.de = {
 	"DESCENDING_ORDER" : "Absteigend",
 	"MORE" : "erweitern",
 	"LESS" : "abnehmen",
+
+	"VERSES": "Verse",
+	"PROSE": "Prosa"
 }
 
