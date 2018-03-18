@@ -84,13 +84,17 @@
 					<xsl:when test="tei:TEI/tei:text/tei:group/tei:text">
 						<xsl:for-each select="tei:TEI/tei:text/tei:group/tei:text">
 							<xsl:call-template name="regesto"/>
-							<xsl:call-template name="translate"/><!-- TODO: CHECK IF TRANSLATION IS ACTIVE-->
+							<xsl:if test="$edition_array='Translation'">
+								<xsl:call-template name="translate"/><!-- TODO: CHECK IF TRANSLATION IS ACTIVE-->
+							</xsl:if>
 						</xsl:for-each>
 					</xsl:when>
 					<xsl:otherwise>
 						<xsl:for-each select="tei:TEI/tei:text">
 							<xsl:call-template name="regesto"/>
-							<xsl:call-template name="translate"/><!-- TODO: CHECK IF TRANSLATION IS ACTIVE-->
+							<xsl:if test="$edition_array='Translation'">
+								<xsl:call-template name="translate"/><!-- TODO: CHECK IF TRANSLATION IS ACTIVE-->
+							</xsl:if>
 						</xsl:for-each>
 					</xsl:otherwise>
 				</xsl:choose>
@@ -234,7 +238,7 @@
 		<xsl:for-each select="$edition_array">
 			<xsl:if test=". != ''">
 				<xsl:variable name="edition_current" select="lower-case(.)"/>
-				<xsl:if test="position()!=5"><!-- TRANSLATION IS HANDLED DIFFERENTLY -->
+				<xsl:if test="position()!=3"><!-- TRANSLATION IS HANDLED DIFFERENTLY -->
 					<xsl:result-document method="html" encoding="UTF-8" media-type="text/plain" byte-order-mark="yes" href="{$filePrefix}/data/output_data/{$edition_current}/page_{$pb_n}_{$edition_current}.html" indent="yes">
 						<xsl:call-template name="data_structure">
 							<xsl:with-param name="output" select="$edition_current"/>
@@ -367,138 +371,6 @@
 				</xsl:otherwise>
 			</xsl:choose>
 		</xsl:if>
-		
-		<!--Add by FS Nuova edizione per trascrizione diplomatica-->
-		<xsl:if test="$edition_pos=3">
-			<xsl:choose>		
-				<!-- EN: If the text is encoded in Embedded Transcription and there is at least one <one> element with spatial coordinates
-						 the transformation for the image-text link will be activated -->
-				<!-- IT: Se il file e' codificato in Embedded Transcription e almeno un elemento <zone> presenta le coordinate spaziali 
-						 viene attivata la trasformazione per il collegamento testo immagine -->
-				<xsl:when test="($root//tei:sourceDoc)and(current-group()/tei:zone[@lrx][@lry][@ulx][@uly])">
-					<!--<xsl:copy-of select="current-group()"/>--> <!-- <-use this to find split errors -->
-					<!--<xsl:variable name="text"><xsl:apply-templates select="current-group()" mode="interp"/></xsl:variable>-->
-					<xsl:variable name="text"><xsl:apply-templates select="current-group()" mode="ITLembedded">
-						<xsl:with-param name="edition_level" select="$ed_name3"/>
-					</xsl:apply-templates></xsl:variable>
-					<xsl:apply-templates select="$text" mode="tdipl" />
-				</xsl:when>
-				<!-- IT: Se c'è il surface viene creato un albero temporaneo che corrisponde al gruppo corrente trasformato in base al livello di edizione;
-										 a questo viene applicato il template per il collegamento testo-immagine-->
-				<xsl:when test="$root//tei:facsimile/tei:surface[translate(@corresp, '#', '')=replace($pb_n, '-front', '')]//tei:zone[@rendition='Line'] | $root//tei:facsimile/tei:surface[translate(@corresp, '#', '')=replace($pb_n, '-front', '')]//tei:zone[@rendition='HotSpot']">
-					<!--<xsl:copy-of select="current-group()"/>--> <!-- <-use this to find split errors -->
-					<xsl:variable name="text"><xsl:apply-templates select="current-group()" mode="tdipl"/></xsl:variable>
-					<xsl:variable name="text2">
-						<xsl:call-template name="divLine">
-							<xsl:with-param name="text" select="$text"/>
-							<xsl:with-param name="ed_name" select="$ed_name3"/>
-						</xsl:call-template>
-					</xsl:variable>
-					<xsl:variable name="text3">
-						<xsl:call-template name="divLine">
-							<xsl:with-param name="text" select="$text2"/>
-							<xsl:with-param name="ed_name" select="$ed_name3"/>
-						</xsl:call-template>
-					</xsl:variable>
-					<xsl:apply-templates select="$text3" mode="ITL"/>
-				</xsl:when>
-				<!-- EN: If the surface element is not present only the diplomatic edition templates are applied -->
-				<!-- IT: Se non c'è il surface devo applicare direttamente i templates per l'edizione diplomatica-->
-				<xsl:otherwise>
-					<xsl:variable name="text">
-						<xsl:apply-templates select="current-group()" mode="tdipl"/></xsl:variable>
-					<xsl:variable name="text2">
-						<xsl:call-template name="divCb">
-							<xsl:with-param name="text" select="$text"/>
-							<xsl:with-param name="ed_name" select="$ed_name3"/>
-						</xsl:call-template>
-					</xsl:variable>
-					<xsl:call-template name="divLine">
-						<xsl:with-param name="text" select="$text2"/>
-						<xsl:with-param name="ed_name" select="$ed_name3"/>
-					</xsl:call-template>
-				</xsl:otherwise>
-			</xsl:choose>
-		</xsl:if>
-		
-		<!-- Add by FS - Edizione Critica -->		
-		<xsl:if test="$edition_pos=4">
-			<xsl:choose>
-				<!-- CDP:embedded -->
-				<!-- EN: If the text is encoded in Embedded Transcription and there is at least one <one> element with spatial coordinates
-						 the transformation for the image-text link will be activated -->
-				<!-- IT: Se il file e' codificato in Embedded Transcription e almeno un elemento <zone> presenta le coordinate spaziali 
-						 viene attivata la trasformazione per il collegamento testo immagine -->
-				<xsl:when test="($root//tei:sourceDoc)and(current-group()/tei:zone[@lrx][@lry][@ulx][@uly])">
-					<!--<xsl:copy-of select="current-group()"/>--> <!-- <-use this to find split errors -->
-					<!--<xsl:variable name="text"><xsl:apply-templates select="current-group()" mode="crit"/></xsl:variable>-->
-					<xsl:variable name="text"><xsl:apply-templates select="current-group()" mode="ITLembedded">
-						<xsl:with-param name="edition_level" select="$ed_name4"/>
-					</xsl:apply-templates></xsl:variable>
-					<xsl:apply-templates select="$text" mode="crit" />
-				</xsl:when>
-				<!-- IT: Se c'è il surface viene creato un albero temporaneo che corrisponde al gruppo corrente trasformato in base al livello di edizione;
-										 a questo viene applicato il template per il collegamento testo-immagine-->
-				<xsl:when test="$root//tei:facsimile/tei:surface[translate(@corresp, '#', '')=replace($pb_n, '-front', '')]//tei:zone[@rendition='Line'] | $root//tei:facsimile/tei:surface[translate(@corresp, '#', '')=replace($pb_n, '-front', '')]//tei:zone[@rendition='HotSpot']">
-					<!--<xsl:copy-of select="current-group()"/>--> <!-- <-use this to find split errors -->
-					<xsl:variable name="text"><xsl:apply-templates select="current-group()" mode="crit"/></xsl:variable>
-					<xsl:variable name="text2">
-						<xsl:call-template name="divLine">
-							<xsl:with-param name="text" select="$text"/>
-							<xsl:with-param name="ed_name" select="$ed_name4"/>
-						</xsl:call-template>
-					</xsl:variable>
-					<xsl:variable name="text3">
-						<xsl:call-template name="divLine">
-							<xsl:with-param name="text" select="$text2"/>
-							<xsl:with-param name="ed_name" select="$ed_name4"/>
-						</xsl:call-template>
-					</xsl:variable>
-					<xsl:apply-templates select="$text3" mode="ITL"/>
-				</xsl:when>
-				<!-- EN: If the surface element is not present only the diplomatic edition templates are applied -->
-				<!-- IT: Se non c'è il surface devo applicare direttamente i templates per l'edizione critica-->
-				<xsl:otherwise>
-					<xsl:variable name="text">
-						<xsl:apply-templates select="current-group()" mode="crit"/></xsl:variable>
-					<!-- IT: aggiungi elementi div per linee di testo -->
-					<xsl:variable name="text2">
-						<xsl:call-template name="divCb">
-							<xsl:with-param name="text" select="$text"/>
-							<xsl:with-param name="ed_name" select="$ed_name4"/>
-						</xsl:call-template>
-					</xsl:variable>
-					<xsl:call-template name="divLine">
-						<xsl:with-param name="text" select="$text2"/>
-						<xsl:with-param name="ed_name" select="$ed_name4"/>
-					</xsl:call-template>
-				</xsl:otherwise>
-			</xsl:choose>
-		</xsl:if>
-		
-		<!-- Add By FS - TRADUZIONE => TRANSLATION IS HANDLED DIRFFERENTLY -->
-		<!--<xsl:if test="$edition_pos=5">
-			<xsl:choose>
-				<xsl:when test="current-group()//tei:back/tei:div[starts-with(@type,'transl')] | current-group()//tei:back/tei:div[starts-with(@type,'trad')]">
-					<xsl:variable name="text">
-						<xsl:apply-templates select="current-group()" mode="trad"/>
-					</xsl:variable>
-					<xsl:variable name="text2">
-						<xsl:call-template name="divCb">
-							<xsl:with-param name="text" select="$text"/>
-							<xsl:with-param name="ed_name" select="$ed_name5"/>
-						</xsl:call-template>
-					</xsl:variable>
-					<xsl:call-template name="divLine">
-						<xsl:with-param name="text" select="$text2"/>
-						<xsl:with-param name="ed_name" select="$ed_name5"/>
-					</xsl:call-template>
-				</xsl:when>
-				<xsl:otherwise>
-					<div lang="def">NO_TRANSLATION_AVAILABLE</div>
-				</xsl:otherwise>
-			</xsl:choose>
-		</xsl:if>-->
 	</xsl:template>
 	
 	<xsl:template name="translate">
@@ -534,12 +406,12 @@
 										<xsl:variable name="text2">
 											<xsl:call-template name="divCb">
 												<xsl:with-param name="text" select="$text"/>
-												<xsl:with-param name="ed_name" select="$ed_name5"/>
+												<xsl:with-param name="ed_name" select="$ed_name3"/>
 											</xsl:call-template>
 										</xsl:variable>
 										<xsl:call-template name="divLine">
 											<xsl:with-param name="text" select="$text2"/>
-											<xsl:with-param name="ed_name" select="$ed_name5"/>
+											<xsl:with-param name="ed_name" select="$ed_name3"/>
 										</xsl:call-template>
 									</xsl:when>
 									<xsl:otherwise>
