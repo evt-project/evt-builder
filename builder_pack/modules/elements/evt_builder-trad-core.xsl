@@ -58,7 +58,7 @@
 		<xsl:element name="span">
 			<xsl:attribute name="data-id" select="@xml:id"/>			
 			<xsl:if test="current()[not((string-length(normalize-space()))= 0)]">
-				<xsl:attribute name="class" select="$ed_name5,name()" separator="-"/>
+				<xsl:attribute name="class" select="$ed_name3,name()" separator="-"/>
 				<xsl:apply-templates mode="#current"> </xsl:apply-templates>
 			</xsl:if>
 		</xsl:element>
@@ -78,7 +78,7 @@
 		
 	<xsl:template match="node()[@attachment]" mode="trad">
 		<xsl:element name="div">
-			<xsl:attribute name="class" select="$ed_name5, 'attachment'" separator="-" />
+			<xsl:attribute name="class" select="$ed_name3, 'attachment'" separator="-" />
 			<xsl:apply-templates mode="#current" />
 		</xsl:element>
 	</xsl:template>
