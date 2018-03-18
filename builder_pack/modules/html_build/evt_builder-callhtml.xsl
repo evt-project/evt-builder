@@ -140,6 +140,7 @@
 				<script type="text/javascript" src="{$html_path}/config/langpack/it.js"/>
 				<script type="text/javascript" src="{$html_path}/config/langpack/fr.js"/>
 				<script type="text/javascript" src="{$html_path}/config/langpack/de.js"/>
+				<script type="text/javascript" src="{$html_path}/config/langpack/cs.js"/>
 				<!-- /end Integration by LS -->
 			</xsl:if>
 		</head>
@@ -402,7 +403,7 @@
 								<img src="images/en.gif" class="flag active" data-value="en" lang="def" title="ENGLISH" alt="ENG"/>
 								<img src="images/fr.gif" class="flag" data-value="fr" lang="def" title="FRENCH" alt="FR"/>
 								<img src="images/ita.gif" class="flag" data-value="it" lang="def" title="ITALIAN"  alt="ITA"/>
-								<img src="images/de.png" class="flag" data-value="de" lang="def" title="GERMAN"  alt="GER"/>								
+								<img src="images/de.png" class="flag" data-value="de" lang="def" title="GERMAN"  alt="GER"/>						<img src="images/cs.png" class="flag" data-value="cs" lang="def" title="CZECH"  alt="CZE"/>		
 							</div>
 						</div>	
 						

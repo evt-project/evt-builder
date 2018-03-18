@@ -15,6 +15,8 @@ jquery_lang_js.prototype.lang.it = {
 	"ENGLISH": "Inglese",
 	"ITALIAN": "Italiano",
 	"FRENCH": "Francese",
+	"GERMAN": "Tedesco",
+	"CZECH": "Ceco",
 	"GO_FULLSCREEN": "Vai a schermo intero",
     "EXIT_FULLSCREEN": "Esci da schermo intero",
 	"TOGGLE_MENU": "Apri/chiudi menu",
