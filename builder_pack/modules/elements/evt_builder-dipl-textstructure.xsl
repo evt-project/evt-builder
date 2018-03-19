@@ -47,7 +47,6 @@
 	-->
 
 	<xsl:template match="tei:back" mode="dipl" priority="2">
-		<br/>
 		<xsl:apply-templates mode="#current"> </xsl:apply-templates>
 	</xsl:template>
 

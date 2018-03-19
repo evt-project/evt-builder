@@ -1458,4 +1458,9 @@
 			<xsl:attribute name="class">quote</xsl:attribute> &#171;<xsl:apply-templates
 				mode="#current"/>&#187; </xsl:element>
 	</xsl:template>
+
+	
+	<xsl:template match="tei:back" mode="interp">
+		<!-- Do nothing -->
+	</xsl:template>
 </xsl:stylesheet>

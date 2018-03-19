@@ -609,6 +609,10 @@
 		<!-- Do nothing -->
 	</xsl:template>
 
+	<xsl:template match="tei:back" mode="dipl">
+		<!-- Do nothing -->
+	</xsl:template>
+
 	<xsl:template match="tei:body" mode="dipl">
 		<xsl:element name="div">
 			<xsl:attribute name="class">doc</xsl:attribute>
