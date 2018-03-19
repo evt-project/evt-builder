@@ -243,7 +243,7 @@
 						<xsl:call-template name="data_structure">
 							<xsl:with-param name="output" select="$edition_current"/>
 							<xsl:with-param name="pb_n" select="$pb_n"/>
-							<xsl:with-param name="edition_pos" select="position()"></xsl:with-param>
+							<xsl:with-param name="edition_pos" select="position()"/>
 						</xsl:call-template>
 					</xsl:result-document>
 				</xsl:if>
