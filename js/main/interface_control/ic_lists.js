@@ -477,13 +477,14 @@ function bindListsBtnClick() {
 /* Ho creato una funzione esterna per l'ordinamento della data, che prende in input
  * il contenitore della lista e gli elementi.  */
 function sortDate(container, items) {
-    sortingOrder = container.attr('data-sort');
+    var sortingOrder = container.attr('data-sort');
     // Recupero il valore dell'attributo 'sort' del contenitore (#ul_listDocument) nel quale ho memorizzato il tipo di ordinamento (asc/desc)
     items.each(function () {
         /* per ogni items converto il valore della data in una forma più standard. Creo un attributo 'data-normalized-sort-date' e gli assegno questo valore */
-        var date = $(this).attr("data-sort-date").split("-");
-        var standardDate = date[0] + " " + date[1] + " " + date[2];
-        standardDate = new Date(standardDate).getTime();
+        var attrDate = $(this).attr("data-sort-date");
+        var date = attrDate ? attrDate.split("-") : undefined;
+        var standardDate = date && date.length === 3 ? date[0] + " " + date[1] + " " + date[2] : undefined;
+        standardDate = standardDate ? new Date(standardDate).getTime() : "";
         $(this).attr("data-normalized-sort-date", standardDate);
     });
     items.sort(function (a, b) {
@@ -491,11 +492,14 @@ function sortDate(container, items) {
         a = parseFloat($(a).attr("data-normalized-sort-date"));
         b = parseFloat($(b).attr("data-normalized-sort-date"));
         /* verifico se l'ordinamento deve essere ascendente o discendente e restituisco il risultato conseguente */
-        if (sortingOrder === "asc") {
-            return a < b ? -1: a > b ? 1: 0;
-        } else if (sortingOrder === "desc") {
-            return a > b ? -1: a < b ? 1: 0;
+        if (!isNaN(a) && !isNaN(b)) {
+            if (sortingOrder === "asc") {
+                return a < b ? -1: a > b ? 1 : 0;
+            } else if (sortingOrder === "desc") {
+                return a > b ? -1: a < b ? 1 : 0;
+            }
         }
+        return 0;
     });
     /* inserisco gli elementi nel contenitore dopo averlo svuotato */
     container.empty().prepend(items);
@@ -544,7 +548,6 @@ function bindChronologicalIndex() {
         /* Gestisco la riduzione del regesto */
         var minimized_text = $('#ul_listDocument .list_element .document_list_regesto');
         var minimized_character_count = 300;
-        
         minimized_text.each(function () {
             var text = $(this).text();
             if (text.length < minimized_character_count) return;
