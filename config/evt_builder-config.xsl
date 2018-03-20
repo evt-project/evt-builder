@@ -345,6 +345,14 @@
 		<orgName/>
 	</xsl:variable>
 	
+	<!-- GM -->
+	<!--<xsl:param name="viscoll_info" select="true()"/>
+	<xsl:variable name="viscoll" as="element()*">
+		<viscoll>Viscoll</viscoll> 
+	</xsl:variable>-->
+	
+	<xsl:param name="viscoll_info" select="'CP'" />
+	
 	<!-- EN: Information about EVT -->
 	<!-- IT: Informazioni su EVT  -->
 	<xsl:param name="evtTxt">
