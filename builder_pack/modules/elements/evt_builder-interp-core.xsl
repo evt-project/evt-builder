@@ -935,13 +935,16 @@
 	<xsl:template name="person">
 		<xsl:choose>
 			<xsl:when
-				test="current()//tei:forename or current()//tei:surname or current()//tei:sex or current()//tei:occupation">
+				test="current()//tei:name or current()//tei:forename or current()//tei:surname or current()//tei:sex or current()//tei:occupation">
 				<xsl:element name="span">
 					<xsl:attribute name="class">entity_name <xsl:if test="$list_person = true()">
 							link_active</xsl:if></xsl:attribute>
 					<xsl:attribute name="data-ref">
 						<xsl:value-of select="@xml:id"/>
 					</xsl:attribute>
+					<xsl:if test="current()//tei:name">
+						<xsl:value-of select="tei:persName//tei:name"/>
+					</xsl:if>
 					<xsl:if test="current()//tei:forename">
 						<xsl:value-of select="tei:persName//tei:forename"/>
 					</xsl:if>
@@ -1459,7 +1462,7 @@
 				mode="#current"/>&#187; </xsl:element>
 	</xsl:template>
 
-	
+
 	<xsl:template match="tei:back" mode="interp">
 		<!-- Do nothing -->
 	</xsl:template>

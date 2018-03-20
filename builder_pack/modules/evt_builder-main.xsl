@@ -508,11 +508,20 @@
 			<xsl:attribute name="class" select="'ul_list'"/>
 			<xsl:for-each select="$root//tei:listPerson/person">
 				<xsl:sort select="lower-case(tei:persName/tei:forename)" order="ascending"/>
+				<xsl:sort select="lower-case(tei:persName/tei:name)" order="ascending"/>
 				<xsl:element name="li">
 					<xsl:attribute name="id" select="@xml:id"/>
 					<xsl:attribute name="class" select="'list_element'"/>
-					<xsl:attribute name="data-order-list"
-						select="substring(tei:persName/tei:forename, 1, 1)"/>
+					<xsl:attribute name="data-order-list">
+						<xsl:choose>
+							<xsl:when test="tei:persName/tei:forename">
+								<xsl:value-of select="substring(tei:persName/tei:forename, 1, 1)"/>
+							</xsl:when>
+							<xsl:otherwise>
+								<xsl:value-of select="substring(tei:persName/tei:name, 1, 1)"/>
+							</xsl:otherwise>
+						</xsl:choose>
+					</xsl:attribute>
 					<!--<xsl:value-of select="substring(@xml:id, 1, 1)"/>-->
 					<xsl:call-template name="person"/>
 				</xsl:element>
@@ -759,6 +768,9 @@
 				</xsl:choose>
 			</xsl:otherwise>
 		</xsl:choose>
+	</xsl:template>
+	<xsl:template match="tei:back" mode="exclude_back">
+		<!-- DO NOTHING -->
 	</xsl:template>
 
 	<xsl:template match="@* | node()" mode="delete_el1">
