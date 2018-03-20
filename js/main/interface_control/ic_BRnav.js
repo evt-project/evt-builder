@@ -1,3 +1,26 @@
+/**
+ * Interface Control jQuery
+ * Functions Handling Global Navigation Bar Bindings
+ * Version 0.3 (201601)
+ *
+ * Copyright (C) 2013-2017 the EVT Development Team.
+ *
+ * EVT 1 is free software: you can redistribute it
+ * and/or modify it under the terms of the
+ * GNU General Public License version 2
+ * available in the LICENSE file (or see <http://www.gnu.org/licenses/>).
+ *
+ * EVT 1 is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU General Public License for more details.
+ *
+ * @short-term Greta Musu - GM
+ * (added functions for global navigation bar and support for Viscoll)
+ * @in 2017/18
+ *
+ **/
+
 // Funzione al click su ImgTxt
 function createSliderTxtImg() {
 	var arrayPages = []; // Array che conterrà il numero delle pagine
@@ -32,7 +55,7 @@ function createSliderTxtTxt() {
 		});
 		createBrnav(arrayTexts); // Restituisce l'array contenente le pagine
 	}
-} 
+}
 
 // Funzione al click su Bookreader
 function createSliderBookreader() {
@@ -60,7 +83,7 @@ function createBrnav(array) {
 		//alert("Siamo nell'index");
 		var pageNum = array && array.length > 0 ? array[0].label + "/" + array[array.length - 1].label : '';
 	}else{
-		//alert(location.hash);		
+		//alert(location.hash);
 		hashPart = location.hash.substr(1).split('&');  // Parto dal carattere in posizione 1 e tolgo il carattere &
 		for(var i=0; i<hashPart.length; i++) {
 			if(hashPart[i].indexOf("page") != -1) {
@@ -141,7 +164,7 @@ function createBrnav(array) {
 			}
 		}
 	}
-	
+
 	//var pageNum = array && array.length > 0 ? array[0].label + "/" + array[array.length - 1].label : '';
 	$("#pagenum").text(pageNum); // Mostra il numero della pagina sul totale della pagine
 	$('#BRpager').slider({
@@ -157,13 +180,13 @@ function createBrnav(array) {
 			var newDocId = newPage ? newPage.firstDoc : '';
 			if (newPage) { // Check just to be sure
 				updateHash(newDocId, newPageId, '');
-				
+
 				var pageNum = array && array.length > 0 ? newPageLabel + "/" + array[array.length - 1].label : '';
 				$("#pagenum").text(pageNum);
 			}
 		}
 	});
-	
+
 	bindViscollClick(array);
 }
 
@@ -171,43 +194,36 @@ function bindArrowsBRnavClick() {
 	// Pulsante per ridurre la barra di navigazione
 	$('.BRnavCntl').click(
         function(){
-            if ($('#BRnavCntlBtm').hasClass('BRdn')) {
-                $('#BRnav').delay(150).animate({bottom:-50});  // .delay() imposta un timer per ritardare l'esecuzione degli elementi successivi
-				$('#global_wrapper').css("overflow-y", "hidden");  // Tolgo lo scrolling verticale quando riduco la barra di navigazione
-				$('#central_wrapper').animate({height:"87.5%"}, 1000);  // Aumento l'altezza del central_wrapper
-                $('#BRnavCntlBtm').addClass('BRup').removeClass('BRdn');
-				$('#BRnavCntlBtm i').removeClass('fa fa-caret-down fa-lg').addClass('fa fa-caret-up fa-lg');  // Rimuove la classe per mettere quella con la freccia verso il basso
-                //$('#BRnavCntlBtm.BRnavCntl').animate({height:'45px'});
-                $('.BRnavCntl').delay(1000).animate({opacity:.25},1000);
-            } else {
-                $('#BRnav').delay(350).animate({bottom:0});  // .delay() ritarda l'animazione degli elementi seguenti
-				$('#central_wrapper').animate({height:"82.5%"}, 1000);  // Riduco l'altezza del central_wrapper
-                $('#BRnavCntlBtm').addClass('BRdn').removeClass('BRup');
-				$('#BRnavCntlBtm i').removeClass('fa fa-caret-up fa-lg').addClass('fa fa-caret-down fa-lg');
-                //$('#BRnavCntlBtm.BRnavCntl').animate({height:'45px'});
-                $('.BRvavCntl').animate({opacity:1})
-            };
+						var BRnavCntlBtm = $('#BRnavCntlBtm'),
+								BRnav = $('#BRnav'),
+								BRnavCntl = $('.BRnavCntl'),
+								centralWrapper = $('#central_wrapper');
+						if (BRnavCntlBtm) {
+							if (BRnavCntlBtm.hasClass('BRdn')) {
+	                BRnav.delay(150).animate({ bottom: -50 });  // .delay() imposta un timer per ritardare l'esecuzione degli elementi successivi
+									$('#global_wrapper').css("overflow-y", "hidden");  // Tolgo lo scrolling verticale quando riduco la barra di navigazione
+									centralWrapper.animate({ height:"87.5%" }, 1000);  // Aumento l'altezza del central_wrapper
+	                BRnavCntlBtm.addClass('BRup').removeClass('BRdn');
+									BRnavCntlBtm.find('i').removeClass('fa fa-caret-down fa-lg').addClass('fa fa-caret-up fa-lg');  // Rimuove la classe per mettere quella con la freccia verso il basso
+	                BRnavCntl.delay(1000).animate({ opacity:.25 },1000);
+	            } else {
+	                BRnav.delay(350).animate({ bottom: 0 });  // .delay() ritarda l'animazione degli elementi seguenti
+									centralWrapper.animate({ height:"82.5%" }, 1000);  // Riduco l'altezza del central_wrapper
+	                BRnavCntlBtm.addClass('BRdn').removeClass('BRup');
+									BRnavCntlBtm.find('i').removeClass('fa fa-caret-up fa-lg').addClass('fa fa-caret-down fa-lg');
+	                BRnavCntl.animate({opacity:1})
+	            };
+						}
         }
-    );
-    $('#BRnavCntlBtm').mouseover(function(){
-        if ($(this).hasClass('BRup')) {
-            $('.BRnavCntl').animate({opacity:1},250);
-        };
-    });
-    $('#BRnavCntlBtm').mouseleave(function(){
-        if ($(this).hasClass('BRup')) {
-            $('.BRnavCntl').animate({opacity:.25},250);
-        };
-    });
-	
-    /*$('#BRnavCntlTop').mouseover(function(){
-        if ($(this).hasClass('BRdn')) {
-            $('.BRnavCntl').animate({opacity:1},250);
-        };
-    });
-    $('#BRnavCntlTop').mouseleave(function(){
-        if ($(this).hasClass('BRdn')) {
-            $('.BRnavCntl').animate({opacity:.25},250);
-        };
-    });*/
+  );
+  $('#BRnavCntlBtm').mouseover(function(){
+      if ($(this).hasClass('BRup')) {
+          $('.BRnavCntl').animate({ opacity: 1 }, 250);
+      };
+  });
+  $('#BRnavCntlBtm').mouseleave(function(){
+      if ($(this).hasClass('BRup')) {
+          $('.BRnavCntl').animate({ opacity: .25 }, 250);
+      };
+  });
 }

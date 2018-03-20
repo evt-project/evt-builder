@@ -4,26 +4,30 @@
  * Version 0.3 (201601)
  *
  * Copyright (C) 2013-2017 the EVT Development Team.
- * 
- * EVT 1 is free software: you can redistribute it 
- * and/or modify it under the terms of the 
+ *
+ * EVT 1 is free software: you can redistribute it
+ * and/or modify it under the terms of the
  * GNU General Public License version 2
  * available in the LICENSE file (or see <http://www.gnu.org/licenses/>).
- * 
- * EVT 1 is distributed in the hope that it will be useful, 
- * but WITHOUT ANY WARRANTY; without even the implied 
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
+ *
+ * EVT 1 is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU General Public License for more details.
  *
  *
- * @author RafMas 
+ * @author RafMas
  * @since 2012 @to 2015
- * 
+ *
  * @author Julia Kenny - JK
- * @from 2012 @to 2014  
+ * @from 2012 @to 2014
  *
  * @author ChiaraDipi - CDP
- * @since 2013  
+ * @since 2013
+ *
+ * @short-term Federica Spinelli - FS
+ * (added support for translation as third edition level)
+ * @in 2017
  *
  **/
 
@@ -32,14 +36,14 @@ function updateTextContHeight(){
     var mainContainer, centralWrapper;
     var mainContainerHeight, bottomBoxHeaderHeight;
     var new_container_height, old_container_height;
-    
+
     centralWrapper = $('#central_wrapper');
     new_container_height = centralWrapper.height();
     new_container_height -= (centralWrapper.find('header').height()*2);
     // $('.menu-box:visible').each(function(){
     //  new_container_height -= $(this).height();
     // });
-    
+
     centralWrapper.find("div[id*='main_']").each(function(){
         // Se nel frame i box in basso sono tutti chiusi
         if( $(this).find('.bottomBoxOpened').length == 0 ) {
@@ -54,13 +58,13 @@ function updateTextContHeight(){
             $(this).find('.text-box.height-changed')
                 .removeClass('height-changed')
                 .css({'height': new_container_height+'px'});
-        } 
+        }
         // Invece se il box in basso del frame è aperto
         // ricalcolo l'altezza sulla base dell'header di tale box
         else {
             mainContainerHeight = $(this).height();
             bottomBoxHeaderHeight = $(this).find('.bottomBoxOpened .bottomBoxHeader:visible').height() + 2;
-            
+
             if($(this).find('header').hasClass('menuClosed')){
                 new_container_height = mainContainerHeight - bottomBoxHeaderHeight;
                 $(this).find('.bottomBox:visible')
@@ -93,11 +97,11 @@ function updateSelectLength(elem){
 
     // // Calcolo la larghezza del div figlio di .like_select
     // widthSel = $(elem).find('div').width();
-    // // Calcolo la larghezza del div.option_container, aggiungendo 10 per via del padding 
+    // // Calcolo la larghezza del div.option_container, aggiungendo 10 per via del padding
     // widthOpt = $(elem).find('.option_container').width()+10;
-    // // Se la larghezza del contenitore esterno è maggiore di quella delle option aggiorno l'option_container e ristemo il genitore   
+    // // Se la larghezza del contenitore esterno è maggiore di quella delle option aggiorno l'option_container e ristemo il genitore
     // if(widthSel > widthOpt){
-        
+
     //  // Imposto la larghezza dell'option container secondo quella del div figlio di .like_select
     //  $(elem)
     //      .find('.option_container')
@@ -117,8 +121,8 @@ function updateSelectLength(elem){
     // }
     // // Se altrimenti il contenitore delle option è più largo in partenza aggiorno il genitore
     // else {
-        
-    //  // imposto la larghezza di .like_select sulla base di quella di option_container, 
+
+    //  // imposto la larghezza di .like_select sulla base di quella di option_container,
     //  // aggiungendo 14 per via del div per l'apertura
     //  // $(elem)
     //  //  .css('width', widthOpt+14)
@@ -130,7 +134,7 @@ function updateSelectLength(elem){
     //          .attr('data-first-load-width', widthOpt+4);
     // }
     // Riporto la position di option_container ad absolute per rendere corretto il posizionamento all'apertura
-    
+
     if ( $(elem).find('.option_container').hasClass('up') ) {
         var height;
         height = $(elem).find('.option_container').height()+6;
@@ -162,13 +166,13 @@ function updateSelectLength(elem){
                 'visibility': 'hidden',
                 'display': 'block'
             });
-            
+
             widthPP = $('#span_dd_select').find('div').width() * 1.5 - 5;
             optPP = $('#span_dd_select').find('.option_container').width() * 1.5;
             widthSel = optCont.width()*1.2;
         } else {
             widthPP = $('#span_pp_select').find('div').width() * 1.5 - 5;
-            optPP = $('#span_pp_select').find('.option_container').width() * 1.5;    
+            optPP = $('#span_pp_select').find('.option_container').width() * 1.5;
         }
         $('#span_dd_select')
             .addClass('widthChanged')
@@ -186,7 +190,7 @@ function updateSelectLength(elem){
             }
         }
     }
-    if( $(elem).attr('id') === 'span_tt_select' ) { 
+    if( $(elem).attr('id') === 'span_tt_select' ) {
         if ( optionTooltipInPages ) {
             if ( $('#span_pp_select').find('.option_tooltip').length > 0 ){
                 $('#span_pp_select').find('.option_tooltip').css({
@@ -233,7 +237,7 @@ function resizeButtonsAndSelects() {
     /* ========= */
     /* TOP MENUS */
     /* ========= */
-    
+
     /*= LEFT FRAME =*/
     var leftMenu = $('#left_menu')
         leftHeader = $('#left_header'),
@@ -251,7 +255,7 @@ function resizeButtonsAndSelects() {
         .appendTo(leftHeader);
     var leftMenuCopy = $('#left_menu_copy');
     leftMenuCopy.find('.small:visible').removeClass('small').find('span').show();
-    
+
     if ( leftMenuCopy.outerWidth() >= leftHeader.innerWidth()) {
         leftHeaderBtns
             .addClass('small')
@@ -261,14 +265,14 @@ function resizeButtonsAndSelects() {
             var diff =  leftMenu.outerWidth() - leftHeader.innerWidth();
             var remove_width = diff/leftHeaderSelects.length;
             leftHeaderSelects.each(function(){
-                var new_width = $(this).outerWidth() - remove_width; 
+                var new_width = $(this).outerWidth() - remove_width;
                 $(this).css({
                     'width': new_width
                 });
             });
         } else {
             leftHeaderSelects.each(function(){
-                var reset_width = $(this).attr('data-first-load-width'); 
+                var reset_width = $(this).attr('data-first-load-width');
                 $(this).css({
                     'width': reset_width
                 });
@@ -280,7 +284,7 @@ function resizeButtonsAndSelects() {
             .find('span').show();
 
         leftHeaderSelects.each(function(){
-            var reset_width = $(this).attr('data-first-load-width'); 
+            var reset_width = $(this).attr('data-first-load-width');
             $(this).css({
                 'width': reset_width
             });
@@ -289,7 +293,7 @@ function resizeButtonsAndSelects() {
     leftMenuCopy.remove();
     leftMenu.css('width', '100%');
 
-    
+
     /*= RIGHT FRAME =*/
     var rightMenu = $('#right_menu'),
         rightHeader = $('#right_header')
@@ -310,17 +314,17 @@ function resizeButtonsAndSelects() {
         var remove_width = diff/rightHeaderSelects.length;
         if (remove_width > 0) {
             rightHeaderSelects.each(function(){
-                var new_width = $(this).outerWidth() - remove_width; 
-                
+                var new_width = $(this).outerWidth() - remove_width;
+
                 $(this).find('.label_selected').css({
                     'width': new_width
                 });
-                
+
             });
             rightHeaderBtns
                 .addClass('small')
                 .find('span').hide();
-        } 
+        }
     } else {
         rightHeaderSelects.each(function(){
             $(this).css({
@@ -333,7 +337,7 @@ function resizeButtonsAndSelects() {
     /* ============ */
     /* BOTTOM MENUS */
     /* ============ */
-    
+
     /*= LEFT FRAME =*/
     var leftTextTool = $('#text_tool-add'),
         leftTextToolBtns = leftTextTool.find('.mainButtons'),
@@ -353,16 +357,16 @@ function resizeButtonsAndSelects() {
         var remove_width = diff/leftTextToolSelect.length;
         if (remove_width > 0) {
             leftTextToolSelect.each(function(){
-                var new_width = $(this).outerWidth() - remove_width; 
+                var new_width = $(this).outerWidth() - remove_width;
                 $(this).find('.label_selected').css({
                     'width': new_width
                 });
-                
+
             });
             leftTextToolBtns
                 .addClass('small')
                 .find('span').hide();
-        } 
+        }
     } else {
         leftTextToolSelect.each(function(){
             $(this).css({
@@ -391,16 +395,16 @@ function resizeButtonsAndSelects() {
         var remove_width = diff/rightTextToolSelect.length;
         if (remove_width > 0) {
             rightTextToolSelect.each(function(){
-                var new_width = $(this).outerWidth() - remove_width; 
+                var new_width = $(this).outerWidth() - remove_width;
                 $(this).find('.label_selected').css({
                     'width': new_width
                 });
-                
+
             });
             rightTextToolBtns
                 .addClass('small')
                 .find('span').hide();
-        } 
+        }
     } else {
         rightTextToolSelect.each(function(){
             $(this).css({
@@ -417,13 +421,13 @@ function fitBottomBoxHeightAndPosition(boxSuffix, height_full){
     if ( mainFrame.find('.bottomBoxOpened').length > 0 ) {
         mainFrame.find('.bottomBoxOpened').each(function() {
             if ( $(this).hasClass('collapsed') ) {
-                $(this).animate({'top': height_full-119, 'height': height_full-85}, 700); 
+                $(this).animate({'top': height_full-119, 'height': height_full-85}, 700);
                 // 118 = altezza menu in alto e menu in basso + altezza header liste + 1px
             } else {
-                $(this).animate({'height': height_full-85}, 700);   
+                $(this).animate({'height': height_full-85}, 700);
             }
         });
-        
+
         mainFrame.find("div[id*='text_cont'], div[id*='regesto_cont'], div[id*='front_cont']").animate({'height': height_full-118}, 700);
     } else {
         mainFrame.find('.bottomBox:visible').animate({'height': height_full-85}, 700);
@@ -438,7 +442,7 @@ function fitFrame() {
     if ( $('.full').length > 0 ) {
         noMenu_height = $('.full').height();
     } else {
-        noMenu_height = $('#central_wrapper').outerHeight();    
+        noMenu_height = $('#central_wrapper').outerHeight();
     }
     noMenu_height_left = noMenu_height;
     noMenu_height_right = noMenu_height;
@@ -449,23 +453,23 @@ function fitFrame() {
         $('#lists_cont, #search_cont')
             .css('height', noMenu_height);
 
-        if ( mainLeftFrame.find('.bottomBox:visible').length > 0 ) {                
+        if ( mainLeftFrame.find('.bottomBox:visible').length > 0 ) {
             noMenu_height_left -= mainLeftFrame.find('.bottomBox:visible').first().find('.bottomBoxHeader').first().outerHeight();
         }
         if ( mainRightFrame.find('.bottomBox:visible').length > 0 ) {
             noMenu_height_right -= mainRightFrame.find('.bottomBox:visible').first().find('.bottomBoxHeader').first().outerHeight();
         }
 
-        if ( mainRightFrame.find('#regesto_cont').length > 0 || 
+        if ( mainRightFrame.find('#regesto_cont').length > 0 ||
              mainRightFrame.find('#front_cont').length > 0 ) {
             // LEFT FRAME
             mainLeftFrame
                 .find('#text_cont-add, #regesto_cont-add, #front_cont-add, #thumb_cont')
-                    .css('height', noMenu_height_left); 
+                    .css('height', noMenu_height_left);
             // RIGHT FRAME
             mainRightFrame
                 .find('#text_cont, #regesto_cont, #front_cont')
-                    .css('height', noMenu_height_right);    
+                    .css('height', noMenu_height_right);
         } else {
             // LEFT FRAME
             mainLeftFrame
@@ -476,24 +480,24 @@ function fitFrame() {
             mainRightFrame
                 .find('#regesto_cont, #front_cont')
                     .css('height', noMenu_height+33);
-            
+
             mainRightFrame
                 .find('#text_cont')
                 .css('height', noMenu_height);
 
         }
         if ( $('.bottomBox:visible').hasClass('collapsed') ) {
-            
+
         }
         $('.bottomBox.collapsed:visible').each(function(){
             var bottomBox_newTop = noMenu_height - (mainRightFrame.find('.bottomBox:visible').find('.bottomBoxHeader').outerHeight()*2) - 11;
             $(this).css('top', bottomBox_newTop+'px');
         });
-    } 
+    }
     // Se menu aperto
     else {
         if( $('.bottom-menu').length > 0 ){
-            noMenu_height = noMenu_height - $('.top-menu').first().outerHeight() - $('.bottom-menu').first().outerHeight(); 
+            noMenu_height = noMenu_height - $('.top-menu').first().outerHeight() - $('.bottom-menu').first().outerHeight();
         } else {
             noMenu_height = noMenu_height - $('.top-menu').first().outerHeight();
         }
@@ -501,25 +505,25 @@ function fitFrame() {
             $('.bottomBox').css('height', noMenu_height );
         }
         noMenu_height_left = noMenu_height;
-        if ( mainLeftFrame.find('.bottomBox').length > 0 && 
+        if ( mainLeftFrame.find('.bottomBox').length > 0 &&
              mainLeftFrame.find('.bottomBox:visible').length > 0 ) {
             noMenu_height_left = noMenu_height_left - mainLeftFrame.find('.bottomBox:visible').find('.bottomBoxHeader').outerHeight() - 1;
         }
-        
+
         noMenu_height_right = noMenu_height;
-        if ( mainRightFrame.find('.bottomBox').length > 0 && 
+        if ( mainRightFrame.find('.bottomBox').length > 0 &&
              mainRightFrame.find('.bottomBox:visible').length > 0 ) {
             noMenu_height_right = noMenu_height_right - mainRightFrame.find('.bottomBox:visible').find('.bottomBoxHeader').outerHeight() - 1;
         }
-        
+
         $('.bottomBox.collapsed:visible').each(function(){
             $(this).css('top', noMenu_height-$('.bottomBox:visible').find('.bottomBoxHeader').outerHeight() - 2);
         });
-        
+
         // LEFT FRAME
         mainLeftFrame.find('#text_cont-add, #regesto_cont, #regesto_cont-add, #front_cont-add')
             .css('height', noMenu_height_left);
-        
+
         // RIGHT FRAME
         mainRightFrame.find('#text_cont, #regesto_cont, #front_cont')
                 .css('height', noMenu_height_right);
@@ -547,7 +551,7 @@ function updateLinesWidth(mainFrameElem){
 /* ******************** */
 /* WINDOW RESIZE EVENTS */
 /* ******************** */
-$(function() { 
+$(function() {
     $(window).bind('resize', function(e){
         var height_full, width_full, leftCss, newLeft, rightR, leftR;
         // window.resizeEvt;

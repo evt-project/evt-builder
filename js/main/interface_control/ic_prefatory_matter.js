@@ -4,30 +4,34 @@
  * Version 0.3 (201601)
  *
  * Copyright (C) 2013-2017 the EVT Development Team.
- * 
- * EVT 1 is free software: you can redistribute it 
- * and/or modify it under the terms of the 
+ *
+ * EVT 1 is free software: you can redistribute it
+ * and/or modify it under the terms of the
  * GNU General Public License version 2
  * available in the LICENSE file (or see <http://www.gnu.org/licenses/>).
- * 
- * EVT 1 is distributed in the hope that it will be useful, 
- * but WITHOUT ANY WARRANTY; without even the implied 
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
- * See the GNU General Public License for more details.
- * 
  *
- * @author RafMas 
+ * EVT 1 is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU General Public License for more details.
+ *
+ *
+ * @author RafMas
  * @since 2012 @to 2015
- * 
+ *
  * @author Julia Kenny - JK
- * @from 2012 @to 2014  
+ * @from 2012 @to 2014
  *
  * @author ChiaraDipi - CDP
- * @since 2013  
+ * @since 2013
  *
  * @short-term Alessandro Barsi – AB
  * (added functions for manuscript, text and project info)
  * @in 2015
+ *
+ * @short-term Federica Spinelli - FS
+ * (added support for translation as third edition level)
+ * @in 2017
  **/
 
 /* ===== */
@@ -38,7 +42,7 @@
 function show_front(front_container, front){
     var height;
     height = $('#central_wrapper').height();
-    
+
     if ( ! $('#main_right_frame').hasClass('menuClosed') && !$('#main_left_frame').hasClass('menuClosed') ) {
         height = height - ($('#main_right_frame').height() * 2);
     }
@@ -46,7 +50,7 @@ function show_front(front_container, front){
     if ( $('#lists_cont') && $('#list_header').is(':visible') ) {
         height = height - $('#list_header').height() + 4;
     }
-    
+
     $(front_container)
         .removeClass('hidden')
         .animate({
@@ -55,9 +59,9 @@ function show_front(front_container, front){
             'height': height+"px"
         }, 400, function(){
             $(front_container).addClass('open').removeAttr('style');
-            if ( $(front_cont).parents("div[id*='frame']").attr('id') == 'main_left_frame' && 
+            if ( $(front_cont).parents("div[id*='frame']").attr('id') == 'main_left_frame' &&
                  $('#span_ee_select').find('.option') == 0 ) {
-                $(front_container).find('.showHide_front').hide();  
+                $(front_container).find('.showHide_front').hide();
             } else {
                 $(front_container).find('.showHide_front').removeAttr('style');
             }
@@ -102,7 +106,7 @@ function updateFrontContent(current_doc){
                 // $('<div />')
                 //  .attr('id', "hide_front")
                 //  .addClass('hide_front')
-                //  .append("<i class='fa fa-chevron-up'></i></div>")   
+                //  .append("<i class='fa fa-chevron-up'></i></div>")
                 //  .click(function(){ hide_front(id_front_cont, id_front); })
                 //  .appendTo(id_front_cont); // solo nel box di destra
 
@@ -110,30 +114,30 @@ function updateFrontContent(current_doc){
                      (!$('#switchFront').hasClass('active')) ) {
                     $("#main_right_frame").find('.like_select.filter')
                         .css('opacity', "1")
-                        .removeClass('not_active');         
+                        .removeClass('not_active');
                 } else {
                     $("#main_right_frame").find('.like_select.filter')
                         .css('opacity', "0.5")
-                        .addClass('not_active'); 
+                        .addClass('not_active');
                 }
                 if ( $("#span_ee_select").find('.option').length == 0 ) {
                     // Se ho un solo livello di edizione, in modalità txt txt nel frame di sx avrò sicuramente il front,
                     // quindi non ho bisogno del selettore con i filtri nel menu in basso a sx
                     $("#main_left_frame").find('.like_select.filter')
                         .css('opacity', "0")
-                        .addClass('not_active'); 
+                        .addClass('not_active');
                 } else if ($("#span_ee_select").find('.option').length > 0) {
                     // ...altrimenti
                     if ( $('#span_ee_select-add .label_selected').attr('data-value') == 'front' ) {
                         // Se nel frame ho il front visibile, il selettore dei filtri rimane opacizzato...
                         $("#main_left_frame").find('.like_select.filter')
                             .css('opacity', "0.5")
-                            .addClass('not_active');            
+                            .addClass('not_active');
                     } else {
                         // altrimenti è funzionante e pienamente visibile
                         $("#main_left_frame").find('.like_select.filter')
                             .css('opacity', "1")
-                            .removeClass('not_active');             
+                            .removeClass('not_active');
                     }
                 }
                 if ( $('#switchFront').hasClass('disabled') ) {
@@ -143,7 +147,7 @@ function updateFrontContent(current_doc){
                     }
                     resizeButtonsAndSelects();
                 }
-            } else { 
+            } else {
                 hide_front(id_front_cont, id_front);
                 $('#switchFront')
                     .addClass('disabled')
@@ -152,7 +156,7 @@ function updateFrontContent(current_doc){
                 $('#front_cont').hide();
                 resizeButtonsAndSelects();
             }
-        } else { 
+        } else {
             hide_front(id_front_cont, id_front);
             $('#switchFront')
                 .addClass('disabled')
@@ -160,7 +164,7 @@ function updateFrontContent(current_doc){
             ;
             $('#front_cont').hide();
             resizeButtonsAndSelects();
-        } 
+        }
         resizeGlobalTopBar();
     });
 }
@@ -176,10 +180,10 @@ function toggleFront(front_cont){
                     .parents("div[id*='frame']")
                         .find('.like_select.filter')
                             .css('opacity', "1")
-                            .removeClass('not_active'); 
+                            .removeClass('not_active');
             }
         });
-        
+
      /*} else {
         $(front_cont).show('drop',  {direction: 'up'}, 'linear', function(){
             Disattivare filtri liste nell'edizione diplomatica
@@ -188,7 +192,7 @@ function toggleFront(front_cont){
                     .find('.like_select.filter')
                         .css('opacity', "0.5")
                         .addClass('not_active');
-            
+
         });*/
     }
 }
@@ -203,7 +207,7 @@ function toggleFront(front_cont){
 function show_regesto(regesto_container, regesto){
     var height;
     height = $('#central_wrapper').height();
-    
+
     if ( ! $('#main_right_frame').hasClass('menuClosed') && !$('#main_left_frame').hasClass('menuClosed') ) {
         height = height - ($('#main_right_frame').height() * 2);
     }
@@ -211,7 +215,7 @@ function show_regesto(regesto_container, regesto){
     if ( $('#lists_cont') && $('#list_header').is(':visible') ) {
         height = height - $('#list_header').height() + 4;
     }
-    
+
     $(regesto_container)
         .removeClass('hidden')
         .animate({
@@ -220,9 +224,9 @@ function show_regesto(regesto_container, regesto){
             'height': height+"px"
         }, 400, function(){
             $(regesto_container).removeAttr('style');
-            if ( $(regesto_cont).parents("div[id*='frame']").attr('id') == 'main_left_frame' && 
+            if ( $(regesto_cont).parents("div[id*='frame']").attr('id') == 'main_left_frame' &&
                  $('#span_ee_select').find('.option') == 0 ) {
-                $(regesto_container).find('.showHide_regesto').hide();  
+                $(regesto_container).find('.showHide_regesto').hide();
             } else {
                 $(regesto_container).find('.showHide_regesto').removeAttr('style');
             }
@@ -273,7 +277,7 @@ function updateRegestoContent(current_doc){
                 // $('<div />')
                 //  .attr('id', "hide_regesto")
                 //  .addClass('hide_regesto')
-                //  .append("<i class='fa fa-chevron-up'></i></div>")   
+                //  .append("<i class='fa fa-chevron-up'></i></div>")
                 //  .click(function(){ hide_regesto(id_regesto_cont, id_regesto); })
                 //  .appendTo(id_regesto_cont); // solo nel box di destra
 
@@ -282,30 +286,30 @@ function updateRegestoContent(current_doc){
                      (!$('#switchReg').hasClass('active')) ) {
                     $("#main_right_frame").find('.like_select.filter')
                         .css('opacity', "1")
-                        .removeClass('not_active');         
+                        .removeClass('not_active');
                 } else {
                     $("#main_right_frame").find('.like_select.filter')
                         .css('opacity', "0.5")
-                        .addClass('not_active'); 
+                        .addClass('not_active');
                 }
                 if ( $("#span_ee_select").find('.option').length == 0 ) {
                     // Se ho un solo livello di edizione, in modalità txt txt nel frame di sx avrò sicuramente il regesto,
                     // quindi non ho bisogno del selettore con i filtri nel menu in basso a sx
                     $("#main_left_frame").find('.like_select.filter')
                         .css('opacity', "0")
-                        .addClass('not_active'); 
+                        .addClass('not_active');
                 } else if ($("#span_ee_select").find('.option').length > 0) {
                     // ...altrimenti
                     if ( $('#span_ee_select-add .label_selected').attr('data-value') == 'regesto' ) {
                         // Se nel frame ho il regesto visibile, il selettore dei filtri rimane opacizzato...
                         $("#main_left_frame").find('.like_select.filter')
                             .css('opacity', "0.5")
-                            .addClass('not_active');            
+                            .addClass('not_active');
                     } else {
                         // altrimenti è funzionante e pienamente visibile
                         $("#main_left_frame").find('.like_select.filter')
                             .css('opacity', "1")
-                            .removeClass('not_active');             
+                            .removeClass('not_active');
                     }
                 }
                 if ( $('#switchReg').hasClass('disabled') ) {
@@ -317,11 +321,11 @@ function updateRegestoContent(current_doc){
                 $('#switchReg').addClass('disabled').hide();
                 resizeButtonsAndSelects();
             }
-        } else { 
+        } else {
             hide_regesto(id_regesto_cont, id_regesto);
             $('#switchReg').addClass('disabled').hide();
             resizeButtonsAndSelects();
-        } 
+        }
         resizeGlobalTopBar();
     });
 }
@@ -338,10 +342,10 @@ function toggleReg(cont){
                     .parents("div[id*='frame']")
                         .find('.like_select.filter')
                             .css('opacity', "1")
-                            .removeClass('not_active'); 
+                            .removeClass('not_active');
             //}
         });
-        
+
     } else {
         $(cont).show('drop',  {direction: 'up'}, 'linear', function(){
             // Disattivare filtri liste nell'edizione diplomatica
@@ -351,7 +355,7 @@ function toggleReg(cont){
                     .find('.like_select.filter')
                         .css('opacity', "0.5")
                         .addClass('not_active');
-            
+
         });
     }
 }
@@ -370,9 +374,9 @@ function bindMsDescBtnClick() {
         if ( $('#msDesc_cont').is(':visible') ) { // HIDE
             $('#msDesc_cont').hide('drop', {direction:'up'}, 'linear', function(){
                 $('#msDesc_cont').removeClass('open');
-                
-                if(!$('#left_header').hasClass('menuClosed') && 
-                    !magnifierON && 
+
+                if(!$('#left_header').hasClass('menuClosed') &&
+                    !magnifierON &&
                     !thumbContOpen){
                     $('#msDesc_cont').addClass('alignedBottom');
                     // $("#image_tool").show();
@@ -388,16 +392,16 @@ function bindMsDescBtnClick() {
                 }
 
                 if (magnifierON && !thumbContOpen) {
-                    $("#switchMag").addClass('active'); 
+                    $("#switchMag").addClass('active');
                 }
 
                 if (ITLon && !thumbContOpen) {
-                    $("#switchITL").addClass('active');     
+                    $("#switchITL").addClass('active');
                 }
             });
         } else { // SHOW
             $('#msDesc_cont').show('drop', {direction:'up'}, 'linear', function(){
-                $('#msDesc_cont').addClass('open'); 
+                $('#msDesc_cont').addClass('open');
                 // $("#image_tool > *").show();
             });
             if($('#left_header').hasClass('menuClosed') || magnifierON || thumbContOpen) {

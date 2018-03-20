@@ -1,3 +1,26 @@
+/**
+ * Interface Control jQuery
+ * Functions Handling Feature to toggle Verses/Prose mode on text
+ * Version 0.3 (201601)
+ *
+ * Copyright (C) 2013-2017 the EVT Development Team.
+ *
+ * EVT 1 is free software: you can redistribute it
+ * and/or modify it under the terms of the
+ * GNU General Public License version 2
+ * available in the LICENSE file (or see <http://www.gnu.org/licenses/>).
+ *
+ * EVT 1 is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU General Public License for more details.
+ *
+ * @short-term Rocco Russo - RR
+ * (added functions for verses/prose mode feature)
+ * @in 2017/18
+ *
+ **/
+
 //function to search in which position is first line number multiple of 5
 function searchFiveMultiples(v) {
     var i = 0;

@@ -4,27 +4,30 @@
  * Version 0.3 (201601)
  *
  * Copyright (C) 2013-2017 the EVT Development Team.
- * 
- * EVT 1 is free software: you can redistribute it 
- * and/or modify it under the terms of the 
+ *
+ * EVT 1 is free software: you can redistribute it
+ * and/or modify it under the terms of the
  * GNU General Public License version 2
  * available in the LICENSE file (or see <http://www.gnu.org/licenses/>).
- * 
- * EVT 1 is distributed in the hope that it will be useful, 
- * but WITHOUT ANY WARRANTY; without even the implied 
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
+ *
+ * EVT 1 is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU General Public License for more details.
  *
- * 
- * @author RafMas 
+ *
+ * @author RafMas
  * @since 2012 @to 2015
- * 
+ *
  * @author Julia Kenny - JK
- * @from 2012 @to 2014  
+ * @from 2012 @to 2014
  *
  * @author ChiaraDipi - CDP
- * @since 2013  
+ * @since 2013
  *
+ * @short-term Greta Musu - GM
+ * (added functions for global navigation bar and support for Viscoll)
+ * @in 2017/18
  **/
 
 /*= OPEN IMAGE/TEXT VIEW MODE =*/
@@ -50,7 +53,7 @@ function openTxtImgMode(){
     }
     var ppSelector = $('#span_pp_select'),
         ttSelector = $('#span_tt_select');
-    updateHash(ttSelector.find('.label_selected').attr('data-value'), 
+    updateHash(ttSelector.find('.label_selected').attr('data-value'),
                ppSelector.find('.label_selected').attr('data-value'), "");
 
     var viscollActive = $('#viscoll_iframe').is(":visible");
@@ -79,7 +82,7 @@ function openTxtImgMode(){
     if ( $('#main_left_frame').find('#regesto_cont') ){
         var current_font_size;
         if ( $('#text_cont').attr('data-font-size') && $('#text_cont').attr('data-font-size') != '') {
-            current_font_size = parseFloat($('#text_cont').attr('data-font-size')); 
+            current_font_size = parseFloat($('#text_cont').attr('data-font-size'));
         } else {
             current_font_size = parseFloat($('#text_cont').css('font-size'));
         }
@@ -92,9 +95,9 @@ function openTxtImgMode(){
             .attr('data-font-size', current_font_size)
             .detach()
             .insertAfter("#right_header")
-        ;   
+        ;
     }
-    
+
     if ( $('#switch_msDesc').hasClass('active') ) {
         $("#msDesc_cont").show();
     }
@@ -121,9 +124,9 @@ function openTxtImgMode(){
             }
         }
     }
-    
+
     $("#span_dd_select").hide();
-    
+
     // Risistemo gli eventuali selettori spostati precedentemente
     var rightMenu = $("#right_menu");
     if ( $("#left_menu").find("#span_pp_select").length == 0 && ppSelector.hasClass('left_menu')) {
@@ -146,7 +149,7 @@ function openTxtImgMode(){
     }
 
     if ( !ttSelector.is(':visible') ){
-        ttSelector.show();    
+        ttSelector.show();
     }
     if ( !ppSelector.is(':visible') ) {
         ppSelector.show();
@@ -162,7 +165,7 @@ function openTxtImgMode(){
         document.getElementById("image_cont").style.display = "block";
         document.getElementById("image_menu").style.display = "inline";
         document.getElementById("image_elem").style.display = "block";
-        
+
         setTimeout(function() {
             $('#zoom_fit').trigger('click');
         }, 42);
@@ -175,9 +178,9 @@ function openTxtImgMode(){
     $('#switchHS').show();
 
     $('#text_tool-add').hide().addClass('hidden');
-    
+
     $('#search_cont-add').hide();
-    
+
     var insideRightArrow = $('#inside_right_arrow'),
         insideLeftArrow = $('#inside_left_arrow');
     if ( insideLeftArrow.length > 0 || insideRightArrow.length > 0 ) {
@@ -188,7 +191,7 @@ function openTxtImgMode(){
                     navDoc("left");
                 }
             });
-        
+
         insideRightArrow
             .unbind('click')
             .click(function(){
@@ -198,14 +201,14 @@ function openTxtImgMode(){
             });
     }
 
-    
+
     $('#right_header.menuClosed').hide();
-    
+
     //$('#thumb_elem').show();
     $('#zvalint').show();
 
     fitFrame();
-    
+
     $('#header_collapse').animate({
         left: "50%",
         marginLeft: "-10px"
@@ -223,7 +226,7 @@ function openTxtImgMode(){
             InitializeHS();
         }
     }/*Add by JK for HS*/
-     
+
     $('.go-full-left.onWhite').removeClass('onWhite');
 
     $('#span_pp_select-add, #span_tt_select-add').remove();
@@ -248,13 +251,13 @@ function openTxtTxtMode() {
     }
     var ppSelector = $('#span_pp_select'),
         ttSelector = $('#span_tt_select');
-    updateHash(ttSelector.find('.label_selected').attr('data-value'), 
+    updateHash(ttSelector.find('.label_selected').attr('data-value'),
                ppSelector.find('.label_selected').attr('data-value'), "");
 
     var main_text_edition, first_new_edition, second_new_edition, noMenu_height;
     UnInitialize();//Add by JK for ITL
     UnInitializeHS();//Add by JK for HS
-    
+
     if ($('#viscoll_iframe').is(":visible")) { // Se passo a txt-txt mentre ero su viscoll
         $('#viscoll').removeClass('active');
         $('iframe').hide();
@@ -273,9 +276,9 @@ function openTxtTxtMode() {
         .addClass("current_mode")
         .siblings()
             .removeClass("current_mode");
-    
+
     createSliderTxtTxt();
-    
+
     // Nascondo menu, pulsanti e selettori relativi alle immagini /bookreader
     $("#image_menu, #mag, #image_cont, #msDesc_cont, #span_dd_select").hide();
 
@@ -286,18 +289,18 @@ function openTxtTxtMode() {
         insideLeftArrow.show();
         insideRightArrow.show();
     }
-    
+
     // GESTIONE SELETTORI PAGINE E DOCUMENTO
-    
+
     $('#span_pp_select:not(:visible)').show();
-    
+
     $('#span_tt_select:not(:visible)').show();
 
     // GESTIONE MENU STRUMENTI TESTO BOX SINISTRO
     $('#text_tool-add:not(.menuClosed)').show();
     $('#text_tool-add').removeClass('hidden');
 
-    // Se i menu erano stati chiusi in modalità bookreader, 
+    // Se i menu erano stati chiusi in modalità bookreader,
     // chiudo quello di destra...che magari era rimasto aperto.
     $('#right_header.menuClosed').hide();
     var hiddenRightFrame = $("#main_right_frame:not(:visible)");
@@ -329,7 +332,7 @@ function openTxtTxtMode() {
         });
     });
     // - fine gestione passaggio bookreader --> txttxt
-    
+
     // Clono il contenuto testuale del box di destra, nel box di sinistra
     // aggiungendo "-add" agli identificativi degli elementi principali
     $('#text_cont')
@@ -406,7 +409,7 @@ function openTxtTxtMode() {
         //     $('#switchReg').trigger('click').addClass('active');
         // }
         //$('#regesto_cont').hide('drop',  {direction: 'up'}, 'linear');
-        
+
         // ...nascondo il pulsante del Regesto dal menu di sinistra e il toggle in fondo al regesto di sinistra
         $('#switchReg-add').hide();
 
@@ -417,7 +420,7 @@ function openTxtTxtMode() {
                 .attr('data-value', 'regesto')
                 .text('Regesto')
                 .trigger('change');
-        
+
         // Sposto il selettore dei testi a sinistra
         // if ( $('#left_menu').find('#span_tt_select').length == 0 ){
         //  $('#span_tt_select').detach().prependTo('#left_menu').css({'display':'inline-block'});
@@ -429,7 +432,7 @@ function openTxtTxtMode() {
 
         //$('#inside_left_arrow, #inside_right_arrow').hide();
         //$('#inside_left_arrow-add, #inside_right_arrow-add').show();
-    } 
+    }
     else {
         $('#span_ee_select-add')
             .css({display: "inline-block"})
@@ -438,7 +441,7 @@ function openTxtTxtMode() {
         //$("#span_ee_select-add .option_container .option[data-value='translation']:first").trigger('click');
       	$("#span_ee_select .option_container .option[data-value='critical']:first").trigger('click');
         $("#span_ee_select-add .option_container .option[data-value!='"+current_right_edition+"']:first").trigger('click');
-        // ADD BY FS 
+        // ADD BY FS
         // Imposto i valori di default per la modalità txtxtx
 
 
@@ -473,9 +476,9 @@ function openTxtTxtMode() {
         left: "50%",
         marginLeft: "-10px"
     });
-    
+
     $('.go-full-right:not(:visible)').show();
-    
+
     if($('#left_header').hasClass('menuClosed')){
         noMenu_height = $('#image_cont').height();
         $('#text_cont-add').css({
@@ -489,7 +492,7 @@ function openTxtTxtMode() {
     }
     var mainRightFrame = $('#main_right_frame');
     var lineNwidth = mainRightFrame.find('.dipl-lineN:last, .interp-lineN:last, .tdipl-lineN:last, .trad-lineN:last').outerWidth();
-    var textInnerWidt = mainRightFrame.find("div#text_cont").innerWidth()*85/100;    
+    var textInnerWidt = mainRightFrame.find("div#text_cont").innerWidth()*85/100;
     $('#main_left_frame').find('.dipl-left, .interp-left, .trad-left').each(function(){
         $(this).css({
             'max-width': (textInnerWidt-lineNwidth-43)+'px'
@@ -520,7 +523,7 @@ function openBookreaderMode(){
             $('#span_dd_select.like_select div.main_dd_select div.option_container div.option').removeClass('ui-state-disabled').bind('click', bindDDselectClick());
         }
     }
-    
+
     var thumbsBtn = $("#thumb_elem");
     if (thumbsBtn) {
         thumbsBtn.removeClass("disabled");
@@ -533,7 +536,7 @@ function openBookreaderMode(){
     if (!$('#msDesc_cont').is(':visible')) {
         $('#switch_msDesc').removeClass('active');
     }
-    
+
     if ( $('#search_link-add').hasClass('active') ) {
         closeSearchBox(0, '-add');
     }
@@ -547,11 +550,11 @@ function openBookreaderMode(){
     $('#span_pp_select, #span_tt_select').hide();
 
     if ( $('#main_left_frame').find('#regesto_cont') ){
-        $('#regesto_cont').hide();  
+        $('#regesto_cont').hide();
     }
     $("#switchReg-add").hide();
     $('#text_tool-add').hide().addClass('hidden');
-    
+
     var ddSelector = $('#span_dd_select');
 
     $("#right_menu").hide();
@@ -581,7 +584,7 @@ function openBookreaderMode(){
     $("#mag").show();
     $('#switchITL').hide();
     $('#switchHS').hide();
-    
+
     $('#header_collapse').animate({
         left: "100%",
         marginLeft: "-30px"
@@ -601,10 +604,10 @@ function openTxtSingleMode(){
         borderLeftWidth: '0px',
         borderRightWidth: '0px'
     }, function(){
-        $("#text_cont-add").remove(); 
+        $("#text_cont-add").remove();
     });
     $('#header_collapse').animate({
-        left: '15px' 
+        left: '15px'
     });
 }
 /*= MOSTRA VIRTUALE VIEW MODE =*/
@@ -630,14 +633,14 @@ function bindViewModesBtnsClick() {
             openTxtTxtMode();
         }
     });
-    
+
     // TOGGLE BOOKREADER MODE VIEW
     $("#imgd_link").click(function(){
         if(!$(this).hasClass("current_mode")){
             openBookreaderMode();
         }
     });
-    
+
     // TOGGLE TXT SINGLE MODE VIEW
     $("#txt_single").click(function(){
         if(!$(this).hasClass("current_mode")){

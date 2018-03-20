@@ -1,28 +1,28 @@
 /**
  * Interface Control jQuery
  * Version 0.3 (201601)
- * 
+ *
  * Copyright (C) 2013-2017 the EVT Development Team.
- * 
- * EVT 1 is free software: you can redistribute it 
- * and/or modify it under the terms of the 
+ *
+ * EVT 1 is free software: you can redistribute it
+ * and/or modify it under the terms of the
  * GNU General Public License version 2
  * available in the LICENSE file (or see <http://www.gnu.org/licenses/>).
- * 
- * EVT 1 is distributed in the hope that it will be useful, 
- * but WITHOUT ANY WARRANTY; without even the implied 
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
+ *
+ * EVT 1 is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU General Public License for more details.
- * 
- * 
- * @author RafMas 
+ *
+ *
+ * @author RafMas
  * @since 2012
- * 
+ *
  * @author Julia Kenny - JK
- * @from 2012 @to 2014	
+ * @from 2012 @to 2014
  *
  * @author ChiaraDipi - CDP
- * @since 2013	
+ * @since 2013
  *
  * @short-term coauthor Luca Sarri – LS
  * (added and modified plugin for different languages)
@@ -31,10 +31,22 @@
  * @short-term Alessandro Barsi – AB
  * (added functions for manuscript, text and project info)
  * @in 2015
- * 
+ *
  * @short-term Ilaria Tiezzi -IT
  * (added functions for project info)
  * @in 2016
+ *
+ * @short-term Greta Musu - GM
+ * (added functions for global navigation bar and support for Viscoll)
+ * @in 2017/18
+ *
+ * @short-term Rocco Russo - RR
+ * (added functions for verses/prose mode feature)
+ * @in 2017/18
+ *
+ * @short-term Chiara De Martin - CDM
+ * (added support for chronological index of documents)
+ * @in 2017/18
  **/
 
 /*jslint browser: true*/
@@ -46,7 +58,7 @@ var first_pp, last_pp;
 var first_dd, last_dd;
 var groupingPagesByDoc, optionTooltipInPages;
 var image_ext;
-var arrayPages = []; 
+var arrayPages = [];
 
 $(function() {
 	image_ext = $('#global_wrapper').attr('data-image-extension') || 'jpg';
@@ -75,7 +87,7 @@ $(function() {
 		url: "data/output_data/structure.xml",
 		dataType: "xml",
 		success: function(xml) {
-			
+
 			/* =================== */
 			/* LOAD EDITION LEVELS */
 			$(xml).find('editions edition').each(function(){
@@ -88,7 +100,7 @@ $(function() {
 						.text(current_id.toUpperCase())
 				);
 			});
-			
+
 			// Se ho solo un livello di edizioni e non ho il regesto il pulsante TXT-TXT non serve più
 			if( $(xml).find('editions edition').length <= 1 && $(xml).find('regesto').length < 1){
 				$('#txttxt_link').remove();
@@ -96,7 +108,7 @@ $(function() {
 				$('div.botleftconcave').css('width', '176px');
 			} else if ( $(xml).find('editions edition').length > 1 ) {
 				$('#span_ee_select, #span_ee_select-add').removeClass('hidden');
-			} 
+			}
 			// Se ho il regesto e un solo livello di edizione
 			if ( $(xml).find('regesto').length > 0 && $(xml).find('editions edition').length == 1 ) {
 				// Rimuovo i pulsanti dal menu inferiore perché inutili
@@ -116,8 +128,8 @@ $(function() {
 				.attr("data-value", $('.main_ee_select .option_container div:first').attr('data-value'))
 				.trigger('change');
 
-			// ADD BY FS 	
-			// Se ho più di un'edizione e non è attiva la modalità txttxt non visualizzare l'opzione per la selezione dell'edizione di traduzione 
+			// ADD BY FS
+			// Se ho più di un'edizione e non è attiva la modalità txttxt non visualizzare l'opzione per la selezione dell'edizione di traduzione
 			// => per EVT in generale si è deciso di permettere visualizzare l'opzione per la selezione della traduzione in ogni caso
 			// if( (!$('#txttxt_link').hasClass('current_mode')) && $(xml).find('editions edition').length > 0 ) {
 			// 	$("#span_ee_select .option_container .option[data-value='translation']").hide();
@@ -126,12 +138,12 @@ $(function() {
 
 			/* ==/ LOAD EDITION LEVELS */
 			/* ======================= */
-			
+
 			/* =============== */
 			/* LOAD PAGE PAIRS */
 			first_pp = $(xml).find('pages pair pb').first().text();
 			last_pp = $(xml).find('pages pair pb').last().text();
-			
+
 			var f_pair, l_pair;
 			f_pair = $(xml).find('pages pair').first().children('pb').eq(0).text();
 			l_pair = $(xml).find('pages pair').first().children('pb').eq(1).text()
@@ -162,14 +174,14 @@ $(function() {
 
 				first_page_d = $(this).children('pb').eq(0).text();
 				first_label_d = $(this).children('pb').eq(0).attr("n") != "" ? $(this).children('pb').eq(0).attr("n") : first_page_d;
-				
+
 				if (first_page_d.indexOf('-front') < 0){
 					second_page_d = $(this).children('pb').eq(1).text();
 					second_label_d = $(this).children('pb').eq(1).attr("n") != "" ? $(this).children('pb').eq(1).attr("n") : second_page_d;
-					
+
 					current_id = "";
 					current_label = "";
-					
+
 					first_text_ref = $(xml)
 						.find('textpage text')
 						.find('pb:contains("'+first_page_d+'")')
@@ -275,13 +287,13 @@ $(function() {
 					var page_current_id = $(this).text();
 					var pageInFront = page_current_id.indexOf('-front') >= 0
 					page_current_id = page_current_id.replace('-front', '')
-					
+
     				var page_current_label = $(this).attr("n");
 					arrayPages.push({
 						id: page_current_id,
 						label: page_current_label,
 						firstDoc: current_id });  // Inserisco le pagine singole nell'array
-    				if( ( groupingPagesByDoc && $(".main_pp_select [data-doc-group='"+current_id+"'] .option[data-value='"+page_current_id+"']").length <= 0)|| 
+    				if( ( groupingPagesByDoc && $(".main_pp_select [data-doc-group='"+current_id+"'] .option[data-value='"+page_current_id+"']").length <= 0)||
     					(!groupingPagesByDoc && $(".main_pp_select .option_container .option[data-value='"+page_current_id+"']").length <= 0)) {
     					var newOption = $('<div/>')
 				    						.attr("data-value", page_current_id)
@@ -302,14 +314,14 @@ $(function() {
 		    					.addClass('thumb_single')
 		    					.attr('data-value', page_current_id)
 		    					.attr('data-first-doc', current_id);
-		    			
+
 		    			$('<img />')
 		    				.addClass('thumb_single_img')
 		    				.attr("src", "images/empty-image.jpg")
 		    				.attr("data-state", "to-load")
 		    				.attr('data-src', 'data/input_data/images/single/'+page_current_id+'_small.'+image_ext)
 		    				.appendTo(figure);
-		    			
+
 		    			$('<figcaption />')
 		    				.text(page_current_label)
 		    				.appendTo(figure);
@@ -325,20 +337,20 @@ $(function() {
     				}
 				});
 			});
-			
+
 			createBrnav(arrayPages); // Invoca la funzione per creare la barra al primo caricamento dell'index
-			
+
 			$('.main_tt_select .option_container div.option:first-child').addClass('selected');
 			$('.main_tt_select .label_selected')
 				.text($('.main_tt_select .option_container div.option:first').text())
 				.attr("data-value", $('.main_tt_select .option_container div.option:first').attr('data-value'));
-			
+
 			$('.main_pp_select .option_container div.option:first-child').addClass('selected');
 			$('.main_pp_select .label_selected')
 				.text($('.main_pp_select .option_container div.option:first').text())
 				.attr("data-value", $('.main_pp_select .option_container .option:first').attr("data-value"))
 				.attr("data-first-doc", $('.main_pp_select .option_container .option:first').attr("data-first-doc"));
-			
+
 			/* ==/ LOAD TEXTS AND PAGES */
 			/* ======================== */
 
@@ -354,7 +366,7 @@ $(function() {
 					filterListElements(this);
 				});
 
-				var listContainer = $('#lists_cont');				
+				var listContainer = $('#lists_cont');
 				$(xml).find('liste').children().each(function(){
 					if ($(this).attr('active') == '1'){
 						var listName, listLabel;
@@ -379,7 +391,7 @@ $(function() {
 						$('.list_filter').first().trigger('click');
 
 						var listElement = $('#list_'+listName);
-						listElement.load("data/output_data/liste/"+listName+".html div", function(){ 
+						listElement.load("data/output_data/liste/"+listName+".html div", function(){
 
 							if ( listElement.find('li').length == 0 ) {
 								listElement.remove();
@@ -390,8 +402,8 @@ $(function() {
 									$('#list_link').remove();
 								}
 							} else {
-								$('[id]').each(function(){ 
-				                  $('[id="' + this.id + '"]:gt(0)').remove(); 
+								$('[id]').each(function(){
+				                  $('[id="' + this.id + '"]:gt(0)').remove();
 				              	});
 								listElement
 									.find('.list_element').find('.toggle_list_element, .entity_name').click(function(){
@@ -432,13 +444,13 @@ $(function() {
 			/* Gestione eventi per elementi creati in base alla lettura del file structure.xml */
 
 			/* Lanciato dal click sulla thumbnail */
-			/* Recupera l'identificativo della pagina di sx e di quella di dx dall'hash se impostato 
+			/* Recupera l'identificativo della pagina di sx e di quella di dx dall'hash se impostato
 			   (altrimenti dal selettore delle pagine singole)
 			   e aggiorna l'hash che poi provocherà il caricamento della nuova immagine */
 			$(".main_dd_select").on('imgd_thumb',function(){
 				var hash_parts, temp_pp, temp_tt, first_page, second_page, newhash;
 				var first_page_lab, second_page_lab, newlab;
-				
+
 				hash_parts = new Array();
 				hash_parts = location.hash.substr(1).split('&');
 				if ( hash_parts != "" ) {
@@ -447,7 +459,7 @@ $(function() {
 					        temp_pp = hash_parts[i].substr(5);
 					    }
 					    else if(hash_parts[i].indexOf("doc") === 0) {
-					     	temp_tt = hash_parts[i].substr(4);   
+					     	temp_tt = hash_parts[i].substr(4);
 					    }
 					}
 				} else {
@@ -490,7 +502,7 @@ $(function() {
 					.attr("data-first-doc", temp_tt);
 				window.location.hash = "doc="+temp_tt+"&page="+newhash;
 			});
-			
+
 			/* Lanciato sul click della modalità bookreader */
 			/* Recupera l'identificativo della pagina di sx e di quella di dx dal selettore delle pagine singole
 			   e aggiorna l'hash che poi provocherà il caricamento della nuova immagine */
@@ -510,7 +522,7 @@ $(function() {
 						.children()
 							.eq(0).attr("n");
 				first_page_lab = first_page_lab != "" ? first_page_lab : first_page;
-				
+
 				// second page of bookreader
 				second_page = $(xml)
 					.find('pair:contains('+temp_pp+')')
@@ -521,7 +533,7 @@ $(function() {
 						.children()
 							.eq(1).attr("n");
 				second_page_lab = second_page_lab != "" ? second_page_lab : second_page;
-				
+
 				if (typeof(second_page_lab) != 'undefined'){
 					newhash = first_page+"+"+second_page;
 				} else {
@@ -533,16 +545,16 @@ $(function() {
 					.attr("data-value", newhash)
 					.attr("data-first-doc", temp_tt)
 				;
-				
+
 				updateHash(temp_tt, newhash);
 				$(window).hashchange();
 			});
 
 			/* APERTURA TOOLTIP PAGE */
-			/* Recupera gli identificativi della pagina selezionata e del primo documento in essa contenuto. 
-			   Ricerca gli altri testi che iniziano sulla stessa pagina 
+			/* Recupera gli identificativi della pagina selezionata e del primo documento in essa contenuto.
+			   Ricerca gli altri testi che iniziano sulla stessa pagina
 			   e aggiorna il contenuto del tooltip con tale elenco. */
-			
+
 			if ( optionTooltipInPages ) {
 				$('<span/>')
 					.addClass('option_tooltip')
@@ -550,11 +562,11 @@ $(function() {
 
 				$('<span/>')
 					.addClass('option_tooltip_dd')
-					.prependTo('.main_dd_select');			
-				
+					.prependTo('.main_dd_select');
+
 				$(".main_pp_select .option_container .option").hover(function(e) {
 					var first_doc, pp_val, tt_val, temp_tt, docs;
-					
+
 					pp_val = $(this).attr('data-value');
 					tt_val = $(this).attr('data-first-doc');
 					docs = "";
@@ -567,7 +579,7 @@ $(function() {
 								docs += "<span>"+temp_tt+"</span>";
 							}
 						});
-						if ($(this).parents('.main_pp_select').find(".option[data-value='"+pp_val+"']").length == 1) {	
+						if ($(this).parents('.main_pp_select').find(".option[data-value='"+pp_val+"']").length == 1) {
 							docs = '<span lang="'+window.lang.currentLang+'">'+window.lang.convert('DOCUMENT', window.lang.currentLang)+'</span>'+docs;
 						} else {
 							docs = '<span lang="'+window.lang.currentLang+'">'+window.lang.convert('DOCUMENTS', window.lang.currentLang)+'</span>'+docs;
@@ -580,7 +592,7 @@ $(function() {
 								docs += "<span>"+temp_tt+"</span>";
 							}
 						});
-						if (docs == "") {	
+						if (docs == "") {
 							docs = '<span lang="'+window.lang.currentLang+'">'+window.lang.convert('DOCUMENT', window.lang.currentLang)+'</span>'+first_doc;
 						} else {
 							docs = '<span lang="'+window.lang.currentLang+'">'+window.lang.convert('DOCUMENTS', window.lang.currentLang)+'</span>'+first_doc+docs;
@@ -601,7 +613,7 @@ $(function() {
 					$(".main_dd_select .option_container .option").hover(function(e) {
 						var first_doc, pp_vals, tt_vals, temp_tt, docs;
 						pp_vals = $(this).attr('data-value').split('+');
-						
+
 						tt_vals = [];
 
 						for(var i = 0; i < pp_vals.length; i++) {
@@ -615,10 +627,10 @@ $(function() {
 									}
 									// docs += "<span>"+temp_tt+"</span>";
 								});
-							} 
+							}
 						}
 
-						if ( tt_vals.length == 1 ) {	
+						if ( tt_vals.length == 1 ) {
 							docs = '<span lang="'+window.lang.currentLang+'">'+window.lang.convert('DOCUMENT', window.lang.currentLang)+'</span>'+tt_vals[0];
 						} else {
 							docs = '<span lang="'+window.lang.currentLang+'">'+window.lang.convert('DOCUMENTS', window.lang.currentLang)+'</span>';
@@ -649,36 +661,36 @@ $(function() {
 
 			/* EDITION LEVEL SELECT  CLICK / SWITCH ON/OFF REGESTO */
 			bindEEselectClick();
-			
+
 			/* DOUBLE PAGE SELECT CLICK */
 			bindDDselectClick();
 
 			/* FILTER SELECT CLICK */
 			bindFilterOptionClick();
-			
+
 			/* BIND LIST TOOL SELECT CLICK */
 			bindDocListSortSelectClick();
 
 			/* GENERIC SELECT CLICK */
 			bindOptionClick();
-			
+
 			/* GENERIC SELECT HOVER */
 			bindOptionHover();
 
 			$('.like_select').each(function(){
 				updateSelectLength(this);
 			});
-			
+
 			/* BIND GLOBAL WRAPPER MOUSE DOWN EVENT */
 			bindGlobarWrapperMouseDown();
 
 			/* CLICK SU SINGOLA THUMBNAIL */
 			bindThumbClick();
-			
+
 			/* ****************** */
 			/* Integrazione by AB */
 			/* ****************** */
-			
+
 			/* ====================== */
 			/* MANUSCRIPT DESCRIPTION */
 			if (($(xml).find('msDesc').length > 0) && ($(xml).find('msDesc').attr('active')==1)){
@@ -697,7 +709,7 @@ $(function() {
 			        resizeGlobalTopBar();
 			    });
 			}
-			
+
 			/* ====================== */
 			/* TRANSLATE */
 			if (($(xml).find('trad').attr('active')==1)){
@@ -719,28 +731,28 @@ $(function() {
 			    	if(response != undefined) {
 				    	/* Integration by LS */
 				        if ($("[lang!='"+window.lang.currentLang+"']").length > 0) {
-				        	window.lang.run();  
+				        	window.lang.run();
 				        }
 				        /* /end Integration by LS */
-				        
+
 				         /* Integration by IT */
 					    $(document).ready(function() {
 	                    	$("#headerInfo_nav_tabs").detach().insertBefore('#headerInfo_content');
-	                        // $(".box_tab").hide(); 
-	                        // $("#headerInfo_nav_tabs li:first").addClass("active").show(); 
-	                        // $(".box_tab:first").show(); 
+	                        // $(".box_tab").hide();
+	                        // $("#headerInfo_nav_tabs li:first").addClass("active").show();
+	                        // $(".box_tab:first").show();
 
 	                        $("#headerInfo_nav_tabs li").click(function() {
 	                     		var activeTabTrigger = $("#headerInfo_nav_tabs li.active");
 	                     		var activeTab = $(activeTabTrigger.attr('data-tab'));
 	                     		activeTab.hide();
-	                            // $("#headerInfo_nav_tabs li").removeClass("active"); 
+	                            // $("#headerInfo_nav_tabs li").removeClass("active");
 	                            activeTabTrigger.removeClass('active');
-	                            $(this).addClass("active"); 
-	                            // $(".box_tab").hide(); 
-	                     
+	                            $(this).addClass("active");
+	                            // $(".box_tab").hide();
+
 	                            var activeTab = $(this).find("a").attr("href");
-	                            $($(this).attr('data-tab')).show(); 
+	                            $($(this).attr('data-tab')).show();
 	                            // return false;
 	                        });
 	                       	$("#headerInfo_nav_tabs li:first").trigger('click');
@@ -750,14 +762,14 @@ $(function() {
 	                	$('#info_link').remove();
 	                }
 			    });
-			    
+
 			    bindTextInfoBtnClick();
 
 			    bindHeaderInfoBtnClick();
 
 			    resizeGlobalTopBar();
 			}
-			
+
 			// GM
 			if( $(xml).find('idno')) { // Se l'elemento xml idno esiste
 				var shelfmark = $(xml).find('idno').text();  // La variabile shelfmark prende l'elementto text dell'elemento idno
@@ -765,7 +777,7 @@ $(function() {
 				$('<div />')  // Creo un div con id uguale a shelfmark
 					.attr('id', shelfmark)
 					.addClass('viscoll_idno')
-					.appendTo('#viscoll');	
+					.appendTo('#viscoll');
 			}
 
 			/* *********************** */
@@ -793,7 +805,7 @@ $(function() {
 						    	}
 						    }
 						    else if(hash_parts[i].indexOf("doc") === 0) { //begins with "doc"
-						     	current_doc = hash_parts[i].substr(4);   
+						     	current_doc = hash_parts[i].substr(4);
 						    }
 						}
 					} else {
@@ -801,24 +813,24 @@ $(function() {
 						current_doc = $('.main_pp_select .option_container div.option:first').attr('data-first-doc');
 					}
 
-					if ( $("#regesto_cont").length > 0 ) { 
+					if ( $("#regesto_cont").length > 0 ) {
 						updateRegestoContent(current_doc);
  					}
 
- 					if ( $("#front_cont").length > 0 ) { 
+ 					if ( $("#front_cont").length > 0 ) {
 						updateFrontContent(current_doc);
  					}
 
 					//current_page = hash.replace( /^#/, '' );
 					//var checkpp = $(xml).find('text pb:contains('+current_page+')').text();
 					checkpp = $(xml).find('pages pb:contains('+current_page+')').text();
-					
+
 					pp_lab = $(xml).find('pages pb:contains('+current_page+')').attr("n") != "" ? $(xml).find('pages pb:contains('+current_page+')').attr("n") : $(xml).find('pages pb:contains('+current_page+')').text();
 
 					dd_page = current_page.replace(/\./g, '\\.');
 
 					temp_search = dd_page;
-					
+
 					checkdd = $(".main_dd_select").find(".option[data-value*='"+temp_search+"']"); // .attr("id").substr(6)
 
 					$(".main_left_arrow").removeClass("arrow_left_disable");
@@ -831,7 +843,7 @@ $(function() {
 						$(".main_right_arrow").addClass("arrow_right_disable");
 					}
 					current_doc_el = $("#span_tt_select .option[data-value='"+current_doc+"']");
-					
+
 					if ( $('#inside_left_arrow').length > 0 || $('#inside_right_arrow').length > 0) {
 						var prefixText = window.lang.convert('GO_TO_TEXT', window.lang.currentLang);
 						if (current_doc_el.prev().text()  != "" ) {
@@ -839,14 +851,14 @@ $(function() {
 						} else {
 							$('#inside_left_arrow').attr('title', '');
 						}
-					
+
 						if (current_doc_el.next().text() != ""){
 							$('#inside_right_arrow').attr('title', prefixText+' '+current_doc_el.next().text());
 						} else {
 							$('#inside_right_arrow').attr('title', '');
 						}
 					}
-					
+
 					if( (checkpp !== "") && ( !$("#imgd_link").hasClass("current_mode")) ) {
 						UnInitialize(); //Add by JK for ITL
 						UnInitializeHS(); //Add by JK for HS
@@ -857,10 +869,10 @@ $(function() {
 
 						if ( current_page != $('#text_elem').attr('data-page') ){
 							// necessario per la navigazione per documenti in una stessa pagina
-							gotopage(current_page, pp_lab, "none"); 
+							gotopage(current_page, pp_lab, "none");
 						}
 						//window.location.hash = "doc="+current_doc+"&page="+current_page;
-						//chooseZoomMag(); // Add by JK for Mag				
+						//chooseZoomMag(); // Add by JK for Mag
 					} else {
 						$('#span_dd_select .label_selected').trigger('change');
 						$("#mag_image_elem").empty(); // Add by JK for Mag
@@ -877,15 +889,15 @@ $(function() {
 							$('#inside_left_arrow, #inside_left_arrow-add').addClass('disabled');
 						} else {
 							$('#inside_left_arrow, #inside_left_arrow-add').removeClass('disabled');
-						}	
+						}
 						if ($('#span_tt_select .option_container .option:last-child').hasClass('selected')){
 							$('#inside_right_arrow, #inside_right_arrow-add').addClass('disabled');
 						} else {
 							$('#inside_right_arrow, #inside_right_arrow-add').removeClass('disabled');
 						}
 					}
-					if( $('#txt_single').hasClass("current_mode")) { 
-						$('#header_collapse').css("left",'15px'); 
+					if( $('#txt_single').hasClass("current_mode")) {
+						$('#header_collapse').css("left",'15px');
 					}
 					// IT: Cambia il titolo della pagina in base all'hash
 					// document.title = 'The hash is ' + ( hash.replace( /^#/, '' ) || 'blank' ) + '.';
@@ -904,14 +916,14 @@ $(function() {
 					        first_hash_pp = first_hash_parts[i].substr(5);
 					    	if (first_hash_pp.indexOf("+") > 0) {
 					    		first_hash_pp = first_hash_pp.substr(0, first_hash_pp.indexOf("+"));
-							} 
+							}
 					    } else if(first_hash_parts[i].indexOf("doc") === 0) { //begins with "doc"
-					     	first_hash_doc = first_hash_parts[i].substr(4);   
+					     	first_hash_doc = first_hash_parts[i].substr(4);
 					    }
-					} 
+					}
 					// controllo che i riferimenti a documento e pagina
 					// siano effettivamente relativi all'edizione corrente
-					if ( $("#span_tt_select .option[data-value='"+first_hash_doc+"']").length < 1 || 
+					if ( $("#span_tt_select .option[data-value='"+first_hash_doc+"']").length < 1 ||
 						 $("#span_pp_select .option[data-value='"+first_hash_pp+"']").length < 1 ) {
 						window.location.hash = '';
 					} else {
@@ -919,7 +931,7 @@ $(function() {
 					}
 				} else {
 					// IT: L'evento viene attivato quando cambia l'hash della pagina
-					$(window).hashchange();	
+					$(window).hashchange();
 				}
 			resizeGlobalTopBar();
 		}
@@ -938,7 +950,7 @@ $(function() {
 
 		resizeGlobalTopBar();
 		createSliderTxtImg();
-		
+
 		$('.mainButtons').each(function(){
 			var full_button_width = $(this).outerWidth();
 			$(this).attr('data-full-width', full_button_width);
@@ -950,7 +962,7 @@ $(function() {
 		}
 
 		$(".like_select.filter").each(function(){
-			if ( $(this).find('.option_container .option').length <= 2 ) { 
+			if ( $(this).find('.option_container .option').length <= 2 ) {
 				// ci sono solo gli elementi "Seleziona tutto" e "Pulisci selezione"
 				$(this).remove();
 			}
@@ -968,7 +980,7 @@ $(function() {
 		});
 		/*= TOGGLE SHORTCUTS =*/
 		bindShortcutsBtnClick();
-		
+
 		/*= SELECTORS =*/
 		bindOpenSelectClick();
 
@@ -977,29 +989,29 @@ $(function() {
 
 		/*= Collapse menus =*/
 		bindCollapseMenuBtnClick();
-			
+
 		/*= Internal boxes fullscreen =*/
 		bindInternalFullscreenBtnClick();
-			
+
 		/*= Font size controllers =*/
 		bindFontSizeControllerBtnClick();
-		
+
 		/*= BIBLIOGRAPHY =*/
 		bindBiblioRefClick();
 		bindBiblioBtnClick();
-		
+
 		/*= FRONT MATTER =*/
 		bindToggleFrontBtnClick();
 
 		/*= SEARCH =*/
 		bindSearchBtnsClick();
-		
+
 		/*= ARROWS NAVIGATION =*/
 		bindArrowsBtnsClick();
 
 		/*= LISTS =*/
 		bindListsBtnClick();
-		bindListsSortingOrderBtnClick(); 
+		bindListsSortingOrderBtnClick();
 		bindChronologicalIndex();
 		showOrHideRegesto();
 		bindDocumentLinkChronologicalIndex();
@@ -1025,7 +1037,7 @@ $(function() {
 
 		/*= RESIZE =*/
 		resizeButtonsAndSelects();
-		
+
 		if ($("[id*='toggleVersesProseBtn']")) {
 			initializeProse();
 		}
@@ -1054,7 +1066,7 @@ $(function() {
 			}
 		    return true;
 		}
-	});	
+	});
 });
 
 function setCookie(cname, cvalue, exdays) {
@@ -1062,7 +1074,7 @@ function setCookie(cname, cvalue, exdays) {
     d.setTime(d.getTime() + (exdays*24*60*60*1000));
     var expires = "expires="+d.toUTCString();
     document.cookie = cname + "=" + cvalue + "; " + expires;
-} 
+}
 
 function getCookie(cname) {
     var name = cname + "=";
