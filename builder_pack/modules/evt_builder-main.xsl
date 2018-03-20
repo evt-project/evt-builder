@@ -169,6 +169,27 @@
 					</xsl:element>
 				</xsl:result-document>
 			</xsl:if>
+		</xsl:if>
+		
+		<!-- GM -->
+		<xsl:if test="$viscoll_info">
+			<xsl:result-document method="xml" encoding="UTF-8" href="{$filePrefix}/data/output_data/listImage.xml" indent="yes">
+				<xsl:call-template name="prova"></xsl:call-template>
+			</xsl:result-document>
+			
+			<xsl:result-document method="html" encoding="UTF-8" media-type="text/plain" byte-order-mark="yes" href="{$filePrefix}/data/output_data/viscoll/viscoll-idno.html" indent="yes">
+				<xsl:element name="div">
+					<xsl:attribute name="id">viscoll_idno</xsl:attribute>
+					<xsl:call-template name="idno_process"></xsl:call-template>
+				</xsl:element>
+		</xsl:result-document>
+		</xsl:if>
+		
+		<!-- GM -->
+		<xsl:if test="$viscoll_info">
+			<xsl:result-document method="html" encoding="UTF-8" href="{$filePrefix}/data/output_data/viscoll/viscoll-output.html" indent="yes">
+				<xsl:call-template name="viscoll"></xsl:call-template>  <!-- Chiama il template dell'elemento selezionato -->
+			</xsl:result-document>
 			
 			<xsl:if test="$list_gloss=true()">
 				<xsl:result-document method="html" encoding="UTF-8" media-type="text/plain" byte-order-mark="yes" href="{$filePrefix}/data/output_data/liste/listGloss.html" indent="yes">
@@ -200,6 +221,7 @@
 			</xsl:if>
 
 		</xsl:if>
+		
 		<!-- EN: The index and structure generation are the same for both the parallel and the embedded  -->
 		<!-- IT: La generazione dell'index e della struttura sono uguali sia per la parallel sia per l'embedded -->
 		<xsl:call-template name="index"/>
@@ -739,7 +761,17 @@
 
 	<!--END CHRONOLOGICAL INDEX -->
 
-
+	<xsl:template name="prova">
+		<xsl:apply-templates select="tei:TEI//tei:facsimile" mode="create_imageList"></xsl:apply-templates>	
+	</xsl:template>
+	
+	<!-- GM -->
+	<xsl:template name="idno_process">
+		<xsl:variable name="path" select="doc('../../data/input_data/text/CP.xml')"/>
+			<xsl:apply-templates select="$path" mode="find_idno"></xsl:apply-templates>
+			
+	</xsl:template>
+	
 	<xsl:template match="text()" mode="deleteSpaces">
 		<xsl:choose>
 			<xsl:when test="ancestor::*[@xml:space][1]/@xml:space = 'preserve'">
@@ -1785,4 +1817,5 @@
 			<xsl:apply-templates/>
 		</xsl:element>
 	</xsl:template>
+		
 </xsl:stylesheet>

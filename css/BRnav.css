@@ -1,0 +1,249 @@
+/* CSS per BRnav e altri elementi */
+#BRnav{
+	text-align: center;
+	overflow: visible;
+	margin-top: 30px;
+	position: absolute;	/* Prima era fixed */
+	bottom: 0px;
+	left: 4.5%;
+	width: 91%;
+	max-height: 50px;
+
+	/*box-shadow:0 10px 0px 5px #362D28;*/
+	border-style: solid;
+
+
+	background-color: #362D28;
+	z-index: 9999 !important;
+
+}
+
+#newButton {
+	min-width: 10%;
+	height: 50px;
+	display: block;
+	position: relative;  /* Relativo all'elemento contenitore ("nav") */
+	float: left;  /* Elementi uno dopo l'altro */
+}
+
+#BRnav .mainButtons {
+	height: 28px;
+	width: 28px;
+	min-width: auto;
+	margin: 13px 5px 12px 20%;
+	padding: 0;
+	border: 0;
+	float: left;
+	background-size: 28px 28px;
+	background-repeat: no-repeat;
+	background-position: center;
+	font-size: 20px;
+	display: inline-block;
+	position: relative;
+}
+
+#viscoll {
+	width: 28px;
+	height: 28px;
+	min-width: auto;
+	margin: 13px 0 0px -20%;
+	padding: 0;
+	border: 0;
+	background-image: url(../fonts/icon-visColl.png);
+	background-size: 23px 23px;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-color: #f5ead4;
+	border-radius: 2px;
+	clear: left;
+	cursor: pointer;
+	overflow: hidden;
+	left: 0px;
+	display: inline-block;
+	position: relative;
+
+
+}
+
+#viscoll.active {
+	background-color: #E3C89C;
+}
+
+#viscoll[disabled] {
+    opacity: .7;
+    cursor: default;
+    box-shadow: none !important;
+}
+
+#viscoll:hover {
+	box-shadow: inset 1px 2px 3px rgba(0, 0, 0, 0.7);
+}
+
+.active {
+	background: #E3C89C;
+	color: #4e443c;
+}
+
+/* Contiene lo slider */
+#BRnavpos {
+	min-width: 75%;
+	max-height: 70px;
+	display: block;
+	position: relative;  /* Relativo all'elemento contenitore ("nav") */
+	float: left;
+}
+
+#BRpager {
+	padding-left: 12px;
+	text-align: right;
+    /*position: relative;*/
+    margin: 20px 10px 0 10px;
+    max-height: 11px;
+	background-color: #F5EAD4;
+	border-radius: 10px;
+	box-shadow: inset 0px 1px 1px 0px rgba(155,154,155,0.39);
+}
+
+#BRpager .ui-slider-handle {
+	width: 10px;
+	height: 28px;
+	margin-top: 4px;
+	cursor: pointer;
+}
+
+#BRnavline {
+    position: relative;
+    height: 1px;
+    width: auto;
+    background-color: #000;
+    top: -7px;
+    margin: 0 10px;
+}
+
+.BRnavend {
+    position: absolute;
+    top: -2px;
+    width: 1px;
+    height: 6px;
+    background-color: #000;
+}
+
+#BRnavleft {
+    left: 0;
+}
+
+#BRnavright {
+    right: 0;
+}
+
+/* Contiene i pulsanti */
+#BRpage {
+    max-width: 100px;
+	max-height: 50px;
+    padding-left: 0px;
+	padding-right: 0px;
+	float: right;
+	margin-right: 4.5%;
+}
+
+#BRicon_book_left, #BRicon_book_right {
+    display: block;
+    float: left;
+    width: 30px;
+    height: 28px;
+    padding: 0;
+    margin-top: 12px;
+    vertical-align: middle;
+    border: none;
+    cursor: pointer;
+    background-color: #F5EAD4;
+    /*background-image: url(BRnav-image/BRicons.png);*/
+    background-repeat: no-repeat;
+}
+
+#BRicon_book_left {
+	border-bottom-left-radius: 5px;
+	border-top-left-radius: 5px;
+	margin-left: 10px;
+	border-right: 1px solid #362D28;
+}
+
+#BRicon_book_right {
+	margin-right: 15px;
+	border-bottom-right-radius: 5px;
+	border-top-right-radius: 5px;
+	border-left: 1px solid #362D28;
+}
+
+#BRicon_book_left {background-position:-440px 0;}
+#BRicon_book_left:hover {box-shadow: inset 1px 2px 3px rgba(0, 0, 0, 0.7);}
+#BRicon_book_right {background-position:-520px 0;}
+#BRicon_book_right:hover {box-shadow: inset 1px 2px 3px rgba(0, 0, 0, 0.7);}
+
+.BRnavCntl {
+    background-color: #362D28;
+    position: relative;
+    right: 15px;
+    max-width: 40px;
+    max-height: 40px;
+    cursor: pointer;
+	left: 95.7%;
+	z-index: 100 !important;
+	border-top: 5px;
+	box-shadow: 0px -14px 19px -13px #F5EFE4;
+}
+
+#BRnavCntlBtm {
+    bottom: 25px;
+		color: #F5EFE4;
+    -moz-border-radius-topright: 8px;
+    -webkit-border-top-right-radius: 8px;
+    -moz-border-radius-topleft: 8px;
+    -webkit-border-top-left-radius: 8px;
+	/*box-shadow: 0px -8px 5px #000;*/
+	z-index: 9999 !important;
+
+}
+
+#BRnavCntlBtm .fa {
+	position: relative;
+	bottom: 50px;
+	display: inline-block;
+}
+
+.BRup {
+    background-repeat: no-repeat;
+}
+
+.BRdn {
+    background-repeat: no-repeat;
+}
+
+#BRnavCntlBtm.BRup,#BRnavCntlBtm.BRdn {
+    background-position: 8px 4px;
+}
+
+#BRnavCntlTop.BRup,#BRnavCntlTop.BRdn {
+    background-position: 8px 4px;
+}
+
+/* Contiene il numero della pagina visualizzata */
+#pagenum {
+    position: absolute;
+	width: 100%;
+	height: 12px;
+	text-align: center;
+	padding: 0 0 0 0;
+	font-size: 0.6em;
+	font-family: Junicode, Times, serif;
+	color: #F5EFE4;
+}
+
+#pagenum span {
+    text-align: center;
+    font-style: italic;
+}
+
+.mstitle a {
+	font-size:80%;
+}

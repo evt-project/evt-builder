@@ -652,13 +652,15 @@ function arrow(toward){ //duplicata temporaneamente in jquery.rafmas-keydown
                 
                 if (current_opt.prev().hasClass('option')) {
                     new_pp_opt = current_opt.prev();
+                    moveSlider(current_pp, new_pp_opt);
                 } 
                 // se la pagina corrente e' la prima di un gruppo
                 else if (current_opt.prev().is('span')) {
                     // se il gruppo della pagina corrente non e' il primo gruppo
                     if (current_opt.parent().prev().length > 0 ) {
                         // seleziono l'ultima pagina del gruppo precedente
-                        new_pp_opt = current_opt.parent().prev().find('.option:last')
+                        new_pp_opt = current_opt.parent().prev().find('.option:last');
+                        moveSlider(current_pp, new_pp_opt);
                     }
                 }
             }
@@ -668,11 +670,13 @@ function arrow(toward){ //duplicata temporaneamente in jquery.rafmas-keydown
                 // se la pagina corrente non e' l'ultima di un gruppo
                 if ( current_opt.next().length > 0 && current_opt.next().hasClass('option')) {
                     new_pp_opt = current_opt.next();
+                    moveSlider(current_pp, new_pp_opt);
                 } else {
                     // se il gruppo della pagina corrente non e' l'ultimo
                     if (current_opt.parent().next().length > 0 ) {
                         // seleziono l'ultima pagina del gruppo precedente
-                        new_pp_opt = current_opt.parent().next().find('.option:first')
+                        new_pp_opt = current_opt.parent().next().find('.option:first');
+                        moveSlider(current_pp, new_pp_opt);
                     }   
                 }
             }
@@ -681,9 +685,11 @@ function arrow(toward){ //duplicata temporaneamente in jquery.rafmas-keydown
             current_pp = current_opt.attr("data-value");
             if (toward === "left" && ! $(current_opt).is(":first-child")){
                 new_pp_opt = current_opt.prev();
+                moveSlider(current_pp, new_pp_opt);
             }
             if (toward === "right" && ! $(current_opt).is(":last-child")){
                 new_pp_opt = current_opt.next();
+                moveSlider(current_pp, new_pp_opt);
             }
         }
         if ( new_pp_opt != null ) {
@@ -714,6 +720,23 @@ function arrow(toward){ //duplicata temporaneamente in jquery.rafmas-keydown
         } else {
             updateHash(new_tt_val, new_pp_val, "");
         }
+    }
+}
+
+function moveSlider(current_pp, new_pp_opt) {
+    //console.log(current_pp + new_pp_opt);
+    var val, new_val;
+    var new_pp_opt_val = new_pp_opt.attr("data-value");
+    if(new_pp_opt_val < current_pp) {  // Se il valore della nuova pagina è minore di quella corrente
+        //Va' a sinistra
+        val = $("#BRpager").slider("value");
+        new_val = val -1;
+        $("#BRpager").slider("value", new_val);
+    }else{  // Altrimenti muove lo slider a destra
+        //Va' a destra
+        val = $("#BRpager").slider("value");
+        new_val = val +1;
+        $("#BRpager").slider("value", new_val);
     }
 }
 
@@ -753,12 +776,37 @@ function bindPPselectClick() {
             current_tt_first_page = $(".main_tt_select .option_container .option.selected").attr('data-first-page');
             if(current_tt_first_page === new_pp_val){
                 updateHash(current_tt_val, new_pp_val, "");
+                var current_page = $(".main_pp_select .label_selected").attr("data-value");
+                moveSliderSelector(current_page, new_pp_val);
             } else {
                 updateHash(new_tt_val, new_pp_val, "");
+                var current_page = $(".main_pp_select .label_selected").attr("data-value");
+                moveSliderSelector(current_page, new_pp_val);
             }
             $(this).removeClass('selected');
         }
     });
+}
+
+function moveSliderSelector(current_pp, new_pp_val) {
+    //alert(current_pp + new_pp_val);
+    if(new_pp_val < current_pp) {  // Se il valore della nuova pagina è minore di quella corrente
+        //Va' a sinistra
+        for(i in arrayPages) {
+            if(new_pp_val == arrayPages[i].id) {  // Deve prendere l'indice dell'elemento dell'array corrispondente alla pagina cliccata
+                //alert(arrayPages[i].id + i);
+                $("#BRpager").slider("value", i);
+            }
+        }
+    }else{  // Altrimenti muove lo slider a destra
+        //Va' a destra"
+        for(i in arrayPages) {
+            if(new_pp_val == arrayPages[i].id) {
+                //alert(arrayPages[i].id + i);
+                $("#BRpager").slider("value", i);
+            }
+        }
+    }
 }
 
 /*= BIND SELECT DOCUMENT EVENT ON OPTION CLICK =*/
@@ -785,6 +833,7 @@ function bindTTselectClick() {
                 var new_tt_first_page_lab;
                 new_tt_first_page_lab = $("#span_pp_select .option_container ")
                                             .find(".option[data-value='"+new_tt_first_page+"']").text();
+                moveSliderSelectorTT(current_pp_val, new_tt_first_page);
             } else {
                 $("#text_cont .doc[data-doc!='"+new_tt_val+"']").hide();
             }
@@ -794,11 +843,37 @@ function bindTTselectClick() {
     });
 }
 
+function moveSliderSelectorTT(current_pp_val, new_tt_first_page) {
+    //alert(current_pp + new_pp_val);
+    if(new_tt_first_page < current_pp_val) {  // Se il valore della nuova pagina del documento di riferimento è minore di quella corrente
+        //Va' a sinistra
+        for(i in arrayPages) {
+            if(new_tt_first_page == arrayPages[i].id) {  // Deve prendere l'indice dell'elemento dell'array corrispondente alla pagina cliccata
+                //alert(arrayPages[i].id + i);
+                $("#BRpager").slider("value", i);
+            }
+        }
+    }else{  // Altrimenti muove lo slider a destra
+        //Va' a destra"
+        for(i in arrayPages) {
+            if(new_tt_first_page == arrayPages[i].id) {
+                //alert(arrayPages[i].id + i);
+                $("#BRpager").slider("value", i);
+            }
+        }
+    }
+}
+
 /*= BIND SELECT DOUBLE PAGE EVENT ON OPTION CLICK =*/
 function bindDDselectClick() {
     $('.main_dd_select .option_container .option').click(function(){
         var pp_val, pp_lab, tt_val, first_page_id;
-        pp_val = $(this).attr('data-value') || '';
+        var arrayPagePairs = [];
+        $('.main_dd_select .option_container .option').each(function() {
+            var pageId = $(this).attr('data-value');
+            arrayPagePairs.push(pageId);
+        });
+        pp_val = $(this).attr('data-value') || ''; // pagine cliccate
         tt_val = $(this).attr('data-first-page-first-doc') || '';
         pp_lab = $(this).text() || '';
         $('#span_dd_select .label_selected')
@@ -807,10 +882,27 @@ function bindDDselectClick() {
             .attr('data-last-hash-txtimg', '')
             .text(pp_lab);
         first_page_id = pp_val.split("+")[0];
-        $("#span_pp_select .option_container .option[data-value='"+first_page_id+"']").trigger('click');                
+        $("#span_pp_select .option_container .option[data-value='"+first_page_id+"']").trigger('click'); 
+        moveSliderSelectorDD(arrayPagePairs, pp_val);               
         updateHash(tt_val, pp_val, "");
         $(this).removeClass('selected');
     });
+}
+
+function moveSliderSelectorDD(arrayPagePairs, pp_val) {
+    var j = 0, found = false;
+    while(j < arrayPagePairs.length && !found) {
+        if(arrayPagePairs[j].indexOf(pp_val) != -1) { // Se nell'elemento esiste una stringa uguale a pp_val
+            //alert(arrayPagePairs[j]);
+            $('#BRpager').slider({ // Modifico lo slider e il valore prende l'elemento in indice j
+                min: 0,
+                max: arrayPagePairs.length - 1,
+                value: j
+            });
+            found = true;
+        }
+        j++;
+    }
 }
 
 /* BIND SELECT EDITION LEVEL EVENT ON OPTION CLICK / SWITCH ON/OFF REGESTO */
@@ -1039,7 +1131,7 @@ function bindThumbClick() {
             updateHash(tt_val, pp_val, "");
         }
         // if(current_pp_val === pp_val){
-            $("#thumb_elem").trigger('click');
+            //$("#thumb_elem").trigger('click');
         // }
 
         if ( ! magnifierON ){
@@ -1056,11 +1148,11 @@ function bindThumbClick() {
 /*= BIND ARROWS BUTTONS CLICK EVENT =*/
 function bindArrowsBtnsClick() {
     // Go to previous page;
-    $(".main_left_arrow").click(function(){
+    $(".main_left_arrow , #BRicon_book_left").click(function(){
         arrow("left");
     });
     // Go to next page;
-    $(".main_right_arrow").click(function(){
+    $(".main_right_arrow , #BRicon_book_right").click(function(){
         arrow("right");
     });
 

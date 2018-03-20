@@ -326,6 +326,11 @@
 		</xsl:element>
 	</xsl:template>
 	
+	<!-- GM -->
+	<!--<xsl:template match="/" mode="viscollCP"> 
+		<xsl:copy-of select="./*" />
+	</xsl:template>-->
+	
 	<!--CDP:embedded -->
 	<!--EN: Calls the page template for every page. The page is identified with the <surface> element inside a <sourceDoc> -->
 	<!--IT: Per ogni pagina chiama il template page. La pagina viene identificata con l'elemento <surface> in <sourceDoc> -->

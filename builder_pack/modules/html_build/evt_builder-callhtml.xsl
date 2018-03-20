@@ -58,6 +58,8 @@
 						href="{$html_path}/css/font-awesome.min.css" />
 					<link rel="stylesheet" type="text/css"
 						href="{$html_path}/css/evt-icons.css" />
+					<link rel="stylesheet" type="text/css"
+						href="{$html_path}/css/BRnav.css" />
 				</xsl:when>
 				<xsl:otherwise>
 					<link rel="stylesheet" type="text/css" 
@@ -121,7 +123,7 @@
 				<xsl:comment>highlight</xsl:comment>
 				<script type="text/javascript" src="{$html_path}/js/plugin/jquery.highlight_mod.js"/>
 				<xsl:comment>/highlight</xsl:comment>
-
+				
 				<xsl:if test="$search=true()">
 					<xsl:comment>TipueSearch</xsl:comment>
 					<script type="text/javascript" src="{$html_path}/js/plugin/tipuesearch/tipuesearch.js"/>
@@ -133,6 +135,14 @@
 					<script type="text/javascript" src="{$html_path}/js/main/search.js"/>
 					<xsl:comment>/search</xsl:comment>
 				</xsl:if>
+				
+				<xsl:comment>BRnav</xsl:comment>
+				<script type="text/javascript" src="{$html_path}/js/main/interface_control/ic_BRnav.js"/>
+				<xsl:comment>/BRnav</xsl:comment>
+				
+				<xsl:comment>VisColl</xsl:comment>
+				<script type="text/javascript" src="{$html_path}/js/main/interface_control/ic_viscoll.js"/>
+				<xsl:comment>/VisColl</xsl:comment>
 				
 				<!-- Integrations by LS -->
 				<script type="text/javascript" src="{$html_path}/js/plugin/jquery-lang.js"/>
@@ -523,6 +533,7 @@
 										</xsl:if>
 										<xsl:if test="$image_frame=true()">
 											<div id="image_menu">
+												<!-- E' stato spostato in basso
 												<xsl:if test="$thumbs_button=true()">
 													<xsl:element name="span">
 														<xsl:attribute name="class" select="'imageTopTool mainButtons thumb_link'"/>
@@ -533,7 +544,7 @@
 														<span lang="def">THUMBS</span>
 														<i class="fa fa-th"></i>
 													</xsl:element>
-												</xsl:if>
+												</xsl:if> -->
 												<xsl:if test="$mag_button=true()">
 													<xsl:element name="span">
 														<xsl:attribute name="class" select="'imageTopTool mainButtons'"/>
@@ -989,6 +1000,7 @@
 									<xsl:call-template name="sortOptions"></xsl:call-template>
 								</div>
 							</div>
+							
 							<xsl:if test="$document_navigation=true()">
 								<xsl:element name="span">
 									<xsl:attribute name="id" select="'inside_left_arrow'"/>
@@ -1082,6 +1094,51 @@
 						<input id="folio_page_number" type="hidden" value=""/>
 					</section>
 					<div id="poweredBy">Powered by EVT <xsl:value-of select="$evtVersion"/></div>
+					<!-- Creo il div che conterrà la barra di navigazione -->
+					<div id="BRnav">
+						<div id="newButton">
+							<!-- Sposto l'icona Thumbnails -->
+							<xsl:if test="$thumbs_button=true()">
+								<xsl:element name="span">
+									<xsl:attribute name="class" select="'imageTopTool mainButtons thumb_link'"/>
+									<xsl:attribute name="id" select="'thumb_elem'"/>
+									<xsl:attribute name="value" select="'th'"/>
+									<xsl:attribute name="title" select="'THUMBNAILS'"/>
+									<!--<xsl:attribute name="lang" select="'def'"/>
+									<span lang="def">THUMBS</span>-->
+									<i class="fa fa-th"></i>
+								</xsl:element>
+							</xsl:if>
+							<xsl:element name="button">
+								<xsl:attribute name="id" select="'viscoll'"/>
+								<xsl:attribute name="class" select="'viscoll_link'"/>
+								<xsl:attribute name="title" select="'VISCOLL'"/>
+							</xsl:element>
+						</div>
+						<div id="BRnavpos">
+							<div id="BRpager">
+							</div>
+						</div>
+						<!-- Conterrà la pagina sul totale -->
+						<div id="pagenum">
+						</div>
+						<!-- Creo le icone per navigare  -->
+						<div id="BRpage">
+							<xsl:element name="button">
+								<xsl:attribute name="id" select="'BRicon_book_left'"/>
+								<i class="fa fa-arrow-left fa-lg"></i>
+							</xsl:element>
+							<xsl:element name="button">
+								<xsl:attribute name="id" select="'BRicon_book_right'"/>
+								<i class="fa fa-arrow-right fa-lg"></i>
+							</xsl:element>
+						</div>
+						<!-- Pulsante per ridurre la barra -->
+						<div id="BRnavCntlBtm">
+							<xsl:attribute name="class" select="'BRnavCntl BRdn'"/>
+							<i class="fa fa-caret-down fa-lg"></i>
+						</div>
+					</div>
 					<footer>
 						<p>2012 - 2015 @ EVT team – University of Pisa</p>
 					</footer>

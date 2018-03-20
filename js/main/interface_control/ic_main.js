@@ -46,6 +46,7 @@ var first_pp, last_pp;
 var first_dd, last_dd;
 var groupingPagesByDoc, optionTooltipInPages;
 var image_ext;
+var arrayPages = []; 
 
 $(function() {
 	image_ext = $('#global_wrapper').attr('data-image-extension') || 'jpg';
@@ -223,6 +224,7 @@ $(function() {
 						$('.main_dd_select .option_container').append(
 		    				$('<div/>')
 		    					.attr("data-value", current_id)
+		    					.attr("data-label", current_label)
 		    					.attr("data-first-page-first-doc", first_text_ref)
 								.addClass('option')
 								.append(current_label)
@@ -275,10 +277,15 @@ $(function() {
 					page_current_id = page_current_id.replace('-front', '')
 					
     				var page_current_label = $(this).attr("n");
+					arrayPages.push({
+						id: page_current_id,
+						label: page_current_label,
+						firstDoc: current_id });  // Inserisco le pagine singole nell'array
     				if( ( groupingPagesByDoc && $(".main_pp_select [data-doc-group='"+current_id+"'] .option[data-value='"+page_current_id+"']").length <= 0)|| 
     					(!groupingPagesByDoc && $(".main_pp_select .option_container .option[data-value='"+page_current_id+"']").length <= 0)) {
     					var newOption = $('<div/>')
 				    						.attr("data-value", page_current_id)
+				    						.attr("data-label", page_current_label)
 				    						.attr("data-first-doc", current_id)
 				    						.attr("data-has-front", pageInFront)
 				    						.addClass('option')
@@ -318,6 +325,8 @@ $(function() {
     				}
 				});
 			});
+			
+			createBrnav(arrayPages); // Invoca la funzione per creare la barra al primo caricamento dell'index
 			
 			$('.main_tt_select .option_container div.option:first-child').addClass('selected');
 			$('.main_tt_select .label_selected')
@@ -748,6 +757,16 @@ $(function() {
 
 			    resizeGlobalTopBar();
 			}
+			
+			// GM
+			if( $(xml).find('idno')) { // Se l'elemento xml idno esiste
+				var shelfmark = $(xml).find('idno').text();  // La variabile shelfmark prende l'elementto text dell'elemento idno
+				//alert(shelfmark);
+				$('<div />')  // Creo un div con id uguale a shelfmark
+					.attr('id', shelfmark)
+					.addClass('viscoll_idno')
+					.appendTo('#viscoll');	
+			}
 
 			/* *********************** */
 			/* Fine integrazione by AB */
@@ -918,6 +937,7 @@ $(function() {
 		}
 
 		resizeGlobalTopBar();
+		createSliderTxtImg();
 		
 		$('.mainButtons').each(function(){
 			var full_button_width = $(this).outerWidth();
@@ -985,7 +1005,10 @@ $(function() {
 		bindDocumentLinkChronologicalIndex();
 
 		/*= VIEW MODES =*/
-		bindViewModesBtnsClick();	
+		bindViewModesBtnsClick();
+
+		/*= ARROWS BRnav =*/
+		bindArrowsBRnavClick();
 
 		/* ****************** */
 		/* Integrazione by LS */
@@ -1027,7 +1050,7 @@ $(function() {
             		}
             	} catch(e){}
 			} else {
-				console.log('Error occurred: '+errorMsg, url, lineNumber);
+				console.log('Error occurred: '+errorMsg, "URL: ", url, "Line: ", lineNumber);
 			}
 		    return true;
 		}

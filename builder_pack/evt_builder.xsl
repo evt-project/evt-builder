@@ -60,6 +60,9 @@
 	<xsl:include href="modules/elements/evt_builder-divLine.xsl"/>
 	<xsl:include href="modules/elements/evt_builder-header-info.xsl"/>
 	<xsl:include href="modules/elements/evt_builder-ms-desc.xsl"/>
+	<!--<xsl:include href="modules/elements/process4.xsl"/>-->
+	
+	<!--<xsl:include href="modules/elements/process5.xsl"/>-->
 	
 	<!-- Elements for diplomatic version-->
 	<xsl:include href="modules/elements/evt_builder-dipl-core.xsl"/>
@@ -81,6 +84,18 @@
 	
 	<!-- Extra -->
 	<xsl:include href="modules/extra/functx-1.0.xsl"/>
+	
+	<!-- Viscoll -->
+	<xsl:include href="modules/viscoll/process_list-image.xsl"/>
+	<xsl:include href="modules/viscoll/evt_builder-viscoll.xsl"/>
+	<xsl:include href="modules/viscoll/process_idno.xsl"/>
+	<xsl:include href="modules/viscoll/process4.xsl"/>
+	<xsl:include href="modules/viscoll/process5.xsl"/>
+	<xsl:include href="modules/viscoll/process6-prova.xsl"/>
+	<xsl:include href="modules/viscoll/process7.xsl"/>
+	<xsl:include href="modules/viscoll/process7-diagrams.xsl"/>
+	
+	
 	
 	<!-- Generation of text label from id. -->
 	<xsl:include href="modules/elements/evt_builder-generate-text_label.xsl"/>
