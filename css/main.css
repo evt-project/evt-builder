@@ -1,14 +1,14 @@
 /**
  * Copyright (C) 2013-2017 the EVT Development Team.
- * 
- * EVT 1 is free software: you can redistribute it 
- * and/or modify it under the terms of the 
+ *
+ * EVT 1 is free software: you can redistribute it
+ * and/or modify it under the terms of the
  * GNU General Public License version 2
  * available in the LICENSE file (or see <http://www.gnu.org/licenses/>).
- * 
- * EVT 1 is distributed in the hope that it will be useful, 
- * but WITHOUT ANY WARRANTY; without even the implied 
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
+ *
+ * EVT 1 is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU General Public License for more details.
  *
  **/
@@ -32,13 +32,13 @@ time, mark, audio, video {
 	font-size: 100%;
 	vertical-align: baseline;
 	}
-	
+
 /* HTML5 display-role reset for older browsers */
 
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
 	display: block;
-	}	
+	}
 
 @font-face {
     font-family: 'Junicode';
@@ -60,7 +60,7 @@ footer, header, hgroup, menu, nav, section {
 }
 
 @charset "UTF-8";
-	
+
 html, body {
 	/*padding: 20px 0 40px 0;*/
 	/*font-family: ff-tisa-web-pro-1, ff-tisa-web-pro-2, Georgia, sans-serif;*/
@@ -82,7 +82,7 @@ footer{
 #main_header{
 	padding: 1px;
 	/*padding-top: 10px;*/
-	height: 39px;	
+	height: 39px;
 	margin-bottom: 17px;
 	border-top: 11px solid #3c322c;
 
@@ -154,7 +154,7 @@ footer{
 #imgd_link .mainHeaderimg{
 /*	width: 51px;*/
 	margin-left: -2px;
-} 
+}
 .mode_view img {
 	height: 37px;
 	width: auto;
@@ -172,7 +172,7 @@ footer{
 
 #central_wrapper{
 	margin: 0 auto 0 auto;
-	height: 82.5%; /*86*/ /* GM: Per evitare lo scrolling e far entrare la barra */
+	height: 87.5%; /*86*/ /* GM: Per evitare lo scrolling e far entrare la barra */
 	width: 91%;
 	/*border: 3px solid black;*/
 
@@ -183,6 +183,10 @@ footer{
 	-ms-box-shadow:0 10px 5px -6px rgba(0,0,0,0.8);
 	box-shadow:0 10px 5px -6px rgba(0,0,0,0.8);
 	position: relative;
+}
+
+#central_wrapper.hasNavbar.navBarExpanded {
+	height: 82.5%; /*86*/ /* GM: Per evitare lo scrolling e far entrare la barra */
 }
 
 #header_collapse{
@@ -237,8 +241,8 @@ footer{
 	color: #f5ead4;
 	font-size: 18px;
 	/*float: left;*/
-	
-	/*	
+
+	/*
 	-moz-box-shadow:0 9px 10px rgba(0,0,0,0.4);
 	-webkit-box-shadow:0 9px 100px rgba(0,0,0,0.4);
 	-o-box-shadow:0 9px 10px rgba(0,0,0,0.4);
@@ -256,7 +260,7 @@ footer{
 	-khtml-box-shadow:0 0px 4px rgba(0,0,0,0.5);
 	-ms-box-shadow:0 0px 4px rgba(0,0,0,0.5);
 	box-shadow:0 0px 4px rgba(0,0,0,0.5);
-	
+
 	position: relative;
 }
 
@@ -298,7 +302,7 @@ footer{
 	-ms-box-shadow:0 9px 10px rgba(0,0,0,0.4);
 	box-shadow:0 9px 10px rgba(0,0,0,0.4);
 	*/
-	
+
 	background:#362d28;
 	/*Chiara*/
 	z-index: 999;
@@ -308,7 +312,7 @@ footer{
 	-khtml-box-shadow:0 0px 4px rgba(0,0,0,0.5);
 	-ms-box-shadow:0 0px 4px rgba(0,0,0,0.5);
 	box-shadow:0 0px 4px rgba(0,0,0,0.5);
-	
+
 	/*per select
 	overflow: visible;*/
 }
@@ -333,7 +337,7 @@ footer{
 	text-align: right;
 	display: none;
 	color: #f5ead4;
-		
+
 	/*-moz-box-shadow:0 9px 10px rgba(0,0,0,0.4);
 	-webkit-box-shadow:0 9px 100px rgba(0,0,0,0.4);
 	-o-box-shadow:0 9px 10px rgba(0,0,0,0.4);
@@ -353,7 +357,7 @@ footer{
 	width: 80px;
 	height: 30px;
 	text-align: center;
-	
+
 	/*-moz-box-shadow:0 9px 10px rgba(0,0,0,0.4);
 	-webkit-box-shadow:0 9px 100px rgba(0,0,0,0.4);
 	-o-box-shadow:0 9px 10px rgba(0,0,0,0.4);
@@ -376,7 +380,7 @@ footer{
 	height: 89px;
 	text-align: center;
 	cursor: pointer;
-	
+
 	-moz-box-shadow:0 9px 10px rgba(0,0,0,0.4);
 	-webkit-box-shadow:0 9px 100px rgba(0,0,0,0.4);
 	-o-box-shadow:0 9px 10px rgba(0,0,0,0.4);
@@ -401,7 +405,7 @@ footer{
 	font-weight: bold;
 	position: relative;
 	top: 24px;
-	margin: 2px;	
+	margin: 2px;
 }
 #main_left_menu-closelink{
 	display: none;
@@ -424,7 +428,7 @@ footer{
 	height: 89px;
 	text-align: center;
 	cursor: pointer;
-	
+
 	-moz-box-shadow:0 9px 10px rgba(0,0,0,0.4);
 	-webkit-box-shadow:0 9px 100px rgba(0,0,0,0.4);
 	-o-box-shadow:0 9px 10px rgba(0,0,0,0.4);
@@ -449,7 +453,7 @@ footer{
 	font-weight: bold;
 	position: relative;
 	top: 24px;
-	margin: 2px;	
+	margin: 2px;
 }
 #main_right_menu-closelink{
 	display: none;
@@ -464,20 +468,20 @@ footer{
 	display: inline;
 }
 
-#text_cont, #text_cont-add, 
-#image_cont, 
+#text_cont, #text_cont-add,
+#image_cont,
 #regesto_cont, #regesto_cont-add,
 #front_cont, #front_cont-add,
-#lists_cont, 
+#lists_cont,
 #search_cont, #search_cont-add {
 	height: 100%;
 	text-align: center;
-}	
+}
 /*Chiara  */
-#text_cont, #text_cont-add, 
+#text_cont, #text_cont-add,
 #regesto_cont, #regesto_cont-add,
-#front_cont, #front_cont-add, 
-#lists_cont, 
+#front_cont, #front_cont-add,
+#lists_cont,
 #search_cont, #search_cont-add{
 	background: white;
 	bottom: 42px;
@@ -513,17 +517,17 @@ footer{
 	margin-bottom: 20px;
 }
 
-#right_header.menuClosed + #text_cont, 
+#right_header.menuClosed + #text_cont,
 #right_header.menuClosed + #regesto_cont,
 #right_header.menuClosed + #front_cont,
 #left_header.menuClosed + #front_cont,
-#left_header.menuClosed + #text_cont-add, 
-#left_header.menuClosed + #regesto_cont-add, 
+#left_header.menuClosed + #text_cont-add,
+#left_header.menuClosed + #regesto_cont-add,
 #right_header.menuClosed + #front_cont-add,
 #left_header.menuClosed + #front_cont-add {
 	/*margin-top: 0px;*/
 }
-#regesto_cont div.front, #regesto_cont-add div.front, 
+#regesto_cont div.front, #regesto_cont-add div.front,
 #front_cont div.front, #front_cont-add div.front {
     width:85%;
     padding-bottom: 20px;
@@ -551,7 +555,7 @@ footer{
 	top: 0px;
 	height: calc(100% - 41px);
 	height: -moz-calc(100% - 42px);
-	
+
 	/*-moz-box-shadow:2px 3px 5px -2px rgba(0, 0, 0, 0.8);
 	-webkit-box-shadow:2px 3px 5px -2px rgba(0, 0, 0, 0.8);
 	-o-box-shadow:2px 3px 5px -2px rgba(0, 0, 0, 0.8);
@@ -573,12 +577,12 @@ footer{
 }
 
 #text_elem, #text_elem-add, #regesto, #regesto-add{
-	width: 99.4%; 
+	width: 99.4%;
 	width: 100%;
 	min-height: 456px;
 	overflow: visible;
 	position: relative;
-	top: 51px; 
+	top: 51px;
 	/*overflow-x: hidden;*/
 }
 #regesto, #regesto-add{
@@ -616,7 +620,7 @@ footer{
     /*overflow: auto;*/
 }
 
-#image_elem, #image_fade {  
+#image_elem, #image_fade {
 	height:100%;
 	/*margin-top: -15.6px;
 	background:#f95000;*/
@@ -628,10 +632,10 @@ footer{
 	top: 100px;
 }
 
-#image_tool, #text_tool, #text_tool-add{ 
+#image_tool, #text_tool, #text_tool-add{
 	height: 42px;
 	z-index: 10;
-	
+
 	/* Chiara */
 	position:absolute;
 	bottom:-0.4px;
@@ -672,20 +676,20 @@ footer{
 }
 #text_tool span.text-button i.fa.big,
 #text_tool-add span.text-button i.fa.big{
-    font-size: 25px; 
-    color: #F5EAD4; 
-    text-shadow: 0px 1px 4px #000; 
+    font-size: 25px;
+    color: #F5EAD4;
+    text-shadow: 0px 1px 4px #000;
     z-index: 9999999;
-    min-height: 40px;    
+    min-height: 40px;
 }
 
 #text_tool span.text-button i.fa.small-top,
 #text_tool-add span.text-button i.fa.small-top{
-    color: #F5EAD4; 
-    left: 11px; 
-    top: -11px; 
-    font-size: 13px; 
-    text-shadow: 0px 1px 4px #000; 
+    color: #F5EAD4;
+    left: 11px;
+    top: -11px;
+    font-size: 13px;
+    text-shadow: 0px 1px 4px #000;
 }
 
 .image_tool-class{
@@ -726,7 +730,7 @@ footer{
 	background: black;
 	border-top: 2px solid #786e64;
 	border-bottom: 2px solid #786e64;
-	border-right: 2px solid #786e64;*/	
+	border-right: 2px solid #786e64;*/
 }
 #zoom_orig:hover, #zoom_fit:hover{
 	color: white;
@@ -777,7 +781,7 @@ footer{
 	background: url(../images/iviewer.zoom_in.gif) top center no-repeat;
 	min-width: 28px;
 	min-height: 28px;
-	
+
 	top: 10px;
 	left: 351px;
 	z-index: 9999999;
@@ -867,7 +871,7 @@ footer{
 }
 #thumb_cont{
 	position: relative;
-	
+
 	/*margin-top: 42px;*/
 	margin-right: 30px;
 	height: 100%;
@@ -914,20 +918,20 @@ footer{
 }
 
 #left_menu, #right_menu{
-	position:absolute; 
-	top:50%; 
-	height:28px; 
+	position:absolute;
+	top:50%;
+	height:28px;
 	margin-top:-15px;
 	width: 100%;
 	text-align: center;
 }
 
-#slider { 	
+#slider {
 	/*margin: 10px; width: 400px;*/
 	margin: 3px 0 5px 0;
 	margin-left: 8px;
 	/*height: 200px;*/
-	
+
 	/*Chiara*/
 	position: relative;
 	margin:0em 0.2em;
@@ -1188,9 +1192,9 @@ footer{
 .like_select .option_tooltip,
 .like_select .option_tooltip_dd {
 	display: none;
-	position: absolute; 
-	background: rgb(245, 234, 212); 
-	padding: 5px 15px; 
+	position: absolute;
+	background: rgb(245, 234, 212);
+	padding: 5px 15px;
 	/*left: 94px; */
 	width: auto;
 	min-width: 120px;
@@ -1299,7 +1303,7 @@ footer{
 	text-shadow: none !important;
 }
 
-.mainButtons:hover{	
+.mainButtons:hover{
 	-moz-box-shadow:inset  1px 2px 3px  rgba(0, 0, 0, 0.7);
 	-webkit-box-shadow:inset  1px 2px 3px  rgba(0, 0, 0, 0.7);
 	-o-box-shadow:inset 1px 2px 3px  rgba(0, 0, 0, 0.7);
@@ -1333,7 +1337,7 @@ footer{
 
 .inactive i, .inactive span,
 .disabled i, .disabled span{
-	text-shadow:none;	
+	text-shadow:none;
 	color: #786E64;
 	-moz-box-shadow:none;
 	-webkit-box-shadow:none;
@@ -1359,7 +1363,7 @@ footer{
 }
 
 .likeInactive i, .likeInactive span{
-	text-shadow:none;	
+	text-shadow:none;
 	color: #786E64;
 	-moz-box-shadow:none;
 	-webkit-box-shadow:none;
@@ -1474,7 +1478,7 @@ footer{
 
 .main_right_arrow{
 	background:url(../images/arrows.png) no-repeat 0 -177px;
-    
+
     cursor:pointer;
  	display:inline-block;
 	height:59px;
@@ -1482,7 +1486,7 @@ footer{
 	text-indent:-9999px;
     width:31px;
     z-index:9999;
-    
+
     /* CDP */
     top: 50%;
 	position: absolute;
@@ -1501,7 +1505,7 @@ footer{
 
 .main_left_arrow{
 	background:url(../images/arrows.png) no-repeat 0 -59px;
-    
+
     float: left;
     cursor:pointer;
     display:inline-block;
@@ -1539,10 +1543,10 @@ footer{
 
 #inside_left_arrow, #inside_right_arrow,
 #inside_left_arrow-add, #inside_right_arrow-add{
-    top: 50%; 
-    position: absolute; 
+    top: 50%;
+    position: absolute;
     z-index: 9;
-    cursor:pointer;  
+    cursor:pointer;
     opacity:0.2;
 }
 #inside_left_arrow-add, #inside_right_arrow-add{
@@ -1553,7 +1557,7 @@ footer{
     opacity:1 !important;
 }
 #inside_left_arrow, #inside_left_arrow-add{
-    margin-right: 15px; 
+    margin-right: 15px;
     right:0;
     margin-top: -42px;
 }
@@ -1673,7 +1677,7 @@ div.botleftconcave {
     text-shadow: none !important;
     color: #4E443C;
 	*/
-    
+
     position: absolute;
 	width: 0px;
 	top: 0px;
@@ -1780,7 +1784,7 @@ div.botleftconcave {
 #regesto_cont.open, #front_cont.open {
 	display: block;
 }
-#regesto_cont, #regesto_cont-add, 
+#regesto_cont, #regesto_cont-add,
 #front_cont, #front_cont-add{
     position: absolute;
     z-index: 9;
@@ -1789,7 +1793,7 @@ div.botleftconcave {
     left: 0;
 }
 #regesto, #regesto-add,
-#regesto_cont, #regesto_cont-add, 
+#regesto_cont, #regesto_cont-add,
 #front, #front-add,
 #front_cont, #front_cont-add{
 	background: #f5efe4;
@@ -1825,7 +1829,7 @@ div.botleftconcave {
 #regesto-add .bibliografia{
     margin: 10px 0;
 }
-#hide_regesto, 
+#hide_regesto,
 #hide_front, #hide_front-add {
     position: relative;
     text-align: center;
@@ -1876,7 +1880,7 @@ div.doc.not_current:hover{
 }
 .translation .doc.not_current {
 	opacity: 1 !important;
-}	
+}
 
 #front .document_front {
 	display: none;
@@ -1884,7 +1888,7 @@ div.doc.not_current:hover{
 
 /* LISTE */
 /* BOX LISTE e RICERCA */
-#lists_cont, 
+#lists_cont,
 #search_cont, #search_cont-add {
 	text-align: left;
 	font-size: 15pt;
@@ -1964,7 +1968,7 @@ div.doc.not_current:hover{
 	border-radius: 4px;
 	padding: 3px 10px;
     display: inline-block;
-    border: 1px solid #ccc;	
+    border: 1px solid #ccc;
 	margin-right: 5px;
 	font-size: 85%;
 	margin-bottom: 5px;
@@ -1993,7 +1997,7 @@ div.doc.not_current:hover{
 	margin-top: 1px;
 	right: 1px;
 	/*box-shadow: 0px 1px 3px -1px #000;*/
-	height: 30px;	
+	height: 30px;
 }
 #list_header {
 	padding: 0px;
@@ -2004,7 +2008,7 @@ div.doc.not_current:hover{
 	overflow: hidden;
 	position: relative;
 }
-#lists_cont.collapsed #list_header, 
+#lists_cont.collapsed #list_header,
 #search_cont.collapsed #search_header, #search_cont-add.collapsed #search_header-add {
 	cursor: pointer;
 }
@@ -2055,11 +2059,11 @@ div.doc.not_current:hover{
 
 #toggle_search_cont, #toggle_search_cont-add {
 	border-top-right-radius: 0px;
-	border-bottom-right-radius: 0px;	
+	border-bottom-right-radius: 0px;
 	margin-right: 2px !important;
 }
 #keyboard_link, #keyboard_link-add {
-	border-radius: 0px;	
+	border-radius: 0px;
 	margin: 0px;
 	box-shadow: none;
 	min-width: 28.5px;
@@ -2103,7 +2107,7 @@ div.doc.not_current:hover{
 	box-shadow: none;
 }
 
-#keyboard_link, #keyboard_link-add, 
+#keyboard_link, #keyboard_link-add,
 #toggle_search_cont, #toggle_search_cont-add,
 #start_search, #start_search-add {
 	height:29px;
@@ -2113,7 +2117,7 @@ div.doc.not_current:hover{
 	height:29px;
 	top:-1px;
 }
-#keyboard_link.small, #keyboard_link-add.small, 
+#keyboard_link.small, #keyboard_link-add.small,
 #toggle_search_cont.small, #toggle_search_cont-add.small,
 #start_search.small, #start_search-add.small {
 	top:0px;
@@ -2130,7 +2134,7 @@ div.doc.not_current:hover{
 	background: #fff;
 }
 
-#keyboard_link.hidden + #tipue_search_input_div, 
+#keyboard_link.hidden + #tipue_search_input_div,
 #keyboard_link-add.hidden + #tipue_search_input_div-add {
 	width: -moz-calc(100% - 68px);
 	width: -webkit-calc(100% - 67px);
@@ -2198,7 +2202,7 @@ div.doc.not_current:hover{
 	position: relative;
 	margin: auto;
 	text-align: center;
-	overflow-x:auto; 
+	overflow-x:auto;
 }
 .bold_search{
 	font-weight: bold;
@@ -2350,7 +2354,7 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 
 .occurences span.no_occ:hover{
 	text-shadow:none;
-	background:transparent;	
+	background:transparent;
 	color: #ccc;
 }
 /* Chronological index list */
@@ -2376,11 +2380,11 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 	border: 1px solid rgb(204, 204, 204);
 	margin-right: 3px;
 	font-size: 100%;
-	/*  margin-bottom: 3px; */  
+	/*  margin-bottom: 3px; */
 }
 #ul_listDocument .list_element br:first-of-type {
     display:none;
-} 
+}
 
 .toggleRegestoInList {
 	display: none;
@@ -2417,14 +2421,14 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 .tooltip .toggle_list_element{
 	display: none !important;
 }
-#text span.popup.selected_from_list .trigger, 
-#text span.term.selected_from_list, 
+#text span.popup.selected_from_list .trigger,
+#text span.term.selected_from_list,
 #text span.gloss.selected_from_list {
 	background: #ffc !important;
 	text-shadow:0px 0px 1px #000;
 }
-#text span.popup.selected_from_list .tooltip, 
-#text span.term.selected_from_list, 
+#text span.popup.selected_from_list .tooltip,
+#text span.term.selected_from_list,
 #text span.gloss.selected_from_list {
 	background: rgb(229, 218, 196) !important;
 	text-shadow:none !important;
@@ -2436,7 +2440,7 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 
 .title {
 	display: inline;
-	font-style: italic; 
+	font-style: italic;
 }
 
 /* ******* */
@@ -2548,7 +2552,7 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 
 .dialog_separator {
 	width: 100%;
-	height: auto;	
+	height: auto;
 	font-size: 120px;
 	text-shadow: none;
 	/*background-color: #837468;*/
@@ -2561,9 +2565,9 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 
 .dialog_separator .fa{
     height: 20px;
-    margin-top: -64px;    
+    margin-top: -64px;
     display: block;
-    text-shadow: none; 
+    text-shadow: none;
     color:rgb(54, 45, 40);
 }
 
@@ -2617,7 +2621,7 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 	font-size: 17px;
 	text-align: right;
 	cursor: text;
-}   
+}
 
 #headerInfo .right_col {
     display: table-cell;
@@ -2667,7 +2671,7 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 }
 #welcomeInfo_content_center {
     width: 100%;
-	height: auto;	
+	height: auto;
 	font-size: 120px;
 	text-shadow: none;
 	/*background-color: #837468;*/
@@ -2680,14 +2684,14 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 
 #welcomeInfo_content_center .fa{
     height: 20px;
-    margin-top: -50px;    
+    margin-top: -50px;
     display: block;
-    text-shadow: none; 
+    text-shadow: none;
 }
 
 #welcomeInfo_content_bottom {
 	width: 100%;
-	height: auto;	
+	height: auto;
 	/*background-color: #837468;*/
 	background: rgb(60, 50, 44);
     text-align: center;
@@ -2752,7 +2756,7 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 #msDesc_cont {
 	display: none;
 	background: #f5efe4;
-	margin-top: 42px;	
+	margin-top: 42px;
 	bottom: 42px !important;
 	height: auto;
     overflow: auto;
@@ -2781,7 +2785,7 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 	font-weight: bold;
 	font-size: 120%;
 	margin-bottom: 20px;
-	text-align: center; 
+	text-align: center;
 }
 #msDesc-add{
 	bottom: 0px;
@@ -2819,11 +2823,11 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
     display: table-cell;
     width: 20%;
     padding: 1% 2% 1% 0%;
-    border-right: 1px solid grey; 
+    border-right: 1px solid grey;
     font-weight: bold;
     font-size: 17px;
     text-align: right;
-}   
+}
 
 #msDesc .right_col {
     display: table-cell;
@@ -2864,25 +2868,25 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 	text-align: center;
 }
 .font-size-controller .fa-font {
-	margin: 0px; 
+	margin: 0px;
 	height: 28px;
 }
 
-.font-size-controller .fa-minus, 
+.font-size-controller .fa-minus,
 .font-size-controller .fa-plus {
-	margin: 0px; 
-	position: absolute; 
-	right: 5px; 
-	font-size: 0.55em; 
-	top: 5px; 
+	margin: 0px;
+	position: absolute;
+	right: 5px;
+	font-size: 0.55em;
+	top: 5px;
 	float: right;
 }
 
 /*css Luca Sarri*/
- 
- 
+
+
 #settings_cont{
-	display:none;  
+	display:none;
    	z-index:999999;
    	position:absolute;
    	top: 44px;
@@ -2921,8 +2925,8 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 .setting_row_title, .setting_row_content {
 	display: inline-block;
 }
-	
-.setting_row  img.flag {	
+
+.setting_row  img.flag {
 	height: 18px;
 	width: 18px;
 	border-radius: 100px;
@@ -2953,7 +2957,7 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 }
 .ref:hover .tooltip {
 	cursor: default;
-	text-shadow:none;	
+	text-shadow:none;
 }
 
 .bibl {
@@ -2975,7 +2979,7 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 }
 
 .project-web-site_link {
-	margin-left: 10px; 
+	margin-left: 10px;
 	font-size: 70%;
 	color:rgb(78, 68, 60);
 	outline: none !important;
@@ -3109,7 +3113,7 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 }
 
 #headerInfo_nav_tabs li.active a, #headerInfo_nav_tabs li a:hover {
-    text-decoration: none;    
+    text-decoration: none;
     border-bottom: 1px solid #FFFAF0;
     color: #FFFAF0;
     background: rgb(54, 45, 40);
@@ -3137,7 +3141,7 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
     height: 15px;
     display: block;
     margin-top: 20px;
-    font-weight: bold; 
+    font-weight: bold;
     font-style: normal;
 }
 .box_tab {
@@ -3173,7 +3177,7 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
     float: left;
     margin-right: 4%;
 }
- 
+
 .cerchio {
 	width:16px;
 	height:16px;

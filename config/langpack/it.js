@@ -3,7 +3,7 @@ jquery_lang_js.prototype.lang.it = {
     "INTERPRETATIVE": "Interpretativa",
     "CRITICAL": "Critica",
     "TRANSLATION":"Traduzione",
-	
+
     "MODE_SINGLE_TEXT": "Testo singolo",
 	"MODE_IMAGE_TEXT": "Immagine-Testo",
 	"MODE_TEXT_TEXT": "Testo-Testo",
@@ -66,7 +66,7 @@ jquery_lang_js.prototype.lang.it = {
 	"TOGGLE_LISTS": "Apri/chiudi Liste",
 	"OPEN_LISTS": "Apri Liste",
 	"LISTS": "Liste",
-	
+
 	"EVT_INFORMATION": "Informazioni su EVT",
 	"GENERAL_INFORMATION": "Informazioni generali",
 	"TITLE": "Titolo dell'edizione",
@@ -196,7 +196,7 @@ jquery_lang_js.prototype.lang.it = {
     "ERROR_LOADING_TEXT": "Si è verificato un errore nel caricamento del testo. La trascrizione per questa pagina potrebbe non essere disponibile. Per ulteriori informazioni contattare i curatori dell'edizione.",
     "ERROR_LOADING_IMAGE": "Si è verificato un errore durante il caricamento dell'immagine.",
     "ERROR_LOADING_HI_IMAGE": "Si è verificato un errore durante il caricamento dell'immagine ad alta risoluzione.",
-    
+
     "NO_INFO": "Nessuna informazione",
     "NO_TRANSLATION_AVAILABLE": "Nessuna traduzione disponibile.",
     "AFTER": "dopo il",
@@ -204,16 +204,17 @@ jquery_lang_js.prototype.lang.it = {
     "FROM": "dal",
     "TO": "al",
     "membership": "Membri",
-	
+
     "LIST_DOC": "Indice cronologico",
-	"SELECTOR_SORT_ATTRIBUTE": "Scegli parametro di ordinamento",
-	"SORT_ORDER" : "Scegli modalità di ordinamento",
-	"ASCENDING_ORDER" : "Ascendente",
-	"DESCENDING_ORDER" : "Discendente",
-	"MORE" : "espandi",
-	"LESS" : "riduci",
+    "SELECTOR_SORT_ATTRIBUTE": "Scegli parametro di ordinamento",
+    "SORT_ORDER" : "Scegli modalità di ordinamento",
+    "ASCENDING_ORDER" : "Ascendente",
+    "DESCENDING_ORDER" : "Discendente",
+    "MORE" : "espandi",
+    "LESS" : "riduci",
 
-	"VERSES": "Versi",
-	"PROSE": "Prosa"
+    "VERSES": "Versi",
+    "PROSE": "Prosa",
+
+    "VISCOLL": "Viscoll"
 }
-

@@ -168,7 +168,11 @@
 				<xsl:with-param name="output" select="$output"/>
 			</xsl:call-template>
 			<body>
-				<section id="central_wrapper">
+				<xsl:element name="section">
+					<xsl:attribute name="id">central_wrapper</xsl:attribute>
+					<xsl:if test="$bottom_navbar=true()">
+						<xsl:attribute name="class">hasNavbar <xsl:value-of select="if($bottom_navbar_initial_status='expanded') then('navBarExpanded') else('navBarCollapsed')"/></xsl:attribute>
+					</xsl:if>
 					<div id="text_frame">
 						<div id="text">
 							<xsl:call-template name="edition_level">
@@ -177,7 +181,7 @@
 							</xsl:call-template>
 						</div>
 					</div>
-				</section>
+				</xsl:element>
 			</body>
 		</html>
 	</xsl:template>
@@ -424,7 +428,11 @@
 							</div>
 						</div>
 					</div>
-					<section id="central_wrapper">
+					<xsl:element name="section">
+						<xsl:attribute name="id">central_wrapper</xsl:attribute>
+						<xsl:if test="$bottom_navbar=true()">
+							<xsl:attribute name="class">hasNavbar <xsl:value-of select="if($bottom_navbar_initial_status='expanded') then('navBarExpanded') else('navBarCollapsed')"/></xsl:attribute>
+						</xsl:if>
 						<xsl:element name="i">
 							<xsl:attribute name="class" select="'fa fa-caret-up'"/>
 							<xsl:attribute name="id" select="'header_collapse'"/>
@@ -533,18 +541,29 @@
 										</xsl:if>
 										<xsl:if test="$image_frame=true()">
 											<div id="image_menu">
-												<!-- E' stato spostato in basso
-												<xsl:if test="$thumbs_button=true()">
-													<xsl:element name="span">
-														<xsl:attribute name="class" select="'imageTopTool mainButtons thumb_link'"/>
-														<xsl:attribute name="id" select="'thumb_elem'"/>
-														<xsl:attribute name="value" select="'th'"/>
-														<xsl:attribute name="title" select="'THUMBNAILS'"/>
-														<xsl:attribute name="lang" select="'def'"/>
-														<span lang="def">THUMBS</span>
-														<i class="fa fa-th"></i>
-													</xsl:element>
-												</xsl:if> -->
+												<!-- Buttons for thumbs and Viscoll will appear only if Bottom Navbar is not active -->
+												<xsl:if test="$bottom_navbar=false()">													
+													<xsl:if test="$thumbs_button=true()">
+														<xsl:element name="span">
+															<xsl:attribute name="class" select="'imageTopTool mainButtons thumb_link'"/>
+															<xsl:attribute name="id" select="'thumb_elem'"/>
+															<xsl:attribute name="value" select="'th'"/>
+															<xsl:attribute name="title" select="'THUMBNAILS'"/>
+															<xsl:attribute name="lang" select="'def'"/>
+															<span lang="def">THUMBS</span>
+															<i class="fa fa-th"></i>
+														</xsl:element>
+													</xsl:if>
+													<xsl:if test="$viscoll_button=true()">
+														<xsl:element name="span">
+															<xsl:attribute name="class" select="'imageTopTool mainButtons viscoll_link'"/>
+															<xsl:attribute name="id" select="'viscoll'"/>
+															<xsl:attribute name="title" select="'VISCOLL'"/>
+															<span lang="def">VISCOLL</span>
+															<i class="fa evt-viscoll"></i>
+														</xsl:element>
+													</xsl:if>
+												</xsl:if>
 												<xsl:if test="$mag_button=true()">
 													<xsl:element name="span">
 														<xsl:attribute name="class" select="'imageTopTool mainButtons'"/>
@@ -1087,7 +1106,7 @@
 							</span> 
 						</div>
 				</div>
-					</section>
+					</xsl:element>
 					
 					
 					<section id="central_button">
@@ -1095,50 +1114,59 @@
 					</section>
 					<div id="poweredBy">Powered by EVT <xsl:value-of select="$evtVersion"/></div>
 					<!-- Creo il div che conterrà la barra di navigazione -->
-					<div id="BRnav">
-						<div id="newButton">
-							<!-- Sposto l'icona Thumbnails -->
-							<xsl:if test="$thumbs_button=true()">
-								<xsl:element name="span">
-									<xsl:attribute name="class" select="'imageTopTool mainButtons thumb_link'"/>
-									<xsl:attribute name="id" select="'thumb_elem'"/>
-									<xsl:attribute name="value" select="'th'"/>
-									<xsl:attribute name="title" select="'THUMBNAILS'"/>
-									<!--<xsl:attribute name="lang" select="'def'"/>
-									<span lang="def">THUMBS</span>-->
-									<i class="fa fa-th"></i>
+					<xsl:if test="$bottom_navbar=true()">						
+						<xsl:element name="div">
+							<xsl:attribute name="id">BRnav</xsl:attribute>
+							<xsl:attribute name="class"><xsl:value-of select="$bottom_navbar_initial_status"/></xsl:attribute>
+								<div class="leftSideButtons">
+									<!-- Sposto l'icona Thumbnails -->
+									<xsl:if test="$thumbs_button=true()">
+										<xsl:element name="span">
+											<xsl:attribute name="class" select="'imageTopTool mainButtons thumb_link'"/>
+											<xsl:attribute name="id" select="'thumb_elem'"/>
+											<xsl:attribute name="value" select="'th'"/>
+											<xsl:attribute name="title" select="'THUMBNAILS'"/>
+											<!--<xsl:attribute name="lang" select="'def'"/>
+											<span lang="def">THUMBS</span>-->
+											<i class="fa fa-th"></i>
+										</xsl:element>
+									</xsl:if>
+									<xsl:if test="$viscoll_button=true()">
+										<xsl:element name="button">
+											<xsl:attribute name="id" select="'viscoll'"/>
+											<xsl:attribute name="class" select="'viscoll_link'"/>
+											<xsl:attribute name="title" select="'VISCOLL'"/>
+										</xsl:element>
+									</xsl:if>
+								</div>
+								<div id="BRnavpos">
+									<div id="BRpager">
+									</div>
+								</div>
+								<!-- Conterrà la pagina sul totale -->
+								<div id="pagenum">
+								</div>
+								<!-- Creo le icone per navigare  -->
+								<div id="BRpage">
+									<xsl:element name="button">
+										<xsl:attribute name="id" select="'BRicon_book_left'"/>
+										<i class="fa fa-arrow-left fa-lg"></i>
+									</xsl:element>
+									<xsl:element name="button">
+										<xsl:attribute name="id" select="'BRicon_book_right'"/>
+										<i class="fa fa-arrow-right fa-lg"></i>
+									</xsl:element>
+								</div>
+								<!-- Pulsante per ridurre la barra -->
+								<xsl:element name="div">
+									<xsl:attribute name="id">BRnavCntlBtm</xsl:attribute>
+									<xsl:attribute name="class">BRnavCntl <xsl:value-of select="if($bottom_navbar_initial_status='expanded') then('BRdn') else('BRup')"/></xsl:attribute>
+									<xsl:element name="i">
+										<xsl:attribute name="class">fa <xsl:value-of select="if($bottom_navbar_initial_status='expanded') then('fa-caret-down fa-lg') else('fa-caret-up fa-lg')"/></xsl:attribute>
+									</xsl:element>
 								</xsl:element>
-							</xsl:if>
-							<xsl:element name="button">
-								<xsl:attribute name="id" select="'viscoll'"/>
-								<xsl:attribute name="class" select="'viscoll_link'"/>
-								<xsl:attribute name="title" select="'VISCOLL'"/>
-							</xsl:element>
-						</div>
-						<div id="BRnavpos">
-							<div id="BRpager">
-							</div>
-						</div>
-						<!-- Conterrà la pagina sul totale -->
-						<div id="pagenum">
-						</div>
-						<!-- Creo le icone per navigare  -->
-						<div id="BRpage">
-							<xsl:element name="button">
-								<xsl:attribute name="id" select="'BRicon_book_left'"/>
-								<i class="fa fa-arrow-left fa-lg"></i>
-							</xsl:element>
-							<xsl:element name="button">
-								<xsl:attribute name="id" select="'BRicon_book_right'"/>
-								<i class="fa fa-arrow-right fa-lg"></i>
-							</xsl:element>
-						</div>
-						<!-- Pulsante per ridurre la barra -->
-						<div id="BRnavCntlBtm">
-							<xsl:attribute name="class" select="'BRnavCntl BRdn'"/>
-							<i class="fa fa-caret-down fa-lg"></i>
-						</div>
-					</div>
+						</xsl:element>
+					</xsl:if>
 					<footer>
 						<p>2012 - 2015 @ EVT team – University of Pisa</p>
 					</footer>
