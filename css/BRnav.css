@@ -1,48 +1,5 @@
-/* CSS per BRnav e altri elementi */
-#BRnav{
-	text-align: center;
-	overflow: visible;
-	margin-top: 30px;
-	position: absolute;	/* Prima era fixed */
-	bottom: 0px;
-	left: 4.5%;
-	width: 91%;
-	max-height: 50px;
 
-	/*box-shadow:0 10px 0px 5px #362D28;*/
-	border-style: solid;
-
-
-	background-color: #362D28;
-	z-index: 9999 !important;
-
-}
-
-#newButton {
-	min-width: 10%;
-	height: 50px;
-	display: block;
-	position: relative;  /* Relativo all'elemento contenitore ("nav") */
-	float: left;  /* Elementi uno dopo l'altro */
-}
-
-#BRnav .mainButtons {
-	height: 28px;
-	width: 28px;
-	min-width: auto;
-	margin: 13px 5px 12px 20%;
-	padding: 0;
-	border: 0;
-	float: left;
-	background-size: 28px 28px;
-	background-repeat: no-repeat;
-	background-position: center;
-	font-size: 20px;
-	display: inline-block;
-	position: relative;
-}
-
-#viscoll {
+#BRnav #viscoll {
 	width: 28px;
 	height: 28px;
 	min-width: auto;
@@ -65,23 +22,70 @@
 
 }
 
-#viscoll.active {
+#BRnav #viscoll.active {
 	background-color: #E3C89C;
 }
 
-#viscoll[disabled] {
+#BRnav #viscoll[disabled] {
     opacity: .7;
     cursor: default;
     box-shadow: none !important;
 }
 
-#viscoll:hover {
+#BRnav #viscoll:hover {
 	box-shadow: inset 1px 2px 3px rgba(0, 0, 0, 0.7);
 }
 
 .active {
 	background: #E3C89C;
 	color: #4e443c;
+}
+
+/* CSS per BRnav e altri elementi */
+#BRnav{
+	text-align: center;
+	overflow: visible;
+	margin-top: 30px;
+	position: absolute;	/* Prima era fixed */
+	bottom: 0px;
+	left: 4.5%;
+	width: 91%;
+	max-height: 50px;
+
+	/*box-shadow:0 10px 0px 5px #362D28;*/
+	border-style: solid;
+
+
+	background-color: #362D28;
+	z-index: 9999 !important;
+}
+
+#BRnav.collapsed {
+	bottom: -50px;
+}
+
+#BRnav .leftSideButtons {
+	min-width: 10%;
+	height: 50px;
+	display: block;
+	position: relative;  /* Relativo all'elemento contenitore ("nav") */
+	float: left;  /* Elementi uno dopo l'altro */
+}
+
+#BRnav .mainButtons {
+	height: 28px;
+	width: 28px;
+	min-width: auto;
+	margin: 13px 5px 12px 20%;
+	padding: 0;
+	border: 0;
+	float: left;
+	background-size: 28px 28px;
+	background-repeat: no-repeat;
+	background-position: center;
+	font-size: 20px;
+	display: inline-block;
+	position: relative;
 }
 
 /* Contiene lo slider */
@@ -213,8 +217,15 @@
 
 .BRup {
     background-repeat: no-repeat;
+		opacity: .25;
+		-webkit-transition: opacity 2s; /* Safari */
+    transition: opacity 2s;
 }
-
+.BRup:hover {
+	opacity: 1;
+	-webkit-transition: opacity 2s; /* Safari */
+	transition: opacity 2s;
+}
 .BRdn {
     background-repeat: no-repeat;
 }

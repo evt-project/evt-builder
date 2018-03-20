@@ -192,38 +192,32 @@ function createBrnav(array) {
 
 function bindArrowsBRnavClick() {
 	// Pulsante per ridurre la barra di navigazione
+	var BRnavCntlBtm = $('#BRnavCntlBtm'),
+			BRnav = $('#BRnav'),
+			BRnavCntl = $('.BRnavCntl'),
+			centralWrapper = $('#central_wrapper');
 	$('.BRnavCntl').click(
         function(){
-						var BRnavCntlBtm = $('#BRnavCntlBtm'),
-								BRnav = $('#BRnav'),
-								BRnavCntl = $('.BRnavCntl'),
-								centralWrapper = $('#central_wrapper');
 						if (BRnavCntlBtm) {
 							if (BRnavCntlBtm.hasClass('BRdn')) {
-	                BRnav.delay(150).animate({ bottom: -50 });  // .delay() imposta un timer per ritardare l'esecuzione degli elementi successivi
-									$('#global_wrapper').css("overflow-y", "hidden");  // Tolgo lo scrolling verticale quando riduco la barra di navigazione
-									centralWrapper.animate({ height:"87.5%" }, 1000);  // Aumento l'altezza del central_wrapper
-	                BRnavCntlBtm.addClass('BRup').removeClass('BRdn');
-									BRnavCntlBtm.find('i').removeClass('fa fa-caret-down fa-lg').addClass('fa fa-caret-up fa-lg');  // Rimuove la classe per mettere quella con la freccia verso il basso
-	                BRnavCntl.delay(1000).animate({ opacity:.25 },1000);
+								BRnav.animate({ bottom: -50 }, 420, function() {
+										BRnavCntlBtm.addClass('BRup').removeClass('BRdn');
+										BRnavCntlBtm.find('i').removeClass('fa fa-caret-down fa-lg').addClass('fa fa-caret-up fa-lg');  // Rimuove la classe per mettere quella con la freccia verso il basso
+								});  // .delay() imposta un timer per ritardare l'esecuzione degli elementi successivi
+								centralWrapper.animate({ height:"87.5%" }, 420, function() {
+										$('#global_wrapper').css("overflow-y", "hidden");  // Tolgo lo scrolling verticale quando riduco la barra di navigazione
+										updateTextContHeight();
+								});  // Aumento l'altezza del central_wrapper
 	            } else {
-	                BRnav.delay(350).animate({ bottom: 0 });  // .delay() ritarda l'animazione degli elementi seguenti
-									centralWrapper.animate({ height:"82.5%" }, 1000);  // Riduco l'altezza del central_wrapper
-	                BRnavCntlBtm.addClass('BRdn').removeClass('BRup');
-									BRnavCntlBtm.find('i').removeClass('fa fa-caret-up fa-lg').addClass('fa fa-caret-down fa-lg');
-	                BRnavCntl.animate({opacity:1})
+	               BRnav.animate({ bottom: 0 }, 420, function() {
+									 BRnavCntlBtm.find('i').removeClass('fa fa-caret-up fa-lg').addClass('fa fa-caret-down fa-lg');
+									 BRnavCntlBtm.addClass('BRdn').removeClass('BRup');
+								 });  // .delay() ritarda l'animazione degli elementi seguenti
+								 centralWrapper.animate({ height:"82.5%" }, 420, function() {
+									 	updateTextContHeight();
+								 });  // Riduco l'altezza del central_wrapper
 	            };
 						}
         }
   );
-  $('#BRnavCntlBtm').mouseover(function(){
-      if ($(this).hasClass('BRup')) {
-          $('.BRnavCntl').animate({ opacity: 1 }, 250);
-      };
-  });
-  $('#BRnavCntlBtm').mouseleave(function(){
-      if ($(this).hasClass('BRup')) {
-          $('.BRnavCntl').animate({ opacity: .25 }, 250);
-      };
-  });
 }

@@ -417,7 +417,11 @@
 					<xsl:with-param name="output" select="translation"/>
 				</xsl:call-template>
 				<body>
-					<section id="central_wrapper">
+					<xsl:element name="section">
+						<xsl:attribute name="id">central_wrapper</xsl:attribute>
+						<xsl:if test="$bottom_navbar=true()">
+							<xsl:attribute name="class">hasNavbar <xsl:value-of select="if($bottom_navbar_initial_status='expanded') then('navBarExpanded') else('navBarCollapsed')"/></xsl:attribute>
+						</xsl:if>
 						<div id="text_frame">
 							<div id="text" class="translation">
 								<xsl:choose>
@@ -442,7 +446,7 @@
 								</xsl:choose>
 							</div>
 						</div>
-					</section>
+					</xsl:element>
 				</body>
 			</html>
 		</xsl:result-document>
