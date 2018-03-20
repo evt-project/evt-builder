@@ -4,26 +4,30 @@
  * Version 0.3 (201601)
  *
  * Copyright (C) 2013-2017 the EVT Development Team.
- * 
- * EVT 1 is free software: you can redistribute it 
- * and/or modify it under the terms of the 
+ *
+ * EVT 1 is free software: you can redistribute it
+ * and/or modify it under the terms of the
  * GNU General Public License version 2
  * available in the LICENSE file (or see <http://www.gnu.org/licenses/>).
- * 
- * EVT 1 is distributed in the hope that it will be useful, 
- * but WITHOUT ANY WARRANTY; without even the implied 
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
+ *
+ * EVT 1 is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU General Public License for more details.
- * 
- * 
- * @author RafMas 
+ *
+ *
+ * @author RafMas
  * @since 2012 @to 2015
- * 
+ *
  * @author Julia Kenny - JK
- * @from 2012 @to 2014  
+ * @from 2012 @to 2014
  *
  * @author ChiaraDipi - CDP
- * @since 2013  
+ * @since 2013
+ *
+ * @short-term Federica Spinelli - FS
+ * (added support for translation as third edition level)
+ * @in 2017
  *
  * @short-term coauthor Luca Sarri – LS
  * (added and modified plugin for different languages)
@@ -35,7 +39,7 @@
 function collapseMenu(frame, height) {
     $('.top-menu:not(.menuClosed)').hide('blind').addClass('menuClosed');
     $('.bottom-menu:not(.menuClosed)').slideUp().addClass('menuClosed');
-    
+
     var bottomBoxHeader_height = 0;
     var topMenu_height;
     var bottomBoxOpened_visible = frame.find('.bottomBoxOpened:visible');
@@ -51,14 +55,14 @@ function collapseMenu(frame, height) {
         frame.css({
             'display': 'none',
             'visibility': 'visible'
-        }); 
+        });
     } else {
         topMenu_height = frame.find('.top-menu').outerHeight();
         if (bottomBoxOpened_visible.length) {
             bottomBoxHeader_height = bottomBoxOpened_visible.find('.bottomBoxHeader').outerHeight();
         }
     }
-    
+
     frame.find('.inner_frame').animate({
         height: height - bottomBoxHeader_height,
         top: -topMenu_height
@@ -84,7 +88,7 @@ function expandMenu(frame, height) {
     $('.top-menu.menuClosed:not(.hidden)').show('blind');
     $('.bottom-menu.menuClosed:not(.hidden)').slideToggle("slow");
     $('.top-menu.menuClosed, .bottom-menu.menuClosed').removeClass('menuClosed');
-    
+
     var bottomBoxHeader_height = 0;
     var topMenu_height;
     var bottomBoxOpened_visible = frame.find('.bottomBoxOpened:visible');
@@ -100,14 +104,14 @@ function expandMenu(frame, height) {
         frame.css({
             'display': 'none',
             'visibility': 'visible'
-        }); 
+        });
     } else {
         topMenu_height = frame.find('.top-menu').outerHeight();
         if (bottomBoxOpened_visible.length) {
             bottomBoxHeader_height = bottomBoxOpened_visible.find('.bottomBoxHeader').outerHeight();
         }
     }
-    
+
     var withMenu_height = height - (topMenu_height*2);
     frame.find('.inner_frame:not(#image_cont):not(#msDesc_cont)').animate({
         height: withMenu_height - bottomBoxHeader_height,
@@ -144,11 +148,11 @@ function bindSettingsBtnClick() {
         if($('#settings_cont').is(':visible')){
             $('#settings_cont').animate({
                 height:"toggle"
-            }, 0); 
+            }, 0);
         } else {
             $('#settings_cont').animate({
                 height:"toggle"
-            }, 0); 
+            }, 0);
         }
     });
 }

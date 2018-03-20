@@ -4,27 +4,38 @@
  * Version 0.3 (201601)
  *
  * Copyright (C) 2013-2017 the EVT Development Team.
- * 
- * EVT 1 is free software: you can redistribute it 
- * and/or modify it under the terms of the 
+ *
+ * EVT 1 is free software: you can redistribute it
+ * and/or modify it under the terms of the
  * GNU General Public License version 2
  * available in the LICENSE file (or see <http://www.gnu.org/licenses/>).
- * 
- * EVT 1 is distributed in the hope that it will be useful, 
- * but WITHOUT ANY WARRANTY; without even the implied 
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
+ *
+ * EVT 1 is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU General Public License for more details.
- * 
- * 
- * @author RafMas 
+ *
+ *
+ * @author RafMas
  * @since 2012 @to 2015
- * 
+ *
  * @author Julia Kenny - JK
- * @from 2012 @to 2014  
+ * @from 2012 @to 2014
  *
  * @author ChiaraDipi - CDP
- * @since 2013  
+ * @since 2013
  *
+ * @short-term Federica Spinelli - FS
+ * (added support for translation as third edition level)
+ * @in 2017
+ *
+ * @short-term Greta Musu - GM
+ * (added functions for global navigation bar and support for Viscoll)
+ * @in 2017/18
+ *
+ * @short-term Chiara De Martin - CDM
+ * (added support for chronological index of documents)
+ * @in 2017/18
  **/
 
 /*= BIND GENERIC OPTION HOVER EVENT =*/
@@ -53,8 +64,8 @@ function bindOpenSelectClick() {
                     $('.option_container.up:visible').animate({
                         top: '-5px',
                         height:"toggle"
-                    }, 0); 
-                    $('.option_container.down:visible').animate({height:"toggle"}, 0);   
+                    }, 0);
+                    $('.option_container.down:visible').animate({height:"toggle"}, 0);
                 }
                 if($(this).hasClass('open_up')){
                     if ($(this).siblings('.option_container').is(':visible')) {
@@ -75,7 +86,7 @@ function bindOpenSelectClick() {
                         scrollTop: 0,
                         height:"toggle"
                     }, 0, function(){
-                        var optionSelected = $(this).find('.option.selected'), 
+                        var optionSelected = $(this).find('.option.selected'),
                             optionSelectedPosition = optionSelected.position();
                         var scroll = optionSelectedPosition !== undefined ? optionSelectedPosition.top : undefined;
                         if (scroll !== undefined) {
@@ -107,7 +118,7 @@ function bindOptionClick() {
                             .attr('data-value', option_sel_value)
                             .text(option_sel_label)
                             .trigger('change');
-            
+
             /*if ($(this).parents('.option_container').parent().attr("class") === "main_tt_select"){
                 newText = $(this).attr('title');
                 $(this).parents('.option_container').prev().prev().text(cropLongTextLabel(newText, 12)).attr("data-value", newText).trigger('change'); // .label_selected
@@ -126,7 +137,7 @@ function bindOptionClick() {
                     .removeClass('selected');
             $(this)
                 .addClass('selected');
-            
+
             if (thisOptionContainer.is(':visible')) {
                 if(thisOptionContainer.hasClass('up')){
                    thisOptionContainer.animate({
@@ -163,7 +174,7 @@ function bindGlobarWrapperMouseDown() {
             }
         }
 
-        if ( $(e.target).parents("#settings_cont").length === 0 && 
+        if ( $(e.target).parents("#settings_cont").length === 0 &&
              ! $("#settings_cont").is(':animated') &&
              $(e.target).parents("#settings_link").length === 0 &&
              $(e.target).attr('id') !== 'settings_link' ) {
@@ -202,7 +213,7 @@ function bindBtnClick() {
         if (!$(this).hasClass('disabled')) {
             var countThumbs = 0;
             var thumbsElems = document.getElementsByClassName('thumb_single_img');
-            
+
             var getThumbsSrc = setInterval(function (){
                 for (var i = 0; i < 10 && countThumbs < thumbsElems.length; i++) {
                     var thumbEl = thumbsElems[countThumbs];
@@ -217,12 +228,12 @@ function bindBtnClick() {
                     clearInterval(getThumbsSrc);
                 }
             }, 2500);
-            
+
             if ( $('#msDesc_cont').length > 0 && $('#msDesc_cont').is(':visible') ) {
                 $('#switch_msDesc').removeClass('active');
                 $('#msDesc_cont').hide();
             }
-            if (magnifierON == false) { 
+            if (magnifierON == false) {
                 if($("#image_loading").css('display')!=="none"){$("#image_loading").hide()}
                 if($("#image_elem").css('display') === "none"){
                     $("#image_elem").show();
@@ -287,7 +298,7 @@ function bindFontSizeControllerBtnClick() {
                 currentFontSize = $(this).css('font-size');
                 currentFontSizeNum = parseFloat(currentFontSize, 10);
                 if ( action == 'increase' ) {
-                    newFontSize = currentFontSizeNum * 1.1; 
+                    newFontSize = currentFontSizeNum * 1.1;
                 } else {
                     newFontSize = currentFontSizeNum * 0.9;
                 }
@@ -319,7 +330,7 @@ function bindFontSizeControllerBtnClick() {
                     });
                 });
             });
-            
+
             var frameWidth;
             if ($(this).parent().attr('id') == 'text_tool-add') {
                 frameWidth = $('#text_cont-add').find('#text').outerWidth();
@@ -343,7 +354,7 @@ function bindFontSizeControllerBtnClick() {
         var currentFontSize, currentFontSizeNum, newFontSize;
         currentFontSize = $('#text_frame, #front_frame').css('font-size');
         currentFontSizeNum = parseFloat(currentFontSize, 10);
-        
+
         $('#text_frame, #front_frame').css({
             'font-size': newFontSize,
             'line-height': (newFontSize+10)+'px'
@@ -365,7 +376,7 @@ function bindCollapseMenuBtnClick() {
                 noMenu_height = $(this).innerHeight();
                 $(this).attr('data-menu-state', 'collapsed');
                 collapseMenu($(this), noMenu_height);
-            }); 
+            });
             // Modifico colore dell'icona .go-full-right che altrimenti non si vedrebbe
             $('.go-full-right').addClass('onWhite');
             // Se è aperto il text di sinistra modifico colore dell'icona go-full-left che altrimenti non si vedrebbe
@@ -374,14 +385,14 @@ function bindCollapseMenuBtnClick() {
             }
             setMagHeight(); //Add for Mag
             $(this).attr('data-action', 'expand');
-        } 
+        }
         /* EXPAND MENUS*/
         else if ( action == 'expand') {
             $('.main_frame').each(function(){
                 noMenu_height = $(this).innerHeight();
                 $(this).attr('data-menu-state', 'expanded');
                 expandMenu($(this), noMenu_height);
-            }); 
+            });
             $('.go-full-right').removeClass('onWhite');
             if ( $('#text_cont-add').is(':visible') || $('#msDesc_cont').is(':visible') ){
                 $('.go-full-left').removeClass('onWhite');
@@ -419,7 +430,7 @@ function bindCollapseMenuBtnClick() {
             }
             $(this).removeClass('fa-caret-down').addClass('fa-caret-up');
         }
-        
+
         $('.like_select:visible').each(function(){
                 if (!$(this).hasClass('widthChanged')) {
                     $(this).addClass('widthChanged');
@@ -476,16 +487,16 @@ function InitializePopup(){
             $(this).removeClass('over');
          }
     });
-    
+
     $('.tooltip').unbind('click').click(function(e){
         if($(this).hasClass('opened')) {
             e.stopPropagation();
         }
     });
     $('.trigger').unbind( "click" ).click(function(e){
-        if ( $('.doc').length<=0 
-            || $(this).parents('.doc').hasClass('current') || 
-               $(this).parents("div[id*='regesto_cont']").length > 0 || 
+        if ( $('.doc').length<=0
+            || $(this).parents('.doc').hasClass('current') ||
+               $(this).parents("div[id*='regesto_cont']").length > 0 ||
                $(this).parents("div[id*='front_cont']").length > 0 ) {
             e.stopPropagation();
             var popup, trigger, tooltip, before;
@@ -493,7 +504,7 @@ function InitializePopup(){
             trigger = popup.find('.trigger');
             tooltip = popup.find('> .tooltip');
             before = tooltip.find('> .before');
-            
+
             if ( tooltip.hasClass('opened') ) {
                 popup.removeClass('opened');
                 tooltip
@@ -510,7 +521,7 @@ function InitializePopup(){
                         .removeAttr('style');
                 $('.popup.opened')
                     .removeClass('opened');
-                
+
                 if($(this).parent('.popup').find('> .tooltip')){
                     $(this)
                         .parent('.popup')
@@ -520,26 +531,26 @@ function InitializePopup(){
                                 .find('> .before')
                                     .removeAttr('style');
                 }
-             
+
                 popup.addClass('opened');
                 tooltip
                     .addClass('opened')
                     .show();
-                
+
                 var triggerHeight, triggerTop, triggerLeft, triggerWidth;
                 triggerHeight = trigger.css('font-size').substr(0,2)*1+1;
-                
+
                 triggerTop = trigger.offset().top;
                 triggerLeft = trigger.position().left;
                 triggerWidth = trigger.width();
-                
+
                 var tooltipTop = tooltip.offset().top;
-                
+
                 var x = e.clientX;
                 var y = e.clientY;
-                
+
                 var tooltipRealWidth, tooltipRealHeight;
-                tooltip.css('position', 'relative');    
+                tooltip.css('position', 'relative');
                 tooltipRealWidth = tooltip.width();
 
                 if( tooltipRealWidth > 300 ){
@@ -547,7 +558,7 @@ function InitializePopup(){
                         'width': '300px',
                         'max-width': '300px'
                     });
-                } 
+                }
                 tooltip.css({
                     'position': 'absolute'
                 });
@@ -564,26 +575,26 @@ function InitializePopup(){
                         top: y+20,
                         left: left
                     });
-                
+
                 var containerWidth, tooltipLeft, marginRightText;
                 if ( popup.parents("div[id*='frame']").hasClass('full') ){
                     containerWidth = $('#text_cont').width();
                     marginRightText = 50;
                 } else {
-                    containerWidth = $('#text').width();    
+                    containerWidth = $('#text').width();
                     marginRightText = $('#text').position().left;
                 }
                 tooltipLeft = tooltip.position().left;
-                
+
                 if (tooltipLeft + tooltipRealWidth > containerWidth){
                     tooltip.css({
                         'right': marginRightText+"px"
                     });
                 }
-                tooltipRealWidth = tooltip.width(); 
-                
-                
-                
+                tooltipRealWidth = tooltip.width();
+
+
+
                 // Se supera a destra il margine destro del contenitore....
                 tooltipNewLeft = tooltip.position().left;
                 if ( tooltipNewLeft + tooltipRealWidth > containerWidth ) {
@@ -633,7 +644,7 @@ function InitializePopup(){
                     tooltip.offset({
                             top: tooltipNewTop
                         });
-                    
+
                     var beforeNewTop = tooltip.height() + 8;
                     before
                         .offset({
@@ -650,23 +661,23 @@ function InitializePopup(){
                         'width': '300px',
                         'max-width': '300px'
                     });
-                } 
-                
-                $(this).focus();    
+                }
+
+                $(this).focus();
 
                 return false;
             }
         }
     });
-    
-    
+
+
     $(document).click(function(){
         $('.over').removeClass('over');
         $('.opened').removeClass('opened');
         $('.popup').find('> .tooltip').hide();
         $(this).hide();
     });
-   
+
 
     InitializeLinkTextList();
 }

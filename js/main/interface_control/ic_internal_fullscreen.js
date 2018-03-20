@@ -4,26 +4,30 @@
  * Version 0.3 (201601)
  *
  * Copyright (C) 2013-2017 the EVT Development Team.
- * 
- * EVT 1 is free software: you can redistribute it 
- * and/or modify it under the terms of the 
+ *
+ * EVT 1 is free software: you can redistribute it
+ * and/or modify it under the terms of the
  * GNU General Public License version 2
  * available in the LICENSE file (or see <http://www.gnu.org/licenses/>).
- * 
- * EVT 1 is distributed in the hope that it will be useful, 
- * but WITHOUT ANY WARRANTY; without even the implied 
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
+ *
+ * EVT 1 is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU General Public License for more details.
- * 
- * 
- * @author RafMas 
+ *
+ *
+ * @author RafMas
  * @since 2012 @to 2015
- * 
+ *
  * @author Julia Kenny - JK
- * @from 2012 @to 2014  
+ * @from 2012 @to 2014
  *
  * @author ChiaraDipi - CDP
- * @since 2013  
+ * @since 2013
+ *
+ * @short-term Federica Spinelli - FS
+ * (added support for translation as third edition level)
+ * @in 2017
  *
  **/
 
@@ -42,7 +46,7 @@ function goFullScreenLeft(){
 
     $('.zoomWindow').hide();
     $('.zoomPup').hide();
-    
+
     $('#header_collapse').toggle();
     var mainLeftFrame = $("#main_left_frame"),
         globalWrapper = $("#global_wrapper"),
@@ -54,13 +58,13 @@ function goFullScreenLeft(){
     // 4 è l'altezza totale dei bordi di sinistra e destra
     margin_left = -(mainLeftFrame.offset().left);
     margin_top = -(mainLeftFrame.offset().top);
-    
+
     //cambia dimensione elementi per Mag //Add for Mag
     left_headerHeight = $('#left_header').height();
     $('#mag_image_elem').css({'margin-top': left_headerHeight+'px', 'height': height_full-left_headerHeight+'px'});
     $('.zoomWindow').css({left: (width_full - $(".zoomWindow").width())/2+'px'});
     $('.zoomPup').css({left: (width_full - $(".zoomPup").width())/2+'px'});
-    
+
     if ( mainLeftFrame.find('#regesto_cont').length > 0 ) {
         $('#regesto_cont').animate({'height': height_full-84}, 700);
     } else {
@@ -92,9 +96,9 @@ function goFullScreenLeft(){
             });
         }
         resizeButtonsAndSelects();
-        
+
     });
-    
+
     fitBottomBoxHeightAndPosition('left', height_full);
     $('.go-full-left').toggle();
     //$('#switchITL:visible').hide();
@@ -116,7 +120,7 @@ function goFullScreenLeft(){
             'margin-left': -(textWidth/2)+'px'
         });
     }
-    
+
     if(($('#span_ee_select-add').is(':visible'))&&!$('#span_ee_select-add').hasClass('widthChanged')){
         $('#span_ee_select-add')
             .addClass('widthChanged')
@@ -234,7 +238,7 @@ function goFullScreenRight(){
     // Aggiunta di suffisso nel caso di testo a unico frame
     var suffix = '';
     if ( $('#main_right_frame-single').length > 0 ) { suffix='-single'; }
-    
+
     var mainRightFrame = $('#main_right_frame'+suffix);
     mainRightFrame.addClass("full");
 
@@ -248,7 +252,7 @@ function goFullScreenRight(){
         left_frame_width = $('#central_wrapper').outerWidth();
         offset_left = 0;
     } else {
-        margin_left = -($('#main_left_frame').offset().left);   
+        margin_left = -($('#main_left_frame').offset().left);
         left_frame_width = $('#main_left_frame').outerWidth();
         offset_left = left_frame_width;
         mainRightFrame.css({
@@ -274,7 +278,7 @@ function goFullScreenRight(){
         right:0,
         minWidth: "1021px",
     }, 700, function(){
-        
+
         updateLinesWidth(mainRightFrame);
         $('#right_header .closeFullScreen').toggle();
         textWidth = $('#text_cont').find('#text').css('display', 'inline-block').outerWidth();
@@ -293,9 +297,9 @@ function goFullScreenRight(){
                 'position': 'relative',
                 'margin-left': -(textWidth/2)+'px'
             });
-    
+
     $('.go-full-right').toggle();
-    
+
     fitBottomBoxHeightAndPosition('right', height_full);
     // fitFrame();
     // Gestione selettori
@@ -317,11 +321,11 @@ function closeFullScreenRight(){
     if ($('#switchHS i ').hasClass('fa fa-dot-circle-o')){ //Add by JK for HS
         InitializeHS();
     }
-    
+
     // Aggiunta di suffisso nel caso di testo a unico frame
     var suffix="";
     if($('#main_right_frame-single').length>0)    suffix='-single';
-    
+
     var mainRightFrame = $('#main_right_frame'+suffix);
     if (mainRightFrame.attr('data-menu-state') == 'collapsed' ) {
         collapseMenu(mainRightFrame, $('#central_wrapper').innerHeight());
@@ -333,7 +337,7 @@ function closeFullScreenRight(){
     } else {
         left_frame_width = $('#main_left_frame').outerWidth();
         offset_left = left_frame_width;
-    } 
+    }
     $('#text_cont').find('#text').removeAttr('style');
     mainRightFrame.animate({
         left: offset_left+'px',
@@ -342,7 +346,7 @@ function closeFullScreenRight(){
         marginTop: "0px",
         minWidth: "0px"
     }, 700, function(){
-            
+
             updateLinesWidth(mainRightFrame);
             fitFrame();
             mainRightFrame
@@ -392,7 +396,7 @@ function bindInternalFullscreenBtnClick() {
     $("#closeFullScreenLeft").click(function(){
         closeFullScreenLeft();
     });
-    
+
     // closeFullScreenRight
     $("#closeFullScreenRight").click(function(){
         closeFullScreenRight();

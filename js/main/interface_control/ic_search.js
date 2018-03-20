@@ -4,29 +4,33 @@
  * Version 0.3 (201601)
  *
  * Copyright (C) 2013-2017 the EVT Development Team.
- * 
- * EVT 1 is free software: you can redistribute it 
- * and/or modify it under the terms of the 
+ *
+ * EVT 1 is free software: you can redistribute it
+ * and/or modify it under the terms of the
  * GNU General Public License version 2
  * available in the LICENSE file (or see <http://www.gnu.org/licenses/>).
- * 
- * EVT 1 is distributed in the hope that it will be useful, 
- * but WITHOUT ANY WARRANTY; without even the implied 
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
+ *
+ * EVT 1 is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU General Public License for more details.
  *
  *
- * @author RafMas 
+ * @author RafMas
  * @since 2012 @to 2015
- * 
+ *
  * @author Julia Kenny - JK
- * @from 2012 @to 2014  
+ * @from 2012 @to 2014
  *
  * author Jacopo Pugliese – JP
  * @from 2013 @to 2015
  *
  * @author ChiaraDipi - CDP
- * @since 2013  
+ * @since 2013
+ *
+ * @short-term Federica Spinelli - FS
+ * (added support for translation as third edition level)
+ * @in 2017
  *
  **/
 
@@ -56,11 +60,11 @@ function toggleSearchCont(toggler){
 
     if ( search_cont.hasClass('collapsed') ) {
         search_cont.removeClass('collapsed')
-        if ( search_input.val() != '' && 
+        if ( search_input.val() != '' &&
              search_query.attr('data-value') != search_input.val() &&
              $.trim(search_cont_results.text()) == '') {
                 search_startButton.trigger('click');
-        } 
+        }
         // else {
             var top, mainContainerHeight;
             top = 0;
@@ -74,7 +78,7 @@ function toggleSearchCont(toggler){
                    top: top+'px'
             }, 400);
             $(toggler).find('.fa').removeClass('fa-angle-double-up').addClass('fa-angle-double-down');
-            
+
             if ( listSelector.length > 0 && !listSelector.hasClass('not_active')) {
                 listSelector.addClass('not_active').css('opacity', '0.5');
             }
@@ -87,7 +91,7 @@ function toggleSearchCont(toggler){
             var switchRegBtn = $('#switchReg');
             if ( switchRegBtn.length > 0 && !switchRegBtn.hasClass('disabled') ) {
                 if ( !switchRegBtn.hasClass('active') ) {
-                    listSelector.removeClass('not_active').css('opacity', '1');   
+                    listSelector.removeClass('not_active').css('opacity', '1');
                 }
             } else {
                 listSelector.removeClass('not_active').css('opacity', '1');
@@ -106,7 +110,7 @@ function scrollDownSearchContainer(speed, searchCont){
     var mainContainerHeight, bottomBoxHeaderHeight;
 
     mainContainerHeight = searchCont.parents("div[id*='main_']").outerHeight();
-    bottomBoxHeaderHeight = searchCont.find('.bottomBoxHeader').outerHeight();  
+    bottomBoxHeaderHeight = searchCont.find('.bottomBoxHeader').outerHeight();
 
     if($('#right_header').hasClass('menuClosed')){
         newTop = mainContainerHeight - (bottomBoxHeaderHeight*2) - 16;
@@ -129,11 +133,11 @@ function setSearchClosedPosition(boxSuffix){
     if (boxSuffix == undefined) {boxSuffix = '';}
     mainContainerHeight = $('#main_right_frame').height();
     if ( $('#main_right_frame').hasClass('full') ){
-        bottomBoxHeaderHeight = $('#search_header').height() + 4;   
+        bottomBoxHeaderHeight = $('#search_header').height() + 4;
     } else {
-        bottomBoxHeaderHeight = $('#search_header').height() + 4;   
+        bottomBoxHeaderHeight = $('#search_header').height() + 4;
     }
-    
+
     if($('#right_header').hasClass('menuClosed')){
         newTop = mainContainerHeight - (bottomBoxHeaderHeight*2) - 8;
     } else {
@@ -141,7 +145,7 @@ function setSearchClosedPosition(boxSuffix){
         bottomMenuHeight = $('#text_tool').height();
         newTop = mainContainerHeight - (bottomMenuHeight*2) - bottomBoxHeaderHeight;
     }
-    
+
     $('#search_cont'+boxSuffix)
         .addClass('collapsed')
         .css({
@@ -160,12 +164,12 @@ function closeSearchBox(speed, boxSuffix) {
     var closeDiv = function(){
         return $('#search_cont'+boxSuffix).hide('slide',  {direction: 'down'}, 'linear', speed);
     };
-    
+
     $.when( closeDiv() ).done(function() {
-        setSearchClosedPosition(boxSuffix); 
+        setSearchClosedPosition(boxSuffix);
     });
     updateTextContHeight();
-    
+
     if ( $('#keyboard'+boxSuffix).is(':visible') ) {
         $('#keyboard_link'+boxSuffix).trigger('click');
     }
@@ -184,10 +188,10 @@ function openSearchBox(speed, boxSuffix) {
         searchCont.css({
             'top': newSearchContTop+'px'
         });
-        
+
         return searchCont.show();
     };
-    
+
     $.when( openDivSearch() ).done(function() {
         updateTextContHeight();
     });
@@ -228,18 +232,18 @@ function onSearchButtonClick(elem) {
 
         if ( listSelect.length > 0 ) {
             // Se ho il regesto...
-            if ( (switchRegBtn.length > 0 ) && 
+            if ( (switchRegBtn.length > 0 ) &&
                  (!switchRegBtn.hasClass('disabled')) ) {
                 // ...e il regesto non è aperto
                 if ( !switchRegBtn.hasClass('active') ) {
                     // attivo il selettore dei filtri
-                    listSelect.removeClass('not_active').css('opacity', '1'); 
+                    listSelect.removeClass('not_active').css('opacity', '1');
                 }
             } else {
                 listSelect.removeClass('not_active').css('opacity', '1');
             }
         }
-    } 
+    }
     // BOX RICERCA CHIUSO
     else {
         var listsBtn = $('#list_link'+boxSuffix),
@@ -248,7 +252,7 @@ function onSearchButtonClick(elem) {
             closeListsBox('fast');
         }
         // Se ho il regesto, questo non è disabilitato e c'è un solo livello di edizione...
-        if ( (switchRegBtn.length > 0) && 
+        if ( (switchRegBtn.length > 0) &&
              (!switchRegBtn.hasClass('disabled')) &&
              ($('#span_ee_select .option').length == 1) ) {
             // ...e questo è attivo e siamo nella modalità testo immagine
@@ -260,7 +264,7 @@ function onSearchButtonClick(elem) {
         }
 
         // Se ho il front
-        if ( (switchFrontBtn.length > 0) && 
+        if ( (switchFrontBtn.length > 0) &&
              (!switchFrontBtn.hasClass('disabled')) ) {
             // chiudo il front
             $('#front_cont'+boxSuffix).hide();
@@ -298,9 +302,9 @@ function bindKeyboardBtnClick() {
             } else {
                 newKeyboardHeight = (Math.floor(numKeys/9)*keyHeight)+1+keyHeight;
             }
-            
+
             newKeyboardWidth = 9*keyWidth+1;
-            
+
             if ( !search_cont.hasClass('collapsed') ) {
                 keyboard.addClass('openDown');
                 var offsetTop = $(this).parents('.bottomBoxHeader').outerHeight()+2;
@@ -349,7 +353,7 @@ function bindSearchBtnsClick() {
         $(this).prev().val('').removeClass('clearable');
         var searchCont = $(this).parents('.searchContainer');
         searchCont
-            .find('.tipue_search_results_count, .searchResultsContent, .bottomBoxFooter div').empty(); 
+            .find('.tipue_search_results_count, .searchResultsContent, .bottomBoxFooter div').empty();
         searchCont
             .find('.searchQuery')
                 .empty()

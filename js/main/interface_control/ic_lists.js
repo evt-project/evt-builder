@@ -4,26 +4,34 @@
  * Version 0.3 (201601)
  *
  * Copyright (C) 2013-2017 the EVT Development Team.
- * 
- * EVT 1 is free software: you can redistribute it 
- * and/or modify it under the terms of the 
+ *
+ * EVT 1 is free software: you can redistribute it
+ * and/or modify it under the terms of the
  * GNU General Public License version 2
  * available in the LICENSE file (or see <http://www.gnu.org/licenses/>).
- * 
- * EVT 1 is distributed in the hope that it will be useful, 
- * but WITHOUT ANY WARRANTY; without even the implied 
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
+ *
+ * EVT 1 is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU General Public License for more details.
- * 
- * 
- * @author RafMas 
+ *
+ *
+ * @author RafMas
  * @since 2012 @to 2015
- * 
+ *
  * @author Julia Kenny - JK
- * @from 2012 @to 2014  
+ * @from 2012 @to 2014
  *
  * @author ChiaraDipi - CDP
- * @since 2013  
+ * @since 2013
+ *
+ * @short-term Federica Spinelli - FS
+ * (added support for translation as third edition level)
+ * @in 2017
+ *
+ * @short-term Chiara De Martin - CDM
+ * (added support for chronological index of documents)
+ * @in 2017/18
  *
  **/
 
@@ -72,7 +80,7 @@ function toggleListCont(toggler){
             var switchRegBtn = $('#switchReg'+boxSuffix);
             if ( switchRegBtn.length > 0 && !switchRegBtn.hasClass('disabled') ) {
                 if ( !switchRegBtn.hasClass('active') ) {
-                    listsSelector.removeClass('not_active').css('opacity', '1');   
+                    listsSelector.removeClass('not_active').css('opacity', '1');
                 }
             } else {
                 listsSelector.removeClass('not_active').css('opacity', '1');
@@ -87,7 +95,7 @@ function closeListsBox(speed){
         .removeClass('bottomBoxOpened')
         .hide('slide',  {direction: 'down'}, 'linear', speed);
     $('#list_link').removeClass('active');
-    
+
     updateTextContHeight();
 
     $('#text_cont')
@@ -111,7 +119,7 @@ function openListsBox(speed){
         } else {
             return listsCont.show('slide',  {direction: 'down'}, 'linear', speed);
         }
-        
+
     };
     $.when( openDivLists() ).done(function() {
         showHideListsNavBtn();
@@ -119,12 +127,12 @@ function openListsBox(speed){
 }
 
 function showHideListsNavBtn() {
-    var totListHeadersWidth = 0; 
-    $('.labelList').each(function(el){ 
-        totListHeadersWidth += $(this).outerWidth(); 
+    var totListHeadersWidth = 0;
+    $('.labelList').each(function(el){
+        totListHeadersWidth += $(this).outerWidth();
     });
     var totInnerWidth = $('#list_header_elements').innerWidth();
-    
+
     if (totListHeadersWidth <  totInnerWidth) {
         $('#navListHeadersLx').hide();
         $('#navListHeadersRx').hide();
@@ -148,20 +156,20 @@ function filterListElements(filter){
     $('.list_element_opened').removeClass('list_element_opened');
 
     $('.list_element').hide();
-    var listsElementsFiltered; 
-    if (filterValue === '*') { 
-        listsElementsFiltered = $(".list_element[data-order-list!='']"); 
-    } else { 
-        listsElementsFiltered = $(".list_element[data-order-list='"+filterValue.toLowerCase()+"'], .list_element[data-order-list='"+filterValue.toUpperCase()+"']"); 
+    var listsElementsFiltered;
+    if (filterValue === '*') {
+        listsElementsFiltered = $(".list_element[data-order-list!='']");
+    } else {
+        listsElementsFiltered = $(".list_element[data-order-list='"+filterValue.toLowerCase()+"'], .list_element[data-order-list='"+filterValue.toUpperCase()+"']");
     }
-   
+
     // Elements in chronological index (listDoc) should always be visible
     $('#listDoc .list_element').show();
     listsElementsFiltered.show();
     if (filterValue.toLowerCase() == 'c') {
         $(".list_element[data-order-list='Ç']").show();
     }
-    
+
     if ( $('.ul_list:visible').find(listsElementsFiltered).length == 0) {
         if ( $( '.no_elements' ).length > 0) {
             $( '.no_elements' ).detach().appendTo('.ul_list:visible').show();
@@ -173,13 +181,13 @@ function filterListElements(filter){
                 .appendTo('.ul_list:visible');
             window.lang.run();
         }
-    } else { 
-        if ( $( '.no_elements' ).length > 0) { 
-            $( '.no_elements' ).hide(); 
-        } 
-        // $('.ul_list:visible').find(listsElementsFiltered).sort(function(a, b) { 
-        //     return a.getAttribute('id') > b.getAttribute('id'); 
-        // }).appendTo($('.ul_list:visible')); 
+    } else {
+        if ( $( '.no_elements' ).length > 0) {
+            $( '.no_elements' ).hide();
+        }
+        // $('.ul_list:visible').find(listsElementsFiltered).sort(function(a, b) {
+        //     return a.getAttribute('id') > b.getAttribute('id');
+        // }).appendTo($('.ul_list:visible'));
     }
 
     $("div[id*='list_']").scrollTop(0);
@@ -207,7 +215,7 @@ function showListElementOccurrences(elem, listName){
         // $(elem).find('.small-note, .occurences').toggle();
         $(elem).find('.fa').removeClass('fa-angle-down').addClass('fa-angle-right');
         $(elem).removeClass('list_element_opened');
-    } 
+    }
     else {
         if($(elem).find('.occurences').length<=0){
             prepareOccurrencesList(elem, listName);
@@ -234,7 +242,7 @@ function prepareOccurrencesList(elem, listName){
     var list_ref, list_occ;
     list_ref = $(elem).attr('id');
     list_occ = $("<div/>").addClass('occurences');
-    occ_ref = $('#list_'+listName) 
+    occ_ref = $('#list_'+listName)
                 .find('#occorrenze_'+listName)
                 .find("span[data-ref='"+list_ref+"']");
     if(occ_ref.length > 0){
@@ -285,7 +293,7 @@ function goToOccurrencePage(elem, pb, doc){
     if (pb != current_pp) {
         $('#text_cont').addClass('reachingOccurence');
         updateHash(doc, pb, "");
-    } 
+    }
     // Altrimenti...
     else {
         // Se il riferimento punta ad un documento presente sulla pagina corrente, ma diverso da quello attivo
@@ -314,7 +322,7 @@ function scrollDownListContainer(speed){
     var mainContainerHeight, bottomBoxHeaderHeight;
 
     mainContainerHeight = $('#lists_cont').parents("div[id*='main_']").outerHeight();
-    bottomBoxHeaderHeight = $('#search_header').outerHeight();  
+    bottomBoxHeaderHeight = $('#search_header').outerHeight();
 
     if($('#right_header').hasClass('menuClosed')){
         newTop = mainContainerHeight - (bottomBoxHeaderHeight*2) - 16;
@@ -336,7 +344,7 @@ function showItemInList(id_ref){
     var top, mainContainerHeight;
     var list_filter_type, list_filter_pos;
     var list, list_id;
-    
+
     // Open the list where the element is
     if ( $('#'+id_ref).length > 0 ) {
         var listsCont = $('#lists_cont');
@@ -345,7 +353,7 @@ function showItemInList(id_ref){
         if ( !  list.hasClass('list_opened') ) {
             $('.occurences:visible').hide();
             $('.list_element_opened').removeClass('list_element_opened');
-            
+
             $('.list_opened').hide();
             $('.labelList.active').removeClass('active');
             $("#header_"+list_id).addClass('active');
@@ -362,13 +370,13 @@ function showItemInList(id_ref){
         }
         scrollDownListContainer(0);
         listsCont.show(0);
-        
+
         top = 0;
         mainContainerHeight = $('#central_wrapper').height();
         if($('#right_header').hasClass('menuClosed')){
             top = -$('#right_header').height();
             listsCont.css('height', mainContainerHeight+'px');
-        }       
+        }
         listsCont.animate({
                top: top+'px'
         }, 200, function(){
@@ -376,7 +384,7 @@ function showItemInList(id_ref){
                 scrollTop: 0
             }, function(){
                 $('#'+id_ref).find('.toggle_list_element').trigger('click');
-                $('#list_'+list_id).scrollTop($('#'+id_ref).position().top);   
+                $('#list_'+list_id).scrollTop($('#'+id_ref).position().top);
             });
         });
         $('#toggle_list_cont').find('.fa').removeClass('fa-angle-double-up').addClass('fa-angle-double-down');
@@ -398,7 +406,7 @@ function InitializeLinkTextList(){
         if ( $('#'+id_ref).length == 0 ) {
             alert('There was an error in opening the entity reference. Please try later.');
         } else {
-            showItemInList(id_ref); 
+            showItemInList(id_ref);
         }
     });
 }
@@ -421,9 +429,9 @@ function bindListsBtnClick() {
         }
     });
     $('#navListHeadersRx').click(function(event){
-        var listHeadersWidth = 0; 
-        $('.labelList').each(function(el){ 
-            listHeadersWidth += $(this).outerWidth(); 
+        var listHeadersWidth = 0;
+        $('.labelList').each(function(el){
+            listHeadersWidth += $(this).outerWidth();
         });
         var listHeadersInnerWidth = $('#list_header_elements').innerWidth();
         // Scroll fino a left = listHeadersInnerWidth - listHeadersWidth
@@ -449,7 +457,7 @@ function bindListsBtnClick() {
             if ( $('#span_list_select').length > 0 ) {
                 if ( $('#switchReg').length > 0 ) {
                     if ( !$('#switchReg').hasClass('active') ) {
-                        $('#span_list_select').removeClass('not_active').css('opacity', '1');   
+                        $('#span_list_select').removeClass('not_active').css('opacity', '1');
                     }
                 } else {
                     $('#span_list_select').removeClass('not_active').css('opacity', '1');
@@ -463,10 +471,10 @@ function bindListsBtnClick() {
                 closeSearchBox('fast', boxSuffix);
             }
             openListsBox(speed);
-            if ( !$('#lists_cont').hasClass('collapsed') ) { 
-                if ( $('#span_list_select').length > 0 ) { 
-                    $('#span_list_select').addClass('not_active').css('opacity', '0.5'); 
-                } 
+            if ( !$('#lists_cont').hasClass('collapsed') ) {
+                if ( $('#span_list_select').length > 0 ) {
+                    $('#span_list_select').addClass('not_active').css('opacity', '0.5');
+                }
             }
         }
     });
@@ -544,14 +552,14 @@ function bindChronologicalIndex() {
         var items = $("#ul_listDocument .list_element");
         /* Invoco la funzione per l'ordinamento delle date */
         sortDate(container, items);
-        
+
         /* Gestisco la riduzione del regesto */
         var minimized_text = $('#ul_listDocument .list_element .document_list_regesto');
         var minimized_character_count = 300;
         minimized_text.each(function () {
             var text = $(this).text();
             if (text.length < minimized_character_count) return;
-            
+
             $(this).html (
             text.slice(0, minimized_character_count) + '<span class="regestoEllipsis">... </span>' +
             '<span class="regestoExpansion">' + text.slice(minimized_character_count, text.length) +'</span>');
@@ -678,7 +686,7 @@ function bindDocumentLinkChronologicalIndex() {
         /* il valore dell'attributo 'data-first-page' dell'opzione recuperata mi dà il valore della prima pagina del documento  */
         var docFirstPage = navSelectDoc.attr('data-first-page');
         updateHash(elementListDoc, docFirstPage, "");
-        
+
         /* funzione definita in ic_navigation.js */
     });
 }
