@@ -14,19 +14,16 @@
 -->
 <xsl:stylesheet xpath-default-namespace="http://www.tei-c.org/ns/1.0"
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="2.0"
-    xmlns:xs="http://www.w3.org/2001/XMLSchema"
-    xmlns:eg="http://www.tei-c.org/ns/Examples"
-    xmlns:xd="http://www.pnp-software.com/XSLTdoc"
-    xmlns:fn="http://www.w3.org/2005/xpath-functions"
-    xmlns:tei="http://www.tei-c.org/ns/1.0"
-    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:eg="http://www.tei-c.org/ns/Examples"
+    xmlns:xd="http://www.pnp-software.com/XSLTdoc" xmlns:fn="http://www.w3.org/2005/xpath-functions"
+    xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns="http://www.w3.org/1999/xhtml"
     exclude-result-prefixes="#all">
 
     <xd:doc type="stylesheet">
-        <xd:short>
-            EN: Templates used to process the TEI elements of the CORE module and other general purpose elements not related to editorial activities.
-            IT: I template per la trasformazione degli elementi TEI del modulo CORE e altri elementi di uso generale non legati alle attività editoriali.
-        </xd:short>
+        <xd:short> EN: Templates used to process the TEI elements of the CORE module and other
+            general purpose elements not related to editorial activities. IT: I template per la
+            trasformazione degli elementi TEI del modulo CORE e altri elementi di uso generale non
+            legati alle attività editoriali. </xd:short>
     </xd:doc>
 
     <!-- NOTE Note or annotation -->
@@ -57,14 +54,16 @@
     <!-- NOTE Note or annotation -->
     <xsl:template match="//tei:note" mode="interp dipl #default">
         <xsl:choose>
-            <xsl:when test="$root//tei:ptr[@type='noteAnchor'][@target=concat('#',current()/@xml:id)]">
+            <xsl:when
+                test="$root//tei:ptr[@type = 'noteAnchor'][@target = concat('#', current()/@xml:id)]">
                 <!-- DO NOTHING -->
                 <!-- Se nel testo esiste un pointer a questa nota, la nota NON deve essere renderizzata nel punto in cui è stata codificata,
                     ma verrà visualizzata nel punto in cui compare il pointer. La sua trasformazione verrà dunque gestita dal template per il pointer -->
             </xsl:when>
             <xsl:otherwise>
                 <xsl:choose>
-                    <xsl:when test="node()/ancestor::tei:listPerson or node()/ancestor::tei:listPlace">
+                    <xsl:when
+                        test="node()/ancestor::tei:listPerson or node()/ancestor::tei:listPlace">
                         <xsl:apply-templates mode="#current"/>
                     </xsl:when>
                     <xsl:otherwise>
@@ -77,12 +76,16 @@
 
     <xsl:template name="notePopup">
         <xsl:element name="span">
-            <xsl:attribute name="class">
-                inline_note popup
-                <xsl:value-of select="@type"/>
+            <xsl:attribute name="class"> inline_note popup <xsl:value-of select="@type"/>
             </xsl:attribute>
 
-            <xsl:attribute name="id">note_<xsl:value-of select="if(@xml:id) then (@xml:id) else (count(preceding::*[name() = name(current())]))"></xsl:value-of></xsl:attribute>
+            <xsl:attribute name="id">note_<xsl:value-of
+                    select="
+                        if (@xml:id) then
+                            (@xml:id)
+                        else
+                            (count(preceding::*[name() = name(current())]))"
+                /></xsl:attribute>
             <xsl:choose>
                 <xsl:when test="@type = 'critical' and @n != ''">
                     <xsl:element name="i">
@@ -101,7 +104,9 @@
                 <xsl:attribute name="id">
                     <xsl:value-of select="./@xml:id"/>
                 </xsl:attribute>
-                <xsl:element name="span"><xsl:attribute name="class">before</xsl:attribute></xsl:element>
+                <xsl:element name="span">
+                    <xsl:attribute name="class">before</xsl:attribute>
+                </xsl:element>
                 <xsl:element name="span">
                     <xsl:attribute name="class">tooltip_text</xsl:attribute>
                     <xsl:apply-templates mode="#current"/>
@@ -109,4 +114,113 @@
             </xsl:element>
         </xsl:element>
     </xsl:template>
+
+    <xsl:template match="tei:back//tei:ptr" mode="interp dipl #default">
+        <xsl:choose>
+            <xsl:when test="@type = 'noteAnchor'">
+                <xsl:if
+                    test="@target and @target != '' and $root//tei:note[@xml:id = substring-after(current()/@target, '#')]">
+                    <xsl:for-each
+                        select="$root//tei:note[@xml:id = substring-after(current()/@target, '#')]">
+                        <xsl:call-template name="notePopup"/>
+                    </xsl:for-each>
+                </xsl:if>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:if test="@target and @target != ''">
+                    <xsl:element name="a">
+                        <xsl:attribute name="class">ptr external_link</xsl:attribute>
+                        <xsl:attribute name="href">
+                            <xsl:value-of select="@target"/>
+                        </xsl:attribute>
+                        <xsl:attribute name="target">_blank</xsl:attribute>
+                        <xsl:choose>
+                            <xsl:when test="@n">
+                                <xsl:attribute name="title">
+                                    <xsl:value-of select="@n"/>
+                                </xsl:attribute>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:attribute name="lang">def</xsl:attribute>
+                                <xsl:attribute name="title">OPEN_WEB_PAGE</xsl:attribute>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <i class="fa fa-external-link"/>
+                    </xsl:element>
+                </xsl:if>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+
+    <xsl:template match="tei:ptr" mode="interp dipl #default">
+        <xsl:choose>
+            <xsl:when test="@type = 'noteAnchor'">
+                <xsl:if
+                    test="@target and @target != '' and $root//tei:note[@xml:id = substring-after(current()/@target, '#')]">
+                    <xsl:for-each
+                        select="$root//tei:note[@xml:id = substring-after(current()/@target, '#')]">
+                        <xsl:call-template name="notePopup"/>
+                    </xsl:for-each>
+                </xsl:if>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:if test="@target and @target != ''">
+                    <xsl:element name="a">
+                        <xsl:attribute name="class">ptr external_link</xsl:attribute>
+                        <xsl:attribute name="href">
+                            <xsl:value-of select="@target"/>
+                        </xsl:attribute>
+                        <xsl:attribute name="target">_blank</xsl:attribute>
+                        <xsl:choose>
+                            <xsl:when test="@n">
+                                <xsl:attribute name="title">
+                                    <xsl:value-of select="@n"/>
+                                </xsl:attribute>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:attribute name="lang">def</xsl:attribute>
+                                <xsl:attribute name="title">OPEN_WEB_PAGE</xsl:attribute>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <i class="fa fa-external-link"/>
+                    </xsl:element>
+                </xsl:if>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <xsl:template match="tei:back//tei:ref" mode="interp dipl #default">
+        <xsl:choose>
+            <xsl:when test="@target[contains(., 'www')] or @target[contains(., 'http')]">
+                <xsl:element name="a">
+                    <xsl:attribute name="href"
+                        select="
+                            if (@target[contains(., 'http')]) then
+                                (@target)
+                            else
+                                (concat('http://', @target))"/>
+                    <xsl:attribute name="target" select="'_blank'"/>
+                    <xsl:attribute name="data-type">
+                        <xsl:value-of select="@type"/>
+                    </xsl:attribute>
+                    <xsl:apply-templates/>
+                </xsl:element>
+            </xsl:when>
+            <xsl:when test="starts-with(@target, '#')">
+                <xsl:element name="span">
+                    <xsl:attribute name="class">ref</xsl:attribute>
+                    <xsl:attribute name="data-target">
+                        <xsl:value-of select="@target"/>
+                    </xsl:attribute>
+                    <xsl:attribute name="data-type">
+                        <xsl:value-of select="@type"/>
+                    </xsl:attribute>
+                    <xsl:apply-templates/>
+                </xsl:element>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+
 </xsl:stylesheet>
