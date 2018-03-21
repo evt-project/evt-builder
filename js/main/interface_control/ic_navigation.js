@@ -276,6 +276,10 @@ function gotopage(pp_val, pp_lab, state){
                     .scrollTop($('.selected_from_list').position().top)
                     .removeClass('reachingOccurence');
             }
+
+            /* Integration by LS */
+            window.lang.run();
+            /* /end Integration by LS */
         }
     }
 
