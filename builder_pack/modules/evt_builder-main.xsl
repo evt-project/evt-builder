@@ -417,6 +417,9 @@
 					<xsl:with-param name="output" select="translation"/>
 				</xsl:call-template>
 				<body>
+					<xsl:if test="$prose_verses_toggler=true()">
+						<xsl:attribute name="data-prose-verses-feature" select="'active'"/>
+					</xsl:if>
 					<xsl:element name="section">
 						<xsl:attribute name="id">central_wrapper</xsl:attribute>
 						<xsl:if test="$bottom_navbar=true()">

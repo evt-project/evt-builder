@@ -193,6 +193,9 @@
 				<xsl:with-param name="html_path" select="$mainPrefix"/>
 			</xsl:call-template>
 			<body>
+				<xsl:if test="$prose_verses_toggler=true()">
+					<xsl:attribute name="data-prose-verses-feature" select="'active'"/>
+				</xsl:if>
 				<xsl:element name="div">
 					<xsl:attribute name="id" select="'global_wrapper'"/>
 					<xsl:attribute name="data-image-extension" select="$imageExt"/>

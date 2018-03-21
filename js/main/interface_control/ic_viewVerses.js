@@ -56,12 +56,13 @@ function initializeProse() {
 }
 
 function viewVerses(frame) {
+    frame.attr("data-prose-verses-status", "verses");
     var spazio = frame.find(".spazio");
     var numeri = frame.find(".cerchio");
     var numeriP = frame.find(".dipl-lineN, .interp-lineN");
     var lb = frame.find(".lb");
 
-    frame.find(".AnnMenuItem,.HighlightedAnnMenuItem,.SelectedAnnMenuItem,div.dipl-left,.dipl.line,div.interp-left,.interp.line").css('display', 'inline');
+    frame.find(".dipl-lineN+.dipl-left, .interp-lineN+.interp-left").css('display', 'inline');
 
     for (var i = 1; i < lb.length; i++) {
         $(lb[i]).html("");
@@ -88,12 +89,13 @@ function viewVerses(frame) {
 }
 
 function viewProse(frame) {
+    frame.attr("data-prose-verses-status", "prose");
     var spazio = frame.find(".spazio");
     var numeri = frame.find(".cerchio");
     var numeriP = frame.find(".dipl-lineN, .interp-lineN");
     var lb = frame.find(".lb");
 
-    frame.find(".AnnMenuItem,.HighlightedAnnMenuItem,.SelectedAnnMenuItem,div.dipl-left,.dipl.line,div.interp-left,.interp.line").css('display', 'inline-block');
+    frame.find(".dipl-lineN+.dipl-left, .interp-lineN+.interp-left").css('display', 'inline-table');
 
     for (var i = 1; i < lb.length; i++) {
         $(lb[i]).html("<br />");
