@@ -356,6 +356,7 @@ $(function() {
 
 			/* ============== */
 			/* GESTIONE LISTE */
+			var listContainer = $('#lists_cont');
 			if( $(xml).find('liste').children().length > 0 ){
 				$('#toggle_list_cont')
 					.click(function(){
@@ -366,7 +367,6 @@ $(function() {
 					filterListElements(this);
 				});
 
-				var listContainer = $('#lists_cont');
 				$(xml).find('liste').children().each(function(){
 					if ($(this).attr('active') == '1'){
 						var listName, listLabel;

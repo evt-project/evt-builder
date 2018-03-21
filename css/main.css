@@ -3196,3 +3196,91 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 	background : none;
 	color : grey;
 }
+
+
+/** Stile aggiunto per il progetto piccola Biblioteca Digitale
+Romanza  realizzato da A. Martinelli" **/
+span.popup.foreign{
+  display: inline;
+  font-style: italic;
+}
+
+
+span.speaker{
+  display: block;
+  text-align: center;
+}
+span.interp-p{
+  text-align: left;
+}
+
+h1.center {
+  text-align: center;
+  font-weight: normal;
+}
+
+span.center{
+  text-align: center;
+}
+
+span.stage{
+  font-style: italic;
+  display: inline;
+}
+
+span.speakerstage{
+  display: block;
+}
+span.speaker2{
+  margin-right: 7px;
+}
+span.stage2{
+  font-style: italic;
+}
+
+span.mixed, span.exit, span.entrance, span.novelistic, span.modifier, span.delivery, span.business, span.setting{
+  display: inline;
+}
+
+span.stageName{
+  display: block;
+}
+
+
+/*** ELIMINO PUNTI E DECORAZIONI DALLA LISTA***/
+li {
+  text-decoration: none;
+  list-style: none;
+  
+}
+
+span.autore{
+  margin-left: 50%;
+}
+
+[data-rend='center'] {
+	text-align: center; 
+}
+[data-rend='left'] {
+	text-align: left; 
+}
+[data-rend='right'] {
+	text-align: right; 
+}
+[data-rend='uppercase'] {
+	text-transform: uppercase;
+}
+[data-rend='italic'] {
+	font-style: italic;
+}
+
+[data-display='block'] {
+	display: block;
+}
+[data-display='inline-block'] {
+	display: inline-block;
+	width: 100%;
+}
+[data-display='inline'] {
+	display: inline;
+}

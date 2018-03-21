@@ -87,7 +87,7 @@
 	<!-- EN: On/Off regesto -->
 	<!-- IT: Attiva/Disattiva regesto -->
 	<!-- default: false() -->
-	<xsl:param name="regesto" select="true()"/>
+	<xsl:param name="regesto" select="false()"/>
 
 	<!-- EN: On/Off Front Information -->
 	<!-- IT: Attiva/Disattiva Front Information -->
@@ -311,10 +311,16 @@
 	<!-- default: false() -->
 	<xsl:param name="document_navigation" select="true()"/>
 
-	<!-- EN: Lines/Prose visualization Button -->
-	<!-- IT: Bottone di visualizzazione Versi/Prosa  -->
+	<!-- EN: On/Off Lines/Prose visualization Button -->
+	<!-- IT: Attiva/Disattiva Bottone di visualizzazione Versi/Prosa  -->
 	<!-- default: true() -->
 	<xsl:param name="prose_verses_toggler" select="false()"/>
+	<!-- default: true() -->
+	
+	<!-- EN: On/Off Tooltip indicating language encoded in @xml:lang -->
+	<!-- IT: Attiva/Disattiva Tooltip per la visualizzazione della lingua degli elementi che presentano @xml:lang  -->
+	<!-- default: false() -->
+	<xsl:param name="lang_tooltip" select="true()"/>
 
 	<!-- LISTS -->
 
@@ -353,14 +359,23 @@
 			 In order to add a new element to the list you simply need to know that the tag corresponds to the class name that has be given to the html element referring to the particular words to be selected. -->
 	<!-- IT: E' possibile personalizzare gli elementi che compariranno nell'elenco dei filtri che selezionano particolari paroli o gruppi di parole.
 			 Per rimuovere un elemento basta eliminare tutto l'elemento di interesse.
-			 Per aggiungere un elemento alla lista basta sapere che il tag fa riferimento alla classe data all'elemento html con il quale sono state marcate le parole "particolari" da selezionare. -->
-	<xsl:variable name="lists" as="element()*">
 		<persName/>
 		<placeName/>
 		<roleName/>
 		<measure/>
 		<date/>
 		<orgName/>
+			 Per aggiungere un elemento alla lista basta sapere che il tag fa riferimento alla classe data all'elemento html con il quale sono state marcate le parole "particolari" da selezionare. -->
+	<xsl:variable name="lists" as="element()*">
+		<foreign/>
+		<setting/>
+		<entrance/>
+		<exit/>
+		<business/>
+		<delivery/>
+		<modifier/>
+		<novelistic/>
+		<mixed/>
 	</xsl:variable>
 	
 	<!-- EN: Information about EVT -->

@@ -330,9 +330,10 @@ div.interp-right, span.interp-right {
     background:#FFF; 
 }
 
-div.interp-left, span.interp-left{
-    /* width: 92%; */
-    display: inline-table;
+.interp-lineN+div.interp-left, 
+.interp-lineN+span.interp-left{
+    width: 92% !important;
+    display: inline;
 }
 
 div.interp-attachment{
@@ -1285,6 +1286,190 @@ span.tooltip span.entity_name.link_active{
     margin: 0 0 2%;
 }
 
-.line[data-type='rubric'], .line[data-type="rubric"] *{ 
+.line[data-type='rubric'], .line[data-type="rubric"] * { 
     color: #f00 !important; 
+}
+
+/** ENTITY SELECTOR **/
+/** FOREIGN**/
+span.foreign, span.popup.foreign {
+    display: inline;
+    font-style: italic;
+}
+
+span.popup.foreign {
+   cursor:pointer;
+}
+
+.doc.current span.foreign.list_active:not(.popup),
+.doc.current span.foreign.list_active span.trigger, 
+.doc.current span.foreign.list_active span.trigger li,
+.doc.current span.foreign.over span.trigger, 
+.doc.current span.foreign.over span.trigger li,
+.doc.current span.foreign.opened span.trigger li {
+    background-color: #DCF8C6;
+    color: black;
+    font-style: italic;
+}
+
+.option[data-value="foreign"] .filter_color {
+	color: #DCF8C6;
+}
+
+
+/**STAGE**/
+/**SETTING**/    
+span.setting, span.popup.setting {
+    display:inline;
+    font-style: italic;
+}
+
+.doc.current span.setting.list_active span.trigger, 
+.doc.current span.setting.over span.trigger, 
+.doc.current span.setting.opened span.trigger {
+    background-color: #E6E6FA;
+    cursor:pointer;
+    color: black;
+    font-style: italic;
+}
+
+.option[data-value="setting"] .filter_color {
+	color: #E6E6FA;
+}
+
+/**ENTRANCE**/
+   span.entrance, span.popup.entrance {
+    display:inline;
+       font-style: italic;
+}
+
+.doc.current span.entrance.list_active span.trigger, 
+.doc.current span.entrance.over span.trigger, 
+.doc.current span.entrance.opened span.trigger {
+    background-color: #FAFAD2;
+    cursor:pointer;
+    color:black;
+    font-style: italic;
+}
+
+.option[data-value="entrance"] .filter_color {
+	color: #FAFAD2;
+}
+/**EXIT**/
+
+ span.exit, span.popup.exit {
+    display:inline;
+    font-style: italic;
+}
+
+.doc.current span.exit.list_active span.trigger, 
+.doc.current span.exit.over span.trigger, 
+.doc.current span.exit.opened span.trigger {
+    background-color: #B0E0E6;
+    cursor:pointer;
+    color: black;
+    font-style: italic;
+}
+
+.option[data-value="exit"] .filter_color {
+	color: #B0E0E6;
+}
+
+/**BUSINESS**/
+
+ span.business, span.popup.business {
+    display:inline;
+    font-style: italic;
+}
+
+.doc.current span.business.list_active span.trigger, 
+.doc.current span.business.over span.trigger, 
+.doc.current span.business.opened span.trigger {
+    background-color: #F08080;
+    cursor:pointer;
+    color: black;
+    font-style: italic;
+}
+
+.option[data-value="business"] .filter_color{
+	color: #F08080;
+}
+
+/**DELIVERY**/
+
+ span.delivery, span.popup.delivery {
+    display:inline;
+    font-style: italic;
+}
+
+.doc.current span.delivery.list_active span.trigger, 
+.doc.current span.delivery.over span.trigger, 
+.doc.current span.delivery.opened span.trigger {
+    background-color: #FFDFFF;
+    cursor:pointer;
+    color: black;
+    font-style: italic;
+}
+
+.option[data-value="delivery"] .filter_color {
+	color: #FFDFFF;
+}
+
+ /**MODIFIER**/
+
+ span.modifier, span.popup.modifier {
+    display:inline;
+    font-style: italic;
+}
+
+.doc.current span.modifier.list_active span.trigger, 
+.doc.current span.modifier.over span.trigger, 
+.doc.current span.modifier.opened span.trigger {
+    background-color: #1E57E9;
+    cursor:pointer;
+    color: white;
+    font-style: italic;
+}
+
+.option[data-value="modifier"] .filter_color {
+	color: #1E57E9;
+}
+ /**NOVELISTIC**/
+
+ span.novelistic, span.popup.novelistic {
+    display:inline;
+    font-style: italic;
+}
+
+.doc.current span.novelistic.list_active span.trigger, 
+.doc.current span.novelistic.over span.trigger, 
+.doc.current span.novelistic.opened span.trigger {
+    background-color: #FFB64E;
+    cursor:pointer;
+    color: black;
+    font-style: italic;
+}
+
+.option[data-value="novelistic"] .filter_color{
+	color: #FFB64E;
+}
+
+ /**MIXED**/
+
+ span.mixed, span.popup.mixed {
+    display:inline;
+	font-style: italic;
+}
+
+.doc.current span.mixed.list_active span.trigger, 
+.doc.current span.mixed.over span.trigger, 
+.doc.current span.mixed.opened span.trigger {
+    background-color: rgba(167, 77, 199, 0.2);
+    cursor:pointer;
+    font-style: italic;
+    color : black;
+}
+
+.option[data-value="mixed"] .filter_color{
+	color: #A74DC7;
 }

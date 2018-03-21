@@ -161,14 +161,17 @@ div.AnnText{
 }
 
 /* Modifiche per gestione VERSI/PROSA */
-.AnnMenuItem,
-.HighlightedAnnMenuItem,
-.SelectedAnnMenuItem,
-div.dipl-left,
-.dipl.line,
-div.interp-left,
-.interp.line {
-    display: inline-block;
+[data-prose-verses-status='verses'] .AnnMenuItem,
+[data-prose-verses-status='verses'] .HighlightedAnnMenuItem,
+[data-prose-verses-status='verses'] .SelectedAnnMenuItem,
+[data-prose-verses-status='verses'] div.dipl-left,
+[data-prose-verses-status='verses'] .dipl.line,
+[data-prose-verses-status='verses'] div.interp-left,
+[data-prose-verses-status='verses'] .interp.line {
+    display: inline;
+}
+div.dipl-left, div.interp-left {
+    width: 100%;
 }
 /* CDP provvisorio */
 .HighlightedAnnMenuItem div.dipl-right, .HighlightedAnnMenuItem div.dipl-center, .HighlightedAnnMenuItem div.interp-right, .HighlightedAnnMenuItem div.interp-center, .HighlightedAnnMenuItem div.tdipl-right, .HighlightedAnnMenuItem div.tdipl-center, .HighlightedAnnMenuItem div.crit-right, .HighlightedAnnMenuItem div.crit-center, .HighlightedAnnMenuItem div.trad-right, .HighlightedAnnMenuItem div.trad-center,

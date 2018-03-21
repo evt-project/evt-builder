@@ -216,5 +216,37 @@ jquery_lang_js.prototype.lang.it = {
     "VERSES": "Versi",
     "PROSE": "Prosa",
 
-    "VISCOLL": "Viscoll"
+    "VISCOLL": "Viscoll",
+
+	"ITA": "Italiano",
+	"LAT": "Latino",
+	"SPA": "Spagnolo",
+	"GUASCONE": "Guascone",
+	
+	"foreign": "Lingua straniera",
+	"setting": "Setting",
+	"entrance": "Entrance",
+	"exit": "Exit",
+	"business": "Business",
+	"delivery": "Delivery",
+	"modifier": "Modifier",
+	"novelistic": "Novelistic",
+	"mixed": "Mixed",
+
+	"STAGE_SETTING_LABEL" : "Setting",
+	"STAGE_SETTING_DESC": "Descrive l'ambientazione",
+	"STAGE_ENTRANCE_LABEL" : "Entrance",
+	"STAGE_ENTRANCE_DESC": "Descrive un ingresso",
+	"STAGE_EXIT_LABEL" : "Exit",
+	"STAGE_EXIT_DESC": "Descrive un'uscita",
+	"STAGE_BUSINESS_LABEL" : "Business",
+	"STAGE_BUSINESS_DESC": "Descrive l'attività sul palco",
+	"STAGE_DELIVERY_LABEL" : "Delivery",
+	"STAGE_DELIVERY_DESC": "Descrive il modo in cui un personaggio parla",
+	"STAGE_MODIFIER_LABEL" : "Modifier",
+	"STAGE_MODIFIER_DESC": "Fornisce dettagli sul personaggio",
+	"STAGE_NOVELISTIC_LABEL" : "Novelistic",
+	"STAGE_NOVELISTIC_DESC": "Testo narrativo che indica le direzioni di scena",
+	"STAGE_MIXED_LABEL" : "Mixed",
+	"STAGE_MIXED_DESC": "Più di uno dei valori descritti"
 }
