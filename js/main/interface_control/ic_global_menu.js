@@ -159,6 +159,10 @@ function bindSettingsBtnClick() {
 
 /*= INITIALIZE LANG AND BIND FLAG BUTTONS CLICK EVENT =*/
 function initializeLang() {
+    var spanEEselect = $('#span_ee_select'),
+        spanEEselectAdd = $('#span_ee_select-add'),
+        spanDDselect = $('#span_dd_select'),
+        spanLISTselect = $('#span_list_select');
     $('.flag').click(function(){
         if ( !$(this).hasClass('active') ) {
             var lang = $(this).attr('data-value');
@@ -171,9 +175,10 @@ function initializeLang() {
         // Translate edition level label
         translateEEselectedLabel();
         translateLabelInChronologicalIndex();
-        updateSelectLength($('#span_ee_select'));
-        if ($('#span_ee_select-add').length > 0) { updateSelectLength($('#span_ee_select-add')) }
-        if ($('#span_dd_select').length > 0) { updateSelectLength($('#span_dd_select')) }
+        if (spanEEselect !== undefined && spanEEselect.length > 0) { updateSelectLength(spanEEselect); }
+        if (spanEEselectAdd !== undefined && spanEEselectAdd.length > 0) { updateSelectLength(spanEEselectAdd); }
+        if (spanDDselect !== undefined && spanDDselect.length > 0) { updateSelectLength(spanDDselect); }
+        if (spanLISTselect !== undefined && spanLISTselect.length > 0) { updateSelectLength(spanLISTselect); }
     });
     window.lang.run();
     if ( window.lang.currentLang === 'undefined' ) {
@@ -182,9 +187,10 @@ function initializeLang() {
         $('.flag.active').removeClass('active');
         $(".flag[data-value='"+window.lang.currentLang+"']").addClass('active');
     }
-    updateSelectLength($('#span_ee_select'));
-    if ($('#span_ee_select-add').length > 0) { updateSelectLength($('#span_ee_select-add')) }
-    if ($('#span_dd_select').length > 0) { updateSelectLength($('#span_dd_select')) }
+    if (spanEEselect !== undefined && spanEEselect.length > 0) { updateSelectLength(spanEEselect) }
+    if (spanEEselectAdd !== undefined && spanEEselectAdd.length > 0) { updateSelectLength(spanEEselectAdd) }
+    if (spanDDselect !== undefined && spanDDselect.length > 0) { updateSelectLength(spanDDselect) }
+    if (spanLISTselect !== undefined && spanLISTselect.length > 0) { updateSelectLength(spanLISTselect); }
 }
 /* TEMPORARY*/
 function translateLabelInChronologicalIndex() {

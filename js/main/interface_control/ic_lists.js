@@ -179,8 +179,8 @@ function filterListElements(filter){
                 .addClass('no_elements')
                 .append("<span lang='def'>NO_ELEMENTS</span>")
                 .appendTo('.ul_list:visible');
-            window.lang.run();
         }
+        window.lang.run();
     } else {
         if ( $( '.no_elements' ).length > 0) {
             $( '.no_elements' ).hide();

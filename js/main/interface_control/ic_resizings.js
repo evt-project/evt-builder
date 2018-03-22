@@ -161,7 +161,7 @@ function updateSelectLength(elem){
         if ($('#imgd_link').hasClass('current_mode')) {
             var optCont = $('#span_dd_select').find('.option_container');
             optCont.css({
-                'width': 'auto',
+                'width': '-moz-max-content',
                 'position': 'relative',
                 'visibility': 'hidden',
                 'display': 'block'
@@ -213,7 +213,8 @@ function updateSelectLength(elem){
     }
 
     $(elem).find('.option_container').css({
-        "width": widthSel-10,
+        "width": "-moz-max-content",
+        "min-width": widthSel-10,
         "position": "absolute",
         "visibility": "visible",
         "display": "none"

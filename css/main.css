@@ -1132,6 +1132,7 @@ footer{
 }
 .like_select .main_list_select .option_container {
 	max-height: 270px;
+	width: -moz-max-content;
 } 
 .option_container.up{
     top: 0px;
@@ -3054,12 +3055,12 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 }
 
 #poweredBy {
-    width: 100%;
-	position: relative; /* GM: Prima era absolute */
+    width: auto;
+	position: absolute;
 	text-align: right;
 	font-size: 0.3rem;
-	right: 10%; /* GM */
-	bottom: -5px; /* GM: Prima era 0 */
+	bottom: 5px;
+	right: calc(4.5% + 70px);
 }
 
 #poweredBy:hover{

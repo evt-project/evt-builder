@@ -364,7 +364,10 @@ $(function() {
 					});
 
 				$('.list_filter').click(function() {
-					filterListElements(this);
+					var activeList = $(".labelList.active");
+					if (activeList.attr("id") !== "header_listDoc") {
+						filterListElements(this);
+					}
 				});
 
 				$(xml).find('liste').children().each(function(){
