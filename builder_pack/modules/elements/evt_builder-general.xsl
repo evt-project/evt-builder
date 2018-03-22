@@ -128,66 +128,59 @@
             </xsl:when>
             <xsl:otherwise>
                 <xsl:if test="@target and @target != ''">
-                    <xsl:element name="a">
-                        <xsl:attribute name="class">ptr external_link</xsl:attribute>
-                        <xsl:attribute name="href">
-                            <xsl:value-of select="@target"/>
-                        </xsl:attribute>
-                        <xsl:attribute name="target">_blank</xsl:attribute>
-                        <xsl:choose>
-                            <xsl:when test="@n">
-                                <xsl:attribute name="title">
-                                    <xsl:value-of select="@n"/>
+                    <xsl:choose>
+                        <xsl:when test="contains(@target, 'http') or contains(@target, 'www')">
+                            <xsl:element name="a">
+                                <xsl:attribute name="class">ptr external_link</xsl:attribute>
+                                <xsl:attribute name="href">
+                                    <xsl:value-of select="@target"/>
                                 </xsl:attribute>
-                            </xsl:when>
-                            <xsl:otherwise>
-                                <xsl:attribute name="lang">def</xsl:attribute>
-                                <xsl:attribute name="title">OPEN_WEB_PAGE</xsl:attribute>
-                            </xsl:otherwise>
-                        </xsl:choose>
-                        <i class="fa fa-external-link"/>
-                    </xsl:element>
+                                <xsl:attribute name="target">_blank</xsl:attribute>
+                                <xsl:choose>
+                                    <xsl:when test="@n">
+                                        <xsl:attribute name="title">
+                                            <xsl:value-of select="@n"/>
+                                        </xsl:attribute>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:attribute name="lang">def</xsl:attribute>
+                                        <xsl:attribute name="title">OPEN_WEB_PAGE</xsl:attribute>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                                <i class="fa fa-external-link"/>
+                            </xsl:element>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:element name="span">
+                                <xsl:attribute name="class">popup image</xsl:attribute>
+                                <xsl:element name="span">
+                                    <xsl:attribute name="class">trigger</xsl:attribute>
+                                    <xsl:element name="i">
+                                        <xsl:attribute name="class">fa fa-picture-o</xsl:attribute>
+                                    </xsl:element>
+                                </xsl:element>
+                                <xsl:element name="span">
+                                    <xsl:attribute name="class">tooltip</xsl:attribute>
+                                    <xsl:element name="span">
+                                        <xsl:attribute name="class">before</xsl:attribute>
+                                    </xsl:element>
+                                    <xsl:for-each select="$root//tei:item[@xml:id = current()/@target]">
+                                        <xsl:element name="img">
+                                            <xsl:attribute name="src">data/input_data/<xsl:value-of
+                                                    select=".//tei:graphic/@url"/></xsl:attribute>
+                                            <xsl:attribute name="width">180px</xsl:attribute>
+                                        </xsl:element>
+                                    </xsl:for-each>
+                                    <!-- aggiungere riferimento ad entita specifica e relative info  -->
+                                </xsl:element>
+                            </xsl:element>
+                        </xsl:otherwise>
+                    </xsl:choose>
                 </xsl:if>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
 
-    <xsl:template match="tei:ptr" mode="interp dipl #default">
-        <xsl:choose>
-            <xsl:when test="@type = 'noteAnchor'">
-                <xsl:if
-                    test="@target and @target != '' and $root//tei:note[@xml:id = substring-after(current()/@target, '#')]">
-                    <xsl:for-each
-                        select="$root//tei:note[@xml:id = substring-after(current()/@target, '#')]">
-                        <xsl:call-template name="notePopup"/>
-                    </xsl:for-each>
-                </xsl:if>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:if test="@target and @target != ''">
-                    <xsl:element name="a">
-                        <xsl:attribute name="class">ptr external_link</xsl:attribute>
-                        <xsl:attribute name="href">
-                            <xsl:value-of select="@target"/>
-                        </xsl:attribute>
-                        <xsl:attribute name="target">_blank</xsl:attribute>
-                        <xsl:choose>
-                            <xsl:when test="@n">
-                                <xsl:attribute name="title">
-                                    <xsl:value-of select="@n"/>
-                                </xsl:attribute>
-                            </xsl:when>
-                            <xsl:otherwise>
-                                <xsl:attribute name="lang">def</xsl:attribute>
-                                <xsl:attribute name="title">OPEN_WEB_PAGE</xsl:attribute>
-                            </xsl:otherwise>
-                        </xsl:choose>
-                        <i class="fa fa-external-link"/>
-                    </xsl:element>
-                </xsl:if>
-            </xsl:otherwise>
-        </xsl:choose>
-    </xsl:template>
     <xsl:template match="tei:back//tei:ref" mode="interp dipl #default">
         <xsl:choose>
             <xsl:when test="@target[contains(., 'www')] or @target[contains(., 'http')]">
