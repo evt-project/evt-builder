@@ -42,55 +42,72 @@
 
 	<!-- L Verse line-->
 	<xsl:template match="tei:l" mode="dipl">
-		<xsl:choose>		
-			<xsl:when test="@n > 9">
-				<xsl:choose>
-					<xsl:when test="@n != preceding::tei:l[1]/@n"> <!-- se è il primo pezzo di l -->
-						<xsl:choose>
-							<xsl:when test="@n != following::tei:l[1]/@n"> <!-- se è l'ultimo pezzo di l -->
-								<xsl:if test="$prose_verses_toggler=true()">
-									<span class="spazio"></span><sup class="cerchio"><xsl:value-of select="@n"/></sup><xsl:text> </xsl:text>
-								</xsl:if>
-							</xsl:when>
-							<xsl:otherwise>
-								<xsl:if test="$prose_verses_toggler=true()">
-									<span class="spazio"></span><sup class="cerchio"><xsl:value-of select="@n"/></sup><xsl:text> </xsl:text>
-								</xsl:if>
-							</xsl:otherwise>
-						</xsl:choose>               
-					</xsl:when>
-					<xsl:otherwise>
-					</xsl:otherwise>
-				</xsl:choose>
+		<xsl:if test="$prose_verses_toggler=true()">
+			<xsl:choose>		
+				<xsl:when test="@n > 9">
+					<xsl:choose>
+						<xsl:when test="@n != preceding::tei:l[1]/@n"> <!-- se è il primo pezzo di l -->
+							<xsl:choose>
+								<xsl:when test="@n != following::tei:l[1]/@n"> <!-- se è l'ultimo pezzo di l -->
+									<xsl:if test="$prose_verses_toggler=true()">
+										<span class="spazio"></span><sup class="cerchio"><xsl:value-of select="@n"/></sup><xsl:text> </xsl:text>
+									</xsl:if>
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:if test="$prose_verses_toggler=true()">
+										<span class="spazio"></span><sup class="cerchio"><xsl:value-of select="@n"/></sup><xsl:text> </xsl:text>
+									</xsl:if>
+								</xsl:otherwise>
+							</xsl:choose>               
+						</xsl:when>
+						<xsl:otherwise>
+						</xsl:otherwise>
+					</xsl:choose>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:choose>
+						<xsl:when test="@n=1">
+							<xsl:if test="$prose_verses_toggler=true()">
+								<span class="spazio"></span><sup class="cerchio"><xsl:text>0</xsl:text><xsl:value-of select="@n"/></sup><xsl:text> </xsl:text>
+							</xsl:if>
+						</xsl:when>
+						<xsl:when test="@n != preceding::tei:l[1]/@n"> <!-- se è il primo pezzo di l -->
+							<xsl:choose>
+								<xsl:when test="@n != following::tei:l[1]/@n"> <!-- se è l'ultimo pezzo di l -->
+									<xsl:if test="$prose_verses_toggler=true()">
+										<span class="spazio"></span><sup class="cerchio"><xsl:text>0</xsl:text><xsl:value-of select="@n"/></sup><xsl:text> </xsl:text>
+									</xsl:if>
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:if test="$prose_verses_toggler=true()">
+										<span class="spazio"></span><sup class="cerchio"><xsl:text>0</xsl:text><xsl:value-of select="@n"/></sup><xsl:text> </xsl:text>
+									</xsl:if>
+								</xsl:otherwise>
+							</xsl:choose>               
+						</xsl:when>
+						<xsl:otherwise>
+						</xsl:otherwise>
+					</xsl:choose>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:if>
+		<xsl:choose>
+			<xsl:when test="parent::tei:lg">
+				<xsl:element name="span">
+					<xsl:attribute name="class" select="$ed_name2, name()" separator="-"/>
+					<xsl:attribute name="data-display" select="'inline-block'"/>
+					<xsl:if test="@rend">
+						<xsl:attribute name="data-rend" select="@rend"/>
+					</xsl:if>
+					<xsl:apply-templates mode="#current"/> 
+					<xsl:text> </xsl:text>
+				</xsl:element>
 			</xsl:when>
 			<xsl:otherwise>
-				<xsl:choose>
-					<xsl:when test="@n=1">
-						<xsl:if test="$prose_verses_toggler=true()">
-							<span class="spazio"></span><sup class="cerchio"><xsl:text>0</xsl:text><xsl:value-of select="@n"/></sup><xsl:text> </xsl:text>
-						</xsl:if>
-					</xsl:when>
-					<xsl:when test="@n != preceding::tei:l[1]/@n"> <!-- se è il primo pezzo di l -->
-						<xsl:choose>
-							<xsl:when test="@n != following::tei:l[1]/@n"> <!-- se è l'ultimo pezzo di l -->
-								<xsl:if test="$prose_verses_toggler=true()">
-									<span class="spazio"></span><sup class="cerchio"><xsl:text>0</xsl:text><xsl:value-of select="@n"/></sup><xsl:text> </xsl:text>
-								</xsl:if>
-							</xsl:when>
-							<xsl:otherwise>
-								<xsl:if test="$prose_verses_toggler=true()">
-									<span class="spazio"></span><sup class="cerchio"><xsl:text>0</xsl:text><xsl:value-of select="@n"/></sup><xsl:text> </xsl:text>
-								</xsl:if>
-							</xsl:otherwise>
-						</xsl:choose>               
-					</xsl:when>
-					<xsl:otherwise>
-					</xsl:otherwise>
-				</xsl:choose>
+					<xsl:apply-templates mode="#current"/>
+					<xsl:text> </xsl:text>
 			</xsl:otherwise>
 		</xsl:choose>
-		<xsl:apply-templates mode="#current"/> 
-		<xsl:text> </xsl:text><!--important-->
 	</xsl:template>
 
 	<!-- CDP:embedded -->
@@ -749,5 +766,89 @@
 	<!-- QUOTE Quotes -->
 	<xsl:template match="tei:quote" mode="dipl">
 		<xsl:apply-templates mode="#current"/>
+	</xsl:template>
+
+	<!-- Regole estratte da personalizzazioni di Alice Martinelli per edizione Gherardi -->
+	<!-- HEAD -->
+    <xsl:template match="tei:head" mode="dipl">
+		<xsl:element name="h1">
+			<xsl:attribute name="class" select="'center'"/>
+			<xsl:apply-templates mode="#current"> </xsl:apply-templates>
+		</xsl:element>				
+    </xsl:template>
+
+    <!-- DOCAUTHOR-->
+    <xsl:template match="tei:docAuthor" mode="dipl">
+        <xsl:element name="span">
+            <xsl:attribute name="class" select="'autore'"/>
+            <xsl:apply-templates mode="#current"/><br/>
+        </xsl:element>
+    </xsl:template>
+
+
+    <!-- @XML:LANG -->
+	<!-- FOREIGN  -->
+	<xsl:template match="*[@xml:lang]" mode="dipl">
+		<xsl:choose>
+			<xsl:when test="$lang_tooltip">
+				<xsl:element name="span">
+					<xsl:attribute name="class">popup foreign <xsl:value-of select="name()"/></xsl:attribute>
+					<xsl:element name="span">
+						<xsl:attribute name="class">trigger</xsl:attribute>
+						<xsl:apply-templates mode="#current"/>
+					</xsl:element>
+					<xsl:element name="span">
+						<xsl:attribute name="class">tooltip</xsl:attribute>
+						<xsl:element name="span">
+							<xsl:attribute name="class">before</xsl:attribute>
+						</xsl:element>
+						<span lang="def"><xsl:value-of select="upper-case(@xml:lang)"/></span>
+					</xsl:element>
+				</xsl:element>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:element name="span">
+					<xsl:attribute name="class">foreign <xsl:value-of select="name()"/></xsl:attribute>
+					<xsl:apply-templates mode="#current"/>
+				</xsl:element>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
+
+	<!-- STAGE -->
+	<xsl:template match="tei:stage" mode="dipl">
+		<xsl:choose>
+			<!-- CON POPUP -->
+			<xsl:when test="@type">
+				<xsl:element name="span">
+					<xsl:attribute name="class">popup stage <xsl:value-of select="@type"/></xsl:attribute>
+					<xsl:element name="span">
+						<xsl:attribute name="class">trigger</xsl:attribute>
+						<xsl:apply-templates mode="#current"/>
+					</xsl:element>
+					<xsl:element name="span">
+						<xsl:attribute name="class">tooltip</xsl:attribute>
+						<xsl:element name="span">
+							<xsl:attribute name="class">before</xsl:attribute>
+						</xsl:element>
+						<xsl:element name="span">
+							<xsl:attribute name="class">stageName</xsl:attribute>
+							<span lang="def"><xsl:value-of select="concat('STAGE_',upper-case(@type),'_LABEL')"/></span>
+						</xsl:element>
+						<xsl:element name="span">
+							<xsl:attribute name="class">details</xsl:attribute>
+							<span lang="def"><xsl:value-of select="concat('STAGE_',upper-case(@type),'_DESC')"/></span>
+						</xsl:element>
+					</xsl:element>
+				</xsl:element>
+			</xsl:when>
+			<!-- SENZA POPUP -->
+			<xsl:otherwise>
+				<xsl:element name="span">
+					<xsl:attribute name="class">stage no-info</xsl:attribute>
+					<xsl:apply-templates mode="#current"/>
+				</xsl:element>
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:template>
 </xsl:stylesheet>

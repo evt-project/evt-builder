@@ -291,24 +291,19 @@ span.dipl-hi-double {
 
 /**EDIZIONE INTERPRETATIVA**/
 
-div.interp-zone{
+div.dipl-zone, div.interp-zone{
     margin-bottom: 5px; 
 }
 
-.interp-p{
+.dipl-p, .interp-p {
 	display: block;
 }
-.interp-p[data-part] { 
+.dipl-p[data-part], .interp-p[data-part] { 
   display: inline; 
 } 
 
+div.dipl-center, span.dipl-center, 
 div.interp-center, span.interp-center {
-	/*margin-left: 0.5cm;
-	margin-right: 0.5cm;
-	text-indent: 0.5cm;
-	text-align: center;
-	display: block;
-	*/
 	/*CDP*/
 	text-align: center;
     width: 92%;
@@ -316,13 +311,8 @@ div.interp-center, span.interp-center {
     background:#FFF;
 }
 
+div.dipl-right, span.dipl-right,
 div.interp-right, span.interp-right {
-	/*margin-left: 0.5cm;
-	margin-right: 0.5cm;
-	text-indent: 0.5cm;
-	text-align: right;
-	display: block;
-	*/
 	/*CDP*/
 	text-align: right;
     /*width: 92%;*/
@@ -330,13 +320,15 @@ div.interp-right, span.interp-right {
     background:#FFF; 
 }
 
+.dipl-lineN+div.dipl-left, 
+.dipl-lineN+span.dipl-left,
 .interp-lineN+div.interp-left, 
-.interp-lineN+span.interp-left{
+.interp-lineN+span.interp-left {
     width: 92% !important;
     display: inline;
 }
 
-div.interp-attachment{
+div.interp-attachment {
     border: 1px solid black;
     padding: 5px 0px 0px 10px;
 }
