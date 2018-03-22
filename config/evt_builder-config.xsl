@@ -359,23 +359,31 @@
 			 In order to add a new element to the list you simply need to know that the tag corresponds to the class name that has be given to the html element referring to the particular words to be selected. -->
 	<!-- IT: E' possibile personalizzare gli elementi che compariranno nell'elenco dei filtri che selezionano particolari paroli o gruppi di parole.
 			 Per rimuovere un elemento basta eliminare tutto l'elemento di interesse.
-		<persName/>
-		<placeName/>
-		<roleName/>
-		<measure/>
-		<date/>
-		<orgName/>
 			 Per aggiungere un elemento alla lista basta sapere che il tag fa riferimento alla classe data all'elemento html con il quale sono state marcate le parole "particolari" da selezionare. -->
 	<xsl:variable name="lists" as="element()*">
-		<foreign/>
-		<setting/>
-		<entrance/>
-		<exit/>
-		<business/>
-		<delivery/>
-		<modifier/>
-		<novelistic/>
-		<mixed/>
+		<group label="NAMED_ENTITIES" active="true">
+			<persName active="true"/>
+			<placeName active="false"/>
+			<orgName active="true"/>
+		</group>
+		<group label="INTERESTING_ELEMENTS" active="false">
+			<roleName active="true"/>
+			<measure active="true"/>
+			<date active="true"/>
+			<foreign active="true"/>
+		</group>
+		<group label="STAGES" active="true">
+			<setting active="true"/>
+			<entrance active="true"/>
+			<exit active="true"/>
+			<business active="true"/>
+			<delivery active="true"/>
+			<modifier active="true"/>
+			<novelistic active="true"/>
+			<mixed active="true"/>
+		</group>
+		<group label="OTHERS" active="true">
+		</group>
 	</xsl:variable>
 	
 	<!-- EN: Information about EVT -->

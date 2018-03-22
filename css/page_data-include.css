@@ -1303,10 +1303,8 @@ span.popup.foreign {
 
 .doc.current span.foreign.list_active:not(.popup),
 .doc.current span.foreign.list_active span.trigger, 
-.doc.current span.foreign.list_active span.trigger li,
 .doc.current span.foreign.over span.trigger, 
-.doc.current span.foreign.over span.trigger li,
-.doc.current span.foreign.opened span.trigger li {
+.doc.current span.foreign.opened span.trigger {
     background-color: #DCF8C6;
     color: black;
     font-style: italic;

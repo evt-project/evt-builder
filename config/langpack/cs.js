@@ -249,5 +249,9 @@ jquery_lang_js.prototype.lang.cs = {
 	"STAGE_NOVELISTIC_LABEL" : "Novelistic",
 	"STAGE_NOVELISTIC_DESC": "Narativní text určující směry scény",
 	"STAGE_MIXED_LABEL" : "Mixed",
-	"STAGE_MIXED_DESC": "Více než jedna z popsaných hodnot"
+	"STAGE_MIXED_DESC": "Více než jedna z popsaných hodnot",
+
+	"NAMED_ENTITIES": "Pojmenované entity",
+	"INTERESTING_ELEMENTS": "Zajímavé prvky",
+	"STAGES": "Stage Directions"
 }

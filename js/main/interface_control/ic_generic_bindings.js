@@ -108,7 +108,9 @@ function bindOpenSelectClick() {
 /*= - If it is a filter, it is possible to select more than one ".option" element. =*/
 function bindOptionClick() {
     $(".like_select .option_container .option").click(function(){
-        if( (!$(this).hasClass('selected')) && (! $(this).parents('.like_select').hasClass('filter'))){
+        console.log('ddsa')
+        if( !$(this).hasClass('groupTitle') && (!$(this).hasClass('selected')) && (! $(this).parents('.like_select').hasClass('filter'))){
+            console.log('sad')
             var option_sel_value, option_sel_label;
 
             option_sel_value = $(this).attr('data-value');

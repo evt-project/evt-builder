@@ -982,7 +982,7 @@ function bindEEselectClick() {
             // Faccio un controllo sul livello di edizione da attivare sul frame corrente
             // e se sto passando all'edizione diplomatica disattivo i filtri e le liste
             // Commentato da FS mostra filtri e liste anche in edizione diplomatica
-            if (( ee_val == 'diplomatic' )||( ee_val == 'critical' )||( ee_val == 'translation' )){
+            if (( ee_val === 'diplomatic' )||( ee_val === 'interpretative' )){
                 $("#"+contextual_parent)
                     .parents("div[id*='frame']")
                         .find('.like_select.filter')
