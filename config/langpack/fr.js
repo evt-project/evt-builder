@@ -248,5 +248,9 @@ jquery_lang_js.prototype.lang.fr = {
 	"STAGE_NOVELISTIC_LABEL" : "Novelistic",
 	"STAGE_NOVELISTIC_DESC": "Texte narratif indiquant les directions de la scène",
 	"STAGE_MIXED_LABEL" : "Mixed",
-	"STAGE_MIXED_DESC": "Plus d'une des valeurs décrites"
+	"STAGE_MIXED_DESC": "Plus d'une des valeurs décrites",
+
+	"NAMED_ENTITIES": "Entités nommées",
+	"INTERESTING_ELEMENTS": "Eléments intéressants",
+	"STAGES": "Indication Scénique"
 }

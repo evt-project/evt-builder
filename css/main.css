@@ -1130,6 +1130,9 @@ footer{
 	top:30px;
 	/*position: absolute;*/
 }
+.like_select .main_list_select .option_container {
+	max-height: 270px;
+} 
 .option_container.up{
     top: 0px;
     /*height: 24px;*/
@@ -1158,6 +1161,30 @@ footer{
 	height:20px;
 	margin-right: 9px;
 }
+.like_select .groupTitle {
+	color: rgb(0, 0, 0);
+	position: relative;
+	padding: 5px;
+	width: 100%;
+	left: -5px;
+	border-bottom: solid 1px rgba(60, 50, 44, 0.5);
+	cursor: pointer;
+	height:20px;
+	margin-right: 9px;
+
+	cursor: default;
+	font-size: 90%;
+	font-variant: small-caps;
+	border-bottom: none;
+	color: #333;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 1; /* number of lines to show */
+	line-height: 20px;        /* fallback */
+	max-height: 20px; 
+}
 .option.inPage{
 	background: rgba(126,108,95,0.5);
 }
@@ -1167,7 +1194,7 @@ footer{
 	color:#fff;
 }
 
-.option.selected{
+.option.selected {
 	/*color:#CCC;*/
 	color:#fff;
 	background: #362D28;
