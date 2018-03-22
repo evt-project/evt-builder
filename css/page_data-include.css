@@ -371,8 +371,8 @@ span.interp-choice_popup_corr span.interp-corr:before {
 	top: -13px; 
 }
 
-span.interp-choice_popup span.interp-orig, 
-span.interp-choice_popup span.interp-abbr { 
+span.interp-choice_popup > span.interp-orig, 
+span.interp-choice_popup > span.interp-abbr { 
 	font-size: 80%;
 	position: absolute;
 	line-height: 16px;
