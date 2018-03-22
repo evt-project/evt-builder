@@ -21,16 +21,16 @@
  *
  **/
 
-$( function() {
+$(function() {
 	//$( document ).tooltip(); Attiva tooltip jQuery
-	
+
 	// IT: Nasconde le funzioni non compatibili con IE
 	if ($.browser.msie) {
 		$("#cont_fullscreen").hide();
 	}
-	
+
 	// IT: Disabilita il tasto destro del mouse nel riquadro immagine
-	$("#image_elem, #mag_image_elem").bind("contextmenu",function(e){
-	  e.preventDefault()
+	$("#image_elem, #mag_image_elem").bind("contextmenu", function(e) {
+		e.preventDefault()
 	});
 });
