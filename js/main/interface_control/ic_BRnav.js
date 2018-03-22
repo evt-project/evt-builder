@@ -42,7 +42,7 @@ function createSliderTxtImg() {
 // TODO: create function fo click on TxtTxt
 function createSliderTxtTxt() {
 	var arrayTexts = [];
-	if($('.main_pp_select')) {
+	if ($('.main_pp_select')) {
 		$('.main_pp_select .option_container .optionGroup div').each(function() {
 			var pageId = $(this).attr('data-value');
 			var pageLabel = $(this).text();
@@ -79,27 +79,27 @@ function createSliderBookreader() {
 function createBrnav(array) {
 	//alert(array);
 	var hashPart = location.hash;
-	if(hashPart == "") {
+	if (hashPart == "") {
 		//alert("Siamo nell'index");
 		var pageNum = array && array.length > 0 ? array[0].label + "/" + array[array.length - 1].label : '';
-	}else{
+	} else {
 		//alert(location.hash);
-		hashPart = location.hash.substr(1).split('&');  // Parto dal carattere in posizione 1 e tolgo il carattere &
-		for(var i=0; i<hashPart.length; i++) {
-			if(hashPart[i].indexOf("page") != -1) {
-				var temp_id = hashPart[i].substr(5);  // Prendo l'id
+		hashPart = location.hash.substr(1).split('&'); // Parto dal carattere in posizione 1 e tolgo il carattere &
+		for (var i = 0; i < hashPart.length; i++) {
+			if (hashPart[i].indexOf("page") != -1) {
+				var temp_id = hashPart[i].substr(5); // Prendo l'id
 				//alert("temp_pp e': " + temp_id); // Ad esempio fol_215v o fol_215v+fol_216r
 			}
 		}
-		for(i in array) {  // Scorro l'array
+		for (i in array) { // Scorro l'array
 			//alert(array[i].id);
-			var elem = array[i].id;  // Memorizzo l'elemento id in posizione i
-			if(elem.indexOf(temp_id) != -1) {  // Controllo se esiste una sequenza uguale a temp_id (se non è null)
+			var elem = array[i].id; // Memorizzo l'elemento id in posizione i
+			if (elem.indexOf(temp_id) != -1) { // Controllo se esiste una sequenza uguale a temp_id (se non è null)
 				var pageNum = array && array.length > 0 ? array[i].label + "/" + array[array.length - 1].label : ''; // Il pagenum prende il valore di label di indice selezionato
 				//$("#BRpager").slider("value", i);
 				//alert(i);
 				if ($('.current_mode').attr('id') === 'imgd_link') { // Se è stata cliccata la modalità bookreader
-					if(i != array.length-1) { // Se i è diverso da array.length-1 (cioè se siamo su tutte le pagine tranne l'ultima)
+					if (i != array.length - 1) { // Se i è diverso da array.length-1 (cioè se siamo su tutte le pagine tranne l'ultima)
 						$('#BRpager').slider({ // Modifico lo slider e il valore prende l'elemento in indice i
 							min: 0,
 							max: array.length - 1,
@@ -113,8 +113,8 @@ function createBrnav(array) {
 						if (newPage) { // Check just to be sure
 							updateHash(newDocId, newPageId, '');
 						}
-					}else{ // Altrimenti (cioè se siamo sull'ultima pagina)
-						$('#BRpager').slider({  // Il valore dello slider và sull'ultima pagina
+					} else { // Altrimenti (cioè se siamo sull'ultima pagina)
+						$('#BRpager').slider({ // Il valore dello slider và sull'ultima pagina
 							min: 0,
 							max: array.length - 1,
 							value: i
@@ -129,9 +129,9 @@ function createBrnav(array) {
 						}
 					}
 				}
-				if ($('.current_mode').attr('id') === 'txtimg_link'){ // Se siamo nella modalità immagine-testo
+				if ($('.current_mode').attr('id') === 'txtimg_link') { // Se siamo nella modalità immagine-testo
 					//alert(i);
-					if(i != array.length-1) { // Se i è diverso da array.length-1 (cioè dall'ultima pagina)
+					if (i != array.length - 1) { // Se i è diverso da array.length-1 (cioè dall'ultima pagina)
 						$('#BRpager').slider({ // Il valore dello slider prende quello di i
 							min: 0,
 							max: array.length - 1,
@@ -146,7 +146,7 @@ function createBrnav(array) {
 							updateHash(newDocId, newPageId, '');
 						}
 					}
-				}else{ // Altrimenti (cioè se siamo sull'ultima pagina)
+				} else { // Altrimenti (cioè se siamo sull'ultima pagina)
 					$('#BRpager').slider({ // Lo slider prende il valore dell'ultima pagina
 						min: 0,
 						max: array.length - 1,
@@ -193,31 +193,39 @@ function createBrnav(array) {
 function bindArrowsBRnavClick() {
 	// Pulsante per ridurre la barra di navigazione
 	var BRnavCntlBtm = $('#BRnavCntlBtm'),
-			BRnav = $('#BRnav'),
-			BRnavCntl = $('.BRnavCntl'),
-			centralWrapper = $('#central_wrapper');
-	$('.BRnavCntl').click(
-        function(){
-						if (BRnavCntlBtm) {
-							if (BRnavCntlBtm.hasClass('BRdn')) {
-								BRnav.animate({ bottom: -50 }, 420, function() {
-										BRnavCntlBtm.addClass('BRup').removeClass('BRdn');
-										BRnavCntlBtm.find('i').removeClass('fa fa-caret-down fa-lg').addClass('fa fa-caret-up fa-lg');  // Rimuove la classe per mettere quella con la freccia verso il basso
-								});  // .delay() imposta un timer per ritardare l'esecuzione degli elementi successivi
-								centralWrapper.animate({ height:"87.5%" }, 420, function() {
-										$('#global_wrapper').css("overflow-y", "hidden");  // Tolgo lo scrolling verticale quando riduco la barra di navigazione
-										updateTextContHeight();
-								});  // Aumento l'altezza del central_wrapper
-	            } else {
-	               BRnav.animate({ bottom: 0 }, 420, function() {
-									 BRnavCntlBtm.find('i').removeClass('fa fa-caret-up fa-lg').addClass('fa fa-caret-down fa-lg');
-									 BRnavCntlBtm.addClass('BRdn').removeClass('BRup');
-								 });  // .delay() ritarda l'animazione degli elementi seguenti
-								 centralWrapper.animate({ height:"82.5%" }, 420, function() {
-									 	updateTextContHeight();
-								 });  // Riduco l'altezza del central_wrapper
-	            };
-						}
-        }
-  );
+		BRnav = $('#BRnav'),
+		BRnavCntl = $('.BRnavCntl'),
+		centralWrapper = $('#central_wrapper');
+	BRnavCntl.click(
+		function() {
+			if (BRnavCntlBtm) {
+				if (BRnavCntlBtm.hasClass('BRdn')) {
+					BRnav.animate({
+						bottom: -50
+					}, 420, function() {
+						BRnavCntlBtm.addClass('BRup').removeClass('BRdn');
+						BRnavCntlBtm.find('i').removeClass('fa fa-caret-down fa-lg').addClass('fa fa-caret-up fa-lg'); // Rimuove la classe per mettere quella con la freccia verso il basso
+					}); // .delay() imposta un timer per ritardare l'esecuzione degli elementi successivi
+					centralWrapper.animate({
+						height: "87.5%"
+					}, 420, function() {
+						$('#global_wrapper').css("overflow-y", "hidden"); // Tolgo lo scrolling verticale quando riduco la barra di navigazione
+						updateTextContHeight();
+					}); // Aumento l'altezza del central_wrapper
+				} else {
+					BRnav.animate({
+						bottom: 0
+					}, 420, function() {
+						BRnavCntlBtm.find('i').removeClass('fa fa-caret-up fa-lg').addClass('fa fa-caret-down fa-lg');
+						BRnavCntlBtm.addClass('BRdn').removeClass('BRup');
+					}); // .delay() ritarda l'animazione degli elementi seguenti
+					centralWrapper.animate({
+						height: "82.5%"
+					}, 420, function() {
+						updateTextContHeight();
+					}); // Riduco l'altezza del central_wrapper
+				};
+			}
+		}
+	);
 }

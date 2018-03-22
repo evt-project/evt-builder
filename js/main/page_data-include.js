@@ -13,16 +13,16 @@
  * 
  */
 
-function overChoice(choiceId){
-   $("."+choiceId).each(function() {
-        if ($(this).text().trim() !== "") { 
-        	$(this).addClass("hover");
-        }
-    });
+function overChoice(choiceId) {
+	$("." + choiceId).each(function() {
+		if ($(this).text().trim() !== "") {
+			$(this).addClass("hover");
+		}
+	});
 }
 
-function outChoice(choiceId){
-   $("."+choiceId).each(function() {
-        $(this).removeClass("hover");
-    });
+function outChoice(choiceId) {
+	$("." + choiceId).each(function() {
+		$(this).removeClass("hover");
+	});
 }
