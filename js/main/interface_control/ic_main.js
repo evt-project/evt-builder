@@ -121,7 +121,7 @@ $(function() {
 				spanEEselect.find('.open_select').remove();
 				spanEEselect.find('.label_selected').css('margin-right', '4px');
 			}
-			var mainEEselect = $(".main_ee_select");
+			var mainEEselect = $("#span_ee_select");
 			mainEEselect.find(".option_container div:first-child").addClass("selected");
 
 			var firstEE = mainEEselect.find('.option_container div:first').text();
@@ -439,7 +439,7 @@ $(function() {
 				if ($.browser.safari) {
 					$('#list_header .labelList').css('top', '1px');
 				} else if ($.browser.webkit) {
-					$('#list_header .labelList').css('top', '-8.5px');
+					//$('#list_header .labelList').css('top', '-5.5px');
 				}
 			} else {
 				listContainer.remove();
@@ -1060,7 +1060,7 @@ $(function() {
 		/* / END Gestione click e eventi */
 		/* ***************************** */
 
-		window.onerror = function myErrorHandler(errorMsg, url, lineNumber) {
+		window.onerror = function myErrorHandler(errorMsg, url, lineNumber,  column, errorObj) {
 			if (errorMsg == 'BigImageError') {
 				try {
 					var errorMsg = window.lang.convert('ERROR_LOADING_HI_IMAGE', window.lang.currentLang);
@@ -1077,7 +1077,8 @@ $(function() {
 					}
 				} catch (e) {}
 			} else {
-				console.log('Error occurred: ' + errorMsg, "URL: ", url, "Line: ", lineNumber);
+				console.log('Error: ' + errorMsg + ' Script: ' + url + ' Line: ' + lineNumber
+    						+ ' Column: ' + column + ' StackTrace: ' +  errorObj);
 			}
 			return true;
 		}

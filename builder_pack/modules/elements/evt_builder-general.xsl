@@ -101,9 +101,13 @@
             </xsl:choose>
             <xsl:element name="span">
                 <xsl:attribute name="class">text_note tooltip</xsl:attribute>
-                <xsl:attribute name="id">
-                    <xsl:value-of select="./@xml:id"/>
-                </xsl:attribute>
+                <xsl:attribute name="id">tooltip_<xsl:value-of
+                    select="
+                    if (@xml:id) then
+                    (@xml:id)
+                    else
+                    (count(preceding::*[name() = name(current())]))"
+                /></xsl:attribute>
                 <xsl:element name="span">
                     <xsl:attribute name="class">before</xsl:attribute>
                 </xsl:element>
@@ -163,8 +167,10 @@
                                     <xsl:attribute name="class">tooltip</xsl:attribute>
                                     <xsl:element name="span">
                                         <xsl:attribute name="class">before</xsl:attribute>
+                                        <xsl:attribute name="data-target"><xsl:value-of select="@target"/></xsl:attribute>
+                                        <xsl:attribute name="data-target-trans"><xsl:value-of select="translate(current()/@target, '#', '')"/></xsl:attribute>
                                     </xsl:element>
-                                    <xsl:for-each select="$root//tei:item[@xml:id = current()/@target]">
+                                    <xsl:for-each select="$root//tei:item[@xml:id = translate(current()/@target, '#', '')]">
                                         <xsl:element name="img">
                                             <xsl:attribute name="src">data/input_data/<xsl:value-of
                                                     select=".//tei:graphic/@url"/></xsl:attribute>

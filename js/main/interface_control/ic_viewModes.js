@@ -72,7 +72,7 @@ function openTxtImgMode() {
 		.siblings()
 		.removeClass("current_mode");
 
-	if ($('#span_ee_select .label_selected').attr('data-value') != 'diplomatic') {
+	if ($('#span_ee_select .label_selected').attr('data-value') !== 'translation') {
 		$('.like_select.filter').removeClass('not_active');
 	}
 

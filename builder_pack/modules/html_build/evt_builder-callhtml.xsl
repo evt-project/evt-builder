@@ -713,13 +713,15 @@
 														<xsl:for-each select="$lists">
 															<xsl:if test="@active='true'">
 																<xsl:if test="count(./*[@active='true']) > 0">
-																	<span lang="def" class="groupTitle">
-																		<xsl:value-of select="@label"/>
+																	<span lang="def" class="groupTitle" title="{@label}">
+																		<span lang="def"><xsl:value-of select="@label"/></span>
 																	</span>
 																	<xsl:for-each select="./*[@active='true']">
 																		<xsl:element name="div">
 																			<xsl:attribute name="class">option </xsl:attribute>
 																			<xsl:attribute name="data-value"><xsl:value-of select="name(.)"/></xsl:attribute>
+																			<xsl:attribute name="lang" select="'def'"/>
+																			<xsl:attribute name="title"><xsl:value-of select="name(.)"/></xsl:attribute>
 																			<i class="fa fa-circle filter_color"></i>
 																			<span lang="def"><xsl:value-of select="name(.)"/></span>
 																		</xsl:element>
@@ -1095,13 +1097,15 @@
 												<xsl:for-each select="$lists">
 													<xsl:if test="@active='true'">
 														<xsl:if test="count(./*[@active='true']) > 0">
-															<span lang="def" class="groupTitle">
-																<xsl:value-of select="@label"/>
+															<span lang="def" class="groupTitle" title="{@label}">
+																<span lang="def"><xsl:value-of select="@label"/></span>
 															</span>
 															<xsl:for-each select="./*[@active='true']">
 																<xsl:element name="div">
 																	<xsl:attribute name="class">option </xsl:attribute>
 																	<xsl:attribute name="data-value"><xsl:value-of select="name(.)"/></xsl:attribute>
+																	<xsl:attribute name="lang" select="'def'"/>
+																	<xsl:attribute name="title"><xsl:value-of select="name(.)"/></xsl:attribute>
 																	<i class="fa fa-circle filter_color"></i>
 																	<span lang="def"><xsl:value-of select="name(.)"/></span>
 																</xsl:element>

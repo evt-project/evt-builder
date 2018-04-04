@@ -110,8 +110,8 @@ function updateFrontContent(current_doc) {
 				//  .click(function(){ hide_front(id_front_cont, id_front); })
 				//  .appendTo(id_front_cont); // solo nel box di destra
 
-				if (($('#span_ee_select .label_selected').attr('data-value') == 'diplomatic') || ($('#span_ee_select .label_selected').attr('data-value') == 'critical') &&
-					(!$('#switchFront').hasClass('active'))) {
+				if ($('#span_ee_select .label_selected').attr('data-value') !== 'translation' &&
+					!$('#switchFront').hasClass('active')) {
 					$("#main_right_frame").find('.like_select.filter')
 						.css('opacity', "1")
 						.removeClass('not_active');
@@ -177,7 +177,7 @@ function toggleFront(front_cont) {
 		}, 'linear', function() {
 			var ee_val;
 			ee_val = $(front_cont).parents("div[id*='frame']").find('.main_ee_select .label_selected').attr('data-value');
-			if ((ee_val.toLowerCase() == 'diplomatic') || (ee_val.toLowerCase() == 'critical') || (ee_val.toLowerCase() == 'translation')) {
+			 if ((ee_val.toLowerCase() !== 'tranlsation') ) {
 				$(front_cont)
 					.parents("div[id*='frame']")
 					.find('.like_select.filter')
@@ -283,8 +283,7 @@ function updateRegestoContent(current_doc) {
 				//  .click(function(){ hide_regesto(id_regesto_cont, id_regesto); })
 				//  .appendTo(id_regesto_cont); // solo nel box di destra
                 var spanEEselectLabelSelected = $('#span_ee_select .label_selected').attr('data-value');
-				if ((spanEEselectLabelSelected == 'diplomatic') || (spanEEselectLabelSelected == 'critical') ||
-					(spanEEselectLabelSelected == 'translation') &&
+				if (spanEEselectLabelSelected !== 'translation' &&
 					(!$('#switchReg').hasClass('active'))) {
 					$("#main_right_frame").find('.like_select.filter')
 						.css('opacity', "1")
