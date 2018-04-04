@@ -1161,6 +1161,14 @@ footer{
 	cursor: pointer;
 	height:20px;
 	margin-right: 9px;
+
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 1; /* number of lines to show */
+	line-height: 20px;        /* fallback */
+	max-height: 20px; 
 }
 .like_select .groupTitle {
 	color: rgb(0, 0, 0);

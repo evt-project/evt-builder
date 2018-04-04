@@ -554,11 +554,11 @@ function InitializePopup() {
 				var triggerHeight, triggerTop, triggerLeft, triggerWidth;
 				triggerHeight = trigger.css('font-size').substr(0, 2) * 1 + 1;
 
-				triggerTop = trigger.offset().top;
-				triggerLeft = trigger.position().left;
+				triggerTop = trigger.offset() !== undefined ? trigger.offset().top : 0;
+				triggerLeft = trigger.position() !== undefined ? trigger.position().left : 0;
 				triggerWidth = trigger.width();
 
-				var tooltipTop = tooltip.offset().top;
+				var tooltipTop = tooltip.offset() !== undefined ? tooltip.offset().top : 0;
 
 				var x = e.clientX;
 				var y = e.clientY;
@@ -596,9 +596,9 @@ function InitializePopup() {
 					marginRightText = 50;
 				} else {
 					containerWidth = $('#text').width();
-					marginRightText = $('#text').position().left;
+					marginRightText = $('#text').position() !== undefined ? $('#text').position().left : 0;
 				}
-				tooltipLeft = tooltip.position().left;
+				tooltipLeft = tooltip.position() !== undefined ? tooltip.position().left : 0;
 
 				if (tooltipLeft + tooltipRealWidth > containerWidth) {
 					tooltip.css({
@@ -610,7 +610,7 @@ function InitializePopup() {
 
 
 				// Se supera a destra il margine destro del contenitore....
-				tooltipNewLeft = tooltip.position().left;
+				tooltipNewLeft = tooltip.position() !== undefined ? tooltip.position().left : 0;
 				if (tooltipNewLeft + tooltipRealWidth > containerWidth) {
 					var diff = (tooltipNewLeft + tooltipRealWidth) - containerWidth;
 					//var newLeft = $(this).find('> .tooltip').offset().left - diff + marginRightText;
@@ -623,9 +623,9 @@ function InitializePopup() {
 				// Se supera a sinistra il margine sinistro del contenitore...
 				var offsetLeftText;
 				if (popup.parents("div[id*='frame']").hasClass('full')) {
-					offsetLeftText = $('#text_cont').offset().left;
+					offsetLeftText = $('#text_cont').offset() !== undefined ? $('#text_cont').offset().left : 0;
 				} else {
-					offsetLeftText = $('#text').offset().left;
+					offsetLeftText = $('#text').offset() !== undefined ? $('#text').offset().left : 0;
 				}
 
 				if (left < offsetLeftText) {
@@ -640,7 +640,7 @@ function InitializePopup() {
 				beforeNewLeft = x;
 				beforeWidth = before.width();
 				beforeMarginRight = x + beforeWidth;
-				tooltipMarginRight = tooltip.offset().left + tooltip.width();
+				tooltipMarginRight = tooltip.offset() !== undefined ? tooltip.offset().left + tooltip.width() : tooltip.width();
 				if (beforeMarginRight > tooltipMarginRight) {
 					var diff = (beforeMarginRight - tooltipMarginRight);
 					beforeNewLeft = x - diff;
@@ -651,12 +651,12 @@ function InitializePopup() {
 
 				// Riposizionamento se supera il margine inferiore del contenitore
 				var tooltipOffsetBottom, containerHeight;
-				tooltipOffsetBottom = tooltip.offset().top + tooltip.height();
-				containerHeight = $('#text_cont').offset().top + $('#text_cont').height() - 42;
+				tooltipOffsetBottom = tooltip.offset() !== undefined ? tooltip.offset().top + tooltip.height() : 0;
+				containerHeight = $('#text_cont').offset() !== undefined ? $('#text_cont').offset().top + $('#text_cont').height() - 42 : $('#text_cont').height() - 42;
 
 				if (tooltipOffsetBottom > containerHeight) {
 					var tooltipMoveToTop = triggerHeight + tooltip.height() + before.height() + 8;
-					var tooltipNewTop = before.offset().top - tooltipMoveToTop;
+					var tooltipNewTop = before.offset() !== undefined ? before.offset().top - tooltipMoveToTop : tooltipMoveToTop;
 					tooltip.offset({
 						top: tooltipNewTop
 					});

@@ -611,7 +611,7 @@
 						<xsl:element name="span">
 							<xsl:attribute name="class">tooltip</xsl:attribute>
 							<xsl:element name="span"><xsl:attribute name="class">before</xsl:attribute></xsl:element>
-							<xsl:for-each select="$root//tei:item[@xml:id=current()/@target]">
+							<xsl:for-each select="$root//tei:item[@xml:id=translate(current()/@target,'#','')]">
 								<xsl:element name="img">
 									<xsl:attribute name="src">data/input_data/<xsl:value-of select=".//tei:graphic/@url"/></xsl:attribute>
 									<xsl:attribute name="width">180px</xsl:attribute>

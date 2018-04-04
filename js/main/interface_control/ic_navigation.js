@@ -417,7 +417,8 @@ function gotopage(pp_val, pp_lab, state) {
 	// IT: Aggiorna l'indirizzo del frame secondario per il testo
 	var frontFrameAdd = $('#text_elem-add #front_frame-add');
     if ($("#text_cont-add").length > 0) { //SISTEMARE
-		edition_add = $("#span_ee_select-add .option_container .option.selected").attr('data-value').toLowerCase();
+		edition_add = $("#span_ee_select-add .option_container .option.selected").attr('data-value');
+        edition_add = edition_add !== undefined ? edition_add.toLowerCase() : edition_add;
 
 		frontFrameAdd.empty();
 		if ($(".main_pp_select .option[data-value='" + pp_val + "']").attr('data-has-front') === 'true') {
@@ -436,7 +437,7 @@ function gotopage(pp_val, pp_lab, state) {
 					function(response, status, xhr) {
 						pageLoadedCallbackAdd(status, current_font_size);
 					});
-		} else {
+		} else if (edition_add !== undefined ){
 			$('#text_elem-add #text_frame-add')
 				// .empty()
 				.load("data/output_data/" + edition_add + "/page_" + pp_val + "_" + edition_add + ".html #text_frame #text",
@@ -707,7 +708,7 @@ function arrow(toward) { //duplicata temporaneamente in jquery.rafmas-keydown
 				moveSlider(current_pp, new_pp_opt);
 			}
 		}
-		if (new_pp_opt !== null) {
+		if (new_pp_opt !== null && new_pp_opt !== undefined) {
 			new_tt_val = new_pp_opt.attr('data-first-doc'); // primo documento contenuto.
 		}
 	} else {
@@ -720,11 +721,11 @@ function arrow(toward) { //duplicata temporaneamente in jquery.rafmas-keydown
 		if (toward === "right" && !$(current_opt).is(":last-child")) {
 			new_pp_opt = current_opt.next();
 		}
-		if (new_pp_opt !== null) {
+		if (new_pp_opt !== null && new_pp_opt !== undefined) {
 			new_tt_val = new_pp_opt.attr('data-first-page-first-doc'); // primo documento contenuto.
 		}
 	}
-	if (new_pp_opt !== null) {
+	if (new_pp_opt !== null && new_pp_opt !== undefined) {
 		new_pp_val = new_pp_opt.attr('data-value'); // id pagina cliccata
 		new_pp_lab = new_pp_opt.text();
 
@@ -992,7 +993,7 @@ function bindEEselectClick() {
 			// Faccio un controllo sul livello di edizione da attivare sul frame corrente
 			// e se sto passando all'edizione diplomatica disattivo i filtri e le liste
 			// Commentato da FS mostra filtri e liste anche in edizione diplomatica
-			if ((ee_val === 'diplomatic') || (ee_val === 'interpretative')) {
+			if ((ee_val !== 'translation')) {
 				$("#" + contextual_parent)
 					.parents("div[id*='frame']")
 					.find('.like_select.filter')
@@ -1044,7 +1045,7 @@ function bindEEselectClick() {
 					// Se sto attivando l'edizione diplomatica nell'altro frame
 					// Disattivo le liste e i filtri
 					// Commentto da FS - Mostra filtri e liste anche in ed diplomatica
-					if ((other_ee_val === 'diplomatic') || (other_ee_val === 'critical') || (other_ee_val === 'translation') &&
+					if ((other_ee_val !== 'translation') &&
 						(!$("#" + other_parent).parents("div[id*='frame']").find('.toggleReg').hasClass('active'))) {
 						$("#" + other_parent)
 							.parents("div[id*='frame']")
