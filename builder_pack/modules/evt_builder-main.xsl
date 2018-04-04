@@ -190,37 +190,36 @@
 			<xsl:result-document method="html" encoding="UTF-8" href="{$filePrefix}/data/output_data/viscoll/viscoll-output.html" indent="yes">
 				<xsl:call-template name="viscoll"></xsl:call-template>  <!-- Chiama il template dell'elemento selezionato -->
 			</xsl:result-document>
-			
-			<xsl:if test="$list_gloss=true()">
-				<xsl:result-document method="html" encoding="UTF-8" media-type="text/plain" byte-order-mark="yes" href="{$filePrefix}/data/output_data/liste/listGloss.html" indent="yes">
-					<xsl:element name="div">
-						<xsl:attribute name="id">listGloss</xsl:attribute>
-						<xsl:attribute name="class">can-change-font-size</xsl:attribute>
-						<xsl:call-template name="listGloss"/>
-						<xsl:apply-templates select="$step0" mode="listGlossOccurences"/>
-					</xsl:element>
-				</xsl:result-document>
-			</xsl:if>
-			<!--chronological index /list document -->
-			<xsl:if test="$list_doc = true()">
-				<xsl:result-document method="html" encoding="UTF-8" media-type="text/plain"
-					byte-order-mark="yes" href="{$filePrefix}/data/output_data/liste/listDoc.html"
-					indent="yes">
-					<xsl:element name="div">
-						<xsl:attribute name="id">listDoc</xsl:attribute>
-						<xsl:attribute name="class">can-change-font-size</xsl:attribute>
-						<xsl:call-template name="listDoc"/>
-					</xsl:element>
-				</xsl:result-document>
-			</xsl:if>
-
-
-			<!-- SEARCH -->
-			<xsl:if test="$search = true()">
-				<xsl:apply-templates select="$step0" mode="file4search"/>
-			</xsl:if>
-
 		</xsl:if>
+		<xsl:if test="$list_gloss=true()">
+			<xsl:result-document method="html" encoding="UTF-8" media-type="text/plain" byte-order-mark="yes" href="{$filePrefix}/data/output_data/liste/listGloss.html" indent="yes">
+				<xsl:element name="div">
+					<xsl:attribute name="id">listGloss</xsl:attribute>
+					<xsl:attribute name="class">can-change-font-size</xsl:attribute>
+					<xsl:call-template name="listGloss"/>
+					<xsl:apply-templates select="$step0" mode="listGlossOccurences"/>
+				</xsl:element>
+			</xsl:result-document>
+		</xsl:if>
+		<!--chronological index /list document -->
+		<xsl:if test="$list_doc = true()">
+			<xsl:result-document method="html" encoding="UTF-8" media-type="text/plain"
+				byte-order-mark="yes" href="{$filePrefix}/data/output_data/liste/listDoc.html"
+				indent="yes">
+				<xsl:element name="div">
+					<xsl:attribute name="id">listDoc</xsl:attribute>
+					<xsl:attribute name="class">can-change-font-size</xsl:attribute>
+					<xsl:call-template name="listDoc"/>
+				</xsl:element>
+			</xsl:result-document>
+		</xsl:if>
+
+
+		<!-- SEARCH -->
+		<xsl:if test="$search = true()">
+			<xsl:apply-templates select="$step0" mode="file4search"/>
+		</xsl:if>
+
 		
 		<!-- EN: The index and structure generation are the same for both the parallel and the embedded  -->
 		<!-- IT: La generazione dell'index e della struttura sono uguali sia per la parallel sia per l'embedded -->
