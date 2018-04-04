@@ -474,7 +474,8 @@ function bindHeaderInfoBtnClick() {
 				if ($(event.target).parents('#' + targetContent).length <= 0) {
 					$(this).hide('fade', 0);
 					if ($(this).find('.neverShowAgain').is(':checked')) {
-						setCookie('welcome', 'neverShowAgain', 1);
+						var editionIdentifier = document.getElementById("home_title").textContent.replace(/\s/g, "");
+                        setCookie('welcome_' + editionIdentifier, 'neverShowAgain', 365);
 					}
 				}
 			}
