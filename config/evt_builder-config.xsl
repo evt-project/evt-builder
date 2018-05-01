@@ -23,7 +23,7 @@
 
 	<!-- Parameters -->
 	<!-- EN: It is possible to modify these prefixes so that they point to a custom web site, for instance:
-		<xsl:param name="filePrefix" select="'http://tuosito.it/evtb'"/>
+		<xsl:param name="filePrefix" select="'http://your.website.org/evtb'"/>
 	-->
 	<!-- IT: E' possibile modificare i prefissi per puntare ad un server personalizzato, ad esempio:
 		<xsl:param name="filePrefix" select="'http://tuosito.it/evtb'"/>
@@ -124,8 +124,8 @@
 		<!-- EN: For processing in the modules: $edition_array[1] --> <!-- IT: Per l'elaborazione nei moduli: $edition_array[1] -->
 
 		<edition>Interpretative</edition>
-		<!-- EN: If you have diplomatic edition put <edition>Interpretative</edition>.
-			 	 If you don't have diplomatic edition put <edition></edition> -->
+		<!-- EN: If you have interpretative edition put <edition>Interpretative</edition>.
+			 	 If you don't have interpretative edition put <edition></edition> -->
 		<!-- IT: Se si ha l'edizione interpretativa scrivere <edition>Interpretative</edition>.
 			 	 Se NON si ha l'edizione interpretativa mettere <edition></edition> -->
 
@@ -148,7 +148,7 @@
 	<!-- IT: E' possibile personalizzare il prefisso usato nella creazione delle classi degli elementi html di un edizione. -->
 	<xsl:variable name="ed_name1">dipl</xsl:variable>
 	<xsl:variable name="ed_name2">interp</xsl:variable>
-	<xsl:variable name="ed_name3">trad</xsl:variable> <!-- Addedd by FS -->
+	<xsl:variable name="ed_name3">trad</xsl:variable> <!-- Added by FS -->
 	<!-- Variable -->
 
 	<!-- Thumb image -->
@@ -161,7 +161,6 @@
     <xsl:variable name="pubdate" select="teiHeader/fileDesc/publicationStmt/date" />
 	-->
 
-
 	<!-- EN: Indicate the xml node that contains all the text to be transformed for each edition level -->
 	<!-- IT: Indicare il nodo xml che contiene il testo da trasformare per ogni livello di edizione -->
 	<!--<xsl:variable name="ed_content" select="if(//tei:text/tei:group[@xml:id='group']) then(//tei:text/tei:group[@xml:id='group']/name()) else ( //tei:body/name() )"/>-->
@@ -169,7 +168,6 @@
 		if(//tei:text/tei:group)
 			then(//tei:text/tei:group/name())
 		else ( //tei:text/name() )"/>
-
 
 	<!-- EN: Starting point for the split of elements containing pb and lb -->
 	<!-- IT: Punto di partenza per la divisione degli elementi contententi pb/lb -->
@@ -273,7 +271,6 @@
 	<!-- IT: Choose page selector position -->
 	<!-- IT: Scegli posizione Selettore pagina -->
 	<!-- "left" or "right" | Default: "right" -->
-	<!-- default: right -->
 	<xsl:param name="pp_selector_pos" select="'right'"/>
 
 	<!-- EN: Choose whether or not to group pages by document in the selector -->
@@ -315,7 +312,6 @@
 	<!-- IT: Attiva/Disattiva Bottone di visualizzazione Versi/Prosa  -->
 	<!-- default: true() -->
 	<xsl:param name="prose_verses_toggler" select="false()"/>
-	<!-- default: true() -->
 	
 	<!-- EN: On/Off Tooltip indicating language encoded in @xml:lang -->
 	<!-- IT: Attiva/Disattiva Tooltip per la visualizzazione della lingua degli elementi che presentano @xml:lang  -->
@@ -339,17 +335,17 @@
 	<!-- default: true() -->
 	<xsl:param name="list_org" select="true()"/>
 
-	<!-- default: true() -->
+	<!-- EN: On/Off term list -->
 	<!-- IT: Attiva/disattiva lista terms -->
 	<!-- default: true() -->
 	<xsl:param name="list_term" select="false()"/>
 
-	<!-- default: true() -->
+	<!-- EN: On/Off gloss list -->
 	<!-- IT: Attiva/disattiva lista glosses -->
 	<!-- default: true() -->
 	<xsl:param name="list_gloss" select="false()"/>
 
-	<!-- default: true() -->
+	<!-- EN: On/Off chronological index for texts -->
 	<!-- IT: Attiva/disattiva indice cronologico -->
 	<!-- default: true() -->
 	<xsl:param name="list_doc" select="true()"/>
