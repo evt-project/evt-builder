@@ -172,7 +172,7 @@
 		</xsl:if>
 		
 		<!-- GM -->
-		<xsl:if test="$viscoll_info">
+		<xsl:if test="$viscoll_button and $viscoll_info">
 			<xsl:result-document method="xml" encoding="UTF-8" href="{$filePrefix}/data/output_data/listImage.xml" indent="yes">
 				<xsl:call-template name="prova"></xsl:call-template>
 			</xsl:result-document>
@@ -186,7 +186,7 @@
 		</xsl:if>
 		
 		<!-- GM -->
-		<xsl:if test="$viscoll_info">
+		<xsl:if test="$viscoll_button and $viscoll_info">
 			<xsl:result-document method="html" encoding="UTF-8" href="{$filePrefix}/data/output_data/viscoll/viscoll-output.html" indent="yes">
 				<xsl:call-template name="viscoll"></xsl:call-template>  <!-- Chiama il template dell'elemento selezionato -->
 			</xsl:result-document>
