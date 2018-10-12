@@ -1026,11 +1026,8 @@ $(function() {
 
 		/*= LISTS =*/
 		bindListsBtnClick();
-		bindListsSortingOrderBtnClick();
 		bindChronologicalIndex();
-		showOrHideRegesto();
-		bindDocumentLinkChronologicalIndex();
-
+		
 		/*= VIEW MODES =*/
 		bindViewModesBtnsClick();
 
