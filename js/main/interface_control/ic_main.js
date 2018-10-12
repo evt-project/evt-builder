@@ -59,6 +59,7 @@ var first_dd, last_dd;
 var groupingPagesByDoc, optionTooltipInPages;
 var image_ext;
 var arrayPages = [];
+var LISTS_MODEL = {};
 
 $(function() {
 	image_ext = $('#global_wrapper').attr('data-image-extension') || 'jpg';
@@ -377,16 +378,27 @@ $(function() {
 						filterListElements(this);
 					}
 				});
-
+				$('<div />')
+					.attr('id', 'lists_cont_temp')
+					.css('display', 'none')
+					.appendTo('body');
+				var i = 0;
 				listsArray.children().each(function() {
 					if ($(this).attr('active') == '1') {
 						var listName, listLabel;
 						listName = $(this).get(0).tagName;
 						listLabel = $(this).text();
+						LISTS_MODEL[listName] = {
+							_indexes: []
+						};
+
+						// var parentId = i === 0 ? '#lists_cont' : '#lists_cont_temp';
+						var parentId = '#lists_cont';
 						$('<div />')
 							.attr('id', 'list_' + listName)
 							.addClass('list')
-							.appendTo('#lists_cont');
+							.appendTo(parentId);
+						i++;
 						$('<span />')
 							.addClass('labelList')
 							.attr('id', 'header_' + listName)
@@ -402,7 +414,7 @@ $(function() {
 
 						var listElement = $('#list_' + listName);
 						listElement.load("data/output_data/liste/" + listName + ".html div", function() {
-
+							console.time(listName);
 							if (listElement.find('li').length == 0) {
 								listElement.remove();
 								$('#header_' + listName).remove();
@@ -412,8 +424,17 @@ $(function() {
 									$('#list_link').remove();
 								}
 							} else {
-								$('[id]').each(function() {
-									$('[id="' + this.id + '"]:gt(0)').remove();
+								listElement.find('.list_element[id]').each(function() {
+									var orderListLetter = this.getAttribute('data-order-list')
+									if (orderListLetter) {
+										orderListLetter = orderListLetter.toUpperCase();
+										if (!LISTS_MODEL[listName][orderListLetter]) {
+											LISTS_MODEL[listName][orderListLetter] = {}
+											LISTS_MODEL[listName]._indexes.push(orderListLetter);
+										}
+										LISTS_MODEL[listName][orderListLetter][this.id] = this;
+									}
+									listElement.find('.list_element[id="' + this.id + '"]:gt(0)').remove();
 								});
 								listElement
 									.find('.list_element').find('.toggle_list_element, .entity_name').click(function() {
@@ -430,6 +451,8 @@ $(function() {
 							if (listName !== 'listDoc') {
 								$('.list_filter:first').trigger('click');
 							}
+							console.timeEnd(listName);
+							console.log(LISTS_MODEL);
 						});
 					}
 				});

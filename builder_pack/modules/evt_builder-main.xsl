@@ -542,11 +542,14 @@
 					<xsl:attribute name="class" select="'list_element'"/>
 					<xsl:attribute name="data-order-list">
 						<xsl:choose>
-							<xsl:when test="tei:persName/tei:forename">
+							<xsl:when test="tei:persName/tei:forename and substring(tei:persName/tei:forename, 1, 1) != '.' and substring(tei:persName/tei:forename, 1, 1) != ' '">
 								<xsl:value-of select="substring(tei:persName/tei:forename, 1, 1)"/>
 							</xsl:when>
-							<xsl:otherwise>
+							<xsl:when test="tei:persName/tei:name and substring(tei:persName/tei:name, 1, 1) != '.' and substring(tei:persName/tei:name, 1, 1) != ' '">
 								<xsl:value-of select="substring(tei:persName/tei:name, 1, 1)"/>
+							</xsl:when>
+							<xsl:otherwise>
+								<xsl:value-of select="substring(@xml:id, 1, 1)"/>
 							</xsl:otherwise>
 						</xsl:choose>
 					</xsl:attribute>
@@ -567,8 +570,16 @@
 				<xsl:element name="li">
 					<xsl:attribute name="id" select="@xml:id"/>
 					<xsl:attribute name="class" select="'list_element'"/>
-					<xsl:attribute name="data-order-list" select="substring(tei:settlement, 1, 1)"/>
-					<!--<xsl:value-of select="substring(@xml:id, 1, 1)"/>-->
+					<xsl:attribute name="data-order-list">
+						<xsl:choose>
+							<xsl:when test="tei:settlement and substring(tei:settlement, 1, 1) != '.' and substring(tei:settlement, 1, 1) != ' '">
+								<xsl:value-of select="substring(tei:settlement, 1, 1)"/>
+							</xsl:when>
+							<xsl:otherwise>
+								<xsl:value-of select="substring(@xml:id, 1, 1)"/>
+							</xsl:otherwise>
+						</xsl:choose>
+					</xsl:attribute>
 					<xsl:call-template name="place"/>
 				</xsl:element>
 			</xsl:for-each>
