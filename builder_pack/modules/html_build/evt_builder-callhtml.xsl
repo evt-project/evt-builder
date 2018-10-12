@@ -72,6 +72,10 @@
 			<script type="text/javascript" src="{$html_path}/js/jquery_lib/jquery-latest.js"/>
 			<script type="text/javascript" src="{$html_path}/js/jquery_lib/jquery-ui-latest.js"/>
 			<xsl:comment>/jQuery lib</xsl:comment>
+			
+			<xsl:comment>Infinite Scroll</xsl:comment>
+			<script type="text/javascript" src="{$html_path}/js/plugin/jquery.jscroll.min.js"></script>
+			<xsl:comment>/ Infinite Scroll</xsl:comment>
 
 			<xsl:if test="$html_tc!='datastructure'">
 				<xsl:comment>main lib</xsl:comment>
