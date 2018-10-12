@@ -1344,6 +1344,19 @@
 		<xsl:choose>
 			<xsl:when test="current()//tei:front">
 				<xsl:element name="span">
+					<xsl:attribute name="class">document_list_doc_link</xsl:attribute>
+					<xsl:attribute name="onclick">navToDocumentFromList(this)</xsl:attribute>
+					<xsl:attribute name="data-value">
+						<xsl:value-of select="@xml:id"/>
+					</xsl:attribute>
+					<xsl:attribute name="title">GO_TO_TEXT</xsl:attribute>
+					<xsl:attribute name="lang">def</xsl:attribute>
+					<xsl:text>Doc.&#xA0;</xsl:text>
+					<xsl:value-of select="tei:front//tei:titlePart[@type = 'numerazioneOrig']"/>
+					<xsl:text>_</xsl:text>
+					<xsl:value-of select="tei:front//tei:titlePart[@type = 'numerazioneNuova']"/>
+				</xsl:element>
+				<xsl:element name="span">
 					<xsl:attribute name="class">document_list_data</xsl:attribute>
 					<xsl:if test="current()//tei:docDate">
 						<xsl:if test="current()//tei:docDate//tei:date">
@@ -1392,33 +1405,24 @@
 						</xsl:for-each>
 					</xsl:if>
 				</xsl:element>
-				<br/>
-				<xsl:element name="span">
-					<xsl:attribute name="class">document_list_doc_link</xsl:attribute>
-					<xsl:attribute name="data-value">
-						<xsl:value-of select="@xml:id"/>
-					</xsl:attribute>
-					<xsl:text>Doc.&#xA0;</xsl:text>
-					<xsl:value-of select="tei:front//tei:titlePart[@type = 'numerazioneOrig']"/>
-					<xsl:text>_</xsl:text>
-					<xsl:value-of select="tei:front//tei:titlePart[@type = 'numerazioneNuova']"/>
-					<!--OR-->
-					<!--<xsl:value-of select="@xml:id"/>-->
-				</xsl:element>
-				<br/>
+				<xsl:element name="br"></xsl:element>
 				<xsl:element name="span">
 					<xsl:attribute name="class">document_list_regesto</xsl:attribute>
 					<xsl:if test="current()//tei:div[@type = 'regesto']">
-						<xsl:value-of select="tei:front//tei:div[@type = 'regesto']"/>
+						<xsl:variable name="fullRegesto" select="tei:front//tei:div[@type = 'regesto']"/>
+						<xsl:variable name="initRegesto" select="substring($fullRegesto, 0, 300)"></xsl:variable>
+						<xsl:variable name="endRegesto" select="substring($fullRegesto, 300)"></xsl:variable>
+						<span><xsl:value-of select="$initRegesto" /></span>
+						<xsl:if test="string-length(normalize-space($endRegesto)) &gt; 0">
+							<span class="regestoEllipsis">... </span>
+							<span class="regestoExpansion"><xsl:value-of select="$endRegesto" /></span>
+							<span class="toggleRegestoInList active" data-lang="MORE" lang="def"
+								data-action="expand" onclick="toggleRegestoInIndex(this)">MORE</span>
+							<span class="toggleRegestoInList" data-lang="LESS" lang="def" data-action="collapse" 
+								onclick="toggleRegestoInIndex(this)">LESS</span>
+						</xsl:if>
 					</xsl:if>
 				</xsl:element>
-				<span class="toggleRegestoInList active" data-lang="MORE" lang="def"
-					data-action="expand">MORE</span>
-				<span class="toggleRegestoInList" data-lang="LESS" lang="def" data-action="collapse"
-					>LESS</span>
-				<!--<span class="toggle_list_element">
-                    <i class="fa fa-angle-right"/>
-                </span>-->
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:element name="span">

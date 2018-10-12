@@ -565,40 +565,25 @@ function bindChronologicalIndex() {
 		var items = $("#ul_listDocument .list_element");
 		/* Invoco la funzione per l'ordinamento delle date */
 		sortDate(container, items);
-
-		/* Gestisco la riduzione del regesto */
-		var minimized_text = $('#ul_listDocument .list_element .document_list_regesto');
-		var minimized_character_count = 300;
-		minimized_text.each(function() {
-			var text = $(this).text();
-			if (text.length < minimized_character_count) return;
-
-			$(this).html(
-				text.slice(0, minimized_character_count) + '<span class="regestoEllipsis">... </span>' +
-				'<span class="regestoExpansion">' + text.slice(minimized_character_count, text.length) + '</span>');
-		});
-		showOrHideRegesto();
-		bindDocumentLinkChronologicalIndex();
 	});
 }
 
 /* CDM: Ho gestito questa parte del codice per la gestione del regesto in una funzione esterna per non
  * doverla ripetere più volte. */
-function showOrHideRegesto() {
-	$('#ul_listDocument .list_element .toggleRegestoInList').click(function(event) {
-		var action = $(this).attr('data-action');
-		$(this).siblings('.toggleRegestoInList').addClass('active');
-		$(this).removeClass('active');
-		if (action === 'expand') {
-			// Sto gestendo il pulsante MORE
-			$(this).parent().find('.document_list_regesto .regestoExpansion').show();
-			$(this).parent().find('.document_list_regesto .regestoEllipsis').hide();
-		} else {
-			// Sto gestendo il pulsante LESS
-			$(this).parent().find('.document_list_regesto .regestoExpansion').hide();
-			$(this).parent().find('.document_list_regesto .regestoEllipsis').show();
-		}
-	});
+function toggleRegestoInIndex(el) {
+	var action = $(el).attr('data-action');
+	$(el).siblings('.toggleRegestoInList').addClass('active');
+	$(el).removeClass('active');
+	var documentRegesto = $(el).parent();
+	if (action === 'expand') {
+		// Sto gestendo il pulsante MORE
+		documentRegesto.find('.regestoExpansion').show();
+		documentRegesto.find('.regestoEllipsis').hide();
+	} else {
+		// Sto gestendo il pulsante LESS
+		documentRegesto.find('.regestoExpansion').hide();
+		documentRegesto.find('.regestoEllipsis').show();
+	}
 }
 
 /* La funzione per la gestione della selezione del parametro di ordinamento è ridotta rispetto alla versione
@@ -616,12 +601,8 @@ function bindDocListSortSelectClick() {
 					/* Devo invocare questa funzione sia qui che nell'else. Se non lo faccio,
 					 * dopo aver effettuato un cambio nell'ordinamento nel testo si visualizza
 					 * show more/show less che però non espandono né riducono il regesto. */
-				showOrHideRegesto();
-				bindDocumentLinkChronologicalIndex();
 			} else if (value === "sort_document") {
 				sortDocument(container, items);
-				showOrHideRegesto();
-				bindDocumentLinkChronologicalIndex();
 			}
 			$(this).removeClass('selected');
 		} else {
@@ -632,74 +613,65 @@ function bindDocListSortSelectClick() {
 }
 
 /* Questa funzione gestisce il cambio ascendente/discendente */
-function bindListsSortingOrderBtnClick() {
-	$('#sortingOrder').click(function() {
-		// Update sorting order
-		/* Recupero lo span del pulsante di ordinamento e il valore del suo attributo 'data-button-sort'. La prima
-		 * volta che viene eseguito questo codice, questo sarà 'asc', perché così impostato all'apertura della lista */
-		var sortingOrderButton = $('#sortingOrder span');
-		var sortingOrderButtonValue = sortingOrderButton.attr('data-button-sort');
-		var sortinOrderBtnIcon = $('#sortingOrder i');
-		/* Recupero l'opzione della select correntemente selezionata*/
-		var selectedLabelValue = $('#span_listDoc_select .docList_sort_attribute_select .label_selected').attr('data-value');
-		/*Recupero il contenitore della lista e gli elementi  */
-		var container = $("#ul_listDocument");
-		var items = $("#ul_listDocument .list_element");
-		/* Se il pulsante per l'ordinamento è correntemente settato su 'Ascending' */
-		if (sortingOrderButtonValue === 'asc') {
-			/* Cambio il valore del suo attributo 'data-button-sort' in 'desc' e assegno questo valore anche all'attributo 'sort' di #ul_listDocument */
-			/* Poi Cambio la scritta sul pulsante */
-			sortingOrderButton
-				.attr('data-button-sort', 'desc')
-				.attr('data-lang', 'DESCENDING_ORDER')
-				.text(window.lang.convert('DESCENDING_ORDER', window.lang.currentLang));
-			container.attr('data-sort', 'desc');
-			/* Cambio il simbolo nel pulsante */
-			sortinOrderBtnIcon
-				.removeClass('fa-sort-amount-asc')
-				.addClass('fa-sort-amount-desc');
-			/* A seconda di qual è l'opzione selezionata correntemente, invoco la funzione per l'ordinamento delle date o dei documenti */
-			if (selectedLabelValue === 'sort_document') {
-				sortDocument(container, items);
-			} else if (selectedLabelValue === 'sort_date') {
-				sortDate(container, items);
-			}
-			/* Se non invoco ancora la funzione mi dà problemi */
-			showOrHideRegesto();
-			bindDocumentLinkChronologicalIndex();
-			/* Se il pulsante per l'ordinamento è correntemente settato su 'Ascending' ma 'al contrario'*/
-		} else if (sortingOrderButtonValue === 'desc') {
-			sortingOrderButton
-				.attr('data-lang', 'ASCENDING_ORDER')
-				.attr('data-button-sort', 'asc')
-				.text(window.lang.convert('ASCENDING_ORDER', window.lang.currentLang));
-			container.attr('data-sort', 'asc');
-			sortinOrderBtnIcon
-				.removeClass('fa-sort-amount-desc')
-				.addClass('fa-sort-amount-asc');
-			if (selectedLabelValue === 'sort_document') {
-				sortDocument(container, items);
-			} else if (selectedLabelValue === 'sort_date') {
-				sortDate(container, items);
-			}
-			showOrHideRegesto();
-			bindDocumentLinkChronologicalIndex();
+function toggleSortingOrder(el) {
+	var sortingContainer = $(el);
+	// Update sorting order
+	/* Recupero lo span del pulsante di ordinamento e il valore del suo attributo 'data-button-sort'. La prima
+		* volta che viene eseguito questo codice, questo sarà 'asc', perché così impostato all'apertura della lista */
+	var sortingOrderButton = sortingContainer.find('span');
+	var sortingOrderButtonValue = sortingOrderButton.attr('data-button-sort');
+	var sortinOrderBtnIcon = sortingContainer.find('i');
+	/* Recupero l'opzione della select correntemente selezionata*/
+	var selectedLabelValue = $('#span_listDoc_select .docList_sort_attribute_select .label_selected').attr('data-value');
+	/*Recupero il contenitore della lista e gli elementi  */
+	var container = $("#ul_listDocument");
+	var items = $("#ul_listDocument .list_element");
+	/* Se il pulsante per l'ordinamento è correntemente settato su 'Ascending' */
+	if (sortingOrderButtonValue === 'asc') {
+		/* Cambio il valore del suo attributo 'data-button-sort' in 'desc' e assegno questo valore anche all'attributo 'sort' di #ul_listDocument */
+		/* Poi Cambio la scritta sul pulsante */
+		sortingOrderButton
+			.attr('data-button-sort', 'desc')
+			.attr('data-lang', 'DESCENDING_ORDER')
+			.text(window.lang.convert('DESCENDING_ORDER', window.lang.currentLang));
+		container.attr('data-sort', 'desc');
+		/* Cambio il simbolo nel pulsante */
+		sortinOrderBtnIcon
+			.removeClass('fa-sort-amount-asc')
+			.addClass('fa-sort-amount-desc');
+		/* A seconda di qual è l'opzione selezionata correntemente, invoco la funzione per l'ordinamento delle date o dei documenti */
+		if (selectedLabelValue === 'sort_document') {
+			sortDocument(container, items);
+		} else if (selectedLabelValue === 'sort_date') {
+			sortDate(container, items);
 		}
-	});
+		/* Se il pulsante per l'ordinamento è correntemente settato su 'Ascending' ma 'al contrario'*/
+	} else if (sortingOrderButtonValue === 'desc') {
+		sortingOrderButton
+			.attr('data-lang', 'ASCENDING_ORDER')
+			.attr('data-button-sort', 'asc')
+			.text(window.lang.convert('ASCENDING_ORDER', window.lang.currentLang));
+		container.attr('data-sort', 'asc');
+		sortinOrderBtnIcon
+			.removeClass('fa-sort-amount-desc')
+			.addClass('fa-sort-amount-asc');
+		if (selectedLabelValue === 'sort_document') {
+			sortDocument(container, items);
+		} else if (selectedLabelValue === 'sort_date') {
+			sortDate(container, items);
+		}
+	}
 }
 
 /* Gestione del link alla prima pagina del documento corrispondente all'elemento della lista per l'indice cronologico */
-function bindDocumentLinkChronologicalIndex() {
-	$('#ul_listDocument .list_element .document_list_doc_link').click(function() {
-		/* quando si clicca sullo span della lista che contiene la numerazione, si recupera il valore di 'data-value' che corrisponde al numero del documento */
-		var elementListDoc = $(this).attr('data-value');
-		/* vado a recuperare nella select dei documenti l'opzione che ha il valore dell'attributo 'data-value' uguale a quello appena recuperato */
-		var navSelectDoc = $('#span_tt_select .main_tt_select .option_container').find(".option[data-value='" + elementListDoc + "']");
-		var numero = navSelectDoc.attr('data-value');
-		/* il valore dell'attributo 'data-first-page' dell'opzione recuperata mi dà il valore della prima pagina del documento  */
-		var docFirstPage = navSelectDoc.attr('data-first-page');
-		updateHash(elementListDoc, docFirstPage, "");
-
-		/* funzione definita in ic_navigation.js */
-	});
+function navToDocumentFromList(el) {
+	/* quando si clicca sullo span della lista che contiene la numerazione, si recupera il valore di 'data-value' che corrisponde al numero del documento */
+	var elementListDoc = $(el).attr('data-value');
+	/* vado a recuperare nella select dei documenti l'opzione che ha il valore dell'attributo 'data-value' uguale a quello appena recuperato */
+	var navSelectDoc = $('#span_tt_select .main_tt_select .option_container').find(".option[data-value='" + elementListDoc + "']");
+	var numero = navSelectDoc.attr('data-value');
+	/* il valore dell'attributo 'data-first-page' dell'opzione recuperata mi dà il valore della prima pagina del documento  */
+	var docFirstPage = navSelectDoc.attr('data-first-page');
+	updateHash(elementListDoc, docFirstPage, "");
+	$('#toggle_list_cont').trigger('click');
 }
