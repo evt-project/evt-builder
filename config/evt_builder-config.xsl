@@ -87,7 +87,7 @@
 	<!-- EN: On/Off regesto -->
 	<!-- IT: Attiva/Disattiva regesto -->
 	<!-- default: false() -->
-	<xsl:param name="regesto" select="false()"/>
+	<xsl:param name="regesto" select="true()"/>
 
 	<!-- EN: On/Off Front Information -->
 	<!-- IT: Attiva/Disattiva Front Information -->
@@ -115,7 +115,7 @@
 	<!-- EN: It is possible to skip production of pages for a specific edition simply removing the textual part of the corresponding item. -->
 	<!-- IT: E' possibile rimuovere la produzione di pagine di una determinata edizione semplicemente rimuovendo la parte testuale dell'item corrispondente. -->
 	<xsl:variable name="edition_array" as="element()*">
-		<edition>Diplomatic</edition>
+		<edition></edition>
 		<!-- EN: If you have diplomatic edition put <edition>Diplomatic</edition>.
 			 	 If you DON'T have diplomatic edition put <edition></edition> -->
 		<!-- IT: Se si ha l'edizione diplomatica scrivere <edition>Diplomatic</edition>.
@@ -129,7 +129,7 @@
 		<!-- IT: Se si ha l'edizione interpretativa scrivere <edition>Interpretative</edition>.
 			 	 Se NON si ha l'edizione interpretativa mettere <edition></edition> -->
 
-		<edition>Translation</edition>
+		<edition></edition>
 		<!-- EN: If you have translation put <edition>Translation</edition>.
 			 	 If you don't have translation put <edition></edition> -->
 		<!-- IT: Se si ha la versione tradotta del testo scrivere <edition>Translation</edition>.
@@ -238,7 +238,7 @@
 	<!-- EN: Show/Hide Txt/Img Link Button in interface -->
 	<!-- IT: Mostra/Nascondi pulsante Txt/Img Link nell'interfaccia web -->
 	<!-- default: true() -->
-	<xsl:param name="txtimg_link_button" select="true()"/>
+	<xsl:param name="txtimg_link_button" select="false()"/>
 
 	<!-- EN: Show/Hide Hotspot Button in interface -->
 	<!-- IT: Mostra/Nascondi pulsante Hotspot nell'interfaccia web -->
@@ -258,7 +258,7 @@
 	<!-- EN: Show/Hide Viscoll Button in interface -->
 	<!-- IT: Mostra/Nascondi pulsante Viscoll nell'interfaccia web -->
 	<!-- default: false() -->
-	<xsl:param name="viscoll_button" select="true()"/>
+	<xsl:param name="viscoll_button" select="false()"/>
 	
 	<!-- GM -->
 	<xsl:param name="viscoll_info" select="'CP'" />
@@ -266,7 +266,7 @@
 	<!-- EN: Show/Hide Edition level selector in interface -->
 	<!-- IT: Mostra/Nascondi selettore Livello/i Edizione nell'interfaccia web -->
 	<!-- default: true() -->
-	<xsl:param name="edition_level_selector" select="true()"/>
+	<xsl:param name="edition_level_selector" select="false()"/>
 
 	<!-- IT: Choose page selector position -->
 	<!-- IT: Scegli posizione Selettore pagina -->
@@ -296,7 +296,7 @@
 	<!-- EN: On/Off Bottom Navbar -->
 	<!-- IT: Attiva/Disattiva Barra di navigazione in fondo alla pagina -->
 	<!-- default: true() -->
-	<xsl:param name="bottom_navbar" select="true()"/>
+	<xsl:param name="bottom_navbar" select="false()"/>
 	<!-- EN: Initial status of Bottom Navbar (only works if $bottom_navbar=true()) -->
 	<!-- IT: Stato iniziale della barra di navigazione (considerato solo se $bottom_navbar=true())-->
 	<!-- possible values: 'collapsed' | 'expanded' -->
@@ -359,7 +359,7 @@
 	<xsl:variable name="lists" as="element()*">
 		<group label="NAMED_ENTITIES" active="true">
 			<persName active="true"/>
-			<placeName active="false"/>
+			<placeName active="true"/>
 			<orgName active="true"/>
 		</group>
 		<group label="INTERESTING_ELEMENTS" active="false">
@@ -368,7 +368,7 @@
 			<date active="true"/>
 			<foreign active="true"/>
 		</group>
-		<group label="STAGES" active="true">
+		<group label="STAGES" active="false">
 			<setting active="true"/>
 			<entrance active="true"/>
 			<exit active="true"/>
@@ -378,7 +378,7 @@
 			<novelistic active="true"/>
 			<mixed active="true"/>
 		</group>
-		<group label="OTHERS" active="true">
+		<group label="OTHERS" active="false">
 		</group>
 	</xsl:variable>
 	

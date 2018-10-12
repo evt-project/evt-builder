@@ -278,7 +278,7 @@
                 
                 <!-- GM -->
                 <idno>
-                    <xsl:if test="$viscoll_info">
+                    <xsl:if test="$viscoll_button and $viscoll_info">
                     <xsl:call-template name="idno_process"></xsl:call-template>
                     </xsl:if>
                 </idno>
