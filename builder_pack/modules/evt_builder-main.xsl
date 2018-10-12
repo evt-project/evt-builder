@@ -687,9 +687,9 @@
 				</div>
 			</div>
 		</span>
-		<div id="sortingOrder" class="mainButtons" title="SORT_ORDER" lang="def">
-			<span lang="def" />
-			<i class="fa"/>
+		<div id="sortingOrder" class="mainButtons" title="SORT_ORDER" lang="def" onclick="toggleSortingOrder(this)">
+			<span lang="def" data-lang="ASCENDING_ORDER" data-button-sort="asc">ASCENDING_ORDER</span>
+			<i class="fa fa-sort-amount-asc"/>
 		</div>
 	</xsl:template>
 

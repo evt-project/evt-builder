@@ -1927,7 +1927,7 @@ div.doc.not_current:hover{
 #lists_cont,
 #search_cont, #search_cont-add {
 	text-align: left;
-	font-size: 15pt;
+	font-size: 12.5pt;
 	margin-top: 42px;
 	margin-bottom: 42px;
 	display: none;
@@ -2264,7 +2264,7 @@ div.doc.not_current:hover{
 
 #list_header .labelList{
 	cursor: pointer;
-	padding-top: 5.5px;
+	padding-top: 7.6px;
 	position: relative;
 	/*border-right: 1px solid rgb(227, 200, 156);*/
 	padding-right: 15px;
@@ -2279,17 +2279,17 @@ div.doc.not_current:hover{
 #list_header .labelList:hover{
 	border-radius: 4px 4px 0px 0px;
 	background: rgba(227, 200, 156, .5);
-	border-bottom: 4px solid rgba(227, 200, 156, 0);
+	border-bottom: 7px solid rgba(227, 200, 156, 0);
 }
 #list_header .labelList.active:hover{
 	background: rgba(227, 200, 156, 1);
 	cursor: default;
-	border-bottom: 4px solid rgba(227, 200, 156, 0);
+	border-bottom: 7px solid rgba(227, 200, 156, 0);
 }
 
 #list_header .labelList.active{
 	border-radius: 4px 4px 0px 0px;
-	border-bottom: 4px solid rgb(227, 200, 156);
+	border-bottom: 7px solid rgb(227, 200, 156);
 }
 
 #lists_cont .list{
@@ -2302,7 +2302,7 @@ div.doc.not_current:hover{
 
 	position: relative;
 	top: 63px;
-	padding: 0px 30px;
+	padding: 0px;
 }
 #lists_cont[data-list-active="listDoc"] .list {
 	height: 90%;
@@ -2338,7 +2338,7 @@ div.doc.not_current:hover{
 }
 ul.ul_list li{
 	list-style-type: none;
-	padding: 5px;
+	padding: 5px 5px 5px 10px;
 	border-bottom: 1px solid #ccc;
 }
 ul.ul_list li:nth-child(odd){
@@ -2399,7 +2399,11 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 }
 
 #ul_listDocument .list_element .document_list_regesto {
-    text-align:justify;
+	text-align:justify;
+	margin-top: 10px;
+    display: inline-block;
+    font-size: 96%;
+    padding-right: 5px;
 }
 
 #ul_listDocument li .document_list_regesto a.more, #ul_listDocument li .document_list_regesto a.less {
@@ -2410,13 +2414,16 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 
 #ul_listDocument .list_element .document_list_doc_link {
     cursor: pointer;
-	border-radius: 4px;
-	padding: 3px 6px;
-	display: inline-block;
-	border: 1px solid rgb(204, 204, 204);
-	margin-right: 3px;
-	font-size: 100%;
-	/*  margin-bottom: 3px; */
+    padding: 0px 6px;
+    margin-left: 3px;
+    font-size: 90%;
+    top: -1px;
+    position: relative;
+	float: right;
+	text-shadow: none;
+}
+#ul_listDocument .list_element .document_list_doc_link:hover {
+	background: rgba(204, 204, 204,0.6);
 }
 #ul_listDocument .list_element br:first-of-type {
     display:none;
