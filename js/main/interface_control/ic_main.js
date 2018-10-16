@@ -372,12 +372,6 @@ $(function() {
 						toggleListCont(this);
 					});
 
-				$('.list_filter').click(function() {
-					var activeList = $(".labelList.active");
-					if (activeList.attr("id") !== "header_listDoc") {
-						filterListElements(this);
-					}
-				});
 				$('<div />')
 					.attr('id', 'lists_cont_temp')
 					.css('display', 'none')
@@ -389,19 +383,30 @@ $(function() {
 						listName = $(this).get(0).tagName;
 						listLabel = $(this).text();
 						LISTS_MODEL[listName] = {
-							_indexes: []
+							_indexes: [],
+							_items: {},
+							_filterIndexes: []
 						};
 
 						// var parentId = i === 0 ? '#lists_cont' : '#lists_cont_temp';
+						var ulListContainer = $('<ul>');
+						ulListContainer.attr('id', 'ul_list_' + listName);
+						ulListContainer.addClass('ul_list');
+							
+						var list_container = $('<div />');
+						
+						list_container.attr('id', 'list_' + listName);
+						list_container.addClass('list');
+						list_container.append(ulListContainer);
+						list_container.appendTo('#lists_cont');
+
 						var parentId = '#lists_cont';
-						$('<div />')
-							.attr('id', 'list_' + listName)
-							.addClass('list')
-							.appendTo(parentId);
+						
 						i++;
 						$('<span />')
 							.addClass('labelList')
 							.attr('id', 'header_' + listName)
+							.attr('data-list-name', listName)
 							.attr('lang', 'def')
 							.text(listLabel)
 							.click(function() {
@@ -410,49 +415,49 @@ $(function() {
 							.appendTo('#list_header_elements_contents');
 						listContainer.find('.list').first().addClass('list_opened').show();
 						listContainer.find('.labelList').first().addClass('active');
-						$('.list_filter').first().trigger('click');
 
 						var listElement = $('#list_' + listName);
-						listElement.load("data/output_data/liste/" + listName + ".html div", function() {
-							console.time(listName);
-							if (listElement.find('li').length == 0) {
-								listElement.remove();
-								$('#header_' + listName).remove();
-
-								if ($('#list_header_elements_contents').find('.labelList').length == 0) {
-									$('#lists_cont').remove();
-									$('#list_link').remove();
-								}
-							} else {
-								listElement.find('.list_element[id]').each(function() {
-									var orderListLetter = this.getAttribute('data-order-list')
-									if (orderListLetter) {
-										orderListLetter = orderListLetter.toUpperCase();
-										if (!LISTS_MODEL[listName][orderListLetter]) {
-											LISTS_MODEL[listName][orderListLetter] = {}
-											LISTS_MODEL[listName]._indexes.push(orderListLetter);
-										}
-										LISTS_MODEL[listName][orderListLetter][this.id] = this;
+						$.ajax({
+							type: "GET",
+							url: "data/output_data/liste/" + listName + ".html",
+							dataType: "html",
+							success: function(html) {
+								var htmlEl = $(html);
+								if (htmlEl.find('li').length == 0) {
+									listElement.remove();
+									$('#header_' + listName).remove();
+		
+									if ($('#list_header_elements_contents').find('.labelList').length == 0) {
+										$('#lists_cont').remove();
+										$('#list_link').remove();
 									}
-									listElement.find('.list_element[id="' + this.id + '"]:gt(0)').remove();
-								});
-								listElement
-									.find('.list_element').find('.toggle_list_element, .entity_name').click(function() {
-										showListElementOccurrences($(this).parent(), listName);
-									});
+								} else {
+									htmlEl.find('.list_element[id]').each(function() {
+										if (listName !== 'listDoc') {
+											var orderListLetter = this.getAttribute('data-order-list')
+											if (orderListLetter) {
+												orderListLetter = orderListLetter.toUpperCase();
+												if (orderListLetter === 'Ç') {
+													orderListLetter = "C";
+												}
+												if (!LISTS_MODEL[listName][orderListLetter]) {
+													LISTS_MODEL[listName][orderListLetter] = [];
+													LISTS_MODEL[listName]._filterIndexes.push(orderListLetter);
+												}
+												LISTS_MODEL[listName][orderListLetter].push(this.id);
+												LISTS_MODEL[listName]._items[this.id] = this;
+											}
+											htmlEl.find('.list_element[id="' + this.id + '"]:gt(0)').remove();
+										} else {
+											LISTS_MODEL[listName]._items[this.id] = this;
+											LISTS_MODEL[listName]._indexes.push(this.id);
+										}
+										});
+										if (htmlEl.find('#occorrenze_'+listName)) {
+											LISTS_MODEL[listName]._occurrences = htmlEl.find('#occorrenze_'+listName)[0];
+										}
+								}
 							}
-							/* Integration by LS */
-							if ($("[lang!='" + window.lang.currentLang + "']").length > 0) {
-								window.lang.update(window.lang.currentLang);
-							}
-							/* /end Integration by LS */
-							InitializeRefs();
-							// If chronological index there are no letters
-							if (listName !== 'listDoc') {
-								$('.list_filter:first').trigger('click');
-							}
-							console.timeEnd(listName);
-							console.log(LISTS_MODEL);
 						});
 					}
 				});

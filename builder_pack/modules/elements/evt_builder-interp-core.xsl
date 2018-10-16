@@ -843,6 +843,7 @@
 			<xsl:variable name="termText">
 				<xsl:apply-templates mode="#current"/>
 			</xsl:variable>
+			<xsl:attribute name="data-list">listTerm</xsl:attribute>
 			<xsl:attribute name="data-ref">
 				<xsl:choose>
 					<xsl:when test="@xml:id">
@@ -864,6 +865,7 @@
 			<xsl:variable name="glossText">
 				<xsl:apply-templates mode="#current"/>
 			</xsl:variable>
+			<xsl:attribute name="data-list">listGloss</xsl:attribute>
 			<xsl:attribute name="data-ref">
 				<xsl:choose>
 					<xsl:when test="@xml:id">
@@ -917,6 +919,7 @@
 				test="@ref and @ref != '' and $root//tei:person[@xml:id = substring-after(current()/@ref, '#')]">
 				<xsl:element name="span">
 					<xsl:attribute name="class">popup persName</xsl:attribute>
+					<xsl:attribute name="data-list">listPerson</xsl:attribute>
 					<xsl:attribute name="data-ref">
 						<xsl:value-of select="translate(@ref, '#', '')"/>
 					</xsl:attribute>
@@ -956,6 +959,7 @@
 				<xsl:element name="span">
 					<xsl:attribute name="class">entity_name <xsl:if test="$list_person = true()">
 							link_active</xsl:if></xsl:attribute>
+					<xsl:attribute name="data-list">listPerson</xsl:attribute>
 					<xsl:attribute name="data-ref">
 						<xsl:value-of select="@xml:id"/>
 					</xsl:attribute>
@@ -1084,6 +1088,7 @@
 						test="@ref and @ref != '' and $root//tei:org[@xml:id = substring-after(current()/@ref, '#')]">
 						<xsl:element name="span">
 							<xsl:attribute name="class" select="'popup orgName'"/>
+							<xsl:attribute name="data-list">listOrg</xsl:attribute>
 							<xsl:attribute name="data-ref" select="translate(@ref, '#', '')"/>
 							<xsl:element name="span">
 								<xsl:attribute name="class" select="'trigger'"/>
@@ -1123,6 +1128,7 @@
 					<xsl:element name="span">
 						<xsl:attribute name="class">entity_name <xsl:if test="$list_org = true()">
 								link_active</xsl:if></xsl:attribute>
+						<xsl:attribute name="data-list">listOrg</xsl:attribute>
 						<xsl:attribute name="data-ref" select="@xml:id"/>
 						<xsl:for-each select="current()/tei:orgName">
 							<xsl:value-of select="current()"/>
@@ -1230,6 +1236,7 @@
 				test="@ref and @ref != '' and $root//tei:place[@xml:id = substring-after(current()/@ref, '#')]">
 				<xsl:element name="span">
 					<xsl:attribute name="class">popup placeName</xsl:attribute>
+					<xsl:attribute name="data-list">listPlace</xsl:attribute>
 					<xsl:attribute name="data-ref">
 						<xsl:value-of select="translate(@ref, '#', '')"/>
 					</xsl:attribute>
@@ -1271,6 +1278,7 @@
 						<xsl:attribute name="class"> entity_name <xsl:if test="$list_place = true()"
 								> link_active</xsl:if>
 						</xsl:attribute>
+						<xsl:attribute name="data-list">listPlace</xsl:attribute>
 						<xsl:attribute name="data-ref">
 							<xsl:value-of select="@xml:id"/>
 						</xsl:attribute>
