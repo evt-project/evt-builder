@@ -45,7 +45,7 @@ ic_lists.js
 # TOGGLE LISTS CONTAINER                                : toggleListCont(toggler)
 # CLOSE LISTS CONTAINER                                 : closeListsBox(speed)
 # OPEN LISTS CONTAINER                                  : openListsBox(speed)
-# HANDLE NAVIGATION LIST ELEMENTS PER LETTER            : filterListElements(filter)
+# HANDLE NAVIGATION LIST ELEMENTS PER LETTER            : filterListElements(filter) and doFilterListElements(filter)
 # OPEN SINGLE LIST                                      : openList(elem, listName)
 # SHOW LIST ELEMENT OCCURRENCES                         : showListElementOccurrences(elem, listName)
 # PREPARE LIST ELEMENT OCCURRENCES                      : prepareOccurrencesList(elem, listName)

@@ -2340,6 +2340,8 @@ ul.ul_list li{
 	list-style-type: none;
 	padding: 5px 5px 5px 10px;
 	border-bottom: 1px solid #ccc;
+	-webkit-transition: all 2s; /* Safari */
+	transition: all 2s;
 }
 ul.ul_list li:nth-child(odd){
 	background: rgba(185, 170, 153, .1);
@@ -2383,7 +2385,7 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 	border:none;
 	color: #ccc;
 }
-.occurences span:hover, #ul_listDocument .list_element .document_list_doc_link{
+.occurences span:hover, #ul_list_listDoc .list_element .document_list_doc_link{
 	text-shadow:0px 0px 1px #000;
 	background: rgba(204, 204, 204,0.4);
 }
@@ -2394,11 +2396,11 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 	color: #ccc;
 }
 /* Chronological index list */
-#ul_listDocument li .document_list_data {
+#ul_list_listDoc li .document_list_data {
     font-weight:bold;
 }
 
-#ul_listDocument .list_element .document_list_regesto {
+#ul_list_listDoc .list_element .document_list_regesto {
 	text-align:justify;
 	margin-top: 10px;
     display: inline-block;
@@ -2406,13 +2408,13 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
     padding-right: 5px;
 }
 
-#ul_listDocument li .document_list_regesto a.more, #ul_listDocument li .document_list_regesto a.less {
+#ul_list_listDoc li .document_list_regesto a.more, #ul_list_listDoc li .document_list_regesto a.less {
     text-decoration:none;
     font-weight:bold;
     color: #4e443c;
 }
 
-#ul_listDocument .list_element .document_list_doc_link {
+#ul_list_listDoc .list_element .document_list_doc_link {
     cursor: pointer;
     padding: 0px 6px;
     margin-left: 3px;
@@ -2422,10 +2424,10 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 	float: right;
 	text-shadow: none;
 }
-#ul_listDocument .list_element .document_list_doc_link:hover {
+#ul_list_listDoc .list_element .document_list_doc_link:hover {
 	background: rgba(204, 204, 204,0.6);
 }
-#ul_listDocument .list_element br:first-of-type {
+#ul_list_listDoc .list_element br:first-of-type {
     display:none;
 }
 
@@ -3015,10 +3017,14 @@ ul.ul_list li:hover, ul.ul_list li.list_element_opened{
 }
 
 .highlight {
-	background: #FFFF88;
+	background: #FFFF88 !important;
+	-webkit-transition: all 2s; /* Safari */
+	transition: all 2s;
 }
 .bibl.highlight{
-	background: #FFFF88;
+	background: #FFFF88 !important;
+	-webkit-transition: all 2s; /* Safari */
+	transition: all 2s;
 }
 
 .project-web-site_link {

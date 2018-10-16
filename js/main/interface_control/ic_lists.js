@@ -154,72 +154,107 @@ function showHideListsNavBtn() {
 	// updateTextContHeight();
 }
 
+function appendItemsInList(items, listName) {
+	if (items) {
+		var ulList = $('#ul_list_'+listName);
+		ulList.empty();
+		items.forEach(function(key){
+			var el = LISTS_MODEL[listName]._items[key];
+			if (listName === 'listDoc' && !el.getAttribute('data-normalized-sort-date')) {
+				/* per ogni items converto il valore della data in una forma più standard. Creo un attributo 'data-normalized-sort-date' e gli assegno questo valore */
+				var attrDate = el.getAttribute("data-sort-date");
+				attrDate = attrDate ? attrDate.split(' ')[0] : undefined
+				var date = attrDate ? attrDate.split("-") : undefined;
+				var standardDate;
+				if (date) {
+					standardDate = date.length === 3 ? date[0] + " " + date[1] + " " + date[2] : date[0] + " " + date[1] + " 01";
+				}
+				standardDate = standardDate ? new Date(standardDate).getTime() : "";
+				el.setAttribute("data-normalized-sort-date", standardDate);
+			}
+			ulList.append(el);
+		});
+	}
+	bindShowListElementOccurrences(listName);
+	InitializeRefs();
+	window.lang.run();
+}
 /*= HANDLE NAVIGATION LIST ELEMENTS PER LETTER =*/
 function filterListElements(filter) {
-	var filterValue;
-	filterValue = $(filter).attr('data-value');
+	var activeList = $(".labelList.active");
+	if (activeList.attr("id") !== "header_listDoc") {
+		doFilterListElements(filter, activeList);
+	}
+}
+
+function doFilterListElements(filter, activeList) {
+	var filterValue, filterEl;
+	filterEl = $(filter);
+	filterValue = filterEl.attr('data-value');
 	$('.filter_active').removeClass('filter_active');
-	$(filter).addClass('filter_active');
+	filterEl.addClass('filter_active');
 
 	$('.occurences:visible').hide();
 	$('.list_element_opened').removeClass('list_element_opened');
-
-	$('.list_element').hide();
-	var listsElementsFiltered;
-	if (filterValue === '*') {
-		listsElementsFiltered = $(".list_element[data-order-list!='']");
-	} else {
-		listsElementsFiltered = $(".list_element[data-order-list='" + filterValue.toLowerCase() + "'], .list_element[data-order-list='" + filterValue.toUpperCase() + "']");
-	}
-
-	// Elements in chronological index (listDoc) should always be visible
-	$('#listDoc .list_element').show();
-	listsElementsFiltered.show();
-	if (filterValue.toLowerCase() == 'c') {
-		$(".list_element[data-order-list='Ç']").show();
-	}
-
-	if ($('.ul_list:visible').find(listsElementsFiltered).length == 0) {
-		if ($('.no_elements').length > 0) {
-			$('.no_elements').detach().appendTo('.ul_list:visible').show();
-		} else {
-			$('<li />')
-				.addClass('list_element')
-				.addClass('no_elements')
-				.append("<span lang='def'>NO_ELEMENTS</span>")
-				.appendTo('.ul_list:visible');
-		}
-		window.lang.run();
-	} else {
-		if ($('.no_elements').length > 0) {
-			$('.no_elements').hide();
-		}
-	}
-
-	$("div[id*='list_']").scrollTop(0);
-
-	window.lang.run();
+	
+	var listName = activeList.attr('data-list-name');
+	try { appendItemsInList(LISTS_MODEL[listName][filterValue], listName);
+	} catch(e) { console.log(e);}
 }
 
+function updateKeysVisibility(listName) {
+	var listFilter = $('.filter_active');
+	var filterActiveValue = listFilter ? listFilter.attr('data-value') : '';
+	var listLetters = document.getElementById('list_letters');
+	listLetters.innerHTML = '';
+	var orderedIndexes = LISTS_MODEL[listName]._filterIndexes.sort(function(a,b) {
+		if(a < b) return -1;
+		if(a > b) return 1;
+		return 0;
+	});
+	orderedIndexes.forEach(function(key){
+		var indexEl = document.createElement('span');
+		indexEl.setAttribute('data-filter-type', 'first_letter');
+		indexEl.setAttribute('data-value', key);
+		indexEl.className = 'list_filter';
+		if (filterActiveValue === key) {
+			indexEl.className = ' filter_active';
+		}
+		indexEl.textContent = key;
+		indexEl.setAttribute('onclick', 'filterListElements(this)');
+		listLetters.append(indexEl);
+	});
+}
 /*= OPEN SINGLE LIST =*/
 function openList(elem, listName) {
 	var listCont = $('#lists_cont');
-	var firstList = $('#lists_cont').find('.list')[0];
-	var listElem = $('#list_' + listName)
-	// if (!firstList || (firstList && firstList.getAttribute('id') !== 'list_'+listName)) {
-	// 	if (firstList) {$('#lists_cont_temp').append(firstList)};
-	// 	listCont.append(listElem);
-	// 	listElem.find('.ul_list').jscroll(); 
-	// }
-	if (listCont.hasClass('collapsed')) {
-		$('#toggle_list_cont').trigger('click');
+	var listElem = $('#list_' + listName);
+	if (!listElem.hasClass('list_opened')) {
+		updateKeysVisibility(listName);
+		
+		if (listCont.hasClass('collapsed')) {
+			$('#toggle_list_cont').trigger('click');
+		}
+		
+		$('.labelList.active').removeClass('active');
+		$(elem).addClass('active');
+		$('.list.list_opened').hide().removeClass('list_opened');
+		listElem.addClass('list_opened').show();
+		listCont.attr('data-list-active', listName);
+		
+		if (listName !== 'listDoc') {
+			var listFilter = $('.filter_active');
+			listFilter = listFilter && listFilter.length > 0 ? listFilter : $('.list_filter:first');
+			listFilter.trigger('click');
+		} else {
+			appendItemsInList(Object.keys(LISTS_MODEL[listName]._items), listName);
+			var container = $("#ul_list_listDoc");
+			container.attr('data-sort', 'asc');
+			var items = $("#ul_list_listDoc .list_element");
+			/* Invoco la funzione per l'ordinamento delle date */
+			sortDate(container, items);
+		}
 	}
-	$('.labelList.active').removeClass('active');
-	$(elem).addClass('active');
-	$('.list.list_opened').hide();
-	listElem.addClass('list_opened').show();
-	listCont.attr('data-list-active', listName);
-	$('.filter_active').trigger('click');
 }
 
 /*= SHOW LIST ELEMENT OCCURRENCES =*/
@@ -253,9 +288,8 @@ function prepareOccurrencesList(elem, listName) {
 	var occ_ref;
 	var list_ref, list_occ;
 	list_ref = $(elem).attr('id');
-	list_occ = $("<div/>").addClass('occurences');
-	occ_ref = $('#list_' + listName)
-		.find('#occorrenze_' + listName)
+	list_occ = $("<div/>").addClass('occurences');	
+	occ_ref = $(LISTS_MODEL[listName]._occurrences)
 		.find("span[data-ref='" + list_ref + "']");
 	if (occ_ref.length > 0) {
 		occ_ref.each(function() {
@@ -349,27 +383,29 @@ function scrollDownListContainer(speed) {
 }
 
 /*= SHOW ITEM FROM TEXT INTO LIST =*/
-function showItemInList(id_ref) {
+function showItemInList(id_ref, listName) {
 	var top, mainContainerHeight;
 	var list_filter_pos;
 	var list, list_id;
 
 	// Open the list where the element is
-	if ($('#' + id_ref).length > 0) {
+	var entityEl = LISTS_MODEL[listName]._items[id_ref];
+	if (entityEl) {
 		var listsCont = $('#lists_cont');
-		list = $('#' + id_ref).parent().parent();
-		list_id = list.attr('id');
+		list_id = 'list_' + listName;
+		list = $('#'+list_id);
 		if (!list.hasClass('list_opened')) {
 			$('.occurences:visible').hide();
 			$('.list_element_opened').removeClass('list_element_opened');
 
 			$('.list_opened').hide();
 			$('.labelList.active').removeClass('active');
-			$("#header_" + list_id).addClass('active');
-			$('#list_' + list_id).addClass('list_opened').show();
+			$("#header_" + listName).addClass('active');
+			$('#' + list_id).addClass('list_opened').show();
 		}
+		updateKeysVisibility(listName);
 		// Open the letter of the element
-		list_filter_pos = $('#' + id_ref).attr('data-order-list');
+		list_filter_pos = $(entityEl).attr('data-order-list');
 		$(".list_filter[data-value='" + list_filter_pos.toUpperCase() + "']").trigger('click');
 
 		scrollDownListContainer(0);
@@ -384,11 +420,17 @@ function showItemInList(id_ref) {
 		listsCont.animate({
 			top: top + 'px'
 		}, 200, function() {
-			$('#list_' + list_id).animate({
+			$('#' + list_id).animate({
 				scrollTop: 0
 			}, function() {
-				$('#' + id_ref).find('.toggle_list_element').trigger('click');
-				$('#list_' + list_id).scrollTop($('#' + id_ref).position().top);
+				if (!$(entityEl).hasClass('list_element_opened')) {
+					$(entityEl).find('.toggle_list_element').trigger('click');
+				}
+				$(entityEl).addClass('highlight');
+				setTimeout(function() {
+					$(entityEl).removeClass('highlight');
+				}, 1000);
+				$('#' + list_id).scrollTop($(entityEl).position().top);
 			});
 		});
 		$('#toggle_list_cont').find('.fa').removeClass('fa-angle-double-up').addClass('fa-angle-double-down');
@@ -402,15 +444,16 @@ function showItemInList(id_ref) {
 /*= INITIALIZE LINK BETWEEN TEXT TRIGGER AND LIST ELEMENT =*/
 function InitializeLinkTextList() {
 	$('span.tooltip span.entity_name.link_active').unbind('click').click(function() {
-		var id_ref, order_list;
+		var id_ref, listName, order_list;
 
 		$(this).parent('.tooltip').siblings('.trigger').trigger('click');
 		id_ref = $(this).attr('data-ref');
+		listName = $(this).attr('data-list');
 
-		if ($('#' + id_ref).length == 0) {
+		if (!LISTS_MODEL[listName]._items[id_ref]) {
 			alert('There was an error in opening the entity reference. Please try later.');
 		} else {
-			showItemInList(id_ref);
+			showItemInList(id_ref, listName);
 		}
 	});
 }
@@ -456,7 +499,6 @@ function bindListsBtnClick() {
 	});
 
 	$('#list_link').click(function(event) {
-		console.time('list')
 		var listSelect = $('#span_list_select');
 		var searchLink = $('#search_link');
 		var listCont = $('#lists_cont');
@@ -487,7 +529,6 @@ function bindListsBtnClick() {
 				}
 			}
 		}
-		console.timeEnd('list')
 	});
 }
 
@@ -497,15 +538,7 @@ function bindListsBtnClick() {
  * il contenitore della lista e gli elementi.  */
 function sortDate(container, items) {
 	var sortingOrder = container.attr('data-sort');
-	// Recupero il valore dell'attributo 'sort' del contenitore (#ul_listDocument) nel quale ho memorizzato il tipo di ordinamento (asc/desc)
-	items.each(function() {
-		/* per ogni items converto il valore della data in una forma più standard. Creo un attributo 'data-normalized-sort-date' e gli assegno questo valore */
-		var attrDate = $(this).attr("data-sort-date");
-		var date = attrDate ? attrDate.split("-") : undefined;
-		var standardDate = date && date.length === 3 ? date[0] + " " + date[1] + " " + date[2] : undefined;
-		standardDate = standardDate ? new Date(standardDate).getTime() : "";
-		$(this).attr("data-normalized-sort-date", standardDate);
-	});
+	// Recupero il valore dell'attributo 'sort' del contenitore (#ul_list_listDoc) nel quale ho memorizzato il tipo di ordinamento (asc/desc)
 	items.sort(function(a, b) {
 		/* Ordino gli elementi sulla base del valore del nuovo attributo */
 		a = parseFloat($(a).attr("data-normalized-sort-date"));
@@ -526,8 +559,7 @@ function sortDate(container, items) {
 
 /* Anche per l'ordinamento dei documenti ho creato una funzione esterna, in cui recupero il valore
  * dell'attributo 'sort' del contenitore e ordino gli elementi di conseguenza, poi li inserisco nel contenitore */
-function sortDocument(container, items) {
-	var sortingOrder = container.attr('data-sort');
+function sortDocument(container, items, sortingOrder) {
 	items.sort(function(a, b) {
 		a = parseFloat($(a).attr("data-sort-num"));
 		b = parseFloat($(b).attr("data-sort-num"));
@@ -558,9 +590,9 @@ function bindChronologicalIndex() {
 		/* Gesisco l'icona in modo che venga visualizzato il simbolo di ascendente */
 		$('#sortingOrder i').attr('class', 'fa fa-sort-amount-asc');
 		/* Recupero il contenitore della lista e gli assegno un attributo 'sort' che sarà inizialmente 'asc' */
-		var container = $("#ul_listDocument");
+		var container = $("#ul_list_listDoc");
 		container.attr('data-sort', 'asc');
-		var items = $("#ul_listDocument .list_element");
+		var items = container.find(".list_element");
 		/* Invoco la funzione per l'ordinamento delle date */
 		sortDate(container, items);
 	});
@@ -590,17 +622,18 @@ function bindDocListSortSelectClick() {
 	$(".docList_sort_attribute_select .option_container .option").click(function() {
 		if (!$(this).hasClass('selected')) {
 			/* se l'opzione non è già selezionata, recupero il contenitori, gli elementi della lista e il valore su cui effettuare l'ordinamento */
-			var container = $("#ul_listDocument");
-			var items = $("#ul_listDocument .list_element");
+			var container = $("#ul_list_listDoc");
+			var sortingOrder = container.attr('data-sort');
+			var items = $("#ul_list_listDoc .list_element");
 			var value = $(this).attr('data-value');
 			/* In base a cosa devo ordinare, invoco la funzione per l'ordinamento delle date o dei documenti */
 			if (value === "sort_date") {
-				sortDate(container, items)
+				sortDate(container, items, sortingOrder);
 					/* Devo invocare questa funzione sia qui che nell'else. Se non lo faccio,
 					 * dopo aver effettuato un cambio nell'ordinamento nel testo si visualizza
 					 * show more/show less che però non espandono né riducono il regesto. */
 			} else if (value === "sort_document") {
-				sortDocument(container, items);
+				sortDocument(container, items, sortingOrder);
 			}
 			$(this).removeClass('selected');
 		} else {
@@ -622,11 +655,11 @@ function toggleSortingOrder(el) {
 	/* Recupero l'opzione della select correntemente selezionata*/
 	var selectedLabelValue = $('#span_listDoc_select .docList_sort_attribute_select .label_selected').attr('data-value');
 	/*Recupero il contenitore della lista e gli elementi  */
-	var container = $("#ul_listDocument");
-	var items = $("#ul_listDocument .list_element");
+	var container = $("#ul_list_listDoc");
+	var items = $("#ul_list_listDoc .list_element");
 	/* Se il pulsante per l'ordinamento è correntemente settato su 'Ascending' */
 	if (sortingOrderButtonValue === 'asc') {
-		/* Cambio il valore del suo attributo 'data-button-sort' in 'desc' e assegno questo valore anche all'attributo 'sort' di #ul_listDocument */
+		/* Cambio il valore del suo attributo 'data-button-sort' in 'desc' e assegno questo valore anche all'attributo 'sort' di #ul_list_listDoc */
 		/* Poi Cambio la scritta sul pulsante */
 		sortingOrderButton
 			.attr('data-button-sort', 'desc')
@@ -639,9 +672,9 @@ function toggleSortingOrder(el) {
 			.addClass('fa-sort-amount-desc');
 		/* A seconda di qual è l'opzione selezionata correntemente, invoco la funzione per l'ordinamento delle date o dei documenti */
 		if (selectedLabelValue === 'sort_document') {
-			sortDocument(container, items);
+			sortDocument(container, items, 'desc');
 		} else if (selectedLabelValue === 'sort_date') {
-			sortDate(container, items);
+			sortDate(container, items, 'desc');
 		}
 		/* Se il pulsante per l'ordinamento è correntemente settato su 'Ascending' ma 'al contrario'*/
 	} else if (sortingOrderButtonValue === 'desc') {
@@ -653,10 +686,11 @@ function toggleSortingOrder(el) {
 		sortinOrderBtnIcon
 			.removeClass('fa-sort-amount-desc')
 			.addClass('fa-sort-amount-asc');
+		
 		if (selectedLabelValue === 'sort_document') {
-			sortDocument(container, items);
+			sortDocument(container, items, 'asc');
 		} else if (selectedLabelValue === 'sort_date') {
-			sortDate(container, items);
+			sortDate(container, items, 'asc');
 		}
 	}
 }
@@ -672,4 +706,17 @@ function navToDocumentFromList(el) {
 	var docFirstPage = navSelectDoc.attr('data-first-page');
 	updateHash(elementListDoc, docFirstPage, "");
 	$('#toggle_list_cont').trigger('click');
+}
+
+function bindShowListElementOccurrences(listName) {
+	$('.list_element').find('.toggle_list_element, .entity_name').click(function() {
+		showListElementOccurrences($(this).parent(), listName);
+	});
+	/* Integration by LS */
+	if ($("[lang!='" + window.lang.currentLang + "']").length > 0) {
+		window.lang.update(window.lang.currentLang);
+	}
+	/* /end Integration by LS */
+	InitializeRefs();
+	// If chronological index there are no letters
 }

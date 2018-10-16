@@ -212,12 +212,10 @@ function initializeLang() {
 /* TEMPORARY*/
 function translateLabelInChronologicalIndex() {
 	var sortingOrderButton = $('#sortingOrder span');
-	console.log(sortingOrderButton.attr('data-lang'));
 	sortingOrderButton
 		.text(window.lang.convert(sortingOrderButton.attr('data-lang'), window.lang.currentLang));
 	var toggleRegestoInListBtns = $('.toggleRegestoInList');
 	toggleRegestoInListBtns.each(function() {
-		console.log($(this).attr('data-lang'));
 		$(this).text(window.lang.convert($(this).attr('data-lang'), window.lang.currentLang));
 	})
 }
