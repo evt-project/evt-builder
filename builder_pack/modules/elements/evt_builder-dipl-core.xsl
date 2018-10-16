@@ -675,6 +675,7 @@
 			<xsl:variable name="termText">
 				<xsl:apply-templates mode="#current"/>
 			</xsl:variable>
+			<xsl:attribute name="data-list">listTerm</xsl:attribute>
 			<xsl:attribute name="data-ref">
 				<xsl:choose>
 					<xsl:when test="@xml:id">
@@ -696,6 +697,7 @@
 			<xsl:variable name="glossText">
 				<xsl:apply-templates mode="#current"/>
 			</xsl:variable>
+			<xsl:attribute name="data-list">listGloss</xsl:attribute>
 			<xsl:attribute name="data-ref">
 				<xsl:choose>
 					<xsl:when test="@xml:id">

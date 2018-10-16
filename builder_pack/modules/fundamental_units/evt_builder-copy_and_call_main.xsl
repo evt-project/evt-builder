@@ -179,6 +179,7 @@
 							</xsl:choose>
 						</xsl:variable>
 						<xsl:element name="span">
+							<xsl:attribute name="data-list">listPerson</xsl:attribute>
 							<xsl:attribute name="data-ref"><xsl:value-of select="translate(@ref, '#', '')"/></xsl:attribute>
 							<xsl:attribute name="data-doc"><xsl:value-of select="$doc_id"/></xsl:attribute>
 							<xsl:attribute name="data-pb"><xsl:value-of select="$pb_id"/></xsl:attribute>
@@ -212,6 +213,7 @@
 							</xsl:choose>
 						</xsl:variable>
 						<xsl:element name="span">
+							<xsl:attribute name="data-list">listPlace</xsl:attribute>
 							<xsl:attribute name="data-ref"><xsl:value-of select="translate(@ref, '#', '')"/></xsl:attribute>
 							<xsl:attribute name="data-doc"><xsl:value-of select="$doc_id"/></xsl:attribute>
 							<xsl:attribute name="data-pb"><xsl:value-of select="$pb_id"/></xsl:attribute>
@@ -245,6 +247,7 @@
 							</xsl:choose>
 						</xsl:variable>
 						<xsl:element name="span">
+							<xsl:attribute name="data-list">listOrg</xsl:attribute>
 							<xsl:attribute name="data-ref"><xsl:value-of select="translate(@ref, '#', '')"/></xsl:attribute>
 							<xsl:attribute name="data-doc"><xsl:value-of select="$doc_id"/></xsl:attribute>
 							<xsl:attribute name="data-pb"><xsl:value-of select="$pb_id"/></xsl:attribute>
@@ -279,6 +282,7 @@
 							</xsl:choose>
 						</xsl:variable>
 						<xsl:element name="span">
+							<xsl:attribute name="data-list">listTerm</xsl:attribute>
 							<xsl:variable name="termText"><xsl:apply-templates select="current()"/></xsl:variable>
 							<xsl:attribute name="data-ref" select="translate(normalize-space($termText), ' ', '')"/>
 							<xsl:attribute name="data-doc"><xsl:value-of select="$doc_id"/></xsl:attribute>
@@ -315,6 +319,7 @@
 						</xsl:variable>
 						<xsl:element name="span">
 							<xsl:variable name="glossText"><xsl:apply-templates select="current()"/></xsl:variable>
+							<xsl:attribute name="data-list">listGloss</xsl:attribute>
 							<xsl:attribute name="data-ref" select="translate(normalize-space($glossText), ' ', '')"/>
 							<xsl:attribute name="data-doc"><xsl:value-of select="$doc_id"/></xsl:attribute>
 							<xsl:attribute name="data-pb"><xsl:value-of select="$pb_id"/></xsl:attribute>
