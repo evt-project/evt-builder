@@ -113,7 +113,7 @@ function openListsBox(speed) {
 	var listsCont = $('#lists_cont');
 	listsCont.addClass('bottomBoxOpened');
 	$('#list_link').addClass('active');
-	var openDivLists = function() {
+	var openDivLists = function () {
 		// var newSearchContTop = listsCont.parents("div[id*='main_']").outerHeight() - ($('#text_tool').outerHeight()*2) - $('#search_header').outerHeight() - 6;
 		// listsCont.css({
 		//  'top': newSearchContTop+'px'
@@ -128,15 +128,15 @@ function openListsBox(speed) {
 		}
 
 	};
-	
-	$.when(openDivLists()).done(function() {
+
+	$.when(openDivLists()).done(function () {
 		showHideListsNavBtn();
 	});
 }
 
 function showHideListsNavBtn() {
 	var totListHeadersWidth = 0;
-	$('.labelList').each(function(el) {
+	$('.labelList').each(function (el) {
 		totListHeadersWidth += $(this).outerWidth();
 	});
 	var totInnerWidth = $('#list_header_elements').innerWidth();
@@ -156,9 +156,9 @@ function showHideListsNavBtn() {
 
 function appendItemsInList(items, listName) {
 	if (items) {
-		var ulList = $('#ul_list_'+listName);
+		var ulList = $('#ul_list_' + listName);
 		ulList.empty();
-		items.forEach(function(key){
+		items.forEach(function (key) {
 			var el = LISTS_MODEL[listName]._items[key];
 			if (listName === 'listDoc' && !el.getAttribute('data-normalized-sort-date')) {
 				/* per ogni items converto il valore della data in una forma più standard. Creo un attributo 'data-normalized-sort-date' e gli assegno questo valore */
@@ -196,10 +196,11 @@ function doFilterListElements(filter, activeList) {
 
 	$('.occurences:visible').hide();
 	$('.list_element_opened').removeClass('list_element_opened');
-	
+
 	var listName = activeList.attr('data-list-name');
-	try { appendItemsInList(LISTS_MODEL[listName][filterValue], listName);
-	} catch(e) { console.log(e);}
+	try {
+		appendItemsInList(LISTS_MODEL[listName][filterValue], listName);
+	} catch (e) { console.log(e); }
 }
 
 function updateKeysVisibility(listName) {
@@ -207,12 +208,12 @@ function updateKeysVisibility(listName) {
 	var filterActiveValue = listFilter ? listFilter.attr('data-value') : '';
 	var listLetters = document.getElementById('list_letters');
 	listLetters.innerHTML = '';
-	var orderedIndexes = LISTS_MODEL[listName]._filterIndexes.sort(function(a,b) {
-		if(a < b) return -1;
-		if(a > b) return 1;
+	var orderedIndexes = LISTS_MODEL[listName]._filterIndexes.sort(function (a, b) {
+		if (a < b) return -1;
+		if (a > b) return 1;
 		return 0;
 	});
-	orderedIndexes.forEach(function(key){
+	orderedIndexes.forEach(function (key) {
 		var indexEl = document.createElement('span');
 		indexEl.setAttribute('data-filter-type', 'first_letter');
 		indexEl.setAttribute('data-value', key);
@@ -231,17 +232,17 @@ function openList(elem, listName) {
 	var listElem = $('#list_' + listName);
 	if (!listElem.hasClass('list_opened')) {
 		updateKeysVisibility(listName);
-		
+
 		if (listCont.hasClass('collapsed')) {
 			$('#toggle_list_cont').trigger('click');
 		}
-		
+
 		$('.labelList.active').removeClass('active');
 		$(elem).addClass('active');
 		$('.list.list_opened').hide().removeClass('list_opened');
 		listElem.addClass('list_opened').show();
 		listCont.attr('data-list-active', listName);
-		
+
 		if (listName !== 'listDoc') {
 			var listFilter = $('.filter_active');
 			listFilter = listFilter && listFilter.length > 0 ? listFilter : $('.list_filter:first');
@@ -253,6 +254,10 @@ function openList(elem, listName) {
 			var items = $("#ul_list_listDoc .list_element");
 			/* Invoco la funzione per l'ordinamento delle date */
 			sortDate(container, items);
+		}
+	} else {
+		if (listCont.hasClass('collapsed')) {
+			$('#toggle_list_cont').trigger('click');
 		}
 	}
 }
@@ -269,7 +274,7 @@ function showListElementOccurrences(elem, listName) {
 		}
 		// $(elem).parents('.list').find('.occurences:visible').hide();
 		var elemList = $(elem).parents('.list');
-        elemList.find('.small-note:visible').hide();
+		elemList.find('.small-note:visible').hide();
 		elemList.find('.list_element_opened')
 			.removeClass('list_element_opened')
 			.find('.fa-angle-down')
@@ -288,11 +293,11 @@ function prepareOccurrencesList(elem, listName) {
 	var occ_ref;
 	var list_ref, list_occ;
 	list_ref = $(elem).attr('id');
-	list_occ = $("<div/>").addClass('occurences');	
+	list_occ = $("<div/>").addClass('occurences');
 	occ_ref = $(LISTS_MODEL[listName]._occurrences)
 		.find("span[data-ref='" + list_ref + "']");
 	if (occ_ref.length > 0) {
-		occ_ref.each(function() {
+		occ_ref.each(function () {
 			var pb, doc, pb_n;
 			var doc_lab;
 			pb = $(this).attr('data-pb');
@@ -313,7 +318,7 @@ function prepareOccurrencesList(elem, listName) {
 					.attr('data-occ', '1')
 					.attr('title', "1 " + window.lang.convert('OCCURRENCE', window.lang.currentLang))
 					.text(window.lang.convert('FOL', window.lang.currentLang) + " " + pb_n + " - " + window.lang.convert('DOC', window.lang.currentLang) + " " + doc_lab)
-					.click(function() {
+					.click(function () {
 						goToOccurrencePage(this, pb, doc);
 					})
 					.detach()
@@ -354,7 +359,7 @@ function goToOccurrencePage(elem, pb, doc) {
 			ref = $('.list_element_opened').attr('id');
 			$("#text span[data-ref='" + ref + "']").addClass('selected_from_list');
 		}
-	
+
 		$('#text_cont').scrollTop($('.selected_from_list').position().top);
 	}
 	$('#toggle_list_cont').trigger('click');
@@ -393,7 +398,7 @@ function showItemInList(id_ref, listName) {
 	if (entityEl) {
 		var listsCont = $('#lists_cont');
 		list_id = 'list_' + listName;
-		list = $('#'+list_id);
+		list = $('#' + list_id);
 		if (!list.hasClass('list_opened')) {
 			$('.occurences:visible').hide();
 			$('.list_element_opened').removeClass('list_element_opened');
@@ -419,15 +424,15 @@ function showItemInList(id_ref, listName) {
 		}
 		listsCont.animate({
 			top: top + 'px'
-		}, 200, function() {
+		}, 200, function () {
 			$('#' + list_id).animate({
 				scrollTop: 0
-			}, function() {
+			}, function () {
 				if (!$(entityEl).hasClass('list_element_opened')) {
 					$(entityEl).find('.toggle_list_element').trigger('click');
 				}
 				$(entityEl).addClass('highlight');
-				setTimeout(function() {
+				setTimeout(function () {
 					$(entityEl).removeClass('highlight');
 				}, 1000);
 				$('#' + list_id).scrollTop($(entityEl).position().top);
@@ -443,7 +448,7 @@ function showItemInList(id_ref, listName) {
 
 /*= INITIALIZE LINK BETWEEN TEXT TRIGGER AND LIST ELEMENT =*/
 function InitializeLinkTextList() {
-	$('span.tooltip span.entity_name.link_active').unbind('click').click(function() {
+	$('span.tooltip span.entity_name.link_active').unbind('click').click(function () {
 		var id_ref, listName, order_list;
 
 		$(this).parent('.tooltip').siblings('.trigger').trigger('click');
@@ -464,9 +469,8 @@ function InitializeLinkTextList() {
 
 /*= BIND TOGGLE LISTS BUTTON CLICK EVENT =*/
 function bindListsBtnClick() {
-	/* TODO: move */
 	var listHeaderContents = $('#list_header_elements_contents');
-	$('#navListHeadersLx').click(function(event) {
+	$('#navListHeadersLx').click(function (event) {
 		// Scroll fino a left = 0;
 		var currentLeft = parseInt(listHeaderContents.css('left').replace(/px/g, ""));
 		if (currentLeft < -29) {
@@ -479,9 +483,9 @@ function bindListsBtnClick() {
 			}, 42);
 		}
 	});
-	$('#navListHeadersRx').click(function(event) {
+	$('#navListHeadersRx').click(function (event) {
 		var listHeadersWidth = 0;
-		$('.labelList').each(function(el) {
+		$('.labelList').each(function (el) {
 			listHeadersWidth += $(this).outerWidth();
 		});
 		var listHeadersInnerWidth = $('#list_header_elements').innerWidth();
@@ -498,7 +502,7 @@ function bindListsBtnClick() {
 		}
 	});
 
-	$('#list_link').click(function(event) {
+	$('#list_link').click(function (event) {
 		var listSelect = $('#span_list_select');
 		var searchLink = $('#search_link');
 		var listCont = $('#lists_cont');
@@ -523,6 +527,9 @@ function bindListsBtnClick() {
 				closeSearchBox(0, boxSuffix);
 			}
 			openListsBox(0);
+			if ($('.labelList.active').length === 0) {
+				listCont.find('.labelList').first().trigger('click');
+			}
 			if (!listCont.hasClass('collapsed')) {
 				if (listSelect.length > 0) {
 					listSelect.addClass('not_active').css('opacity', '0.5');
@@ -539,7 +546,7 @@ function bindListsBtnClick() {
 function sortDate(container, items) {
 	var sortingOrder = container.attr('data-sort');
 	// Recupero il valore dell'attributo 'sort' del contenitore (#ul_list_listDoc) nel quale ho memorizzato il tipo di ordinamento (asc/desc)
-	items.sort(function(a, b) {
+	items.sort(function (a, b) {
 		/* Ordino gli elementi sulla base del valore del nuovo attributo */
 		a = parseFloat($(a).attr("data-normalized-sort-date"));
 		b = parseFloat($(b).attr("data-normalized-sort-date"));
@@ -560,7 +567,7 @@ function sortDate(container, items) {
 /* Anche per l'ordinamento dei documenti ho creato una funzione esterna, in cui recupero il valore
  * dell'attributo 'sort' del contenitore e ordino gli elementi di conseguenza, poi li inserisco nel contenitore */
 function sortDocument(container, items, sortingOrder) {
-	items.sort(function(a, b) {
+	items.sort(function (a, b) {
 		a = parseFloat($(a).attr("data-sort-num"));
 		b = parseFloat($(b).attr("data-sort-num"));
 		if (sortingOrder === 'asc') {
@@ -568,7 +575,7 @@ function sortDocument(container, items, sortingOrder) {
 		} else if (sortingOrder === 'desc') {
 			return a < b ? -1 : a > b ? 1 : 0;
 		}
-	}).each(function() {
+	}).each(function () {
 		container.prepend(this);
 	});
 }
@@ -577,7 +584,7 @@ function sortDocument(container, items, sortingOrder) {
 Quello che voglio ottenere all'apertura è un indice già ordinato per data crescente, dalla più antica alla più recente,
  * e visualizzare solo i primi caratteri (ho messo 300) del regesto, con la possibilità di espanderlo e poi ridurlo */
 function bindChronologicalIndex() {
-	$('#header_listDoc').click(function() {
+	$('#header_listDoc').click(function () {
 		/* Recupero lo span del pulsante per l'ordinamento */
 		var sortingButtonSpan = $('#sortingOrder span');
 		/* Voglio che le date siano ordinate in modo ascendente, il pulsante all'inizio dovrà avere valore 'Ascendente'.
@@ -619,7 +626,7 @@ function toggleRegestoInIndex(el) {
 /* La funzione per la gestione della selezione del parametro di ordinamento è ridotta rispetto alla versione
  * precedente. */
 function bindDocListSortSelectClick() {
-	$(".docList_sort_attribute_select .option_container .option").click(function() {
+	$(".docList_sort_attribute_select .option_container .option").click(function () {
 		if (!$(this).hasClass('selected')) {
 			/* se l'opzione non è già selezionata, recupero il contenitori, gli elementi della lista e il valore su cui effettuare l'ordinamento */
 			var container = $("#ul_list_listDoc");
@@ -629,9 +636,9 @@ function bindDocListSortSelectClick() {
 			/* In base a cosa devo ordinare, invoco la funzione per l'ordinamento delle date o dei documenti */
 			if (value === "sort_date") {
 				sortDate(container, items, sortingOrder);
-					/* Devo invocare questa funzione sia qui che nell'else. Se non lo faccio,
-					 * dopo aver effettuato un cambio nell'ordinamento nel testo si visualizza
-					 * show more/show less che però non espandono né riducono il regesto. */
+				/* Devo invocare questa funzione sia qui che nell'else. Se non lo faccio,
+				 * dopo aver effettuato un cambio nell'ordinamento nel testo si visualizza
+				 * show more/show less che però non espandono né riducono il regesto. */
 			} else if (value === "sort_document") {
 				sortDocument(container, items, sortingOrder);
 			}
@@ -686,7 +693,7 @@ function toggleSortingOrder(el) {
 		sortinOrderBtnIcon
 			.removeClass('fa-sort-amount-desc')
 			.addClass('fa-sort-amount-asc');
-		
+
 		if (selectedLabelValue === 'sort_document') {
 			sortDocument(container, items, 'asc');
 		} else if (selectedLabelValue === 'sort_date') {
@@ -709,7 +716,7 @@ function navToDocumentFromList(el) {
 }
 
 function bindShowListElementOccurrences(listName) {
-	$('.list_element').find('.toggle_list_element, .entity_name').click(function() {
+	$('.list_element').find('.toggle_list_element, .entity_name').click(function () {
 		showListElementOccurrences($(this).parent(), listName);
 	});
 	/* Integration by LS */
