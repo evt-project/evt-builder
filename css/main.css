@@ -3818,3 +3818,21 @@ span.autore {
 [data-display='inline'] {
     display: inline;
 }
+
+.tooltip img {
+    display: inline-block;
+}
+.tooltip .imageDetails {
+    text-align: center;
+    display: block;
+}
+
+.tooltip .imageDetails .head,
+.tooltip .imageDetails .figDesc {
+    width: 100%;
+    display: block;
+}
+
+.tooltip .imageDetails .head {
+    text-align: center;
+}
