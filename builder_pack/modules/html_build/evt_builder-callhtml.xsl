@@ -26,7 +26,91 @@
 		</xd:short>
 	</xd:doc>
 
+	<xsl:template name="html_scripts">
+		<xsl:param name="html_path"/>
+		<xsl:comment>jQuery lib</xsl:comment>
+		<script type="text/javascript" src="{$html_path}/js/jquery_lib/jquery-latest.js"/>
+		<script type="text/javascript" src="{$html_path}/js/jquery_lib/jquery-ui-latest.js"/>
+		<xsl:comment>/jQuery lib</xsl:comment>
+		
+		<xsl:comment>Infinite Scroll</xsl:comment>
+		<script type="text/javascript" src="{$html_path}/js/plugin/jquery.jscroll.min.js"></script>
+		<xsl:comment>/ Infinite Scroll</xsl:comment>
+		
+		<xsl:comment>main lib</xsl:comment>
+		<xsl:comment>interface control</xsl:comment>
+		<script type="text/javascript" src="{$html_path}/js/main/interface_control/ic_generic_bindings.js"/>
+		<script type="text/javascript" src="{$html_path}/js/main/interface_control/ic_global_menu.js"/>
+		<script type="text/javascript" src="{$html_path}/js/main/interface_control/ic_internal_fullscreen.js"/>
+		<script type="text/javascript" src="{$html_path}/js/main/interface_control/ic_lists.js"/>
+		<script type="text/javascript" src="{$html_path}/js/main/interface_control/ic_navigation.js"/>
+		<script type="text/javascript" src="{$html_path}/js/main/interface_control/ic_prefatory_matter.js"/>
+		<script type="text/javascript" src="{$html_path}/js/main/interface_control/ic_resizings.js"/>
+		<script type="text/javascript" src="{$html_path}/js/main/interface_control/ic_search.js"/>
+		<script type="text/javascript" src="{$html_path}/js/main/interface_control/ic_viewModes.js"/>
+		<script type="text/javascript" src="{$html_path}/js/main/interface_control/ic_viewVerses.js"/>
+		<script type="text/javascript" src="{$html_path}/js/main/interface_control/ic_hashChange.js"/>
+		<script type="text/javascript" src="{$html_path}/js/main/interface_control/ic_init.js"/>
+		<script type="text/javascript" src="{$html_path}/js/main/interface_control/ic_main.js"/>
+		<xsl:comment>/interface control</xsl:comment>
+		<!-- Inserire qui file js per nuova modalità di visualizzazione-->
+		
+		<script type="text/javascript" src="{$html_path}/js/main/utils.js"/>
+		<xsl:comment>/main lib</xsl:comment>
 
+		<xsl:comment>keydown</xsl:comment>
+		<script src="{$html_path}/js/plugin/jquery.rafmas-keydown.js"/>
+		<xsl:comment>/keydown</xsl:comment>
+
+		<xsl:comment>iViewer</xsl:comment>
+		<script type="text/javascript" src="{$html_path}/js/plugin/jquery_iviewer/jquery.mousewheel.min.js"/>
+		<script type="text/javascript" src="{$html_path}/js/plugin/jquery_iviewer/jquery.iviewer.js"/>
+		<script type="text/javascript" src="{$html_path}/js/plugin_settings/iviewer_config.js"/>
+		<xsl:comment>/iViewer</xsl:comment>
+
+		<xsl:comment>magnifier</xsl:comment>
+		<script type="text/javascript" src="{$html_path}/js/plugin/jquery.jqzoom-core.js"/>
+		<script type="text/javascript" src="{$html_path}/js/main/switchZM.js"/>
+		<xsl:comment>/magnifier</xsl:comment>
+		
+		<xsl:comment>hashchange</xsl:comment>
+		<script src="{$html_path}/js/plugin/jquery.ba-bbq.js"/>
+		<xsl:comment>/hashchange</xsl:comment>
+		
+		<xsl:comment>image text link</xsl:comment>
+		<script type="text/javascript" src="{$html_path}/js/main/ImageTextLink.js"/>
+		<xsl:comment>/image text link</xsl:comment>
+		
+		<xsl:comment>page data</xsl:comment>
+		<script type="text/javascript" src="{$html_path}/js/main/page_data-include.js"/>
+		<xsl:comment>/page data</xsl:comment>
+
+		<xsl:comment>highlight</xsl:comment>
+		<script type="text/javascript" src="{$html_path}/js/plugin/jquery.highlight_mod.js"/>
+		<xsl:comment>/highlight</xsl:comment>
+		
+		<xsl:if test="$search=true()">
+			<xsl:comment>TipueSearch</xsl:comment>
+			<script type="text/javascript" src="{$html_path}/js/plugin/tipuesearch/tipuesearch.js"/>
+			<script type="text/javascript" src="./js/plugin/tipuesearch/tipuesearch_content.js" />
+			<script type="text/javascript" src="./js/plugin/tipuesearch/tipuesearch_set.js" />
+			<xsl:comment>/TipueSearch</xsl:comment>
+			
+			<xsl:comment>search</xsl:comment>
+			<script type="text/javascript" src="{$html_path}/js/main/search.js"/>
+			<xsl:comment>/search</xsl:comment>
+		</xsl:if>
+		
+		<xsl:comment>BRnav</xsl:comment>
+		<script type="text/javascript" src="{$html_path}/js/main/interface_control/ic_BRnav.js"/>
+		<xsl:comment>/BRnav</xsl:comment>
+		
+		<xsl:comment>VisColl</xsl:comment>
+		<script type="text/javascript" src="{$html_path}/js/main/interface_control/ic_viscoll.js"/>
+		<xsl:comment>/VisColl</xsl:comment>
+		
+	</xsl:template>
+	
 	<xsl:template name="html_head">
 		<xsl:param name="html_path"/>
 		<xsl:param name="html_tc"/>
@@ -60,6 +144,15 @@
 						href="{$html_path}/css/evt-icons.css" />
 					<link rel="stylesheet" type="text/css"
 						href="{$html_path}/css/BRnav.css" />
+					
+					<!-- Integrations by LS -->
+					<script type="text/javascript" src="{$html_path}/js/plugin/jquery-lang.js"/>
+					<script type="text/javascript" src="{$html_path}/config/langpack/en.js"/>
+					<script type="text/javascript" src="{$html_path}/config/langpack/it.js"/>
+					<script type="text/javascript" src="{$html_path}/config/langpack/fr.js"/>
+					<script type="text/javascript" src="{$html_path}/config/langpack/de.js"/>
+					<script type="text/javascript" src="{$html_path}/config/langpack/cs.js"/>
+					<!-- /end Integration by LS -->
 				</xsl:when>
 				<xsl:otherwise>
 					<link rel="stylesheet" type="text/css" 
@@ -68,95 +161,7 @@
 			</xsl:choose>
 			<link rel="stylesheet" type="text/css" 
 				href="{$html_path}/config/evt_builder-custom-styles.css"/>
-			<xsl:comment>jQuery lib</xsl:comment>
-			<script type="text/javascript" src="{$html_path}/js/jquery_lib/jquery-latest.js"/>
-			<script type="text/javascript" src="{$html_path}/js/jquery_lib/jquery-ui-latest.js"/>
-			<xsl:comment>/jQuery lib</xsl:comment>
 			
-			<xsl:comment>Infinite Scroll</xsl:comment>
-			<script type="text/javascript" src="{$html_path}/js/plugin/jquery.jscroll.min.js"></script>
-			<xsl:comment>/ Infinite Scroll</xsl:comment>
-
-			<xsl:if test="$html_tc!='datastructure'">
-				<xsl:comment>main lib</xsl:comment>
-				<xsl:comment>interface control</xsl:comment>
-				<script type="text/javascript" src="{$html_path}/js/main/interface_control/ic_generic_bindings.js"/>
-				<script type="text/javascript" src="{$html_path}/js/main/interface_control/ic_global_menu.js"/>
-				<script type="text/javascript" src="{$html_path}/js/main/interface_control/ic_internal_fullscreen.js"/>
-				<script type="text/javascript" src="{$html_path}/js/main/interface_control/ic_lists.js"/>
-				<script type="text/javascript" src="{$html_path}/js/main/interface_control/ic_navigation.js"/>
-				<script type="text/javascript" src="{$html_path}/js/main/interface_control/ic_prefatory_matter.js"/>
-				<script type="text/javascript" src="{$html_path}/js/main/interface_control/ic_resizings.js"/>
-				<script type="text/javascript" src="{$html_path}/js/main/interface_control/ic_search.js"/>
-				<script type="text/javascript" src="{$html_path}/js/main/interface_control/ic_viewModes.js"/>
-				<script type="text/javascript" src="{$html_path}/js/main/interface_control/ic_viewVerses.js"/>
-				<script type="text/javascript" src="{$html_path}/js/main/interface_control/ic_main.js"/>
-				<xsl:comment>/interface control</xsl:comment>
-				<!-- Inserire qui file js per nuova modalità di visualizzazione-->
-				
-				<script type="text/javascript" src="{$html_path}/js/main/utils.js"/>
-				<xsl:comment>/main lib</xsl:comment>
-
-				<xsl:comment>keydown</xsl:comment>
-				<script src="{$html_path}/js/plugin/jquery.rafmas-keydown.js"/>
-				<xsl:comment>/keydown</xsl:comment>
-
-				<xsl:comment>iViewer</xsl:comment>
-				<script type="text/javascript" src="{$html_path}/js/plugin/jquery_iviewer/jquery.mousewheel.min.js"/>
-				<script type="text/javascript" src="{$html_path}/js/plugin/jquery_iviewer/jquery.iviewer.js"/>
-				<script type="text/javascript" src="{$html_path}/js/plugin_settings/iviewer_config.js"/>
-				<xsl:comment>/iViewer</xsl:comment>
-
-				<xsl:comment>magnifier</xsl:comment>
-				<script type="text/javascript" src="{$html_path}/js/plugin/jquery.jqzoom-core.js"/>
-				<script type="text/javascript" src="{$html_path}/js/main/switchZM.js"/>
-				<xsl:comment>/magnifier</xsl:comment>
-				
-				<xsl:comment>hashchange</xsl:comment>
-				<script src="{$html_path}/js/plugin/jquery.ba-bbq.js"/>
-				<xsl:comment>/hashchange</xsl:comment>
-				
-				<xsl:comment>image text link</xsl:comment>
-				<script type="text/javascript" src="{$html_path}/js/main/ImageTextLink.js"/>
-				<xsl:comment>/image text link</xsl:comment>
-				
-				<xsl:comment>page data</xsl:comment>
-				<script type="text/javascript" src="{$html_path}/js/main/page_data-include.js"/>
-				<xsl:comment>/page data</xsl:comment>
-
-				<xsl:comment>highlight</xsl:comment>
-				<script type="text/javascript" src="{$html_path}/js/plugin/jquery.highlight_mod.js"/>
-				<xsl:comment>/highlight</xsl:comment>
-				
-				<xsl:if test="$search=true()">
-					<xsl:comment>TipueSearch</xsl:comment>
-					<script type="text/javascript" src="{$html_path}/js/plugin/tipuesearch/tipuesearch.js"/>
-					<script type="text/javascript" src="./js/plugin/tipuesearch/tipuesearch_content.js" />
-					<script type="text/javascript" src="./js/plugin/tipuesearch/tipuesearch_set.js" />
-					<xsl:comment>/TipueSearch</xsl:comment>
-					
-					<xsl:comment>search</xsl:comment>
-					<script type="text/javascript" src="{$html_path}/js/main/search.js"/>
-					<xsl:comment>/search</xsl:comment>
-				</xsl:if>
-				
-				<xsl:comment>BRnav</xsl:comment>
-				<script type="text/javascript" src="{$html_path}/js/main/interface_control/ic_BRnav.js"/>
-				<xsl:comment>/BRnav</xsl:comment>
-				
-				<xsl:comment>VisColl</xsl:comment>
-				<script type="text/javascript" src="{$html_path}/js/main/interface_control/ic_viscoll.js"/>
-				<xsl:comment>/VisColl</xsl:comment>
-				
-				<!-- Integrations by LS -->
-				<script type="text/javascript" src="{$html_path}/js/plugin/jquery-lang.js"/>
-				<script type="text/javascript" src="{$html_path}/config/langpack/en.js"/>
-				<script type="text/javascript" src="{$html_path}/config/langpack/it.js"/>
-				<script type="text/javascript" src="{$html_path}/config/langpack/fr.js"/>
-				<script type="text/javascript" src="{$html_path}/config/langpack/de.js"/>
-				<script type="text/javascript" src="{$html_path}/config/langpack/cs.js"/>
-				<!-- /end Integration by LS -->
-			</xsl:if>
 		</head>
 	</xsl:template>
 
@@ -203,6 +208,15 @@
 				<xsl:element name="div">
 					<xsl:attribute name="id" select="'global_wrapper'"/>
 					<xsl:attribute name="data-image-extension" select="$imageExt"/>
+					<div id="global_loading">
+						 <div>
+							<i class="fa fa-spinner fa-spin fa-lg"></i>
+							<span id="loading_msg">
+								<div id="ui_init_msg" lang="def">EVT_INIT</div>
+								<div id="loading_data_msg" lang="def">LOADING_DATA</div>
+							</span>
+						</div>
+					</div>
 					<div id="keyboard_shortcuts_cont" class="dialog" data-content="keyboard_shortcuts">
 						<div id="keyboard_shortcuts" class="dialog_cont">
 							<a href="javascript:void(0);" id="close_keyboard_shortcuts_cont" class="dialog_close" data-dialog="keyboard_shortcuts_cont" lang="def" title="CLOSE"><i class="fa fa-close"></i></a>
@@ -289,26 +303,8 @@
 						<div id="headerInfo_cont" class="dialog" data-content="headerInfo"></div>
 					</xsl:if>
 					<!-- add by CDP -->
-					<xsl:if test="tei:TEI/tei:text/tei:front/descendant::tei:listBibl or tei:TEI/tei:text/tei:back/descendant::tei:listBibl">
-						<div id="generalBiblio_cont" class="dialog" data-content="generalBiblio">
-							<div id="generalBiblio" class="dialog_cont">
-								<a href="javascript:void(0);" class="dialog_close" data-dialog="generalBiblio_cont" title="CLOSE" lang="def">
-									<i class="fa fa-close"></i>
-								</a>
-								<div class="title main" lang="def">BIBLIO</div>
-								<div class="dialog_separator"><i class="fa fa-caret-down"></i></div>
-									<div id="generalBiblio_content" class="dialog_cont_inner">
-									<div>
-										<xsl:if test="tei:TEI/tei:text/tei:front/descendant::tei:listBibl">
-											<xsl:apply-templates select="tei:TEI/tei:text/tei:front/descendant::tei:listBibl"></xsl:apply-templates>
-										</xsl:if>
-										<xsl:if test="tei:TEI/tei:text/tei:back/descendant::tei:listBibl">
-											<xsl:apply-templates select="tei:TEI/tei:text/tei:back/descendant::tei:listBibl"></xsl:apply-templates>
-										</xsl:if>
-									</div>
-								</div>
-							</div>
-						</div>
+					<xsl:if test="$bibliography=true()">
+						<div id="generalBiblio_cont" class="dialog" data-content="generalBiblio"></div>
 					</xsl:if>
 					<!-- /end Integration by AB -->
 					<header id="main_header">
@@ -411,12 +407,14 @@
 							</div>	
 						</xsl:if>
 						
-						<div class="setting_row button_like" id="biblio_link">
-							<div class="setting_row_title">
-								<i class="fa fa-book"></i>
-								<span lang="def">BIBLIO</span>
-							</div>
-						</div>	
+						<xsl:if test="$bibliography=true()">
+							<div class="setting_row button_like" id="biblio_link">
+								<div class="setting_row_title">
+									<i class="fa fa-book"></i>
+									<span lang="def">BIBLIO</span>
+								</div>
+							</div>	
+						</xsl:if>
 						
 						<div class="setting_row">
 							<div class="setting_row_title"><i class="fa fa-language"></i><span lang="def">LANGUAGES</span>:</div>
@@ -1195,12 +1193,15 @@
 						</xsl:element>
 					</xsl:if>
 					<footer>
-						<p>2012 - 2015 @ EVT team – University of Pisa</p>
+						<p>2012 - 2018 @ EVT team – University of Pisa</p>
 					</footer>
 				</xsl:element>
+				<xsl:call-template name="html_scripts">
+					<xsl:with-param name="html_path" select="$mainPrefix"/>
+				</xsl:call-template>
 				<script src="js/main/fullscreen_request.js"/>
 				<script>
-					(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+					<!-- (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 					  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
 					  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
  					 })(window,document,'script','./js/plugin/analytics.js','ga');
@@ -1211,7 +1212,7 @@
 						'cookieDomain': 'none' // no domain
 					});
 					ga('set', 'checkProtocolTask', function() {}); //HACK
-					ga('send', 'pageview');
+					ga('send', 'pageview'); -->
 
 				</script>
 			</body>

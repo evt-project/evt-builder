@@ -27,20 +27,18 @@
     </xd:doc>
 
     <xsl:template match="tei:listBibl">
-        <body>
-            <xsl:choose>
-                <xsl:when test="biblStruct">
-                    <xsl:apply-templates select="biblStruct">
-                        <xsl:sort order="ascending" select=".//date or .//./date"/>
-                    </xsl:apply-templates>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:apply-templates select="tei:bibl">
-                        <xsl:sort order="ascending" select=".//@xml:id"/>
-                    </xsl:apply-templates>
-                </xsl:otherwise>
-            </xsl:choose>
-        </body>
+        <xsl:choose>
+            <xsl:when test="biblStruct">
+                <xsl:apply-templates select="biblStruct">
+                    <xsl:sort order="ascending" select=".//date or .//./date"/>
+                </xsl:apply-templates>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select="tei:bibl">
+                    <xsl:sort order="ascending" select=".//@xml:id"/>
+                </xsl:apply-templates>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
 
     <xsl:template match="tei:list">

@@ -559,10 +559,11 @@ function cropLongTextLabel(text_label, min_char_num) {
 /*= UPDATE WIDTH OF LINES WITH LINE NUMBER =*/
 function updateLinesWidth(mainFrameElem) {
 	var textInnerWidt = mainFrameElem.find("div[id*='text_cont']").innerWidth() * 85 / 100;
-	$(mainFrameElem).find('.dipl-lineN+.dipl-left, .interp-lineN+.interp-left, .trad-lineN+.trad-left').each(function() {
+	mainFrameElem.find('.dipl-lineN+.dipl-left, .interp-lineN+.interp-left, .trad-lineN+.trad-left').each(function() {
 		var lineNwidth = $(this).prev().outerWidth();
 		$(this).css({
-			'max-width': (textInnerWidt - lineNwidth - 43) + 'px'
+			'max-width': (textInnerWidt - lineNwidth - 43) + 'px',
+			'display': 'inline'
 		});
 	});
 }

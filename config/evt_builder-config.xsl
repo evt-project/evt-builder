@@ -104,6 +104,11 @@
 	<!-- default: true() -->
 	<xsl:param name="headerInfo" select="true()"/>
 
+	<!-- EN: On/Off Bibliography -->
+	<!-- IT: Attiva/Disattiva Bibliografia -->
+	<!-- default: true() -->
+	<xsl:param name="bibliography" select="true()"/>
+	
 	<!-- ############## -->
 	<!-- EDITION LEVELS -->
 	<!-- ############## -->
@@ -238,7 +243,7 @@
 	<!-- EN: Show/Hide Txt/Img Link Button in interface -->
 	<!-- IT: Mostra/Nascondi pulsante Txt/Img Link nell'interfaccia web -->
 	<!-- default: true() -->
-	<xsl:param name="txtimg_link_button" select="false()"/>
+	<xsl:param name="txtimg_link_button" select="true()"/>
 
 	<!-- EN: Show/Hide Hotspot Button in interface -->
 	<!-- IT: Mostra/Nascondi pulsante Hotspot nell'interfaccia web -->

@@ -508,7 +508,6 @@ function bindListsBtnClick() {
 		var listCont = $('#lists_cont');
 		if (listCont.is(":visible")) {
 			closeListsBox(0);
-			updateTextContHeight();
 
 			if ($('#span_list_select').length > 0) {
 				if ($('#switchReg').length > 0) {
@@ -536,6 +535,7 @@ function bindListsBtnClick() {
 				}
 			}
 		}
+		updateTextContHeight();
 	});
 }
 
