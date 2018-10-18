@@ -413,9 +413,7 @@ $(function() {
 								openList(this, listName);
 							})
 							.appendTo('#list_header_elements_contents');
-						listContainer.find('.list').first().addClass('list_opened').show();
-						listContainer.find('.labelList').first().addClass('active');
-
+						
 						var listElement = $('#list_' + listName);
 						$.ajax({
 							type: "GET",
@@ -461,8 +459,6 @@ $(function() {
 						});
 					}
 				});
-				listContainer.find('.list').first().addClass('list_opened').show();
-				listContainer.find('.labelList').first().addClass('active');
 
 				if ($.browser.safari) {
 					$('#list_header .labelList').css('top', '1px');
