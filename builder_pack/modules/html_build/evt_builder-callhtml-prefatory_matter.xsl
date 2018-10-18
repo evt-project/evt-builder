@@ -60,6 +60,33 @@
 		</html>
 	</xsl:template>
 
+	<!-- ############ -->
+	<!-- BIBLIOGRAPHY -->
+	<!-- ############ -->
+	<xsl:template name="bibliography_generation">
+		<html lang="en-US">
+			<body>
+				<div id="generalBiblio" class="dialog_cont">
+					<a href="javascript:void(0);" class="dialog_close" data-dialog="generalBiblio_cont" title="CLOSE" lang="def">
+						<i class="fa fa-close"></i>
+					</a>
+					<div class="title main" lang="def">BIBLIO</div>
+					<div class="dialog_separator"><i class="fa fa-caret-down"></i></div>
+					<div id="generalBiblio_content" class="dialog_cont_inner">
+						<div>
+							<xsl:if test="tei:TEI/tei:text/tei:front/descendant::tei:listBibl">
+								<xsl:apply-templates select="tei:TEI/tei:text/tei:front/descendant::tei:listBibl"></xsl:apply-templates>
+							</xsl:if>
+							<xsl:if test="tei:TEI/tei:text/tei:back/descendant::tei:listBibl">
+								<xsl:apply-templates select="tei:TEI/tei:text/tei:back/descendant::tei:listBibl"></xsl:apply-templates>
+							</xsl:if>
+						</div>
+					</div>
+				</div>
+			</body>
+		</html>
+	</xsl:template>
+
 	<!-- ###################### -->
 	<!-- MANUSCRIPT DESCRIPTION -->
 	<!-- ###################### -->

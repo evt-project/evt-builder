@@ -86,7 +86,6 @@ $( function() {
                                             //$("#mag_image_elem").empty();
                                             if(!magnifierON) $('#image_fade').fadeIn(400);
 
-                                            loadThumbs();
                                             var getBigImage = setTimeout(function (){
                                                 magnifierReady();
                                                 chooseZoomMag();
@@ -143,27 +142,6 @@ $( function() {
                 }); //Add by JK for Mag
         }
 
-        function loadThumbs(){
-            var countThumbs = 0;
-            var thumbsElems = document.getElementsByClassName('thumb_single_img');
-            
-            var getThumbsSrc = setInterval(function (){
-                for (var i = 0; i < 10 && countThumbs < thumbsElems.length; i++) {
-                    var thumbEl = thumbsElems[countThumbs];
-                    if (thumbEl.getAttribute('data-state') == 'to-load' || thumbEl.getAttribute('src') == undefined || thumbEl.getAttribute('src') == '') {
-                        if (thumbEl.getAttribute('data-src') !== undefined){
-                            thumbEl.setAttribute('src', thumbEl.getAttribute('data-src'));
-                            thumbEl.setAttribute('data-state', 'loaded');
-                        }
-                    }
-                    countThumbs++;
-                }
-                if (countThumbs == thumbsElems.length) {
-                    clearInterval(getThumbsSrc);
-                }
-            }, 2500);
-        }
-        
         $("#zoom_in").click(function(){ iv1.iviewer('zoom_by', 1); }); 
         $("#zoom_out").click(function(){ iv1.iviewer('zoom_by', -1); }); 
         $("#zoom_fit").click(function(){ iv1.iviewer('fit'); ReInitialize(); ReInitializeHS(); }); 

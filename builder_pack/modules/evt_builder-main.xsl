@@ -63,6 +63,14 @@
 				<xsl:apply-templates select="." mode="file4search4embedded"/>
 			</xsl:if>
 		</xsl:if>
+		
+		<!-- BIBLIOGRAPHY -->
+		<xsl:if test="tei:TEI/tei:text/tei:front/descendant::tei:listBibl or tei:TEI/tei:text/tei:back/descendant::tei:listBibl">
+			<xsl:if test="$bibliography = true()">
+				<xsl:call-template name="bibliography"/>
+			</xsl:if>
+		</xsl:if>
+
 		<!-- EN: If there is at least a <text> element the transformations for parallel transcription are activated -->
 		<!-- IT: Le trasformazioni per la parallel transcription vengono attivate se nel documento esiste almeno un elemento <text> -->
 		<xsl:if test="tei:TEI/tei:text">
@@ -460,6 +468,15 @@
 			byte-order-mark="yes"
 			href="{$filePrefix}/data/output_data/prefatory_matter/header_info.html" indent="yes">
 			<xsl:call-template name="headerInfo_generation"/>
+		</xsl:result-document>
+	</xsl:template>
+
+	<!-- BIBLIOGRAPHY -->
+	<xsl:template name="bibliography">
+		<xsl:result-document method="html" encoding="UTF-8" media-type="text/plain"
+			byte-order-mark="yes"
+			href="{$filePrefix}/data/output_data/prefatory_matter/bibliography.html" indent="yes">
+			<xsl:call-template name="bibliography_generation"/>
 		</xsl:result-document>
 	</xsl:template>
 	
