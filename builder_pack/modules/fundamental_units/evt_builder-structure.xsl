@@ -92,6 +92,9 @@
                 <xsl:if test="$headerInfo = true()">
                     <headerInfo active="1"/>
                 </xsl:if>
+                <xsl:if test="$bibliography=true()">
+                    <bibliography active="1"/>
+                </xsl:if>
                 <!-- /end Integrazione by AB -->
 
                 <xsl:if test="$frontInfo = true()">

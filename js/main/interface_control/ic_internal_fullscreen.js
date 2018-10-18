@@ -90,7 +90,7 @@ function goFullScreenLeft() {
 		top: margin_top,
 		left: margin_left,
 		minWidth: "1021px"
-	}, 700, function() {
+	}, 700, function () {
 		$('#left_header .closeFullScreen').toggle();
 		$('.zoomWindow').show(0); //Add for mag
 		//$('#header_collapse').animate({opacity: 1});
@@ -114,7 +114,7 @@ function goFullScreenLeft() {
 	$('#switchITL').addClass('inactive');
 
 	var textContAdd = $('#text_cont-add');
-    textContAdd.removeAttr('style');
+	textContAdd.removeAttr('style');
 	var currentFontSize = textContAdd.attr('data-font-size');
 	textContAdd.css({
 		'font-size': currentFontSize + 'px'
@@ -131,7 +131,7 @@ function goFullScreenLeft() {
 		});
 	}
 
-    var spanEEselectAdd = $('#span_ee_select-add');
+	var spanEEselectAdd = $('#span_ee_select-add');
 	if ((spanEEselectAdd.is(':visible')) && !spanEEselectAdd.hasClass('widthChanged')) {
 		spanEEselectAdd
 			.addClass('widthChanged')
@@ -139,9 +139,9 @@ function goFullScreenLeft() {
 			.removeAttr('style');
 
 		spanEEselectAdd
-			.each(function() {
+			.each(function () {
 				var thisOptionContainer = $(this).find('.option_container');
-                widthSel = $(this).width();
+				widthSel = $(this).width();
 				widthOpt = thisOptionContainer.width() + 10;
 				if (widthSel > (widthOpt + 24)) {
 					thisOptionContainer.css('width', widthSel - 10);
@@ -180,7 +180,7 @@ function closeFullScreenLeft() {
 			top: "0px",
 			left: "0px",
 			minWidth: "0px"
-		}, 700, function() {
+		}, 700, function () {
 			fitFrame();
 			updateLinesWidth(mainLeftFrame);
 			mainLeftFrame.removeClass("full");
@@ -197,7 +197,7 @@ function closeFullScreenLeft() {
 			top: "0px",
 			left: "0px",
 			minWidth: "0px"
-		}, 700, function() {
+		}, 700, function () {
 			fitFrame();
 			mainLeftFrame
 				.removeClass("full")
@@ -211,7 +211,7 @@ function closeFullScreenLeft() {
 			resizeButtonsAndSelects();
 		});
 		var switchITL = $('#switchITL');
-        switchITL.show();
+		switchITL.show();
 		//Se ITL è impostato su attivo, attiva il collegamento. Abilita il pulsante.
 		if (switchITL.find('i').hasClass('fa fa-chain') && !switchITL.hasClass('likeInactive')) { //Add by JK for ITL
 			Initialize();
@@ -290,7 +290,7 @@ function goFullScreenRight() {
 		left: margin_left,
 		right: 0,
 		minWidth: "1021px",
-	}, 700, function() {
+	}, 700, function () {
 
 		updateLinesWidth(mainRightFrame);
 		$('#right_header .closeFullScreen').toggle();
@@ -358,7 +358,7 @@ function closeFullScreenRight() {
 		height: "100%",
 		marginTop: "0px",
 		minWidth: "0px"
-	}, 700, function() {
+	}, 700, function () {
 
 		updateLinesWidth(mainRightFrame);
 		fitFrame();
@@ -397,21 +397,21 @@ function closeFullScreenRight() {
 /*= BIND GO FULLSCREEN BTNs CLICK EVENT =*/
 function bindInternalFullscreenBtnClick() {
 	// goFullScreenLeft
-	$("#goFullScreenLeft").click(function() {
+	$("#goFullScreenLeft").click(function () {
 		goFullScreenLeft();
 	});
 	// goFullScreenRight
-	$("#goFullScreenRight").click(function() {
+	$("#goFullScreenRight").click(function () {
 		goFullScreenRight();
 	});
 
 	// closeFullScreenLeft
-	$("#closeFullScreenLeft").click(function() {
+	$("#closeFullScreenLeft").click(function () {
 		closeFullScreenLeft();
 	});
 
 	// closeFullScreenRight
-	$("#closeFullScreenRight").click(function() {
+	$("#closeFullScreenRight").click(function () {
 		closeFullScreenRight();
 	});
 }
