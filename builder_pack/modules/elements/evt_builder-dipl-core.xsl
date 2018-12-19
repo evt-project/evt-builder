@@ -184,7 +184,7 @@
 
 	<!-- Line break -->
 	<!-- IT: Ignora i lb che hanno xml:id che termina con 'r' e riporta quelli che hanno xml:id che termina con 'o' eliminando quest'ultimo carattere -->
-	<xsl:template match="tei:lb" mode="dipl">
+	<xsl:template match="tei:lb[@*]" mode="dipl">
 		<xsl:choose>
 			<xsl:when test="@xml:id">
 				<xsl:choose>
@@ -231,7 +231,11 @@
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
-
+	
+	<xsl:template match="tei:lb[not(@*)]" mode="dipl">
+		<xsl:element name="span"><xsl:attribute name="class" select="'lb'"/></xsl:element>
+	</xsl:template>
+	
 	<!-- Page break -->
 	<xsl:template match="tei:pb" mode="dipl">
 		<xsl:copy-of select="."/>
