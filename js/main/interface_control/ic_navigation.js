@@ -988,7 +988,9 @@ function bindEEselectClick() {
 				other_parent = "text_cont-add";
 
 			}
-			other_ee_select_val = $('#' + other_ee_select).find('.label_selected').attr('data-value').toLowerCase();
+			try {
+				other_ee_select_val = $('#' + other_ee_select).find('.label_selected').attr('data-value').toLowerCase();
+			} catch(e){}
 
 			// Faccio un controllo sul livello di edizione da attivare sul frame corrente
 			// e se sto passando all'edizione diplomatica disattivo i filtri e le liste
