@@ -57,7 +57,7 @@
 					</xsl:element>-->
 				<xsl:element name="div">
 					<xsl:attribute name="class">AnnSubmenu</xsl:attribute>
-					<xsl:for-each-group select="node()" group-starting-with="//tei:lb">
+					<xsl:for-each-group select="node()" group-starting-with="//tei:lb[@*]">
 						<xsl:if test="current-group()[not((string-length(normalize-space()))= 0)]"><!--IT: non considera le righe vuote-->
 							<xsl:choose>
 								<xsl:when test="if(@facs) then(translate(@facs, '#', '')=$root//tei:surface[translate(@corresp, '#', '')=$n]//tei:zone[@rendition='Line']/@xml:id) else(translate(@corresp, '#', '')=$root//tei:surface[translate(@corresp, '#', '')=$n]//tei:zone/@xml:id)">

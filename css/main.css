@@ -3836,3 +3836,7 @@ span.autore {
 .tooltip .imageDetails .head {
     text-align: center;
 }
+
+.lb {
+    display: block;
+}
