@@ -92,7 +92,7 @@
 					<xsl:when test="tei:TEI/tei:text/tei:group/tei:text">
 						<xsl:for-each select="tei:TEI/tei:text/tei:group/tei:text">
 							<xsl:call-template name="regesto"/>
-							<xsl:if test="$edition_array='Translation'">
+							<xsl:if test="$edition_array[3]='Translation'">
 								<xsl:call-template name="translate"/><!-- TODO: CHECK IF TRANSLATION IS ACTIVE-->
 							</xsl:if>
 						</xsl:for-each>
@@ -100,7 +100,7 @@
 					<xsl:otherwise>
 						<xsl:for-each select="tei:TEI/tei:text">
 							<xsl:call-template name="regesto"/>
-							<xsl:if test="$edition_array='Translation'">
+							<xsl:if test="$edition_array[3]='Translation'">
 								<xsl:call-template name="translate"/><!-- TODO: CHECK IF TRANSLATION IS ACTIVE-->
 							</xsl:if>
 						</xsl:for-each>
@@ -1155,7 +1155,6 @@
 				}]}
 			</xsl:result-document>
 		</xsl:if>
-
 
 		<!-- ADD BY FS - Edizione critica -->
 		<xsl:if test="$edition_array[4]!=''">
