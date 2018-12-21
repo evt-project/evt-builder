@@ -1,15 +1,36 @@
 #############################
-## EVT 1.2 - RELEASE NOTES ##
+## EVT 1.3 - RELEASE NOTES ##
 #############################
 
-* Added support for integrations and editorial additions encoded with <supplied>, with particular attention to omissions (@reason="omitted") and illegible text (@reason="illegible");
+* Added support for Chronological index for multiple <text>s edition. Information about date must be encoded in the <front> in a <date> element in a <docDate>; the date value must be encoded with a @when attribute:
+```
+	<front>
+		<!-- [...] -->
+		<docDate xml:id="CI_docDate">
+			<date when="1212-04-02">1212 aprile 2</date>
+		</docDate>
+		<!-- [...] -->
+	</front>
+```
 
-* Added support for columns breaks (<cb>) and tables (<table>);
+* Added support for translation level. 
+  * Translation is available at document level, so no translations for single pages for now. 
+  * Translation will be handled as additional edition level, thus in order to activate it, you must add ```<edition>Translation</edition>``` in the ```$edition_array``` variable of configuration file at the third position;
+  * In the XML, the translation text must be encoded in the ```<back>``` of the ```<text>``` which it is referring to, in a ```<div type="translation">``` element (NB: the value of ```@type``` can also be ```"transl"```).
 
-* Added support for <note>s that are not inline and are referenced in the text one or more times with the element <ptr/>;
-* Added support for <ref>s whose @target attribute refers to a web page;
+* Added support for prose/verse visualization for poetry. In order to activate it, set to ```true()``` the variable ```$prose_verses_toggler``` in the configuration file.
+  
+* Added support for ```<ref>``` and ```<ptr>``` in the hotspot text.
 
-* Many bugs fixed!  
+* Added support for Drama elements and for stage directions highlight.
+
+* Added the possibility of grouping by type the phenomena and entities to be highlighted in the text (More information in the documentation).
+  
+* Added the possibility to have a single navigation bar at the bottom of the page. To activate it, you just have to turn to ```true()``` the ```$bottom_navbar``` variable in the configuration file.
+
+* Added minimum support for Viscoll [https://github.com/leoba/VisColl]. To activate it, you have to turn to ```true()``` the ```$viscoll_button``` variable in the configuration file and to indicate in ```$viscoll_info``` the path to the file containing the Viscoll data model.
+
+* Many bugs fixed!
 
 
 ##############
