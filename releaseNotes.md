@@ -20,9 +20,15 @@
 
 * Added support for prose/verse visualization for poetry. In order to activate it, set to ```true()``` the variable ```$prose_verses_toggler``` in the configuration file.
   
-* Added support for ```<ref>``` and ```<ptr>``` in the hotspot text.
+* Added support for ```<ref>``` and ```<ptr>``` inside HotSpots Pop-ups.
 
 * Added support for Drama elements and for stage directions highlight.
+
+* Added support for ```<editionStmt>``` in header info.
+
+* Added support for list of terms and glosses (experimental functionalities).
+
+* Added support for ```<figDesc>``` and ```<head>``` in an image linked to a pointer.
 
 * Added the possibility of grouping by type the phenomena and entities to be highlighted in the text (More information in the documentation).
   
@@ -30,6 +36,26 @@
 
 * Added minimum support for Viscoll [https://github.com/leoba/VisColl]. To activate it, you have to turn to ```true()``` the ```$viscoll_button``` variable in the configuration file and to indicate in ```$viscoll_info``` the path to the file containing the Viscoll data model.
 
+* Improved UI performances.
+
+* Added useful logs messages during first loading of the UI.
+
+* Added translation in czech (special thanks to Karel Pacovský for this translation).
+
+* Fixed bug concerning nude ```<lb/>``` elements, representing a real line break, not to be considered for image text linking feature.
+
+* Fixed bug for latin terms in regesto. 
+
+* Fixed bug for critical notes nested in ```<p>``` in regesto.
+
+* Fixed bug for named entities without ```<forename>``` and ```<surname>```.
+
+* Fixed bug concerning ```<back>``` text appearing in main text container.
+
+* Fixed layout problem on list letters on small screen.
+  
+* Fixed behaviour of welcome popup.
+  
 * Many bugs fixed!
 
 
