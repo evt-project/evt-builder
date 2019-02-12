@@ -513,7 +513,9 @@ function openTxtTxtMode() {
 			'max-width': (textInnerWidt - lineNwidth - 43) + 'px'
 		});
 	});
-	if (regestoCont.text().trim() === '') {
+	if (!regestoCont.hasClass('disable') &&
+		$("#span_ee_select").find('.option').length == 1 &&
+		regestoCont.text().trim() === '') {
 		$('#main_left_frame').hide();
 		$('#header_collapse').animate({
 			left: "100%",
