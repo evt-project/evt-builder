@@ -906,4 +906,19 @@
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
+
+	<xsl:template match="tei:speaker" mode="dipl">
+		<xsl:element name="span">
+			<xsl:attribute name="class">speaker</xsl:attribute>
+			<xsl:apply-templates mode="#current"/>
+		</xsl:element>
+	</xsl:template>
+	
+	<xsl:template match="tei:sp" mode="dipl">
+		<xsl:element name="span">
+			<xsl:attribute name="class">sp speech</xsl:attribute>
+			<xsl:apply-templates mode="#current"/>
+		</xsl:element>
+	</xsl:template>
+
 </xsl:stylesheet>
