@@ -44,8 +44,10 @@ function prepareEditionLevel(xml) {
         // ADD BY FS
         // Se ho più di un'edizione e non è attiva la modalità txttxt non visualizzare l'opzione per la selezione dell'edizione di traduzione
         // => per EVT in generale si è deciso di permettere visualizzare l'opzione per la selezione della traduzione in ogni caso
-        // if( (!$('#txttxt_link').hasClass('current_mode')) && $(xml).find('editions edition').length > 0 ) {
-        // 	$("#span_ee_select .option_container .option[data-value='translation']").hide();
+        // Per disattivare la traduzione in modalità Testo-Immagine decommentare le seguenti righe
+        // var translationOpts = $(".option[data-value='translation']");
+        // if (translationOpts && (!$('#txttxt_link').hasClass('current_mode')) && $(xml).find('editions edition').length > 0) {
+        //     translationOpts.hide();
         // }
         resolve();
     });
@@ -735,7 +737,7 @@ function prepareFrontMatter(xml) {
 
             resizeGlobalTopBar();
         } else {
-            if($('#info_link')) {
+            if ($('#info_link')) {
                 $('#info_link').remove();
             }
             resolve();
@@ -929,7 +931,7 @@ function loadStructureAndPrepareUI() {
                 });
                 /* ==/ LOAD TEXTS AND PAGES */
                 /* ======================== */
-                
+
                 /* ==================== */
                 /* LOAD BIBLIOGRAPHY */
                 addLoadingMsg('PREPARING_BIBLIOGRAPHY', 'biblio_prep_msg');
@@ -938,7 +940,7 @@ function loadStructureAndPrepareUI() {
                 });
                 /* ==/ LOAD BIBLIOGRAPHY */
                 /* ======================== */
-                
+
 
                 /* ========================= */
                 /* GESTIONE EVENTI POST AJAX */

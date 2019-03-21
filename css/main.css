@@ -681,7 +681,9 @@ footer {
     margin-top: auto !important;
     /*overflow-y: scroll;*/
 }
-
+#front_frame:empty {
+    display: none !important;
+}
 #image_cont {
     /*top: 16px;*/
     position: relative;
@@ -3745,7 +3747,9 @@ span.center {
 
 span.stage {
     font-style: italic;
-    display: inline;
+    display: block !important;
+    font-size: 90%;
+    text-align: center;
 }
 
 span.speakerstage {
@@ -3759,7 +3763,10 @@ span.speaker2 {
 span.stage2 {
     font-style: italic;
 }
-
+.speech {
+    margin-top: 10px;
+    display: inline-block;
+}
 span.mixed,
 span.exit,
 span.entrance,
