@@ -560,18 +560,10 @@ function gotoedition(pp_val, ee_val, pp_el, frame_id) {
 	}
 
 	if (ee_val === "translation") {
-		var re = /doc=/;
-		var hash_parts = location.hash.substr(1).split('&');
-		var ind = hash_parts.indexOf((function() {
-			var i;
-			for (i in hash_parts)
-				if (re.test(hash_parts[i]))
-					return hash_parts[i];
-		})());
-		var transText = hash_parts[ind].replace(/doc=/ig, "");
+		var currentText = $('#span_tt_select .label_selected').data('value');
 		$("#" + pp_el + " div[id*='text_frame']")
 			// .empty()
-			.load("data/output_data/" + ee_val + "/translation_" + transText + ".html #text_frame #text",
+			.load("data/output_data/" + ee_val + "/translation_" + currentText + ".html #text_frame #text",
 				function(response, status, xhr) {
 					editionLoadedCallback(status);
 				}
