@@ -785,7 +785,9 @@ function concludeUIinit() {
         }
 
         resizeGlobalTopBar();
-        createSliderTxtImg();
+        if (createSliderTxtImg) {
+            createSliderTxtImg();
+        }
 
         $('.mainButtons').each(function () {
             var full_button_width = $(this).outerWidth();
