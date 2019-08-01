@@ -299,7 +299,7 @@ div.dipl-zone, div.interp-zone{
 	display: block;
 }
 .dipl-p[data-part], .interp-p[data-part] { 
-  display: inline; 
+  #display: inline; 
 } 
 
 div.dipl-center, span.dipl-center, 
