@@ -120,7 +120,7 @@
 	<!-- EN: It is possible to skip production of pages for a specific edition simply removing the textual part of the corresponding item. -->
 	<!-- IT: E' possibile rimuovere la produzione di pagine di una determinata edizione semplicemente rimuovendo la parte testuale dell'item corrispondente. -->
 	<xsl:variable name="edition_array" as="element()*">
-		<edition></edition>
+		<edition>Diplomatic</edition>
 		<!-- EN: If you have diplomatic edition put <edition>Diplomatic</edition>.
 			 	 If you DON'T have diplomatic edition put <edition></edition> -->
 		<!-- IT: Se si ha l'edizione diplomatica scrivere <edition>Diplomatic</edition>.
@@ -134,7 +134,7 @@
 		<!-- IT: Se si ha l'edizione interpretativa scrivere <edition>Interpretative</edition>.
 			 	 Se NON si ha l'edizione interpretativa mettere <edition></edition> -->
 
-		<edition></edition>
+		<edition>Translation</edition>
 		<!-- EN: If you have translation put <edition>Translation</edition>.
 			 	 If you don't have translation put <edition></edition> -->
 		<!-- IT: Se si ha la versione tradotta del testo scrivere <edition>Translation</edition>.

@@ -372,6 +372,7 @@ function initLists(listsArray) {
                         }
                         listsLoaded++;
                         if (listsLoaded === totLists) {
+                            bindChronologicalIndex();
                             resolve();
                         }
                     }
