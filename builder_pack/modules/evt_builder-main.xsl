@@ -86,48 +86,43 @@
 				<xsl:call-template name="msDesc"/>
 			</xsl:if>
 
-			<!-- REGESTO -->
-			<xsl:if test="$regesto=true()">
-				<xsl:choose>
-					<xsl:when test="tei:TEI/tei:text/tei:group/tei:text">
-						<xsl:for-each select="tei:TEI/tei:text/tei:group/tei:text">
+			
+			<!-- TRANSLATION + REGESTO | FRONT INFORMATION -->
+			<xsl:choose>
+				<xsl:when test="$root//tei:text/tei:group">
+					<!-- Gestione TEXT multipli in tei:group -->
+					<xsl:for-each select="$root//tei:text/tei:group/tei:text">
+						<!-- TRANSLATION -->
+						<xsl:if test="$edition_array[3]='Translation'">
+							<xsl:call-template name="translate"/><!-- TODO: CHECK IF TRANSLATION IS ACTIVE-->
+						</xsl:if>
+						<!-- REGESTO -->
+						<xsl:if test="$regesto=true()">
 							<xsl:call-template name="regesto"/>
-							<xsl:if test="$edition_array[3]='Translation'">
-								<xsl:call-template name="translate"/><!-- TODO: CHECK IF TRANSLATION IS ACTIVE-->
-							</xsl:if>
-						</xsl:for-each>
-					</xsl:when>
-					<xsl:otherwise>
-						<xsl:for-each select="tei:TEI/tei:text">
+						</xsl:if>
+						<!-- FRONT INFORMATION-->
+						<xsl:if test="$frontInfo = true() and current()/tei:front">
+							<xsl:call-template name="front"/>
+						</xsl:if>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:for-each select="tei:TEI/tei:text">
+						<!-- TRANSLATION -->
+						<xsl:if test="$edition_array[3]='Translation'">
+							<xsl:call-template name="translate"/><!-- TODO: CHECK IF TRANSLATION IS ACTIVE-->
+						</xsl:if>
+						<!-- REGESTO -->
+						<xsl:if test="$regesto=true()">
 							<xsl:call-template name="regesto"/>
-							<xsl:if test="$edition_array[3]='Translation'">
-								<xsl:call-template name="translate"/><!-- TODO: CHECK IF TRANSLATION IS ACTIVE-->
-							</xsl:if>
-						</xsl:for-each>
-					</xsl:otherwise>
-				</xsl:choose>
-			</xsl:if>
-
-			<!-- FRONT INFORMATION -->
-			<xsl:if test="$frontInfo = true()">
-				<xsl:choose>
-					<xsl:when test="$root//tei:text/tei:group">
-						<!-- Gestione TEXT multipli in tei:group -->
-						<xsl:for-each select="$root//tei:text/tei:group/tei:text">
-							<xsl:if test="current()/tei:front">
-								<xsl:call-template name="front"/>
-							</xsl:if>
-						</xsl:for-each>
-					</xsl:when>
-					<xsl:otherwise>
-						<xsl:for-each select="tei:TEI/tei:text">
-							<xsl:if test="current()/tei:front">
-								<xsl:call-template name="front"/>
-							</xsl:if>
-						</xsl:for-each>
-					</xsl:otherwise>
-				</xsl:choose>
-			</xsl:if>
+						</xsl:if>
+						<!-- FRONT INFORMATION -->
+						<xsl:if test="$frontInfo = true() and current()/tei:front">
+							<xsl:call-template name="front"/>
+						</xsl:if>
+					</xsl:for-each>
+				</xsl:otherwise>
+			</xsl:choose>
 
 			<!-- LISTS -->
 			<xsl:if test="$list_person = true()">
