@@ -602,6 +602,26 @@ function bindChronologicalIndex() {
 		var items = container.find(".list_element");
 		/* Invoco la funzione per l'ordinamento delle date */
 		sortDate(container, items);
+
+		/* Gestisco la riduzione del regesto */
+		var minimized_text = $('#ul_listDocument .list_element .document_list_regesto .text');
+		var minimized_character_count = 300;
+		minimized_text.each(function() {
+			var text = $(this).text();
+			if (text.length >= minimized_character_count) {
+				$(this).html(
+					text.slice(0, minimized_character_count) + '<span class="regestoEllipsis">... </span>' +
+					'<span class="regestoExpansion">' + text.slice(minimized_character_count, text.length) + '</span>');
+			} else {
+				try { 
+					var expandBtn = $(this).next();
+					expandBtn.hide(); 
+					expandBtn.removeClass('visible');
+				} catch(e){}
+			}
+		});
+		showOrHideRegesto();
+		bindDocumentLinkChronologicalIndex();
 	});
 }
 
@@ -621,6 +641,23 @@ function toggleRegestoInIndex(el) {
 		documentRegesto.find('.regestoExpansion').hide();
 		documentRegesto.find('.regestoEllipsis').show();
 	}
+}
+
+function showOrHideRegesto() {
+	$('#ul_listDocument .list_element .toggleRegestoInList').click(function(event) {
+		var action = $(this).attr('data-action');
+		$(this).siblings('.toggleRegestoInList').addClass('visible');
+		$(this).removeClass('visible');
+		if (action === 'expand') {
+			// Sto gestendo il pulsante MORE
+			$(this).parent().find('.text .regestoExpansion').show();
+			$(this).parent().find('.text .regestoEllipsis').hide();
+		} else {
+			// Sto gestendo il pulsante LESS
+			$(this).parent().find('.text .regestoExpansion').hide();
+			$(this).parent().find('.text .regestoEllipsis').show();
+		}
+	});
 }
 
 /* La funzione per la gestione della selezione del parametro di ordinamento è ridotta rispetto alla versione

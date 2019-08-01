@@ -268,5 +268,6 @@ jquery_lang_js.prototype.lang.fr = {
 	"PREPARING_TRANSLATION": "Préparation de la traduction ...",
 	"PREPARING_FRONT_MATTER": "Préparation des informations sur le texte ...",
 	"PREPARING_LISTS": "Préparation de listes ...",
-	"PREPARING_BIBLIOGRAPHY": "Préparation de la bibliographie ..."
+	"PREPARING_BIBLIOGRAPHY": "Préparation de la bibliographie ...",
+	"OPEN_DOCUMENT": "Ouvrir le document"
 }

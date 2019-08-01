@@ -266,5 +266,6 @@ jquery_lang_js.prototype.lang.cs = {
 	"PREPARING_TRANSLATION": "Příprava překladů ...",
 	"PREPARING_FRONT_MATTER": "Příprava přední části ...",
 	"PREPARING_LISTS": "Příprava seznamů ...",
-	"PREPARING_BIBLIOGRAPHY": "Příprava bibliografie ..."
+	"PREPARING_BIBLIOGRAPHY": "Příprava bibliografie ...",
+	"OPEN_DOCUMENT": "Otevřete dokument"
 }
