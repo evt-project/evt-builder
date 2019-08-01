@@ -737,7 +737,7 @@
 
 	<xsl:template name="listDoc">
 		<xsl:element name="ul">
-			<xsl:attribute name="id" select="'ul_listDocument'"/>
+			<xsl:attribute name="id" select="'ul_list_listDoc'"/>
 			<xsl:attribute name="class" select="'ul_list'"/>
 			<xsl:for-each select="$root//tei:text/tei:group/tei:text">
 				<xsl:element name="li">

@@ -470,7 +470,7 @@ function InitializeLinkTextList() {
 /*= BIND TOGGLE LISTS BUTTON CLICK EVENT =*/
 function bindListsBtnClick() {
 	var listHeaderContents = $('#list_header_elements_contents');
-	$('#navListHeadersLx').click(function (event) {
+	$('#navListHeadersLx').unbind('click').click(function (event) {
 		// Scroll fino a left = 0;
 		var currentLeft = parseInt(listHeaderContents.css('left').replace(/px/g, ""));
 		if (currentLeft < -29) {
@@ -585,43 +585,47 @@ Quello che voglio ottenere all'apertura è un indice già ordinato per data cres
  * e visualizzare solo i primi caratteri (ho messo 300) del regesto, con la possibilità di espanderlo e poi ridurlo */
 function bindChronologicalIndex() {
 	$('#header_listDoc').click(function () {
-		/* Recupero lo span del pulsante per l'ordinamento */
-		var sortingButtonSpan = $('#sortingOrder span');
-		/* Voglio che le date siano ordinate in modo ascendente, il pulsante all'inizio dovrà avere valore 'Ascendente'.
-		 * Per fare questo ho assegnato allo span un attributo 'data-button-sort' con valore 'asc' e un testo 'ASCENDING_ORDER'
-		 * (visualizzato poi 'Ascending). */
-		sortingButtonSpan
-			.attr('data-button-sort', 'asc')
-			.attr('data-lang', 'ASCENDING_ORDER')
-			.text(window.lang.convert('ASCENDING_ORDER', window.lang.currentLang));
-		/* Gesisco l'icona in modo che venga visualizzato il simbolo di ascendente */
-		$('#sortingOrder i').attr('class', 'fa fa-sort-amount-asc');
-		/* Recupero il contenitore della lista e gli assegno un attributo 'sort' che sarà inizialmente 'asc' */
 		var container = $("#ul_list_listDoc");
-		container.attr('data-sort', 'asc');
+		if (!container.attr('data-init')) {
+			console.log('header_listDoc CLICK');
+			/* Recupero lo span del pulsante per l'ordinamento */
+			var sortingButtonSpan = $('#sortingOrder span');
+			/* Voglio che le date siano ordinate in modo ascendente, il pulsante all'inizio dovrà avere valore 'Ascendente'.
+			 * Per fare questo ho assegnato allo span un attributo 'data-button-sort' con valore 'asc' e un testo 'ASCENDING_ORDER'
+			 * (visualizzato poi 'Ascending). */
+			sortingButtonSpan
+				.attr('data-button-sort', 'asc')
+				.attr('data-lang', 'ASCENDING_ORDER')
+				.text(window.lang.convert('ASCENDING_ORDER', window.lang.currentLang));
+			/* Gesisco l'icona in modo che venga visualizzato il simbolo di ascendente */
+			$('#sortingOrder i').attr('class', 'fa fa-sort-amount-asc');
+			/* Recupero il contenitore della lista e gli assegno un attributo 'sort' che sarà inizialmente 'asc' */
+			container.attr('data-sort', 'asc');
+			
+			/* Gestisco la riduzione del regesto */
+			var minimized_text = $('#ul_list_listDoc .list_element .document_list_regesto .text');
+			var minimized_character_count = 300;
+			minimized_text.each(function() {
+				var text = $(this).text();
+				if (text.length >= minimized_character_count) {
+					$(this).html(
+						text.slice(0, minimized_character_count) + '<span class="regestoEllipsis"></span>' +
+						'<span class="regestoExpansion">' + text.slice(minimized_character_count, text.length) + '</span>');
+				} else {
+					try { 
+						var expandBtn = $(this).next();
+						expandBtn.hide(); 
+						expandBtn.removeClass('visible');
+					} catch(e){}
+				}
+			});
+			container.attr('data-init', true)
+		}
 		var items = container.find(".list_element");
 		/* Invoco la funzione per l'ordinamento delle date */
 		sortDate(container, items);
-
-		/* Gestisco la riduzione del regesto */
-		var minimized_text = $('#ul_listDocument .list_element .document_list_regesto .text');
-		var minimized_character_count = 300;
-		minimized_text.each(function() {
-			var text = $(this).text();
-			if (text.length >= minimized_character_count) {
-				$(this).html(
-					text.slice(0, minimized_character_count) + '<span class="regestoEllipsis">... </span>' +
-					'<span class="regestoExpansion">' + text.slice(minimized_character_count, text.length) + '</span>');
-			} else {
-				try { 
-					var expandBtn = $(this).next();
-					expandBtn.hide(); 
-					expandBtn.removeClass('visible');
-				} catch(e){}
-			}
-		});
 		showOrHideRegesto();
-		bindDocumentLinkChronologicalIndex();
+		// bindDocumentLinkChronologicalIndex();
 	});
 }
 
@@ -644,7 +648,7 @@ function toggleRegestoInIndex(el) {
 }
 
 function showOrHideRegesto() {
-	$('#ul_listDocument .list_element .toggleRegestoInList').click(function(event) {
+	$('#ul_list_listDoc .list_element .toggleRegestoInList').click(function(event) {
 		var action = $(this).attr('data-action');
 		$(this).siblings('.toggleRegestoInList').addClass('visible');
 		$(this).removeClass('visible');
