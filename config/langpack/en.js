@@ -265,5 +265,6 @@ jquery_lang_js.prototype.lang.en = {
 	"PREPARING_TRANSLATION": "Preparing translations...",
 	"PREPARING_FRONT_MATTER": "Preparing front matter...",
 	"PREPARING_LISTS": "Preparing lists...",
-	"PREPARING_BIBLIOGRAPHY": "Preparing bibliography..."
+	"PREPARING_BIBLIOGRAPHY": "Preparing bibliography...",
+	"OPEN_DOCUMENT": "Open document"
 }

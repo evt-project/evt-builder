@@ -69,6 +69,8 @@
 	<xsl:include href="modules/elements/evt_builder-dipl-multi_module.xsl"/>
 	<!--<xsl:include href="modules/elements/evt_builder-dipl-textstructure.xsl"/>--> <!-- Added By JK-->
 
+	<xsl:include href="modules/elements/evt_builder-lists.xsl"/>
+	
 	<!-- Elements for interpretative version-->
 	<xsl:include href="modules/elements/evt_builder-interp-core.xsl"/>
 	<xsl:include href="modules/elements/evt_builder-interp-multi_module.xsl"/>
