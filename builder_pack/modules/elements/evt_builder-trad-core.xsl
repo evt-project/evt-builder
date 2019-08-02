@@ -66,7 +66,21 @@
 	
 	<!-- L Verse line-->
 	<xsl:template match="tei:l" mode="trad">
-		<xsl:apply-templates mode="#current"/> 
+		<div class="trad line">
+			<div class="trad-lineN">
+				<xsl:value-of
+					select="
+						if (@n) then
+							(if (string-length(@n) &gt; 1) then
+								(@n)
+							else
+								(concat('&#xA0;&#xA0;', @n)))
+						else
+							('&#xA0;&#xA0;&#xA0;')"/>
+				<xsl:text>&#xA0;&#xA0;</xsl:text>
+			</div>
+			<div class="trad-left"><xsl:apply-templates mode="#current"/></div>
+		</div>
 		<xsl:text> </xsl:text><!--important-->
 	</xsl:template>
 	
