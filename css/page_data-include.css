@@ -154,7 +154,7 @@ DIV.dipl-right, SPAN.dipl-right {
     background:#FFF;
 }
 
-DIV.dipl-left{
+DIV.dipl-left, .trad-left{
     /* width: 92%; */
     display: inline-table;
 }
@@ -164,7 +164,7 @@ DIV.dipl-attachment{
     padding: 5px 0px 0px 10px;
 }
 
-SPAN.dipl-lineN {
+SPAN.dipl-lineN, .trad-lineN {
 	color: grey;
 	font-size: 0.8em; 
 	display: inline-block;
