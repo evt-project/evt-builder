@@ -315,7 +315,7 @@ div.dipl-right, span.dipl-right,
 div.interp-right, span.interp-right {
 	/*CDP*/
 	text-align: right;
-    /*width: 92%;*/
+    width: 92%;
     display: inline-table;
     background:#FFF; 
 }
@@ -325,7 +325,7 @@ div.interp-right, span.interp-right {
 .interp-lineN+div.interp-left, 
 .interp-lineN+span.interp-left {
     width: 92% !important;
-    display: inline;
+    display: inline-block;
 }
 
 div.interp-attachment {
