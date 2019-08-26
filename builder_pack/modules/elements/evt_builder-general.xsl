@@ -224,5 +224,28 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-
+    
+    <xsl:template match="//tei:castList" mode="interp dipl #default">
+        <div class="castList">
+            <xsl:apply-templates mode="#current"/>    
+        </div>
+    </xsl:template>
+    
+    <xsl:template match="//tei:castItem" mode="interp dipl #default">
+        <span class="castItem">
+            <xsl:apply-templates mode="#current"/>    
+        </span>
+    </xsl:template>
+    
+    <xsl:template match="//tei:castItem//tei:role" mode="interp dipl #default">
+        <span class="role">
+            <xsl:apply-templates mode="#current"/>    
+        </span>
+    </xsl:template>
+    
+    <xsl:template match="//tei:castItem//tei:roleDesc" mode="interp dipl #default">
+        <span class="roleDesc">
+            <xsl:apply-templates mode="#current"/>    
+        </span>
+    </xsl:template>
 </xsl:stylesheet>
