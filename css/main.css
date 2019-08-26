@@ -3865,3 +3865,14 @@ span.autore {
 .lb {
     display: block;
 }
+.castList h1 {
+    margin-bottom: 10px;
+}
+
+.roleDesc {
+    font-style: italic;
+}
+
+.castItem {
+    display: block;
+}
