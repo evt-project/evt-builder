@@ -737,7 +737,7 @@
 
 	<xsl:template name="listDoc">
 		<xsl:element name="ul">
-			<xsl:attribute name="id" select="'ul_list_listDoc'"/>
+			<xsl:attribute name="id" select="'ul_listDocument'"/>
 			<xsl:attribute name="class" select="'ul_list'"/>
 			<xsl:for-each select="$root//tei:text/tei:group/tei:text">
 				<xsl:element name="li">
@@ -802,34 +802,40 @@
 	</xsl:template>
 	
 	<xsl:template match="text()" mode="deleteSpaces">
+		<xsl:param name="pPat">"</xsl:param>
+		<xsl:param name="pRep"><xsl:text>&amp;</xsl:text><xsl:text>quotes;</xsl:text></xsl:param>
+		<xsl:param name="text">
+			<xsl:value-of select="replace(.,$pPat, $pRep)"/>
+		</xsl:param>
 		<xsl:choose>
 			<xsl:when test="ancestor::*[@xml:space][1]/@xml:space = 'preserve'">
-				<xsl:value-of select="."/>
+				<xsl:value-of select="$text"/>
 			</xsl:when>
 			<xsl:otherwise>
 				<!-- Retain one leading space if node isn't first, has non-space content, and has leading space.-->
-				<xsl:if test="position() != 1 and matches(., '^\s') and normalize-space() != ''">
+				<xsl:if test="position() != 1 and matches($text, '^\s') and normalize-space() != ''">
 					<xsl:text> </xsl:text>
 				</xsl:if>
-				<xsl:value-of select="normalize-space(.)"/>
+				<xsl:value-of select="normalize-space($text)"/>
 				<xsl:choose>
 					<!-- node is an only child, and has content but it's all space -->
 					<xsl:when test="last() = 1 and string-length() != 0 and normalize-space() = ''">
 						<xsl:text> </xsl:text>
 					</xsl:when>
 					<!-- node isn't last, isn't first, and has trailing space -->
-					<xsl:when test="position() != 1 and position() != last() and matches(., '\s$')">
+					<xsl:when test="position() != 1 and position() != last() and matches($text, '\s$')">
 						<xsl:text> </xsl:text>
 					</xsl:when>
 					<!-- node isn't last, is first, has trailing space, and has non-space content   -->
 					<xsl:when
-						test="position() = 1 and matches(., '\s$') and normalize-space() != ''">
+						test="position() = 1 and matches($text, '\s$') and normalize-space() != ''">
 						<xsl:text> </xsl:text>
 					</xsl:when>
 				</xsl:choose>
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
+	
 	<xsl:template match="tei:back" mode="exclude_back">
 		<!-- DO NOTHING -->
 	</xsl:template>
