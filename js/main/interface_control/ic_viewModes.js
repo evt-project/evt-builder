@@ -32,10 +32,6 @@
 
 /*= OPEN IMAGE/TEXT VIEW MODE =*/
 function openTxtImgMode() {
-	var translationOpts = $(".option[data-value='translation']");
-	if (translationOpts) {
-		translationOpts.hide();
-	}
 	$('#main_left_frame').show();
 	var viscollBtn = document.getElementById("viscoll");
 	if (viscollBtn) {
