@@ -1,19 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-    xmlns:xs="http://www.w3.org/2001/XMLSchema"
-    exclude-result-prefixes="xs"
-    version="2.0">
-    
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
+    xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs" version="2.0">
+
     <xsl:template match="@*|node()|comment()" mode="viscoll6">
         <xsl:copy>
             <xsl:apply-templates select="@*|node()|comment()" mode="#current"/>
         </xsl:copy>
     </xsl:template>
-    
-    
+
+
     <xsl:template match="manuscript" mode="viscoll6">
         <manuscript idno="{@idno}" msname="{@msname}" msURL="{@msURL}">
-            
+
             <xsl:for-each select="quire">
                 <quire>
                     <xsl:attribute name="n">
@@ -37,7 +35,7 @@
                     <xsl:attribute name="positions">
                         <xsl:value-of select="$positions"/>
                     </xsl:attribute>
-                    
+
                     <xsl:for-each select=".//leaf">
                         <leaf>
                             <xsl:attribute name="n">
@@ -60,12 +58,12 @@
                             </xsl:attribute>
                         </leaf>
                     </xsl:for-each>
-                    
+
                 </quireCopy>
             </xsl:for-each>
         </manuscript>
     </xsl:template>
-    
+
     <xsl:template match="units" mode="viscoll6">
         <xsl:for-each select="unit">
             <unit>
@@ -79,15 +77,15 @@
             </unit>
         </xsl:for-each>
     </xsl:template>
-    
+
     <xsl:template match="inside" mode="viscoll6">
         <xsl:apply-templates mode="viscoll6"/>
     </xsl:template>
-    
+
     <xsl:template match="outside" mode="viscoll6">
         <xsl:apply-templates mode="viscoll6"/>
     </xsl:template>
-    
+
     <xsl:template match="//left" mode="viscoll6">
         <left>
             <xsl:if test="@mode">
@@ -100,13 +98,25 @@
                     <xsl:value-of select="@folNo"/>
                 </xsl:attribute>
             </xsl:if>
-            
-            <xsl:variable name="the_folNo">  
-                <xsl:value-of select="@folNo"/>  <!-- Prende il valore di folNo -->
+
+            <xsl:variable name="the_folNo">
+                <xsl:value-of select="@folNo"/>
+                <!-- Prende il valore di folNo -->
             </xsl:variable>
-            <xsl:if test="document(concat('../../../data/input_data/text/', 'CP_20-21-imageList.xml',/))//imageList/imageRV/image[@val = $the_folNo]">                           <!-- Prende image con attributo val uguale a the_folNo -->
+            <!-- Prende image con attributo val uguale a the_folNo -->
+            <xsl:variable name="viscoll_image_list_final_path">
+                <xsl:choose>
+                    <xsl:when test="contains($viscoll_image_list_path, 'http') or contains($viscoll_image_list_path, 'www.')">
+                        <xsl:value-of select="$viscoll_image_list_path"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="concat('../../../data/input_data/', $viscoll_image_list_path)"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:variable>
+            <xsl:if test="document(concat($viscoll_image_list_final_path,/))//imageList/imageRV/image[@val = $the_folNo]">
                 <xsl:attribute name="url">
-                    <xsl:value-of select="document(concat('../../../data/input_data/text/','CP_20-21-imageList.xml',/))//imageList/imageRV/image[@val = $the_folNo]/@url"/>
+                    <xsl:value-of select="document(concat($viscoll_image_list_final_path,/))//imageList/imageRV/image[@val = $the_folNo]/@url"/>
                 </xsl:attribute>
             </xsl:if>
             <xsl:if test="@mode='missing'">
@@ -117,7 +127,7 @@
             </xsl:attribute>
         </left>
     </xsl:template>
-    
+
     <xsl:template match="//right" mode="viscoll6">
         <right>
             <xsl:if test="@mode">
@@ -130,18 +140,26 @@
                     <xsl:value-of select="@folNo"/>
                 </xsl:attribute>
             </xsl:if>
-            
+
             <xsl:variable name="the_folNo">
                 <xsl:value-of select="@folNo"/>
             </xsl:variable>
-            
-            <xsl:if test="document(concat('../../../data/input_data/text/', 'CP_20-21-imageList.xml',/))//imageList/imageRV/image[@val=$the_folNo]"> <!-- Prende image con attributo val uguale a the_folNo -->
-                <xsl:attribute name="url">                  
-                    <xsl:value-of
-                        select="document(concat('../../../data/input_data/text/','CP_20-21-imageList.xml',/))//imageList/imageRV/image[@val=$the_folNo]/@url"/>
+            <xsl:variable name="viscoll_image_list_final_path">
+                <xsl:choose>
+                    <xsl:when test="contains($viscoll_image_list_path, 'http') or contains($viscoll_image_list_path, 'www.')">
+                        <xsl:value-of select="$viscoll_image_list_path"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="concat('../../../data/input_data/', $viscoll_image_list_path)"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:variable>
+            <xsl:if test="document(concat($viscoll_image_list_final_path,/))//imageList/imageRV/image[@val=$the_folNo]">                <!-- Prende image con attributo val uguale a the_folNo -->
+                <xsl:attribute name="url">
+                    <xsl:value-of select="document(concat($viscoll_image_list_final_path,/))//imageList/imageRV/image[@val=$the_folNo]/@url"/>
                 </xsl:attribute>
             </xsl:if>
-            
+
             <xsl:if test="@mode='missing'">
                 <xsl:attribute name="url">../../../input_data/images/images-viscoll/x.jpg</xsl:attribute>
             </xsl:if>
@@ -151,5 +169,5 @@
         </right>
     </xsl:template>
 
-   
+
 </xsl:stylesheet>

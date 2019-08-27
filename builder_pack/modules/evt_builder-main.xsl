@@ -177,7 +177,7 @@
 		<!-- GM -->
 		<xsl:if test="$viscoll_button and $viscoll_info">
 			<xsl:result-document method="xml" encoding="UTF-8" href="{$filePrefix}/data/output_data/listImage.xml" indent="yes">
-				<xsl:call-template name="prova"></xsl:call-template>
+				<xsl:apply-templates select="tei:TEI//tei:facsimile" mode="create_imageList"/>
 			</xsl:result-document>
 			
 			<xsl:result-document method="html" encoding="UTF-8" media-type="text/plain" byte-order-mark="yes" href="{$filePrefix}/data/output_data/viscoll/viscoll-idno.html" indent="yes">
@@ -790,15 +790,24 @@
 
 	<!--END CHRONOLOGICAL INDEX -->
 
-	<xsl:template name="prova">
+	<xsl:template name="imageListCreation">
 		<xsl:apply-templates select="tei:TEI//tei:facsimile" mode="create_imageList"></xsl:apply-templates>	
 	</xsl:template>
 	
 	<!-- GM -->
 	<xsl:template name="idno_process">
-		<xsl:variable name="path" select="doc('../../data/input_data/text/CP.xml')"/>
+		<xsl:variable name="viscoll_final_path">
+            <xsl:choose>
+                <xsl:when test="contains($viscoll_scheme_path, 'http') or contains($viscoll_scheme_path, 'www')">
+                    <xsl:value-of select="$viscoll_scheme_path"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select="concat('../../data/input_data/', $viscoll_scheme_path)"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+		<xsl:variable name="path" select="doc($viscoll_final_path)"/>
 			<xsl:apply-templates select="$path" mode="find_idno"></xsl:apply-templates>
-			
 	</xsl:template>
 	
 	<xsl:template match="text()" mode="deleteSpaces">
