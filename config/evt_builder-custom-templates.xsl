@@ -16,7 +16,4 @@
             </xd:short>
         </xd:doc>
     <!-- In order to make it work properly you need to add mode="interp dipl #default" to each template -->
-    <xsl:template match="tei:del" priority="9" mode="interp dipl #default">
-        <span>[INIZIO TESTO CANCELLATO]<xsl:apply-templates mode="#current"/>[FINE TESTO CANCELLATO]</span>
-    </xsl:template>
 </xsl:stylesheet>
