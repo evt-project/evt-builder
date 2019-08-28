@@ -47,18 +47,9 @@
 				<xsl:when test="@n > 9">
 					<xsl:choose>
 						<xsl:when test="@n != preceding::tei:l[1]/@n"> <!-- se è il primo pezzo di l -->
-							<xsl:choose>
-								<xsl:when test="@n != following::tei:l[1]/@n"> <!-- se è l'ultimo pezzo di l -->
-									<xsl:if test="$prose_verses_toggler=true()">
-										<span class="spazio"></span><sup class="cerchio"><xsl:value-of select="@n"/></sup><xsl:text> </xsl:text>
-									</xsl:if>
-								</xsl:when>
-								<xsl:otherwise>
-									<xsl:if test="$prose_verses_toggler=true()">
-										<span class="spazio"></span><sup class="cerchio"><xsl:value-of select="@n"/></sup><xsl:text> </xsl:text>
-									</xsl:if>
-								</xsl:otherwise>
-							</xsl:choose>               
+							<xsl:if test="$prose_verses_toggler=true()">
+								<span class="spazio"></span><sup class="cerchio"><xsl:value-of select="@n"/></sup><xsl:text> </xsl:text>
+							</xsl:if>
 						</xsl:when>
 						<xsl:otherwise>
 						</xsl:otherwise>
@@ -72,18 +63,9 @@
 							</xsl:if>
 						</xsl:when>
 						<xsl:when test="@n != preceding::tei:l[1]/@n"> <!-- se è il primo pezzo di l -->
-							<xsl:choose>
-								<xsl:when test="@n != following::tei:l[1]/@n"> <!-- se è l'ultimo pezzo di l -->
-									<xsl:if test="$prose_verses_toggler=true()">
-										<span class="spazio"></span><sup class="cerchio"><xsl:text>0</xsl:text><xsl:value-of select="@n"/></sup><xsl:text> </xsl:text>
-									</xsl:if>
-								</xsl:when>
-								<xsl:otherwise>
-									<xsl:if test="$prose_verses_toggler=true()">
-										<span class="spazio"></span><sup class="cerchio"><xsl:text>0</xsl:text><xsl:value-of select="@n"/></sup><xsl:text> </xsl:text>
-									</xsl:if>
-								</xsl:otherwise>
-							</xsl:choose>               
+							<xsl:if test="$prose_verses_toggler=true()">
+								<span class="spazio"></span><sup class="cerchio"><xsl:text>0</xsl:text><xsl:value-of select="@n"/></sup><xsl:text> </xsl:text>
+							</xsl:if>
 						</xsl:when>
 						<xsl:otherwise>
 						</xsl:otherwise>
@@ -211,8 +193,7 @@
 						</xsl:element>
 						<xsl:if test="@n">
 							<xsl:element name="span">
-								<xsl:attribute name="class" select="$ed_name1, 'lineN'"
-									separator="-"/>
+								<xsl:attribute name="class" select="$ed_name1, 'lineN'" separator="-"/>
 								<xsl:value-of
 									select="
 										if (string-length(@n) &gt; 1) then
