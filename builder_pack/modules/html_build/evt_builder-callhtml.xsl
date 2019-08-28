@@ -564,6 +564,7 @@
 															<xsl:attribute name="class" select="'imageTopTool mainButtons viscoll_link'"/>
 															<xsl:attribute name="id" select="'viscoll'"/>
 															<xsl:attribute name="title" select="'VISCOLL'"/>
+															<xsl:attribute name="lang" select="'def'"/>
 															<span lang="def">VISCOLL</span>
 															<i class="fa evt-viscoll"></i>
 														</xsl:element>
