@@ -395,8 +395,7 @@
 									/>
 								</xsl:if>
 								<xsl:element name="span">
-									<xsl:attribute name="class" select="$ed_name2, 'orig'"
-										separator="'-'"/>
+									<xsl:attribute name="class" select="$ed_name2, 'orig'" separator="-"/>
 									<xsl:apply-templates
 										select="
 											orig/ancestor::node()[parent::node()[name() = $start_split]]/preceding-sibling::node()[not(self::lb)][position() lt 2]//tei:choice[@id = $choiceId]//tei:orig/node(),
@@ -427,8 +426,7 @@
 									/>
 								</xsl:if>
 								<xsl:element name="span">
-									<xsl:attribute name="class" select="$ed_name2, 'orig'"
-										separator="'-'"/>
+									<xsl:attribute name="class" select="$ed_name2, 'orig'" separator="-"/>
 									<xsl:apply-templates
 										select="
 											tei:seg[@type = 'original']/ancestor::node()[parent::node()[name() = $start_split]]/preceding-sibling::node()[not(self::lb)][position() lt 2]//tei:choice[@id = $choiceId]//tei:seg[@type = 'original']/node(),
