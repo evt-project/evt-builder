@@ -282,6 +282,7 @@
 							</xsl:when>
 						</xsl:choose>
 					</xsl:element>
+					<xsl:sequence select="' '" />
 					<xsl:choose>
 						<xsl:when test="tei:orig">
 							<xsl:apply-templates select="tei:orig" mode="#current"/>
@@ -380,7 +381,7 @@
 								<xsl:element name="span">
 									<xsl:attribute name="class" select="$ed_name1, '-choice_popup'" separator=""/>
 									<xsl:apply-templates select="tei:seg[@type='alter']" mode="#current"/>
-									<!-- <xsl:sequence select="' '"/> -->
+									<xsl:sequence select="' '" />
 									<xsl:apply-templates select="tei:seg[@type='original']" mode="#current"/>
 								</xsl:element>
 							</xsl:when>
@@ -848,12 +849,4 @@
 			<xsl:apply-templates mode="#current"/>
 		</xsl:element>
 	</xsl:template>
-
-	<!-- if the last character is a space and the last 2 characters are not both spaces, if true, it inserts a space. -->
-	<!-- <xsl:template match="text()" mode="dipl">
-		<xsl:value-of select="normalize-space(.)"/>
-		<xsl:if test="substring(., string-length(.)) = ' ' and substring(., string-length(.) - 1, string-length(.)) != '  '">
-			<xsl:text> </xsl:text>
-		</xsl:if>
-	</xsl:template> -->
 </xsl:stylesheet>
