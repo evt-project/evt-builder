@@ -302,7 +302,7 @@ div.dipl-zone, div.interp-zone{
 	display: block;
 }
 .dipl-p[data-part], .interp-p[data-part] { 
-  #display: inline; 
+  /* display: inline;  */
 } 
 
 div.dipl-center, span.dipl-center, 
@@ -349,7 +349,9 @@ span.interp-choice_popup, span.interp-choice_popup_corr{
     display: inline-table;
     /*white-space: nowrap;*/
 }
-
+span.interp-choice_popup:empty {
+    display: none;
+}
 span.interp-choice_popup span.interp-orig:before, 
 span.interp-choice_popup span.interp-abbr:before {
 	content: url("../images/popup_before.png");
