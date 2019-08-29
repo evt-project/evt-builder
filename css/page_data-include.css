@@ -207,6 +207,9 @@ span.dipl-choice_popup {
 	display: inline-table; 
 	/*white-space: nowrap;*/ 
 }
+span.dipl-choice_popup:empty {
+    display: none;
+}
 span.dipl-choice_popup > span.dipl-reg:before, 
 span.dipl-choice_popup > span.dipl-expan:before  { 
 	content: url("../images/popup_before.png");
