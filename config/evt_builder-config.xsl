@@ -265,9 +265,6 @@
 	<!-- default: false() -->
 	<xsl:param name="viscoll_button" select="false()"/>
 	
-	<!-- GM -->
-	<xsl:param name="viscoll_info" select="'CP'" />
-	
 	<!-- EN: Path to xml file containing viscoll scheme. 
 		If you need to use an online resource, puth the entire path (e.g: http://www.mysite.com/viscollScheme.xml).
 		Otherwise put the file in data/input_data/text folder and just put here the relative path starting from that folder. -->
