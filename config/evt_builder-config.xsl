@@ -75,7 +75,7 @@
 	<!-- ex: alpha, beta, stable etc -->
 	<xsl:param name="badge_text" select="'DIGITAL'"/>
 
-	<!-- EN: On/Off doubleview -->
+	<!-- EN: On/Off double page view -->
 	<!-- IT: Attiva/Disattiva vista doppia pagina -->
 	<!-- default: true() -->
 	<xsl:param name="double_view" select="true()"/>
@@ -87,12 +87,12 @@
 	<!-- EN: On/Off regesto -->
 	<!-- IT: Attiva/Disattiva regesto -->
 	<!-- default: false() -->
-	<xsl:param name="regesto" select="true()"/>
+	<xsl:param name="regesto" select="false()"/>
 
-	<!-- EN: On/Off Front Information -->
-	<!-- IT: Attiva/Disattiva Front Information -->
+	<!-- EN: On/Off <front> Information -->
+	<!-- IT: Attiva/Disattiva <front> Information -->
 	<!-- default: true() -->
-	<xsl:param name="frontInfo" select="false()"/>
+	<xsl:param name="frontInfo" select="true()"/>
 
 	<!-- EN: On/Off Manuscript Description -->
 	<!-- IT: Attiva/Disattiva Descrizione del manoscritto-->
@@ -121,22 +121,22 @@
 	<!-- IT: E' possibile rimuovere la produzione di pagine di una determinata edizione semplicemente rimuovendo la parte testuale dell'item corrispondente. -->
 	<xsl:variable name="edition_array" as="element()*">
 		<edition>Diplomatic</edition>
-		<!-- EN: If you have diplomatic edition put <edition>Diplomatic</edition>.
-			 	 If you DON'T have diplomatic edition put <edition></edition> -->
+		<!-- EN: If you have a diplomatic edition put <edition>Diplomatic</edition>.
+			 	 If you DON'T have a diplomatic edition put <edition></edition> -->
 		<!-- IT: Se si ha l'edizione diplomatica scrivere <edition>Diplomatic</edition>.
 			 	 Se NON si ha l'edizione diplomatica mettere <edition></edition> -->
 
 		<!-- EN: For processing in the modules: $edition_array[1] --> <!-- IT: Per l'elaborazione nei moduli: $edition_array[1] -->
 
 		<edition>Interpretative</edition>
-		<!-- EN: If you have interpretative edition put <edition>Interpretative</edition>.
-			 	 If you don't have interpretative edition put <edition></edition> -->
+		<!-- EN: If you have an interpretative edition put <edition>Interpretative</edition>.
+			 	 If you don't have an interpretative edition put <edition></edition> -->
 		<!-- IT: Se si ha l'edizione interpretativa scrivere <edition>Interpretative</edition>.
 			 	 Se NON si ha l'edizione interpretativa mettere <edition></edition> -->
 
 		<edition>Translation</edition>
-		<!-- EN: If you have translation put <edition>Translation</edition>.
-			 	 If you don't have translation put <edition></edition> -->
+		<!-- EN: If you have a translation put <edition>Translation</edition>.
+			 	 If you don't have a translation put <edition></edition> -->
 		<!-- IT: Se si ha la versione tradotta del testo scrivere <edition>Translation</edition>.
 			 	 Se NON si ha la versione tradotta mettere <edition></edition> -->
 
@@ -266,20 +266,21 @@
 	<xsl:param name="viscoll_button" select="false()"/>
 	
 	<!-- EN: Path to xml file containing viscoll scheme. 
-		If you need to use an online resource, puth the entire path (e.g: http://www.mysite.com/viscollScheme.xml).
+		If you need to use an online resource, put the complete URL (e.g: http://www.mysite.com/viscollScheme.xml).
 		Otherwise put the file in data/input_data/text folder and just put here the relative path starting from that folder. -->
 	<!-- IT: Percorso al file xml contenente lo schema viscoll.
 		Se si usa una risorsa online, inserire il percorso completo (ex. http://www.ilmiosito.it/schemaViscoll.xml).
-		Altrimenti copiare il file nella cartella data/input_data/text e inserire qui solo percorso relativo a partire dal quella cartella. -->
-	<xsl:param name="viscoll_scheme_path">text/viscoll/CP_viscollScheme.xml</xsl:param>
+		Altrimenti copiare il file nella cartella data/input_data/text e inserire qui solo percorso relativo a partire da quella cartella. -->
+	<xsl:param name="viscoll_scheme_path">text/viscoll/CP_scheme.xml</xsl:param>
 	
 	<!-- EN: Path to xml file containing viscoll images list. 
-		If you need to use an online resource, puth the entire path (e.g: http://www.mysite.com/viscollScheme.xml).
+		If you need to use an online resource, puth the entire path (e.g: http://www.mysite.com/viscollImagelist.xml).
 		Otherwise put the file in data/input_data/text folder and just put here the relative path starting from that folder. -->
 	<!-- IT: Percorso al file xml contenente la lista delle immagini necessaria al corretto funzionamento di viscoll.
-		Se si usa una risorsa online, inserire il percorso completo (ex. http://www.ilmiosito.it/schemaViscoll.xml).
-		Altrimenti copiare il file nella cartella data/input_data/text e inserire qui solo percorso relativo a partire dal quella cartella. -->
+		Se si usa una risorsa online, inserire il percorso completo (ex. http://www.ilmiosito.it/viscollImagelist.xml).
+		Altrimenti copiare il file nella cartella data/input_data/text e inserire qui solo percorso relativo a partire da quella cartella. -->
 	<xsl:param name="viscoll_image_list_path">text/viscoll/CP_20-21-imageList.xml</xsl:param>
+
 	<!-- EN: Show/Hide Edition level selector in interface -->
 	<!-- IT: Mostra/Nascondi selettore Livello/i Edizione nell'interfaccia web -->
 	<!-- default: true() -->
@@ -313,7 +314,7 @@
 	<!-- EN: On/Off Bottom Navbar -->
 	<!-- IT: Attiva/Disattiva Barra di navigazione in fondo alla pagina -->
 	<!-- default: true() -->
-	<xsl:param name="bottom_navbar" select="false()"/>
+	<xsl:param name="bottom_navbar" select="true()"/>
 	<!-- EN: Initial status of Bottom Navbar (only works if $bottom_navbar=true()) -->
 	<!-- IT: Stato iniziale della barra di navigazione (considerato solo se $bottom_navbar=true())-->
 	<!-- possible values: 'collapsed' | 'expanded' -->
