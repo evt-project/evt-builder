@@ -59,6 +59,9 @@
             <key id='lower-c-dot'>&#267;</key>
             <key id='capital-g-dot'>&#288;</key>
             <key id='lower-g-dot'>&#289;</key>
+            <key id='capital-insular-s'>&#42884;</key>
+            <key id='lower-insular-s'>&#42885;</key>
+            <key id='lower-long-s'>&#383;</key>
         </key-group>
         <key-group name='manuscript-conventions'>
             <key id='amperagus-tironian-et'>&#8266;</key>
