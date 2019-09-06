@@ -404,6 +404,7 @@ function showItemInList(id_ref, listName) {
 			$('.list_element_opened').removeClass('list_element_opened');
 
 			$('.list_opened').hide();
+			$('.list_opened').removeClass('list_opened');
 			$('.labelList.active').removeClass('active');
 			$("#header_" + listName).addClass('active');
 			$('#' + list_id).addClass('list_opened').show();
