@@ -3781,7 +3781,7 @@ span.stage2 {
 
 .speech {
     margin-top: 10px;
-    display: inline-block;
+    display: block;
 }
 
 span.mixed,
