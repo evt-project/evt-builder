@@ -107,6 +107,14 @@
 		<xsl:copy-of select="."/>
 	</xsl:template>	
 	
+	<!-- Head -->
+	<xsl:template match="tei:head" mode="trad">
+		<xsl:element name="div">
+			<xsl:attribute name="class" select="$ed_name3, 'head'" separator="-" />
+			<xsl:attribute name="data-rend" select="@rend" />
+			<xsl:apply-templates mode="#current" />
+		</xsl:element>
+	</xsl:template>	
 	<!-- For Embedded  Transcription no usefull -->
 		
 	<!-- REF References to additional text -->
