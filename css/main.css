@@ -1048,6 +1048,8 @@ footer {
     overflow-x: hidden;
     position: absolute;
     top: 0px;
+    background: black;
+    z-index: 99999;
 }
 
 #thumb_cont figure {
