@@ -223,7 +223,7 @@
 
 	<!-- Line break -->
 	<!-- IT: Ignora i lb che hanno xml:id che termina con 'o' e riporta quelli che hanno xml:id che termina con 'r' eliminando quest'ultimo carattere -->
-	<xsl:template match="tei:lb[@*]" mode="interp">
+	<xsl:template match="tei:lb[@* and not(@rend='empty')]" mode="interp">
 		<xsl:choose>
 			<xsl:when test="@xml:id">
 				<xsl:choose>
@@ -268,8 +268,8 @@
 		</xsl:choose>
 	</xsl:template>
 	
-	<xsl:template match="tei:lb[not(@*)]" mode="interp">
-		<xsl:element name="span"><xsl:attribute name="class" select="'lb'"/></xsl:element>
+	<xsl:template match="tei:lb[not(@*) or @rend='empty']" mode="interp">
+		<xsl:element name="span"><xsl:attribute name="class" select="'br'"/></xsl:element>
 	</xsl:template>
 	
 	<!-- Page break -->
