@@ -262,7 +262,7 @@ function gotopage(pp_val, pp_lab, state) {
 			InitializePopup();
 			InitializeRefs();
 			InitializeSearch();
-
+			transformBrs();
 			// Riattiva prosa/versi
 			var proseVersesToggler = $("#toggleVersesProseBtn");
 			if (proseVersesToggler) {
@@ -355,7 +355,7 @@ function gotopage(pp_val, pp_lab, state) {
 			InitializePopup();
 			InitializeRefs();
 			InitializeSearch();
-
+			transformBrs();
 			// Riattiva prosa/versi
 			var proseVersesToggler = $("#toggleVersesProseBtn-add");
 			if (proseVersesToggler) {
@@ -516,7 +516,7 @@ function gotoedition(pp_val, ee_val, pp_el, frame_id) {
 			InitializePopup();
 			InitializeRefs();
 			InitializeSearch();
-
+			transformBrs();
 			// Riattiva prosa/versi
 			var frame = $("#" + pp_el).parents("div[id*='frame']");
 			var proseVersesToggler = frame.find("[id*='toggleVersesProseBtn']");
@@ -582,7 +582,7 @@ function gotoedition(pp_val, ee_val, pp_el, frame_id) {
 	pp_el_upp = pp_el_upp.toLowerCase().replace(/\b[a-z]/g, function(letter) {
 		return letter.toUpperCase();
 	});
-
+	
 	// IT: Gestisce la scrittura nell'etichetta destra o sinistra a seconda del frame caricato
 	/*if (frame_id.indexOf("-add")>-1) {
 	    $('#zvalopz').text(pp_el_upp);

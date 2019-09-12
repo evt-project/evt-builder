@@ -490,7 +490,8 @@ function openTxtTxtMode() {
 	InitializePopup();
 	InitializeRefs();
 	InitializeSearch();
-
+	transformBrs();
+	
 	$('#header_collapse').animate({
 		left: "50%",
 		marginLeft: "-10px"

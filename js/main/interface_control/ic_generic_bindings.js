@@ -711,3 +711,12 @@ function InitializePopup() {
 
 	InitializeLinkTextList();
 }
+
+// Transform element with class 'br' in actual '<br />'
+// Needed because xslt always create two <br>s element when generating with <xsl:element>
+function transformBrs() {
+	var brs = document.getElementsByClassName('br');
+	for (var i = 0; i < brs.length; i++) {
+		brs[i].append(document.createElement('br'));
+	}
+}
