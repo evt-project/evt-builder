@@ -269,7 +269,10 @@
 	</xsl:template>
 	
 	<xsl:template match="tei:lb[not(@*) or @rend='empty']" mode="interp">
-		<xsl:element name="span"><xsl:attribute name="class" select="'br'"/></xsl:element>
+		<xsl:element name="span">
+			<xsl:attribute name="class" select="'lb'"/>
+			<xsl:attribute name="data-type" select="'empty'"/>
+		</xsl:element>
 	</xsl:template>
 	
 	<!-- Page break -->
