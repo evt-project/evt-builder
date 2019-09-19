@@ -715,8 +715,10 @@ function InitializePopup() {
 // Transform element with class 'br' in actual '<br />'
 // Needed because xslt always create two <br>s element when generating with <xsl:element>
 function transformBrs() {
-	var brs = document.getElementsByClassName('br');
-	for (var i = 0; i < brs.length; i++) {
-		brs[i].append(document.createElement('br'));
+	var brs = document.getElementsByClassName('lb');
+	for (var i = brs.length - 1; i >= 0 ; i--) {
+		if (brs[i].getAttribute('data-type') === 'empty') {
+			brs[i].innerHTML = '<br />';
+		}
 	}
 }

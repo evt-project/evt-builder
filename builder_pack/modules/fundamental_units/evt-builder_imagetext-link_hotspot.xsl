@@ -37,11 +37,10 @@
 	<xsl:variable name="ScaledImageFileName">VB-104V.jpg</xsl:variable>
 	<xsl:variable name="ZoomImageFileName">VB-104V-B.jpg</xsl:variable>
 	-->
-
+	
 	<xsl:template match="/" mode="ITL">
 		<xsl:variable name="n" select="replace(tei:pb/@xml:id, '-front', '')"/>
 
-		
 		<!-- EN: The menu of categories and annotations. -->
 		<!-- IT: Il menu di categorie e associazioni. -->
 		<xsl:element name="div">
@@ -57,26 +56,41 @@
 					</xsl:element>-->
 				<xsl:element name="div">
 					<xsl:attribute name="class">AnnSubmenu</xsl:attribute>
-					<xsl:for-each-group select="node()" group-starting-with="//tei:lb[@*]">
-						<xsl:if test="current-group()[not((string-length(normalize-space()))= 0)]"><!--IT: non considera le righe vuote-->
-							<xsl:choose>
-								<xsl:when test="if(@facs) then(translate(@facs, '#', '')=$root//tei:surface[translate(@corresp, '#', '')=$n]//tei:zone[@rendition='Line']/@xml:id) else(translate(@corresp, '#', '')=$root//tei:surface[translate(@corresp, '#', '')=$n]//tei:zone/@xml:id)">
-									<xsl:variable name="CurrAnnId" select="if(@facs) then(translate(@facs, '#', '')) else(translate(@corresp, '#', ''))"/>
-									<xsl:element name="div">
-										<xsl:attribute name="style">list-style:none;</xsl:attribute>
-										<xsl:attribute name="class">AnnMenuItem</xsl:attribute>
-										<xsl:attribute name="id">MenuItem_<xsl:value-of select="$CurrAnnId"/></xsl:attribute>
-										<xsl:attribute name="onclick">JumpTo('<xsl:value-of select="$CurrAnnId"/>')</xsl:attribute>
-										<xsl:attribute name="onmouseover">Highlight('<xsl:value-of select="$CurrAnnId"/>')</xsl:attribute>
-										<xsl:attribute name="onmouseout">UnHighlight()</xsl:attribute>
-										<xsl:copy-of select="current-group()[not(self::tei:lb|self::tei:pb)]"/>
-									</xsl:element>
-								</xsl:when>
-								<xsl:otherwise>
-									<xsl:copy-of select="current-group()[not(self::tei:lb|self::tei:pb)]"/>
-								</xsl:otherwise>
-							</xsl:choose>
-						</xsl:if>
+					<xsl:for-each-group select="node()" group-starting-with="//tei:lb">
+						<xsl:choose>
+							<xsl:when test="current-group()[not((string-length(normalize-space()))= 0)]"><!--IT: non considera le righe vuote-->
+								<xsl:choose>
+									<xsl:when test="if(@facs) then(translate(@facs, '#', '')=$root//tei:surface[translate(@corresp, '#', '')=$n]//tei:zone[@rendition='Line']/@xml:id) else(translate(@corresp, '#', '')=$root//tei:surface[translate(@corresp, '#', '')=$n]//tei:zone/@xml:id)">
+										<xsl:variable name="CurrAnnId" select="if(@facs) then(translate(@facs, '#', '')) else(translate(@corresp, '#', ''))"/>
+										<xsl:element name="div">
+											<xsl:attribute name="style">list-style:none;</xsl:attribute>
+											<xsl:attribute name="class">AnnMenuItem</xsl:attribute>
+											<xsl:attribute name="id">MenuItem_<xsl:value-of select="$CurrAnnId"/></xsl:attribute>
+											<xsl:attribute name="onclick">JumpTo('<xsl:value-of select="$CurrAnnId"/>')</xsl:attribute>
+											<xsl:attribute name="onmouseover">Highlight('<xsl:value-of select="$CurrAnnId"/>')</xsl:attribute>
+											<xsl:attribute name="onmouseout">UnHighlight()</xsl:attribute>
+											<xsl:copy-of select="current-group()[not(self::tei:lb|self::tei:pb)]"/>
+										</xsl:element>
+									</xsl:when>
+									<xsl:otherwise>
+										<xsl:choose>
+											<xsl:when test="self::tei:lb and (not(@*) or @rend='empty')">
+												<xsl:element name="span">
+													<xsl:attribute name="class" select="'lb'"/>
+													<xsl:attribute name="data-type" select="'empty'"/>
+												</xsl:element>
+											</xsl:when>
+											<xsl:otherwise>										
+												<xsl:copy-of select="current-group()[not(self::tei:pb)]"/>
+											</xsl:otherwise>
+										</xsl:choose>
+									</xsl:otherwise>
+								</xsl:choose>
+							</xsl:when>
+							<xsl:otherwise>
+								<xsl:copy-of select="current-group()[not(self::tei:pb|self::tei:lb[not(@rend='empty' or @*)])]"/>
+							</xsl:otherwise>
+						</xsl:choose>
 					</xsl:for-each-group>
 				</xsl:element>
 			</xsl:element>

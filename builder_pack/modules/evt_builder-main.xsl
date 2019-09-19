@@ -359,7 +359,7 @@
 				</xsl:when>
 				<!-- IT: Se c'è il surface viene creato un albero temporaneo che corrisponde al gruppo corrente trasformato in base al livello di edizione;
 										 a questo viene applicato il template per il collegamento testo-immagine-->
-				<xsl:when test="$root//tei:facsimile/tei:surface[translate(@corresp, '#', '')=replace($pb_n, '-front', '')]//tei:zone[@rendition='Line'] | $root//tei:facsimile/tei:surface[translate(@corresp, '#', '')=replace($pb_n, '-front', '')]//tei:zone[@rendition='HotSpot']">
+				<xsl:when test="$txtimg_link_button = true() and $root//tei:facsimile/tei:surface[translate(@corresp, '#', '')=replace($pb_n, '-front', '')]//tei:zone[@rendition='Line'] | $root//tei:facsimile/tei:surface[translate(@corresp, '#', '')=replace($pb_n, '-front', '')]//tei:zone[@rendition='HotSpot']">
 					<!--<xsl:copy-of select="current-group()"/>--> <!-- <-use this to find split errors -->
 					<xsl:variable name="text"><xsl:apply-templates select="current-group()" mode="interp"/></xsl:variable>
 					<xsl:variable name="text2">
@@ -933,6 +933,7 @@
 		<!-- DO NOTHING -->
 	</xsl:template>
 	
+	<!-- SEARCH -->
 	<xsl:template name="search_file">
 		<xsl:if test="$edition_array[1]!=''">
 			<xsl:variable name="edition_current" select="lower-case($edition_array[1])" />

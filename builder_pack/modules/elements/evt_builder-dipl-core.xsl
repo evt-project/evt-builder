@@ -202,7 +202,10 @@
 	</xsl:template>
 	
 	<xsl:template match="tei:lb[not(@*) or @rend='empty']" mode="dipl">
-		<xsl:element name="span"><xsl:attribute name="class" select="'br'"/></xsl:element>
+		<xsl:element name="span">
+			<xsl:attribute name="class" select="'lb'"/>
+			<xsl:attribute name="data-type" select="'empty'"/>
+		</xsl:element>
 	</xsl:template>
 	
 	<!-- Page break -->
@@ -757,6 +760,7 @@
     <xsl:template match="tei:head" mode="dipl">
 		<xsl:element name="h1">
 			<xsl:attribute name="class" select="'center'"/>
+			<xsl:attribute name="data-rend" select="@rend"/>
 			<xsl:apply-templates mode="#current"> </xsl:apply-templates>
 		</xsl:element>				
     </xsl:template>
