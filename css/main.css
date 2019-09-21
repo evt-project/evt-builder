@@ -3673,7 +3673,7 @@ ul.ul_list li.list_element_opened {
     width: 100%;
     margin-bottom: 0;
     height: 15px;
-    display: block;
+    display: inline-block;
     margin-top: 20px;
     font-weight: bold;
     font-style: normal;
