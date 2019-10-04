@@ -143,7 +143,7 @@ function expandMenu(frame, height) {
 
 /*= BIND SETTINGS BUTTON CLICK EVENT =*/
 function bindSettingsBtnClick() {
-	$('#settings_link').click(function() {
+	$('#settings_link').unbind("click").click(function() {
 		$(this).toggleClass('active');
 		var settingsCont = $('#settings_cont');
         if (settingsCont.is(':visible')) {
@@ -164,7 +164,7 @@ function initializeLang() {
 		spanEEselectAdd = $('#span_ee_select-add'),
 		spanDDselect = $('#span_dd_select'),
 		spanLISTselect = $('#span_list_select');
-	$('.flag').click(function() {
+	$('.flag').unbind("click").click(function() {
 		if (!$(this).hasClass('active')) {
 			var lang = $(this).attr('data-value');
 			$('.flag.active').removeClass('active');
@@ -237,7 +237,7 @@ function translateEEselectedLabel() {
 function bindShortcutsBtnClick() {
 	var keyboardShortcutsCont = $('#keyboard_shortcuts_cont'),
         keyboardShortcuts = $('#keyboard_shortcuts_link');
-        keyboardShortcuts.click(function() {
+        keyboardShortcuts.unbind("click").click(function() {
         $(this).toggleClass('active');
 		if (keyboardShortcutsCont.is(':visible')) {
 			keyboardShortcutsCont.hide('fade', 0);
@@ -247,7 +247,7 @@ function bindShortcutsBtnClick() {
 		$('#settings_link.active').trigger('click');
 	});
 
-	keyboardShortcutsCont.click(function(event) {
+	keyboardShortcutsCont.unbind("click").click(function(event) {
 		if ($(event.target).parents('#close_keyboard_shortcuts_cont').length > 0) {
 			keyboardShortcuts.trigger('click');
 		} else {
