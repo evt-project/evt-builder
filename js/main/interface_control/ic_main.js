@@ -112,7 +112,6 @@ $(function() {
 
 	$(document).ready(function() {
 		concludeUIinit().then(function() {
-			console.log('concludeUIinit then');
 			hideGlobalLoading('ui_init_msg');
 		});
 
