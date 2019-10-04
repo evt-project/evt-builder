@@ -1,73 +1,60 @@
+function loadViscollContent() {
+	var id_idno = $('.viscoll_idno').attr('id');
+	if (id_idno !== undefined && ($('#viscoll_cont').attr('data-idno') !== id_idno || $('#viscoll_cont').children().length === 0)) {
+		$('#viscoll_cont').load("data/output_data/viscoll/" + id_idno + "/" + id_idno + ".html #quires_cont", function () {
+			window.lang.run();
+			$('#viscoll_cont').attr('data-idno', id_idno);
+			$('.quireset').each(function() {
+				if ($(this).find('.fancybox img').length === 0) {
+					$(this).append('<div class="quires_empty_images" lang="' + window.lang.currentLang + '">' + window.lang.convert('NO_INFO', window.lang.currentLang) + '</div>');
+				}
+			});
+			$('.fancybox').each(function() {
+				if ($(this).find('img').length === 1) {
+					$(this).siblings('.quireUnitInfo').find('.spacer, .num-right').remove();
+				}
+			});
+			var imageExt = $('#global_wrapper').attr('data-image-extension') || 'jpg';
+			$('.fancybox img').click(function(element) {
+				var dataPage = $(this).attr('data-page');
+				if (dataPage) {
+					var fileName = dataPage.split("/").pop();
+					var pageId = fileName.replace('.' + imageExt, '');
+					var pageEl = $('.main_pp_select .option[data-value="'+pageId+'"]');
+					if (pageEl) {
+						var docId = pageEl.attr('data-first-doc');
+						updateHash(docId, pageId, '');
+					}
+				}
+			});
+			$(".quires_toggler").click(function () {
+				if ($(this).attr('data-status') === 'expanded') {
+					$(this).text(window.lang.convert('SHOW_ALL_QUIRES', window.lang.currentLang));
+					$(".quireset").hide(400);
+					$(this).attr('data-status', 'collapsed');
+				} else {
+					$(this).text(window.lang.convert('HIDE_ALL_QUIRES', window.lang.currentLang));
+					$(".quireset").show(400);	
+					$(this).attr('data-status', 'expanded');
+				}
+			});
+		});
+	}
+}
 function bindViscollClick(array) {
 	//alert(array);
-	$('#viscoll').unbind('click').click(
-		function() {
-			// Se thumbnails ha class active gliela tolgo e la nascondo (passaggio thumbnails - viscoll)
-			var thumbsBtn = $("#thumb_elem");
-			var thumbsOpened = false;
-			if (thumbsBtn) {
-				thumbsOpened = thumbsBtn.hasClass('active');
-				if (thumbsOpened) {
-					thumbsBtn.removeClass('active');
-					document.getElementById("thumb_cont").style.display = 'none';
-				}
+	loadViscollContent();
+	$('#viscoll').unbind('click').click(function () {
+		if (!$(this).hasClass('disabled')) {
+			if ($(this).hasClass('active')) { // HIDE
+				closeSecondaryImageContentOpened('viscollClick', true);
+				$(this).removeClass('active');
+			} else { // SHOW
+				loadViscollContent();
+				openSecondaryImageContent('viscoll_cont', '#viscoll');
 			}
-
-			// Se viscoll ha class active (è già stato cliccato) gliela tolgo e mostro gli altri elementi
-			if ($('#viscoll').hasClass('active')) {
-				$('#viscoll').removeClass('active');
-				$('iframe').remove();
-				$("#image_elem").show();
-				$("#image_fade").show();
-				$("#image_tool").show();
-				$('#BRpager').slider("option", "disabled", false);
-				$('#BRicon_book_left').prop("disabled", false);
-				$('#BRicon_book_right').prop("disabled", false);
-				$('.main_tt_select div.option_container div.option').removeClass('ui-state-disabled');
-				bindTTselectClick();
-				$('.main_pp_select div.option_container div.optionGroup div.option').removeClass('ui-state-disabled');
-				bindPPselectClick();
-				$('#span_dd_select.like_select div.main_dd_select div.option_container div.option').removeClass('ui-state-disabled');
-				bindDDselectClick();
-			} else {
-				//$("#image_tool").hide(); /* A volte lo nasconde e a volte no, perchè? => è jQuery che a volte si incarta */
-				document.getElementById("image_tool").style.display = "none";
-				var img = $('#iviewerImage');
-				var loaded_img = isImgOk(img); // Se l'immagine è stata caricata
-				if (loaded_img === true || thumbsOpened === true) {
-					// Altrimenti gli aggiungo la class active e nascondo gli altri elementi
-					var viscoll = $('#viscoll').addClass('active');
-					$("#image_elem").hide();
-					$("#image_fade").hide();
-					//Nascondo #image_tool sopra (spostato)
-					$('#BRpager').slider("option", "disabled", true);
-					$('#BRicon_book_left').prop("disabled", true);
-					$('#BRicon_book_right').prop("disabled", true);
-					$('.main_tt_select div.option_container div.option').addClass('ui-state-disabled').unbind('click');
-					$('.main_pp_select div.option_container div.optionGroup div.option').addClass('ui-state-disabled').unbind('click');
-					$('#span_dd_select.like_select div.main_dd_select div.option_container div.option').addClass('ui-state-disabled').unbind('click');
-
-					var id_idno = $('.viscoll_idno').attr('id');
-					//$('#image_cont').load("data/output_data/viscoll/"+id_idno+"/"+id_idno+".html");
-					$('<iframe></iframe>').appendTo('#image_cont');
-					$("iframe").attr({
-						"id": "viscoll_iframe",
-						"name": "viscoll_iframe",
-						"src": "data/output_data/viscoll/" + id_idno + "/" + id_idno + ".html",
-						"min-width": "436px",
-						"width": "100%",
-						"height": "100%",
-						"scrolling": "auto",
-						"overflow": "auto",
-						"overflow-x": "hidden",
-						"position": "absolute",
-						"top": "0px"
-					});
-					emptyImageControl();
-				}
-			}
-			iframeNavigation(array);
-		});
+		}
+	});
 }
 
 function isImgOk(img) {
@@ -85,7 +72,7 @@ function isImgOk(img) {
 function emptyImageControl() {
 	// Nel file XSLT ho aggiunto una variabile (emptyImage) che permette di aggiungere lo <span> anche quando l'immagine non è stata inserita
 	var i = 0;
-	$("#viscoll_iframe").load(function() { // Se il frame è stato caricato
+	$("#viscoll_iframe").load(function () { // Se il frame è stato caricato
 		var fancy = $("#viscoll_iframe").contents().find(".fancybox"); // Trovo tutti gli elementi a con classe .fancybox
 		//console.log(fancy);
 		while (i != fancy.length) {
@@ -106,8 +93,8 @@ function iframeNavigation(array) {
 	var page_selected = window.parent.$(".main_pp_select .option_container .optionGroup .selected"); // Prendo l'elemento con classe .selected dalla pagina genitore
 	var page_selected_text = page_selected.text();
 
-	$("#viscoll_iframe").load(function() {
-		$('img', frames['viscoll_iframe'].document).bind("click", function() { // Al click sull'elemento img nel frame
+	$("#viscoll_iframe").load(function () {
+		$('img', frames['viscoll_iframe'].document).bind("click", function () { // Al click sull'elemento img nel frame
 			var alt = $(this).attr('alt');
 			if (page_selected_text == alt) { // Se la pagina cliccata è quella che era selezionata
 				returnImgTxtMode(page_selected_text);

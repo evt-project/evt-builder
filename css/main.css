@@ -305,7 +305,7 @@ footer {
 #header_collapse {
     position: absolute;
     color: rgb(245, 234, 212);
-    z-index: 99999;
+    z-index: 999999999;
     margin: auto;
     left: 50%;
     width: 24px;
@@ -415,7 +415,7 @@ footer {
 	*/
     background: #362d28;
     /*Chiara*/
-    z-index: 999;
+    z-index: 99999999;
     -moz-box-shadow: 0 0px 4px rgba(0, 0, 0, 0.5);
     -webkit-box-shadow: 0 0px 4px rgba(0, 0, 0, 0.5);
     -o-box-shadow: 0 0px 4px rgba(0, 0, 0, 0.5);
@@ -1032,32 +1032,12 @@ footer {
     display: none;*/
 }
 
-#thumb_cont {
-    position: relative;
-    /*margin-top: 42px;*/
-    margin-right: 30px;
-    height: 100%;
-    /*height: -moz-calc(100% - 42px);
-	height: -webkit-calc(100% - 42px);
-    height: -o-calc(100% - 42px);
-    height: calc(100% - 42px);*/
-    display: none;
-    min-width: 436px;
-    width: 100%;
-    overflow: auto;
-    overflow-x: hidden;
-    position: absolute;
-    top: 0px;
-    background: black;
-    z-index: 99999;
-}
-
 #thumb_cont figure {
-    /*float: left;*/
     display: inline-block;
     padding: 9px 3px;
     margin: 3px;
     cursor: pointer;
+    text-align: center;
 }
 
 #thumb_cont figure:hover figcaption {
@@ -1091,6 +1071,10 @@ footer {
     margin-top: -15px;
     width: 100%;
     text-align: center;
+}
+
+#viscoll_cont.active {
+    display: block;
 }
 
 #slider {
@@ -2027,7 +2011,7 @@ div.botleftconcave {
     font-weight: lighter !important;
     color: rgb(245, 234, 212);
     font-size: 1.1em;
-    z-index: 99999;
+    z-index: 999999999;
 }
 
 .go-full-left:hover,
@@ -2048,7 +2032,7 @@ div.botleftconcave {
     position: absolute;
     top: 2px;
     display: none;
-    z-index: 9999999;
+    z-index: 999999999;
     cursor: pointer;
 }
 
@@ -2057,7 +2041,7 @@ div.botleftconcave {
     left: 5px;
     top: 2px;
     display: none;
-    z-index: 9999999;
+    z-index: 999999999;
     cursor: pointer;
 }
 
@@ -2933,7 +2917,7 @@ ul.ul_list li.list_element_opened {
     margin: 0px;
     background: rgba(0, 0, 0, 0.5) none repeat scroll 0% 0%;
     display: none;
-    z-index: 999999;
+    z-index: 999999999999;
     cursor: pointer;
 }
 
@@ -3250,19 +3234,28 @@ ul.ul_list li.list_element_opened {
 }
 
 /* MANUSCRIPT DESCRIPTION by AB e Ilaria*/
+.inner_frame.secondary_content {
+    position: relative;
+    top: 42px;
+    margin-right: 30px;
+    height: -moz-calc(100% - 42px);
+	height: -webkit-calc(100% - 42px);
+    height: -o-calc(100% - 42px);
+    height: calc(100% - 42px);
+    bottom: 0;
+    display: none;
+    min-width: 436px;
+    width: 100%;
+    overflow: auto;
+    overflow-x: hidden;
+    position: absolute;
+    background: black;
+    z-index: 99999;
+}
 
 #msDesc_cont {
     display: none;
     background: #f5efe4;
-    margin-top: 42px;
-    bottom: 42px !important;
-    height: auto;
-    overflow: auto;
-    position: absolute;
-    z-index: 100;
-    top: 0px;
-    right: 0;
-    left: 0;
     font-size: 19px;
 }
 
@@ -3275,8 +3268,8 @@ ul.ul_list li.list_element_opened {
 }
 
 #msDesc {
-    padding: 42px 0;
     overflow-y: auto;
+    overflow-x: hidden;
 }
 
 #msDesc p {
@@ -3874,4 +3867,25 @@ span.autore {
 
 .castItem {
     display: block;
+}
+
+.quireset a.fancybox {
+    display: block;
+}
+
+.quireUnitInfo {
+    display: inline-block;
+}
+
+.page-num.num-left {
+    margin-right: 40px;
+}
+
+.page-num.num-right {
+    margin-right: 40px;
+}
+.spacer {
+    font-size: 12px;
+    margin-right: 40px;
+    margin-left: 40px;
 }

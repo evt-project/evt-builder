@@ -109,6 +109,21 @@
 		<script type="text/javascript" src="{$html_path}/js/main/interface_control/ic_viscoll.js"/>
 		<xsl:comment>/VisColl</xsl:comment>
 		
+		<xsl:if test="$viscoll_button=true()">
+			<!-- Add jQuery library -->
+			<!-- <script type="text/javascript" src="https://cdn.rawgit.com/leoba/VisColl/master/data/support/fancybox/lib/jquery-1.10.1.min.js"/> -->
+
+			<!-- Add fancyBox main JS and CSS files -->
+			<!-- <script type="text/javascript" src="https://cdn.rawgit.com/leoba/VisColl/master/data/support/fancybox/source/jquery.fancybox.js?v=2.1.5"/> -->
+			<!-- <link rel="stylesheet" type="text/css"
+				href="https://cdn.rawgit.com/leoba/VisColl/master/data/support/fancybox/source/jquery.fancybox.css?v=2.1.5" media="screen"/>
+			<link href="https://cdn.rawgit.com/leoba/VisColl/master/data/support/fancybox/source/jquery.fancybox.css" rel="stylesheet"
+				type="text/css"/>
+			<script type="text/javascript" src="https://cdn.rawgit.com/leoba/VisColl/master/data/support/fancybox/source/iframescript.js"/>
+
+			<script type="text/javascript" src="https://cdn.rawgit.com/leoba/VisColl/master/data/support/fancybox/collation.js"/>
+			<link href="https://cdn.rawgit.com/leoba/VisColl/master/data/support/css/collation.css" rel="stylesheet" type="text/css"/> -->
+		</xsl:if>
 	</xsl:template>
 	
 	<xsl:template name="html_head">
@@ -144,7 +159,10 @@
 						href="{$html_path}/css/evt-icons.css" />
 					<link rel="stylesheet" type="text/css"
 						href="{$html_path}/css/BRnav.css" />
-					
+					<xsl:if test="$viscoll_button=true()">
+						<link rel="stylesheet" type="text/css" 
+							href="{$html_path}/css/viscoll.css"/>
+					</xsl:if>
 					<!-- Integrations by LS -->
 					<script type="text/javascript" src="{$html_path}/js/plugin/jquery-lang.js"/>
 					<script type="text/javascript" src="{$html_path}/config/langpack/en.js"/>
@@ -550,7 +568,7 @@
 												<xsl:if test="$bottom_navbar=false()">													
 													<xsl:if test="$thumbs_button=true()">
 														<xsl:element name="span">
-															<xsl:attribute name="class" select="'imageTopTool mainButtons thumb_link'"/>
+															<xsl:attribute name="class" select="'imageTopTool mainButtons secondary_toggler thumb_link'"/>
 															<xsl:attribute name="id" select="'thumb_elem'"/>
 															<xsl:attribute name="value" select="'th'"/>
 															<xsl:attribute name="title" select="'THUMBNAILS'"/>
@@ -561,7 +579,7 @@
 													</xsl:if>
 													<xsl:if test="$viscoll_button=true()">
 														<xsl:element name="span">
-															<xsl:attribute name="class" select="'imageTopTool mainButtons viscoll_link'"/>
+															<xsl:attribute name="class" select="'imageTopTool mainButtons secondary_toggler viscoll_link'"/>
 															<xsl:attribute name="id" select="'viscoll'"/>
 															<xsl:attribute name="title" select="'VISCOLL'"/>
 															<xsl:attribute name="lang" select="'def'"/>
@@ -613,7 +631,7 @@
 														<xsl:attribute name="id" select="'switch_msDesc'"/>
 														<xsl:attribute name="title" select="'MANUSCRIPT_DESCRIPTION'"/>
 														<xsl:attribute name="lang" select="'def'"/>
-														<xsl:attribute name="class">mainButtons <xsl:if test="$left_frame_default_content='info'"> active</xsl:if></xsl:attribute>
+														<xsl:attribute name="class">mainButtons secondary_toggler <xsl:if test="$left_frame_default_content='info'"> active</xsl:if></xsl:attribute>
 														<span lang="def">MS_DESC</span>
 														<xsl:element name="i">
 															<xsl:attribute name="class" select="'fa fa-info-circle'"/>
@@ -754,14 +772,7 @@
 										<span id="inside_left_arrow-add" lang="def" title="PREVIOUS_DOCUMENT"><i class="fa fa-chevron-up"></i></span>
 										<span id="inside_right_arrow-add" lang="def" title="NEXT_DOCUMENT"><i class="fa fa-chevron-down"></i></span>
 									</xsl:if>
-									<!-- Integration by AB -->
-									<xsl:if test="$image_frame=true() and $msDesc=true()">
-										<xsl:element name="div">
-											<xsl:attribute name="id">msDesc_cont</xsl:attribute>
-											<xsl:attribute name="class">inner_frame <xsl:if test="$left_frame_default_content='info'"> open</xsl:if></xsl:attribute>
-										</xsl:element>
-									</xsl:if>
-									<!-- /end Integration by AB -->									
+									
 									
 									<div id="image_cont" class="inner_frame">
 										<div id="image_fade">
@@ -822,8 +833,21 @@
 										</div>
 										<input id="dimFit" type="hidden" value=""/>
 										<input id="imgTit" type="hidden" value=""/>
-										<div id="thumb_cont" class="inner_frame"></div>									
 									</div>
+									<xsl:if test="$thumbs_button=true()">
+										<div id="thumb_cont" class="inner_frame secondary_content full-height"></div>
+									</xsl:if>
+									<xsl:if test="$viscoll_button=true()">
+										<div id="viscoll_cont" class="inner_frame secondary_content full-height"></div>
+									</xsl:if>
+									<!-- Integration by AB -->
+									<xsl:if test="$image_frame=true() and $msDesc=true()">
+										<xsl:element name="div">
+											<xsl:attribute name="id">msDesc_cont</xsl:attribute>
+											<xsl:attribute name="class">inner_frame secondary_content full-height <xsl:if test="$left_frame_default_content='info'"> open</xsl:if></xsl:attribute>
+										</xsl:element>
+									</xsl:if>
+									<!-- /end Integration by AB -->
 								</xsl:if>
 							</div>
 						</xsl:if>
@@ -1148,7 +1172,7 @@
 									<!-- Sposto l'icona Thumbnails -->
 									<xsl:if test="$thumbs_button=true()">
 										<xsl:element name="span">
-											<xsl:attribute name="class" select="'imageTopTool mainButtons thumb_link'"/>
+											<xsl:attribute name="class" select="'mainButtons secondary_toggler thumb_link'"/>
 											<xsl:attribute name="id" select="'thumb_elem'"/>
 											<xsl:attribute name="value" select="'th'"/>
 											<xsl:attribute name="title" select="'THUMBNAILS'"/>
@@ -1158,9 +1182,10 @@
 										</xsl:element>
 									</xsl:if>
 									<xsl:if test="$viscoll_button=true()">
-										<xsl:element name="button">
+										<xsl:element name="span">
+											<xsl:attribute name="class" select="'mainButtons secondary_toggler viscoll_link'"/>
 											<xsl:attribute name="id" select="'viscoll'"/>
-											<xsl:attribute name="class" select="'viscoll_link'"/>
+											<xsl:attribute name="value" select="'th'"/>
 											<xsl:attribute name="title" select="'VISCOLL'"/>
 										</xsl:element>
 									</xsl:if>
@@ -1174,13 +1199,15 @@
 								</div>
 								<!-- Creo le icone per navigare  -->
 								<div id="BRpage">
-									<xsl:element name="button">
+									<xsl:element name="span">
+										<xsl:attribute name="class" select="'mainButtons'"/>
 										<xsl:attribute name="id" select="'BRicon_book_left'"/>
-										<i class="fa fa-arrow-left fa-lg"></i>
+										<i class="fa fa-chevron-left"></i>
 									</xsl:element>
-									<xsl:element name="button">
+									<xsl:element name="span">
+										<xsl:attribute name="class" select="'mainButtons'"/>
 										<xsl:attribute name="id" select="'BRicon_book_right'"/>
-										<i class="fa fa-arrow-right fa-lg"></i>
+										<i class="fa fa-chevron-right"></i>
 									</xsl:element>
 								</div>
 								<!-- Pulsante per ridurre la barra -->

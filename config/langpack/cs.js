@@ -218,6 +218,8 @@ jquery_lang_js.prototype.lang.cs = {
 	"PROSE": "Próza",
 
 	"VISCOLL": "Viscoll",
+	"SHOW_ALL_QUIRES": "Zobrazit všechny dotazy",
+	"HIDE_ALL_QUIRES": "Skrýt všechny dotazy",
 
 	"ITA": "Italský",
 	"LAT": "Latina",

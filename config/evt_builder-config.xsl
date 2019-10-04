@@ -37,12 +37,12 @@
 	<!-- EN: Main web site for digital edition -->
 	<!-- IT: Sito web principale dell'edizione -->
 	<!-- default: '' -->
-	<xsl:param name="webSite" select="''"/>
+	<xsl:param name="webSite" select="'http://piccolabdr.humnet.unipi.it/'"/>
 
 	<!-- EN: Index title -->
 	<!-- IT: Titolo edizione -->
 	<!-- default: 'Codex Viewer' -->
-	<xsl:param name="index_title" select="'Codex Viewer'"/>
+	<xsl:param name="index_title" select="'Le Théâtre Italien di Gherardi'"/>
 
 	<!-- EN: Welcome Message -->
 	<!-- IT: Messaggio di benvenuto -->
@@ -53,8 +53,8 @@
 		</div>
 		<div>This archive includes a few examples of editions created using EVT,
 			by default you are showed a small excerpt of the
-			<a href="http://pelavicino.labcd.unipi.it/" target="blank">
-				Codice Pelavicino Digitale edition</a>.
+			<a href="http://piccolabdr.humnet.unipi.it/" target="blank">
+				piccola Biblioteca Digitale Romanza</a>.
 		</div>
 		<div>It is recommended to go to full screen mode so that all available screen space is used to show the manuscript images and the transcription text.</div>
 		<div>For more information refer to the EVT Manual in the "doc" folder.
@@ -69,7 +69,7 @@
 	<!-- EN: Hide/Show badge -->
 	<!-- IT: Nascondi/Mostra badge -->
 	<!-- default: true() -->
-	<xsl:param name="badge" select="true()"/>
+	<xsl:param name="badge" select="false()"/>
 	<!-- EN: Set text in badge -->
 	<!-- IT: Imposta testo del badge -->
 	<!-- ex: alpha, beta, stable etc -->
@@ -134,7 +134,7 @@
 		<!-- IT: Se si ha l'edizione interpretativa scrivere <edition>Interpretative</edition>.
 			 	 Se NON si ha l'edizione interpretativa mettere <edition></edition> -->
 
-		<edition>Translation</edition>
+		<edition></edition>
 		<!-- EN: If you have a translation put <edition>Translation</edition>.
 			 	 If you don't have a translation put <edition></edition> -->
 		<!-- IT: Se si ha la versione tradotta del testo scrivere <edition>Translation</edition>.
@@ -236,7 +236,7 @@
 			- 'info'  se si vogliono visualizzare le informazioni sul testo al primo caricamento
 			Qualsiasi altro valore varrà come 'text'
 	-->
-	<xsl:variable name="right_frame_default_content" select="'info'" />
+	<xsl:variable name="right_frame_default_content" select="'text'" />
 
 	<!-- BUTTONS PRESENCE AND POSITION -->
 
@@ -263,7 +263,13 @@
 	<!-- EN: Show/Hide Viscoll Button in interface -->
 	<!-- IT: Mostra/Nascondi pulsante Viscoll nell'interfaccia web -->
 	<!-- default: false() -->
-	<xsl:param name="viscoll_button" select="false()"/>
+	<xsl:param name="viscoll_button" select="true()"/>
+	
+	<!-- VISCOLL -->
+	<!-- In order to let Viscoll work properly, you need to prepare the collation scheme and the image list, as it is explained in the point 1 and 2 of 
+		Viscoll documentation (https://github.com/leoba/VisColl). First create your collation model, 
+		then prepare the image list as indicated (or just have an encoded xml TEI file containing a facsimile section) 
+		and process it at http://138.197.87.173:8080/xproc-z/visualize-collation/ -->
 	
 	<!-- EN: Path to xml file containing viscoll scheme. 
 		If you need to use an online resource, put the complete URL (e.g: http://www.mysite.com/viscollScheme.xml).
@@ -271,16 +277,24 @@
 	<!-- IT: Percorso al file xml contenente lo schema viscoll.
 		Se si usa una risorsa online, inserire il percorso completo (ex. http://www.ilmiosito.it/schemaViscoll.xml).
 		Altrimenti copiare il file nella cartella data/input_data/text e inserire qui solo percorso relativo a partire da quella cartella. -->
-	<xsl:param name="viscoll_scheme_path">text/viscoll/CP_scheme.xml</xsl:param>
+	<xsl:param name="viscoll_scheme_path">text/viscoll/CP_viscollScheme.xml</xsl:param>
 	
 	<!-- EN: Path to xml file containing viscoll images list. 
-		If you need to use an online resource, puth the entire path (e.g: http://www.mysite.com/viscollImagelist.xml).
+		If you need to use an online resource, put the entire path (e.g: http://www.mysite.com/viscollImagelist.xml).
 		Otherwise put the file in data/input_data/text folder and just put here the relative path starting from that folder. -->
 	<!-- IT: Percorso al file xml contenente la lista delle immagini necessaria al corretto funzionamento di viscoll.
 		Se si usa una risorsa online, inserire il percorso completo (ex. http://www.ilmiosito.it/viscollImagelist.xml).
 		Altrimenti copiare il file nella cartella data/input_data/text e inserire qui solo percorso relativo a partire da quella cartella. -->
 	<xsl:param name="viscoll_image_list_path">text/viscoll/CP_20-21-imageList.xml</xsl:param>
-
+	
+	<!-- EN: Path to folder containing viscoll images files. 
+		If your images are online resources, put the entire path (e.g: http://www.mysite.com/images/) 
+		or leave it empty (in this case you need to specify the entire path in the viscoll image list xml -->
+	<!-- IT: Percorso alla cartella contenente le immagini necessarie al corretto funzionamento di viscoll.
+		Se si usano risorse online, inserire il percorso completo (ex. http://www.ilmiosito.it/immagini/) 
+		oppure lasciare vuoto (in questo caso sarà necessario specificare il percorso completo di ogni singola immagine nel file specifico. -->
+	<xsl:param name="viscoll_images_folder">data/input_data/images/single/</xsl:param>
+	
 	<!-- EN: Show/Hide Edition level selector in interface -->
 	<!-- IT: Mostra/Nascondi selettore Livello/i Edizione nell'interfaccia web -->
 	<!-- default: true() -->
@@ -289,7 +303,7 @@
 	<!-- IT: Choose page selector position -->
 	<!-- IT: Scegli posizione Selettore pagina -->
 	<!-- "left" or "right" | Default: "right" -->
-	<xsl:param name="pp_selector_pos" select="'right'"/>
+	<xsl:param name="pp_selector_pos" select="'left'"/>
 
 	<!-- EN: Choose whether or not to group pages by document in the selector -->
     <!-- IT: Scegli se raggruppare o meno le pagine per documento nel selettore apposito -->
@@ -356,12 +370,12 @@
 	<!-- EN: On/Off term list -->
 	<!-- IT: Attiva/disattiva lista terms -->
 	<!-- default: true() -->
-	<xsl:param name="list_term" select="false()"/>
+	<xsl:param name="list_term" select="true()"/>
 
 	<!-- EN: On/Off gloss list -->
 	<!-- IT: Attiva/disattiva lista glosses -->
 	<!-- default: true() -->
-	<xsl:param name="list_gloss" select="false()"/>
+	<xsl:param name="list_gloss" select="true()"/>
 
 	<!-- EN: On/Off chronological index for texts -->
 	<!-- IT: Attiva/disattiva indice cronologico -->
@@ -375,18 +389,18 @@
 			 Per rimuovere un elemento basta eliminare tutto l'elemento di interesse.
 			 Per aggiungere un elemento alla lista basta sapere che il tag fa riferimento alla classe data all'elemento html con il quale sono state marcate le parole "particolari" da selezionare. -->
 	<xsl:variable name="lists" as="element()*">
-		<group label="NAMED_ENTITIES" active="true">
+		<group label="NAMED_ENTITIES" active="false">
 			<persName active="true"/>
 			<placeName active="true"/>
 			<orgName active="true"/>
 		</group>
-		<group label="INTERESTING_ELEMENTS" active="false">
+		<group label="INTERESTING_ELEMENTS" active="true">
 			<roleName active="true"/>
 			<measure active="true"/>
 			<date active="true"/>
 			<foreign active="true"/>
 		</group>
-		<group label="STAGES" active="false">
+		<group label="STAGES" active="true">
 			<setting active="true"/>
 			<entrance active="true"/>
 			<exit active="true"/>
