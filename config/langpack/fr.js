@@ -217,6 +217,8 @@ jquery_lang_js.prototype.lang.fr = {
 	"PROSE": "Prose",
 
 	"VISCOLL": "Viscoll",
+	"SHOW_ALL_QUIRES": "Montrer tous les fichiers",
+	"HIDE_ALL_QUIRES": "Cacher tous les fichiers",
 
 	"ITA": "Italien",
 	"LAT": "Latin",

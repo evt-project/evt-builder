@@ -175,21 +175,7 @@
 		</xsl:if>
 		
 		<!-- GM -->
-		<xsl:if test="$viscoll_button">
-			<xsl:result-document method="xml" encoding="UTF-8" href="{$filePrefix}/data/output_data/listImage.xml" indent="yes">
-				<xsl:apply-templates select="tei:TEI//tei:facsimile" mode="create_imageList"/>
-			</xsl:result-document>
-			
-			<xsl:result-document method="html" encoding="UTF-8" media-type="text/plain" byte-order-mark="yes" href="{$filePrefix}/data/output_data/viscoll/viscoll-idno.html" indent="yes">
-				<xsl:element name="div">
-					<xsl:attribute name="id">viscoll_idno</xsl:attribute>
-					<xsl:call-template name="idno_process"></xsl:call-template>
-				</xsl:element>
-		</xsl:result-document>
-		</xsl:if>
-		
-		<!-- GM -->
-		<xsl:if test="$viscoll_button">
+		<xsl:if test="$viscoll_button=true()">
 			<xsl:result-document method="html" encoding="UTF-8" href="{$filePrefix}/data/output_data/viscoll/viscoll-output.html" indent="yes">
 				<xsl:call-template name="viscoll"></xsl:call-template>  <!-- Chiama il template dell'elemento selezionato -->
 			</xsl:result-document>
@@ -790,10 +776,6 @@
 
 	<!--END CHRONOLOGICAL INDEX -->
 
-	<xsl:template name="imageListCreation">
-		<xsl:apply-templates select="tei:TEI//tei:facsimile" mode="create_imageList"></xsl:apply-templates>	
-	</xsl:template>
-	
 	<!-- GM -->
 	<xsl:template name="idno_process">
 		<xsl:variable name="viscoll_final_path">

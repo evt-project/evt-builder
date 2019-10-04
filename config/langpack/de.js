@@ -216,6 +216,8 @@ jquery_lang_js.prototype.lang.de = {
 	"PROSE": "Prosa",
 
 	"VISCOLL": "Viscoll",
+	"SHOW_ALL_QUIRES": "Alle Abfragen anzeigen",
+	"HIDE_ALL_QUIRES": "Alle Abfragen ausblenden",
 
 	"ITA": "Italienisch",
 	"LAT": "Latein",

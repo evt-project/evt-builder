@@ -178,12 +178,11 @@ function createBrnav(array) {
 			var newPageId = newPage ? newPage.id : '';
 			var newPageLabel = newPage ? newPage.label : '';
 			var newDocId = newPage ? newPage.firstDoc : '';
-			if (newPage) { // Check just to be sure
+			if (event && event.handleObj && newPageId) { // Aggiorno hash solo se sto muovendo lo slider direttamente 
 				updateHash(newDocId, newPageId, '');
-
-				var pageNum = array && array.length > 0 ? newPageLabel + "/" + array[array.length - 1].label : '';
-				$("#pagenum").text(pageNum);
 			}
+			var pageNum = array && array.length > 0 ? newPageLabel + "/" + array[array.length - 1].label : '';
+			$("#pagenum").text(pageNum);
 		}
 	});
 
@@ -192,40 +191,22 @@ function createBrnav(array) {
 
 function bindArrowsBRnavClick() {
 	// Pulsante per ridurre la barra di navigazione
-	var BRnavCntlBtm = $('#BRnavCntlBtm'),
-		BRnav = $('#BRnav'),
+	var BRnav = $('#BRnav'),
 		BRnavCntl = $('.BRnavCntl'),
 		centralWrapper = $('#central_wrapper');
-	BRnavCntl.click(
-		function() {
-			if (BRnavCntlBtm) {
-				if (BRnavCntlBtm.hasClass('BRdn')) {
-					BRnav.animate({
-						bottom: -50
-					}, 420, function() {
-						BRnavCntlBtm.addClass('BRup').removeClass('BRdn');
-						BRnavCntlBtm.find('i').removeClass('fa fa-caret-down fa-lg').addClass('fa fa-caret-up fa-lg'); // Rimuove la classe per mettere quella con la freccia verso il basso
-					}); // .delay() imposta un timer per ritardare l'esecuzione degli elementi successivi
-					centralWrapper.animate({
-						height: "87.5%"
-					}, 420, function() {
-						$('#global_wrapper').css("overflow-y", "hidden"); // Tolgo lo scrolling verticale quando riduco la barra di navigazione
-						updateTextContHeight();
-					}); // Aumento l'altezza del central_wrapper
-				} else {
-					BRnav.animate({
-						bottom: 0
-					}, 420, function() {
-						BRnavCntlBtm.find('i').removeClass('fa fa-caret-up fa-lg').addClass('fa fa-caret-down fa-lg');
-						BRnavCntlBtm.addClass('BRdn').removeClass('BRup');
-					}); // .delay() ritarda l'animazione degli elementi seguenti
-					centralWrapper.animate({
-						height: "82.5%"
-					}, 420, function() {
-						updateTextContHeight();
-					}); // Riduco l'altezza del central_wrapper
-				};
+	BRnavCntl
+		.unbind("click")
+		.click(function() {
+			if (BRnav.hasClass('collapsed')) {
+				// Expand
+				BRnav.removeClass('collapsed').addClass('expanded');
+				centralWrapper.removeClass('navBarCollapsed').addClass('navBarExpanded');
+			} else {
+				// Collapse
+				BRnav.removeClass('expanded').addClass('collapsed');
+				centralWrapper.removeClass('navBarExpanded').addClass('navBarCollapsed');
 			}
+			updateTextContHeight();
 		}
 	);
 }
