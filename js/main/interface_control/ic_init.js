@@ -287,6 +287,7 @@ function initLists(listsArray) {
         if (totLists > 0) {
             var listsLoaded = 0;
             $('#toggle_list_cont')
+                .unbind("click")
                 .click(function () {
                     toggleListCont(this);
                 });
@@ -324,6 +325,7 @@ function initLists(listsArray) {
                     .attr('data-list-name', listName)
                     .attr('lang', 'def')
                     .text(listLabel)
+                    .unbind("click")
                     .click(function () {
                         openList(this, listName);
                     })
@@ -709,7 +711,7 @@ function prepareFrontMatter(xml) {
                         // $("#headerInfo_nav_tabs li:first").addClass("active").show();
                         // $(".box_tab:first").show();
 
-                        headerInfoNavTabs.find("li").click(function () {
+                        headerInfoNavTabs.find("li").unbind("click").click(function () {
                             var activeTabTrigger = headerInfoNavTabs.find("li.active");
                             var activeTab = $(activeTabTrigger.attr('data-tab'));
                             activeTab.hide();
@@ -810,11 +812,11 @@ function concludeUIinit() {
         /* *********************** */
         /* Gestione click e eventi */
         /* *********************** */
-        $("#home_title").click(function () {
+        $("#home_title").unbind("click").click(function () {
             window.location = "index.html";
         });
 
-        $('#poweredBy').click(function () {
+        $('#poweredBy').unbind("click").click(function () {
             $('#EVTinfo_cont').show('fade', 0);
         });
 

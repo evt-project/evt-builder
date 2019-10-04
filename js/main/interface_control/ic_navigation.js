@@ -32,7 +32,10 @@
 
 /*= UPDATE HASH =*/
 function updateHash(tt_val, pp_val, ee_val) {
-	window.location.hash = "doc=" + tt_val + "&page=" + pp_val;
+	var newHash = "doc=" + tt_val + "&page=" + pp_val;
+	if ('#' + newHash !== window.location.hash) {
+		window.location.hash = newHash;
+	}
 }
 
 /*= SELECT PAGE ================================================================================= =*/
@@ -55,8 +58,7 @@ function selectPP(current_page, pp_lab, tt_val) {
 		.addClass('selected');
 
 	// SELETTORE PAGINE BOOK READER
-	$('#span_dd_select .option')
-		.removeClass('selected');
+	$('#span_dd_select .option').removeClass('selected');
 
 	dd_opt = $("#span_dd_select .option_container .option[data-value*='" + current_page + "']");
 	dd_opt.addClass('selected');
@@ -113,7 +115,7 @@ function selectTT(current_doc) {
 	}
 
 	var currentDocElem = $('.doc.current');
-    currentDocElem.removeClass('current').addClass('not_current');
+	currentDocElem.removeClass('current').addClass('not_current');
 	$(".doc[data-doc='" + current_doc + "']").removeClass('not_current').addClass('current');
 	if (currentDocElem.length > 0 && currentDocElem.position() !== undefined) {
 		$('#text_cont, #text_cont-add').scrollTop(currentDocElem.position().top);
@@ -148,7 +150,7 @@ function selectDocumentInPage(elem) {
 		// updateRegestoContent(tt_val);
 		// updateFrontContent(tt_val);
 		updateHash(tt_val, pp_val, "");
-        var currentDocElem = $('.doc.current');
+		var currentDocElem = $('.doc.current');
 		if (currentDocElem.length > 0 && currentDocElem.position() !== undefined) {
 			$('#text_cont, #text_cont-add').scrollTop(currentDocElem.position().top);
 		}
@@ -164,13 +166,13 @@ function gotopage(pp_val, pp_lab, state) {
 	// $('#span_pp_select .label_selected').trigger('change');
 
 	var attrFontSize = $('#text_cont').attr('data-font-size');
-    if (attrFontSize !== '' && attrFontSize !== undefined) {
+	if (attrFontSize !== '' && attrFontSize !== undefined) {
 		current_font_size = parseFloat(attrFontSize);
 	} else {
 		current_font_size = parseFloat($('#text_cont').css('font-size'));
 	}
 
-	var pageLoadedCallback = function(status, current_font_size) {
+	var pageLoadedCallback = function (status, current_font_size) {
 		if (status === 'error') {
 			if ($('#text_elem .errorMsg').length === 0) {
 				var errorMsg = window.lang.convert('ERROR_LOADING_TEXT', window.lang.currentLang);
@@ -180,18 +182,18 @@ function gotopage(pp_val, pp_lab, state) {
 			}
 		} else {
 			if (!isNaN(current_font_size)) {
-                $('#text_cont')
-    				.css({
-    					'font-size': current_font_size + 'px',
-    					'line-height': (current_font_size + 10) + 'px'
-    				});
-            }
+				$('#text_cont')
+					.css({
+						'font-size': current_font_size + 'px',
+						'line-height': (current_font_size + 10) + 'px'
+					});
+			}
 			//IT: Attiva occorrenza in lista
 			var right_frame = $('#main_right_frame');
 			if (right_frame.find('.list').length > 0 &&
 				right_frame.find('.list_element.list_element_opened').length > 0) {
 				right_frame.find('.selected_from_list').removeClass('selected_from_list');
-				right_frame.find('.list_element_opened').each(function() {
+				right_frame.find('.list_element_opened').each(function () {
 					var ref;
 					ref = $(this).attr('id');
 					$("#text span[data-ref='" + ref + "']").addClass('selected_from_list');
@@ -224,30 +226,30 @@ function gotopage(pp_val, pp_lab, state) {
 			}
 
 			// Aggiorna eventi sul click negli elementi del text
-            var textCont = $('#text_cont');
-            var current_tt, current_doc_elem, current_doc_title;
-            current_tt = $('#span_tt_select .option_container .option.selected').attr('data-value');
-            textCont.find(".doc[data-doc!='" + current_tt + "']").addClass('not_current');
-            current_doc_elem = textCont.find(".doc[data-doc='" + current_tt + "']");
-            current_doc_title = current_doc_elem.attr('title');
+			var textCont = $('#text_cont');
+			var current_tt, current_doc_elem, current_doc_title;
+			current_tt = $('#span_tt_select .option_container .option.selected').attr('data-value');
+			textCont.find(".doc[data-doc!='" + current_tt + "']").addClass('not_current');
+			current_doc_elem = textCont.find(".doc[data-doc='" + current_tt + "']");
+			current_doc_title = current_doc_elem.attr('title');
 
-            current_doc_elem
-                .attr('tempTitle', current_doc_title)
-                .removeAttr('title')
-                .addClass('current');
+			current_doc_elem
+				.attr('tempTitle', current_doc_title)
+				.removeAttr('title')
+				.addClass('current');
 			if (textCont.find('.doc').length > 0) {
 				if (textCont.find('.doc.current').length > 0 && textCont.find('.doc.current').position() !== undefined) {
 					textCont.scrollTop(textCont.find('.doc.current').position().top);
 				}
 
-				textCont.find(".doc").unbind('click').click(function() {
+				textCont.find(".doc").unbind('click').click(function () {
 					selectDocumentInPage(this);
 				});
 			} else {
 				$('#text').addClass('doc').addClass('current').attr('data-doc', current_tt);
 			}
 
-			$("img").error(function() {
+			$("img").error(function () {
 				$(this)
 					.unbind("error")
 					.attr("src", "images/no-image.png")
@@ -287,7 +289,7 @@ function gotopage(pp_val, pp_lab, state) {
 		}
 	};
 
-	var pageLoadedCallbackAdd = function(status, current_font_size) {
+	var pageLoadedCallbackAdd = function (status, current_font_size) {
 		if (status === 'error') {
 			if ($('#text_elem-add .errorMsg').length === 0) {
 				var errorMsg = window.lang.convert('ERROR_LOADING_TEXT', window.lang.currentLang);
@@ -307,7 +309,7 @@ function gotopage(pp_val, pp_lab, state) {
 				left_frame.find('.list_element.list_element_opened').length > 0) {
 
 				left_frame.find('.selected_from_list').removeClass('selected_from_list');
-				left_frame.find('.list_element_opened').each(function() {
+				left_frame.find('.list_element_opened').each(function () {
 					var ref;
 					ref = $(this).attr('id');
 					$("#text span[data-ref='" + ref + "']").addClass('selected_from_list');
@@ -326,7 +328,7 @@ function gotopage(pp_val, pp_lab, state) {
 			// Aggiorna eventi sul click negli elementi del text
 			var current_tt, current_doc_title;
 			var textContAdd = $('#text_cont-add');
-            current_tt = $('#span_tt_select-add .option_container .option.selected').attr('data-value');
+			current_tt = $('#span_tt_select-add .option_container .option.selected').attr('data-value');
 
 			if (textContAdd.find('.doc').length <= 0) {
 				textContAdd
@@ -346,7 +348,7 @@ function gotopage(pp_val, pp_lab, state) {
 				if ($('#text_cont-add:visible .doc').length > 0) {
 					textContAdd.scrollTop(textContAdd.find('.doc.current').position().top);
 
-					textContAdd.find(".doc").unbind('click').click(function() {
+					textContAdd.find(".doc").unbind('click').click(function () {
 						selectDocumentInPage(this);
 					});
 				}
@@ -375,14 +377,14 @@ function gotopage(pp_val, pp_lab, state) {
 	};
 
 	var frontFrame = $('#text_elem #front_frame');
-    frontFrame.empty();
+	frontFrame.empty();
 	var tt_val = $(".main_tt_select .label_selected").attr("data-value");
 	if ($(".main_pp_select .option[data-value='" + pp_val + "']").attr('data-has-front') === 'true') {
 		if (edition !== "translation") {
 			frontFrame
 				.attr('data-page', pp_val)
 				.load("data/output_data/" + edition + "/page_" + pp_val + "-front_" + edition + ".html #text_frame #text",
-					function(response, status, xhr) {
+					function (response, status, xhr) {
 						pageLoadedCallback(status, current_font_size);
 					});
 		}
@@ -390,7 +392,7 @@ function gotopage(pp_val, pp_lab, state) {
 
 	var re = /doc=/;
 	var hash_parts = location.hash.substr(1).split('&');
-	var ind = hash_parts.indexOf((function() {
+	var ind = hash_parts.indexOf((function () {
 		var i;
 		for (i in hash_parts)
 			if (re.test(hash_parts[i]))
@@ -401,7 +403,7 @@ function gotopage(pp_val, pp_lab, state) {
 		frontFrame
 			.attr('data-page', pp_val)
 			.load("data/output_data/" + edition + "/translation_" + transText + ".html #text_frame #text",
-				function(response, status, xhr) {
+				function (response, status, xhr) {
 					pageLoadedCallback(status, current_font_size);
 				});
 	} else {
@@ -409,23 +411,23 @@ function gotopage(pp_val, pp_lab, state) {
 			.attr('data-page', pp_val)
 			// .empty()
 			.load("data/output_data/" + edition + "/page_" + pp_val + "_" + edition + ".html #text_frame #text",
-				function(response, status, xhr) {
-                    pageLoadedCallback(status, current_font_size);
+				function (response, status, xhr) {
+					pageLoadedCallback(status, current_font_size);
 				});
 	}
 
 	// IT: Aggiorna l'indirizzo del frame secondario per il testo
 	var frontFrameAdd = $('#text_elem-add #front_frame-add');
-    if ($("#text_cont-add").length > 0) { //SISTEMARE
+	if ($("#text_cont-add").length > 0) { //SISTEMARE
 		edition_add = $("#span_ee_select-add .option_container .option.selected").attr('data-value');
-        edition_add = edition_add !== undefined ? edition_add.toLowerCase() : edition_add;
+		edition_add = edition_add !== undefined ? edition_add.toLowerCase() : edition_add;
 
 		frontFrameAdd.empty();
 		if ($(".main_pp_select .option[data-value='" + pp_val + "']").attr('data-has-front') === 'true') {
 			if (edition_add !== "translation") {
 				frontFrameAdd
 					.load("data/output_data/" + edition_add + "/page_" + pp_val + "-front_" + edition_add + ".html #text_frame #text",
-						function(response, status, xhr) {
+						function (response, status, xhr) {
 							pageLoadedCallbackAdd(status, current_font_size);
 						});
 			}
@@ -434,14 +436,14 @@ function gotopage(pp_val, pp_lab, state) {
 			$('#text_elem-add #text_frame-add')
 				// .empty()
 				.load("data/output_data/" + edition_add + "/translation_" + transText + ".html #text_frame #text",
-					function(response, status, xhr) {
+					function (response, status, xhr) {
 						pageLoadedCallbackAdd(status, current_font_size);
 					});
-		} else if (edition_add !== undefined ){
+		} else if (edition_add !== undefined) {
 			$('#text_elem-add #text_frame-add')
 				// .empty()
 				.load("data/output_data/" + edition_add + "/page_" + pp_val + "_" + edition_add + ".html #text_frame #text",
-					function(response, status, xhr) {
+					function (response, status, xhr) {
 						pageLoadedCallbackAdd(status, current_font_size);
 					});
 		}
@@ -470,7 +472,7 @@ function gotoedition(pp_val, ee_val, pp_el, frame_id) {
 		UnInitializeHS(true);
 	} //Add by JK for HS
 
-	var editionLoadedCallback = function(status) {
+	var editionLoadedCallback = function (status) {
 		if (status === 'error') {
 			var elem = $('#' + frame_id + " div[id*='text_elem']");
 			if (elem.find(".errorMsg").length === 0) {
@@ -509,7 +511,7 @@ function gotoedition(pp_val, ee_val, pp_el, frame_id) {
 
 			var current_doc = $('#span_tt_select .label_selected').attr('data-value');
 			var currentDocElem = $(".doc[data-doc='" + current_doc + "']");
-            if (currentDocElem.length > 0) {
+			if (currentDocElem.length > 0) {
 				currentDocElem.addClass('current');
 			}
 
@@ -529,11 +531,11 @@ function gotoedition(pp_val, ee_val, pp_el, frame_id) {
 				}
 			}
 
-			$("#text_cont .doc, #text_cont-add .doc").unbind('click').click(function() {
+			$("#text_cont .doc, #text_cont-add .doc").unbind('click').click(function () {
 				selectDocumentInPage(this);
 			});
 			var ppElSelect = $("#" + pp_el).parents("div[id*='frame']").find('.like_select.filter');
-            if (ppElSelect) {
+			if (ppElSelect) {
 				ppElSelect
 					.find('.option_container .option.selected')
 					.removeClass('selected')
@@ -547,13 +549,13 @@ function gotoedition(pp_val, ee_val, pp_el, frame_id) {
 	};
 
 	var ppElFrontFrame = $("#" + pp_el + " div[id*='front_frame']");
-    ppElFrontFrame.empty();
+	ppElFrontFrame.empty();
 	if ($(".main_pp_select .option[data-value='" + pp_val + "']").attr('data-has-front') === 'true') {
 		if (ee_val !== "translation") {
 			ppElFrontFrame
 				.attr('data-page', pp_val)
 				.load("data/output_data/" + ee_val + "/page_" + pp_val + "-front_" + ee_val + ".html #text_frame #text",
-					function(response, status, xhr) {
+					function (response, status, xhr) {
 						editionLoadedCallback(status);
 					});
 		}
@@ -564,7 +566,7 @@ function gotoedition(pp_val, ee_val, pp_el, frame_id) {
 		$("#" + pp_el + " div[id*='text_frame']")
 			// .empty()
 			.load("data/output_data/" + ee_val + "/translation_" + currentText + ".html #text_frame #text",
-				function(response, status, xhr) {
+				function (response, status, xhr) {
 					editionLoadedCallback(status);
 				}
 			);
@@ -572,17 +574,17 @@ function gotoedition(pp_val, ee_val, pp_el, frame_id) {
 		$("#" + pp_el + " div[id*='text_frame']")
 			// .empty()
 			.load("data/output_data/" + ee_val + "/page_" + pp_val + "_" + ee_val + ".html #text_frame #text",
-				function(response, status, xhr) {
+				function (response, status, xhr) {
 					editionLoadedCallback(status);
 				}
 			);
 	}
 
 	var pp_el_upp = pp_el;
-	pp_el_upp = pp_el_upp.toLowerCase().replace(/\b[a-z]/g, function(letter) {
+	pp_el_upp = pp_el_upp.toLowerCase().replace(/\b[a-z]/g, function (letter) {
 		return letter.toUpperCase();
 	});
-	
+
 	// IT: Gestisce la scrittura nell'etichetta destra o sinistra a seconda del frame caricato
 	/*if (frame_id.indexOf("-add")>-1) {
 	    $('#zvalopz').text(pp_el_upp);
@@ -593,7 +595,7 @@ function gotoedition(pp_val, ee_val, pp_el, frame_id) {
 
 /*= BASIC PRELOAD FOR IMAGES NAVIGATION =*/
 function preload(arrayOfImages) {
-	$(arrayOfImages).each(function() {
+	$(arrayOfImages).each(function () {
 		$('<img/>')[0].src = this;
 	});
 }
@@ -736,7 +738,7 @@ function moveSlider(current_pp, new_pp_opt) {
 	var val, new_val;
 	var new_pp_opt_val = new_pp_opt.attr("data-value");
 	var brPagerElem = $("#BRpager");
-    if (new_pp_opt_val < current_pp) { // Se il valore della nuova pagina è minore di quella corrente
+	if (new_pp_opt_val < current_pp) { // Se il valore della nuova pagina è minore di quella corrente
 		//Va' a sinistra
 		val = brPagerElem.slider("value");
 		new_val = val - 1;
@@ -769,7 +771,7 @@ function bindPPselectClick() {
 	/* Recupera gli identificativi (e la label) della pagina selezionata e del primo documento in essa contenuto.
 	   Aggiorna l'hash che provoca il reload della pagina.
 	*/
-	$(".main_pp_select .option_container .option").click(function() {
+	$(".main_pp_select .option_container .option").unbind("click").click(function () {
 		if (!$(this).hasClass('selected')) {
 			var new_pp_val, new_pp_lab, new_tt_val;
 			var current_tt_val, current_tt_first_page;
@@ -784,8 +786,8 @@ function bindPPselectClick() {
 			current_tt_val = $(".main_tt_select .label_selected").attr("data-value");
 			current_tt_first_page = $(".main_tt_select .option_container .option.selected").attr('data-first-page');
 			var current_page = $(".main_pp_select .label_selected").attr("data-value");
-            if (current_tt_first_page === new_pp_val) {
-                updateHash(current_tt_val, new_pp_val, "");
+			if (current_tt_first_page === new_pp_val) {
+				updateHash(current_tt_val, new_pp_val, "");
 				moveSliderSelector(current_page, new_pp_val);
 			} else {
 				updateHash(new_tt_val, new_pp_val, "");
@@ -819,7 +821,7 @@ function moveSliderSelector(current_pp, new_pp_val) {
 
 /*= BIND SELECT DOCUMENT EVENT ON OPTION CLICK =*/
 function bindTTselectClick() {
-	$('.main_tt_select .option_container .option').click(function() {
+	$('.main_tt_select .option_container .option').click(function () {
 		if (!$(this).hasClass('selected')) {
 			$(this).addClass('selected');
 			var new_tt_opt, new_tt_val, new_tt_first_page;
@@ -874,10 +876,10 @@ function moveSliderSelectorTT(current_pp_val, new_tt_first_page) {
 
 /*= BIND SELECT DOUBLE PAGE EVENT ON OPTION CLICK =*/
 function bindDDselectClick() {
-	$('.main_dd_select .option_container .option').click(function() {
+	$('.main_dd_select .option_container .option').click(function () {
 		var pp_val, pp_lab, tt_val, first_page_id;
 		var arrayPagePairs = [];
-		$('.main_dd_select .option_container .option').each(function() {
+		$('.main_dd_select .option_container .option').each(function () {
 			var pageId = $(this).attr('data-value');
 			arrayPagePairs.push(pageId);
 		});
@@ -916,7 +918,7 @@ function moveSliderSelectorDD(arrayPagePairs, pp_val) {
 
 /* BIND SELECT EDITION LEVEL EVENT ON OPTION CLICK / SWITCH ON/OFF REGESTO */
 function bindEEselectClick() {
-	$('.main_ee_select .option_container .option').click(function() {
+	$('.main_ee_select .option_container .option').click(function () {
 		if (!$(this).hasClass('selected')) {
 			var regesto_button, regesto_cont;
 			var contextual_frame, contextual_parent;
@@ -951,9 +953,9 @@ function bindEEselectClick() {
 				other_frame = "text_elem";
 				other_parent = "text_cont";
 
-                var rightFrameOptionSelected = $('#main_right_frame .like_select.filter').find('.option.selected');
+				var rightFrameOptionSelected = $('#main_right_frame .like_select.filter').find('.option.selected');
 				if (rightFrameOptionSelected.length > 0) {
-					rightFrameOptionSelected.each(function() {
+					rightFrameOptionSelected.each(function () {
 						var left_filter = "#" + $(this).parents('.like_select').attr('id') + "-add";
 						if ($(left_filter).find('.label_selected').attr('data-value') === 'none') {
 							var value = $(this).attr('data-value');
@@ -982,7 +984,7 @@ function bindEEselectClick() {
 			}
 			try {
 				other_ee_select_val = $('#' + other_ee_select).find('.label_selected').attr('data-value').toLowerCase();
-			} catch(e){}
+			} catch (e) { }
 
 			// Faccio un controllo sul livello di edizione da attivare sul frame corrente
 			// e se sto passando all'edizione diplomatica disattivo i filtri e le liste
@@ -1070,9 +1072,9 @@ function bindEEselectClick() {
 /*= BIND FILTER OPTION CLICK EVENT =============================== =*/
 /*= General event on click on ".option" in a ".filter.like_select" =*/
 function bindFilterOptionClick() {
-	$(".like_select.filter .option_container .option").click(function() {
+	$(".like_select.filter .option_container .option").unbind("click").click(function () {
 		var thisOptionContainer = $(this).parents('.option_container');
-        var classToBeActived, newLabel, newLabelVal, filtersActive;
+		var classToBeActived, newLabel, newLabelVal, filtersActive;
 		classToBeActived = $(this).attr('data-value');
 		if (classToBeActived === 'clear') { //pulisci selezione
 			$(this).siblings('.option').removeClass('selected');
@@ -1083,7 +1085,7 @@ function bindFilterOptionClick() {
 			newLabelVal = "clear";
 		} else if (classToBeActived === 'all') { //seleziona tutto
 			//$(this).addClass('selected');
-			$(this).siblings('.option').each(function() {
+			$(this).siblings('.option').each(function () {
 				classToBeActived = $(this).attr('data-value');
 				if (classToBeActived !== 'clear') {
 					$(this).addClass('selected');
@@ -1100,7 +1102,7 @@ function bindFilterOptionClick() {
 			$(this).siblings(".option[data-value='all']").removeClass('selected');
 
 			var thisSelectCurrentSelected = thisOptionContainer.find('.option.selected');
-            filtersActive = thisOptionContainer.find('.option.selected').length;
+			filtersActive = thisOptionContainer.find('.option.selected').length;
 			switch (filtersActive) {
 				case 1:
 					newLabel = thisOptionContainer.find('.option.selected').attr('data-value');
@@ -1128,7 +1130,7 @@ function bindFilterOptionClick() {
 
 /*= BIND THUMBNAIL CLICK EVENT =*/
 function bindThumbClick() {
-	$(".thumb_single").click(function() {
+	$(".thumb_single").unbind("click").click(function () {
 		var tt_val, pp_val;
 		var current_tt_val, current_tt_first_page;
 		pp_val = $(this).attr('data-value');
@@ -1161,20 +1163,20 @@ function bindThumbClick() {
 /*= BIND ARROWS BUTTONS CLICK EVENT =*/
 function bindArrowsBtnsClick() {
 	// Go to previous page;
-	$(".main_left_arrow , #BRicon_book_left").click(function() {
+	$(".main_left_arrow , #BRicon_book_left").unbind("click").click(function () {
 		arrow("left");
 	});
 	// Go to next page;
-	$(".main_right_arrow , #BRicon_book_right").click(function() {
+	$(".main_right_arrow , #BRicon_book_right").unbind("click").click(function () {
 		arrow("right");
 	});
 
 	// Go to text
 	if ($('#inside_left_arrow').length > 0 || $('#inside_right_arrow').length > 0) {
-		$("#inside_left_arrow, #inside_left_arrow-add").click(function() {
+		$("#inside_left_arrow, #inside_left_arrow-add").unbind("click").click(function () {
 			navDoc("left");
 		});
-		$("#inside_right_arrow, #inside_right_arrow-add").click(function() {
+		$("#inside_right_arrow, #inside_right_arrow-add").unbind("click").click(function () {
 			navDoc("right");
 		});
 	}

@@ -318,6 +318,7 @@ function prepareOccurrencesList(elem, listName) {
 					.attr('data-occ', '1')
 					.attr('title', "1 " + window.lang.convert('OCCURRENCE', window.lang.currentLang))
 					.text(window.lang.convert('FOL', window.lang.currentLang) + " " + pb_n + " - " + window.lang.convert('DOC', window.lang.currentLang) + " " + doc_lab)
+					.unbind("click")
 					.click(function () {
 						goToOccurrencePage(this, pb, doc);
 					})
@@ -433,8 +434,9 @@ function showItemInList(id_ref, listName) {
 					$(entityEl).find('.toggle_list_element').trigger('click');
 				}
 				$(entityEl).addClass('highlight');
-				setTimeout(function () {
+				var listsTimeout = setTimeout(function () {
 					$(entityEl).removeClass('highlight');
+					clearTimeout(listsTimeout);
 				}, 1000);
 				$('#' + list_id).scrollTop($(entityEl).position().top);
 			});
@@ -484,7 +486,7 @@ function bindListsBtnClick() {
 			}, 42);
 		}
 	});
-	$('#navListHeadersRx').click(function (event) {
+	$('#navListHeadersRx').unbind("click").click(function (event) {
 		var listHeadersWidth = 0;
 		$('.labelList').each(function (el) {
 			listHeadersWidth += $(this).outerWidth();
@@ -503,7 +505,7 @@ function bindListsBtnClick() {
 		}
 	});
 
-	$('#list_link').click(function (event) {
+	$('#list_link').unbind("click").click(function (event) {
 		var listSelect = $('#span_list_select');
 		var searchLink = $('#search_link');
 		var listCont = $('#lists_cont');
@@ -758,7 +760,7 @@ function navToDocumentFromList(el) {
 }
 
 function bindShowListElementOccurrences(listName) {
-	$('.list_element').find('.toggle_list_element, .entity_name').click(function () {
+	$('.list_element').find('.toggle_list_element, .entity_name').unbind("click").click(function () {
 		showListElementOccurrences($(this).parent(), listName);
 	});
 	/* Integration by LS */

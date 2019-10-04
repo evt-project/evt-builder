@@ -397,21 +397,21 @@ function closeFullScreenRight() {
 /*= BIND GO FULLSCREEN BTNs CLICK EVENT =*/
 function bindInternalFullscreenBtnClick() {
 	// goFullScreenLeft
-	$("#goFullScreenLeft").click(function () {
+	$("#goFullScreenLeft").unbind("click").click(function () {
 		goFullScreenLeft();
 	});
 	// goFullScreenRight
-	$("#goFullScreenRight").click(function () {
+	$("#goFullScreenRight").unbind("click").click(function () {
 		goFullScreenRight();
 	});
 
 	// closeFullScreenLeft
-	$("#closeFullScreenLeft").click(function () {
+	$("#closeFullScreenLeft").unbind("click").click(function () {
 		closeFullScreenLeft();
 	});
 
 	// closeFullScreenRight
-	$("#closeFullScreenRight").click(function () {
+	$("#closeFullScreenRight").unbind("click").click(function () {
 		closeFullScreenRight();
 	});
 }

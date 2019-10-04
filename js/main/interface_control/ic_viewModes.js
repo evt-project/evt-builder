@@ -656,28 +656,28 @@ function openTxtSingleMode() {
 /*= BIND VIEW MODES BUTTONS CLICK EVENT =*/
 function bindViewModesBtnsClick() {
 	// TOGGLE TXT IMG MODE VIEW
-	$("#txtimg_link").click(function () {
+	$("#txtimg_link").unbind('click').click(function () {
 		if (!$(this).hasClass("current_mode")) {
 			openTxtImgMode();
 		}
 	});
 
 	// TOGGLE TXT TXT MODE VIEW
-	$("#txttxt_link").click(function () {
+	$("#txttxt_link").unbind('click').click(function () {
 		if (!$(this).hasClass("current_mode")) {
 			openTxtTxtMode();
 		}
 	});
 
 	// TOGGLE BOOKREADER MODE VIEW
-	$("#imgd_link").click(function () {
+	$("#imgd_link").unbind('click').click(function () {
 		if (!$(this).hasClass("current_mode")) {
 			openBookreaderMode();
 		}
 	});
 
 	// TOGGLE TXT SINGLE MODE VIEW
-	$("#txt_single").click(function () {
+	$("#txt_single").unbind('click').click(function () {
 		if (!$(this).hasClass("current_mode")) {
 			openTxtSingleMode();
 		}

@@ -87,20 +87,21 @@ function Initialize() {
 	//alert("inizialize");
 	if (ITLon == false) {
 		/* Populate three handy lists with pointers to the menu items, areas and Anns. */
-		HeightOffset = parseInt(document.getElementById('iviewerImage').offsetTop);
-		ImgLeft = parseInt(document.getElementById('iviewerImage').offsetLeft);
-		ImgWidth = parseInt(document.getElementById('iviewerImage').offsetWidth);
+		var iviewerImage = document.getElementById('iviewerImage');
+		HeightOffset = parseInt(iviewerImage.offsetTop);
+		ImgLeft = parseInt(iviewerImage.offsetLeft);
+		ImgWidth = parseInt(iviewerImage.offsetWidth);
 		ImgRight = ImgLeft + ImgWidth;
-		ImgHeight = parseInt(document.getElementById('iviewerImage').offsetHeight);
+		ImgHeight = parseInt(iviewerImage.offsetHeight);
 		ImgBottom = HeightOffset + ImgHeight;
-		imgTop = HeightOffset + parseInt($("#iviewerImage").css('padding-top')) + parseInt($("#iviewerImage").css('margin-top'));
+		imgTop = HeightOffset + parseInt($(iviewerImage).css('padding-top')) + parseInt($(iviewerImage).css('margin-top'));
 		if ($('#switchITL i ').hasClass('fa-chain-broken')) {
 			$('#switchITL i ').removeClass('fa-chain-broken').addClass('fa-chain');
 		}
 		//var L = document.getElementById('AnnMenuContainer');
 		//ViewWidth = parseInt(L.parentNode.offsetWidth);
 		realImageWidth = parseInt($('#realImageWidth').text());
-		var ratio = (($("#iviewerImage").width()) / realImageWidth);
+		var ratio = (($(iviewerImage).width()) / realImageWidth);
 		Ratio = ratio;
 		var NList = $('.Area');
 		for (var i = 0; i < NList.length; i++) {
@@ -404,10 +405,11 @@ function ShowAnn(ItemId) {
 function ReInitialize() {
 	//alert("ReInitialize()");
 	if (ITLon == true) {
-		newImgTop = parseInt(document.getElementById('iviewerImage').offsetTop) + parseInt($('#iviewerImage').css('padding-top')) + parseInt($('#iviewerImage').css('margin-top'));
-		newImgLeft = parseInt(document.getElementById('iviewerImage').offsetLeft);
+		var iviewerImage = document.getElementById('iviewerImage');
+		newImgTop = parseInt(iviewerImage.offsetTop) + parseInt($(iviewerImage).css('padding-top')) + parseInt($(iviewerImage).css('margin-top'));
+		newImgLeft = parseInt(iviewerImage.offsetLeft);
 		realImageWidth = parseInt($('#realImageWidth').text());
-		var newRatio = $("#iviewerImage").width() / realImageWidth;
+		var newRatio = $(iviewerImage).width() / realImageWidth;
 
 		var NList = document.getElementsByTagName('div');
 		for (var i = 0; i < NList.length; i++) {
@@ -475,8 +477,9 @@ function UnInitialize(keep) {
 
 function moveAreas() {
 	if (ITLon == true) {
-		newImgTop = parseInt(document.getElementById('iviewerImage').offsetTop) + parseInt($('#iviewerImage').css('padding-top')) + parseInt($('#iviewerImage').css('margin-top'));
-		newImgLeft = parseInt(document.getElementById('iviewerImage').offsetLeft);
+		var iviewerImage = document.getElementById('iviewerImage');
+		newImgTop = parseInt(iviewerImage.offsetTop) + parseInt($(iviewerImage).css('padding-top')) + parseInt($(iviewerImage).css('margin-top'));
+		newImgLeft = parseInt(iviewerImage.offsetLeft);
 		var NList = document.getElementsByTagName('div')
 		for (var i = 0; i < NList.length; i++) {
 			if ((NList[i].className == 'Area') || (NList[i].className == 'SelectedArea') || (NList[i].className == 'HighlightedArea')) {
@@ -503,19 +506,21 @@ function switchITL() {
 		if (ITLon == false && image_elem.css('display') !== 'none') {
 			//if ((magnifierON==true)&&(bigImage==true)){magOn();}
 			if (magnifierON) {
-				magOn();
+				magO();
 			}
-			if ($('#switchMag').hasClass('likeInactive')) {
-				$('#switchMag').removeAttr('onclick').removeClass('likeInactive').addClass('inactive');
+			var switchMag = $('#switchMag');
+			if (switchMag.hasClass('likeInactive')) {
+				switchMag.removeAttr('onclick').removeClass('likeInactive').addClass('inactive');
 				$('#switchMag i').removeClass('fa fa-search-plus').addClass('fa fa-search');
 			}
 			if (HSon) {
 				UnInitializeHS();
 			}
-			if ($('#switchHS i ').hasClass('fa-dot-circle-o')) {
-				$('#switchHS i ').removeClass('fa-dot-circle-o').addClass('fa-circle-o'); //Add for FA
-				$('#switchHS').removeClass('active'); //Add for FA
-				if ($('#switchHS').hasClass('likeInactive')) {
+			var switchHS = $('#switchHS');
+			if ($('#switchHS i').hasClass('fa-dot-circle-o')) {
+				$('#switchHS i').removeClass('fa-dot-circle-o').addClass('fa-circle-o'); //Add for FA
+				switchHS.removeClass('active'); //Add for FA
+				if (switchHS.hasClass('likeInactive')) {
 					disableHSbutton();
 				}
 			}
@@ -551,15 +556,15 @@ function InitializeHS() {
 	if (HSon == false) {
 		//alert("inizializeHS")
 		/* Populate three handy lists with pointers to the menu items, areas and Anns. */
-
-		HeightOffsetHS = parseInt(document.getElementById('iviewerImage').offsetTop);
-		ImgLeftHS = parseInt(document.getElementById('iviewerImage').offsetLeft);
-		ImgWidthHS = parseInt(document.getElementById('iviewerImage').offsetWidth);
+		var iviewerImage = document.getElementById('iviewerImage');
+		HeightOffsetHS = parseInt(iviewerImage.offsetTop);
+		ImgLeftHS = parseInt(iviewerImage.offsetLeft);
+		ImgWidthHS = parseInt(iviewerImage.offsetWidth);
 		ImgRightHS = ImgLeftHS + ImgWidthHS;
-		ImgHeightHS = parseInt(document.getElementById('iviewerImage').offsetHeight);
+		ImgHeightHS = parseInt(iviewerImage.offsetHeight);
 		ImgBottomHS = HeightOffsetHS + ImgHeightHS;
-		paddingTopHS = parseInt($("#iviewerImage").css('padding-top'));
-		marginTopHS = parseInt($("#iviewerImage").css('margin-top'));
+		paddingTopHS = parseInt($(iviewerImage).css('padding-top'));
+		marginTopHS = parseInt($(iviewerImage).css('margin-top'));
 		imgTopHS = HeightOffsetHS + paddingTopHS + marginTopHS;
 
 		if ($('#switchHS i ').hasClass('fa-circle-o')) {
@@ -567,7 +572,7 @@ function InitializeHS() {
 		}
 
 		realImageWidth = parseInt($('#realImageWidth').text());
-		ratioHS = $("#iviewerImage").width() / realImageWidth;
+		ratioHS = $(iviewerImage).width() / realImageWidth;
 		RatioHS = ratioHS
 		var NList = $('.AreaHS');
 		for (var i = 0; i < NList.length; i++) {
@@ -761,8 +766,9 @@ function HideAnnHS(AnnId) {
 function ReInitializeHS() {
 	//alert("ReInitializeHS()");
 	if (HSon == true) {
-		newImgTopHS = parseInt(document.getElementById('iviewerImage').offsetTop) + parseInt($('#iviewerImage').css('padding-top')) + parseInt($('#iviewerImage').css('margin-top'));
-		newImgLeftHS = parseInt(document.getElementById('iviewerImage').offsetLeft);
+		var iviewerImage = document.getElementById('iviewerImage');
+		newImgTopHS = parseInt(iviewerImage.offsetTop) + parseInt($(iviewerImage).css('padding-top')) + parseInt($(iviewerImage).css('margin-top'));
+		newImgLeftHS = parseInt(iviewerImage.offsetLeft);
 		realImageWidth = parseInt($('#realImageWidth').text());
 		var newRatioHS = (($("#iviewerImage").width()) / realImageWidth);
 
@@ -784,8 +790,9 @@ function ReInitializeHS() {
 
 function moveAreasHS() {
 	if (HSon == true) {
-		newImgTopHS = parseInt(document.getElementById('iviewerImage').offsetTop) + parseInt($('#iviewerImage').css('padding-top')) + parseInt($('#iviewerImage').css('margin-top'));
-		newImgLeftHS = parseInt(document.getElementById('iviewerImage').offsetLeft);
+		var iviewerImage = document.getElementById('iviewerImage');
+		newImgTopHS = parseInt(iviewerImage.offsetTop) + parseInt($(iviewerImage).css('padding-top')) + parseInt($(iviewerImage).css('margin-top'));
+		newImgLeftHS = parseInt(iviewerImage.offsetLeft);
 		var NList = document.getElementsByTagName('div')
 		for (var i = 0; i < NList.length; i++) {
 			if ((NList[i].className == 'AreaHS') || (NList[i].className == 'SelectedAreaHS') || (NList[i].className == 'HighlightedAreaHS')) {
@@ -908,17 +915,19 @@ function switchHS() {
 		if (magnifierON) {
 			magOn();
 		}
-		if ($('#switchMag').hasClass('likeInactive')) {
-			$('#switchMag').removeAttr('onclick').removeClass('likeInactive').addClass('inactive');
+		var switchMag = $('#switchMag');
+		if (switchMag.hasClass('likeInactive')) {
+			switchMag.removeAttr('onclick').removeClass('likeInactive').addClass('inactive');
 			$('#switchMag i').removeClass('fa fa-search-plus').addClass('fa fa-search');
 		}
 		if (ITLon) {
 			UnInitialize();
 		}
+		var switchITL = $('#switchITL');
 		if ($('#switchITL i ').hasClass('fa-chain')) {
 			$('#switchITL i ').removeClass('fa-chain').addClass('fa-chain-broken'); //Add by CDP for FA
-			$('#switchITL').removeClass('active'); //Add by CDP
-			if ($('#switchITL').hasClass('likeInactive')) disableITLbutton();
+			switchITL.removeClass('active'); //Add by CDP
+			if (switchITL.hasClass('likeInactive')) disableITLbutton();
 		}
 		InitializeHS();
 		$('#switchHS').addClass('active');
