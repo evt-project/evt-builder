@@ -37,7 +37,55 @@
  * (added support for chronological index of documents)
  * @in 2017/18
  **/
-
+function doOpenSecondaryImageContent(id, togglerSelector) {
+	var el = $('#' + id);
+	$('#left_menu .mainButtons').removeClass('active');
+	el.show('slide', {
+		direction: 'up'
+	}, 400, function () {
+		el.addClass('opened');
+		$(togglerSelector).addClass('active');
+	});
+	$('#image_tool').addClass('no-opacity');
+}
+function resetStateAfterClosingSecondaryContent() {
+	$('#image_tool > *').removeClass('hidden');
+	$('#image_tool').removeClass('no-opacity');
+	if (magnifierON) {
+		$("#switchMag").addClass('active');
+	}
+	if (ITLon) {
+		$("#switchITL").addClass('active');
+	}
+}
+function closeSecondaryImageContentOpened(from, resetPrevious, idToOpen, togglerSelector) {
+	var opened = $('.secondary_content:not([id="' + idToOpen + '"])');
+	$('.secondary_toggler').removeClass('active');
+	if (opened.length === 0) {
+		if (idToOpen) {
+			doOpenSecondaryImageContent(idToOpen, togglerSelector);
+		}
+		if (resetPrevious) {
+			resetStateAfterClosingSecondaryContent();
+		}
+	} else {
+		opened.removeClass('opened');
+		opened.hide('slide', {
+			direction: 'up'
+		}, 400, function () {
+			if (idToOpen) {
+				doOpenSecondaryImageContent(idToOpen, togglerSelector);
+			}
+			// Reset previous state
+			if (resetPrevious) {
+				resetStateAfterClosingSecondaryContent();
+			}
+		});
+	}
+}
+function openSecondaryImageContent(id, togglerSelector) {
+	closeSecondaryImageContentOpened('openSecondaryImageContent', false, id, togglerSelector);
+}
 /*= BIND GENERIC OPTION HOVER EVENT =*/
 function bindOptionHover() {
 	$('.like_select .option_container .option').hover(function () {
@@ -58,7 +106,7 @@ function bindOptionHover() {
 /*= BIND EVENT TO OPEN OPTION CONTAINER OF SELECTS =*/
 function bindOpenSelectClick() {
 	/* Apertura option container dei selettori a tendina */
-	$(".open_select").click(function () {
+	$(".open_select").unbind("click").click(function () {
 		$('.hovered').removeClass('hovered');
 		if (!$(this).parents('.like_select').hasClass('not_active')) {
 			if (!($(".option_container").is(':animated'))) {
@@ -194,90 +242,21 @@ function bindGlobarWrapperMouseDown() {
 /*= BIND BUTTONS CLICK EVENT =*/
 function bindBtnClick() {
 	// GENERIC BUTTONS
-	$('#left_menu .mainButtons').click(function () {
+	$('#left_menu .mainButtons').unbind("click").click(function () {
 		if (!$(this).hasClass('inactive')) {
 			$(this).siblings().removeClass('active');
 		}
 	});
 
-	// MAGNIFIER, HOTSPOT, ITL BUTTONS
-	$('#switchMag, #switchHS, #switchITL').click(function () {
-		if (!$(this).hasClass('likeInactive')) {
-			var msDescSwitcher = $('#switch_msDesc');
-			if (msDescSwitcher.length > 0 && msDescSwitcher.hasClass('active')) {
-				msDescSwitcher.trigger('click');
-			}
-			var thumbsSwitcher = $('#thumb_elem');
-			if (thumbsSwitcher.length > 0 && thumbsSwitcher.hasClass('active')) {
-				thumbsSwitcher.removeClass('active');
-			}
-		}
-	});
-
 	// THUMBNAILS BUTTON
-	$(".thumb_link").click(function () {
-		var getThumbsSrc;
+	$(".thumb_link").unbind("click").click(function () {
 		if (!$(this).hasClass('disabled')) {
 			loadThumbs();
-			
-			var msDescCont = $('#msDesc_cont');
-			if (msDescCont.length > 0 && msDescCont.is(':visible')) {
-				$('#switch_msDesc').removeClass('active');
-				msDescCont.hide();
-			}
-			if (magnifierON == false) {
-				var imageElem = $("#image_elem");
-				if ($("#image_loading").css('display') !== "none") {
-					$("#image_loading").hide()
-				}
-				if (imageElem.css('display') === "none") {
-					imageElem.show();
-					$("#image_fade").show();
-					if (!$('#left_header').hasClass('menuClosed')) {
-						$("#image_tool").show();
-					}
-					$("#thumb_cont").hide();
-				} else {
-					imageElem.hide();
-					$("#image_fade").hide();
-					$("#image_tool").hide();
-					$("#thumb_cont").show();
-				}
-			} else { //modalità magnifier attivo JK
-				var magImageElem = $("#mag_image_elem");
-				if (magImageElem.css('display') === "none") {
-					magImageElem.show();
-					$("#image_tool").show();
-					$("#thumb_cont").hide();
-					$('#switchMag').addClass('active');
-				} else {
-					magImageElem.hide();
-					$("#image_tool").hide();
-					$("#thumb_cont").show();
-				}
-			}
-			
-			$(this).toggleClass('active');
-			// Passaggio da viscoll a thumbnails
-			if ($('#thumb_elem').hasClass('active')) {
-				$('#BRpager').slider("option", "disabled", false); // Riabilito lo slider
-				$('#BRicon_book_left').prop("disabled", false);
-				$('#BRicon_book_right').prop("disabled", false);
-				$('.main_tt_select div.option_container div.option').removeClass('ui-state-disabled');
-				bindTTselectClick();
-				$('.main_pp_select div.option_container div.optionGroup div.option').removeClass('ui-state-disabled');
-				bindPPselectClick();
-				$('#span_dd_select.like_select div.main_dd_select div.option_container div.option').removeClass('ui-state-disabled');
-				bindDDselectClick();
-				// Al click sulle thumbnails se viscoll ha class active (cioè è attivo), gli tolgo la classe e tolgo l'iframe
-				if ($('#viscoll').hasClass('active')) {
-					$('#viscoll').removeClass('active');
-					$('iframe').remove();
-					$('#thumb_cont').show();
-					$("#image_elem").hide();
-					$("#image_fade").hide();
-					$("#image_tool").hide();
-				}
+			if ($(this).hasClass('active')) { // HIDE
+				closeSecondaryImageContentOpened('thumbClick', true);
+				$(this).removeClass('active');
+			} else { // SHOW
+				openSecondaryImageContent('thumb_cont', '.thumb_link');
 			}
 		}
 	});
@@ -314,7 +293,7 @@ function loadThumbs() {
 
 /*= BIND FONT SIZE CONTROLLER BUTTONS CLICK EVENT =*/
 function bindFontSizeControllerBtnClick() {
-	$('.font-size-controller').click(function () {
+	$('.font-size-controller').unbind("click").click(function () {
 		var action = $(this).attr('data-action');
 		var sizeCtrl = $(this);
 		if (!$(this).hasClass('inactive')) {
@@ -376,7 +355,7 @@ function bindFontSizeControllerBtnClick() {
 		}
 	});
 
-	$('#decrease_font_size').click(function () {
+	$('#decrease_font_size').unbind("click").click(function () {
 		var currentFontSize, currentFontSizeNum, newFontSize;
 		currentFontSize = $('#text_frame, #front_frame').css('font-size');
 		currentFontSizeNum = parseFloat(currentFontSize, 10);
@@ -390,7 +369,7 @@ function bindFontSizeControllerBtnClick() {
 
 /*= BIND COLLAPSE MENU BUTTONS CLICK EVENT =*/
 function bindCollapseMenuBtnClick() {
-	$('#header_collapse').click(function () {
+	$('#header_collapse').unbind("click").click(function () {
 		var noMenu_height, withMenu_height;
 		var topMenu_height, bottomMenu_height;
 		var bottom_box_frame, bottom_box_visible;
@@ -701,7 +680,7 @@ function InitializePopup() {
 	});
 
 
-	$(document).click(function () {
+	$(document).unbind("click").click(function () {
 		$('.over').removeClass('over');
 		$('.opened').removeClass('opened');
 		$('.popup').find('> .tooltip').hide();
@@ -716,7 +695,7 @@ function InitializePopup() {
 // Needed because xslt always create two <br>s element when generating with <xsl:element>
 function transformBrs() {
 	var brs = document.getElementsByClassName('lb');
-	for (var i = brs.length - 1; i >= 0 ; i--) {
+	for (var i = brs.length - 1; i >= 0; i--) {
 		if (brs[i].getAttribute('data-type') === 'empty') {
 			brs[i].innerHTML = '<br />';
 		}

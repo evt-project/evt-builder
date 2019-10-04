@@ -88,7 +88,6 @@
 	<xsl:include href="modules/extra/functx-1.0.xsl"/>
 	
 	<!-- Viscoll -->
-	<xsl:include href="modules/viscoll/process_list-image.xsl"/>
 	<xsl:include href="modules/viscoll/evt_builder-viscoll.xsl"/>
 	<xsl:include href="modules/viscoll/process_idno.xsl"/>
 	<xsl:include href="modules/viscoll/process4.xsl"/>

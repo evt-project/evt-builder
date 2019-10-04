@@ -94,19 +94,23 @@ function magnifierReady() {
 		'margin-left': 'auto',
 		'margin-right': 'auto'
 	});
+	var magTimeout;
 	if ($('.current_mode').attr('id') == 'imgd_link') {
 		if (current_pp.indexOf('+') < 0) {
-			setTimeout(function() {
+			magTimeout = setTimeout(function() {
 				magON();
+				clearTimeout(magTimeout);
 			}, 1000);
 		} else {
-			setTimeout(function() {
+			magTimeout = setTimeout(function() {
 				magONbig();
+				clearTimeout(magTimeout);
 			}, 1000);
 		}
 	} else {
-		setTimeout(function() {
+		magTimeout = setTimeout(function() {
 			magON();
+			clearTimeout(magTimeout);
 		}, 1000);
 	}
 }
@@ -132,12 +136,15 @@ function setMagHeight() {;
 }
 
 function magOn() {
-	var thumb_cont = $('#thumb_cont'),
-		msDesc_cont = $('#msDesc_cont');
-	if (magnifierON == false ||
-		(thumb_cont.length > 0 && thumb_cont.css('display') !== 'none') ||
-		(msDesc_cont.length > 0 && $('#msDesc_cont').css('display') !== 'none')) {
-
+	if ($('.secondary_toggler.active').length > 0) {
+		closeSecondaryImageContentOpened('magOn', false);
+		if (magnifierON) {
+			resetStateAfterClosingSecondaryContent();
+			return;
+		}
+	}
+	console.log('magnifierON', magnifierON);
+	if (magnifierON == false) {
 		if ($('.zoomWrapperImage').hasClass('bigImageError')) {
 			var errorMsg = $('.zoomWrapperImage').attr('data-error-msg');
 			alert(errorMsg);
@@ -191,7 +198,6 @@ function magOn() {
 		$('#image_tool').removeClass('hidden');
 		magnifierON = false;
 	}
-	$('#thumb_cont, #msDesc_cont').css('display', 'none');
 }
 
 function disableITLbutton() {

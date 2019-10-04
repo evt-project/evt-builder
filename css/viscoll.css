@@ -1,0 +1,376 @@
+/* Style retrieved from Viscoll */
+
+/* VISCOLL */
+@charset "utf-8";
+/* CSS Document */
+
+#quires_cont {
+    position: absolute;
+    width: calc(100% - 40px);
+    padding: 7px 20px 0;
+}
+
+.bif {
+    font-family: Junicode, Times, serif;
+    font-size: 14px;
+    color: rgb(78, 68, 60);
+    text-decoration: none;
+    height: auto;
+    position: relative;
+    width: 130px;
+    display: inline-block;
+    overflow: hidden;
+}
+
+.terms {
+    font-family: Junicode, Times, serif;
+    font-size: 15px;
+    color: #FFF;
+    height: 295px;
+    text-decoration: none;
+    width: 800px;
+    position: static;
+    background-color: white;
+    border-bottom-width: 4px;
+    border-bottom-style: solid;
+    border-bottom-color: #acacac;
+    float: left;
+    margin-left: 5px;
+    text-align: left;
+    vertical-align: bottom;
+    padding-top: 15px;
+    padding-left: 10px;
+    overflow: auto;
+}
+
+.img1, .img2 {
+    font-family: Junicode, Times, serif;
+    font-size: 12px;
+    color: #FFF;
+    height: auto;
+    text-decoration: none;
+    position: relative;
+    text-align: center;
+    padding: 15px 5px 0;
+    display: inline-block;  
+    width: calc((100% - 150px - 7px) / 2);
+    overflow: hidden;
+    margin-left: -8px;
+}
+
+.img1 a img, .img2 a img {
+    max-width: calc((100% - 10px) / 2);
+}
+#imgleft {
+    font-family: Junicode, Times, serif;
+    font-size: 15px;
+    color: #FFF;
+    height: 295px;
+    text-decoration: none;
+    width: 430px;
+    position: static;
+    background-color: #415a6c;
+    border-bottom-width: 4px;
+    border-bottom-style: solid;
+    border-bottom-color: #acacac;
+    float: left;
+    margin-left: 5px;
+    text-align: center;
+    vertical-align: bottom;
+    padding-top: 15px;
+
+    padding-left: 10px;
+}
+
+#imgright {
+    font-family: Junicode, Times, serif;
+    font-size: 15px;
+    color: #FFF;
+    height: 295px;
+    text-decoration: none;
+    width: 430px;
+    position: static;
+    background-color: #415a6c;
+    border-top-right-radius: 20px;
+    border-bottom-width: 4px;
+    border-bottom-style: solid;
+    border-bottom-color: #acacac;
+    float: left;
+    text-align: center;
+    vertical-align: bottom;
+    padding-right: 10px;
+    padding-top: 15px;
+    margin-left: 5px;
+}
+
+.openimage {
+    margin-bottom: -3px;
+}
+
+.closeimage {
+    margin-left: -11px;
+    margin-bottom: 7px;
+}
+
+.spacer {
+    font-size: 12px;
+    margin-right: 40px;
+    /* Prima era 90px */
+    margin-left: 40px;
+    /* Prima era 80px */
+}
+
+.bititles {
+    height: 25px;
+    overflow: visible;
+    visibility: visible;
+    padding-left: 10px;
+}
+
+
+.labels {
+    font-size: 5px;
+    fill: #FFF;
+}
+
+#listofquires {
+    display: none;
+    /* GM */
+}
+
+#quirelist {
+    font-family: Junicode, Times, serif;
+    color: #FFF;
+    background-color: #415a6c;
+}
+
+
+.mstitle {
+    font-family: Junicode, Times, serif;
+    font-size: 18px;
+    font-variant: normal;
+    /*color: #333;*/
+    color: rgb(78, 68, 60);
+    letter-spacing: 0.06em;
+
+}
+
+.mstitle a:link,
+a:visited {
+    text-decoration: none;
+    color: #362D28;
+}
+
+#divtop {
+    font-family: Junicode, Times, serif;
+    font-size: 20px;
+    font-variant: small-caps;
+    color: #FFF;
+    background-color: #600;
+    padding-top: 5px;
+    padding-right: 0px;
+    padding-bottom: 0px;
+    padding-left: 15px;
+    margin-left: -15px;
+    height: 32px;
+}
+
+
+#divtop .topheader a:link,
+#divtop .topheader a:visited {
+    font-family: Junicode, Times, serif;
+    font-size: 18px;
+    font-variant: small-caps;
+    color: #FFF;
+    text-decoration: none;
+    letter-spacing: .05em;
+}
+
+.left {
+    float: left;
+}
+
+.right {
+
+    float: right;
+}
+
+.fixed {
+    position: fixed;
+}
+
+.embedQuire {
+    height: 300px;
+    width: 400px;
+}
+
+.embedHTML {
+    height: 400px;
+    width: 505px;
+}
+
+.bifolList {
+    height: 300px;
+}
+
+.bifolPage {
+    height: 600px;
+}
+
+.xList {
+    width: 240px;
+}
+
+.xPage {
+    width: 480px;
+}
+
+
+.leaf {
+    stroke: #999;
+    stroke-width: 1pt;
+    fill: none;
+}
+
+.thisleaf {
+    stroke: white;
+    stroke-width: 1pt;
+    fill: none;
+
+}
+
+.ghostLeaf {
+    stroke: #415a6c;
+    stroke-width: 1pt;
+    fill: none;
+    fill-opacity: 1;
+}
+
+.replaced {
+    stroke-dasharray: 4, 1, 1, 1;
+    border-style: dotted;
+    border-color: #ffffff;
+}
+
+.added {
+    stroke-dasharray: 4, 1;
+    border-style: dashed;
+    border-color: #ffffff;
+}
+
+.missing {
+    stroke-dasharray: 1, 5;
+}
+
+.empty {
+    stroke: #415a6c;
+    stroke-width: 1.2pt;
+    fill: none;
+    fill-opacity: 1;
+}
+
+.nums {
+    font-family: Junicode, Times, serif;
+    font-size: 5px;
+    fill: #ffffff;
+    stroke: none;
+}
+
+.bititle {
+    font-family: Junicode, Times, serif;
+    font-size: 8px;
+    fill: #fff;
+}
+
+
+.bititles a:link,
+.bititles a:visited {
+    font-family: Junicode, Times, serif;
+    font-size: 16px;
+    text-decoration: none;
+    margin-left: 5px;
+    color: white;
+}
+
+.quireset {
+    display: block;
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+
+    background-color: #415a6c;
+    border-top-left-radius: 20px;
+    border-bottom-width: 4px;
+    border-left-width: 4px;
+    border-bottom-style: solid;
+    border-left-style: solid;
+    border-bottom-color: #acacac;
+    border-left-color: #acacac;
+    margin-bottom: 10px;
+}
+
+.newquire {
+    clear: both;
+}
+
+.quires_toggler {
+    display: none;
+    font-size: .5rem;
+}
+.quires_empty_images {
+    position: relative;
+    color: #fff;
+    font-size: 0.7rem;
+    width: calc(100% - 130px);
+    text-align: center;
+    top: -110px;
+    left: 130px;
+}
+/* Modificato per EVT */
+
+.helptext {
+    font-family: Junicode, Times, serif;
+    font-size: 14px;
+    color: #333;
+}
+
+
+.missingLeaf {
+    stroke: #D3D3D3;
+    stroke-width: 1pt;
+    fill: none;
+    stroke-linecap: round;
+}
+
+.replacedLeaf {
+    stroke: #000000;
+    stroke-dasharray: 0.25, 3, 4, 3;
+    stroke-width: 1pt;
+    fill: none;
+    stroke-linecap: round;
+}
+
+.addedLeaf {
+    stroke: #000000;
+    stroke-dasharray: 0.8, 2;
+    stroke-width: 0.8pt;
+    fill: none;
+    stroke-linecap: square;
+}
+
+.addedLeaf2 {
+    stroke: #000000;
+    stroke-dasharray: 0.8, 2;
+    stroke-width: 1.8pt;
+    fill: none;
+}
+
+.glued {
+    stroke: grey;
+    stroke-width: 0.5;
+    stroke-linecap: round;
+}
+
+#image_cont[data-viscoll='active'] {
+    overflow: auto;
+}

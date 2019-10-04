@@ -63,9 +63,13 @@ function collapseMenu(frame, height) {
 		}
 	}
 
-	frame.find('.inner_frame').animate({
+	frame.find('.inner_frame:not(.full-height)').animate({
 		height: height - bottomBoxHeader_height,
 		top: -topMenu_height
+	});
+	frame.find('.inner_frame.full-height').animate({
+		height: height - bottomBoxHeader_height,
+		top: 0
 	});
 	frame.find('.bottomBoxOpened:not(.collapsed)').animate({
 		height: height,
@@ -113,11 +117,15 @@ function expandMenu(frame, height) {
 	}
 
 	var withMenu_height = height - (topMenu_height * 2);
-	frame.find('.inner_frame:not(#image_cont):not(#msDesc_cont)').animate({
+	frame.find('.inner_frame:not(#image_cont):not(.full-height)').animate({
 		height: withMenu_height - bottomBoxHeader_height,
 		top: 0
 	});
-	frame.find('#image_cont, #msDesc_cont').animate({
+	frame.find('.inner_frame.full-height').animate({
+		height: height - topMenu_height,
+		top: topMenu_height
+	});
+	frame.find('#image_cont').animate({
 		height: (withMenu_height + topMenu_height),
 		top: 0
 	});

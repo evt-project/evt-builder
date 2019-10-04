@@ -287,6 +287,8 @@ function gotopage(pp_val, pp_lab, state) {
 			window.lang.run();
 			/* /end Integration by LS */
 		}
+		// IT: Se ci si trova nella modalità Thumb, chiude la schermata e visualizza l'immagine
+		closeSecondaryImageContentOpened('gotopage', false)
 	};
 
 	var pageLoadedCallbackAdd = function (status, current_font_size) {
@@ -453,11 +455,6 @@ function gotopage(pp_val, pp_lab, state) {
 			.text($("input[name=edition_r-add]:checked").val())
 			.hide()
 			.fadeIn(200);
-	}
-
-	// IT: Se ci si trova nella modalit Thumb, chiude la schermata e visualizza l'immagine
-	if ($("#thumb_cont").css('display') === "block") {
-		$(".thumb_link").trigger('click');
 	}
 }
 
