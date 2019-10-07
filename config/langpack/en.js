@@ -152,6 +152,8 @@ jquery_lang_js.prototype.lang.en = {
 	"IN_THE_CURRENT_EDIION": "in the selected edition",
 	"FOUND_IN": "found in",
 	"PAGE": "page",
+	"LINE": "line",
+	"PAR": "paragraph",
 	"NOTHING_FOUND": "Nothing found.",
 	"COMMON_WORDS_IGNORED": "Common words are largely ignored.",
 	"SEARCH_TOO_SHORT": "Search too short",

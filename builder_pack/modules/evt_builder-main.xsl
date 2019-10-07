@@ -917,7 +917,7 @@
 	
 	<!-- SEARCH -->
 	<xsl:template name="search_file">
-		<xsl:if test="$edition_array[1]!=''">
+		<xsl:if test="$edition_array[1]!=''"><!-- Diplomatic -->
 			<xsl:variable name="edition_current" select="lower-case($edition_array[1])" />
 			<xsl:result-document method="text" href="{$filePrefix}/data/output_data/{$edition_current}/{$edition_current}.json" indent="no">
 				{"pages": [
@@ -997,7 +997,7 @@
 			</xsl:result-document>
 		</xsl:if>
 		
-		<xsl:if test="$edition_array[2]!=''">
+		<xsl:if test="$edition_array[2]!=''"><!-- Interpretative -->
 			<xsl:variable name="edition_current" select="lower-case($edition_array[2])" />
 			<xsl:result-document method="text" href="{$filePrefix}/data/output_data/{$edition_current}/{$edition_current}.json" indent="no">
 				{"pages": [
@@ -1074,8 +1074,56 @@
 			</xsl:result-document>
 		</xsl:if>
 		
-		<xsl:if test="$edition_array[3]!=''">
+		<!-- ADD BY FS - Edizione di traduzione -->
+		<xsl:if test="$edition_array[3]!=''"><!-- Translation -->
 			<xsl:variable name="edition_current" select="lower-case($edition_array[3])" />
+			<xsl:result-document method="text" href="{$filePrefix}/data/output_data/{$edition_current}/{$edition_current}.json" indent="no">
+				{"pages": [
+				<!-- Questa istruzione introdotta da XSLT 2.0 selezione un set di elementi, li divide in guppi seguendo un determinato criterio e infine traduce il contenuto
+				di ogni gruppo. Per la selezione dei gruppi utilizza attributo group-starting-with: che divide il blocco di elementi in gruppi, creando un niovo gruppo
+				ogni volta che inconta l'elemento indicato come criterio di selezione-->
+				<xsl:for-each select="//tei:div[starts-with(@type,'transl')]/child::node()">
+					<!-- TEXTUAL CONTENT -->
+					<xsl:variable name="current_text">
+						<xsl:apply-templates select="node()/." mode="trad"/>
+					</xsl:variable>
+					<xsl:variable name="current_text1">
+						<xsl:apply-templates select="$current_text//text()[not(ancestor::span)]" mode="deleteSpaces"/>
+					</xsl:variable>
+					<xsl:choose>
+						<xsl:when test="self::tei:l">
+							<xsl:variable name="lineN" select="if(@n) then (@n) else (position())"/>
+							<xsl:variable name="lineId" select="if(@xml:id) then(@xml:id) else(if(@n) then (@n) else (position()))"/>
+							{ 
+							"line" : "<xsl:value-of select="$lineId"/>|line <xsl:value-of select="$lineN"/>",
+							"text" : "<xsl:copy-of select="replace($current_text1, '(\\|/)', '$1$1')"/>",
+							"tags" : "",
+							"loc" : ""
+							},
+						</xsl:when>
+						<xsl:when test="self::tei:p">
+							<xsl:variable name="pN" select="if(@n) then (@n) else (position())"/>
+							<xsl:variable name="pId" select="if(@xml:id) then(@xml:id) else(if(@n) then (@n) else (position()))"/>
+							{ 
+							"line" : "<xsl:value-of select="$pId"/>|par <xsl:value-of select="$pN"/>",
+							"text" : "<xsl:copy-of select="replace($current_text1, '(\\|/)', '$1$1')"/>",
+							"tags" : "",
+							"loc" : ""
+							},
+						</xsl:when>
+					</xsl:choose>
+				</xsl:for-each>
+				{
+				"line" : "",
+				"text" : "",
+				"tags" : "",
+				"loc" : ""
+				}]}
+			</xsl:result-document>
+		</xsl:if>
+		
+		<xsl:if test="$edition_array[4]!=''">
+			<xsl:variable name="edition_current" select="lower-case($edition_array[4])" />
 			<xsl:result-document method="text" href="{$filePrefix}/data/output_data/{$edition_current}/{$edition_current}.json" indent="no">
 				{"pages": [
 				<!-- Questa istruzione introdotta da XSLT 2.0 selezione un set di elementi, li divide in guppi seguendo un determinato criterio e infine processa il contenuto
@@ -1150,8 +1198,8 @@
 		</xsl:if>
 
 		<!-- ADD BY FS - Edizione critica -->
-		<xsl:if test="$edition_array[4]!=''">
-			<xsl:variable name="edition_current" select="lower-case($edition_array[4])" />
+		<xsl:if test="$edition_array[5]!=''">
+			<xsl:variable name="edition_current" select="lower-case($edition_array[5])" />
 			<xsl:result-document method="text" href="{$filePrefix}/data/output_data/{$edition_current}/{$edition_current}.json" indent="no">
 				{"pages": [
 				<xsl:for-each-group select="//node()[name()=$ed_content]/descendant-or-self::node()[name()=$start_split]/node()" group-starting-with="//tei:pb">
@@ -1206,73 +1254,6 @@
 							{
 							"line" : "<xsl:call-template name="paragraph_refs4search"/>",
 							"text" : "<xsl:copy-of select="replace($current_text2, '(\\|/)', '$1$1')"/>",
-							"tags" : "<xsl:call-template name="doc_refs4search"/>",
-							"loc" : "<xsl:call-template name="page_refs4search"/>"
-							},
-						</xsl:otherwise>
-					</xsl:choose>
-				</xsl:for-each-group>
-				{
-				"line" : "",
-				"text" : "",
-				"tags" : "",
-				"loc" : ""
-				}]}
-			</xsl:result-document>
-		</xsl:if>
-		<!-- ADD BY FS - Edizione di traduzione -->
-		<xsl:if test="$edition_array[5]!=''">
-			<xsl:variable name="edition_current" select="lower-case($edition_array[5])" />
-			<xsl:result-document method="text" href="{$filePrefix}/data/output_data/{$edition_current}/{$edition_current}.json" indent="no">
-				{"pages": [
-				<!-- Questa istruzione introdotta da XSLT 2.0 selezione un set di elementi, li divide in guppi seguendo un determinato criterio e infine traduce il contenuto
-				di ogni gruppo. Per la selezione dei gruppi utilizza attributo group-starting-with: che divide il blocco di elementi in gruppi, creando un niovo gruppo
-				ogni volta che inconta l'elemento indicato come criterio di selezione-->
-				<xsl:for-each-group select="//node()[name()=$ed_content]/descendant-or-self::node()[name()=$start_split]/node()" group-starting-with="//tei:pb">
-					<xsl:choose>
-						<xsl:when test="current-group()/(descendant-or-self::lb)">
-							<xsl:for-each-group select="current-group()[not(self::pb)]" group-starting-with="tei:lb">
-								<xsl:if test="current-group()[not((string-length(normalize-space()))= 0)]">
-									<!-- TEXTUAL CONTENT -->
-									<xsl:variable name="current_text">
-										<xsl:apply-templates select="current-group()[not(self::tei:lb)]" mode="trad"/>
-									</xsl:variable>
-									<xsl:variable name="current_text1">
-										<xsl:apply-templates select="$current_text//text()[not(ancestor::span)]" mode="deleteSpaces"/>
-									</xsl:variable>
-									{ 
-									"line" : "<xsl:call-template name="line_refs4search"/>",
-									"text" : "<xsl:copy-of select="replace($current_text1, '(\\|/)', '$1$1')"/>",
-									"tags" : "<xsl:call-template name="doc_refs4search"/>",
-									"loc" : "<xsl:call-template name="page_refs4search"/>"
-									},
-								</xsl:if>
-							</xsl:for-each-group>
-						</xsl:when>
-						<xsl:when test="current-group()/(descendant-or-self::p)">
-							<xsl:for-each-group select="current-group()/descendant::p" group-starting-with="//tei:p">
-								<xsl:variable name="current_text">
-									<xsl:apply-templates select="current-group()[not(self::tei:pb)]" mode="trad"/>
-								</xsl:variable>
-								{
-								"line" : "<xsl:call-template name="paragraph_refs4search"/>",
-								"text" : "<xsl:value-of select="fn:normalize-space($current_text)"/>",
-								"tags" : "<xsl:call-template name="doc_refs4search"/>",
-								"loc" : "<xsl:call-template name="page_refs4search"/>"
-								},
-							</xsl:for-each-group>
-						</xsl:when>
-						<xsl:otherwise>
-							<!-- TEXTUAL CONTENT -->
-							<xsl:variable name="current_text">
-								<xsl:apply-templates select="current-group()[not(self::tei:pb)]" mode="trad"/>
-							</xsl:variable>
-							<xsl:variable name="current_text1">
-								<xsl:apply-templates select="$current_text//text()[not(ancestor::span)]" mode="deleteSpaces"/>
-							</xsl:variable>
-							{ 
-							"line" : "<xsl:call-template name="line_refs4search"/>",
-							"text" : "<xsl:copy-of select="replace($current_text1, '(\\|/)', '$1$1')"/>",
 							"tags" : "<xsl:call-template name="doc_refs4search"/>",
 							"loc" : "<xsl:call-template name="page_refs4search"/>"
 							},

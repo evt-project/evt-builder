@@ -2250,10 +2250,10 @@ div.doc.not_current:hover {
 #search_cont_results-add {
     padding: 20px;
     overflow-y: auto;
-    height: -moz-calc(100% - 194px);
-    height: -webkit-calc(100% - 194px);
-    height: -o-calc(100% - 194px);
-    height: calc(100% - 194px);
+    height: -moz-calc(100% - 155px);
+    height: -webkit-calc(100% - 155px);
+    height: -o-calc(100% - 155px);
+    height: calc(100% - 155px);
     position: relative;
 }
 
@@ -3666,7 +3666,7 @@ ul.ul_list li.list_element_opened {
     width: 100%;
     margin-bottom: 0;
     height: 15px;
-    display: block;
+    display: inline-block;
     margin-top: 20px;
     font-weight: bold;
     font-style: normal;

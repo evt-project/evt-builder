@@ -56,7 +56,7 @@
 	<!-- P Paragraphs -->
 	<xsl:template match="tei:p" mode="trad">
 		<xsl:element name="span">
-			<xsl:attribute name="data-id" select="@xml:id"/>			
+			<xsl:attribute name="data-id" select="if(@xml:id) then(@xml:id) else(if(@n) then(@n) else(position()))"/>			
 			<xsl:if test="current()[not((string-length(normalize-space()))= 0)]">
 				<xsl:attribute name="class" select="$ed_name3,name()" separator="-"/>
 				<xsl:apply-templates mode="#current"> </xsl:apply-templates>
@@ -66,7 +66,10 @@
 	
 	<!-- L Verse line-->
 	<xsl:template match="tei:l" mode="trad">
-		<div class="trad line">
+		<xsl:element name="div">
+			<xsl:attribute name="class" select="'trad line'"/>
+			<xsl:attribute name="data-line-n" select="if (@n) then(@n) else(position())"/>
+			<xsl:attribute name="data-line-id" select="if (@xml:id) then(@xml:id) else(if(@n) then (@n) else (position()))"/>
 			<div class="trad-lineN">
 				<xsl:value-of
 					select="
@@ -80,7 +83,7 @@
 				<xsl:text>&#xA0;&#xA0;</xsl:text>
 			</div>
 			<div class="trad-left"><xsl:apply-templates mode="#current"/></div>
-		</div>
+		</xsl:element>
 		<xsl:text> </xsl:text><!--important-->
 	</xsl:template>
 	
