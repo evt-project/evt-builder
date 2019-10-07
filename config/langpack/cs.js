@@ -153,6 +153,8 @@ jquery_lang_js.prototype.lang.cs = {
 	"IN_THE_CURRENT_EDIION": "ve zvolené edici",
 	"FOUND_IN": "nalezeno v dokumentu",
 	"PAGE": "na straně",
+	"LINE": "řádek",
+	"PAR": "část",
 	"NOTHING_FOUND": "Nic nenalezeno.",
 	"COMMON_WORDS_IGNORED": "Nelze vyhledat příliš častá slova.",
 	"SEARCH_TOO_SHORT": "Hledaný výraz je příliš krátký",

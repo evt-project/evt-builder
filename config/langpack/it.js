@@ -152,6 +152,8 @@ jquery_lang_js.prototype.lang.it = {
 	"IN_THE_CURRENT_EDIION": "nell'edizione selezionata",
 	"FOUND_IN": "trovato in",
 	"PAGE": "pagina",
+	"LINE": "linea",
+	"PAR": "paragrafo",
 	"NOTHING_FOUND": "Nessun risultato.",
 	"COMMON_WORDS_IGNORED": "Le parole comuni sono spesso ignorate.",
 	"SEARCH_TOO_SHORT": "Stringa ricercata troppo breve.",
