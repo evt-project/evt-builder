@@ -199,10 +199,10 @@ function gotopage(pp_val, pp_lab, state) {
 					$("#text span[data-ref='" + ref + "']").addClass('selected_from_list');
 				});
 			}
-			if (!$('#imgd_link').hasClass('current_mode')) {
-				updateLinesWidth(right_frame);
-			}
-
+			// if (!$('#imgd_link').hasClass('current_mode')) {
+			// 	updateLinesWidth(right_frame);
+			// }
+			
 			//IT: Riattiva filtri attivi
 			updateEntitiesFiltered(right_frame);
 
@@ -282,7 +282,8 @@ function gotopage(pp_val, pp_lab, state) {
 					.scrollTop($('.selected_from_list').position().top)
 					.removeClass('reachingOccurence');
 			}
-
+			updateLinesWidth($('#main_right_frame'));
+			updateLinesWidth($('#main_left_frame'));
 			/* Integration by LS */
 			window.lang.run();
 			/* /end Integration by LS */
@@ -539,6 +540,8 @@ function gotoedition(pp_val, ee_val, pp_el, frame_id) {
 					.trigger('click');
 
 			}
+			updateLinesWidth($('#main_right_frame'));
+			updateLinesWidth($('#main_left_frame'));
 			/* Integration by LS */
 			window.lang.run();
 			/* /end Integration by LS */
