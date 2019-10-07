@@ -152,6 +152,8 @@ jquery_lang_js.prototype.lang.fr = {
 	"IN_THE_CURRENT_EDIION": "dans l'édition sélectionné",
 	"FOUND_IN": "trouvé dans",
 	"PAGE": "page",
+	"LINE": "ligne",
+	"PAR": "section",
 	"NOTHING_FOUND": "Pas des résultats.",
 	"COMMON_WORDS_IGNORED": "Les mots communs sont souvent ignorés.",
 	"SEARCH_TOO_SHORT": "Mot recherché trop court.",
