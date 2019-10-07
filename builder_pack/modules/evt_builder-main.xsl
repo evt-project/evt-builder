@@ -931,7 +931,7 @@
 									<xsl:if test="current-group()[not((string-length(normalize-space()))= 0)]">
 										<!-- TEXTUAL CONTENT -->
 										<xsl:variable name="current_text">
-											<xsl:apply-templates select="current-group()[not(self::tei:lb)]" mode="dipl"/>
+											<xsl:apply-templates select="current-group()[not(self::tei:lb) and not(ancestor-or-self::tei:back)]" mode="dipl"/>
 										</xsl:variable>
 										<xsl:variable name="current_text1">
 											<xsl:apply-templates select="$current_text" mode="delete_el1"/>
@@ -953,7 +953,7 @@
 								<xsl:copy-of select="$var//text()"></xsl:copy-of>-->
 								<xsl:for-each-group select="current-group()/descendant::p" group-starting-with="//tei:p">
 									<xsl:variable name="current_text">
-										<xsl:apply-templates select="current-group()[not(self::tei:pb)]" mode="interp"/>
+										<xsl:apply-templates select="current-group()[not(self::tei:pb) and not(ancestor-or-self::tei:back)]" mode="dipl"/>
 									</xsl:variable>
 									<xsl:variable name="current_text1">
 										<xsl:apply-templates select="$current_text"
@@ -975,8 +975,7 @@
 							<xsl:otherwise>
 								<!-- TEXTUAL CONTENT -->
 								<xsl:variable name="current_text">
-									<xsl:apply-templates select="current-group()[not(self::tei:pb)]"
-										mode="dipl"/>
+									<xsl:apply-templates select="current-group()[not(self::tei:pb) and not(ancestor-or-self::tei:back)]" mode="dipl"/>
 								</xsl:variable>
 								<xsl:variable name="current_text1">
 									<xsl:apply-templates select="$current_text" mode="delete_el1"/>
@@ -992,8 +991,8 @@
 									"tags" : "<xsl:call-template name="doc_refs4search"/>", 
 									"loc" : "<xsl:call-template name="page_refs4search"/>" }, 
 							</xsl:otherwise>
-					</xsl:choose>
-				</xsl:for-each-group> { "line" : "", "text" : "", "tags" : "", "loc" : "" }]}
+						</xsl:choose>
+					</xsl:for-each-group> { "line" : "", "text" : "", "tags" : "", "loc" : "" }]}
 			</xsl:result-document>
 		</xsl:if>
 		
@@ -1007,7 +1006,7 @@
 								<xsl:for-each-group select="current-group()[not(self::pb)]" group-starting-with="tei:lb">
 									<xsl:if test="current-group()[not((string-length(normalize-space()))= 0)]">
 										<xsl:variable name="current_text">
-											<xsl:apply-templates select="current-group()[not(self::tei:lb)]" mode="interp"/>
+											<xsl:apply-templates select="current-group()[not(self::tei:lb) and not(ancestor-or-self::tei:back)]" mode="interp"/>
 										</xsl:variable>
 										<xsl:variable name="current_text1">
 											<xsl:apply-templates select="$current_text" mode="delete_el2"/>
@@ -1029,9 +1028,7 @@
 								<xsl:copy-of select="$var//text()"></xsl:copy-of>-->
 								<xsl:for-each-group select="current-group()/descendant::p" group-starting-with="//tei:p">
 									<xsl:variable name="current_text">
-										<xsl:apply-templates
-											select="current-group()[not(self::tei:lb)]"
-											mode="interp"/>
+										<xsl:apply-templates select="current-group()[not(self::tei:lb) and not(ancestor-or-self::tei:back)]" mode="interp"/>
 									</xsl:variable>
 									<xsl:variable name="current_text1">
 										<xsl:apply-templates select="$current_text"
@@ -1051,8 +1048,7 @@
 							</xsl:when>
 							<xsl:otherwise>
 								<xsl:variable name="current_text">
-									<xsl:apply-templates select="current-group()[not(self::tei:pb)]"
-										mode="interp"/>
+									<xsl:apply-templates select="current-group()[not(self::tei:pb) and not(ancestor-or-self::tei:back)]" mode="interp"/>
 								</xsl:variable>
 								<xsl:variable name="current_text1">
 									<xsl:apply-templates select="$current_text" mode="delete_el2"/>
@@ -1097,7 +1093,7 @@
 							{ 
 							"line" : "<xsl:value-of select="$lineId"/>|line <xsl:value-of select="$lineN"/>",
 							"text" : "<xsl:copy-of select="replace($current_text1, '(\\|/)', '$1$1')"/>",
-							"tags" : "",
+							"tags" : "<xsl:call-template name="doc_refs4search_trad"/>",
 							"loc" : ""
 							},
 						</xsl:when>
@@ -1107,7 +1103,7 @@
 							{ 
 							"line" : "<xsl:value-of select="$pId"/>|par <xsl:value-of select="$pN"/>",
 							"text" : "<xsl:copy-of select="replace($current_text1, '(\\|/)', '$1$1')"/>",
-							"tags" : "",
+							"tags" : "<xsl:call-template name="doc_refs4search_trad"/>",
 							"loc" : ""
 							},
 						</xsl:when>
@@ -1299,6 +1295,48 @@
 					test="current-group()/ancestor-or-self::tei:body[1]/tei:div[@subtype = 'edition_text'][1]/@n">
 					<xsl:value-of
 						select="current-group()/ancestor-or-self::tei:body[1]/tei:div[@subtype = 'edition_text'][1]/@n"
+					/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="generateTextLabel">
+						<xsl:with-param name="text_id">
+							<xsl:value-of select="$doc_id"/>
+						</xsl:with-param>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:variable>
+		<xsl:value-of select="$doc_id"/>|<xsl:value-of select="$doc_label"/>
+	</xsl:template>
+	
+	<xsl:template name="doc_refs4search_trad">
+		<xsl:variable name="doc_id">
+			<xsl:choose>
+				<xsl:when test="current()/ancestor-or-self::tei:text[1]/@xml:id">
+					<xsl:value-of select="current()/ancestor-or-self::tei:text[1]/@xml:id"/>
+				</xsl:when>
+				<xsl:when
+					test="current()/ancestor-or-self::tei:body[1]/tei:div[@subtype = 'edition_text'][1]/@xml:id">
+					<xsl:value-of
+						select="current()/ancestor-or-self::tei:body[1]/tei:div[@subtype = 'edition_text'][1]/@xml:id"
+					/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:value-of
+						select="concat('text_', current()/ancestor-or-self::tei:text[1]/position())"
+					/>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:variable>
+		<xsl:variable name="doc_label">
+			<xsl:choose>
+				<xsl:when test="current()/ancestor-or-self::tei:text[1]/@n">
+					<xsl:value-of select="current()/ancestor-or-self::tei:text[1]/@n"/>
+				</xsl:when>
+				<xsl:when
+					test="current()/ancestor-or-self::tei:body[1]/tei:div[@subtype = 'edition_text'][1]/@n">
+					<xsl:value-of
+						select="current()/ancestor-or-self::tei:body[1]/tei:div[@subtype = 'edition_text'][1]/@n"
 					/>
 				</xsl:when>
 				<xsl:otherwise>

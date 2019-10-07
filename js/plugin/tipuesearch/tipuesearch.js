@@ -15,10 +15,30 @@
 
 function goToSearchResult(text_id, page_id, pos, setSuffix) {
      $('#toggle_search_cont' + setSuffix).trigger('click');
+     var navToDoc;
+     var navToPage;
      if (text_id && page_id) {
-          window.location.hash = 'doc=' + text_id + '&page=' + page_id;
+          navToDoc = text_id;
+          navToPage = page_id;
+     } else {
+          if (text_id && !page_id) {
+               navToDoc = text_id;
+               navToPage = $('[data-first-doc="'+text_id+'"]').attr('data-value');
+          } else if (page_id && !text_id) {
+               navToDoc = $('[data-value="'+page_id+'"]').attr('data-first-doc');
+               navToPage = page_id;
+          }
      }
-     console.log(pos);
+     var newHash = '';
+     if (navToDoc) {
+          newHash += 'doc=' + navToDoc;
+     }
+     if (navToPage){
+          newHash += '&page=' + navToPage;
+     }
+     if (window.location.hash !== '#' + newHash) {
+          window.location.hash = newHash;
+     }
      pos = pos.split('|');
      var pos_id = pos[0];
      var pos_label = pos[1];
@@ -157,6 +177,7 @@ function goToSearchResult(text_id, page_id, pos, setSuffix) {
                               .empty()
                               .append('<span lang="def">SEARCH_FOR</span> <strong>' + $('#tipue_search_input' + set.suffix).val() + '</strong>');
                          getTipueSearch(0, true);
+                         window.lang.run();
                     } else {
                          $('#tipue_search_input' + set.suffix).trigger('keyup');
                          $('#search_query' + set.suffix)
@@ -262,11 +283,11 @@ function goToSearchResult(text_id, page_id, pos, setSuffix) {
                                    }
 
                                    if (set.highlightTerms) {
+                                        var patr;
                                         if (set.highlightEveryTerm) {
-                                             var patr = new RegExp('(' + d_w[f] + ')', 'gi');
-                                        }
-                                        else {
-                                             var patr = new RegExp('(' + d_w[f] + ')', 'i');
+                                             patr = new RegExp('(' + d_w[f] + ')', 'gi');
+                                        } else {
+                                             patr = new RegExp('(' + d_w[f] + ')', 'i');
                                         }
                                         s_t = s_t.replace(patr, "<span class='bold_search'>$1</span>");
                                    }
@@ -276,7 +297,7 @@ function goToSearchResult(text_id, page_id, pos, setSuffix) {
 
                               }
                               if (score < 1000000000) {
-                                   found[c++] = score + '^' + tipuesearch_in.pages[i].line + '^' + s_t + '^' + tipuesearch_in.pages[i].loc + '^' + tipuesearch_in.pages[i].tags;
+                                   found[c++] = score + '*|*|*' + tipuesearch_in.pages[i].line + '*|*|*' + s_t + '*|*|*' + tipuesearch_in.pages[i].loc + '*|*|*' + tipuesearch_in.pages[i].tags;
                               }
                          }
 
@@ -299,21 +320,19 @@ function goToSearchResult(text_id, page_id, pos, setSuffix) {
                                    results_text += ' <span lang="def">IN_THE_CURRENT_EDIION</span>. ';
                                    // results_text += $('#span_ee_select'+set.suffix + " .label_selected").text().toLowerCase() + ' <span lang="def">EDITION</span>.';
                               }
-
+                              var pages = Math.ceil(c / set.show);
                               $('#search_results' + set.suffix).html('<div id="tipue_search_results_count' + set.suffix + '" class="tipue_search_results_count">' + results_text + '</div>');
-
+                              $('#search_cont_results' + set.suffix).attr('data-pages', pages);
                               found.sort();
                               // console.log(found);
                               var l_o = 0;
                               var page, page_id, page_n;
                               var text, text_id, text_label;
                               var pos, pos_id, pos_label;
-
                               for (var i = 0; i < found.length; i++) {
-                                   var fo = found[i].split('^');
+                                   var fo = found[i].split('*|*|*');
                                    if (l_o >= start && l_o < set.show + start) {
                                         //out += '<div class="tipue_search_content_title"><a href="' + 'index.html#' + fo[3] + '"' + tipue_search_w + ' target="_blank">' + fo[4] + '/' + fo[3] + '/' + fo[1] + '</a></div>';
-
                                         var t = fo[2];
                                         var t_d = '';
                                         var t_w = t.split(' ');
@@ -334,7 +353,9 @@ function goToSearchResult(text_id, page_id, pos, setSuffix) {
 
                                              var half_desc_words = (set.descriptiveWords - 1) / 2;
                                              var pre_text_stop = pre_text_w.length - (half_desc_words + 1);
-
+                                             // if (pre_text_stop < 0) {
+                                             //      pre_text_stop = pre_text_w.length - 1;
+                                             // }
                                              for (var f = pre_text_w.length - 1; (f > 0 && f > pre_text_stop); f--) {
                                                   t_d = pre_text_w[f] + ' ' + t_d;
                                              }
@@ -363,6 +384,9 @@ function goToSearchResult(text_id, page_id, pos, setSuffix) {
                                         pos_id = pos[0];
                                         pos_label = pos[1];
 
+                                        if (t_d.indexOf("class='bold_search'>") === 0) { // PATCH
+                                             t_d = '<span ' + t_d;
+                                        }
                                         out += '<div class="tipue_search_content_text">' + t_d + '</div>';
                                         out += '<div class="tipue_search_found_text">';
 
