@@ -26,8 +26,8 @@
 		</xd:short>
 	</xd:doc>
 
-	<!-- TRANSLATION - BACK - DIV - Container of Translation Edition -->
-	<xsl:template match="tei:back/tei:div[starts-with(@type,'transl')] | tei:back/tei:div[starts-with(@type,'trad')]" mode="trad">
+	<!-- TRANSLATION - DIV - Container of Translation Edition -->
+	<xsl:template match="tei:div[starts-with(@type,'transl')] | tei:div[starts-with(@type,'trad')]" mode="trad">
 		<xsl:element name="div">
 			<xsl:attribute name="class">doc</xsl:attribute>
 			<xsl:attribute name="data-doc" select="current()/(replace (@xml:id, '_trad', ''))"/>

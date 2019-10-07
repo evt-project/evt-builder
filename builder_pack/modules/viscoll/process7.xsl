@@ -1180,8 +1180,8 @@
 					</title>
 					<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 					<!-- Non è più data/output_data/viscoll/support/ ma ./../viscoll/support/... con <iframe> -->
-					<script type="text/javascript" src="../../../../js/plugin/support_viscoll/jquery-1.10.1.min.js">x</script>
-					<script type="text/javascript" src="../../../../js/plugin/support_viscoll/jquery.fancybox.js?v=2.1.5">x</script>
+					<script type="text/javascript" src="../../../../js/plugin/support_viscoll/jquery-1.10.1.min.js"></script>
+					<script type="text/javascript" src="../../../../js/plugin/support_viscoll/jquery.fancybox.js?v=2.1.5"></script>
 					<link rel="stylesheet" type="text/css"
                         href="../../../../js/plugin/support_viscoll/jquery.fancybox.css?v=2.1.5"
                         media="screen"/>
@@ -1190,8 +1190,8 @@
 					<!--<script type="text/javascript" src="../../../../js/plugin/support_viscoll/iframescript.js">x</script>-->
 					<link href="../../../../js/plugin/support_viscoll/collation.css"
                         rel="stylesheet" type="text/css"/>
-					<script type="text/javascript" src="../../../../js/plugin/support_viscoll/querys.js">x</script>
-					<script type="text/javascript" src="../../../../js/plugin/support_viscoll/collation.js">x</script>
+					<script type="text/javascript" src="../../../../js/plugin/support_viscoll/querys.js"></script>
+					<script type="text/javascript" src="../../../../js/plugin/support_viscoll/collation.js"></script>
 					<!--<link href="css/collation.css" rel="stylesheet" type="text/css"></link>-->
 				</head>
 				<body>
