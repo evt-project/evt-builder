@@ -1233,4 +1233,22 @@
 			<xsl:apply-templates mode="#current"/>
 		</xsl:element>
 	</xsl:template>
+	
+	<xsl:template match="tei:div" mode="interp">
+		<xsl:choose>
+			<xsl:when test="starts-with(@type,'transl')">
+				PROVA TRA
+				<!-- DO NOTHING -->
+				<xsl:text> </xsl:text>
+			</xsl:when>
+			<xsl:when test="starts-with(@type,'trad')">
+				PROVA TRA
+				<!-- DO NOTHING -->
+				<xsl:text> </xsl:text>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:apply-templates mode="#current"/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
 </xsl:stylesheet>

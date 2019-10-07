@@ -165,7 +165,7 @@ footer {
     height: 100%;
     width: 100%;
     background: rgba(255, 255, 255, 0.8);
-    z-index: 99999999;
+    z-index: 9999999999;
     display: -ms-flexbox;
     display: -webkit-flex;
     display: flex;
@@ -2250,13 +2250,19 @@ div.doc.not_current:hover {
 #search_cont_results-add {
     padding: 20px;
     overflow-y: auto;
+    height: -moz-calc(100% - 194px);
+    height: -webkit-calc(100% - 194px);
+    height: -o-calc(100% - 194px);
+    height: calc(100% - 194px);
+    position: relative;
+}
+#search_cont_results[data-pages="1"],
+#search_cont_results-add[data-pages="1"] {
     height: -moz-calc(100% - 155px);
     height: -webkit-calc(100% - 155px);
     height: -o-calc(100% - 155px);
     height: calc(100% - 155px);
-    position: relative;
 }
-
 #search_query,
 #search_query-add {
     text-align: center;
@@ -2514,10 +2520,10 @@ div.doc.not_current:hover {
 
 #tipue_search_input_div,
 #tipue_search_input_div-add {
-    width: -moz-calc(100% - 99px);
-    width: -webkit-calc(100% - 99px);
-    width: -o-calc(100% - 99px);
-    width: calc(100% - 99px);
+    width: -moz-calc(100% - 96px);
+    width: -webkit-calc(100% - 96px);
+    width: -o-calc(100% - 96px);
+    width: calc(100% - 96px);
     display: inline-block;
     margin: 0 2px;
     margin-top: 1px;
@@ -2605,6 +2611,7 @@ div.doc.not_current:hover {
 
 .bold_search {
     font-weight: bold;
+    background: #FFFF88 !important;
 }
 
 #lists_cont #list_letters span {
