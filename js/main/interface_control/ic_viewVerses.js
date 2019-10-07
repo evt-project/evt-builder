@@ -45,6 +45,8 @@ function toggleProseVerses(el) {
 		$(el).html('<span lang="def">VERSES</span> <i class="fa fa-align-left" aria-hidden="true"></i>');
 		$(el).attr("data-active-status", "prose");
 	}
+	updateLinesWidth($('#main_right_frame'));
+	updateLinesWidth($('#main_left_frame'));
 	window.lang.run();
 }
 
