@@ -1190,6 +1190,9 @@
 			<xsl:when test="@type">
 				<xsl:element name="span">
 					<xsl:attribute name="class">popup stage <xsl:value-of select="@type"/></xsl:attribute>
+					<xsl:if test="@rend">
+						<xsl:attribute name="data-rend"><xsl:value-of select="@rend"/></xsl:attribute>
+					</xsl:if>
 					<xsl:element name="span">
 						<xsl:attribute name="class">trigger</xsl:attribute>
 						<xsl:apply-templates mode="#current"/>
@@ -1214,6 +1217,9 @@
 			<xsl:otherwise>
 				<xsl:element name="span">
 					<xsl:attribute name="class">stage no-info</xsl:attribute>
+					<xsl:if test="@rend">
+						<xsl:attribute name="data-rend"><xsl:value-of select="@rend"/></xsl:attribute>
+					</xsl:if>
 					<xsl:apply-templates mode="#current"/>
 				</xsl:element>
 			</xsl:otherwise>

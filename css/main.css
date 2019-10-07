@@ -3763,12 +3763,10 @@ span.center {
 }
 
 span.stage {
-    font-style: italic;
     display: block !important;
     font-size: 90%;
     text-align: center;
 }
-
 span.speakerstage {
     display: block;
 }
@@ -3812,24 +3810,28 @@ span.autore {
     margin-left: 50%;
 }
 
-[data-rend='center'] {
+[data-rend*='center'] {
     text-align: center;
 }
 
-[data-rend='left'] {
+[data-rend*='left'] {
     text-align: left;
 }
 
-[data-rend='right'] {
+[data-rend*='right'] {
     text-align: right;
 }
 
-[data-rend='uppercase'] {
+[data-rend*='uppercase'] {
     text-transform: uppercase;
 }
 
-[data-rend='italic'] {
+[data-rend*='italic'] {
     font-style: italic;
+}
+
+[data-rend*='bold'] {
+    font-weight: bold;
 }
 
 [data-display='block'] {
