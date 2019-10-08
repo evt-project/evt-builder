@@ -43,7 +43,6 @@ function loadViscollContent() {
 }
 function bindViscollClick(array) {
 	//alert(array);
-	loadViscollContent();
 	$('#viscoll').unbind('click').click(function () {
 		if (!$(this).hasClass('disabled')) {
 			if ($(this).hasClass('active')) { // HIDE
