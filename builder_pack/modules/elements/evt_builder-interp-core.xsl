@@ -318,9 +318,9 @@
 										<xsl:attribute name="class" select="$ed_name2, 'corr'" separator="-"/>
 										<xsl:apply-templates
 											select="
-												corr/ancestor::node()[parent::node()[name() = $start_split]]/preceding-sibling::node()[not(self::lb)][position() lt 2]//tei:choice[@id = $choiceId]//tei:corr/node(),
-												corr/ancestor::node()[parent::node()[name() = $start_split]]//tei:choice[@id = $choiceId]//tei:corr/node(),
-												corr/ancestor::node()[parent::node()[name() = $start_split]]/following-sibling::node()[not(self::lb)][position() lt 3]//tei:choice[@id = $choiceId]//tei:corr/node()"
+												corr/ancestor::node()[parent::node()[name()=$start_split]]/preceding-sibling::node()[not(self::lb)][position() lt 2]//tei:choice[@id=$choiceId]//tei:corr/node(),
+												corr/ancestor::node()[parent::node()[name()=$start_split]]//tei:choice[@id=$choiceId]//tei:corr/node(),
+												corr/ancestor::node()[parent::node()[name()=$start_split]]/following-sibling::node()[not(self::lb)][position() lt 3]//tei:choice[@id=$choiceId]//tei:corr/node()"
 											mode="#current"/>
 									</xsl:element>
 								</xsl:if>
@@ -384,12 +384,13 @@
 											orig/ancestor::node()[parent::node()[name()=$start_split]]/following-sibling::node()[not(self::lb)][position() lt 3]//tei:choice[@id=$choiceId]//tei:orig/node()"
 										mode="#current"/>
 								</xsl:element>
-								<xsl:apply-templates select="tei:reg" mode="#current" />
+								<xsl:sequence select="' '"/>
+								<xsl:apply-templates select="tei:reg, tei:seg[@type='alter']" mode="#current"/>
 							</xsl:element>
 						</xsl:when>
 						<!-- per gestire choice contenenti tei:seg con @type=original per ORIG e @type=alter per REG-->
 						<xsl:when
-							test="@part and boolean(./ancestor::node()[parent::node()[name()=$start_split]]//preceding-sibling::node()[not(self::lb)][1]//tei:choice[@id=$choiceId and not(//tei:seg[@type='alter'])])">
+							test="@part and boolean(./ancestor::node()[parent::node()[name()=$start_split]]//preceding-sibling::node()[not(self::lb)][1]//tei:choice[@id=$choiceId and not(descendant::tei:seg[@type='alter'])])">
 							<xsl:element name="span">
 								<xsl:attribute name="class" select="$ed_name2, 'choice_popup'" separator="-"/>
 								<xsl:if test="@id">
@@ -411,7 +412,7 @@
 										mode="#current"/>
 								</xsl:element>
 								<xsl:sequence select="' '"/>
-								<xsl:apply-templates select="tei:seg[@type = 'original']" mode="#current"/>
+								<xsl:apply-templates select="tei:reg, tei:seg[@type='alter']" mode="#current"/>
 							</xsl:element>
 						</xsl:when>
 						<!-- IT: Questo è per le altre parti, che dovranno contenere solo REG -->
