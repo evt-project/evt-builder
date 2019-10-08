@@ -69,6 +69,10 @@
         <xsl:param name="ed_name"/>
         <xsl:for-each-group select="$text/node()" group-starting-with="//tei:cb">
             <xsl:choose>
+                <xsl:when test="self::tei:cb[not(@*) or @type='end']">
+                    <div class="emptyDivider"></div>
+                    <xsl:copy-of select="current-group()"></xsl:copy-of>
+                </xsl:when>
                 <xsl:when test="self::tei:cb">
                     <xsl:element name="div">
                         <xsl:attribute name="class" select="$ed_name"/>
