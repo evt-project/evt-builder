@@ -21,17 +21,6 @@
  *
  **/
 
-//function to search in which position is first line number multiple of 5
-function searchFiveMultiples(v) {
-	var i = 0;
-	while (i < v.length) {
-		if ((parseInt($(v[i]).text()) % 5 === 0)) {
-			return i;
-		}
-		i++;
-	}
-}
-
 function toggleProseVerses(el) {
 	var frame = $(el).closest(".main_frame");
 	var activeStatus = $(el).attr("data-active-status");
@@ -45,8 +34,7 @@ function toggleProseVerses(el) {
 		$(el).html('<span lang="def">VERSES</span> <i class="fa fa-align-left" aria-hidden="true"></i>');
 		$(el).attr("data-active-status", "prose");
 	}
-	updateLinesWidth($('#main_right_frame'));
-	updateLinesWidth($('#main_left_frame'));
+	updateLinesWidth(frame);
 	window.lang.run();
 }
 
@@ -70,19 +58,15 @@ function viewVerses(frame) {
 		$(lb[i]).html("");
 	}
 
-
 	for (var i = 0; i < numeri.length; i++) {
 		$(numeri[i]).css("visibility", "hidden");
+		if ((parseInt($(numeri[i]).text()) % 5 === 0)) {
+			$(numeri[i]).addClass("lineNumberPoetry");
+		}
 	}
 
 	for (var i = 0; i < numeriP.length; i++) {
 		$(numeriP[i]).css("display", "none");
-	}
-
-	var x = searchFiveMultiples(numeri);
-
-	for (var l = x; l < numeri.length; l = l + 5) {
-		$(numeri[l]).addClass("lineNumberPoetry");
 	}
 
 	for (var i = 1; i < spazio.length; i++) {
@@ -109,10 +93,7 @@ function viewProse(frame) {
 
 	for (var i = 0; i < numeri.length; i++) {
 		$(numeri[i]).css("visibility", "visible");
-	}
-
-	for (var l = 4; l < numeri.length; l = l + 5) {
-		$(numeri[l]).removeClass("lineNumberPoetry");
+		$(numeri[i]).removeClass("lineNumberPoetry");
 	}
 
 	for (var i = 0; i < numeriP.length; i++) {
