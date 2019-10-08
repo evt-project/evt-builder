@@ -3728,8 +3728,12 @@ ul.ul_list li.list_element_opened {
     font-size: 12px;
     color: white;
 }
-
-.lineNumberPoetry {
+[data-prose-verses-status='verses'] .cerchio {
+    float: left;
+    position: absolute;
+    left: 30px;
+}
+[data-prose-verses-status='verses'] .lineNumberPoetry {
     visibility: visible !important;
     border: none;
     background: none;
