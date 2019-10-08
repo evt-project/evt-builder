@@ -563,7 +563,7 @@ function updateLinesWidth(mainFrameElem) {
 		var lineNwidth = $(this).prev().outerWidth();
 		$(this).css({
 			'max-width': (textInnerWidt - lineNwidth - 43) + 'px',
-			'display': 'inline'
+			'display': 'inline-block'
 		});
 	});
 }

@@ -339,6 +339,7 @@ div.interp-attachment {
 span.interp-lineN {
 	color: grey;
 	font-size: 0.8em; 
+	vertical-align: top;
 }
 
 span.interp-ex { 
@@ -545,6 +546,7 @@ div.tdipl-attachment{
 span.tdipl-lineN {
 	color: grey;
 	font-size: 0.8em; 
+	vertical-align: top;
 }
 
 span.tdipl-orig { 
@@ -731,6 +733,7 @@ div.crit-attachment{
 span.crit-lineN {
 	font-size: 0em;
 	display: none; 
+	vertical-align: top;
 }
 
 span.crit-choice_popup, span.crit-choice_popup_corr{ 
@@ -1479,4 +1482,9 @@ span.setting, span.popup.setting {
 
 .option[data-value="mixed"] .filter_color{
 	color: #A74DC7;
+}
+
+.interp-orig:empty,
+.interp-ref:empty {
+	display: none !important;
 }
