@@ -75,7 +75,7 @@ function goFullScreenLeft() {
 	if (mainLeftFrame.find('#regesto_cont').length > 0) {
 		$('#regesto_cont').animate({
 			'height': height_full - 84
-		}, 700);
+		}, 420);
 	} else {
 		fitFrame();
 	}
@@ -90,7 +90,7 @@ function goFullScreenLeft() {
 		top: margin_top,
 		left: margin_left,
 		minWidth: "1021px"
-	}, 700, function () {
+	}, 420, function () {
 		$('#left_header .closeFullScreen').toggle();
 		$('.zoomWindow').show(0); //Add for mag
 		//$('#header_collapse').animate({opacity: 1});
@@ -180,7 +180,7 @@ function closeFullScreenLeft() {
 			top: "0px",
 			left: "0px",
 			minWidth: "0px"
-		}, 700, function () {
+		}, 420, function () {
 			fitFrame();
 			updateLinesWidth(mainLeftFrame);
 			mainLeftFrame.removeClass("full");
@@ -197,7 +197,7 @@ function closeFullScreenLeft() {
 			top: "0px",
 			left: "0px",
 			minWidth: "0px"
-		}, 700, function () {
+		}, 420, function () {
 			fitFrame();
 			mainLeftFrame
 				.removeClass("full")
@@ -290,8 +290,8 @@ function goFullScreenRight() {
 		left: margin_left,
 		right: 0,
 		minWidth: "1021px",
-	}, 700, function () {
-
+	}, 420, function () {
+		$('.go-full-left').css('zIndex', '99999999');
 		updateLinesWidth(mainRightFrame);
 		$('#right_header .closeFullScreen').toggle();
 		textWidth = $('#text_cont').find('#text').css('display', 'inline-block').outerWidth();
@@ -358,16 +358,16 @@ function closeFullScreenRight() {
 		height: "100%",
 		marginTop: "0px",
 		minWidth: "0px"
-	}, 700, function () {
-
-		updateLinesWidth(mainRightFrame);
-		fitFrame();
+	}, 420, function () {
+		$('.go-full-left').css('zIndex', '999999999');
 		mainRightFrame
 			.removeClass("full")
 			.removeAttr("style");
 		$('#right_header .closeFullScreen, #header_collapse').toggle();
 		$('.go-full-right').toggle();
+		fitFrame();
 		resizeButtonsAndSelects()
+		updateLinesWidth(mainRightFrame);
 	});
 	// Gestione selettori
 	if (!$('#txttxt_link').hasClass("current_mode")) {
