@@ -170,6 +170,9 @@ div.AnnText{
 [data-prose-verses-status='verses'] .interp.line {
     display: inline !important;
 }
+[data-prose-verses-status='verses'] .AnnSubmenu {
+    margin-left: 20px;
+}
 div.dipl-left, div.interp-left {
     width: 100%;
 }
