@@ -168,7 +168,7 @@ div.AnnText{
 [data-prose-verses-status='verses'] .dipl.line,
 [data-prose-verses-status='verses'] div.interp-left,
 [data-prose-verses-status='verses'] .interp.line {
-    display: inline;
+    display: inline !important;
 }
 div.dipl-left, div.interp-left {
     width: 100%;
