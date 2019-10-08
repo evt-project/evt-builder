@@ -263,8 +263,10 @@
 }
 
 #central_wrapper.navBarExpanded {
-	height: 87.5%;
-	margin-top: -10px;
+	height: -moz-calc(100% - 40px - 15px - 42px - 15px);
+    height: -webkit-calc(100% - 40px - 15px - 42px - 15px);
+    height: -o-calc(100% - 40px - 15px - 42px - 15px);
+    height: calc(100% - 40px - 15px - 42px - 15px);
 	-webkit-transition: all 0.5s;
     transition: all 0.5s;
 }
