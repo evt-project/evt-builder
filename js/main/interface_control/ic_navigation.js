@@ -282,8 +282,8 @@ function gotopage(pp_val, pp_lab, state) {
 					.scrollTop($('.selected_from_list').position().top)
 					.removeClass('reachingOccurence');
 			}
+			
 			updateLinesWidth($('#main_right_frame'));
-			updateLinesWidth($('#main_left_frame'));
 			/* Integration by LS */
 			window.lang.run();
 			/* /end Integration by LS */
@@ -318,9 +318,7 @@ function gotopage(pp_val, pp_lab, state) {
 					$("#text span[data-ref='" + ref + "']").addClass('selected_from_list');
 				});
 			}
-			if (!$('#imgd_link').hasClass('current_mode')) {
-				updateLinesWidth(left_frame);
-			}
+			
 			//IT: Riattiva filtri attivi
 			left_frame
 				.find('.like_select.filter')
@@ -361,6 +359,7 @@ function gotopage(pp_val, pp_lab, state) {
 			InitializeRefs();
 			InitializeSearch();
 			transformBrs();
+			
 			// Riattiva prosa/versi
 			var proseVersesToggler = $("#toggleVersesProseBtn-add");
 			if (proseVersesToggler) {
@@ -372,7 +371,7 @@ function gotopage(pp_val, pp_lab, state) {
 					viewVerses(frame);
 				}
 			}
-
+			updateLinesWidth(left_frame);
 			/* Integration by LS */
 			window.lang.run();
 			/* /end Integration by LS */
@@ -502,11 +501,6 @@ function gotoedition(pp_val, ee_val, pp_el, frame_id) {
 				}
 			} /*Add by JK for HS*/
 
-			if (!$('#imgd_link').hasClass('current_mode')) {
-				updateLinesWidth($('#main_right_frame'));
-				updateLinesWidth($('#main_left_frame'));
-			}
-
 			var current_doc = $('#span_tt_select .label_selected').attr('data-value');
 			var currentDocElem = $(".doc[data-doc='" + current_doc + "']");
 			if (currentDocElem.length > 0) {
@@ -541,7 +535,9 @@ function gotoedition(pp_val, ee_val, pp_el, frame_id) {
 
 			}
 			updateLinesWidth($('#main_right_frame'));
-			updateLinesWidth($('#main_left_frame'));
+			if ($('#txttxt_link').hasClass('current_mode')) {
+				updateLinesWidth($('#main_left_frame'));
+			}
 			/* Integration by LS */
 			window.lang.run();
 			/* /end Integration by LS */

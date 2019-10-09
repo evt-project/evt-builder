@@ -127,9 +127,22 @@
                 <editions>
                     <xsl:for-each select="$edition_array">
                         <xsl:if test="./normalize-space()">
-                            <edition>
+                            <xsl:element name="edition">
+                                <xsl:attribute name="data-key">
+                                    <xsl:choose>
+                                        <xsl:when test="$edition_array[1]=current()">
+                                            <xsl:value-of select="$ed_name1"/>
+                                        </xsl:when>
+                                        <xsl:when test="$edition_array[2]=current()">
+                                            <xsl:value-of select="$ed_name2"/>
+                                        </xsl:when>
+                                        <xsl:when test="$edition_array[3]=current()">
+                                            <xsl:value-of select="$ed_name3"/>
+                                        </xsl:when>
+                                    </xsl:choose>
+                                </xsl:attribute>
                                 <xsl:value-of select="."/>
-                            </edition>
+                            </xsl:element>
                         </xsl:if>
                     </xsl:for-each>
                 </editions>
