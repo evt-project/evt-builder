@@ -667,5 +667,12 @@
 			&#171;<xsl:apply-templates mode="#current" />&#187;
 		</xsl:element>
 	</xsl:template>	
-		
+	
+	<xsl:template match="tei:lb[not(@*) or @rend='empty']" mode="trad">
+		<xsl:element name="span">
+			<xsl:attribute name="class" select="'lb'"/>
+			<xsl:attribute name="data-type" select="'empty'"/>
+		</xsl:element>
+	</xsl:template>
+
 </xsl:stylesheet>
