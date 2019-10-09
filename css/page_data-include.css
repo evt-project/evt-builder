@@ -60,6 +60,7 @@ div[id*='regesto'] hr{
     font-size: 100%;
 }
 
+#text_frame, #front_frame,
 #text_frame-add, #front_frame-add, #regesto, #regesto-add {
 	margin-top: -30px;
 	max-width: 600px;
@@ -327,7 +328,7 @@ div.interp-right, span.interp-right {
 .dipl-lineN+span.dipl-left,
 .interp-lineN+div.interp-left, 
 .interp-lineN+span.interp-left {
-    width: 92% !important;
+    width: 92%;
     display: inline-block;
 }
 

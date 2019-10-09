@@ -557,12 +557,26 @@ function cropLongTextLabel(text_label, min_char_num) {
 }
 
 /*= UPDATE WIDTH OF LINES WITH LINE NUMBER =*/
-function updateLinesWidth(mainFrameElem) {
-	var textInnerWidt = mainFrameElem.find("div[id*='text_cont']").innerWidth() * 85 / 100;
-	mainFrameElem.find('.dipl-lineN+.dipl-left, .interp-lineN+.interp-left, .trad-lineN+.trad-left').each(function() {
-		var lineNwidth = $(this).prev().outerWidth();
+function updateLinesWidth(mainFrameElem, relativeToMain) {
+	var lineClasses = [];
+	var mainEdition = $('#span_ee_select .selected').attr('data-key');
+	if (mainEdition) {
+		lineClasses.push('.'+mainEdition+'-lineN+.'+mainEdition+'-left');
+	}
+	var addEdition = $('#span_ee_select-add .selected').attr('data-key');
+	if (addEdition) {
+		lineClasses.push('.'+addEdition+'-lineN+.'+addEdition+'-left');
+	}
+	mainFrameElem.find(lineClasses.join(',')).each(function() {
 		$(this).css({
-			'max-width': (textInnerWidt - lineNwidth - 43) + 'px',
+			'max-width': 'auto',
+			'width': '100%'
+		});
+		var lineNwidth = $(this).prev().outerWidth();
+		var textInnerWidth = relativeToMain ? $(this).parents('.main_frame').innerWidth() : $(this).parent().innerWidth()
+		$(this).css({
+			'max-width': (textInnerWidth - lineNwidth - 6) + 'px',
+			'width': 'auto',
 			'display': 'inline-block'
 		});
 	});

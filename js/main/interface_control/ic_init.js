@@ -6,6 +6,7 @@ function prepareEditionLevel(xml) {
             $('.main_ee_select .option_container').append(
                 $('<div/>')
                     .attr("data-value", current_id.toLowerCase())
+                    .attr("data-key", $(this).attr('data-key'))
                     .attr("lang", 'def')
                     .addClass('option')
                     .text(current_id.toUpperCase())

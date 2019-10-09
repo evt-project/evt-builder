@@ -32,7 +32,8 @@
 
 /*= OPEN IMAGE/TEXT VIEW MODE =*/
 function openTxtImgMode() {
-	$('#main_left_frame').show();
+	var mainLeftFrame = $('#main_left_frame');
+	mainLeftFrame.show();
 	var selectTToptions = $('.main_tt_select div.option_container div.option'),
 		selectPPoptions = $('.main_pp_select div.option_container div.optionGroup div.option');
 	if (selectTToptions.hasClass('ui-state-disabled') && selectPPoptions.hasClass('ui-state-disabled')) {
@@ -144,9 +145,10 @@ function openTxtImgMode() {
 		ppSelector.show();
 	}
 
-	$("#main_left_frame").animate({
+	mainLeftFrame.css({
 		'width': '49.8%'
-	}, function () {
+	})
+	// , function () {
 		document.getElementById("main_right_frame").style.display = "block";
 		document.getElementById("right_menu").style.display = "block";
 		document.getElementById("text_cont").style.display = "block";
@@ -161,7 +163,7 @@ function openTxtImgMode() {
 			updateLinesWidth($('#main_right_frame'));
 			clearTimeout(timeoutTxtImg);
 		}, 42);
-	});
+	// });
 
 	$("#mag").show();
 	$('#switchITL').show();
@@ -228,6 +230,13 @@ function openTxtImgMode() {
 
 /*= OPEN TEXT/TEXT VIEW MODE =*/
 function openTxtTxtMode() {
+	console.time('openTxtTxtMode');
+
+	$("#txttxt_link")
+		.addClass("current_mode")
+		.siblings()
+		.removeClass("current_mode");
+
 	var translationOpts = $(".option[data-value='translation']");
 	if (translationOpts) {
 		translationOpts.show();
@@ -249,11 +258,6 @@ function openTxtTxtMode() {
 
 	closeSecondaryImageContentOpened('openTxtTxtMode', false);
 
-	$("#txttxt_link")
-		.addClass("current_mode")
-		.siblings()
-		.removeClass("current_mode");
-
 	createSliderTxtTxt();
 
 	// Nascondo menu, pulsanti e selettori relativi alle immagini /bookreader
@@ -268,9 +272,7 @@ function openTxtTxtMode() {
 	}
 
 	// GESTIONE SELETTORI PAGINE E DOCUMENTO
-
 	$('#span_pp_select:not(:visible)').show();
-
 	$('#span_tt_select:not(:visible)').show();
 
 	// GESTIONE MENU STRUMENTI TESTO BOX SINISTRO
@@ -282,36 +284,25 @@ function openTxtTxtMode() {
 	$('#right_header.menuClosed').hide();
 	var hiddenRightFrame = $("#main_right_frame:not(:visible)");
 
+	var mainLeftFrame = $('#main_left_frame');
+	var mainRightFrame = $('#main_right_frame');
 	// Mostro il box di sinistra,
-	$("#main_left_frame").animate({
-		width: '49.8%',
-		borderLeftWidth: '2px',
-		borderRightWidth: '2px'
-	}, function () {
-		// GESTIONE PASSAGGIO BOOKREADER --> TXT-TXT
-		// Se il box di destra non e' aperto, lo apro
-		if (hiddenRightFrame && hiddenRightFrame.length > 0) {
-			hiddenRightFrame[0].style.display = 'block';
-		}
+	if (mainLeftFrame && mainLeftFrame.length > 0) {
+		mainLeftFrame[0].style.width = '49.8%';
+		mainLeftFrame[0].style.borderLeftWidth = '2px';
+		mainLeftFrame[0].style.borderRightWidth = '2px';
+	}
+	// mainLeftFrame.css({
+	// 	width: '49.8%',
+	// 	borderLeftWidth: '2px',
+	// 	borderRightWidth: '2px'
+	// });
+	// GESTIONE PASSAGGIO BOOKREADER --> TXT-TXT
+	// Se il box di destra non e' aperto, lo apro
+	if (hiddenRightFrame && hiddenRightFrame.length > 0) {
+		hiddenRightFrame[0].style.display = 'block';
+	}
 
-		var mainRightFrame = $('#main_right_frame');
-		var lineNwidth = mainRightFrame.find('.dipl-lineN:last').outerWidth();
-		var textInnerWidt = mainRightFrame.find("div#text_cont").innerWidth() * 85 / 100;
-		mainRightFrame.find('.dipl-left, .interp-left, .trad-left').each(function () {
-			$(this).css({
-				'max-width': (textInnerWidt - lineNwidth - 43) + 'px'
-			});
-		});
-		$('#main_left_frame').find('.dipl-left, .interp-left, .trad-left').each(function () {
-			$(this).css({
-				'max-width': (textInnerWidt - lineNwidth - 43) + 'px'
-			});
-		});
-		
-		resizeButtonsAndSelects();
-		updateLinesWidth(mainRightFrame);
-		updateLinesWidth($('#main_left_frame'));
-	});
 	// - fine gestione passaggio bookreader --> txttxt
 
 	// Clono il contenuto testuale del box di destra, nel box di sinistra
@@ -345,7 +336,6 @@ function openTxtTxtMode() {
 		if (!eeSelectorAdd.hasClass('widthChanged')) {
 			eeSelectorAdd.addClass('widthChanged');
 			eeSelectorAdd.find('.option_container').removeAttr('style');
-
 			updateSelectLength(eeSelectorAdd);
 		}
 	}
@@ -355,15 +345,13 @@ function openTxtTxtMode() {
 		if (!listSelectAdd.hasClass('widthChanged')) {
 			listSelectAdd.addClass('widthChanged');
 			listSelectAdd.find('.option_container').removeAttr('style');
-
 			updateSelectLength(listSelectAdd);
 		}
 	}
 
 	// Se ho il REGESTO e un solo livello di edizione
 	var regestoCont = $('#regesto_cont');
-
-	if (!regestoCont.hasClass('disable') && $("#span_ee_select").find('.option').length == 1) {
+	if (regestoCont && !regestoCont.hasClass('disable') && $("#span_ee_select").find('.option').length == 1) {
 		$('#regesto_cont:not(:visible)').show();
 
 		// Se il contanitore del regesto non è nel box di sinistra lo sposto da destra a sinistra
@@ -431,14 +419,15 @@ function openTxtTxtMode() {
 
 
 		// DUPLICO PULSANTI DI NAVIGAZIONE PRESENTI NEL FRAME DI DESTRA
-		if ($('#span_pp_select').hasClass('right_menu')) {
-			$('#span_pp_select')
+		var spanPpSelect = $('#span_pp_select');
+		if (spanPpSelect.hasClass('right_menu')) {
+			spanPpSelect
 				.clone(true)
 				.attr('id', 'span_pp_select-add')
 				.prependTo('#left_menu')
 				.css('display', 'inline-block');
 		} else {
-			$('#span_pp_select')
+			spanPpSelect
 				.clone(true)
 				.attr('id', 'span_pp_select-add')
 				.insertAfter('#span_tt_select')
@@ -452,13 +441,7 @@ function openTxtTxtMode() {
 			.css('display', 'inline-block');
 	}
 
-	//fitFrame();
-	InitializePopup();
-	InitializeRefs();
-	InitializeSearch();
-	transformBrs();
-
-	$('#header_collapse').animate({
+	$('#header_collapse').css({
 		left: "50%",
 		marginLeft: "-10px"
 	});
@@ -476,33 +459,33 @@ function openTxtTxtMode() {
 		});
 		$('.go-full-left').addClass('onWhite');
 	}
-	var mainRightFrame = $('#main_right_frame');
-	var lineNwidth = mainRightFrame.find('.dipl-lineN:last, .interp-lineN:last, .tdipl-lineN:last, .trad-lineN:last').outerWidth();
-	var textInnerWidt = mainRightFrame.find("div#text_cont").innerWidth() * 85 / 100;
-	$('#main_left_frame').find('.dipl-left, .interp-left, .trad-left').each(function () {
-		$(this).css({
-			'max-width': (textInnerWidt - lineNwidth - 43) + 'px'
-		});
-	});
+
 	if (!regestoCont.hasClass('disable') &&
 		$("#span_ee_select").find('.option').length == 1 &&
 		regestoCont.text().trim() === '') {
 		$('#main_left_frame').hide();
-		$('#header_collapse').animate({
+		$('#header_collapse').css({
 			left: "100%",
 			marginLeft: "-30px"
 		});
-		updateLinesWidth($('#main_right_frame'))
 	}
+
 	fitFrame();
+	InitializePopup();
+	InitializeRefs();
+	InitializeSearch();
+	transformBrs();
 	updateSelectLength($('#span_ee_select-add'));
+	resizeButtonsAndSelects();
+	console.timeEnd('openTxtTxtMode');
 }
 
 /*= OPEN BOOKREADER VIEW MODE =*/
 function openBookreaderMode() {
-	$('#main_left_frame').show();
+	var mainLeftFrame = $('#main_left_frame');
+	mainLeftFrame.show();
 	var spanDDselectOptions = $('#span_dd_select.like_select div.main_dd_select div.option_container div.option');
-	
+
 	if (spanDDselectOptions) {
 		spanDDselectOptions.removeClass('ui-state-disabled');
 		bindDDselectClick();
@@ -511,7 +494,7 @@ function openBookreaderMode() {
 	UnInitialize(); //Add by JK for ITL
 	UnInitializeHS(); //Add by JK for HS
 
-	
+
 	if ($('#search_link-add').hasClass('active')) {
 		closeSearchBox(0, '-add');
 	}
@@ -533,11 +516,11 @@ function openBookreaderMode() {
 	var ddSelector = $('#span_dd_select');
 
 	// $("#right_menu").hide();
-	$("#main_left_frame").animate({
+	mainLeftFrame.css({
 		'width': '99.5%'
-	} //, 800
-		,
-		function () {
+	});//, 800
+		// ,
+		// function () {
 			$("#main_right_frame").hide();
 			ddSelector.css({
 				display: "inline-block"
@@ -553,7 +536,7 @@ function openBookreaderMode() {
 				resizeButtonsAndSelects();
 				clearTimeout(timeoutBookreader);
 			}, 42);
-		});
+		// });
 
 	//$("#image_cont-add").remove();
 	$("#text_cont-add").remove();
@@ -565,7 +548,7 @@ function openBookreaderMode() {
 	$('#switchITL').hide();
 	$('#switchHS').hide();
 
-	$('#header_collapse').animate({
+	$('#header_collapse').css({
 		left: "100%",
 		marginLeft: "-30px"
 	});
