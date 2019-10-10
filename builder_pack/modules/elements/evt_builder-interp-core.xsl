@@ -1258,4 +1258,23 @@
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
+
+	<xsl:template match="tei:w" mode="interp">
+		<xsl:element name="span">
+			<xsl:attribute name="class" select="'w'"/>
+			<xsl:attribute name="data-type" select="@type"/>
+			<xsl:attribute name="data-rend" select="@rend"/>
+			<xsl:choose>
+				<xsl:when test="tei:w[@info='complete_word']">
+					<xsl:apply-templates select="tei:w[@info='complete_word']" mode="#current"/>
+				</xsl:when>
+				<xsl:when test="@info='broken_word'">
+					<!-- DO NOTHING -->
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:apply-templates mode="#current"/>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:element>
+	</xsl:template>
 </xsl:stylesheet>
