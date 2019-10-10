@@ -57,7 +57,9 @@
 }
 
 #BRnav .leftSideButtons {
-    min-width: 10%;
+    width: 130px;
+    min-width: 130px;
+    max-width: 130px;
     height: 42px;
     display: block;
     position: relative;
@@ -85,8 +87,8 @@
 
 /* Contiene lo slider */
 #BRnavpos {
-	width: -moz-calc(80% - 20px);
-	width: calc(80% - 20px);
+	width: -moz-calc(100% - 130px - 130px - 20px);
+	width: calc(100% - 130px - 130px - 20px);
     height: 42px;
     display: block;
     position: relative;
@@ -99,15 +101,15 @@
     padding-left: 12px;
     text-align: right;
     /*position: relative;*/
-    margin: 15px 10px 0 10px;
-    max-height: 11px;
+    margin: 17px 10px 0 10px;
+    max-height: 8px;
     background-color: #F5EAD4;
     border-radius: 10px;
     box-shadow: inset 0 1px 1px 0 rgba(155, 154, 155, 0.39);
 }
 
 #BRpager .ui-slider-handle {
-    width: 10px;
+    width: 8px;
     height: 28px;
     margin-top: 4px;
 	cursor: pointer;
@@ -145,30 +147,39 @@
 
 /* Contiene i pulsanti */
 #BRpage {
-    max-width: 10%;
+    width: 130px;
+    min-width: 130px;
+    max-width: 130px;
     max-height: 42px;
     padding-left: 0;
     padding-right: 0;
     float: left;
 }
 
-#BRicon_book_left,
-#BRicon_book_right {
+#BRpage .mainButtons {
     float: left !important;
     margin: 0px !important;
     margin-top: 7px !important;
+    border-radius: 0;
+    margin-left: 1px !important;
 }
-
-#BRicon_book_left {
+#BRpage .mainButtons:not(:hover) {
+    -moz-box-shadow: none;
+	-webkit-box-shadow: none;
+	-o-box-shadow: none;
+	-khtml-box-shadow: none;
+	-ms-box-shadow: none;
+	box-shadow: none;
+}
+#BRpage .mainButtons:first-child {
     border-bottom-left-radius: 5px;
 	border-top-left-radius: 5px;
 	border-bottom-right-radius: 0;
     border-top-right-radius: 0;
+    margin-left: 0 !important;
 }
-#BRicon_book_left i {
-	margin-left: 7px;
-}
-#BRicon_book_right {
+
+#BRpage .mainButtons:last-child  {
 	margin-right: 15px;
 	margin-left: 1px !important;
     border-bottom-right-radius: 5px;
@@ -176,24 +187,28 @@
 	border-bottom-left-radius: 0;
 	border-top-left-radius: 0;
 }
-#BRicon_book_right:not(:hover) {
-	-moz-box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
-	-webkit-box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
-	-o-box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
-	-khtml-box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
-	-ms-box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
-	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+#BRpage .mainButtons i {
+    margin: 0 0 0 9px;
 }
-#BRicon_book_right i {
-	margin-left: 8px;
+#BRpage .mainButtons.arrow_left_disable,
+#BRpage .mainButtons.arrow_right_disable {
+    cursor: default !important;
+    -moz-box-shadow: none !important;
+	-webkit-box-shadow: none !important;
+	-o-box-shadow: none !important;
+	-khtml-box-shadow: none !important;
+	-ms-box-shadow: none !important;
+    box-shadow: none !important;
+    opacity: .7 !important;
 }
-
 .BRnavCntl {
 	background-color: #362D28;
     -moz-border-radius-topleft: 8px;
     -moz-border-radius-topright: 8px;
     -webkit-border-top-left-radius: 8px;
     -webkit-border-top-right-radius: 8px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
     /* box-shadow: 0px -8px 5px #000; */
     border-top: 5px;
     bottom: 42px;

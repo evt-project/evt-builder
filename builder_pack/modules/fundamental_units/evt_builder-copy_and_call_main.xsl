@@ -41,6 +41,16 @@
 			<!-- IT: copia lb/pb se presente nel gruppo -->
 			<xsl:if
 				test="current-group()/(descendant-or-self::lb[@* and not(@rend = 'empty')] | descendant-or-self::pb | descendant-or-self::cb)">
+				<!-- Management of words broken into two lines, to be normalized in the interpretative edition -->
+				<!-- Gestione parole spezzate su due righe, da normalizzare nell'edizione interpretativa -->
+				<xsl:if test="ancestor::tei:w">
+					<xsl:element name="{ancestor::tei:w/name()}" xmlns="http://www.tei-c.org/ns/1.0">
+						<xsl:attribute name="info" select="'complete_word'"/>
+						<!-- <xsl:value-of select="ancestor::tei:w/node()[normalize-space()]"></xsl:value-of> -->
+						<xsl:sequence select="ancestor::tei:w/node()[not(self::lb[@* and not(@rend = 'empty')])][normalize-space()]"/>
+					</xsl:element>
+				</xsl:if>
+				<!-- // end // -->
 				<xsl:sequence
 					select="current-group()/(descendant-or-self::lb[@* and not(@rend = 'empty')] | descendant-or-self::pb | descendant-or-self::cb)"
 				/>
@@ -50,6 +60,12 @@
 				<xsl:copy-of select="parent::node()/@* except (parent::node()/@part)"/>
 				<xsl:attribute name="part" select="position()"/>
 				<xsl:attribute name="id" select="generate-id(parent::node())"/>
+				<!-- Management of words broken into two lines, to be normalized in the interpretative edition -->
+				<!-- Gestione parole spezzate su due righe, da normalizzare nell'edizione interpretativa -->
+				<xsl:if test="parent::node()/name()='w' and parent::node()/tei:lb">
+					<xsl:attribute name="info" select="'broken_word'"/>
+				</xsl:if>
+				<!-- // end // -->
 				<xsl:sequence select="current-group()[not(self::lb[@* and not(@rend = 'empty')] | self::pb | self::cb)]"/>
 			</xsl:element>
 		</xsl:for-each-group>
@@ -64,8 +80,6 @@
 			<xsl:apply-templates select="@* | node()" mode="#current"/>
 		</xsl:copy>
 	</xsl:template>
-
-
 
 	<!-- EN: Recursive calls on variables to close and open all elements broken by lb/pb -->
 	<!-- IT: Chiamate ricorsive sulla variabili per chiudere e aprire tutti i tag spezzati da lb/pb -->

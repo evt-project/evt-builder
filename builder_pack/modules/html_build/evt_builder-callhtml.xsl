@@ -1201,13 +1201,23 @@
 								<div id="BRpage">
 									<xsl:element name="span">
 										<xsl:attribute name="class" select="'mainButtons'"/>
+										<xsl:attribute name="id" select="'BRicon_book_start'"/>
+										<i class="fa fa-angle-double-left"></i>
+									</xsl:element>
+									<xsl:element name="span">
+										<xsl:attribute name="class" select="'mainButtons'"/>
 										<xsl:attribute name="id" select="'BRicon_book_left'"/>
-										<i class="fa fa-chevron-left"></i>
+										<i class="fa fa-angle-left"></i>
 									</xsl:element>
 									<xsl:element name="span">
 										<xsl:attribute name="class" select="'mainButtons'"/>
 										<xsl:attribute name="id" select="'BRicon_book_right'"/>
-										<i class="fa fa-chevron-right"></i>
+										<i class="fa fa-angle-right"></i>
+									</xsl:element>
+									<xsl:element name="span">
+										<xsl:attribute name="class" select="'mainButtons'"/>
+										<xsl:attribute name="id" select="'BRicon_book_end'"/>
+										<i class="fa fa-angle-double-right"></i>
 									</xsl:element>
 								</div>
 								<!-- Pulsante per ridurre la barra -->
