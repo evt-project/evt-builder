@@ -201,6 +201,37 @@
     box-shadow: none !important;
     opacity: .7 !important;
 }
+
+#BRicon_book_start, #BRicon_book_end {
+    width: auto !important;
+}
+#BRicon_book_start i,
+#BRicon_book_end i {
+    display: inline-block;
+    margin: 0 !important;
+}
+#BRpage .fa-chevron-left {
+    margin-left: 5px !important;
+    font-size: 94%;
+}
+#BRpage .fa-chevron-right {
+    font-size: 94%;
+    margin-left: 9px;
+}
+#BRicon_book_start i.fa-chevron-left {
+    margin-left: -5px !important;
+    margin-right: 5px !important;
+    font-size: 94%;
+}
+#BRicon_book_end i.fa-chevron-right {
+    margin-left: 5px !important;
+    font-size: 94%;
+}
+#BRicon_book_end i.fa-minus {
+    margin-left: -7px !important;
+    margin-right: 3px !important;
+}
+
 .BRnavCntl {
 	background-color: #362D28;
     -moz-border-radius-topleft: 8px;

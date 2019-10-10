@@ -1171,19 +1171,21 @@ function bindArrowsBtnsClick() {
 	$("#BRicon_book_start").unbind("click").click(function () {
 		if (!$(this).hasClass('arrow_left_disable')) {
 			var firstPage = $('#span_pp_select .option_container .option:first');
+			firstPage.trigger('click'); // Serve per aggiornare lo slider
 			var new_pp_val = firstPage.attr('data-value'); // id pagina cliccata
 			var new_tt_val = firstPage.attr('data-first-doc');
-			updateHash(new_tt_val, new_pp_val, "");
+			updateHash(new_tt_val, new_pp_val, ""); // Serve per accedere al primo documento in caso di documenti multipli su singola pagina iniziale
 		}
 	});
 	// Go to next page;
 	$("#BRicon_book_end").unbind("click").click(function () {
 		if (!$(this).hasClass('arrow_right_disable')) {
 			var lastPage = $('#span_pp_select .option_container .option:last');
+			lastPage.trigger('click'); // Serve per aggiornare lo slider
 			var new_pp_val = lastPage.attr('data-value'); // id pagina cliccata
 			var lastDoc = $('#span_tt_select .option_container .option:last');
 			var new_tt_val = lastDoc.attr('data-value');
-			updateHash(new_tt_val, new_pp_val, "");
+			updateHash(new_tt_val, new_pp_val, ""); // Serve per accedere all'ultimo documento in caso di documenti multipli su singola pagina finale
 		}
 	});
 
