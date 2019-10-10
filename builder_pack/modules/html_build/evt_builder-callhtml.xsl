@@ -1202,22 +1202,24 @@
 									<xsl:element name="span">
 										<xsl:attribute name="class" select="'mainButtons'"/>
 										<xsl:attribute name="id" select="'BRicon_book_start'"/>
-										<i class="fa fa-angle-double-left"></i>
+										<i class="fa fa-minus fa-rotate-90"></i>
+										<i class="fa fa-chevron-left"></i>
 									</xsl:element>
 									<xsl:element name="span">
 										<xsl:attribute name="class" select="'mainButtons'"/>
 										<xsl:attribute name="id" select="'BRicon_book_left'"/>
-										<i class="fa fa-angle-left"></i>
+										<i class="fa fa-chevron-left"></i>
 									</xsl:element>
 									<xsl:element name="span">
 										<xsl:attribute name="class" select="'mainButtons'"/>
 										<xsl:attribute name="id" select="'BRicon_book_right'"/>
-										<i class="fa fa-angle-right"></i>
+										<i class="fa fa-chevron-right"></i>
 									</xsl:element>
 									<xsl:element name="span">
 										<xsl:attribute name="class" select="'mainButtons'"/>
 										<xsl:attribute name="id" select="'BRicon_book_end'"/>
-										<i class="fa fa-angle-double-right"></i>
+										<i class="fa fa-chevron-right"></i>
+										<i class="fa fa-minus fa-rotate-90"></i>
 									</xsl:element>
 								</div>
 								<!-- Pulsante per ridurre la barra -->
