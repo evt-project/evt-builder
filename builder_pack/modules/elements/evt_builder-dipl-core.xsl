@@ -877,4 +877,20 @@
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
+
+	<xsl:template match="tei:w" mode="dipl">
+		<xsl:choose>
+			<xsl:when test="@info='complete_word'">
+				<!-- DO NOTHING -->
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:element name="span">
+					<xsl:attribute name="class" select="'w'"/>
+					<xsl:attribute name="data-type" select="@type"/>
+					<xsl:attribute name="data-rend" select="@rend"/>
+					<xsl:apply-templates mode="#current"/>
+				</xsl:element>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
 </xsl:stylesheet>

@@ -1167,6 +1167,26 @@ function bindArrowsBtnsClick() {
 		arrow("right");
 	});
 
+	// Go to previous page;
+	$("#BRicon_book_start").unbind("click").click(function () {
+		if (!$(this).hasClass('arrow_left_disable')) {
+			var firstPage = $('#span_pp_select .option_container .option:first');
+			var new_pp_val = firstPage.attr('data-value'); // id pagina cliccata
+			var new_tt_val = firstPage.attr('data-first-doc');
+			updateHash(new_tt_val, new_pp_val, "");
+		}
+	});
+	// Go to next page;
+	$("#BRicon_book_end").unbind("click").click(function () {
+		if (!$(this).hasClass('arrow_right_disable')) {
+			var lastPage = $('#span_pp_select .option_container .option:last');
+			var new_pp_val = lastPage.attr('data-value'); // id pagina cliccata
+			var lastDoc = $('#span_tt_select .option_container .option:last');
+			var new_tt_val = lastDoc.attr('data-value');
+			updateHash(new_tt_val, new_pp_val, "");
+		}
+	});
+
 	// Go to text
 	if ($('#inside_left_arrow').length > 0 || $('#inside_right_arrow').length > 0) {
 		$("#inside_left_arrow, #inside_left_arrow-add").unbind("click").click(function () {

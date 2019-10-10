@@ -40,8 +40,8 @@ function onHashChange(xml) {
 
     checkdd = $(".main_dd_select").find(".option[data-value*='" + temp_search + "']"); // .attr("id").substr(6)
 
-    var mainLeftArrow = $(".main_left_arrow"),
-        mainRightArrow = $(".main_right_arrow");
+    var mainLeftArrow = $(".main_left_arrow, #BRicon_book_left, #BRicon_book_start"),
+        mainRightArrow = $(".main_right_arrow, #BRicon_book_right, #BRicon_book_end");
     mainLeftArrow.removeClass("arrow_left_disable");
     mainRightArrow.removeClass("arrow_right_disable");
 
