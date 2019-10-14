@@ -84,7 +84,9 @@ function viewProse(frame) {
 	frame.find(".dipl-lineN+.dipl-left, .interp-lineN+.interp-left").css('display', 'inline-table');
 
 	for (var i = 1; i < lb.length; i++) {
-		$(lb[i]).html("<br />");
+		if ($(lb[i]).text()) {
+			$(lb[i]).html("<br />");
+		}
 	}
 
 	for (var i = 1; i < spazio.length; i++) {
