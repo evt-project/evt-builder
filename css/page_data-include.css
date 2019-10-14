@@ -159,6 +159,9 @@ DIV.dipl-left, .trad-left{
     /* width: 92%; */
     display: inline-table;
 }
+.dipl-left .doc, .interp-left .doc, .trad-left .doc{
+    display: inline;
+}
 
 DIV.dipl-attachment{
     border: 1px solid black;
