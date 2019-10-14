@@ -47,7 +47,7 @@
 					<xsl:element name="{ancestor::tei:w/name()}" xmlns="http://www.tei-c.org/ns/1.0">
 						<xsl:attribute name="info" select="'complete_word'"/>
 						<!-- <xsl:value-of select="ancestor::tei:w/node()[normalize-space()]"></xsl:value-of> -->
-						<xsl:sequence select="ancestor::tei:w/node()[not(self::lb[@* and not(@rend = 'empty')])][normalize-space()]"/>
+						<xsl:sequence select="ancestor::tei:w/node()[not(self::lb[@* and not(@rend = 'empty')])]"/>
 					</xsl:element>
 				</xsl:if>
 				<!-- // end // -->
