@@ -15,16 +15,31 @@ function loadViscollContent() {
 				}
 			});
 			var imageExt = $('#global_wrapper').attr('data-image-extension') || 'jpg';
-			$('.fancybox img').click(function(element) {
-				var dataPage = $(this).attr('data-page');
-				if (dataPage) {
-					var fileName = dataPage.split("/").pop();
-					var pageId = fileName.replace('.' + imageExt, '');
-					var pageEl = $('.main_pp_select .option[data-value="'+pageId+'"]');
-					if (pageEl) {
-						var docId = pageEl.attr('data-first-doc');
-						updateHash(docId, pageId, '');
+			var images = $('.fancybox img')
+			debugger;
+			images.each(function() {
+				this.addEventListener("error", function() {
+					this.setAttribute('src', 'images/no-image.png');
+				});
+			});
+			images.click(function(element) {
+				var pageLabel = $(this).attr('alt');
+				var pageEl;
+				if (pageLabel) {
+					pageEl = $('.main_pp_select .option[data-label="'+pageLabel+'"]');
+				}
+				if (!pageEl) {
+					var dataPage = $(this).attr('data-page');
+					if (dataPage) {
+						var fileName = dataPage.split("/").pop();
+						var pageValue = fileName.replace('.' + imageExt, '').replace('_small', '');
+						pageEl = $('.main_pp_select .option[data-value="'+pageValue+'"]');
 					}
+				}
+				if (pageEl) {
+					var docId = pageEl.attr('data-first-doc');
+					var pageId = pageEl.attr('data-value');
+					updateHash(docId, pageId, '');
 				}
 			});
 			$(".quires_toggler").click(function () {

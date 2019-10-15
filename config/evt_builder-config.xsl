@@ -278,22 +278,14 @@
 		Se si usa una risorsa online, inserire il percorso completo (ex. http://www.ilmiosito.it/schemaViscoll.xml).
 		Altrimenti copiare il file nella cartella data/input_data/text e inserire qui solo percorso relativo a partire da quella cartella. -->
 	<xsl:param name="viscoll_scheme_path">text/viscoll/CP_viscollScheme.xml</xsl:param>
-	
-	<!-- EN: Path to xml file containing viscoll images list. 
+
+	<!-- EN: Path to xml file containing viscoll images list.
 		If you need to use an online resource, put the entire path (e.g: http://www.mysite.com/viscollImagelist.xml).
 		Otherwise put the file in data/input_data/text folder and just put here the relative path starting from that folder. -->
 	<!-- IT: Percorso al file xml contenente la lista delle immagini necessaria al corretto funzionamento di viscoll.
 		Se si usa una risorsa online, inserire il percorso completo (ex. http://www.ilmiosito.it/viscollImagelist.xml).
 		Altrimenti copiare il file nella cartella data/input_data/text e inserire qui solo percorso relativo a partire da quella cartella. -->
 	<xsl:param name="viscoll_image_list_path">text/viscoll/CP_20-21-imageList.xml</xsl:param>
-	
-	<!-- EN: Path to folder containing viscoll images files. 
-		If your images are online resources, put the entire path (e.g: http://www.mysite.com/images/) 
-		or leave it empty (in this case you need to specify the entire path in the viscoll image list xml -->
-	<!-- IT: Percorso alla cartella contenente le immagini necessarie al corretto funzionamento di viscoll.
-		Se si usano risorse online, inserire il percorso completo (ex. http://www.ilmiosito.it/immagini/) 
-		oppure lasciare vuoto (in questo caso sarà necessario specificare il percorso completo di ogni singola immagine nel file specifico. -->
-	<xsl:param name="viscoll_images_folder">data/input_data/images/single/</xsl:param>
 	
 	<!-- EN: Show/Hide Edition level selector in interface -->
 	<!-- IT: Mostra/Nascondi selettore Livello/i Edizione nell'interfaccia web -->
