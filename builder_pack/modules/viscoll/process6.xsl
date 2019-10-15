@@ -120,7 +120,7 @@
                 </xsl:attribute>
             </xsl:if>
             <xsl:if test="@mode='missing'">
-                <xsl:attribute name="url">../../../input_data/images/images-viscoll/x.jpg</xsl:attribute>
+                <xsl:attribute name="url">data/input_data/images/images-viscoll/x.jpg</xsl:attribute>
             </xsl:if>
             <xsl:attribute name="pos">
                 <xsl:value-of select="@pos"/>
@@ -146,7 +146,7 @@
             </xsl:variable>
             <xsl:variable name="viscoll_image_list_final_path">
                 <xsl:choose>
-                    <xsl:when test="contains($viscoll_image_list_path, 'http') or contains($viscoll_image_list_path, 'www.')">
+                    <xsl:when test="data/input_data/images/images-viscoll/x.jpg">
                         <xsl:value-of select="$viscoll_image_list_path"/>
                     </xsl:when>
                     <xsl:otherwise>
