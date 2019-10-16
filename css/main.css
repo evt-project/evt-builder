@@ -2241,7 +2241,7 @@ div.doc.not_current:hover {
 #search_sub_header,
 #search_sub_header-add {
     margin-top: 33px;
-    padding-top: 6px;
+    padding-top: 20px;
     height: 74px;
     max-height: 74px;
 }
@@ -2249,6 +2249,7 @@ div.doc.not_current:hover {
 #search_cont_results,
 #search_cont_results-add {
     padding: 20px;
+    padding-top: 0;
     overflow-y: auto;
     height: -moz-calc(100% - 194px);
     height: -webkit-calc(100% - 194px);
@@ -2376,6 +2377,21 @@ div.doc.not_current:hover {
     position: relative;
 }
 
+#search_header .mainButtons.small, 
+#search_header-add .mainButtons.small {
+    min-width: 28px !important;
+    max-width: 28px !important;
+    width: 28px !important;
+    padding: 0 !important;
+    display: inline-block !important;
+    position: relative;
+    top: 1px;
+}
+#search_header .mainButtons.small.hidden, 
+#search_header-add .mainButtons.small.hidden {
+    display: none !important;
+}
+
 #lists_cont.collapsed #list_header,
 #search_cont.collapsed #search_header,
 #search_cont-add.collapsed #search_header-add {
@@ -2421,17 +2437,14 @@ div.doc.not_current:hover {
     display: inline-block;
 }
 
-#search_header #toggle_search_cont:hover,
-#search_header-add #toggle_search_cont-add:hover,
-#search_header #keyboard_link:hover,
-#search_header-add #keyboard_link-add:hover #search_header #start_search:hover,
-#search_header-add #start_search-add:hover {
-    -moz-box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.7) inset;
-    -webkit-box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.7) inset;
-    -o-box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.7) inset;
-    -khtml-box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.7) inset;
-    -ms-box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.7) inset;
-    box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.7) inset;
+#search_header .mainButtons:hover,
+#search_header-add .mainButtons:hover {
+    -moz-box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.7) inset !important;
+    -webkit-box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.7) inset !important;
+    -o-box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.7) inset !important;
+    -khtml-box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.7) inset !important;
+    -ms-box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.7) inset !important;
+    box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.7) inset !important;
 }
 
 #toggle_search_cont,
@@ -2442,11 +2455,15 @@ div.doc.not_current:hover {
 }
 
 #keyboard_link,
-#keyboard_link-add {
+#keyboard_link-add,
+#search_case_sensitive_toggler,
+#search_case_sensitive_toggler-add {
     border-radius: 0px;
     margin: 0px;
     box-shadow: none;
     min-width: 28.5px;
+    height: 29px;
+    margin-right: 2px;
 }
 
 #keyboard,
@@ -2520,24 +2537,24 @@ div.doc.not_current:hover {
 
 #tipue_search_input_div,
 #tipue_search_input_div-add {
-    width: -moz-calc(100% - 96px);
-    width: -webkit-calc(100% - 96px);
-    width: -o-calc(100% - 96px);
-    width: calc(100% - 96px);
-    display: inline-block;
-    margin: 0 2px;
-    margin-top: 1px;
+    width: -moz-calc(100% - 28px - 28px - 28px - 28px - 12px);
+    width: -webkit-calc(100% - 28px - 28px - 28px - 28px - 12px);
+    width: -o-calc(100% - 28px - 28px - 28px - 28px - 12px);
+    width: calc(100% - 28px - 28px - 28px - 28px - 12px);
     height: 29px;
     background: #fff;
+    margin: 0 2px 0 0;
+    display: inline-block;
+    position: relative;
+    top: 1px;
 }
 
-#keyboard_link.hidden+#tipue_search_input_div,
-#keyboard_link-add.hidden+#tipue_search_input_div-add {
-    width: -moz-calc(100% - 68px);
-    width: -webkit-calc(100% - 67px);
-    width: -o-calc(100% - 68px);
-    width: calc(100% - 67px);
-    margin: 1px 2px 0 0;
+#keyboard_link.hidden~#tipue_search_input_div,
+#keyboard_link-add.hidden~#tipue_search_input_div-add {
+    width: -moz-calc(100% - 28px - 28px - 28px - 10px);
+    width: -webkit-calc(100% - 28px - 28px - 28px - 10px);
+    width: -o-calc(100% - 28px - 28px - 28px - 10px);
+    width: calc(100% - 28px - 28px - 28px - 10px);
 }
 
 .clear_input {
