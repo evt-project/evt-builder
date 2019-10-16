@@ -433,6 +433,15 @@
 								</div>
 							</div>	
 						</xsl:if>
+
+						<xsl:if test="$webSite != ''">
+							<div class="setting_row button_like" id="biblio_link">
+								<a class="setting_row_title" href="{$webSite}" target="blank">
+									<i class="fa fa-external-link"></i>
+									<span lang="def">VISIT_WEB_SITE</span>
+								</a>
+							</div>
+						</xsl:if>
 						
 						<div class="setting_row">
 							<div class="setting_row_title"><i class="fa fa-language"></i><span lang="def">LANGUAGES</span>:</div>
