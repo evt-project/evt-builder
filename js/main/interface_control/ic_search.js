@@ -59,6 +59,7 @@ function toggleSearchCont(toggler) {
 		listSelector = $('#span_list_select' + boxSuffix);
 
 	if (search_cont.hasClass('collapsed')) {
+		$('#start_search' + boxSuffix).trigger('dblclick');
 		search_cont.removeClass('collapsed')
 		if (search_input.val() != '' &&
 			search_query.attr('data-value') != search_input.val() &&
@@ -163,13 +164,13 @@ function setSearchClosedPosition(boxSuffix) {
 function closeSearchBox(speed, boxSuffix) {
 	$('#search_cont' + boxSuffix).removeClass('bottomBoxOpened');
 	$('#search_link' + boxSuffix).removeClass('active');
-	var closeDiv = function() {
+	var closeDiv = function () {
 		return $('#search_cont' + boxSuffix).hide('slide', {
 			direction: 'down'
 		}, 'linear', speed);
 	};
 
-	$.when(closeDiv()).done(function() {
+	$.when(closeDiv()).done(function () {
 		setSearchClosedPosition(boxSuffix);
 	});
 	updateTextContHeight();
@@ -187,7 +188,7 @@ function openSearchBox(speed, boxSuffix) {
 	searchCont.addClass('bottomBoxOpened');
 	$('#search_link' + boxSuffix).addClass('active');
 
-	var openDivSearch = function() {
+	var openDivSearch = function () {
 		var newSearchContTop = searchCont.parents("div[id*='main_']").outerHeight() - ($('#text_tool' + boxSuffix).outerHeight() * 2) - $('#search_header' + boxSuffix).outerHeight() - 6;
 		searchCont.css({
 			'top': newSearchContTop + 'px'
@@ -196,7 +197,7 @@ function openSearchBox(speed, boxSuffix) {
 		return searchCont.show();
 	};
 
-	$.when(openDivSearch()).done(function() {
+	$.when(openDivSearch()).done(function () {
 		updateTextContHeight();
 	});
 	if (searchCont.hasClass('collapsed')) {
@@ -247,9 +248,7 @@ function onSearchButtonClick(elem) {
 				listSelect.removeClass('not_active').css('opacity', '1');
 			}
 		}
-	}
-	// BOX RICERCA CHIUSO
-	else {
+	} else {
 		var listsBtn = $('#list_link' + boxSuffix),
 			switchFrontBtn = $('#switchFront' + boxSuffix);
 		if (listsBtn.length > 0 && listsBtn.hasClass('active')) {
@@ -290,7 +289,7 @@ function onSearchButtonClick(elem) {
 
 /*= BIND VIRTUAL KEYBOARD BUTTON CLICK EVENT =*/
 function bindKeyboardBtnClick() {
-	$('.searchKeyboardButton').click(function() {
+	$('.searchKeyboardButton').click(function () {
 		if (!$(this).hasClass('inactive') && $('.keyboardSearch').length > 0) {
 			var numKeys, newKeyboardHeight, newKeyboardWidth;
 			var search_cont, keyboard;
@@ -336,16 +335,30 @@ function bindKeyboardBtnClick() {
 	});
 }
 
+function bindCaseSensitiveBtnClick() {
+	$('.searchCaseSensitiveButton').unbind('click').click(function () {
+		$(this).toggleClass('active');
+		var suffix = $(this).attr('data-boxsuffix');
+		setTimeout(function () {
+			if ($('#search_cont'+suffix).hasClass('collapsed')) {
+				$('#tipue_search_input' + suffix).trigger('keyup')
+			} else {
+				$('#start_search' + suffix).trigger('dblclick');
+			}
+		});
+	});
+}
+
 function bindSearchBtnsClick() {
-	$('.searchButton').click(function(event) {
+	$('.searchButton').click(function (event) {
 		onSearchButtonClick(this);
 	});
 
-	$('.toggleSearchButton').click(function() {
+	$('.toggleSearchButton').click(function () {
 		toggleSearchCont(this);
 	});
 
-	$('.searchInput').keyup(function(event) {
+	$('.searchInput').keyup(function (event) {
 		if ($(this).val() != '') {
 			$(this).addClass('clearable');
 		} else {
@@ -353,7 +366,7 @@ function bindSearchBtnsClick() {
 		}
 	});
 
-	$('.clear_input').click(function(event) {
+	$('.clear_input').click(function (event) {
 		$(this).prev().val('').removeClass('clearable');
 		var searchCont = $(this).parents('.searchContainer');
 		searchCont
@@ -365,14 +378,18 @@ function bindSearchBtnsClick() {
 		$(this).parents("div[id*='frame']").find('.highlight').removeClass('highlight');
 	});
 
-	$('.searchInput').keyup(function(e) {
+	$('.searchInput').keyup(function (e) {
 		var boxSuffix = $(this).attr('data-boxsuffix');
 		if ($("#search_cont" + boxSuffix).hasClass('bottomBoxOpened')) {
 			$('#text_elem' + boxSuffix).unhighlight();
 			var input_text_value = $(this).val();
 			var word_array = input_text_value.split(' ');
+			var caseSensitive = false;
+			if ($('#search_case_sensitive_toggler'+boxSuffix).hasClass('active')) {
+					caseSensitive = true;
+			}
 			for (var i = 0; i < word_array.length; i++) {
-				$('#text_elem' + boxSuffix).highlight(word_array[i]);
+				$('#text_elem' + boxSuffix).highlight(word_array[i], { caseSensitive: caseSensitive });
 			}
 		}
 	});
@@ -384,5 +401,9 @@ function bindSearchBtnsClick() {
 	// Open Keyboard
 	if ($('.searchKeyboardButton').length > 0) {
 		bindKeyboardBtnClick();
+	}
+
+	if ($('.searchCaseSensitiveButton').length > 0) {
+		bindCaseSensitiveBtnClick();
 	}
 }

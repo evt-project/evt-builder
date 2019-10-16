@@ -103,6 +103,10 @@ function goToSearchResult(text_id, page_id, pos, setSuffix) {
                });
 
                if (set.mode == 'live') {
+                    var caseSensitive = false;
+                    if ($('#search_case_sensitive_toggler'+set.suffix).hasClass('active')) {
+                         caseSensitive = true;
+                    }
                     for (var i = 0; i < tipuesearch_pages.length; i++) {
                          $.get(tipuesearch_pages[i], '',
                               function (html) {
@@ -111,13 +115,17 @@ function goToSearchResult(text_id, page_id, pos, setSuffix) {
                                    var desc = $(set.liveDescription, html).text();
                                    desc = desc.replace(/\s+/g, ' ');
 
-                                   /* CASE INSENSITIVE SEARCH */
-                                   var t_1 = html.toLowerCase().indexOf('<title>');
-                                   var t_2 = html.toLowerCase().indexOf('</title>', t_1 + 7);
+                                   var t_1, t_2;
+                                   if (caseSensitive) {
+                                        /* CASE SENSITIVE SEARCH */
+                                        t_1 = html.indexOf('<title>');
+                                        t_2 = html.indexOf('</title>', t_1 + 7);
+                                   } else {
+                                        /* CASE INSENSITIVE SEARCH */
+                                        t_1 = html.toLowerCase().indexOf('<title>');
+                                        t_2 = html.toLowerCase().indexOf('</title>', t_1 + 7);
+                                   }
 
-                                   /* CASE SENSITIVE SEARCH */
-                                   // var t_1 = html.indexOf('<title>');
-                                   // var t_2 = html.indexOf('</title>', t_1 + 7);
                                    if (t_1 != -1 && t_2 != -1) {
                                         var tit = html.slice(t_1 + 7, t_2);
                                    }
@@ -196,6 +204,14 @@ function goToSearchResult(text_id, page_id, pos, setSuffix) {
                     $('#keyboard_link' + set.suffix + '.active').trigger('click');
                });
 
+               $('#start_search' + set.suffix).dblclick(function () {
+                    $('#search_query' + set.suffix)
+                              .attr('data-value', $('#tipue_search_input' + set.suffix).val())
+                              .empty()
+                              .append('<span lang="def">SEARCH_FOR</span> <strong>' + $('#tipue_search_input' + set.suffix).val() + '</strong>');
+                    getTipueSearch(0, true);
+                    window.lang.run();
+               });
                $(this).keyup(function (event) {
                     if (event.keyCode == '13') {
                          /*if ($('#span_si').is(':visible')) {
@@ -218,11 +234,19 @@ function goToSearchResult(text_id, page_id, pos, setSuffix) {
                     var show_replace = false;
                     var show_stop = false;
 
-                    /* CASE INSENSITIVE SEARCH */
-                    var d = $('#tipue_search_input' + set.suffix).val().toLowerCase();
+                    var caseSensitive = false;
+                    if ($('#search_case_sensitive_toggler'+set.suffix).hasClass('active')) {
+                         caseSensitive = true;
+                    }
+                    var d;
+                    if (caseSensitive) {
+                         /* CASE SENSITIVE SEARCH */
+                         d = $('#tipue_search_input'+set.suffix).val();
+                    } else {
+                         /* CASE INSENSITIVE SEARCH */
+                         d = $('#tipue_search_input' + set.suffix).val().toLowerCase();
+                    }
 
-                    /* CASE SENSITIVE SEARCH */
-                    // var d = $('#tipue_search_input'+set.suffix).val();
                     d = $.trim(d);
                     var d_w = d.split(' ');
                     d = '';
@@ -283,12 +307,14 @@ function goToSearchResult(text_id, page_id, pos, setSuffix) {
                                    }
 
                                    if (set.highlightTerms) {
-                                        var patr;
+                                        var highlightRegexConfig = '';
                                         if (set.highlightEveryTerm) {
-                                             patr = new RegExp('(' + d_w[f] + ')', 'gi');
-                                        } else {
-                                             patr = new RegExp('(' + d_w[f] + ')', 'i');
+                                             highlightRegexConfig = 'g';
                                         }
+                                        if (!caseSensitive) {
+                                             highlightRegexConfig += 'i';
+                                        }
+                                        var patr = new RegExp('(' + d_w[f] + ')', highlightRegexConfig);
                                         s_t = s_t.replace(patr, "<span class='bold_search'>$1</span>");
                                    }
                                    if (tipuesearch_in.pages[i].tags.indexOf(pat) != -1) {
@@ -317,7 +343,7 @@ function goToSearchResult(text_id, page_id, pos, setSuffix) {
                               }
 
                               if ($('#span_ee_select' + set.suffix + " .option_container .option").length > 1) {
-                                   results_text += ' <span lang="def">IN_THE_CURRENT_EDIION</span>. ';
+                                   results_text += ' <span lang="def">IN_THE_CURRENT_EDIION</span> ';
                                    // results_text += $('#span_ee_select'+set.suffix + " .label_selected").text().toLowerCase() + ' <span lang="def">EDITION</span>.';
                               }
                               var pages = Math.ceil(c / set.show);
@@ -329,6 +355,10 @@ function goToSearchResult(text_id, page_id, pos, setSuffix) {
                               var page, page_id, page_n;
                               var text, text_id, text_label;
                               var pos, pos_id, pos_label;
+                              var caseSensitive = false;
+                              if ($('#search_case_sensitive_toggler'+set.suffix).hasClass('active')) {
+                                   caseSensitive = true;
+                              }
                               for (var i = 0; i < found.length; i++) {
                                    var fo = found[i].split('*|*|*');
                                    if (l_o >= start && l_o < set.show + start) {
@@ -340,11 +370,15 @@ function goToSearchResult(text_id, page_id, pos, setSuffix) {
                                         if (t_w.length < set.descriptiveWords) {
                                              t_d = t;
                                         } else {
-                                             /* CASE INSENSITIVE SEARCH */
-                                             var d_index = t.toLowerCase().indexOf(d);
+                                             var d_index;
+                                             if (caseSensitive) {
+                                                  /* CASE SENSITIVE SEARCH */
+                                                  d_index = t.indexOf(d);
+                                             } else {
+                                                  /* CASE INSENSITIVE SEARCH */
+                                                  d_index = t.toLowerCase().indexOf(d);
+                                             }
 
-                                             /* CASE SENSITIVE SEARCH */
-                                             // var d_index = t.indexOf(d);
                                              var pre_text = t.substring(0, d_index);
                                              var post_text = t.substring(d_index);
 
@@ -469,8 +503,7 @@ function goToSearchResult(text_id, page_id, pos, setSuffix) {
                               }
                          }
                          else {
-                              out += '<div id="tipue_search_warning_head' + set.suffix + '"><span lang="def">NOTHING_FOUND</span></div>';
-                              $('#search_results' + set.suffix).empty();
+                              $('#search_results' + set.suffix).empty().html('<div id="tipue_search_results_count' + set.suffix + '" class="tipue_search_results_count"><span lang="def">NOTHING_FOUND</span></div>');
                               $('#search_foot' + set.suffix).empty();
                          }
                     }

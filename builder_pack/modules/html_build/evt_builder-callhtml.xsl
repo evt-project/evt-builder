@@ -673,6 +673,17 @@
 													<xsl:attribute name="class">fa fa-keyboard-o</xsl:attribute>
 												</xsl:element>
 											</xsl:element>
+											<xsl:element name="span">
+												<xsl:attribute name="id" select="'search_case_sensitive_toggler-add'"/>
+												<xsl:attribute name="class">mainButtons small searchCaseSensitiveButton</xsl:attribute>
+												<xsl:attribute name="data-boxsuffix" select="'-add'"/>
+												<xsl:attribute name="title" select="'TOGGLE_CASE_SENSITIVE'"/>
+												<xsl:attribute name="lang" select="'def'"/>
+												<xsl:element name="i">
+													<xsl:attribute name="class">fake-icon</xsl:attribute>
+													aA
+												</xsl:element>
+											</xsl:element>
 											<div id="tipue_search_input_div-add">
 												<input type="text" id="tipue_search_input-add"  class="searchInput" data-boxsuffix="-add"/>
 												<xsl:element name="i">
@@ -989,6 +1000,17 @@
 											<xsl:attribute name="lang" select="'def'"/>
 											<xsl:element name="i">
 												<xsl:attribute name="class">fa fa-keyboard-o</xsl:attribute>
+											</xsl:element>
+										</xsl:element>
+										<xsl:element name="span">
+											<xsl:attribute name="id" select="'search_case_sensitive_toggler'"/>
+											<xsl:attribute name="class">mainButtons small searchCaseSensitiveButton</xsl:attribute>
+											<xsl:attribute name="data-boxsuffix" select="''"/>
+											<xsl:attribute name="title" select="'TOGGLE_CASE_SENSITIVE'"/>
+											<xsl:attribute name="lang" select="'def'"/>
+											<xsl:element name="i">
+												<xsl:attribute name="class">fake-icon</xsl:attribute>
+												aA
 											</xsl:element>
 										</xsl:element>
 										<div id="tipue_search_input_div">
