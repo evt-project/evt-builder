@@ -653,36 +653,6 @@
 		<!-- Do nothing -->
 	</xsl:template>
 
-	<!-- DATE -->
-	<xsl:template match="tei:date" mode="dipl">
-		<xsl:apply-templates mode="#current"/>
-	</xsl:template>
-
-	<!-- PERS NAME personal name -->
-	<xsl:template match="tei:persName[starts-with(@ref, '#')]" mode="dipl">
-		<xsl:apply-templates mode="#current"/>
-	</xsl:template>
-
-	<!-- MEASURE  -->
-	<xsl:template match="tei:measure" mode="dipl">
-		<xsl:apply-templates mode="#current"/>
-	</xsl:template>
-
-	<!-- ROLE NAME -->
-	<xsl:template match="tei:roleName" mode="dipl">
-		<xsl:apply-templates mode="#current"/>
-	</xsl:template>
-
-	<!-- ORG NAME  -->
-	<xsl:template match="tei:orgName" mode="dipl">
-		<xsl:apply-templates mode="#current"/>
-	</xsl:template>
-
-	<!-- PLACE NAME personal name -->
-	<xsl:template match="tei:placeName[starts-with(@ref, '#')]" mode="dipl">
-		<xsl:apply-templates mode="#current"/>
-	</xsl:template>
-
 	<!-- PTR Pointer -->
 	<xsl:template match="tei:ptr" mode="dipl">
 		<xsl:choose>
@@ -803,63 +773,6 @@
 		</xsl:choose>
 	</xsl:template>
 
-	<!-- STAGE -->
-	<xsl:template match="tei:stage" mode="dipl">
-		<xsl:choose>
-			<!-- CON POPUP -->
-			<xsl:when test="@type">
-				<xsl:element name="span">
-					<xsl:attribute name="class">popup stage <xsl:value-of select="@type"/></xsl:attribute>
-					<xsl:if test="@rend">
-						<xsl:attribute name="data-rend"><xsl:value-of select="@rend"/></xsl:attribute>
-					</xsl:if>
-					<xsl:element name="span">
-						<xsl:attribute name="class">trigger</xsl:attribute>
-						<xsl:apply-templates mode="#current"/>
-					</xsl:element>
-					<xsl:element name="span">
-						<xsl:attribute name="class">tooltip</xsl:attribute>
-						<xsl:element name="span">
-							<xsl:attribute name="class">before</xsl:attribute>
-						</xsl:element>
-						<xsl:element name="span">
-							<xsl:attribute name="class">stageName</xsl:attribute>
-							<span lang="def"><xsl:value-of select="concat('STAGE_',upper-case(@type),'_LABEL')"/></span>
-						</xsl:element>
-						<xsl:element name="span">
-							<xsl:attribute name="class">details</xsl:attribute>
-							<span lang="def"><xsl:value-of select="concat('STAGE_',upper-case(@type),'_DESC')"/></span>
-						</xsl:element>
-					</xsl:element>
-				</xsl:element>
-			</xsl:when>
-			<!-- SENZA POPUP -->
-			<xsl:otherwise>
-				<xsl:element name="span">
-					<xsl:attribute name="class">stage no-info</xsl:attribute>
-					<xsl:if test="@rend">
-						<xsl:attribute name="data-rend"><xsl:value-of select="@rend"/></xsl:attribute>
-					</xsl:if>
-					<xsl:apply-templates mode="#current"/>
-				</xsl:element>
-			</xsl:otherwise>
-		</xsl:choose>
-	</xsl:template>
-
-	<xsl:template match="tei:speaker" mode="dipl">
-		<xsl:element name="span">
-			<xsl:attribute name="class">speaker</xsl:attribute>
-			<xsl:apply-templates mode="#current"/>
-		</xsl:element>
-	</xsl:template>
-	
-	<xsl:template match="tei:sp" mode="dipl">
-		<xsl:element name="span">
-			<xsl:attribute name="class">sp speech</xsl:attribute>
-			<xsl:apply-templates mode="#current"/>
-		</xsl:element>
-	</xsl:template>
-	
 	<xsl:template match="tei:div" mode="dipl">
 		<xsl:choose>
 			<xsl:when test="starts-with(@type,'transl')">
