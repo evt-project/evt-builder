@@ -997,6 +997,18 @@ function loadStructureAndPrepareUI() {
                 /* //= HASH CHANGE - ba.bbq plugin */
                 /* =============================== */
 
+                window.onresize = function() {
+                    resizeButtonsAndSelects();
+                    var mainLeftFrame = $("#main_left_frame");
+                    if (mainLeftFrame) {
+                        updateLinesWidth(mainLeftFrame, true);
+                    }
+                    var mainRightFrame = $("#main_right_frame");
+                    if (mainRightFrame) {
+                        updateLinesWidth(mainRightFrame, true);
+                    }
+                };
+
                 // IT: Al primo caricamento aggiorno l'id della pagina in modo che indichi pagina singola
                 var first_hash_parts = new Array();
                 first_hash_parts = location.hash.substr(1).split('&');
