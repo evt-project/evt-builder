@@ -177,7 +177,7 @@ jquery_lang_js.prototype.lang.en = {
 	"NO_REF": "No reference found.",
 	"TEXT_NOT_AVAILABLE": "The text for the selected document is not available.",
 
-	"VISIT_WEB_SITE": "Visit the website of the project.",
+	"VISIT_WEB_SITE": "Visit the website of the project",
 	"HELP": "Help",
 	"CLOSE": "Close",
 	// Shortcuts

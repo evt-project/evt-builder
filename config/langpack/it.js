@@ -177,7 +177,7 @@ jquery_lang_js.prototype.lang.it = {
 	"NO_REF": "Nessun riferimento trovato.",
 	"TEXT_NOT_AVAILABLE": "Il testo del documento selezionato non è ancora disponibile.",
 
-	"VISIT_WEB_SITE": "Visita il sito web del progetto.",
+	"VISIT_WEB_SITE": "Visita il sito web del progetto",
 	"HELP": "Aiuto",
 	"CLOSE": "Chiudi",
 	// Shortcuts
