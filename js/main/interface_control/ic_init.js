@@ -800,7 +800,7 @@ function concludeUIinit() {
 
         // Sistemo interfaccia per Safari
         if ($.browser.safari) {
-            $('#toggle_list_cont, #toggle_search_cont, #start_search, #toggle_search_cont-add, #start_search-add, #keyboard_link, #keyboard_link-add').css('top', '-1px');
+            $('#toggle_list_cont, #toggle_search_cont, #start_search, #toggle_search_cont-add, #start_search-add, #keyboard_link, #keyboard_link-add, #search_case_sensitive_toggler, #search_case_sensitive_toggler-add').css('top', '-1px');
         }
 
         $(".like_select.filter").each(function () {
