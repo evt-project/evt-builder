@@ -68,6 +68,8 @@
 	<xsl:include href="modules/elements/evt_builder-dipl-core.xsl"/>
 	<xsl:include href="modules/elements/evt_builder-dipl-multi_module.xsl"/>
 	<!--<xsl:include href="modules/elements/evt_builder-dipl-textstructure.xsl"/>--> <!-- Added By JK-->
+	<!-- Elements for namedEntities-->
+	<xsl:include href="modules/elements/evt_builder-namedEntities.xsl"/>
 
 	<xsl:include href="modules/elements/evt_builder-lists.xsl"/>
 	
