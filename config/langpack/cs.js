@@ -178,7 +178,7 @@ jquery_lang_js.prototype.lang.cs = {
 	"NO_REF": "Reference nenalezeny.",
 	"TEXT_NOT_AVAILABLE": "Text zvoleného dokumentu není dostupný.",
 
-	"VISIT_WEB_SITE": "Navštivte webové stránky projektu.",
+	"VISIT_WEB_SITE": "Navštivte webové stránky projektu",
 	"HELP": "Nápověda",
 	"CLOSE": "Zavřít",
 	// Shortcuts

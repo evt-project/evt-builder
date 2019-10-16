@@ -3436,6 +3436,8 @@ ul.ul_list li.list_element_opened {
 .setting_row_title,
 .setting_row_content {
     display: inline-block;
+    text-decoration: none;
+    color: inherit;
 }
 
 .setting_row img.flag {

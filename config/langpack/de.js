@@ -176,7 +176,7 @@ jquery_lang_js.prototype.lang.de = {
 	"NO_REF": "Keine Artikel gefunden.",
 	"TEXT_NOT_AVAILABLE": "Der Text f&uuml;r das ausgew&auml;hlte Dokument ist nicht verf&uuml;gbar.",
 
-	"VISIT_WEB_SITE": "Besuchen Sie die Website des Projekts.",
+	"VISIT_WEB_SITE": "Besuchen Sie die Website des Projekts",
 	"HELP": "Hilfe",
 	"CLOSE": "Schlie&szlig;en",
 	// Shortcuts
