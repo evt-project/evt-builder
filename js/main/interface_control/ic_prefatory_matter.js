@@ -353,16 +353,7 @@ function toggleReg(cont) {
 	} else {
 		$(cont).show('slide', {
 			direction: 'up'
-		}, 400, function () {
-			// Disattivare filtri liste nell'edizione diplomatica
-			$(cont)
-				.addClass('open')
-				.parents("div[id*='frame']")
-				.find('.like_select.filter')
-				.css('opacity', "0.5")
-				.addClass('not_active');
-
-		});
+		}, 400, function () { });
 	}
 }
 

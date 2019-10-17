@@ -147,6 +147,7 @@
     <xsl:template match="tei:bibl">
         <xsl:element name="span">
             <xsl:attribute name="class">bibl</xsl:attribute>
+            <xsl:call-template name="dataAttributesFromAttributes"/>
             <xsl:attribute name="id"><xsl:value-of select="@xml:id"/></xsl:attribute>
             <xsl:apply-templates/>
         </xsl:element>

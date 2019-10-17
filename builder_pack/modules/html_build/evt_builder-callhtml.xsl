@@ -751,27 +751,7 @@
 														<i class="fa fa-sort-asc"></i>
 													</div>
 													<div class="option_container up">
-														<xsl:for-each select="$lists">
-															<xsl:if test="@active='true'">
-																<xsl:if test="count(./*[@active='true']) > 0">
-																	<span lang="def" class="groupTitle" title="{@label}">
-																		<span lang="def"><xsl:value-of select="@label"/></span>
-																	</span>
-																	<xsl:for-each select="./*[@active='true']">
-																		<xsl:element name="div">
-																			<xsl:attribute name="class">option </xsl:attribute>
-																			<xsl:attribute name="data-value"><xsl:value-of select="name(.)"/></xsl:attribute>
-																			<xsl:attribute name="lang" select="'def'"/>
-																			<xsl:attribute name="title"><xsl:value-of select="name(.)"/></xsl:attribute>
-																			<i class="fa fa-circle filter_color"></i>
-																			<span lang="def"><xsl:value-of select="name(.)"/></span>
-																		</xsl:element>
-																	</xsl:for-each>
-																</xsl:if>
-															</xsl:if>
-														</xsl:for-each>
-														<div class="option" data-value="all" lang="def">SELECT_ALL</div>
-														<div class="option" data-value="clear" lang="def">CLEAR_SELECTION</div>
+														<xsl:call-template name="listsSelector"/>
 													</div>
 												</div>
 											</xsl:element>	
@@ -1152,27 +1132,7 @@
 												<i class="fa fa-sort-asc"></i>
 											</div>
 											<div class="option_container up">
-												<xsl:for-each select="$lists">
-													<xsl:if test="@active='true'">
-														<xsl:if test="count(./*[@active='true']) > 0">
-															<span lang="def" class="groupTitle" title="{@label}">
-																<span lang="def"><xsl:value-of select="@label"/></span>
-															</span>
-															<xsl:for-each select="./*[@active='true']">
-																<xsl:element name="div">
-																	<xsl:attribute name="class">option </xsl:attribute>
-																	<xsl:attribute name="data-value"><xsl:value-of select="name(.)"/></xsl:attribute>
-																	<xsl:attribute name="lang" select="'def'"/>
-																	<xsl:attribute name="title"><xsl:value-of select="name(.)"/></xsl:attribute>
-																	<i class="fa fa-circle filter_color"></i>
-																	<span lang="def"><xsl:value-of select="name(.)"/></span>
-																</xsl:element>
-															</xsl:for-each>
-														</xsl:if>
-													</xsl:if>
-												</xsl:for-each>
-												<div class="option" data-value="all" lang="def">SELECT_ALL</div>
-												<div class="option" data-value="clear" lang="def">CLEAR_SELECTION</div>
+												<xsl:call-template name="listsSelector"/>
 											</div>
 										</div>
 									</xsl:element>
@@ -1290,4 +1250,50 @@
 		</html>
 	</xsl:template>
 	
+	<xsl:template name="listsSelector">
+		<xsl:for-each select="$lists">
+			<xsl:if test="@active='true'">
+				<xsl:if test="count(./*[@active='true']) > 0">
+					<span lang="def" class="groupTitle" title="{@label}">
+						<span lang="def"><xsl:value-of select="@label"/></span>
+					</span>
+					<xsl:for-each select="./*[@active='true']">
+						<xsl:element name="div">
+							<xsl:attribute name="class">option</xsl:attribute>
+							<xsl:attribute name="data-value"><xsl:value-of select="name(.)"/></xsl:attribute>
+							<xsl:attribute name="lang" select="'def'"/>
+							<xsl:attribute name="title"><xsl:value-of select="name(.)"/></xsl:attribute>
+							<xsl:for-each select="@*">
+								<xsl:if test="name(.) != 'active' and name(.) != 'label'">
+									<xsl:attribute name="data-{name(.)}" select="."/>
+								</xsl:if>
+							</xsl:for-each>
+							<xsl:variable name="label">
+								<xsl:choose>
+									<xsl:when test="@label">
+										<xsl:value-of select="@label"/>
+									</xsl:when>
+									<xsl:otherwise>
+										<xsl:variable name="attrLabel">
+											<xsl:for-each select="@*">
+												<xsl:if test="name() != 'active'">
+													<xsl:value-of select="concat(name(.), '_', .)" separator="'_'"/>
+												</xsl:if>
+											</xsl:for-each>
+										</xsl:variable>
+										<xsl:value-of select="upper-case(if (string-length($attrLabel) &gt; 0) then(concat(name(), '_', $attrLabel)) else(name()))"/>
+									</xsl:otherwise>
+								</xsl:choose>
+							</xsl:variable>
+							<xsl:attribute name="data-label"><xsl:value-of select="$label"/></xsl:attribute>
+							<i class="fa fa-circle filter_color"></i>
+							<span lang="def"><xsl:value-of select="$label"/></span>
+						</xsl:element>
+					</xsl:for-each>
+				</xsl:if>
+			</xsl:if>
+		</xsl:for-each>
+		<div class="option" data-value="all" lang="def">SELECT_ALL</div>
+		<div class="option" data-value="clear" lang="def">CLEAR_SELECTION</div>
+	</xsl:template>
 </xsl:stylesheet>
