@@ -162,14 +162,14 @@ jquery_lang_js.prototype.lang.it = {
 	"SHOULD_BE": "Dovrebbe essere ",
 	"CHARACTERS_OR_MORE": "caratteri minimo",
 
-	"persName": "Persone",
-	"placeName": "Luoghi",
-	"roleName": "Mestieri/Ruoli",
-	"orgName": "Enti religiosi",
-	"measure": "Monete",
-	"date": "Date",
-	"term": "Termine",
-	"gloss": "Glossa",
+	"PERSNAME":"Persone",
+	"PLACENAME": "Luoghi",
+	"ROLENAME": "Mestieri/Ruoli",
+	"ORGNAME": "Enti religiosi",
+	"MEASURE": "Monete",
+	"DATE": "Date",
+	"TERM": "Termine",
+	"GLOSS": "Glossa",
 	"clear": "Nessuna selezione",
 	"multi": "Selezione multipla",
 	"Multi selection": "Selezione multipla",
@@ -228,7 +228,7 @@ jquery_lang_js.prototype.lang.it = {
 	"SPA": "Spagnolo",
 	"GUASCONE": "Guascone",
 
-	"foreign": "Lingua straniera",
+	"FOREIGN": "Lingua straniera",
 	"setting": "Setting",
 	"entrance": "Entrance",
 	"exit": "Exit",
@@ -271,5 +271,8 @@ jquery_lang_js.prototype.lang.it = {
 	"PREPARING_FRONT_MATTER": "Preparazione informazioni sul testo...",
 	"PREPARING_LISTS": "Preparazione liste...",
 	"PREPARING_BIBLIOGRAPHY": "Preparazione bibliografia...",
-	"OPEN_DOCUMENT": "Apri documento"
+	"OPEN_DOCUMENT": "Apri documento",
+	"METAPHOR": "Metafore",
+	"SEG_TYPE_KENNING": "Kenning"
+
 }

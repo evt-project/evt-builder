@@ -1069,58 +1069,86 @@ function bindEEselectClick() {
 /*= General event on click on ".option" in a ".filter.like_select" =*/
 function bindFilterOptionClick() {
 	$(".like_select.filter .option_container .option").unbind("click").click(function () {
-		var thisOptionContainer = $(this).parents('.option_container');
-		var classToBeActived, newLabel, newLabelVal, filtersActive;
-		classToBeActived = $(this).attr('data-value');
-		if (classToBeActived === 'clear') { //pulisci selezione
-			$(this).siblings('.option').removeClass('selected');
-			//$(this).addClass('selected');
-			$(this).parents("div[id*='frame']").find('.list_active').removeClass('list_active');
-			// se "pulisci selezione" l'etichetta prende "No selection"
-			newLabel = 'NO_SELECTION';
-			newLabelVal = "clear";
-		} else if (classToBeActived === 'all') { //seleziona tutto
-			//$(this).addClass('selected');
-			$(this).siblings('.option').each(function () {
-				classToBeActived = $(this).attr('data-value');
-				if (classToBeActived !== 'clear') {
-					$(this).addClass('selected');
-					$(this).parents("div[id*='frame']").find("." + classToBeActived).addClass('list_active');
-				}
-				$(this).siblings(".option[data-value='clear']").removeClass('selected');
-			});
-			newLabel = 'MULTI_SELECTION';
-			newLabelVal = "multi";
-		} else {
-			$(this).toggleClass('selected');
-			$(this).parents("div[id*='frame']").find("." + classToBeActived).toggleClass('list_active');
-			$(this).siblings(".option[data-value='clear']").removeClass('selected');
-			$(this).siblings(".option[data-value='all']").removeClass('selected');
+		var htmlEl = this;
+		var jQueryEl = $(this);
+		return new Promise(function(resolve, reject){
 
-			var thisSelectCurrentSelected = thisOptionContainer.find('.option.selected');
-			filtersActive = thisOptionContainer.find('.option.selected').length;
-			switch (filtersActive) {
-				case 1:
-					newLabel = thisOptionContainer.find('.option.selected').attr('data-value');
-					newLabelVal = thisOptionContainer.find('.option.selected').attr('data-value');
-					break;
-				case 0:
-					newLabel = "NO_SELECTION";
-					newLabelVal = "clear";
-					break;
-				default:
-					newLabel = "MULTI_SELECTION";
-					newLabelVal = "multi";
-					break;
+			var thisOptionContainer = jQueryEl.parents('.option_container');
+			var selectorForActivation, newLabel, newLabelVal, filtersActive;
+			selectorForActivation = jQueryEl.attr('data-value');
+			if (selectorForActivation === 'clear') { //pulisci selezione
+				jQueryEl.siblings('.option').removeClass('selected');
+				//jQueryEl.addClass('selected');
+				jQueryEl.parents("div[id*='frame']").find('.list_active').removeClass('list_active');
+				// se "pulisci selezione" l'etichetta prende "No selection"
+				newLabel = 'NO_SELECTION';
+				newLabelVal = "clear";
+			} else if (selectorForActivation === 'all') { //seleziona tutto
+				//jQueryEl.addClass('selected');
+				jQueryEl.siblings('.option').each(function () {
+					selectorForActivation = $(this).attr('data-value');
+					for (var i = 0; i < Object.keys(this.dataset).length; i++) {
+						var key = Object.keys(this.dataset)[i];
+						if (key !== 'value' && key !== 'label') {
+							var dataAttr = this.dataset[key];
+							selectorForActivation += '[data-' + key + '*="' + dataAttr + '"]';
+						}
+					}
+					if (selectorForActivation !== 'clear') {
+						$(this).addClass('selected');
+						$(this).parents("div[id*='frame']")
+							.find("." + selectorForActivation + ", .interp-" + selectorForActivation + ", .dipl-" + selectorForActivation + ", .trad-" + selectorForActivation)
+							.addClass('list_active');
+					}
+					$(this).siblings(".option[data-value='clear']").removeClass('selected');
+				});
+				newLabel = 'MULTI_SELECTION';
+				newLabelVal = "multi";
+			} else {
+				selectorForActivation = jQueryEl.attr('data-value');
+				for (var i = 0; i < Object.keys(htmlEl.dataset).length; i++) {
+					var key = Object.keys(htmlEl.dataset)[i];
+					if (key !== 'value' && key !== 'label') {
+						var dataAttr = htmlEl.dataset[key];
+						selectorForActivation += '[data-' + key + '*="' + dataAttr + '"]';
+					}
+				}
+				jQueryEl.toggleClass('selected');
+				var currFrame = jQueryEl.parents("div[id*='frame']");
+				var currentEe = currFrame.find('.main_ee_select .label_selected').attr('data-value'); 
+				var currEeKey = currFrame.find('.main_ee_select .option[data-value="'+currentEe+'"]').attr('data-key');
+				currFrame
+					.find("." + selectorForActivation + ", ." + currEeKey + "-" + selectorForActivation)
+					.toggleClass('list_active');
+				jQueryEl.siblings(".option[data-value='clear']").removeClass('selected');
+				jQueryEl.siblings(".option[data-value='all']").removeClass('selected');
+	
+				var thisSelectCurrentSelected = thisOptionContainer.find('.option.selected');
+				filtersActive = thisOptionContainer.find('.option.selected').length;
+				switch (filtersActive) {
+					case 1:
+						newLabel = thisOptionContainer.find('.option.selected').attr('data-label');
+						newLabelVal = thisOptionContainer.find('.option.selected').attr('data-value');
+						break;
+					case 0:
+						newLabel = "NO_SELECTION";
+						newLabelVal = "clear";
+						break;
+					default:
+						newLabel = "MULTI_SELECTION";
+						newLabelVal = "multi";
+						break;
+				}
 			}
-		}
-		// newLabel = window.lang.convert(newLabelVal, window.lang.currentLang);
-		thisOptionContainer
-			.siblings('.label_selected')
-			.attr('lang', 'def')
-			.text(newLabel);
-		thisOptionContainer.siblings('.label_selected').attr('data-value', newLabelVal);
-		window.lang.run();
+			// newLabel = window.lang.convert(newLabelVal, window.lang.currentLang);
+			thisOptionContainer
+				.siblings('.label_selected')
+				.attr('lang', 'def')
+				.text(newLabel);
+			thisOptionContainer.siblings('.label_selected').attr('data-value', newLabelVal);
+			window.lang.run();
+			resolve();
+		});
 	});
 }
 
