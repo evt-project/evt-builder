@@ -1844,14 +1844,16 @@
 	
 	<xsl:template match="tei:emph">
 		<span class="emph">
+			<xsl:call-template name="dataAttributesFromAttributes"/>
 			<xsl:apply-templates/>
 		</span>
 	</xsl:template>
 
 	<xsl:template match="tei:p">
-		<p>
+		<xsl:element name="p">
+			<xsl:call-template name="dataAttributesFromAttributes"/>
 			<xsl:apply-templates/>
-		</p>
+		</xsl:element>
 	</xsl:template>
 
 	<xsl:template match="tei:hi[@rend]">
@@ -1859,6 +1861,7 @@
 			<xsl:attribute name="class">
 				<xsl:value-of select="@rend"/>
 			</xsl:attribute>
+			<xsl:call-template name="dataAttributesFromAttributes"/>
 			<xsl:apply-templates/>
 		</xsl:element>
 	</xsl:template>

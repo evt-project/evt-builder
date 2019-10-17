@@ -403,6 +403,7 @@
 			<mixed active="true"/>
 		</group>
 		<group label="OTHERS" active="false">
+			<seg type="metaphor" active="true" label="METAPHOR"/>
 		</group>
 	</xsl:variable>
 	

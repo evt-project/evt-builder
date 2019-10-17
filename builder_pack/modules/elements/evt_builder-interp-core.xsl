@@ -31,13 +31,11 @@
 
 	<!-- P Paragraphs -->
 	<xsl:template match="tei:p" mode="interp">
-		<xsl:element name="span">
+		<xsl:element name="p">
+			<xsl:call-template name="dataAttributesFromAttributes"/>
 			<xsl:attribute name="data-id" select="@xml:id"/>
 			<!-- <xsl:if test="current()[not((string-length(normalize-space()))= 0)]"> -->
 			<xsl:attribute name="class" select="$ed_name2, name()" separator="-"/>
-			<xsl:if test="@part">
-				<xsl:attribute name="data-part" select="@part"/>
-			</xsl:if>
 			<xsl:apply-templates mode="#current"/>
 			<!-- </xsl:if> -->
 		</xsl:element>
@@ -124,9 +122,7 @@
 				<xsl:element name="span">
 					<xsl:attribute name="class" select="$ed_name2, name()" separator="-"/>
 					<xsl:attribute name="data-display" select="'inline-block'"/>
-					<xsl:if test="@rend">
-						<xsl:attribute name="data-rend" select="@rend"/>
-					</xsl:if>
+					<xsl:call-template name="dataAttributesFromAttributes"/>
 					<xsl:apply-templates mode="#current"/> 
 					<xsl:text> </xsl:text>
 				</xsl:element>
@@ -145,6 +141,7 @@
 		<xsl:if test="current()[not((string-length(normalize-space()))=0)]">
 			<xsl:element name="div">
 				<xsl:attribute name="class" select="$ed_name2"/>
+				<xsl:call-template name="dataAttributesFromAttributes"/>
 				<xsl:element name="span">
 					<xsl:attribute name="class" select="'interp-lineN'"/>
 					<xsl:value-of
@@ -175,6 +172,7 @@
 						<xsl:attribute name="class">
 							<xsl:value-of select="$ed_name2, 'zone'" separator="-"/>
 						</xsl:attribute>
+						<xsl:call-template name="dataAttributesFromAttributes"/>
 						<xsl:apply-templates mode="#current"/>
 						<xsl:text> </xsl:text>
 						<!--important-->
@@ -192,6 +190,7 @@
 	<xsl:template match="node()[@attachment]" mode="interp">
 		<xsl:element name="div">
 			<xsl:attribute name="class" select="$ed_name2, 'attachment'" separator="-"/>
+			<xsl:call-template name="dataAttributesFromAttributes"/>
 			<xsl:apply-templates mode="#current"/>
 		</xsl:element>
 	</xsl:template>
@@ -271,6 +270,7 @@
 	<xsl:template match="tei:lb[not(@*) or @rend='empty']" mode="interp">
 		<xsl:element name="span">
 			<xsl:attribute name="class" select="'lb'"/>
+			<xsl:call-template name="dataAttributesFromAttributes"/>
 			<xsl:attribute name="data-type" select="'empty'"/>
 		</xsl:element>
 	</xsl:template>
@@ -556,6 +556,7 @@
 	<xsl:template match="tei:subst" mode="interp" priority="3">
 		<xsl:element name="span">
 			<xsl:attribute name="class" select="$ed_name2, name()" separator="-"/>
+			<xsl:call-template name="dataAttributesFromAttributes"/>
 			<xsl:apply-templates select="tei:del" mode="#current"/>|<xsl:apply-templates
 				select="tei:add" mode="#current"/>|</xsl:element>
 	</xsl:template>
@@ -564,6 +565,7 @@
 	<xsl:template match="tei:add" mode="interp" priority="2">
 		<xsl:element name="span">
 			<xsl:attribute name="class" select="$ed_name2, name()" separator="-"/>
+			<xsl:call-template name="dataAttributesFromAttributes"/>
 			<xsl:choose>
 				<xsl:when test="ancestor::orig">
 					<xsl:element name="span">
@@ -617,31 +619,39 @@
 		mode="interp">
 		<xsl:element name="span">
 			<xsl:attribute name="class" select="$ed_name2, name()" separator="-"/>
+			<xsl:call-template name="dataAttributesFromAttributes"/>
 			<xsl:apply-templates mode="#current"/>
 		</xsl:element>
 	</xsl:template>
 
 	<xsl:template match="tei:supplied" mode="interp">
 		<xsl:element name="span">
-			<xsl:attribute name="class" select="$ed_name2, name()" separator="-"/>
-			<xsl:attribute name="data-reason" select="@reason"/>
-			<xsl:apply-templates mode="#current"/>
+			<xsl:attribute name="class">
+				<xsl:value-of select="$ed_name2, name()" separator="-"/>
+				<xsl:value-of select="' ', name()" separator="-"/>
+			</xsl:attribute>
+			<xsl:call-template name="dataAttributesFromAttributes"/>
+			<xsl:apply-templates select="normalize-space()" mode="#current"/>
 		</xsl:element>
 	</xsl:template>
 
 	<xsl:template match="tei:seg" mode="interp">
 		<xsl:element name="span">
-			<xsl:choose>
-				<xsl:when test="@type='original'">
-					<xsl:attribute name="class" select="$ed_name2, 'orig'" separator="-"/>
-				</xsl:when>
-				<xsl:when test="@type='alter'">
-					<xsl:attribute name="class" select="$ed_name2, 'reg'" separator="-"/>
-				</xsl:when>
-				<xsl:otherwise>
-					<xsl:attribute name="class" select="$ed_name2, @type" separator="-"/>
-				</xsl:otherwise>
-			</xsl:choose>
+			<xsl:attribute name="class">
+				<xsl:value-of select="name(), ' '" separator=""/>
+				<xsl:choose>
+					<xsl:when test="@type='original'">
+						<xsl:value-of select="$ed_name2, 'orig'" separator="-"/>
+					</xsl:when>
+					<xsl:when test="@type='alter'">
+						<xsl:value-of select="$ed_name2, 'reg'" separator="-"/>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:value-of select="$ed_name2, @type" separator="-"/>
+					</xsl:otherwise>
+				</xsl:choose>
+			</xsl:attribute>
+			<xsl:call-template name="dataAttributesFromAttributes"/>
 			<xsl:apply-templates mode="#current"/>
 		</xsl:element>
 	</xsl:template>
@@ -650,12 +660,10 @@
 		<!-- do nothing -->
 	</xsl:template>
 
-	<xsl:template match="tei:sic" mode="interp">
-		<!-- do nothing -->
-	</xsl:template>
 	<!-- DEL Deletions -->
 	<xsl:template match="tei:del" mode="interp">
 		<xsl:element name="span">
+			<xsl:call-template name="dataAttributesFromAttributes"/>
 			<xsl:attribute name="class" select="$ed_name2, name()" separator="-"
 				/>[[<xsl:apply-templates mode="#current"/>]]</xsl:element>
 	</xsl:template>
@@ -664,8 +672,8 @@
 	<xsl:template match="tei:hi" mode="interp">
 		<xsl:element name="span">
 			<!-- Aggiungi il valore di @rend alla classe. Se in @rend è presente un '.' viene sostituito con un '_' -->
-			<xsl:attribute name="class" select="$ed_name2, name(), translate(@rend, '.', '_')"
-				separator="-"/>
+			<xsl:attribute name="class" select="$ed_name2, name(), translate(@rend, '.', '_')" separator="-"/>
+			<xsl:call-template name="dataAttributesFromAttributes"/>
 			<xsl:apply-templates mode="#current"/>
 		</xsl:element>
 	</xsl:template>
@@ -694,9 +702,7 @@
 					<xsl:attribute name="href"
 						select="if(@target[contains(., 'http')]) then(@target) else(concat('http://', @target))"/>
 					<xsl:attribute name="target" select="'_blank'"/>
-					<xsl:attribute name="data-type">
-						<xsl:value-of select="@type"/>
-					</xsl:attribute>
+					<xsl:call-template name="dataAttributesFromAttributes"/>
 					<xsl:apply-templates mode="#current"/>
 				</xsl:element>
 			</xsl:when>
@@ -704,12 +710,7 @@
 				<!-- Se il tei:ref si trova all'interno di una nota o della descrizione allora diventa soltanto un trigger -->
 				<xsl:element name="span">
 					<xsl:attribute name="class">ref</xsl:attribute>
-					<xsl:attribute name="data-target">
-						<xsl:value-of select="@target"/>
-					</xsl:attribute>
-					<xsl:attribute name="data-type">
-						<xsl:value-of select="@type"/>
-					</xsl:attribute>
+					<xsl:call-template name="dataAttributesFromAttributes"/>
 					<xsl:apply-templates mode="#current"/>
 				</xsl:element>
 			</xsl:when>
@@ -743,6 +744,7 @@
 	<xsl:template match="tei:body" mode="interp">
 		<xsl:element name="div">
 			<xsl:attribute name="class">doc</xsl:attribute>
+			<xsl:call-template name="dataAttributesFromAttributes"/>
 			<xsl:attribute name="data-doc" select="current()/parent::tei:text/@xml:id"/>
 			<xsl:attribute name="title">
 				<xsl:text>Doc. </xsl:text>
@@ -767,6 +769,7 @@
 	<xsl:template match="tei:desc" mode="interp">
 		<xsl:element name="span">
 			<xsl:attribute name="class">desc</xsl:attribute>
+			<xsl:call-template name="dataAttributesFromAttributes"/>
 			<xsl:apply-templates mode="#current"/>
 		</xsl:element>
 	</xsl:template>
@@ -775,6 +778,7 @@
 	<xsl:template match="tei:note//tei:title" mode="interp">
 		<xsl:element name="span">
 			<xsl:attribute name="class">title emph</xsl:attribute>
+			<xsl:call-template name="dataAttributesFromAttributes"/>
 			<xsl:apply-templates mode="#current"/>
 		</xsl:element>
 	</xsl:template>
@@ -783,6 +787,7 @@
 	<xsl:template match="tei:emph" mode="interp">
 		<xsl:element name="span">
 			<xsl:attribute name="class">emph</xsl:attribute>
+			<xsl:call-template name="dataAttributesFromAttributes"/>
 			<xsl:apply-templates mode="#current"/>
 		</xsl:element>
 	</xsl:template>
@@ -791,6 +796,7 @@
 	<xsl:template match="tei:term" mode="interp">
 		<xsl:element name="span">
 			<xsl:attribute name="class">term</xsl:attribute>
+			<xsl:call-template name="dataAttributesFromAttributes"/>
 			<xsl:variable name="termText">
 				<xsl:apply-templates mode="#current"/>
 			</xsl:variable>
@@ -813,6 +819,7 @@
 	<xsl:template match="tei:gloss" mode="interp">
 		<xsl:element name="span">
 			<xsl:attribute name="class">gloss</xsl:attribute>
+			<xsl:call-template name="dataAttributesFromAttributes"/>
 			<xsl:variable name="glossText">
 				<xsl:apply-templates mode="#current"/>
 			</xsl:variable>
@@ -849,7 +856,8 @@
 						<xsl:when test="contains(@target, 'http') or contains(@target, 'www')">
 							<xsl:element name="a">
 		                        <xsl:attribute name="class">ptr external_link</xsl:attribute>
-		                        <xsl:attribute name="href">
+								<xsl:call-template name="dataAttributesFromAttributes"/>
+								<xsl:attribute name="href">
 		                            <xsl:value-of select="@target"/>
 		                        </xsl:attribute>
 		                        <xsl:attribute name="target">_blank</xsl:attribute>
@@ -870,6 +878,7 @@
 						<xsl:otherwise>
 							<xsl:element name="span">
 								<xsl:attribute name="class">popup image</xsl:attribute>
+								<xsl:call-template name="dataAttributesFromAttributes"/>
 								<xsl:element name="span">
 									<xsl:attribute name="class">trigger</xsl:attribute>
 									<xsl:element name="i">
@@ -904,6 +913,7 @@
 	<!-- QUOTE Quotes -->
 	<xsl:template match="tei:quote" mode="interp">
 		<xsl:element name="span">
+			<xsl:call-template name="dataAttributesFromAttributes"/>
 			<xsl:attribute name="class">quote</xsl:attribute> &#171;<xsl:apply-templates
 				mode="#current"/>&#187; </xsl:element>
 	</xsl:template>
@@ -918,6 +928,7 @@
     <xsl:template match="tei:head" mode="interp">
 		<xsl:element name="h1">
 			<xsl:attribute name="class" select="'center'"/>
+			<xsl:call-template name="dataAttributesFromAttributes"/>
 			<xsl:apply-templates mode="#current"> </xsl:apply-templates>
 		</xsl:element>				
     </xsl:template>
@@ -926,7 +937,8 @@
     <xsl:template match="tei:docAuthor" mode="interp">
         <xsl:element name="span">
             <xsl:attribute name="class" select="'autore'"/>
-            <xsl:apply-templates mode="#current"/><br/>
+        	<xsl:call-template name="dataAttributesFromAttributes"/>
+        	<xsl:apply-templates mode="#current"/><br/>
         </xsl:element>
     </xsl:template>
 
@@ -938,6 +950,7 @@
 			<xsl:when test="$lang_tooltip">
 				<xsl:element name="span">
 					<xsl:attribute name="class">popup foreign <xsl:value-of select="name()"/></xsl:attribute>
+					<xsl:call-template name="dataAttributesFromAttributes"/>
 					<xsl:element name="span">
 						<xsl:attribute name="class">trigger</xsl:attribute>
 						<xsl:apply-templates mode="#current"/>
@@ -954,6 +967,7 @@
 			<xsl:otherwise>
 				<xsl:element name="span">
 					<xsl:attribute name="class">foreign <xsl:value-of select="name()"/></xsl:attribute>
+					<xsl:call-template name="dataAttributesFromAttributes"/>
 					<xsl:apply-templates mode="#current"/>
 				</xsl:element>
 			</xsl:otherwise>
@@ -963,12 +977,10 @@
 	<xsl:template match="tei:div" mode="interp">
 		<xsl:choose>
 			<xsl:when test="starts-with(@type,'transl')">
-				PROVA TRA
 				<!-- DO NOTHING -->
 				<xsl:text> </xsl:text>
 			</xsl:when>
 			<xsl:when test="starts-with(@type,'trad')">
-				PROVA TRA
 				<!-- DO NOTHING -->
 				<xsl:text> </xsl:text>
 			</xsl:when>
@@ -981,8 +993,7 @@
 	<xsl:template match="tei:w" mode="interp">
 		<xsl:element name="span">
 			<xsl:attribute name="class" select="'w'"/>
-			<xsl:attribute name="data-type" select="@type"/>
-			<xsl:attribute name="data-rend" select="@rend"/>
+			<xsl:call-template name="dataAttributesFromAttributes"/>
 			<xsl:choose>
 				<xsl:when test="tei:w[@info='complete_word']">
 					<xsl:apply-templates select="tei:w[@info='complete_word']" mode="#current"/>
@@ -994,6 +1005,14 @@
 					<xsl:apply-templates mode="#current"/>
 				</xsl:otherwise>
 			</xsl:choose>
+		</xsl:element>
+	</xsl:template>
+
+	<xsl:template match="tei:name" mode="interp">
+		<xsl:element name="span">
+			<xsl:attribute name="class" select="'name interp-name'"/>
+			<xsl:call-template name="dataAttributesFromAttributes"/>
+			<xsl:apply-templates mode="#current"/>
 		</xsl:element>
 	</xsl:template>
 </xsl:stylesheet>

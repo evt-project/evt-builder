@@ -28,27 +28,35 @@
 
     <!-- NOTE Note or annotation -->
     <xsl:template match="//tei:table" mode="interp dipl #default">
-        <div class="table">
+        <xsl:element name="div">
+            <xsl:attribute name="class" select="'table'"/>
+            <xsl:call-template name="dataAttributesFromAttributes"/>
             <xsl:apply-templates mode="#current"/>
-        </div>
+        </xsl:element>
     </xsl:template>
 
     <xsl:template match="//tei:table/tei:head" mode="interp dipl #default">
-        <div class="table-head">
+        <xsl:element name="div">
+            <xsl:attribute name="class" select="'table-head'"/>
+            <xsl:call-template name="dataAttributesFromAttributes"/>
             <xsl:apply-templates mode="#current"/>
-        </div>
+        </xsl:element>
     </xsl:template>
 
     <xsl:template match="//tei:table/tei:row" mode="interp dipl #default">
-        <div class="table-row">
+        <xsl:element name="div">
+            <xsl:attribute name="class" select="'table-row'"/>
+            <xsl:call-template name="dataAttributesFromAttributes"/>
             <xsl:apply-templates mode="#current"/>
-        </div>
+        </xsl:element>
     </xsl:template>
 
     <xsl:template match="//tei:table/tei:row/tei:cell" mode="interp dipl #default">
-        <div class="table-cell">
+        <xsl:element name="div">
+            <xsl:attribute name="class" select="'table-cell'"/>
+            <xsl:call-template name="dataAttributesFromAttributes"/>
             <xsl:apply-templates mode="#current"/>
-        </div>
+        </xsl:element>
     </xsl:template>
 
     <!-- NOTE Note or annotation -->
@@ -76,16 +84,9 @@
 
     <xsl:template name="notePopup">
         <xsl:element name="span">
-            <xsl:attribute name="class"> inline_note popup <xsl:value-of select="@type"/>
-            </xsl:attribute>
-
-            <xsl:attribute name="id">note_<xsl:value-of
-                    select="
-                        if (@xml:id) then
-                            (@xml:id)
-                        else
-                            (count(preceding::*[name() = name(current())]))"
-                /></xsl:attribute>
+            <xsl:attribute name="class">inline_note popup <xsl:value-of select="@type"/></xsl:attribute>
+            <xsl:call-template name="dataAttributesFromAttributes"/>
+            <xsl:attribute name="id">note_<xsl:value-of select="if (@xml:id) then(@xml:id) else(count(preceding::*[name() = name(current())]))"/></xsl:attribute>
             <xsl:choose>
                 <xsl:when test="@type = 'critical' and @n != ''">
                     <xsl:element name="i">
@@ -101,13 +102,7 @@
             </xsl:choose>
             <xsl:element name="span">
                 <xsl:attribute name="class">text_note tooltip</xsl:attribute>
-                <xsl:attribute name="id">tooltip_<xsl:value-of
-                    select="
-                    if (@xml:id) then
-                    (@xml:id)
-                    else
-                    (count(preceding::*[name() = name(current())]))"
-                /></xsl:attribute>
+                <xsl:attribute name="id">tooltip_<xsl:value-of select="if (@xml:id) then(@xml:id) else(count(preceding::*[name() = name(current())]))"/></xsl:attribute>
                 <xsl:element name="span">
                     <xsl:attribute name="class">before</xsl:attribute>
                 </xsl:element>
@@ -136,6 +131,7 @@
                         <xsl:when test="contains(@target, 'http') or contains(@target, 'www')">
                             <xsl:element name="a">
                                 <xsl:attribute name="class">ptr external_link</xsl:attribute>
+                                <xsl:call-template name="dataAttributesFromAttributes"/>
                                 <xsl:attribute name="href">
                                     <xsl:value-of select="@target"/>
                                 </xsl:attribute>
@@ -201,21 +197,14 @@
                             else
                                 (concat('http://', @target))"/>
                     <xsl:attribute name="target" select="'_blank'"/>
-                    <xsl:attribute name="data-type">
-                        <xsl:value-of select="@type"/>
-                    </xsl:attribute>
+                    <xsl:call-template name="dataAttributesFromAttributes"/>
                     <xsl:apply-templates/>
                 </xsl:element>
             </xsl:when>
             <xsl:when test="starts-with(@target, '#')">
                 <xsl:element name="span">
                     <xsl:attribute name="class">ref</xsl:attribute>
-                    <xsl:attribute name="data-target">
-                        <xsl:value-of select="@target"/>
-                    </xsl:attribute>
-                    <xsl:attribute name="data-type">
-                        <xsl:value-of select="@type"/>
-                    </xsl:attribute>
+                    <xsl:call-template name="dataAttributesFromAttributes"/>
                     <xsl:apply-templates/>
                 </xsl:element>
             </xsl:when>
@@ -226,26 +215,43 @@
     </xsl:template>
     
     <xsl:template match="//tei:castList" mode="interp dipl #default">
-        <div class="castList">
+        <xsl:element name="div">
+            <xsl:attribute name="class" select="'castList'"/>
+            <xsl:call-template name="dataAttributesFromAttributes"/>
             <xsl:apply-templates mode="#current"/>    
-        </div>
+        </xsl:element>
     </xsl:template>
     
     <xsl:template match="//tei:castItem" mode="interp dipl #default">
-        <span class="castItem">
+        <xsl:element name="span">
+            <xsl:attribute name="class" select="'castItem'"/>
+            <xsl:call-template name="dataAttributesFromAttributes"/>
             <xsl:apply-templates mode="#current"/>    
-        </span>
+        </xsl:element>
     </xsl:template>
     
     <xsl:template match="//tei:castItem//tei:role" mode="interp dipl #default">
-        <span class="role">
+        <xsl:element name="span">
+            <xsl:attribute name="class" select="'role'"/>
+            <xsl:call-template name="dataAttributesFromAttributes"/>
             <xsl:apply-templates mode="#current"/>    
-        </span>
+        </xsl:element>
     </xsl:template>
     
     <xsl:template match="//tei:castItem//tei:roleDesc" mode="interp dipl #default">
-        <span class="roleDesc">
+        <xsl:element name="span">
+            <xsl:attribute name="class" select="'roleDesc'"/>
+            <xsl:call-template name="dataAttributesFromAttributes"/>
             <xsl:apply-templates mode="#current"/>    
-        </span>
+        </xsl:element>
+    </xsl:template>
+    
+    <xsl:template name="dataAttributesFromAttributes">
+        <xsl:attribute name="data-tagName" select="name(.)"/>
+        <xsl:for-each select="@*">
+            <xsl:if test="name(.) != 'active' and name(.) != 'label'">
+                <xsl:attribute name="data-{replace(name(.), ':', '-')}" select="."/>
+            </xsl:if>
+        </xsl:for-each>
     </xsl:template>
 </xsl:stylesheet>

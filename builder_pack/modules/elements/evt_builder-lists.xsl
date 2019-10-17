@@ -32,6 +32,7 @@
 				<xsl:element name="span">
 					<xsl:attribute name="class">entity_name <xsl:if test="$list_person = true()">
 							link_active</xsl:if></xsl:attribute>
+					<xsl:call-template name="dataAttributesFromAttributes"/>
 					<xsl:attribute name="data-list">listPerson</xsl:attribute>
 					<xsl:attribute name="data-ref">
 						<xsl:value-of select="@xml:id"/>
@@ -93,6 +94,7 @@
 					<xsl:element name="span">
 						<xsl:attribute name="class">entity_name <xsl:if test="$list_org = true()">
 								link_active</xsl:if></xsl:attribute>
+						<xsl:call-template name="dataAttributesFromAttributes"/>
 						<xsl:attribute name="data-list">listOrg</xsl:attribute>
 						<xsl:attribute name="data-ref" select="@xml:id"/>
 						<xsl:for-each select="current()/tei:orgName">
@@ -202,6 +204,7 @@
 						<xsl:attribute name="class"> entity_name <xsl:if test="$list_place = true()"
 								> link_active</xsl:if>
 						</xsl:attribute>
+						<xsl:call-template name="dataAttributesFromAttributes"/>
 						<xsl:attribute name="data-list">listPlace</xsl:attribute>
 						<xsl:attribute name="data-ref">
 							<xsl:value-of select="@xml:id"/>
