@@ -1030,6 +1030,7 @@ function loadStructureAndPrepareUI() {
                         $("#span_pp_select .option[data-value='" + first_hash_pp + "']").length < 1) {
                         window.location.hash = '';
                     } else {
+                        updateHash(first_hash_doc, first_hash_pp);
                         $(window).hashchange();
                     }
                 } else {
