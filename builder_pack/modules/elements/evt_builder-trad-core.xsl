@@ -686,11 +686,33 @@
 	</xsl:template>	
 	
 	<xsl:template match="tei:lb[not(@*) or @rend='empty']" mode="trad">
-		<xsl:element name="span">
-			<xsl:attribute name="class" select="'lb'"/>
-			<xsl:call-template name="dataAttributesFromAttributes"/>
-			<xsl:attribute name="data-type" select="'empty'"/>
-		</xsl:element>
+		<xsl:choose>
+			<xsl:when test="@n">
+				<xsl:element name="div">
+					<xsl:attribute name="class">
+						<xsl:value-of select="'lb '"/>
+						<xsl:value-of select="$ed_name3"/>
+						<xsl:value-of select="' line'"/>
+					</xsl:attribute>
+					<xsl:call-template name="dataAttributesFromAttributes"/>
+					<xsl:element name="span">
+						<xsl:attribute name="class" select="$ed_name3, 'lineN'" separator="-"/>
+						<xsl:value-of select="if(string-length(@n) &gt; 1) then(@n) else(concat('&#xA0;&#xA0;', @n))"/>
+						<xsl:text>&#xA0;&#xA0;</xsl:text>
+					</xsl:element>
+					<div class="{$ed_name3}-left">
+						<xsl:attribute name="data-type" select="'empty'"/>
+					</div>
+				</xsl:element>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:element name="span">
+					<xsl:attribute name="class" select="'lb'"/>
+					<xsl:call-template name="dataAttributesFromAttributes"/>
+					<xsl:attribute name="data-type" select="'empty'"/>
+				</xsl:element>
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:template>
 
 </xsl:stylesheet>
