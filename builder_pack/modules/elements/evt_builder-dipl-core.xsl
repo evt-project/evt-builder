@@ -471,7 +471,16 @@
 		<xsl:element name="span">
 			<xsl:attribute name="class" select="$ed_name1, name()" separator="-"/>
 			<xsl:call-template name="dataAttributesFromAttributes"/>
-			<xsl:attribute name="data-info" select="'test'"/>
+			<xsl:apply-templates mode="#current"/>
+		</xsl:element>
+	</xsl:template>
+	
+	<xsl:template
+		match="tei:choice//tei:ex"
+		mode="dipl" priority="2">
+		<xsl:element name="span">
+			<xsl:attribute name="class" select="$ed_name1, name()" separator="-"/>
+			<xsl:call-template name="dataAttributesFromAttributes"/>
 			<xsl:apply-templates mode="#current"/>
 		</xsl:element>
 	</xsl:template>

@@ -346,7 +346,7 @@ span.interp-lineN {
 	vertical-align: top;
 }
 
-span.interp-ex { 
+span.interp-ex, .dipl-ex { 
 	font-style: italic; 
 }
 
