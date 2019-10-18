@@ -762,7 +762,7 @@ footer {
 
 #mag_image_elem {
     height: 100%;
-    /*overflow: auto;*/
+    overflow: auto;
 }
 
 #image_elem,

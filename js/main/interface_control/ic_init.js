@@ -1014,11 +1014,13 @@ function loadStructureAndPrepareUI() {
                 first_hash_parts = location.hash.substr(1).split('&');
                 if (first_hash_parts != "") {
                     var first_hash_pp, first_hash_doc;
+                    var updateHashNeeded = false;
                     for (var i = 0; i < first_hash_parts.length; i++) {
                         if (first_hash_parts[i].indexOf("page") === 0) { //begins with "page"
                             first_hash_pp = first_hash_parts[i].substr(5);
                             if (first_hash_pp.indexOf("+") > 0) {
                                 first_hash_pp = first_hash_pp.substr(0, first_hash_pp.indexOf("+"));
+                                updateHashNeeded = true;
                             }
                         } else if (first_hash_parts[i].indexOf("doc") === 0) { //begins with "doc"
                             first_hash_doc = first_hash_parts[i].substr(4);
@@ -1030,7 +1032,9 @@ function loadStructureAndPrepareUI() {
                         $("#span_pp_select .option[data-value='" + first_hash_pp + "']").length < 1) {
                         window.location.hash = '';
                     } else {
-                        updateHash(first_hash_doc, first_hash_pp);
+                        if (updateHashNeeded) {
+                            updateHash(first_hash_doc, first_hash_pp);
+                        }
                         $(window).hashchange();
                     }
                 } else {
