@@ -274,6 +274,10 @@ function magON() {
 		zoomRatio: 1
 	};
 	$('.magnifier').jqzoom(options);
+	var to = setTimeout(function() {
+		$("#magImage").css({'height': 'auto'});
+		clearTimeout(to);
+	}, 42);
 }
 
 function magONbig() {
@@ -289,4 +293,8 @@ function magONbig() {
 		zoomRatio: 1
 	};
 	$('.magnifier').jqzoom(options);
+	var to = setTimeout(function() {
+		$("#magImage").css({'height': 'auto'});
+		clearTimeout(to);
+	}, 42);
 }

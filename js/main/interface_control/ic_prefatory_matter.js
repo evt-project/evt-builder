@@ -315,13 +315,13 @@ function updateRegestoContent(current_doc) {
 				}
 
 			} else {
-				hide_regesto(id_regesto_cont, id_regesto);
 				switchReg.addClass('disabled').hide();
+				hide_regesto(id_regesto_cont, id_regesto);
 				resizeButtonsAndSelects();
 			}
 		} else {
-			hide_regesto(id_regesto_cont, id_regesto);
 			switchReg.addClass('disabled').hide();
+			hide_regesto(id_regesto_cont, id_regesto);
 			resizeButtonsAndSelects();
 		}
 		resizeGlobalTopBar();
