@@ -3833,28 +3833,38 @@ span.autore {
     margin-left: 50%;
 }
 
+[data-tagname='head'][data-rend*='main'] {
+    font-size: 140% !important;
+}
+[data-tagname='head'][data-rend*='sub'] {
+    font-size: 120% !important;
+}
 [data-rend*='center'] {
-    text-align: center;
+    text-align: center !important;
 }
 
 [data-rend*='left'] {
-    text-align: left;
+    text-align: left !important;
 }
 
 [data-rend*='right'] {
-    text-align: right;
+    text-align: right !important;
 }
 
 [data-rend*='uppercase'] {
-    text-transform: uppercase;
+    text-transform: uppercase !important;
+}
+
+[data-rend*='underline'] {
+    text-decoration: underline !important;
 }
 
 [data-rend*='italic'] {
-    font-style: italic;
+    font-style: italic !important;
 }
 
 [data-rend*='bold'] {
-    font-weight: bold;
+    font-weight: bold !important;
 }
 
 [data-display='block'] {
