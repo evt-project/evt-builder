@@ -922,9 +922,10 @@
 			<xsl:result-document method="text" href="{$filePrefix}/data/output_data/{$edition_current}/{$edition_current}.json" indent="no">
 				{"pages": [
 				<!-- Questa istruzione introdotta da XSLT 2.0 selezione un set di elementi, li divide in guppi seguendo un determinato criterio e infine processa il contenuto
-				di ogni gruppo. Per la selezione dei gruppi utilizza attributo group-starting-with: che divide il blocco di elementi in gruppi, creando un niovo gruppo
+				di ogni gruppo. Per la selezione dei gruppi utilizza attributo group-starting-with: che divide il blocco di elementi in gruppi, creando un nuovo gruppo
 				ogni volta che inconta l'elemento indicato come criterio di selezione-->
 					<xsl:for-each-group select="//node()[name()=$ed_content]/descendant-or-self::node()[name()=$start_split]/node()" group-starting-with="//tei:pb">
+						
 						<xsl:choose>
 							<xsl:when test="current-group()/(descendant-or-self::lb)">
 								<xsl:for-each-group select="current-group()[not(self::pb)]" group-starting-with="tei:lb">
@@ -943,7 +944,8 @@
 											"line" : "<xsl:call-template name="line_refs4search"/>",
 											"text" : "<xsl:copy-of select="replace($current_text2, '(\\|/)', '$1$1')"/>",
 											"tags" : "<xsl:call-template name="doc_refs4search"/>",
-											"loc" : "<xsl:call-template name="page_refs4search"/>"
+											"loc" : "<xsl:call-template name="page_refs4search"/>",
+											"inFront": "<xsl:value-of select="count(current-group()[ancestor-or-self::front]) != 0"/>"
 										},
 									</xsl:if>
 								</xsl:for-each-group>
@@ -968,7 +970,8 @@
 									"line" : "<xsl:call-template name="paragraph_refs4search"/>",
 									"text" : "<xsl:copy-of select="replace($current_text2, '(\\|/)', '$1$1')"/>",
 									"tags" : "<xsl:call-template name="doc_refs4search"/>",
-									"loc" : "<xsl:call-template name="page_refs4search"/>"
+									"loc" : "<xsl:call-template name="page_refs4search"/>",
+									"inFront": "<xsl:value-of select="count(current-group()[ancestor-or-self::front]) != 0"/>"
 									},
 								</xsl:for-each-group>
 							</xsl:when>
@@ -989,7 +992,9 @@
 									"line" : "<xsl:call-template name="line_refs4search"/>", 
 									"text" : "<xsl:copy-of select="replace($current_text2, '(\\|/)', '$1$1')"/>", 
 									"tags" : "<xsl:call-template name="doc_refs4search"/>", 
-									"loc" : "<xsl:call-template name="page_refs4search"/>" }, 
+									"loc" : "<xsl:call-template name="page_refs4search"/>",
+									"inFront": "<xsl:value-of select="count(current-group()[ancestor-or-self::front]) != 0"/>" 
+								}, 
 							</xsl:otherwise>
 						</xsl:choose>
 					</xsl:for-each-group> { "line" : "", "text" : "", "tags" : "", "loc" : "" }]}
@@ -1018,7 +1023,8 @@
 											"line" : "<xsl:call-template name="line_refs4search"/>",
 											"text" : "<xsl:copy-of select="replace($current_text2, '(\\|/)', '$1$1')"/>",
 											"tags" : "<xsl:call-template name="doc_refs4search"/>",
-											"loc" : "<xsl:call-template name="page_refs4search"/>"
+											"loc" : "<xsl:call-template name="page_refs4search"/>",
+											"inFront": "<xsl:value-of select="count(current-group()[ancestor-or-self::front]) != 0"/>"
 										},
 									</xsl:if>
 								</xsl:for-each-group>
@@ -1043,7 +1049,9 @@
 										"line" : "<xsl:call-template name="line_refs4search"/>", 
 										"text" : "<xsl:copy-of select="replace($current_text2, '(\\|/)', '$1$1')"/>",
 										"tags" : "<xsl:call-template name="doc_refs4search"/>",
-										"loc" : "<xsl:call-template name="page_refs4search"/>" },
+										"loc" : "<xsl:call-template name="page_refs4search"/>",
+										"inFront": "<xsl:value-of select="count(current-group()[ancestor-or-self::front]) != 0"/>"
+									},
 								</xsl:for-each-group>
 							</xsl:when>
 							<xsl:otherwise>
@@ -1062,7 +1070,9 @@
 									"line" : "<xsl:call-template name="paragraph_refs4search"/>", 
 									"text" : "<xsl:copy-of select="replace($current_text2, '(\\|/)', '$1$1')"/>", 
 									"tags" : "<xsl:call-template name="doc_refs4search"/>", 
-									"loc" : "<xsl:call-template name="page_refs4search"/>" }, 
+									"loc" : "<xsl:call-template name="page_refs4search"/>",
+									"inFront": "<xsl:value-of select="count(current-group()[ancestor-or-self::front]) != 0"/>"
+								}, 
 							</xsl:otherwise>
 						</xsl:choose>
 					</xsl:for-each-group> 

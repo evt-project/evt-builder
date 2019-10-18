@@ -151,11 +151,7 @@
                         <xsl:for-each select="$root//tei:sourceDoc">
                             <text>
                                 <xsl:attribute name="n"
-                                    select="
-                                        if (@xml:id) then
-                                            (@xml:id)
-                                        else
-                                            (count(preceding-sibling::tei:sourceDoc) + 1)"/>
+                                    select="if (@xml:id) then(@xml:id) else(count(preceding-sibling::tei:sourceDoc) + 1)"/>
                                 <xsl:attribute name="label">
                                     <xsl:choose>
                                         <xsl:when test="@n">
@@ -164,13 +160,7 @@
                                         <xsl:otherwise>
                                             <xsl:call-template name="generateTextLabel">
                                                 <xsl:with-param name="text_id">
-                                                  <xsl:value-of
-                                                  select="
-                                                            if (@xml:id) then
-                                                                (@xml:id)
-                                                            else
-                                                                (concat('text_', count(preceding-sibling::tei:text) + 1))"
-                                                  />
+                                                  <xsl:value-of select="if (@xml:id) then(@xml:id) else (concat('text_', count(preceding-sibling::tei:text) + 1))"/>
                                                 </xsl:with-param>
                                             </xsl:call-template>
                                         </xsl:otherwise>
@@ -195,12 +185,7 @@
                                 <xsl:for-each
                                     select="$root//tei:body/tei:div[@subtype = 'edition_text']">
                                     <text>
-                                        <xsl:attribute name="n"
-                                            select="
-                                                if (@xml:id) then
-                                                    (@xml:id)
-                                                else
-                                                    (count(preceding-sibling::tei:text) + 1)"/>
+                                        <xsl:attribute name="n" select="if (@xml:id) then(@xml:id) else(count(preceding-sibling::tei:text) + 1)"/>
                                         <xsl:attribute name="label">
                                             <xsl:choose>
                                                 <xsl:when test="@n">
@@ -209,13 +194,7 @@
                                                 <xsl:otherwise>
                                                   <xsl:call-template name="generateTextLabel">
                                                   <xsl:with-param name="text_id">
-                                                  <xsl:value-of
-                                                  select="
-                                                                    if (@xml:id) then
-                                                                        (@xml:id)
-                                                                    else
-                                                                        (concat('text_', count(preceding-sibling::tei:text) + 1))"
-                                                  />
+                                                  <xsl:value-of select="if (@xml:id) then(@xml:id) else(concat('text_', count(preceding-sibling::tei:text) + 1))"/>
                                                   </xsl:with-param>
                                                   </xsl:call-template>
                                                 </xsl:otherwise>
