@@ -13,10 +13,11 @@
  */
 
 
-function goToSearchResult(text_id, page_id, pos, setSuffix) {
+function goToSearchResult(text_id, page_id, pos, setSuffix, inFront) {
      $('#toggle_search_cont' + setSuffix).trigger('click');
      var navToDoc;
      var navToPage;
+     page_id = inFront ? undefined : page_id;
      if (text_id && page_id) {
           navToDoc = text_id;
           navToPage = page_id;
@@ -24,6 +25,17 @@ function goToSearchResult(text_id, page_id, pos, setSuffix) {
           if (text_id && !page_id) {
                navToDoc = text_id;
                navToPage = $('[data-first-doc="'+text_id+'"]').attr('data-value');
+               if (inFront) {
+                    var switchReg = $('#switchReg');
+                    if (switchReg && !switchReg.hasClass('active')) {
+                         switchReg.trigger('click');
+                    } else {
+                         var switchFront = $('#switchFront');
+                         if (switchFront && !switchFront.hasClass('active')) {
+                              switchFront.trigger('click');
+                         }
+                    }
+               }
           } else if (page_id && !text_id) {
                navToDoc = $('[data-value="'+page_id+'"]').attr('data-first-doc');
                navToPage = page_id;
@@ -205,12 +217,38 @@ function goToSearchResult(text_id, page_id, pos, setSuffix) {
                });
 
                $('#start_search' + set.suffix).dblclick(function () {
-                    $('#search_query' + set.suffix)
-                              .attr('data-value', $('#tipue_search_input' + set.suffix).val())
-                              .empty()
-                              .append('<span lang="def">SEARCH_FOR</span> <strong>' + $('#tipue_search_input' + set.suffix).val() + '</strong>');
-                    getTipueSearch(0, true);
-                    window.lang.run();
+                    var updateSearch = false;
+                    var currentSearchCS;
+                    var newSearchQuery = $('#tipue_search_input' + set.suffix).val();
+                    try {
+                         currentSearchCS = $('#caseSensitiveInfo' + set.suffix).attr('data-status');
+                         currentSearchCS = currentSearchCS === 'sensitive';
+                    } catch (e){ }
+                    var currSearchQuery;
+                    try {
+                         currSearchQuery = $('#search_query' + set.suffix).attr('data-value');
+                    } catch(e) {}
+                    var newSearchCS = false;
+                    if (currentSearchCS !== undefined) {
+                         if ($('#search_case_sensitive_toggler'+set.suffix).hasClass('active')) {
+                              newSearchCS = true;
+                         }
+                         if (currentSearchCS !== newSearchCS) {
+                              updateSearch = true;
+                         }
+                    }
+                    console.log(currentSearchCS, newSearchCS);
+                    if (currSearchQuery !== newSearchQuery) {
+                         updateSearch = true;
+                    }
+                    if (updateSearch) {
+                         $('#search_query' + set.suffix)
+                                   .attr('data-value', newSearchQuery)
+                                   .empty()
+                                   .append('<span lang="def">SEARCH_FOR</span> <strong>' + newSearchQuery + '</strong>');
+                         getTipueSearch(0, true);
+                         window.lang.run();
+                    }
                });
                $(this).keyup(function (event) {
                     if (event.keyCode == '13') {
@@ -299,11 +337,20 @@ function goToSearchResult(text_id, page_id, pos, setSuffix) {
                               for (var f = 0; f < d_w.length; f++) {
                                    // var pat = new RegExp(d_w[f], 'i');
                                    var pat = d_w[f];
-                                   if (tipuesearch_in.pages[i].line.toLowerCase().indexOf(pat) != -1) {
-                                        score -= (200000 - i);
-                                   }
-                                   if (tipuesearch_in.pages[i].text.toLowerCase().indexOf(pat) != -1) {
-                                        score -= (150000 - i);
+                                   if (caseSensitive) {
+                                        if (tipuesearch_in.pages[i].line.indexOf(pat) != -1) {
+                                             score -= (200000 - i);
+                                        }
+                                        if (tipuesearch_in.pages[i].text.indexOf(pat) != -1) {
+                                             score -= (150000 - i);
+                                        }
+                                   } else {
+                                        if (tipuesearch_in.pages[i].line.toLowerCase().indexOf(pat) != -1) {
+                                             score -= (200000 - i);
+                                        }
+                                        if (tipuesearch_in.pages[i].text.toLowerCase().indexOf(pat) != -1) {
+                                             score -= (150000 - i);
+                                        }
                                    }
 
                                    if (set.highlightTerms) {
@@ -323,10 +370,9 @@ function goToSearchResult(text_id, page_id, pos, setSuffix) {
 
                               }
                               if (score < 1000000000) {
-                                   found[c++] = score + '*|*|*' + tipuesearch_in.pages[i].line + '*|*|*' + s_t + '*|*|*' + tipuesearch_in.pages[i].loc + '*|*|*' + tipuesearch_in.pages[i].tags;
+                                   found[c++] = score + '*|*|*' + tipuesearch_in.pages[i].line + '*|*|*' + s_t + '*|*|*' + tipuesearch_in.pages[i].loc + '*|*|*' + tipuesearch_in.pages[i].tags + '*|*|*' + tipuesearch_in.pages[i].inFront;
                               }
                          }
-
                          if (c != 0) {
                               if (show_replace == 1) {
                                    out += '<div id="tipue_search_warning_head' + set.suffix + '"><span lang="def">SHOWING_RESULTS_FOR</span>' + d + '</div>';
@@ -347,6 +393,7 @@ function goToSearchResult(text_id, page_id, pos, setSuffix) {
                                    // results_text += $('#span_ee_select'+set.suffix + " .label_selected").text().toLowerCase() + ' <span lang="def">EDITION</span>.';
                               }
                               var pages = Math.ceil(c / set.show);
+                              results_text += '<span id="caseSensitiveInfo'+ set.suffix +'" data-status="'+ (caseSensitive ? 'sensitive' : 'insensitive') + '"></span> ';
                               $('#search_results' + set.suffix).html('<div id="tipue_search_results_count' + set.suffix + '" class="tipue_search_results_count">' + results_text + '</div>');
                               $('#search_cont_results' + set.suffix).attr('data-pages', pages);
                               found.sort();
@@ -355,47 +402,48 @@ function goToSearchResult(text_id, page_id, pos, setSuffix) {
                               var page, page_id, page_n;
                               var text, text_id, text_label;
                               var pos, pos_id, pos_label;
+                              var inFront;
                               var caseSensitive = false;
                               if ($('#search_case_sensitive_toggler'+set.suffix).hasClass('active')) {
                                    caseSensitive = true;
                               }
                               for (var i = 0; i < found.length; i++) {
-                                   var fo = found[i].split('*|*|*');
+                                   var fo = found[i].split('*|*|*'); // => [score, line, text, loc, tags, inFront]
                                    if (l_o >= start && l_o < set.show + start) {
                                         //out += '<div class="tipue_search_content_title"><a href="' + 'index.html#' + fo[3] + '"' + tipue_search_w + ' target="_blank">' + fo[4] + '/' + fo[3] + '/' + fo[1] + '</a></div>';
-                                        var t = fo[2];
+                                        var text = fo[2];
                                         var t_d = '';
-                                        var t_w = t.split(' ');
+                                        var textWords = text.split(' ');
 
-                                        if (t_w.length < set.descriptiveWords) {
-                                             t_d = t;
+                                        if (textWords.length < set.descriptiveWords) {
+                                             t_d = text;
                                         } else {
                                              var d_index;
                                              if (caseSensitive) {
                                                   /* CASE SENSITIVE SEARCH */
-                                                  d_index = t.indexOf(d);
+                                                  d_index = text.indexOf(d);
                                              } else {
                                                   /* CASE INSENSITIVE SEARCH */
-                                                  d_index = t.toLowerCase().indexOf(d);
+                                                  d_index = text.toLowerCase().indexOf(d);
                                              }
 
-                                             var pre_text = t.substring(0, d_index);
-                                             var post_text = t.substring(d_index);
+                                             var preText = text.substring(0, d_index);
+                                             var postText = text.substring(d_index);
 
-                                             var pre_text_w = pre_text.split(' ');
-                                             var post_text_w = post_text.split(' ');
+                                             var preTextW = preText.split(' ');
+                                             var postTextW = postText.split(' ');
 
                                              var half_desc_words = (set.descriptiveWords - 1) / 2;
-                                             var pre_text_stop = pre_text_w.length - (half_desc_words + 1);
+                                             var pre_text_stop = preTextW.length - (half_desc_words + 1);
                                              // if (pre_text_stop < 0) {
                                              //      pre_text_stop = pre_text_w.length - 1;
                                              // }
-                                             for (var f = pre_text_w.length - 1; (f > 0 && f > pre_text_stop); f--) {
-                                                  t_d = pre_text_w[f] + ' ' + t_d;
+                                             for (var f = preTextW.length - 1; (f > 0 && f > pre_text_stop); f--) {
+                                                  t_d = preTextW[f] + ' ' + t_d;
                                              }
 
-                                             for (var f = 0; (f < post_text_w.length && f < half_desc_words); f++) {
-                                                  t_d += post_text_w[f] + ' ';
+                                             for (var f = 0; (f < postTextW.length && f < half_desc_words); f++) {
+                                                  t_d += postTextW[f] + ' ';
                                              }
                                              // for (var f = 0; f < set.descriptiveWords; f++)
                                              // {
@@ -403,7 +451,7 @@ function goToSearchResult(text_id, page_id, pos, setSuffix) {
                                              // }
                                         }
                                         t_d = $.trim(t_d);
-                                        if (t_d.charAt(t_d.length - 1) != '.' && t_d !== t) {
+                                        if (t_d.charAt(t_d.length - 1) != '.' && t_d !== text) {
                                              t_d += '...';
                                         }
                                         page = fo[3].split('|');
@@ -418,28 +466,45 @@ function goToSearchResult(text_id, page_id, pos, setSuffix) {
                                         pos_id = pos[0];
                                         pos_label = pos[1];
 
+                                        inFront = fo[5];
                                         if (t_d.indexOf("class='bold_search'>") === 0) { // PATCH
                                              t_d = '<span ' + t_d;
                                         }
+                                        t_d = t_d.replace("<span class='bold_search'> ", "<span class='bold_search'>"); // PATCH
                                         out += '<div class="tipue_search_content_text">' + t_d + '</div>';
                                         out += '<div class="tipue_search_found_text">';
 
-                                        out += `<span class="tipue_search_go_to_result" onclick="goToSearchResult('${text_id}', '${page_id}', '${fo[1]}', '${set.suffix}')">`;
+                                        out += `<span class="tipue_search_go_to_result" 
+                                                  onclick="goToSearchResult('${text_id}', '${page_id}', '${fo[1]}', '${set.suffix}', '${inFront}')">`;
                                         out += '<span lang="def">FOUND_IN</span> ';
 
                                         if (text_label !== undefined) {
                                              out += text_label + ' ';
                                         }
-                                        if (page_n !== undefined) {
-                                             out += ' <span lang="def">PAGE</span> ' + page_n + ' ';
-                                        }
-                                        if (pos_label !== undefined) {
-                                             if (pos_label.indexOf('line') >= 0) {
-                                                  out += ' <span lang="def">LINE</span> ' + pos_label.replace('line ', '');
-                                             } else if (pos_label.indexOf('par') >= 0) {
-                                                  out += ' <span lang="def">PAR</span> ' + pos_label.replace('par ', '');
+                                        if (inFront == 'true') {
+                                             var switchReg = $('#switchReg');
+                                             var frontLabel = '<front>';
+                                             if (switchReg) {
+                                                  frontLabel = '<span lang="def">REGESTO</span>'
                                              } else {
-                                                  out += pos_label;
+                                                  var switchFront = $('#switchFront');
+                                                  if (switchFront) {
+                                                       frontLabel = '<span lang="def">INFO</span>'
+                                                  }
+                                             }
+                                             out += '('+frontLabel+')';
+                                        } else {
+                                             if (page_n !== undefined) {
+                                                  out += ' <span lang="def">PAGE</span> ' + page_n + ' ';
+                                             }
+                                             if (pos_label !== undefined) {
+                                                  if (pos_label.indexOf('line') >= 0) {
+                                                       out += ' <span lang="def">LINE</span> ' + pos_label.replace('line ', '');
+                                                  } else if (pos_label.indexOf('par') >= 0) {
+                                                       out += ' <span lang="def">PAR</span> ' + pos_label.replace('par ', '');
+                                                  } else {
+                                                       out += pos_label;
+                                                  }
                                              }
                                         }
                                         out += '</span></div><hr />';
@@ -503,7 +568,9 @@ function goToSearchResult(text_id, page_id, pos, setSuffix) {
                               }
                          }
                          else {
-                              $('#search_results' + set.suffix).empty().html('<div id="tipue_search_results_count' + set.suffix + '" class="tipue_search_results_count"><span lang="def">NOTHING_FOUND</span></div>');
+                              $('#search_results' + set.suffix).empty()
+                                   .html('<div id="tipue_search_results_count' + set.suffix + '" class="tipue_search_results_count"><span lang="def">NOTHING_FOUND</span></div>' + 
+                                        '<span id="caseSensitiveInfo'+ set.suffix +'" data-status="'+ (caseSensitive ? 'sensitive' : 'insensitive') + '"></span> ');
                               $('#search_foot' + set.suffix).empty();
                          }
                     }

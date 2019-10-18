@@ -382,6 +382,16 @@ function bindSearchBtnsClick() {
 		var boxSuffix = $(this).attr('data-boxsuffix');
 		if ($("#search_cont" + boxSuffix).hasClass('bottomBoxOpened')) {
 			$('#text_elem' + boxSuffix).unhighlight();
+			var frontFrame = $('#front_frame' + boxSuffix);
+			var highlightFront = frontFrame && !frontFrame.is(':empty');
+			if (highlightFront){
+				frontFrame.unhighlight();
+			}
+			var regestoFrame = $('#regesto_cont' + boxSuffix);
+			var highlightRegesto = regestoFrame && !regestoFrame.is(':empty');
+			if (highlightRegesto) {
+				regestoFrame.unhighlight();
+			}
 			var input_text_value = $(this).val();
 			var word_array = input_text_value.split(' ');
 			var caseSensitive = false;
@@ -390,6 +400,12 @@ function bindSearchBtnsClick() {
 			}
 			for (var i = 0; i < word_array.length; i++) {
 				$('#text_elem' + boxSuffix).highlight(word_array[i], { caseSensitive: caseSensitive });
+				if (highlightFront){
+					frontFrame.highlight(word_array[i], { caseSensitive: caseSensitive });
+				}
+				if (highlightRegesto) {
+					regestoFrame.highlight(word_array[i], { caseSensitive: caseSensitive });
+				}
 			}
 		}
 	});
