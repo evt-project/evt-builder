@@ -17,7 +17,7 @@ function goToSearchResult(text_id, page_id, pos, setSuffix, inFront) {
      $('#toggle_search_cont' + setSuffix).trigger('click');
      var navToDoc;
      var navToPage;
-     page_id = inFront ? undefined : page_id;
+     page_id = inFront == 'true' ? undefined : page_id;
      if (text_id && page_id) {
           navToDoc = text_id;
           navToPage = page_id;
@@ -25,7 +25,7 @@ function goToSearchResult(text_id, page_id, pos, setSuffix, inFront) {
           if (text_id && !page_id) {
                navToDoc = text_id;
                navToPage = $('[data-first-doc="'+text_id+'"]').attr('data-value');
-               if (inFront) {
+               if (inFront == 'true') {
                     var switchReg = $('#switchReg');
                     if (switchReg && !switchReg.hasClass('active')) {
                          switchReg.trigger('click');
@@ -237,7 +237,6 @@ function goToSearchResult(text_id, page_id, pos, setSuffix, inFront) {
                               updateSearch = true;
                          }
                     }
-                    console.log(currentSearchCS, newSearchCS);
                     if (currSearchQuery !== newSearchQuery) {
                          updateSearch = true;
                     }
