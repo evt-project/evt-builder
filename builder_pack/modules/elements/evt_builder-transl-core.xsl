@@ -27,10 +27,10 @@
 	</xd:doc>
 
 	<!-- TRANSLATION - DIV - Container of Translation Edition -->
-	<xsl:template match="tei:div[starts-with(@type,'transl')] | tei:div[starts-with(@type,'trad')]" mode="trad">
+	<xsl:template match="tei:div[starts-with(@type,'transl')] | tei:div[starts-with(@type,'transl')]" mode="transl">
 		<xsl:element name="div">
 			<xsl:attribute name="class">doc</xsl:attribute>
-			<xsl:attribute name="data-doc" select="current()/(replace (@xml:id, '_trad', ''))"/>
+			<xsl:attribute name="data-doc" select="current()/(replace (@xml:id, '_transl', ''))"/>
 			<xsl:attribute name="title"><xsl:text>Doc. </xsl:text>
 				<xsl:choose>
 					<xsl:when test="current()/@n">
@@ -39,7 +39,7 @@
 					<xsl:otherwise>
 						<xsl:call-template name="generateTextLabel">
 							<xsl:with-param name="text_id">
-								<xsl:value-of select="current()/(replace (@xml:id, '_trad', ''))" />
+								<xsl:value-of select="current()/(replace (@xml:id, '_transl', ''))" />
 							</xsl:with-param>
 						</xsl:call-template>
 					</xsl:otherwise>
@@ -54,11 +54,11 @@
 	<!--             -->
 		
 	<!-- P Paragraphs -->
-	<xsl:template match="tei:p" mode="trad">
+	<xsl:template match="tei:p" mode="transl">
 		<xsl:element name="p">
 			<xsl:attribute name="data-id" select="if(@xml:id) then(@xml:id) else(if(@n) then(@n) else(position()))"/>			
 			<xsl:if test="current()[not((string-length(normalize-space()))= 0)]">
-				<xsl:attribute name="class" select="$ed_name3,name()" separator="-"/>
+				<xsl:attribute name="class" select="'transl', name()" separator="-"/>
 				<xsl:call-template name="dataAttributesFromAttributes"/>
 				<xsl:apply-templates mode="#current"> </xsl:apply-templates>
 			</xsl:if>
@@ -66,13 +66,13 @@
 	</xsl:template>
 	
 	<!-- L Verse line-->
-	<xsl:template match="tei:l" mode="trad">
+	<xsl:template match="tei:l" mode="transl">
 		<xsl:element name="div">
-			<xsl:attribute name="class" select="'trad line'"/>
+			<xsl:attribute name="class" select="'transl line'"/>
 			<xsl:call-template name="dataAttributesFromAttributes"/>
 			<xsl:attribute name="data-line-n" select="if (@n) then(@n) else(position())"/>
 			<xsl:attribute name="data-line-id" select="if (@xml:id) then(@xml:id) else(if(@n) then (@n) else (position()))"/>
-			<div class="trad-lineN">
+			<div class="transl-lineN">
 				<xsl:value-of
 					select="
 						if (@n) then
@@ -84,39 +84,39 @@
 							('&#xA0;&#xA0;&#xA0;')"/>
 				<xsl:text>&#xA0;&#xA0;</xsl:text>
 			</div>
-			<div class="trad-left"><xsl:apply-templates mode="#current"/></div>
+			<div class="transl-left"><xsl:apply-templates mode="#current"/></div>
 		</xsl:element>
 		<xsl:text> </xsl:text><!--important-->
 	</xsl:template>
 	
 	<!-- CDP:embedded - copied from evt_builder-interp-core.xsl --> 
 	<!-- LINE Verse line-->
-	<xsl:template match="tei:line" mode="trad">
+	<xsl:template match="tei:line" mode="transl">
 		<!-- DO NOTHING -->
 	</xsl:template>	
 		
-	<xsl:template match="node()[@attachment]" mode="trad">
+	<xsl:template match="node()[@attachment]" mode="transl">
 		<xsl:element name="div">
-			<xsl:attribute name="class" select="$ed_name3, 'attachment'" separator="-" />
+			<xsl:attribute name="class" select="'transl-attachment'"/>
 			<xsl:call-template name="dataAttributesFromAttributes"/>
 			<xsl:apply-templates mode="#current" />
 		</xsl:element>
 	</xsl:template>
 	
 	<!-- Page break -->
-	<xsl:template match="tei:pb" mode="trad">
+	<xsl:template match="tei:pb" mode="transl">
 		<xsl:copy-of select="."/>
 	</xsl:template>
 	
 	<!-- Column break -->
-	<xsl:template match="tei:cb" mode="trad">
+	<xsl:template match="tei:cb" mode="transl">
 		<xsl:copy-of select="."/>
 	</xsl:template>	
 	
 	<!-- Head -->
-	<xsl:template match="tei:head" mode="trad">
+	<xsl:template match="tei:head" mode="transl">
 		<xsl:element name="div">
-			<xsl:attribute name="class" select="$ed_name3, 'head'" separator="-" />
+			<xsl:attribute name="class" select="'transl', 'head'" separator="-" />
 			<xsl:call-template name="dataAttributesFromAttributes"/>
 			<xsl:apply-templates mode="#current" />
 		</xsl:element>
@@ -124,7 +124,7 @@
 	<!-- For Embedded  Transcription no usefull -->
 		
 	<!-- REF References to additional text -->
-	<xsl:template match="tei:ref" mode="trad">
+	<xsl:template match="tei:ref" mode="transl">
 		<xsl:choose>
 			<!-- Se il @target fa riferiemento ad una risorsa online, allora lo trasformo in link HTML -->
 			<xsl:when test="@target[contains(., 'www')] or @target[contains(., 'http')]">
@@ -167,20 +167,20 @@
 		</xsl:choose>
 	</xsl:template>
 	
-	<xsl:template match="tei:note[@place='foot']" mode="trad">
+	<xsl:template match="tei:note[@place='foot']" mode="transl">
 		<!-- do nothing -->
 	</xsl:template>
 	
-	<xsl:template match="tei:front" mode="trad">
+	<xsl:template match="tei:front" mode="transl">
 		<!-- do nothing -->
 	</xsl:template>
 	
-	<xsl:template match="tei:body" mode="trad">
+	<xsl:template match="tei:body" mode="transl">
 		<!-- DO NOTHING -->
 	</xsl:template>
 	
 	<!-- DESC Desc-->
-	<xsl:template match="tei:desc" mode="trad">
+	<xsl:template match="tei:desc" mode="transl">
 		<xsl:element name="span">
 			<xsl:attribute name="class">desc</xsl:attribute>
 			<xsl:call-template name="dataAttributesFromAttributes"/>
@@ -189,7 +189,7 @@
 	</xsl:template>
 	
 	<!-- TITLEs in NOTE emphasized  -->
-	<xsl:template match="tei:note//tei:title" mode="trad">
+	<xsl:template match="tei:note//tei:title" mode="transl">
 		<xsl:element name="span">
 			<xsl:attribute name="class">title emph</xsl:attribute>
 			<xsl:call-template name="dataAttributesFromAttributes"/>
@@ -198,7 +198,7 @@
 	</xsl:template>
 	
 	<!-- EMPH emphasized  -->
-	<xsl:template match="tei:emph" mode="trad">
+	<xsl:template match="tei:emph" mode="transl">
 		<xsl:element name="span">
 			<xsl:attribute name="class">emph</xsl:attribute>
 			<xsl:call-template name="dataAttributesFromAttributes"/>
@@ -207,7 +207,7 @@
 	</xsl:template>
 	
 	<!-- TERM -->
-	<xsl:template match="tei:term" mode="trad">
+	<xsl:template match="tei:term" mode="transl">
 		<xsl:element name="span">
 			<xsl:attribute name="class">term</xsl:attribute>
 			<xsl:call-template name="dataAttributesFromAttributes"/>
@@ -216,7 +216,7 @@
 	</xsl:template>
 	
 	<!-- DATE -->
-	<xsl:template match="tei:date" mode="trad">
+	<xsl:template match="tei:date" mode="transl">
 		<xsl:choose>
 			<xsl:when test="@when and @when != ''">
 				<xsl:element name="span">
@@ -245,7 +245,7 @@
 	</xsl:template>
 	
 	<!-- PERS NAME personal name -->
-	<xsl:template match="tei:persName[starts-with(@ref,'#')]" mode="trad">
+	<xsl:template match="tei:persName[starts-with(@ref,'#')]" mode="transl">
 		<xsl:choose>
 			<xsl:when test="@ref and @ref!='' and $root//tei:person[@xml:id=substring-after(current()/@ref,'#')]">
 				<xsl:element name="span">
@@ -314,7 +314,7 @@
 				</xsl:if>
 				<span class="toggle_list_element"><i class="fa fa-angle-right"></i></span>
 				<xsl:if test="current()/tei:note and current()/tei:note != ''">
-					<span class='small-note'><xsl:apply-templates select="tei:note" mode="trad"/></span>
+					<span class='small-note'><xsl:apply-templates select="tei:note" mode="transl"/></span>
 				</xsl:if>
 			</xsl:when>
 			<xsl:otherwise>
@@ -329,7 +329,7 @@
 	</xsl:template>
 	
 	<!-- MEASURE  -->
-	<xsl:template match="tei:measure" mode="trad">
+	<xsl:template match="tei:measure" mode="transl">
 		<xsl:choose>
 			<xsl:when test="@type or @quantity or @unit">
 				<xsl:element name="span">
@@ -386,7 +386,7 @@
 	</xsl:template>
 	
 	<!-- ROLE NAME -->
-	<xsl:template match="tei:roleName" mode="trad">
+	<xsl:template match="tei:roleName" mode="transl">
 		<xsl:element name="span">
 			<xsl:attribute name="class">roleName</xsl:attribute>
 			<xsl:call-template name="dataAttributesFromAttributes"/>
@@ -395,7 +395,7 @@
 	</xsl:template>
 	
 	<!-- ORG NAME  -->
-	<xsl:template match="tei:orgName" mode="trad">
+	<xsl:template match="tei:orgName" mode="transl">
 		<xsl:choose>
 			<xsl:when test="ancestor-or-self::node()/tei:org">
 				<!-- DO NOTHING -->
@@ -484,7 +484,7 @@
 				</xsl:if>
 				<span class="toggle_list_element"><i class="fa fa-angle-right"></i></span>
 				<xsl:if test="current()/tei:desc and current()/tei:desc != ''">
-					<span class='small-note'><xsl:apply-templates select="current()/tei:desc" mode="trad"/></span>
+					<span class='small-note'><xsl:apply-templates select="current()/tei:desc" mode="transl"/></span>
 				</xsl:if>
 				<xsl:if test="current()/tei:state">
 					<xsl:for-each select="current()/tei:state">
@@ -515,7 +515,7 @@
 								<xsl:value-of select="current()/@to"/>
 							</xsl:if>
 							<xsl:text>:&#xA0;</xsl:text>
-							<xsl:apply-templates mode="trad" />
+							<xsl:apply-templates mode="transl" />
 							<xsl:text>.</xsl:text>
 						</span>
 						
@@ -535,7 +535,7 @@
 	
 	
 	<!-- PLACE NAME place name -->
-	<xsl:template match="tei:placeName[starts-with(@ref,'#')]" mode="trad">
+	<xsl:template match="tei:placeName[starts-with(@ref,'#')]" mode="transl">
 		<xsl:choose>
 			<xsl:when test="@ref and @ref!='' and $root//tei:place[@xml:id=substring-after(current()/@ref,'#')]">
 				<xsl:element name="span">
@@ -620,7 +620,7 @@
 				</xsl:if>
 				<span class="toggle_list_element"><i class="fa fa-angle-right"></i></span>
 				<xsl:if test="current()/tei:note and current()/tei:note != ''">
-					<span class='small-note'><xsl:apply-templates select="tei:note" mode="trad"/></span>
+					<span class='small-note'><xsl:apply-templates select="tei:note" mode="transl"/></span>
 				</xsl:if>
 			</xsl:when>
 			<xsl:otherwise>
@@ -635,7 +635,7 @@
 	</xsl:template>
 	
 	<!-- PTR Pointer -->
-	<xsl:template match="tei:ptr" mode="trad">
+	<xsl:template match="tei:ptr" mode="transl">
 		<xsl:choose>
 			<xsl:when test="@type='noteAnchor'">
 				<xsl:if test="@target and @target!='' and $root//tei:note[@xml:id=substring-after(current()/@target,'#')]">
@@ -677,7 +677,7 @@
 	</xsl:template>
 	
 	<!-- QUOTE Quotes -->
-	<xsl:template match="tei:quote" mode="trad">		
+	<xsl:template match="tei:quote" mode="transl">		
 		<xsl:element name="span">
 			<xsl:attribute name="class">quote</xsl:attribute>
 			<xsl:call-template name="dataAttributesFromAttributes"/>
@@ -685,22 +685,22 @@
 		</xsl:element>
 	</xsl:template>	
 	
-	<xsl:template match="tei:lb[not(@*) or @rend='empty']" mode="trad">
+	<xsl:template match="tei:lb[not(@*) or @rend='empty']" mode="transl">
 		<xsl:choose>
 			<xsl:when test="@n">
 				<xsl:element name="div">
 					<xsl:attribute name="class">
 						<xsl:value-of select="'lb '"/>
-						<xsl:value-of select="$ed_name3"/>
+						<xsl:value-of select="'transl'"/>
 						<xsl:value-of select="' line'"/>
 					</xsl:attribute>
 					<xsl:call-template name="dataAttributesFromAttributes"/>
 					<xsl:element name="span">
-						<xsl:attribute name="class" select="$ed_name3, 'lineN'" separator="-"/>
+						<xsl:attribute name="class" select="'transl', 'lineN'" separator="-"/>
 						<xsl:value-of select="if(string-length(@n) &gt; 1) then(@n) else(concat('&#xA0;&#xA0;', @n))"/>
 						<xsl:text>&#xA0;&#xA0;</xsl:text>
 					</xsl:element>
-					<div class="{$ed_name3}-left">
+					<div class="transl-left">
 						<xsl:attribute name="data-type" select="'empty'"/>
 					</div>
 				</xsl:element>

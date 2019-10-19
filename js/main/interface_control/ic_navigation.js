@@ -1097,7 +1097,7 @@ function bindFilterOptionClick() {
 					if (selectorForActivation !== 'clear') {
 						$(this).addClass('selected');
 						$(this).parents("div[id*='frame']")
-							.find("." + selectorForActivation + ", .interp-" + selectorForActivation + ", .dipl-" + selectorForActivation + ", .trad-" + selectorForActivation)
+							.find("." + selectorForActivation + ", .interp-" + selectorForActivation + ", .dipl-" + selectorForActivation + ", .transl-" + selectorForActivation)
 							.addClass('list_active');
 					}
 					$(this).siblings(".option[data-value='clear']").removeClass('selected');
