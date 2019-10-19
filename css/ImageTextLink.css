@@ -177,8 +177,8 @@ div.dipl-left, div.interp-left {
     width: 100%;
 }
 /* CDP provvisorio */
-.HighlightedAnnMenuItem div.dipl-right, .HighlightedAnnMenuItem div.dipl-center, .HighlightedAnnMenuItem div.interp-right, .HighlightedAnnMenuItem div.interp-center, .HighlightedAnnMenuItem div.tdipl-right, .HighlightedAnnMenuItem div.tdipl-center, .HighlightedAnnMenuItem div.crit-right, .HighlightedAnnMenuItem div.crit-center, .HighlightedAnnMenuItem div.trad-right, .HighlightedAnnMenuItem div.trad-center,
-.SelectedAnnMenuItem div.dipl-right, .SelectedAnnMenuItem div.dipl-center, .SelectedAnnMenuItem div.interp-right, .SelectedAnnMenuItem div.interp-center .SelectedAnnMenuItem div.tdipl-right, .SelectedAnnMenuItem div.tdipl-center, .SelectedAnnMenuItem div.crit-right, .SelectedAnnMenuItem div.crit-center, .SelectedAnnMenuItem div.trad-right, .SelectedAnnMenuItem div.trad-center {
+.HighlightedAnnMenuItem div.dipl-right, .HighlightedAnnMenuItem div.dipl-center, .HighlightedAnnMenuItem div.interp-right, .HighlightedAnnMenuItem div.interp-center, .HighlightedAnnMenuItem div.tdipl-right, .HighlightedAnnMenuItem div.tdipl-center, .HighlightedAnnMenuItem div.crit-right, .HighlightedAnnMenuItem div.crit-center, .HighlightedAnnMenuItem div.transl-right, .HighlightedAnnMenuItem div.transl-center,
+.SelectedAnnMenuItem div.dipl-right, .SelectedAnnMenuItem div.dipl-center, .SelectedAnnMenuItem div.interp-right, .SelectedAnnMenuItem div.interp-center .SelectedAnnMenuItem div.tdipl-right, .SelectedAnnMenuItem div.tdipl-center, .SelectedAnnMenuItem div.crit-right, .SelectedAnnMenuItem div.crit-center, .SelectedAnnMenuItem div.transl-right, .SelectedAnnMenuItem div.transl-center {
     background-color: transparent;
 }
 /*FS : cambio colore di evidenziazione Image Text Link*/

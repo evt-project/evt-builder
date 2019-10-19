@@ -93,7 +93,7 @@
 					<!-- Gestione TEXT multipli in tei:group -->
 					<xsl:for-each select="$root//tei:text/tei:group/tei:text">
 						<!-- TRANSLATION -->
-						<xsl:if test="$edition_array[3]='Translation'">
+						<xsl:if test="$translation=true()">
 							<xsl:call-template name="translate"/><!-- TODO: CHECK IF TRANSLATION IS ACTIVE-->
 						</xsl:if>
 						<!-- REGESTO -->
@@ -109,7 +109,7 @@
 				<xsl:otherwise>
 					<xsl:for-each select="tei:TEI/tei:text">
 						<!-- TRANSLATION -->
-						<xsl:if test="$edition_array[3]='Translation'">
+						<xsl:if test="$translation=true()">
 							<xsl:call-template name="translate"/><!-- TODO: CHECK IF TRANSLATION IS ACTIVE-->
 						</xsl:if>
 						<!-- REGESTO -->
@@ -418,17 +418,17 @@
 								<xsl:choose>
 									<xsl:when test="current()/tei:back/tei:div[starts-with(@type,'transl')]">
 										<xsl:variable name="text">
-											<xsl:apply-templates select="current()/tei:back/tei:div[starts-with(@type,'transl')]" mode="trad"/>
+											<xsl:apply-templates select="current()/tei:back/tei:div[starts-with(@type,'transl')]" mode="transl"/>
 										</xsl:variable>
 										<xsl:variable name="text2">
 											<xsl:call-template name="divCb">
 												<xsl:with-param name="text" select="$text"/>
-												<xsl:with-param name="ed_name" select="$ed_name3"/>
+												<xsl:with-param name="ed_name" select="'transl'"/>
 											</xsl:call-template>
 										</xsl:variable>
 										<xsl:call-template name="divLine">
 											<xsl:with-param name="text" select="$text2"/>
-											<xsl:with-param name="ed_name" select="$ed_name3"/>
+											<xsl:with-param name="ed_name" select="'transl'"/>
 										</xsl:call-template>
 									</xsl:when>
 									<xsl:otherwise>
@@ -1081,9 +1081,8 @@
 		</xsl:if>
 		
 		<!-- ADD BY FS - Edizione di traduzione -->
-		<xsl:if test="$edition_array[3]!=''"><!-- Translation -->
-			<xsl:variable name="edition_current" select="lower-case($edition_array[3])" />
-			<xsl:result-document method="text" href="{$filePrefix}/data/output_data/{$edition_current}/{$edition_current}.json" indent="no">
+		<xsl:if test="$translation=true()"><!-- Translation -->
+			<xsl:result-document method="text" href="{$filePrefix}/data/output_data/translation/translation.json" indent="no">
 				{"pages": [
 				<!-- Questa istruzione introdotta da XSLT 2.0 selezione un set di elementi, li divide in guppi seguendo un determinato criterio e infine traduce il contenuto
 				di ogni gruppo. Per la selezione dei gruppi utilizza attributo group-starting-with: che divide il blocco di elementi in gruppi, creando un niovo gruppo
@@ -1091,7 +1090,7 @@
 				<xsl:for-each select="//tei:div[starts-with(@type,'transl')]/child::node()">
 					<!-- TEXTUAL CONTENT -->
 					<xsl:variable name="current_text">
-						<xsl:apply-templates select="node()/." mode="trad"/>
+						<xsl:apply-templates select="node()/." mode="transl"/>
 					</xsl:variable>
 					<xsl:variable name="current_text1">
 						<xsl:apply-templates select="$current_text//text()[not(ancestor::span)]" mode="deleteSpaces"/>
@@ -1103,7 +1102,7 @@
 							{ 
 							"line" : "<xsl:value-of select="$lineId"/>|line <xsl:value-of select="$lineN"/>",
 							"text" : "<xsl:copy-of select="replace($current_text1, '(\\|/)', '$1$1')"/>",
-							"tags" : "<xsl:call-template name="doc_refs4search_trad"/>",
+							"tags" : "<xsl:call-template name="doc_refs4search_transl"/>",
 							"loc" : ""
 							},
 						</xsl:when>
@@ -1113,7 +1112,7 @@
 							{ 
 							"line" : "<xsl:value-of select="$pId"/>|par <xsl:value-of select="$pN"/>",
 							"text" : "<xsl:copy-of select="replace($current_text1, '(\\|/)', '$1$1')"/>",
-							"tags" : "<xsl:call-template name="doc_refs4search_trad"/>",
+							"tags" : "<xsl:call-template name="doc_refs4search_transl"/>",
 							"loc" : ""
 							},
 						</xsl:when>
@@ -1319,7 +1318,7 @@
 		<xsl:value-of select="$doc_id"/>|<xsl:value-of select="$doc_label"/>
 	</xsl:template>
 	
-	<xsl:template name="doc_refs4search_trad">
+	<xsl:template name="doc_refs4search_transl">
 		<xsl:variable name="doc_id">
 			<xsl:choose>
 				<xsl:when test="current()/ancestor-or-self::tei:text[1]/@xml:id">
@@ -1660,9 +1659,8 @@
 			</xsl:result-document>
 		</xsl:if>
 		
-		<xsl:if test="$edition_array[3]!=''">
-			<xsl:variable name="edition_current" select="lower-case($edition_array[3])" />
-			<xsl:result-document method="text" href="{$filePrefix}/data/output_data/{$edition_current}/{$edition_current}.json" indent="no">
+		<xsl:if test="$translation=true()">
+			<xsl:result-document method="text" href="{$filePrefix}/data/output_data/translation/translation/translation.json" indent="no">
 				{"pages": [
 				<xsl:for-each select="$root//tei:surface">
 					<xsl:if test="current()/@xml:id">
@@ -1802,7 +1800,7 @@
 									<xsl:if test="current-group()[not((string-length(normalize-space()))= 0)]">
 										{ 
 										"line" : "<xsl:value-of select="if(self::tei:lb/@n) then(concat(self::tei:lb/@n, '|line ',self::tei:lb/@n)) else('no line info |no line info')" />",
-										"text" : "<xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:lb)]" mode="trad"/></xsl:variable><xsl:variable name="var1"><xsl:apply-templates select="$var//text()[not(ancestor::span)]" mode="deleteSpaces"/></xsl:variable><xsl:copy-of select="replace($var1, '(\\|/)', '$1$1')"/>",
+										"text" : "<xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:lb)]" mode="transl"/></xsl:variable><xsl:variable name="var1"><xsl:apply-templates select="$var//text()[not(ancestor::span)]" mode="deleteSpaces"/></xsl:variable><xsl:copy-of select="replace($var1, '(\\|/)', '$1$1')"/>",
 										"tags" : "<xsl:value-of select="ancestor::tei:sourceDoc/@xml:id"/>|<xsl:choose><xsl:when test="ancestor::tei:sourceDoc/@n"><xsl:value-of select="ancestor::tei:sourceDoc/@n"/></xsl:when><xsl:otherwise><xsl:call-template name="generateTextLabel"><xsl:with-param name="text_id"><xsl:value-of select="ancestor::tei:sourceDoc/@xml:id"/></xsl:with-param></xsl:call-template></xsl:otherwise></xsl:choose>",
 										"loc" : "<xsl:value-of select="$pageId"/>|<xsl:value-of select="$pageLabel"/>"
 										},
@@ -1813,7 +1811,7 @@
 								<xsl:for-each-group select="current()/descendant::p" group-starting-with="//tei:p">
 									{
 									"line" : "<xsl:value-of select="if(@xml:id) then (@xml:id) else('no par info')" />|<xsl:value-of select="if(@n) then(concat('par ',@n)) else('no par info')" />",
-									"text" : "<xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:pb)]" mode="trad"/></xsl:variable><xsl:value-of select="fn:normalize-space($var)"/>",
+									"text" : "<xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:pb)]" mode="transl"/></xsl:variable><xsl:value-of select="fn:normalize-space($var)"/>",
 									"tags" : "<xsl:value-of select="ancestor::tei:sourceDoc/@xml:id"/>|<xsl:choose><xsl:when test="ancestor::tei:sourceDoc/@n"><xsl:value-of select="ancestor::tei:sourceDoc/@n"/></xsl:when><xsl:otherwise><xsl:call-template name="generateTextLabel"><xsl:with-param name="text_id"><xsl:value-of select="ancestor::tei:sourceDoc/@xml:id"/></xsl:with-param></xsl:call-template></xsl:otherwise></xsl:choose>",
 									"loc" : "<xsl:value-of select="$pageId"/>|<xsl:value-of select="$pageLabel"/>"
 									},
@@ -1825,7 +1823,7 @@
 								<xsl:for-each-group select="current()/descendant::line" group-starting-with="//tei:line">
 									{
 									"line" : "<xsl:value-of select="if(@xml:id) then (@xml:id) else('no line info')" />|<xsl:value-of select="if(@n) then(concat('line ',@n)) else('no line info')" />",
-									"text" : "<xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:pb)]" mode="trad"/></xsl:variable><xsl:value-of select="fn:normalize-space($var)"/>",
+									"text" : "<xsl:variable name="var"><xsl:apply-templates select="current-group()[not(self::tei:pb)]" mode="transl"/></xsl:variable><xsl:value-of select="fn:normalize-space($var)"/>",
 									"tags" : "<xsl:value-of select="ancestor::tei:sourceDoc/@xml:id"/>|<xsl:choose><xsl:when test="ancestor::tei:sourceDoc/@n"><xsl:value-of select="ancestor::tei:sourceDoc/@n"/></xsl:when><xsl:otherwise><xsl:call-template name="generateTextLabel"><xsl:with-param name="text_id"><xsl:value-of select="ancestor::tei:sourceDoc/@xml:id"/></xsl:with-param></xsl:call-template></xsl:otherwise></xsl:choose>",
 									"loc" : "<xsl:value-of select="$pageId"/>|<xsl:value-of select="$pageLabel"/>"
 									},
@@ -1834,7 +1832,7 @@
 							<xsl:otherwise>
 								{
 								"line" : "no line info|no line info",
-								"text" : "<xsl:variable name="var"><xsl:apply-templates select="current()" mode="trad"/></xsl:variable><xsl:copy-of select="$var//text()"/>",
+								"text" : "<xsl:variable name="var"><xsl:apply-templates select="current()" mode="transl"/></xsl:variable><xsl:copy-of select="$var//text()"/>",
 								"tags" : "<xsl:value-of select="ancestor::tei:sourceDoc/@xml:id"/>|<xsl:choose><xsl:when test="ancestor::tei:sourceDoc/@n"><xsl:value-of select="ancestor::tei:sourceDoc/@n"/></xsl:when><xsl:otherwise><xsl:call-template name="generateTextLabel"><xsl:with-param name="text_id"><xsl:value-of select="ancestor::tei:sourceDoc/@xml:id"/></xsl:with-param></xsl:call-template></xsl:otherwise></xsl:choose>",
 								"loc" : "<xsl:value-of select="$pageId"/>|<xsl:value-of select="$pageLabel"/>"
 								},

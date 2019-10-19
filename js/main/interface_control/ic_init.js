@@ -12,7 +12,16 @@ function prepareEditionLevel(xml) {
                     .text(current_id.toUpperCase())
             );
         });
-
+        if ($(xml).find('translation[active="1"]').length > 0) {
+            $('.main_ee_select .option_container').append(
+                $('<div/>')
+                    .attr("data-value", "translation")
+                    .attr("data-key", "transl")
+                    .attr("lang", 'def')
+                    .addClass('option')
+                    .text("TRANSLATION")
+            );
+        }
         var spanEEselect = $('#span_ee_select');
         // Se ho solo un livello di edizioni e non ho il regesto il pulsante TXT-TXT non serve più
         if (editionArray.length <= 1 && $(xml).find('regesto').length < 1) {
@@ -676,10 +685,10 @@ function prepareMsDesc(xml) {
 
 function prepareTranslation(xml) {
     return new Promise(function (resolve, reject) {
-        if (($(xml).find('trad').attr('active') == 1)) {
-            $('#trad_cont').load("data/output_data/translate/page__translate.html #trad", function () {
-                if ($('#trad_cont').is(':empty')) {
-                    $('#switch_trad, #trad_cont').remove();
+        if (($(xml).find('transl').attr('active') == 1)) {
+            $('#transl_cont').load("data/output_data/translate/page__translate.html #trad", function () {
+                if ($('#transl_cont').is(':empty')) {
+                    $('#switch_transl, #transl_cont').remove();
                     resizeButtonsAndSelects();
                 } else {
                     bindMsDescBtnClick();

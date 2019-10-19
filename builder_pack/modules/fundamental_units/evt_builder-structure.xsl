@@ -104,6 +104,10 @@
                 <xsl:if test="$regesto = true()">
                     <regesto active="1"/>
                 </xsl:if>
+
+                <xsl:if test="$translation=true()">
+                    <translation active="1"/>
+                </xsl:if>
                 <liste>
                     <xsl:if test="$list_person = true()">
                         <listPerson active="1" lang="def">LIST_PERSON</listPerson>
@@ -135,9 +139,6 @@
                                         </xsl:when>
                                         <xsl:when test="$edition_array[2]=current()">
                                             <xsl:value-of select="$ed_name2"/>
-                                        </xsl:when>
-                                        <xsl:when test="$edition_array[3]=current()">
-                                            <xsl:value-of select="$ed_name3"/>
                                         </xsl:when>
                                     </xsl:choose>
                                 </xsl:attribute>

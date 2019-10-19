@@ -134,27 +134,23 @@
 		<!-- IT: Se si ha l'edizione interpretativa scrivere <edition>Interpretative</edition>.
 			 	 Se NON si ha l'edizione interpretativa mettere <edition></edition> -->
 
-		<edition></edition>
-		<!-- EN: If you have a translation put <edition>Translation</edition>.
-			 	 If you don't have a translation put <edition></edition> -->
-		<!-- IT: Se si ha la versione tradotta del testo scrivere <edition>Translation</edition>.
-			 	 Se NON si ha la versione tradotta mettere <edition></edition> -->
-
 		<!-- EN: For processing in the modules: $edition_array[2] --> <!-- IT: Per l'elaborazione nei moduli: $edition_array[2] -->
 
 		<!-- EN: To add a new edition it is necessary to add a new line here and -forcedly- a declaration concerning output file in the modules/evt_builder-main.xsl file, under the <xsl:if test="$edition_array[2]!=''" condition>
 				For instance: <edition>New_edition</edition> -->
 		<!-- IT: Per aggiungere una nuova edizione, bisognerà inserire una nuova riga qui e -necessariamente- la dichiarazione per i file di output nel file modules/evt_builder-main.xsl, sotto la condizione <xsl:if test="$edition_array[2]!=''">
 				Esempio: <edition>Nuova_edizione</edition> Add by FS -->
-
 	</xsl:variable>
 
 	<!-- EN: It is possibile to customize the prefix used in the creation of the classes of the html elements of the edition -->
 	<!-- IT: E' possibile personalizzare il prefisso usato nella creazione delle classi degli elementi html di un edizione. -->
 	<xsl:variable name="ed_name1">dipl</xsl:variable>
 	<xsl:variable name="ed_name2">interp</xsl:variable>
-	<xsl:variable name="ed_name3">trad</xsl:variable> <!-- Added by FS -->
 	<!-- Variable -->
+	
+	<!-- EN: Enable/Disable translation -->
+	<!-- IT: Attiva/Disattiva traduzione -->
+	<xsl:variable name="translation" select="true()"/> 
 
 	<!-- Thumb image -->
 	<xsl:variable name="fb_thumb">thumb_fb.jpg</xsl:variable>
