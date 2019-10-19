@@ -155,11 +155,11 @@ DIV.dipl-right, SPAN.dipl-right {
     background:#FFF;
 }
 
-DIV.dipl-left, .trad-left{
+DIV.dipl-left, .transl-left{
     /* width: 92%; */
     display: inline-table;
 }
-.dipl-left .doc, .interp-left .doc, .trad-left .doc{
+.dipl-left .doc, .interp-left .doc, .transl-left .doc{
     display: inline;
 }
 
@@ -168,7 +168,7 @@ DIV.dipl-attachment{
     padding: 5px 0px 0px 10px;
 }
 
-SPAN.dipl-lineN, .trad-lineN {
+SPAN.dipl-lineN, .transl-lineN {
 	color: grey;
 	font-size: 0.8em; 
 	display: inline-block;
@@ -904,11 +904,11 @@ span.crit-gap::after {
 
 /**EDIZIONE DI TRADUZIONE */
 
-div.trad-zone{
+div.transl-zone{
     margin-bottom: 5px; 
 }
 
-div.trad-center, span.trad-center {
+div.transl-center, span.transl-center {
 	/*margin-left: 0.5cm;
 	margin-right: 0.5cm;
 	text-indent: 0.5cm;
@@ -922,7 +922,7 @@ div.trad-center, span.trad-center {
     background:#FFF;
 }
 
-div.trad-right, span.trad-right {
+div.transl-right, span.transl-right {
 	/*margin-left: 0.5cm;
 	margin-right: 0.5cm;
 	text-indent: 0.5cm;
@@ -936,54 +936,54 @@ div.trad-right, span.trad-right {
     background:#FFF; 
 }
 
-div.trad-left, span.trad-left{
+div.transl-left, span.transl-left{
     width: 92%;
 }
 
-div.trad-attachment{
+div.transl-attachment{
     border: 1px solid black;
     padding: 5px 0px 0px 10px;
 }
 
-span.trad-corr-resp { 
+span.transl-corr-resp { 
 	font-weight: bold; 
 }
 
-span.trad-reg { 
+span.transl-reg { 
 	color: red; 
 }
 
-span.trad-hi-7init {
+span.transl-hi-7init {
 	font-size: 140% 
 }
 
-span.trad-hi-init3_1 { 
+span.transl-hi-init3_1 { 
 	font-size: 120%; /*font-weight: bold;*/ 
 }
 
-span.trad-hi-cap { 
+span.transl-hi-cap { 
 	text-transform: uppercase; 
 }
 
-span.trad-hi-double { 
+span.transl-hi-double { 
 	font-size: 120%; 
 }
 
-span.trad-seg { 
+span.transl-seg { 
 	font-style: italic; 
 }
 
-.trad-head {
+.transl-head {
     display: block;
     font-size: 120%;
     line-height: 1.5;
 	font-weight: 600;
 	text-align: center;
 }
-.trad-head[data-rend="left"] {
+.transl-head[data-rend="left"] {
 	text-align: left;
 }
-.trad-head[data-rend="right"] {
+.transl-head[data-rend="right"] {
 	text-align: right;
 }
 span.tooltip {

@@ -79,7 +79,7 @@
 	<!--<xsl:include href="modules/elements/evt_builder-interp-textstructure.xsl"/>-->
 	
 	<!-- Elements for translation version -->  <!-- Added By FS -->
-	<xsl:include href="modules/elements/evt_builder-trad-core.xsl"/>
+	<xsl:include href="modules/elements/evt_builder-transl-core.xsl"/>
 
 	<!-- Elements for facsimile version -->
 	

@@ -821,7 +821,7 @@
 				<!-- DO NOTHING -->
 				<xsl:text> </xsl:text>
 			</xsl:when>
-			<xsl:when test="starts-with(@type,'trad')">
+			<xsl:when test="starts-with(@type,'transl')">
 				<!-- DO NOTHING -->
 				<xsl:text> </xsl:text>
 			</xsl:when>
