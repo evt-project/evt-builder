@@ -201,10 +201,14 @@ function bindArrowsBRnavClick() {
 				// Expand
 				BRnav.removeClass('collapsed').addClass('expanded');
 				centralWrapper.removeClass('navBarCollapsed').addClass('navBarExpanded');
+				$(this).removeClass('BRup').addClass('BRdown');
+				$(this).find('.fa').removeClass('fa-caret-up').addClass('fa-caret-down');
 			} else {
 				// Collapse
 				BRnav.removeClass('expanded').addClass('collapsed');
 				centralWrapper.removeClass('navBarExpanded').addClass('navBarCollapsed');
+				$(this).removeClass('BRdown').addClass('BRup');
+				$(this).find('.fa').removeClass('fa-caret-down').addClass('fa-caret-up');
 			}
 			updateTextContHeight();
 		}
