@@ -3579,9 +3579,17 @@ ul.ul_list li.list_element_opened {
     width: auto;
     position: absolute;
     text-align: right;
-    font-size: 0.3rem;
-    bottom: 5px;
-    right: calc(4.5% + 70px);
+    font-size: 0.4rem;
+    bottom: -1px;
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s;
+    right: calc(4.5% + 10px);
+}
+
+.navBarExpanded ~ #poweredBy {
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s;
+    bottom: 41px;
 }
 
 #poweredBy:hover {
