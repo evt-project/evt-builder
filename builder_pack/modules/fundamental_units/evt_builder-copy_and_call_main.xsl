@@ -59,6 +59,18 @@
 			<xsl:element name="{parent::node()/name()}" xmlns="http://www.tei-c.org/ns/1.0">
 				<xsl:copy-of select="parent::node()/@* except (parent::node()/@part)"/>
 				<xsl:attribute name="part" select="position()"/>
+				<xsl:choose>
+					<xsl:when test="parent::node()/tei:lb">
+						<xsl:attribute name="group" select="'lb'"/>
+					</xsl:when>
+					<xsl:when test="parent::node()/tei:cb">
+						<xsl:attribute name="group" select="'cb'"/>
+					</xsl:when>
+					<xsl:when test="parent::node()/tei:pb">
+						<xsl:attribute name="group" select="'pb'"/>
+					</xsl:when>
+					<xsl:otherwise></xsl:otherwise>
+				</xsl:choose>
 				<xsl:attribute name="id" select="generate-id(parent::node())"/>
 				<!-- Management of words broken into two lines, to be normalized in the interpretative edition -->
 				<!-- Gestione parole spezzate su due righe, da normalizzare nell'edizione interpretativa -->

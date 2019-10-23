@@ -74,12 +74,47 @@
 		<xsl:choose>
 			<xsl:when test="parent::tei:lg">
 				<xsl:element name="span">
-					<xsl:attribute name="class" select="$ed_name2, name()" separator="-"/>
+					<xsl:attribute name="class" select="$ed_name1, name()" separator="-"/>
 					<xsl:attribute name="data-display" select="'inline-block'"/>
 					<xsl:call-template name="dataAttributesFromAttributes"/>
 					<xsl:apply-templates mode="#current"/> 
 					<xsl:text> </xsl:text>
 				</xsl:element>
+			</xsl:when>
+			<xsl:when test="not(ancestor::node()[parent::node()[name()=$start_split]]//tei:lb) and (not(@part) or number(@part) &lt; 0 or @group!='lb')">
+				<xsl:choose>
+					<xsl:when test="@n">
+						<xsl:element name="div">
+							<xsl:attribute name="class">
+								<xsl:value-of select="'lb '"/>
+								<xsl:value-of select="$ed_name1"/>
+								<xsl:value-of select="' line'"/>
+							</xsl:attribute>
+							<xsl:call-template name="dataAttributesFromAttributes"/>
+							<xsl:element name="span">
+								<xsl:attribute name="class" select="$ed_name1, 'lineN'" separator="-"/>
+								<xsl:attribute name="data-five-mult" select="if(abs(@n) mod 5 = 0) then('yes') else('no')"/>
+								<xsl:value-of select="if(string-length(@n) &gt; 1) then(@n) else(concat('&#xA0;&#xA0;', @n))"/>
+								<xsl:text>&#xA0;&#xA0;</xsl:text>
+							</xsl:element>
+							<xsl:element name="span">
+								<xsl:attribute name="class" select="concat($ed_name1, '-left ', $ed_name1,'-', name())"/>
+								<xsl:call-template name="dataAttributesFromAttributes"/>
+								<xsl:apply-templates mode="#current"/> 
+								<xsl:text> </xsl:text>
+							</xsl:element>
+						</xsl:element>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:element name="span">
+							<xsl:attribute name="class" select="$ed_name1, name()" separator="-"/>
+							<xsl:attribute name="data-display" select="'block'"/>
+							<xsl:call-template name="dataAttributesFromAttributes"/>
+							<xsl:apply-templates mode="#current"/> 
+							<xsl:text> </xsl:text>
+						</xsl:element>
+					</xsl:otherwise>
+				</xsl:choose>
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:apply-templates mode="#current"/>
