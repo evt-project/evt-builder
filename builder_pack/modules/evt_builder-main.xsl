@@ -94,7 +94,7 @@
 					<xsl:for-each select="$root//tei:text/tei:group/tei:text">
 						<!-- TRANSLATION -->
 						<xsl:if test="$translation=true()">
-							<xsl:call-template name="translate"/><!-- TODO: CHECK IF TRANSLATION IS ACTIVE-->
+							<xsl:call-template name="translate"/>
 						</xsl:if>
 						<!-- REGESTO -->
 						<xsl:if test="$regesto=true()">
@@ -110,7 +110,7 @@
 					<xsl:for-each select="tei:TEI/tei:text">
 						<!-- TRANSLATION -->
 						<xsl:if test="$translation=true()">
-							<xsl:call-template name="translate"/><!-- TODO: CHECK IF TRANSLATION IS ACTIVE-->
+							<xsl:call-template name="translate"/>
 						</xsl:if>
 						<!-- REGESTO -->
 						<xsl:if test="$regesto=true()">
@@ -248,15 +248,13 @@
 		<xsl:for-each select="$edition_array">
 			<xsl:if test=". != ''">
 				<xsl:variable name="edition_current" select="lower-case(.)"/>
-				<xsl:if test="position()!=3"><!-- TRANSLATION IS HANDLED DIFFERENTLY -->
-					<xsl:result-document method="html" encoding="UTF-8" media-type="text/plain" byte-order-mark="yes" href="{$filePrefix}/data/output_data/{$edition_current}/page_{$pb_n}_{$edition_current}.html" indent="yes">
-						<xsl:call-template name="data_structure">
-							<xsl:with-param name="output" select="$edition_current"/>
-							<xsl:with-param name="pb_n" select="$pb_n"/>
-							<xsl:with-param name="edition_pos" select="position()"/>
-						</xsl:call-template>
-					</xsl:result-document>
-				</xsl:if>
+				<xsl:result-document method="html" encoding="UTF-8" media-type="text/plain" byte-order-mark="yes" href="{$filePrefix}/data/output_data/{$edition_current}/page_{$pb_n}_{$edition_current}.html" indent="yes">
+					<xsl:call-template name="data_structure">
+						<xsl:with-param name="output" select="$edition_current"/>
+						<xsl:with-param name="pb_n" select="$pb_n"/>
+						<xsl:with-param name="edition_pos" select="position()"/>
+					</xsl:call-template>
+				</xsl:result-document>
 			</xsl:if>
 		</xsl:for-each>
 	</xsl:template>

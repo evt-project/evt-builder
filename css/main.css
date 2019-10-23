@@ -3761,7 +3761,10 @@ ul.ul_list li.list_element_opened {
     background: none;
     color: grey;
 }
-
+.dipl-lineN[data-five-mult="no"],
+.interp-lineN[data-five-mult="no"] {
+    visibility: hidden;
+}
 /** Stile aggiunto per il progetto piccola Biblioteca Digitale
 Romanza  realizzato da A. Martinelli" **/
 
