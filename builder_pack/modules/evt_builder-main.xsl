@@ -1292,7 +1292,7 @@
 				<xsl:apply-templates select="node()/." mode="transl"/>
 			</xsl:variable>
 			<xsl:variable name="current_text1">
-				<xsl:apply-templates select="$current_text//text()[not(ancestor::span)]" mode="deleteSpaces"/>
+				<xsl:apply-templates select="$current_text//text()" mode="deleteSpaces"/>
 			</xsl:variable>
 			<xsl:choose>
 				<xsl:when test="self::tei:l">
@@ -1319,6 +1319,16 @@
 						"lang": "<xsl:value-of select="$currentLang"/>"
 					},
 				</xsl:when>
+				<xsl:otherwise>
+					{ 
+						"line" : "no line info|no line info",
+						"text" : "<xsl:copy-of select="replace($current_text1, '(\\|/)', '$1$1')"/>",
+						"tags" : "<xsl:call-template name="doc_refs4search_transl"/>",
+						"loc" : "<xsl:value-of select="$pageRef"/>",
+						"inFront": "",
+						"lang": "<xsl:value-of select="$currentLang"/>"
+					},
+				</xsl:otherwise>
 			</xsl:choose>
 		</xsl:for-each>
 	</xsl:template>
@@ -1435,7 +1445,7 @@
 			<xsl:when test="self::tei:lb/@n">
 				<xsl:value-of select="concat(self::tei:lb/@n, '|line ', self::tei:lb/@n)"/>
 			</xsl:when>
-			<xsl:otherwise>no line info |no line info</xsl:otherwise>
+			<xsl:otherwise>no line info|no line info</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
 
