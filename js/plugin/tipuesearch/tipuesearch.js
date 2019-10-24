@@ -13,7 +13,7 @@
  */
 
 
-function goToSearchResult(text_id, page_id, pos, setSuffix, inFront) {
+function goToSearchResult(text_id, page_id, pos, setSuffix, inFront, lang) {
      $('#toggle_search_cont' + setSuffix).trigger('click');
      var navToDoc;
      var navToPage;
@@ -74,6 +74,7 @@ function goToSearchResult(text_id, page_id, pos, setSuffix, inFront) {
      }
      var elSelector = `[${posSelector.selector}="${posSelector.id}"]`;
      var elFound = document.querySelector(elSelector);
+     console.log('TODO lang', lang);
      if (elFound) {
           elFound.scrollIntoViewIfNeeded()
      } else {
@@ -330,6 +331,8 @@ function goToSearchResult(text_id, page_id, pos, setSuffix, inFront) {
                          var c = 0;
                          found = new Array();
                          // console.log(tipuesearch_in);
+                         var currEE = $('#span_ee_select'+set.suffix).find('.label_selected').attr('data-value');
+                         var currTranslLang = currEE.indexOf('translation') >= 0 ? currEE.replace('translation-', '') : '';
                          for (var i = 0; i < tipuesearch_in.pages.length; i++) {
                               var score = 1000000000;
                               var s_t = tipuesearch_in.pages[i].text;
@@ -369,7 +372,11 @@ function goToSearchResult(text_id, page_id, pos, setSuffix, inFront) {
 
                               }
                               if (score < 1000000000) {
-                                   found[c++] = score + '*|*|*' + tipuesearch_in.pages[i].line + '*|*|*' + s_t + '*|*|*' + tipuesearch_in.pages[i].loc + '*|*|*' + tipuesearch_in.pages[i].tags + '*|*|*' + tipuesearch_in.pages[i].inFront;
+                                   if (currTranslLang && tipuesearch_in.pages[i].lang && currTranslLang !== tipuesearch_in.pages[i].lang) {
+                                        // Exclude
+                                   } else {
+                                        found[c++] = score + '*|*|*' + tipuesearch_in.pages[i].line + '*|*|*' + s_t + '*|*|*' + tipuesearch_in.pages[i].loc + '*|*|*' + tipuesearch_in.pages[i].tags + '*|*|*' + tipuesearch_in.pages[i].inFront +  '*|*|*' + tipuesearch_in.pages[i].lang;
+                                   }
                               }
                          }
                          if (c != 0) {
@@ -402,6 +409,7 @@ function goToSearchResult(text_id, page_id, pos, setSuffix, inFront) {
                               var text, text_id, text_label;
                               var pos, pos_id, pos_label;
                               var inFront;
+                              var lang;
                               var caseSensitive = false;
                               if ($('#search_case_sensitive_toggler'+set.suffix).hasClass('active')) {
                                    caseSensitive = true;
@@ -466,6 +474,8 @@ function goToSearchResult(text_id, page_id, pos, setSuffix, inFront) {
                                         pos_label = pos[1];
 
                                         inFront = fo[5];
+                                        lang = fo[6];
+                                             
                                         if (t_d.indexOf("class='bold_search'>") === 0) { // PATCH
                                              t_d = '<span ' + t_d;
                                         }
@@ -474,7 +484,7 @@ function goToSearchResult(text_id, page_id, pos, setSuffix, inFront) {
                                         out += '<div class="tipue_search_found_text">';
 
                                         out += `<span class="tipue_search_go_to_result" 
-                                                  onclick="goToSearchResult('${text_id}', '${page_id}', '${fo[1]}', '${set.suffix}', '${inFront}')">`;
+                                                  onclick="goToSearchResult('${text_id}', '${page_id}', '${fo[1]}', '${set.suffix}', '${inFront}', '${lang}')">`;
                                         out += '<span lang="def">FOUND_IN</span> ';
 
                                         if (text_label !== undefined) {
