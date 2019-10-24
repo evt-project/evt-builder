@@ -110,7 +110,7 @@ function updateFrontContent(current_doc) {
 				//  .click(function(){ hide_front(id_front_cont, id_front); })
 				//  .appendTo(id_front_cont); // solo nel box di destra
 
-				if ($('#span_ee_select .label_selected').attr('data-value') !== 'translation' &&
+				if ($('#span_ee_select .label_selected').attr('data-value').indexOf('translation') < 0 &&
 					!$('#switchFront').hasClass('active')) {
 					$("#main_right_frame").find('.like_select.filter')
 						.css('opacity', "1")
@@ -279,7 +279,7 @@ function updateRegestoContent(current_doc) {
 				//  .click(function(){ hide_regesto(id_regesto_cont, id_regesto); })
 				//  .appendTo(id_regesto_cont); // solo nel box di destra
 				var spanEEselectLabelSelected = $('#span_ee_select .label_selected').attr('data-value');
-				if (spanEEselectLabelSelected !== 'translation' &&
+				if (spanEEselectLabelSelected.indexOf('translation') < 0 &&
 					(!switchReg.hasClass('active'))) {
 					$("#main_right_frame").find('.like_select.filter')
 						.css('opacity', "1")

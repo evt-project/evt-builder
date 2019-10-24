@@ -53,7 +53,7 @@ function openTxtImgMode() {
 		.siblings()
 		.removeClass("current_mode");
 
-	if ($('#span_ee_select .label_selected').attr('data-value') !== 'translation') {
+	if ($('#span_ee_select .label_selected').attr('data-value').indexOf('translation') < 0) {
 		$('.like_select.filter').removeClass('not_active');
 	}
 

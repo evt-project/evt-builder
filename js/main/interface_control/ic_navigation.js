@@ -158,13 +158,13 @@ function selectDocumentInPage(elem) {
 }
 
 /*= GO TO PAGE =*/
-function gotopage(pp_val, pp_lab, state) {
+function gotopage(pp_val, pp_lab, current_doc) {
 	var edition, edition_add;
 	var current_font_size;
 	//N.B. i caricamenti delle immagini si attivano grazie agli eventi change dei label_selected in iviewer_config
 	edition = $("#span_ee_select .main_ee_select .label_selected").attr('data-value').toLowerCase();
 	// $('#span_pp_select .label_selected').trigger('change');
-
+	
 	var attrFontSize = $('#text_cont').attr('data-font-size');
 	if (attrFontSize !== '' && attrFontSize !== undefined) {
 		current_font_size = parseFloat(attrFontSize);
@@ -188,65 +188,65 @@ function gotopage(pp_val, pp_lab, state) {
 						'line-height': (current_font_size + 10) + 'px'
 					});
 			}
-			//IT: Attiva occorrenza in lista
-			var right_frame = $('#main_right_frame');
-			if (right_frame.find('.list').length > 0 &&
-				right_frame.find('.list_element.list_element_opened').length > 0) {
-				right_frame.find('.selected_from_list').removeClass('selected_from_list');
-				right_frame.find('.list_element_opened').each(function () {
-					var ref;
-					ref = $(this).attr('id');
-					$("#text span[data-ref='" + ref + "']").addClass('selected_from_list');
-				});
-			}
-			// if (!$('#imgd_link').hasClass('current_mode')) {
-			// 	updateLinesWidth(right_frame);
-			// }
-			
-			//IT: Riattiva filtri attivi
-			updateEntitiesFiltered(right_frame);
-
-			//IT: controlla se la pagine ha gli elementi necessari allo strumento ITL
-			if ($('#text_elem .Area').length) {
-				if ($('#switchITL').hasClass('inactive') || $('#switchITL').hasClass('likeInactive')) {
-					enableITLbutton();
-				}
+			var ee_val = $('#main_right_frame .main_ee_select .label_selected').attr('data-value');
+			if (ee_val.indexOf('translation') >= 0) {
+				selectCurrentTranslation('main_right_frame');
 			} else {
-				if ($('#switchITL i ').hasClass('fa-circle-o')) disableITLbutton();
-				else $('#switchITL').addClass('likeInactive');
-			}
-			//IT: controlla se la pagine ha gli elementi necessari allo strumento HS
-			if ($('#text_elem .Annotation').length) {
-				if ($('#switchHS').hasClass('inactive') || $('#switchHS').hasClass('likeInactive')) {
-					enableHSbutton();
+				//IT: Attiva occorrenza in lista
+				var right_frame = $('#main_right_frame');
+				if (right_frame.find('.list').length > 0 &&
+					right_frame.find('.list_element.list_element_opened').length > 0) {
+					right_frame.find('.selected_from_list').removeClass('selected_from_list');
+					right_frame.find('.list_element_opened').each(function () {
+						var ref;
+						ref = $(this).attr('id');
+						$("#text span[data-ref='" + ref + "']").addClass('selected_from_list');
+					});
 				}
-			} else {
-				if ($('#switchHS i ').hasClass('fa-circle-o')) disableHSbutton();
-				else $('#switchHS').addClass('likeInactive');
-			}
-
-			// Aggiorna eventi sul click negli elementi del text
-			var textCont = $('#text_cont');
-			var current_tt, current_doc_elem, current_doc_title;
-			current_tt = $('#span_tt_select .option_container .option.selected').attr('data-value');
-			textCont.find(".doc[data-doc!='" + current_tt + "']").addClass('not_current');
-			current_doc_elem = textCont.find(".doc[data-doc='" + current_tt + "']");
-			current_doc_title = current_doc_elem.attr('title');
-
-			current_doc_elem
-				.attr('tempTitle', current_doc_title)
-				.removeAttr('title')
-				.addClass('current');
-			if (textCont.find('.doc').length > 0) {
-				if (textCont.find('.doc.current').length > 0 && textCont.find('.doc.current').position() !== undefined) {
-					textCont.scrollTop(textCont.find('.doc.current').position().top);
+				//IT: Riattiva filtri attivi
+				updateEntitiesFiltered(right_frame);
+	
+				//IT: controlla se la pagine ha gli elementi necessari allo strumento ITL
+				if ($('#text_elem .Area').length) {
+					if ($('#switchITL').hasClass('inactive') || $('#switchITL').hasClass('likeInactive')) {
+						enableITLbutton();
+					}
+				} else {
+					if ($('#switchITL i ').hasClass('fa-circle-o')) disableITLbutton();
+					else $('#switchITL').addClass('likeInactive');
 				}
-
-				textCont.find(".doc").unbind('click').click(function () {
-					selectDocumentInPage(this);
-				});
-			} else {
-				$('#text').addClass('doc').addClass('current').attr('data-doc', current_tt);
+				//IT: controlla se la pagine ha gli elementi necessari allo strumento HS
+				if ($('#text_elem .Annotation').length) {
+					if ($('#switchHS').hasClass('inactive') || $('#switchHS').hasClass('likeInactive')) {
+						enableHSbutton();
+					}
+				} else {
+					if ($('#switchHS i ').hasClass('fa-circle-o')) disableHSbutton();
+					else $('#switchHS').addClass('likeInactive');
+				}
+				// Aggiorna eventi sul click negli elementi del text
+				var textCont = $('#text_cont');
+				var current_tt, current_doc_elem, current_doc_title;
+				current_tt = $('#span_tt_select .option_container .option.selected').attr('data-value');
+				textCont.find(".doc[data-doc!='" + current_tt + "']").addClass('not_current');
+				current_doc_elem = textCont.find(".doc[data-doc='" + current_tt + "']");
+				current_doc_title = current_doc_elem.attr('title');
+	
+				current_doc_elem
+					.attr('tempTitle', current_doc_title)
+					.removeAttr('title')
+					.addClass('current');
+				if (textCont.find('.doc').length > 0) {
+					if (textCont.find('.doc.current').length > 0 && textCont.find('.doc.current').position() !== undefined) {
+						textCont.scrollTop(textCont.find('.doc.current').position().top);
+					}
+	
+					textCont.find(".doc").unbind('click').click(function () {
+						selectDocumentInPage(this);
+					});
+				} else {
+					$('#text').addClass('doc').addClass('current').attr('data-doc', current_tt);
+				}
 			}
 
 			$("img").error(function () {
@@ -302,56 +302,73 @@ function gotopage(pp_val, pp_lab, state) {
 			}
 		} else {
 			$('#text_cont-add')
-				.css({
-					'font-size': current_font_size + 'px',
-					'line-height': (current_font_size + 10) + 'px'
-				});
-			//IT: Attiva occorrenza in lista
-			var left_frame = $('#main_left_frame');
-			if (left_frame.find('.list').length > 0 &&
-				left_frame.find('.list_element.list_element_opened').length > 0) {
-
-				left_frame.find('.selected_from_list').removeClass('selected_from_list');
-				left_frame.find('.list_element_opened').each(function () {
-					var ref;
-					ref = $(this).attr('id');
-					$("#text span[data-ref='" + ref + "']").addClass('selected_from_list');
-				});
-			}
-			
-			//IT: Riattiva filtri attivi
-			left_frame
-				.find('.like_select.filter')
-				.find('.option.selected')
-				.removeClass('selected')
-				.trigger('click');
-
-			// Aggiorna eventi sul click negli elementi del text
-			var current_tt, current_doc_title;
-			var textContAdd = $('#text_cont-add');
-			current_tt = $('#span_tt_select-add .option_container .option.selected').attr('data-value');
-
-			if (textContAdd.find('.doc').length <= 0) {
-				textContAdd
-					.find('#text')
-					.addClass('doc')
-					.addClass('current')
-					.attr('data-doc', current_tt);
+			.css({
+				'font-size': current_font_size + 'px',
+				'line-height': (current_font_size + 10) + 'px'
+			});
+			var ee_val = $('#main_left_frame .main_ee_select .label_selected').attr('data-value');
+			if (ee_val.indexOf('translation') >= 0) {
+				selectCurrentTranslation('main_leftt_frame');
 			} else {
-				textContAdd.find(".doc[data-doc!='" + current_tt + "']").addClass('not_current');
-				current_doc_title = textContAdd.find(".doc[data-doc='" + current_tt + "']").attr('title');
-
-				textContAdd.find(".doc[data-doc='" + current_tt + "']")
-					.attr('tempTitle', current_doc_title)
-					.removeAttr('title')
-					.addClass('current');
-
-				if ($('#text_cont-add:visible .doc').length > 0) {
-					textContAdd.scrollTop(textContAdd.find('.doc.current').position().top);
-
-					textContAdd.find(".doc").unbind('click').click(function () {
-						selectDocumentInPage(this);
+				//IT: Attiva occorrenza in lista
+				var left_frame = $('#main_left_frame');
+				if (left_frame.find('.list').length > 0 &&
+					left_frame.find('.list_element.list_element_opened').length > 0) {
+	
+					left_frame.find('.selected_from_list').removeClass('selected_from_list');
+					left_frame.find('.list_element_opened').each(function () {
+						var ref;
+						ref = $(this).attr('id');
+						$("#text span[data-ref='" + ref + "']").addClass('selected_from_list');
 					});
+				}
+				
+				//IT: Riattiva filtri attivi
+				left_frame
+					.find('.like_select.filter')
+					.find('.option.selected')
+					.removeClass('selected')
+					.trigger('click');
+	
+				// Aggiorna eventi sul click negli elementi del text
+				var current_tt, current_doc_title;
+				var textContAdd = $('#text_cont-add');
+				current_tt = $('#span_tt_select-add .option_container .option.selected').attr('data-value');
+	
+				if (textContAdd.find('.doc').length <= 0) {
+					textContAdd
+						.find('#text')
+						.addClass('doc')
+						.addClass('current')
+						.attr('data-doc', current_tt);
+				} else {
+					textContAdd.find(".doc[data-doc!='" + current_tt + "']").addClass('not_current');
+					current_doc_title = textContAdd.find(".doc[data-doc='" + current_tt + "']").attr('title');
+	
+					textContAdd.find(".doc[data-doc='" + current_tt + "']")
+						.attr('tempTitle', current_doc_title)
+						.removeAttr('title')
+						.addClass('current');
+	
+					if ($('#text_cont-add:visible .doc').length > 0) {
+						textContAdd.scrollTop(textContAdd.find('.doc.current').position().top);
+	
+						textContAdd.find(".doc").unbind('click').click(function () {
+							selectDocumentInPage(this);
+						});
+					}
+				}
+
+				// Riattiva prosa/versi
+				var proseVersesToggler = $("#toggleVersesProseBtn-add");
+				if (proseVersesToggler) {
+					var activeStatus = proseVersesToggler.attr("data-active-status");
+					var frame = proseVersesToggler.closest(".main_frame");
+					if (activeStatus === "prose") {
+						viewProse(frame);
+					} else if (activeStatus === "verses") {
+						viewVerses(frame);
+					}
 				}
 			}
 
@@ -360,17 +377,6 @@ function gotopage(pp_val, pp_lab, state) {
 			InitializeSearch();
 			transformBrs();
 			
-			// Riattiva prosa/versi
-			var proseVersesToggler = $("#toggleVersesProseBtn-add");
-			if (proseVersesToggler) {
-				var activeStatus = proseVersesToggler.attr("data-active-status");
-				var frame = proseVersesToggler.closest(".main_frame");
-				if (activeStatus === "prose") {
-					viewProse(frame);
-				} else if (activeStatus === "verses") {
-					viewVerses(frame);
-				}
-			}
 			updateLinesWidth(left_frame);
 			/* Integration by LS */
 			window.lang.run();
@@ -381,9 +387,11 @@ function gotopage(pp_val, pp_lab, state) {
 	var frontFrame = $('#text_elem #front_frame');
 	frontFrame.empty();
 	var tt_val = $(".main_tt_select .label_selected").attr("data-value");
-	if ($(".main_pp_select .option[data-value='" + pp_val + "']").attr('data-has-front') === 'true') {
-		if (edition !== "translation") {
+	var pp_el = $(".main_pp_select .option[data-value='" + pp_val + "']");
+	if (pp_el.attr('data-has-front') === 'true') {
+		if (edition.indexOf("translation") < 0) {
 			frontFrame
+				.show()
 				.attr('data-page', pp_val)
 				.load("data/output_data/" + edition + "/page_" + pp_val + "-front_" + edition + ".html #text_frame #text",
 					function (response, status, xhr) {
@@ -392,25 +400,20 @@ function gotopage(pp_val, pp_lab, state) {
 		}
 	}
 
-	var re = /doc=/;
-	var hash_parts = location.hash.substr(1).split('&');
-	var ind = hash_parts.indexOf((function () {
-		var i;
-		for (i in hash_parts)
-			if (re.test(hash_parts[i]))
-				return hash_parts[i];
-	})());
-	var transText = hash_parts && hash_parts[ind] ? hash_parts[ind].replace(/doc=/ig, "") : ""; //TODO: check better way to retrieve current text id
-	if (edition === "translation") {
-		frontFrame
+	if (edition.indexOf("translation") >= 0) {
+		frontFrame.hide();
+		$('#text_elem #text_frame')
 			.attr('data-page', pp_val)
-			.load("data/output_data/" + edition + "/translation_" + transText + ".html #text_frame #text",
+			.attr('data-doc', current_doc)
+			.load("data/output_data/translation/translation_"+current_doc+".html #text_frame #text",
 				function (response, status, xhr) {
 					pageLoadedCallback(status, current_font_size);
 				});
 	} else {
+		frontFrame.show();
 		$('#text_elem #text_frame')
 			.attr('data-page', pp_val)
+			.attr('data-doc', current_doc)
 			// .empty()
 			.load("data/output_data/" + edition + "/page_" + pp_val + "_" + edition + ".html #text_frame #text",
 				function (response, status, xhr) {
@@ -426,23 +429,30 @@ function gotopage(pp_val, pp_lab, state) {
 
 		frontFrameAdd.empty();
 		if ($(".main_pp_select .option[data-value='" + pp_val + "']").attr('data-has-front') === 'true') {
-			if (edition_add !== "translation") {
+			if (edition_add.indexOf("translation") < 0) {
 				frontFrameAdd
+					.show()
 					.load("data/output_data/" + edition_add + "/page_" + pp_val + "-front_" + edition_add + ".html #text_frame #text",
 						function (response, status, xhr) {
 							pageLoadedCallbackAdd(status, current_font_size);
 						});
 			}
 		}
-		if (edition_add === "translation") {
-			$('#text_elem-add #text_frame-add')
+		if (edition_add.indexOf("translation") >= 0) {
+			frontFrameAdd.hide();
+			$('#text_elem-add #text_frame-add')	
+				.attr('data-page', pp_val)
+				.attr('data-doc', current_doc)
 				// .empty()
-				.load("data/output_data/" + edition_add + "/translation_" + transText + ".html #text_frame #text",
+				.load("data/output_data/translation/translation_"+current_doc+".html #text_frame #text",
 					function (response, status, xhr) {
 						pageLoadedCallbackAdd(status, current_font_size);
 					});
 		} else if (edition_add !== undefined) {
+			frontFrameAdd.show();
 			$('#text_elem-add #text_frame-add')
+				.attr('data-page', pp_val)
+				.attr('data-doc', current_doc)
 				// .empty()
 				.load("data/output_data/" + edition_add + "/page_" + pp_val + "_" + edition_add + ".html #text_frame #text",
 					function (response, status, xhr) {
@@ -479,16 +489,6 @@ function gotoedition(pp_val, ee_val, pp_el, frame_id) {
 					.appendTo(elem);
 			}
 		} else {
-			if ($('#' + frame_id).find('.doc').length <= 0) {
-				$('#' + frame_id)
-					.find('#text')
-					.addClass('doc')
-					.addClass('current')
-					.attr('data-doc', tt_val);
-			} else {
-				$('#' + frame_id + " .doc[data-doc!='" + tt_val + "']").addClass('not_current');
-			}
-
 			// IT: se il pulsante ITL è attivo e non sono in modalità txttxt, attiva ITL
 			if ($("#switchITL i").hasClass('fa fa-chain')) {
 				if ($('.current_mode').attr('id') !== 'txttxt_link') {
@@ -500,32 +500,45 @@ function gotoedition(pp_val, ee_val, pp_el, frame_id) {
 					InitializeHS();
 				}
 			} /*Add by JK for HS*/
-
-			var current_doc = $('#span_tt_select .label_selected').attr('data-value');
-			var currentDocElem = $(".doc[data-doc='" + current_doc + "']");
-			if (currentDocElem.length > 0) {
-				currentDocElem.addClass('current');
+			if (ee_val && ee_val.indexOf('translation') >= 0) {
+				var parentFrame = $('#' + frame_id).closest('.main_frame');
+				selectCurrentTranslation(parentFrame.attr('id'));
+			} else {
+				if ($('#' + frame_id).find('.doc').length <= 0) {
+					$('#' + frame_id)
+						.find('#text')
+						.addClass('doc')
+						.addClass('current')
+						.attr('data-doc', tt_val);
+				} else {
+					$('#' + frame_id + " .doc[data-doc!='" + tt_val + "']").addClass('not_current');
+				}
+				var current_doc = $('#span_tt_select .label_selected').attr('data-value');
+				var currentDocElem = $(".doc[data-doc='" + current_doc + "']");
+				if (currentDocElem.length > 0) {
+					currentDocElem.addClass('current');
+				}
+				// Riattiva prosa/versi
+				var frame = $("#" + pp_el).parents("div[id*='frame']");
+				var proseVersesToggler = frame.find("[id*='toggleVersesProseBtn']");
+				if (proseVersesToggler) {
+					var activeStatus = proseVersesToggler.attr("data-active-status");
+					if (activeStatus === "prose") {
+						viewProse(frame);
+					} else if (activeStatus === "verses") {
+						viewVerses(frame);
+					}
+				}
+				$("#text_cont .doc, #text_cont-add .doc").unbind('click').click(function () {
+					selectDocumentInPage(this);
+				});
 			}
 
 			InitializePopup();
 			InitializeRefs();
 			InitializeSearch();
 			transformBrs();
-			// Riattiva prosa/versi
-			var frame = $("#" + pp_el).parents("div[id*='frame']");
-			var proseVersesToggler = frame.find("[id*='toggleVersesProseBtn']");
-			if (proseVersesToggler) {
-				var activeStatus = proseVersesToggler.attr("data-active-status");
-				if (activeStatus === "prose") {
-					viewProse(frame);
-				} else if (activeStatus === "verses") {
-					viewVerses(frame);
-				}
-			}
 
-			$("#text_cont .doc, #text_cont-add .doc").unbind('click').click(function () {
-				selectDocumentInPage(this);
-			});
 			var ppElSelect = $("#" + pp_el).parents("div[id*='frame']").find('.like_select.filter');
 			if (ppElSelect) {
 				ppElSelect
@@ -547,7 +560,7 @@ function gotoedition(pp_val, ee_val, pp_el, frame_id) {
 	var ppElFrontFrame = $("#" + pp_el + " div[id*='front_frame']");
 	ppElFrontFrame.empty();
 	if ($(".main_pp_select .option[data-value='" + pp_val + "']").attr('data-has-front') === 'true') {
-		if (ee_val !== "translation") {
+		if (ee_val.indexOf("translation") < 0) {
 			ppElFrontFrame
 				.attr('data-page', pp_val)
 				.load("data/output_data/" + ee_val + "/page_" + pp_val + "-front_" + ee_val + ".html #text_frame #text",
@@ -557,11 +570,13 @@ function gotoedition(pp_val, ee_val, pp_el, frame_id) {
 		}
 	}
 
-	if (ee_val === "translation") {
-		var currentText = $('#span_tt_select .label_selected').data('value');
+	if (ee_val.indexOf("translation") >= 0) {
+		var currentText = $('#span_tt_select .label_selected').attr('data-value');
 		$("#" + pp_el + " div[id*='text_frame']")
 			// .empty()
-			.load("data/output_data/" + ee_val + "/translation_" + currentText + ".html #text_frame #text",
+			.attr('data-page', pp_val)
+			.attr('data-doc', currentText)
+			.load("data/output_data/translation/translation_"+currentText+".html #text_frame #text",
 				function (response, status, xhr) {
 					editionLoadedCallback(status);
 				}
@@ -569,6 +584,8 @@ function gotoedition(pp_val, ee_val, pp_el, frame_id) {
 	} else {
 		$("#" + pp_el + " div[id*='text_frame']")
 			// .empty()
+			.attr('data-page', pp_val)
+			.attr('data-doc', currentText)
 			.load("data/output_data/" + ee_val + "/page_" + pp_val + "_" + ee_val + ".html #text_frame #text",
 				function (response, status, xhr) {
 					editionLoadedCallback(status);
@@ -923,8 +940,9 @@ function bindEEselectClick() {
 			var pp_val, ee_val;
 			var tt_val;
 
-			pp_val = $('#span_pp_select .label_selected').attr('data-value');
-			tt_val = $('#span_pp_select .label_selected').attr('data-first-doc');
+			var ppSelected = $('#span_pp_select .label_selected');
+			pp_val = ppSelected.attr('data-value');
+			tt_val = ppSelected.attr('data-first-doc');
 			ee_val = $(this).attr('data-value').toLowerCase();
 
 			contextual_frame = "";
@@ -985,7 +1003,7 @@ function bindEEselectClick() {
 			// Faccio un controllo sul livello di edizione da attivare sul frame corrente
 			// e se sto passando all'edizione diplomatica disattivo i filtri e le liste
 			// Commentato da FS mostra filtri e liste anche in edizione diplomatica
-			if ((ee_val !== 'translation')) {
+			if ((ee_val.indexOf('translation') < 0)) {
 				$("#" + contextual_parent)
 					.parents("div[id*='frame']")
 					.find('.like_select.filter')
@@ -1037,7 +1055,7 @@ function bindEEselectClick() {
 					// Se sto attivando l'edizione diplomatica nell'altro frame
 					// Disattivo le liste e i filtri
 					// Commentto da FS - Mostra filtri e liste anche in ed diplomatica
-					if ((other_ee_val !== 'translation') &&
+					if ((other_ee_val.indexOf('translation') < 0) &&
 						(!$("#" + other_parent).parents("div[id*='frame']").find('.toggleReg').hasClass('active'))) {
 						$("#" + other_parent)
 							.parents("div[id*='frame']")
@@ -1225,5 +1243,26 @@ function bindArrowsBtnsClick() {
 		$("#inside_right_arrow, #inside_right_arrow-add").unbind("click").click(function () {
 			navDoc("right");
 		});
+	}
+}
+
+function selectCurrentTranslation(frame_id) {
+	var currentLang = $('#' + frame_id + ' .main_ee_select .label_selected').attr('data-value').replace('translation-', '');
+	var currentPage = $('#span_pp_select .label_selected').attr('data-value');
+	if (currentLang) {
+		$('#' + frame_id + ' .translation_text[data-lang!="'+currentLang+'"]').hide();
+		if (currentPage) {
+			try {
+				$('#' + frame_id + ' .translation_text[data-lang="'+currentLang+'"] [data-corresp]').each(function() {
+					if ($(this).attr('data-corresp') === '#' + currentPage) {
+						$(this).show();
+					} else {
+						$(this).hide();										
+					}
+				})
+			} catch(e) { 
+				$('#' + frame_id + '.translation_text[data-lang="'+currentLang+'"] *').show(); 
+			}
+		}
 	}
 }

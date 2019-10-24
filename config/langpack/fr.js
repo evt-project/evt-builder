@@ -223,6 +223,7 @@ jquery_lang_js.prototype.lang.fr = {
 	"SHOW_ALL_QUIRES": "Montrer tous les fichiers",
 	"HIDE_ALL_QUIRES": "Cacher tous les fichiers",
 
+	"ENG": "Anglais",
 	"ITA": "Italien",
 	"LAT": "Latin",
 	"SPA": "Espagnol",
