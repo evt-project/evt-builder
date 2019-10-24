@@ -223,6 +223,7 @@ jquery_lang_js.prototype.lang.en = {
 	"SHOW_ALL_QUIRES": "Show all quires",
 	"HIDE_ALL_QUIRES": "Hide all quires",
 
+	"ENG": "English",
 	"ITA": "Italian",
 	"LAT": "Latin",
 	"SPA": "Spanish",

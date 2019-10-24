@@ -38,6 +38,7 @@ $(function () {
 
 	function updateTipueSearchLocation(newLocation, suffix) {
 		if (newLocation !== 'regesto') {
+			newLocation = newLocation.indexOf('translation') >= 0 ? 'translation' : newLocation;
 			jsonLocation = URI + '/' + newLocation + '/' + newLocation + '.json';
 			triggerTipueSearch(jsonLocation, suffix);
 		}

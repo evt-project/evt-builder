@@ -49,7 +49,13 @@
 		</xsl:element>
 	</xsl:template>
 	
-	<!--             -->
+	<xsl:template match="tei:div" mode="transl">
+		<xsl:element name="div">
+			<xsl:call-template name="dataAttributesFromAttributes"/>
+			<xsl:apply-templates mode="#current"/>
+		</xsl:element>
+	</xsl:template>
+	<!--            -->
 	<!-- Page layout -->
 	<!--             -->
 		

@@ -80,7 +80,7 @@ function onHashChange(xml) {
 
         if (current_page != $('#text_elem').attr('data-page')) {
             // necessario per la navigazione per documenti in una stessa pagina
-            gotopage(current_page, pp_lab, "none");
+            gotopage(current_page, pp_lab, current_doc);
         }
         //window.location.hash = "doc="+current_doc+"&page="+current_page;
         //chooseZoomMag(); // Add by JK for Mag
@@ -90,7 +90,7 @@ function onHashChange(xml) {
         if ($('#switchMag i').hasClass('fa-search-plus')) {
             magnifierON = true;
         }
-        gotopage(current_page, pp_lab, "none");
+        gotopage(current_page, pp_lab, current_doc);
     }
     selectPP(current_page, pp_lab, current_doc);
     selectTT(current_doc);

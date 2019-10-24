@@ -224,6 +224,7 @@ jquery_lang_js.prototype.lang.cs = {
 	"SHOW_ALL_QUIRES": "Zobrazit všechny dotazy",
 	"HIDE_ALL_QUIRES": "Skrýt všechny dotazy",
 
+	"ENG": "Anglicky",
 	"ITA": "Italský",
 	"LAT": "Latina",
 	"SPA": "Španělsky",

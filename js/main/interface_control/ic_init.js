@@ -13,14 +13,38 @@ function prepareEditionLevel(xml) {
             );
         });
         if ($(xml).find('translation[active="1"]').length > 0) {
-            $('.main_ee_select .option_container').append(
-                $('<div/>')
-                    .attr("data-value", "translation")
-                    .attr("data-key", "transl")
-                    .attr("lang", 'def')
-                    .addClass('option')
-                    .text("TRANSLATION")
-            );
+            var langs = $(xml).find('translation[active="1"] lang');
+            if (langs.length > 0) {
+                var addedLangs = [];
+                for (var i = 0; i < langs.length; i++) {
+                    if (addedLangs.indexOf(langs[i].textContent) < 0) {
+                        $('.main_ee_select .option_container').append(
+                            $('<div/>')
+                                .attr("data-value", "translation-"+langs[i].textContent)
+                                .attr("data-key", "transl")
+                                .addClass('option')
+                                .append(
+                                    $('<span/>')
+                                        .attr("lang", 'def')
+                                        .text("TRANSLATION"),
+                                    $('<span/>')
+                                        .addClass('transLang')
+                                        .text(" ("+langs[i].textContent+")")
+                                )
+                        );
+                        addedLangs.push(langs[i].textContent)
+                    }
+                }
+            } else {
+                $('.main_ee_select .option_container').append(
+                    $('<div/>')
+                        .attr("data-value", "translation")
+                        .attr("data-key", "transl")
+                        .attr("lang", 'def')
+                        .addClass('option')
+                        .text("TRANSLATION")
+                );
+            }
         }
         var spanEEselect = $('#span_ee_select');
         // Se ho solo un livello di edizioni e non ho il regesto il pulsante TXT-TXT non serve più

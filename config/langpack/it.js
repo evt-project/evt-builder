@@ -223,6 +223,7 @@ jquery_lang_js.prototype.lang.it = {
 	"SHOW_ALL_QUIRES": "Apri tutti i fascicoli",
 	"HIDE_ALL_QUIRES": "Chiudi tutti i fascicoli",
 
+	"ENG": "Inglese",
 	"ITA": "Italiano",
 	"LAT": "Latino",
 	"SPA": "Spagnolo",
