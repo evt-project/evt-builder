@@ -94,7 +94,7 @@
 					<xsl:for-each select="$root//tei:text/tei:group/tei:text">
 						<!-- TRANSLATION -->
 						<xsl:if test="$translation=true()">
-							<xsl:call-template name="translate"/>
+							<xsl:call-template name="translation"/>
 						</xsl:if>
 						<!-- REGESTO -->
 						<xsl:if test="$regesto=true()">
@@ -110,7 +110,7 @@
 					<xsl:for-each select="tei:TEI/tei:text">
 						<!-- TRANSLATION -->
 						<xsl:if test="$translation=true()">
-							<xsl:call-template name="translate"/>
+							<xsl:call-template name="translation"/>
 						</xsl:if>
 						<!-- REGESTO -->
 						<xsl:if test="$regesto=true()">
@@ -381,7 +381,7 @@
 		</xsl:if>
 	</xsl:template>
 	
-	<xsl:template name="translate">
+	<xsl:template name="translation">
 		<xsl:variable name="doc_id">
 			<xsl:choose>
 				<xsl:when test="current()/@xml:id">
@@ -415,19 +415,25 @@
 							<div id="text" class="translation">
 								<xsl:choose>
 									<xsl:when test="current()/tei:back/tei:div[starts-with(@type,'transl')]">
-										<xsl:variable name="text">
-											<xsl:apply-templates select="current()/tei:back/tei:div[starts-with(@type,'transl')]" mode="transl"/>
-										</xsl:variable>
-										<xsl:variable name="text2">
-											<xsl:call-template name="divCb">
-												<xsl:with-param name="text" select="$text"/>
-												<xsl:with-param name="ed_name" select="'transl'"/>
-											</xsl:call-template>
-										</xsl:variable>
-										<xsl:call-template name="divLine">
-											<xsl:with-param name="text" select="$text2"/>
-											<xsl:with-param name="ed_name" select="'transl'"/>
-										</xsl:call-template>
+										<xsl:for-each select="current()/tei:back/tei:div[starts-with(@type,'transl')]">
+											<xsl:element name="div">
+												<xsl:attribute name="class" select="'translation_text'"/>
+												<xsl:attribute name="data-lang" select="@xml:lang"/>
+												<xsl:variable name="text">
+													<xsl:apply-templates select="." mode="transl"/>
+												</xsl:variable>
+												<xsl:variable name="text2">
+													<xsl:call-template name="divCb">
+														<xsl:with-param name="text" select="$text"/>
+														<xsl:with-param name="ed_name" select="'transl'"/>
+													</xsl:call-template>
+												</xsl:variable>
+												<xsl:call-template name="divLine">
+													<xsl:with-param name="text" select="$text2"/>
+													<xsl:with-param name="ed_name" select="'transl'"/>
+												</xsl:call-template>
+											</xsl:element>
+										</xsl:for-each>
 									</xsl:when>
 									<xsl:otherwise>
 										<div lang="def">NO_TRANSLATION_AVAILABLE</div>

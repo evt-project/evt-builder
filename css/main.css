@@ -1351,6 +1351,10 @@ footer {
     border-top: solid 1px rgba(60, 50, 44, 0.5);
     margin-top: 2px;
 }
+.like_select .option[data-key="transl"]+.option[data-key="transl"] {
+    border-top: 0;
+    margin-top: 0;
+}
 .like_select .groupTitle {
     color: rgb(0, 0, 0);
     position: relative;
@@ -3948,4 +3952,8 @@ span.autore {
 .emptyDivider {
     display: block;
     clear: both;
+}
+.transLang {
+    font-size: 90%;
+    font-variant: small-caps;
 }

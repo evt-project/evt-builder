@@ -106,7 +106,14 @@
                 </xsl:if>
 
                 <xsl:if test="$translation=true()">
-                    <translation active="1"/>
+                    <translation active="1">
+                        <xsl:for-each select="//tei:back/tei:div[starts-with(@type,'transl')]">
+                            <xsl:variable name="currentLang" select="@xml:lang"/>
+                            <xsl:if test="not(preceding::node()[@xml:lang=$currentLang])">
+                                <lang><xsl:value-of select="@xml:lang"/></lang>                               
+                            </xsl:if>
+                        </xsl:for-each>
+                    </translation>
                 </xsl:if>
                 <liste>
                     <xsl:if test="$list_person = true()">
