@@ -59,7 +59,7 @@
 		<xsl:if test="tei:TEI/tei:sourceDoc">
 			<xsl:apply-templates select="." mode="splitPages4embedded"/>
 			<!-- SEARCH -->
-			<xsl:if test="$search = true()">
+			<xsl:if test="$search=true()">
 				<xsl:apply-templates select="." mode="file4search4embedded"/>
 			</xsl:if>
 		</xsl:if>
@@ -85,7 +85,11 @@
 			<xsl:if test="$msDesc = true()">
 				<xsl:call-template name="msDesc"/>
 			</xsl:if>
-
+			
+			<!-- SEARCH -->
+			<xsl:if test="$search = true()">
+				<xsl:apply-templates select="$step0" mode="file4search"/>
+			</xsl:if>
 			
 			<!-- TRANSLATION + REGESTO | FRONT INFORMATION -->
 			<xsl:choose>
@@ -203,13 +207,6 @@
 			</xsl:result-document>
 		</xsl:if>
 
-
-		<!-- SEARCH -->
-		<xsl:if test="$search = true()">
-			<xsl:apply-templates select="$step0" mode="file4search"/>
-		</xsl:if>
-
-		
 		<!-- EN: The index and structure generation are the same for both the parallel and the embedded  -->
 		<!-- IT: La generazione dell'index e della struttura sono uguali sia per la parallel sia per l'embedded -->
 		<xsl:call-template name="index"/>

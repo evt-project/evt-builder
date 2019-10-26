@@ -411,6 +411,10 @@ function initLists(listsArray) {
                             bindChronologicalIndex();
                             resolve();
                         }
+                    },
+                    error: function() {
+                        console.log('Error: File "data/output_data/liste/' + listName + '.html" non trovato');
+                        resolve();
                     }
                 });
                 // }
@@ -937,10 +941,10 @@ function loadStructureAndPrepareUI() {
                 var listsArray = $(xml).find('liste [active=1]');
                 if (listsArray && listsArray.length > 0) {
                     addLoadingMsg('PREPARING_LISTS', 'loading_lists_msg');
+                    initLists(listsArray).then(function () {
+                        hideGlobalLoading('loading_lists_msg');
+                    }); // ic_lists.js
                 }
-                initLists(listsArray).then(function () {
-                    hideGlobalLoading('loading_lists_msg');
-                }); // ic_lists.js
                 /* ==/ GESTIONE LISTE */
                 /* ================== */
 
