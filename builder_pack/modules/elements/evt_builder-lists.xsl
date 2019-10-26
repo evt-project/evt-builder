@@ -28,7 +28,7 @@
 	<xsl:template name="person">
 		<xsl:choose>
 			<xsl:when
-				test="current()//tei:name or current()//tei:forename or current()//tei:surname or current()//tei:sex or current()//tei:occupation">
+				test="current()//tei:name or current()//tei:forename or current()//tei:surname or current()//tei:sex or current()//tei:occupation or current()//tei:idno">
 				<xsl:element name="span">
 					<xsl:attribute name="class">entity_name <xsl:if test="$list_person = true()">
 							link_active</xsl:if></xsl:attribute>
@@ -74,6 +74,9 @@
 						<xsl:apply-templates select="tei:note" mode="interp"/>
 					</span>
 				</xsl:if>
+				<xsl:if test="current()/tei:idno">
+					<xsl:apply-templates select="tei:idno"/>
+				</xsl:if>
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:element name="span">
@@ -89,7 +92,7 @@
 	<xsl:template name="org">
 		<xsl:choose>
 			<xsl:when
-				test="current()[@type] or current()[@subtype] or current()[@role] or current()/tei:orgName or current()/tei:desc">
+				test="current()[@type] or current()[@subtype] or current()[@role] or current()/tei:orgName or current()/tei:desc or current()//tei:idno">
 				<xsl:if test="current()/tei:orgName">
 					<xsl:element name="span">
 						<xsl:attribute name="class">entity_name <xsl:if test="$list_org = true()">
@@ -184,6 +187,9 @@
 
 					</xsl:for-each>
 				</xsl:if>
+				<xsl:if test="current()/tei:idno">
+					<xsl:apply-templates select="tei:idno"/>
+				</xsl:if>
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:element name="span">
@@ -198,7 +204,7 @@
 	<xsl:template name="place">
 		<xsl:choose>
 			<xsl:when
-				test="current()//tei:settlement or current()//tei:placeName or current()//tei:district">
+				test="current()//tei:settlement or current()//tei:placeName or current()//tei:district or current()//tei:idno">
 				<xsl:if test="current()/tei:settlement">
 					<xsl:element name="span">
 						<xsl:attribute name="class"> entity_name <xsl:if test="$list_place = true()"
@@ -262,6 +268,9 @@
 					<span class="small-note">
 						<xsl:apply-templates select="tei:note" mode="interp"/>
 					</span>
+				</xsl:if>
+				<xsl:if test="current()/tei:idno">
+					<xsl:apply-templates select="tei:idno"/>
 				</xsl:if>
 			</xsl:when>
 			<xsl:otherwise>
