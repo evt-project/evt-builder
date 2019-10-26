@@ -53,18 +53,24 @@ function magnifierReady() {
 	var img = document.getElementById("iviewerImage").cloneNode(false);
 	img.removeAttribute("style");
 	/*IT: calcolo nuova altezza: */
+	var imgHeight;
+	
 	if ($('.current_mode').attr('id') == 'imgd_link') {
 		if (current_pp.indexOf('+') < 0) {
-			zoomImagWidth = 445;
+			zoomImagWidth = parseFloat($("#iviewerImage").css('width'));
+			imgHeight = parseFloat($('#iviewerImage').innerHeight());
 		} else {
-			zoomImagWidth = 900;
+			zoomImagWidth = parseFloat($("#iviewerImage").css('width'));;
+			imgHeight = parseFloat($('#mag_image_elem').innerHeight());
 		}
+		
 	} else {
-		zoomImagWidth = 445; /*richiamata anche in jqzoom*/
+		zoomImagWidth = parseFloat($("#iviewerImage").css('width')); /*richiamata anche in jqzoom*/
+		imgHeight = parseFloat($('#iviewerImage').innerHeight());
 	}
 	var imgWidth = parseFloat($("#iviewerImage").css('width'));
 	// var imgHeight = parseFloat($("#iviewerImage").css('height'));
-	var imgHeight = parseFloat($('#mag_image_elem').innerHeight());
+	//var imgHeight = parseFloat($('#mag_image_elem').innerHeight());
 	var left_headerHeight = $("#left_header").outerHeight();
 
 	zoomImagHeight = (zoomImagWidth * imgHeight) / imgWidth; /*richiamata anche in jqzoom*/
@@ -274,10 +280,6 @@ function magON() {
 		zoomRatio: 1
 	};
 	$('.magnifier').jqzoom(options);
-	var to = setTimeout(function() {
-		$("#magImage").css({'height': 'auto'});
-		clearTimeout(to);
-	}, 42);
 }
 
 function magONbig() {
@@ -293,8 +295,4 @@ function magONbig() {
 		zoomRatio: 1
 	};
 	$('.magnifier').jqzoom(options);
-	var to = setTimeout(function() {
-		$("#magImage").css({'height': 'auto'});
-		clearTimeout(to);
-	}, 42);
 }
