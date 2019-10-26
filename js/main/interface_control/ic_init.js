@@ -20,7 +20,7 @@ function prepareEditionLevel(xml) {
                     if (addedLangs.indexOf(langs[i].textContent) < 0) {
                         $('.main_ee_select .option_container').append(
                             $('<div/>')
-                                .attr("data-value", "translation-"+langs[i].textContent)
+                                .attr("data-value", "translation-" + langs[i].textContent)
                                 .attr("data-key", "transl")
                                 .addClass('option')
                                 .append(
@@ -29,7 +29,7 @@ function prepareEditionLevel(xml) {
                                         .text("TRANSLATION"),
                                     $('<span/>')
                                         .addClass('transLang')
-                                        .text(" ("+langs[i].textContent+")")
+                                        .text(" (" + langs[i].textContent + ")")
                                 )
                         );
                         addedLangs.push(langs[i].textContent)
@@ -412,8 +412,15 @@ function initLists(listsArray) {
                             resolve();
                         }
                     },
-                    error: function() {
+                    error: function () {
                         console.log('Error: File "data/output_data/liste/' + listName + '.html" non trovato');
+                        listElement.remove();
+                        $('#header_' + listName).remove();
+
+                        if ($('#list_header_elements_contents').find('.labelList').length == 0) {
+                            $('#lists_cont').remove();
+                            $('#list_link').remove();
+                        }
                         resolve();
                     }
                 });
@@ -1034,7 +1041,7 @@ function loadStructureAndPrepareUI() {
                 /* //= HASH CHANGE - ba.bbq plugin */
                 /* =============================== */
 
-                window.onresize = function() {
+                window.onresize = function () {
                     resizeButtonsAndSelects();
                     var mainLeftFrame = $("#main_left_frame");
                     if (mainLeftFrame) {
