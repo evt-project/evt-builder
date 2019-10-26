@@ -89,93 +89,93 @@
 			<!-- SEARCH -->
 			<xsl:if test="$search = true()">
 				<xsl:apply-templates select="$step0" mode="file4search"/>
-			</xsl:if>
-			
-			<!-- TRANSLATION + REGESTO | FRONT INFORMATION -->
-			<xsl:choose>
-				<xsl:when test="$root//tei:text/tei:group">
-					<!-- Gestione TEXT multipli in tei:group -->
-					<xsl:for-each select="$root//tei:text/tei:group/tei:text">
-						<!-- TRANSLATION -->
-						<xsl:if test="$translation=true()">
-							<xsl:call-template name="translation"/>
-						</xsl:if>
-						<!-- REGESTO -->
-						<xsl:if test="$regesto=true()">
-							<xsl:call-template name="regesto"/>
-						</xsl:if>
-						<!-- FRONT INFORMATION-->
-						<xsl:if test="$frontInfo = true() and current()/tei:front">
-							<xsl:call-template name="front"/>
-						</xsl:if>
-					</xsl:for-each>
-				</xsl:when>
-				<xsl:otherwise>
-					<xsl:for-each select="tei:TEI/tei:text">
-						<!-- TRANSLATION -->
-						<xsl:if test="$translation=true()">
-							<xsl:call-template name="translation"/>
-						</xsl:if>
-						<!-- REGESTO -->
-						<xsl:if test="$regesto=true()">
-							<xsl:call-template name="regesto"/>
-						</xsl:if>
-						<!-- FRONT INFORMATION -->
-						<xsl:if test="$frontInfo = true() and current()/tei:front">
-							<xsl:call-template name="front"/>
-						</xsl:if>
-					</xsl:for-each>
-				</xsl:otherwise>
-			</xsl:choose>
+			</xsl:if>	
+		</xsl:if>
+		
+		<!-- TRANSLATION + REGESTO | FRONT INFORMATION -->
+		<xsl:choose>
+			<xsl:when test="$root//tei:text/tei:group">
+				<!-- Gestione TEXT multipli in tei:group -->
+				<xsl:for-each select="$root//tei:text/tei:group/tei:text">
+					<!-- TRANSLATION -->
+					<xsl:if test="$translation=true()">
+						<xsl:call-template name="translation"/>
+					</xsl:if>
+					<!-- REGESTO -->
+					<xsl:if test="$regesto=true()">
+						<xsl:call-template name="regesto"/>
+					</xsl:if>
+					<!-- FRONT INFORMATION-->
+					<xsl:if test="$frontInfo = true() and current()/tei:front">
+						<xsl:call-template name="front"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:for-each select="tei:TEI/tei:text">
+					<!-- TRANSLATION -->
+					<xsl:if test="$translation=true()">
+						<xsl:call-template name="translation"/>
+					</xsl:if>
+					<!-- REGESTO -->
+					<xsl:if test="$regesto=true()">
+						<xsl:call-template name="regesto"/>
+					</xsl:if>
+					<!-- FRONT INFORMATION -->
+					<xsl:if test="$frontInfo = true() and current()/tei:front">
+						<xsl:call-template name="front"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:otherwise>
+		</xsl:choose>
 
-			<!-- LISTS -->
-			<xsl:if test="$list_person = true()">
-				<xsl:result-document method="html" encoding="UTF-8" media-type="text/plain"
-					byte-order-mark="yes"
-					href="{$filePrefix}/data/output_data/liste/listPerson.html" indent="yes">
-					<xsl:element name="div">
-						<xsl:attribute name="id">listPerson</xsl:attribute>
-						<xsl:attribute name="class">can-change-font-size</xsl:attribute>
-						<xsl:call-template name="listPerson"/>
-						<xsl:apply-templates select="$step0" mode="listPersonOccurences"/>
-					</xsl:element>
-				</xsl:result-document>
-			</xsl:if>
-			<xsl:if test="$list_place = true()">
-				<xsl:result-document method="html" encoding="UTF-8" media-type="text/plain"
-					byte-order-mark="yes" href="{$filePrefix}/data/output_data/liste/listPlace.html"
-					indent="yes">
-					<xsl:element name="div">
-						<xsl:attribute name="id">listPlace</xsl:attribute>
-						<xsl:attribute name="class">can-change-font-size</xsl:attribute>
-						<xsl:call-template name="listPlace"/>
-						<xsl:apply-templates select="$step0" mode="listPlaceOccurences"/>
-					</xsl:element>
-				</xsl:result-document>
-			</xsl:if>
-			<xsl:if test="$list_org = true()">
-				<xsl:result-document method="html" encoding="UTF-8" media-type="text/plain"
-					byte-order-mark="yes" href="{$filePrefix}/data/output_data/liste/listOrg.html"
-					indent="yes">
-					<xsl:element name="div">
-						<xsl:attribute name="id">listOrg</xsl:attribute>
-						<xsl:attribute name="class">can-change-font-size</xsl:attribute>
-						<xsl:call-template name="listOrg"/>
-						<xsl:apply-templates select="$step0" mode="listOrgOccurences"/>
-					</xsl:element>
-				</xsl:result-document>
-			</xsl:if>
-			
-			<xsl:if test="$list_term=true()">
-				<xsl:result-document method="html" encoding="UTF-8" media-type="text/plain" byte-order-mark="yes" href="{$filePrefix}/data/output_data/liste/listTerm.html" indent="yes">
-					<xsl:element name="div">
-						<xsl:attribute name="id">listTerm</xsl:attribute>
-						<xsl:attribute name="class">can-change-font-size</xsl:attribute>
-						<xsl:call-template name="listTerm"/>
-						<xsl:apply-templates select="$step0" mode="listTermOccurences"/>
-					</xsl:element>
-				</xsl:result-document>
-			</xsl:if>
+		<!-- LISTS -->
+		<xsl:if test="$list_person = true()">
+			<xsl:result-document method="html" encoding="UTF-8" media-type="text/plain"
+				byte-order-mark="yes"
+				href="{$filePrefix}/data/output_data/liste/listPerson.html" indent="yes">
+				<xsl:element name="div">
+					<xsl:attribute name="id">listPerson</xsl:attribute>
+					<xsl:attribute name="class">can-change-font-size</xsl:attribute>
+					<xsl:call-template name="listPerson"/>
+					<xsl:apply-templates select="$step0" mode="listPersonOccurences"/>
+				</xsl:element>
+			</xsl:result-document>
+		</xsl:if>
+		<xsl:if test="$list_place = true()">
+			<xsl:result-document method="html" encoding="UTF-8" media-type="text/plain"
+				byte-order-mark="yes" href="{$filePrefix}/data/output_data/liste/listPlace.html"
+				indent="yes">
+				<xsl:element name="div">
+					<xsl:attribute name="id">listPlace</xsl:attribute>
+					<xsl:attribute name="class">can-change-font-size</xsl:attribute>
+					<xsl:call-template name="listPlace"/>
+					<xsl:apply-templates select="$step0" mode="listPlaceOccurences"/>
+				</xsl:element>
+			</xsl:result-document>
+		</xsl:if>
+		<xsl:if test="$list_org = true()">
+			<xsl:result-document method="html" encoding="UTF-8" media-type="text/plain"
+				byte-order-mark="yes" href="{$filePrefix}/data/output_data/liste/listOrg.html"
+				indent="yes">
+				<xsl:element name="div">
+					<xsl:attribute name="id">listOrg</xsl:attribute>
+					<xsl:attribute name="class">can-change-font-size</xsl:attribute>
+					<xsl:call-template name="listOrg"/>
+					<xsl:apply-templates select="$step0" mode="listOrgOccurences"/>
+				</xsl:element>
+			</xsl:result-document>
+		</xsl:if>
+		
+		<xsl:if test="$list_term=true()">
+			<xsl:result-document method="html" encoding="UTF-8" media-type="text/plain" byte-order-mark="yes" href="{$filePrefix}/data/output_data/liste/listTerm.html" indent="yes">
+				<xsl:element name="div">
+					<xsl:attribute name="id">listTerm</xsl:attribute>
+					<xsl:attribute name="class">can-change-font-size</xsl:attribute>
+					<xsl:call-template name="listTerm"/>
+					<xsl:apply-templates select="$step0" mode="listTermOccurences"/>
+				</xsl:element>
+			</xsl:result-document>
 		</xsl:if>
 		
 		<!-- GM -->
