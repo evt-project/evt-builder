@@ -2900,6 +2900,7 @@ ul.ul_list li.list_element_opened {
 
 .tooltip .small-note {
     display: block;
+    padding-top: 3px;
 }
 
 .list_element_opened .occurences,

@@ -246,6 +246,49 @@
         </xsl:element>
     </xsl:template>
     
+    <xsl:template match="//tei:idno" mode="interp dipl #default">
+        <xsl:for-each select="current()">
+            <xsl:choose>
+                <xsl:when test="lower-case(@type)='viaf' or lower-case(@type)='uri'">
+                    <xsl:if test="lower-case(@type)='viaf'">
+                        <xsl:element name="span">
+                            <xsl:attribute name="class">display-block small-note</xsl:attribute>
+                            <xsl:text>VIAF:&#xA0;</xsl:text>
+                            <xsl:element name="a">
+                                <xsl:attribute name="href">
+                                    <xsl:text>https://viaf.org/viaf/</xsl:text>
+                                    <xsl:value-of select="current()"/>
+                                </xsl:attribute>
+                                <xsl:attribute name="target">_blank</xsl:attribute>
+                                <xsl:value-of select="current()"/>
+                            </xsl:element>
+                        </xsl:element>
+                    </xsl:if>
+                    <xsl:if test="lower-case(@type)='uri'">
+                        <xsl:element name="span">
+                            <xsl:attribute name="class">display-block small-note</xsl:attribute>
+                            <xsl:element name="a">
+                                <xsl:attribute name="href">
+                                    <xsl:value-of select="current()"/>
+                                </xsl:attribute>
+                                <xsl:attribute name="target">_blank</xsl:attribute>
+                                <xsl:value-of select="current()"/>
+                            </xsl:element>
+                        </xsl:element>
+                    </xsl:if>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:element name="span">
+                        <xsl:attribute name="class">display-block small-note</xsl:attribute>
+                        <xsl:value-of select="current()/@type"/>
+                        <xsl:text>:&#xA0;</xsl:text>
+                        <xsl:value-of select="current()"/>
+                    </xsl:element>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:for-each>
+    </xsl:template>
+
     <xsl:template name="dataAttributesFromAttributes">
         <xsl:attribute name="data-tagName" select="name(.)"/>
         <xsl:for-each select="@*">
