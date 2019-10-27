@@ -288,7 +288,32 @@
             </xsl:choose>
         </xsl:for-each>
     </xsl:template>
-
+    
+    <xsl:template match="tei:gap" mode="interp dipl #default">
+        <xsl:element name="span">
+            <xsl:attribute name="class">gap</xsl:attribute>
+            <xsl:call-template name="dataAttributesFromAttributes"/>
+            <xsl:variable name="unit" select="@unit"/>
+            <xsl:choose>
+                <!-- <gap quantity=”2″ unit=”chars” reason=”illegible”/> -->
+                <xsl:when test="@unit='chars'">
+                    <xsl:for-each select="1 to @quantity">
+                        <xsl:text>&#xA0;</xsl:text>
+                    </xsl:for-each>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:for-each select="1 to @quantity">
+                        <xsl:element name="span">
+                            <xsl:attribute name="class" select="'gap-unit'"/>
+                            <xsl:attribute name="data-unit" select="$unit"/>
+                        </xsl:element>
+                    </xsl:for-each>
+                </xsl:otherwise>
+            </xsl:choose>
+            <xsl:apply-templates mode="#current"/>
+        </xsl:element>    
+    </xsl:template>
+    
     <xsl:template name="dataAttributesFromAttributes">
         <xsl:attribute name="data-tagName" select="name(.)"/>
         <xsl:for-each select="@*">
