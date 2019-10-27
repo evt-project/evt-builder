@@ -116,7 +116,7 @@ $(function() {
 		});
 
 		window.onerror = function myErrorHandler(errorMsg, url, lineNumber,  column, errorObj) {
-			if (errorMsg == 'BigImageError') {
+			if (errorMsg.indexOf('BigImageError') >= 0) {
 				try {
 					var errorMsg = window.lang.convert('ERROR_LOADING_HI_IMAGE', window.lang.currentLang);
 					var lens = document.getElementsByClassName('zoomPreload')[0];
@@ -130,10 +130,10 @@ $(function() {
 					if (magnifierON) {
 						document.getElementById('switchMag').click();
 					}
-				} catch (e) {}
+				} catch (e) { console.log(e); }
 			} else {
 				console.log('Error: ' + errorMsg + ' Script: ' + url + ' Line: ' + lineNumber
-    						+ ' Column: ' + column + ' StackTrace: ' +  errorObj);
+							+ ' Column: ' + column + ' StackTrace: ' +  errorObj);
 			}
 			return true;
 		}
