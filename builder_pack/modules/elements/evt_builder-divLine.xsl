@@ -33,17 +33,28 @@
         <xsl:for-each-group select="$text/node()" group-starting-with="//tei:lb">
             <xsl:choose>
                 <xsl:when test="self::tei:lb">
-                    <xsl:copy-of select="current-group()/self::tei:lb"/> <!-- IT: copia lb -->
-                    <xsl:element name="div">
-                        <xsl:attribute name="class" select="$ed_name"/>
-                        <xsl:if test="current-group()/self::node()[name()='span'][@class=concat($ed_name,'-lineN')]">
-                            <xsl:copy-of select="current-group()/self::node()[name()='span'][@class=concat($ed_name,'-lineN')]"></xsl:copy-of> <!-- IT: copia n linea -->
-                        </xsl:if>
-                        <xsl:element name="div"> <!-- IT: aggiungi div con classe edition_rend -->
-                            <xsl:attribute name="class" select="if(tei:lb[@rend]) then ($ed_name1, translate(tei:lb/@rend, '.', '_')) else ($ed_name, 'left')" separator="-"/>
-                            <xsl:copy-of select="current-group()[not(self::tei:lb)] [not(self::node()[name()='span'][@class=concat($ed_name,'-lineN')])]"/>
-                        </xsl:element>
-                    </xsl:element>
+                    
+                            <xsl:copy-of select="current-group()/self::tei:lb"/> <!-- IT: copia lb -->
+                            <xsl:element name="div">
+                                <xsl:attribute name="class" select="concat($ed_name, ' line')"/> 
+                                <xsl:if test="@type"> 
+                                    <xsl:attribute name="data-type" select="@type"/> 
+                                </xsl:if> 
+                                <xsl:if test="@rend"> 
+                                    <xsl:attribute name="data-rend" select="@rend"/> 
+                                </xsl:if> 
+                                <xsl:if test="@rendition"> 
+                                    <xsl:attribute name="data-rendition" select="@rendition"/> 
+                                </xsl:if> 
+                                <xsl:if test="current-group()/self::node()[name()='span'][@class=concat($ed_name,'-lineN')]">
+                                    <xsl:copy-of select="current-group()/self::node()[name()='span'][@class=concat($ed_name,'-lineN')]"></xsl:copy-of> <!-- IT: copia n linea -->
+                                </xsl:if>
+                                <xsl:element name="div"> <!-- IT: aggiungi div con classe edition_rend -->
+                                    <xsl:attribute name="class" select="if(tei:lb[@rend]) then ($ed_name1, translate(tei:lb/@rend, '.', '_')) else ($ed_name, 'left')" separator="-"/>
+                                    <xsl:copy-of select="current-group()[not(self::tei:lb)] [not(self::node()[name()='span'][@class=concat($ed_name,'-lineN')])]"/>
+                                </xsl:element>
+                            </xsl:element>
+                        
                 </xsl:when>
                 <xsl:otherwise> <!--IT: Gruppo che non ha un lb (puo succedere nel primo gruppo)  -->
                     <xsl:copy-of select="current-group()"></xsl:copy-of>
@@ -58,6 +69,10 @@
         <xsl:param name="ed_name"/>
         <xsl:for-each-group select="$text/node()" group-starting-with="//tei:cb">
             <xsl:choose>
+                <xsl:when test="self::tei:cb[not(@*) or @type='end']">
+                    <div class="emptyDivider"></div>
+                    <xsl:copy-of select="current-group()"></xsl:copy-of>
+                </xsl:when>
                 <xsl:when test="self::tei:cb">
                     <xsl:element name="div">
                         <xsl:attribute name="class" select="$ed_name"/>
@@ -67,7 +82,7 @@
                         </xsl:element>
                     </xsl:element>
                 </xsl:when>
-                <xsl:otherwise> <!--IT: Gruppo che non ha un lb (puo succedere nel primo gruppo)  -->
+                <xsl:otherwise> <!--IT: Gruppo che non ha un cb (puo succedere nel primo gruppo)  -->
                     <xsl:copy-of select="current-group()"></xsl:copy-of>
                 </xsl:otherwise>
             </xsl:choose>
