@@ -26,7 +26,106 @@
 		</xd:short>
 	</xd:doc>
 
+	<xsl:template name="html_scripts">
+		<xsl:param name="html_path"/>
+		<xsl:comment>jQuery lib</xsl:comment>
+		<script type="text/javascript" src="{$html_path}/js/jquery_lib/jquery-latest.js"/>
+		<script type="text/javascript" src="{$html_path}/js/jquery_lib/jquery-ui-latest.js"/>
+		<xsl:comment>/jQuery lib</xsl:comment>
+		
+		<xsl:comment>Infinite Scroll</xsl:comment>
+		<script type="text/javascript" src="{$html_path}/js/plugin/jquery.jscroll.min.js"></script>
+		<xsl:comment>/ Infinite Scroll</xsl:comment>
+		
+		<xsl:comment>main lib</xsl:comment>
+		<xsl:comment>interface control</xsl:comment>
+		<script type="text/javascript" src="{$html_path}/js/main/interface_control/ic_generic_bindings.js"/>
+		<script type="text/javascript" src="{$html_path}/js/main/interface_control/ic_global_menu.js"/>
+		<script type="text/javascript" src="{$html_path}/js/main/interface_control/ic_internal_fullscreen.js"/>
+		<script type="text/javascript" src="{$html_path}/js/main/interface_control/ic_lists.js"/>
+		<script type="text/javascript" src="{$html_path}/js/main/interface_control/ic_navigation.js"/>
+		<script type="text/javascript" src="{$html_path}/js/main/interface_control/ic_prefatory_matter.js"/>
+		<script type="text/javascript" src="{$html_path}/js/main/interface_control/ic_resizings.js"/>
+		<script type="text/javascript" src="{$html_path}/js/main/interface_control/ic_search.js"/>
+		<script type="text/javascript" src="{$html_path}/js/main/interface_control/ic_viewModes.js"/>
+		<script type="text/javascript" src="{$html_path}/js/main/interface_control/ic_viewVerses.js"/>
+		<script type="text/javascript" src="{$html_path}/js/main/interface_control/ic_hashChange.js"/>
+		<script type="text/javascript" src="{$html_path}/js/main/interface_control/ic_init.js"/>
+		<script type="text/javascript" src="{$html_path}/js/main/interface_control/ic_main.js"/>
+		<xsl:comment>/interface control</xsl:comment>
+		<!-- Inserire qui file js per nuova modalità di visualizzazione-->
+		
+		<script type="text/javascript" src="{$html_path}/js/main/utils.js"/>
+		<xsl:comment>/main lib</xsl:comment>
 
+		<xsl:comment>keydown</xsl:comment>
+		<script src="{$html_path}/js/plugin/jquery.rafmas-keydown.js"/>
+		<xsl:comment>/keydown</xsl:comment>
+
+		<xsl:comment>iViewer</xsl:comment>
+		<script type="text/javascript" src="{$html_path}/js/plugin/jquery_iviewer/jquery.mousewheel.min.js"/>
+		<script type="text/javascript" src="{$html_path}/js/plugin/jquery_iviewer/jquery.iviewer.js"/>
+		<script type="text/javascript" src="{$html_path}/js/plugin_settings/iviewer_config.js"/>
+		<xsl:comment>/iViewer</xsl:comment>
+
+		<xsl:comment>magnifier</xsl:comment>
+		<script type="text/javascript" src="{$html_path}/js/plugin/jquery.jqzoom-core.js"/>
+		<script type="text/javascript" src="{$html_path}/js/main/switchZM.js"/>
+		<xsl:comment>/magnifier</xsl:comment>
+		
+		<xsl:comment>hashchange</xsl:comment>
+		<script src="{$html_path}/js/plugin/jquery.ba-bbq.js"/>
+		<xsl:comment>/hashchange</xsl:comment>
+		
+		<xsl:comment>image text link</xsl:comment>
+		<script type="text/javascript" src="{$html_path}/js/main/ImageTextLink.js"/>
+		<xsl:comment>/image text link</xsl:comment>
+		
+		<xsl:comment>page data</xsl:comment>
+		<script type="text/javascript" src="{$html_path}/js/main/page_data-include.js"/>
+		<xsl:comment>/page data</xsl:comment>
+
+		<xsl:comment>highlight</xsl:comment>
+		<script type="text/javascript" src="{$html_path}/js/plugin/jquery.highlight_mod.js"/>
+		<xsl:comment>/highlight</xsl:comment>
+		
+		<xsl:if test="$search=true()">
+			<xsl:comment>TipueSearch</xsl:comment>
+			<script type="text/javascript" src="{$html_path}/js/plugin/tipuesearch/tipuesearch.js"/>
+			<script type="text/javascript" src="./js/plugin/tipuesearch/tipuesearch_content.js" />
+			<script type="text/javascript" src="./js/plugin/tipuesearch/tipuesearch_set.js" />
+			<xsl:comment>/TipueSearch</xsl:comment>
+			
+			<xsl:comment>search</xsl:comment>
+			<script type="text/javascript" src="{$html_path}/js/main/search.js"/>
+			<xsl:comment>/search</xsl:comment>
+		</xsl:if>
+		
+		<xsl:comment>BRnav</xsl:comment>
+		<script type="text/javascript" src="{$html_path}/js/main/interface_control/ic_BRnav.js"/>
+		<xsl:comment>/BRnav</xsl:comment>
+		
+		<xsl:comment>VisColl</xsl:comment>
+		<script type="text/javascript" src="{$html_path}/js/main/interface_control/ic_viscoll.js"/>
+		<xsl:comment>/VisColl</xsl:comment>
+		
+		<xsl:if test="$viscoll_button=true()">
+			<!-- Add jQuery library -->
+			<!-- <script type="text/javascript" src="https://cdn.rawgit.com/leoba/VisColl/master/data/support/fancybox/lib/jquery-1.10.1.min.js"/> -->
+
+			<!-- Add fancyBox main JS and CSS files -->
+			<!-- <script type="text/javascript" src="https://cdn.rawgit.com/leoba/VisColl/master/data/support/fancybox/source/jquery.fancybox.js?v=2.1.5"/> -->
+			<!-- <link rel="stylesheet" type="text/css"
+				href="https://cdn.rawgit.com/leoba/VisColl/master/data/support/fancybox/source/jquery.fancybox.css?v=2.1.5" media="screen"/>
+			<link href="https://cdn.rawgit.com/leoba/VisColl/master/data/support/fancybox/source/jquery.fancybox.css" rel="stylesheet"
+				type="text/css"/>
+			<script type="text/javascript" src="https://cdn.rawgit.com/leoba/VisColl/master/data/support/fancybox/source/iframescript.js"/>
+
+			<script type="text/javascript" src="https://cdn.rawgit.com/leoba/VisColl/master/data/support/fancybox/collation.js"/>
+			<link href="https://cdn.rawgit.com/leoba/VisColl/master/data/support/css/collation.css" rel="stylesheet" type="text/css"/> -->
+		</xsl:if>
+	</xsl:template>
+	
 	<xsl:template name="html_head">
 		<xsl:param name="html_path"/>
 		<xsl:param name="html_tc"/>
@@ -58,6 +157,20 @@
 						href="{$html_path}/css/font-awesome.min.css" />
 					<link rel="stylesheet" type="text/css"
 						href="{$html_path}/css/evt-icons.css" />
+					<link rel="stylesheet" type="text/css"
+						href="{$html_path}/css/BRnav.css" />
+					<xsl:if test="$viscoll_button=true()">
+						<link rel="stylesheet" type="text/css" 
+							href="{$html_path}/css/viscoll.css"/>
+					</xsl:if>
+					<!-- Integrations by LS -->
+					<script type="text/javascript" src="{$html_path}/js/plugin/jquery-lang.js"/>
+					<script type="text/javascript" src="{$html_path}/config/langpack/en.js"/>
+					<script type="text/javascript" src="{$html_path}/config/langpack/it.js"/>
+					<script type="text/javascript" src="{$html_path}/config/langpack/fr.js"/>
+					<script type="text/javascript" src="{$html_path}/config/langpack/de.js"/>
+					<script type="text/javascript" src="{$html_path}/config/langpack/cs.js"/>
+					<!-- /end Integration by LS -->
 				</xsl:when>
 				<xsl:otherwise>
 					<link rel="stylesheet" type="text/css" 
@@ -66,81 +179,7 @@
 			</xsl:choose>
 			<link rel="stylesheet" type="text/css" 
 				href="{$html_path}/config/evt_builder-custom-styles.css"/>
-			<xsl:comment>jQuery lib</xsl:comment>
-			<script type="text/javascript" src="{$html_path}/js/jquery_lib/jquery-latest.js"/>
-			<script type="text/javascript" src="{$html_path}/js/jquery_lib/jquery-ui-latest.js"/>
-			<xsl:comment>/jQuery lib</xsl:comment>
-
-			<xsl:if test="$html_tc!='datastructure'">
-				<xsl:comment>main lib</xsl:comment>
-				<xsl:comment>interface control</xsl:comment>
-				<script type="text/javascript" src="{$html_path}/js/main/interface_control/ic_generic_bindings.js"/>
-				<script type="text/javascript" src="{$html_path}/js/main/interface_control/ic_global_menu.js"/>
-				<script type="text/javascript" src="{$html_path}/js/main/interface_control/ic_internal_fullscreen.js"/>
-				<script type="text/javascript" src="{$html_path}/js/main/interface_control/ic_lists.js"/>
-				<script type="text/javascript" src="{$html_path}/js/main/interface_control/ic_navigation.js"/>
-				<script type="text/javascript" src="{$html_path}/js/main/interface_control/ic_prefatory_matter.js"/>
-				<script type="text/javascript" src="{$html_path}/js/main/interface_control/ic_resizings.js"/>
-				<script type="text/javascript" src="{$html_path}/js/main/interface_control/ic_search.js"/>
-				<script type="text/javascript" src="{$html_path}/js/main/interface_control/ic_viewModes.js"/>				
-				<script type="text/javascript" src="{$html_path}/js/main/interface_control/ic_main.js"/>
-				<xsl:comment>/interface control</xsl:comment>
-				<!-- Inserire qui file js per nuova modalità di visualizzazione-->
-				
-				<script type="text/javascript" src="{$html_path}/js/main/utils.js"/>
-				<xsl:comment>/main lib</xsl:comment>
-
-				<xsl:comment>keydown</xsl:comment>
-				<script src="{$html_path}/js/plugin/jquery.rafmas-keydown.js"/>
-				<xsl:comment>/keydown</xsl:comment>
-
-				<xsl:comment>iViewer</xsl:comment>
-				<script type="text/javascript" src="{$html_path}/js/plugin/jquery_iviewer/jquery.mousewheel.min.js"/>
-				<script type="text/javascript" src="{$html_path}/js/plugin/jquery_iviewer/jquery.iviewer.js"/>
-				<script type="text/javascript" src="{$html_path}/js/plugin_settings/iviewer_config.js"/>
-				<xsl:comment>/iViewer</xsl:comment>
-
-				<xsl:comment>magnifier</xsl:comment>
-				<script type="text/javascript" src="{$html_path}/js/plugin/jquery.jqzoom-core.js"/>
-				<script type="text/javascript" src="{$html_path}/js/main/switchZM.js"/>
-				<xsl:comment>/magnifier</xsl:comment>
-				
-				<xsl:comment>hashchange</xsl:comment>
-				<script src="{$html_path}/js/plugin/jquery.ba-bbq.js"/>
-				<xsl:comment>/hashchange</xsl:comment>
-				
-				<xsl:comment>image text link</xsl:comment>
-				<script type="text/javascript" src="{$html_path}/js/main/ImageTextLink.js"/>
-				<xsl:comment>/image text link</xsl:comment>
-				
-				<xsl:comment>page data</xsl:comment>
-				<script type="text/javascript" src="{$html_path}/js/main/page_data-include.js"/>
-				<xsl:comment>/page data</xsl:comment>
-
-				<xsl:comment>highlight</xsl:comment>
-				<script type="text/javascript" src="{$html_path}/js/plugin/jquery.highlight_mod.js"/>
-				<xsl:comment>/highlight</xsl:comment>
-
-				<xsl:if test="$search=true()">
-					<xsl:comment>TipueSearch</xsl:comment>
-					<script type="text/javascript" src="{$html_path}/js/plugin/tipuesearch/tipuesearch.js"/>
-					<script type="text/javascript" src="./js/plugin/tipuesearch/tipuesearch_content.js" />
-					<script type="text/javascript" src="./js/plugin/tipuesearch/tipuesearch_set.js" />
-					<xsl:comment>/TipueSearch</xsl:comment>
-					
-					<xsl:comment>search</xsl:comment>
-					<script type="text/javascript" src="{$html_path}/js/main/search.js"/>
-					<xsl:comment>/search</xsl:comment>
-				</xsl:if>
-				
-				<!-- Integrations by LS -->
-				<script type="text/javascript" src="{$html_path}/js/plugin/jquery-lang.js"/>
-				<script type="text/javascript" src="{$html_path}/config/langpack/en.js"/>
-				<script type="text/javascript" src="{$html_path}/config/langpack/it.js"/>
-				<script type="text/javascript" src="{$html_path}/config/langpack/fr.js"/>
-				<script type="text/javascript" src="{$html_path}/config/langpack/de.js"/>
-				<!-- /end Integration by LS -->
-			</xsl:if>
+			
 		</head>
 	</xsl:template>
 
@@ -156,7 +195,11 @@
 				<xsl:with-param name="output" select="$output"/>
 			</xsl:call-template>
 			<body>
-				<section id="central_wrapper">
+				<xsl:element name="section">
+					<xsl:attribute name="id">central_wrapper</xsl:attribute>
+					<xsl:if test="$bottom_navbar=true()">
+						<xsl:attribute name="class">hasNavbar <xsl:value-of select="if($bottom_navbar_initial_status='expanded') then('navBarExpanded') else('navBarCollapsed')"/></xsl:attribute>
+					</xsl:if>
 					<div id="text_frame">
 						<div id="text">
 							<xsl:call-template name="edition_level">
@@ -165,7 +208,7 @@
 							</xsl:call-template>
 						</div>
 					</div>
-				</section>
+				</xsl:element>
 			</body>
 		</html>
 	</xsl:template>
@@ -177,9 +220,21 @@
 				<xsl:with-param name="html_path" select="$mainPrefix"/>
 			</xsl:call-template>
 			<body>
+				<xsl:if test="$prose_verses_toggler=true()">
+					<xsl:attribute name="data-prose-verses-feature" select="'active'"/>
+				</xsl:if>
 				<xsl:element name="div">
 					<xsl:attribute name="id" select="'global_wrapper'"/>
 					<xsl:attribute name="data-image-extension" select="$imageExt"/>
+					<div id="global_loading">
+						 <div>
+							<i class="fa fa-spinner fa-spin fa-lg"></i>
+							<span id="loading_msg">
+								<div id="ui_init_msg" lang="def">EVT_INIT</div>
+								<div id="loading_data_msg" lang="def">LOADING_DATA</div>
+							</span>
+						</div>
+					</div>
 					<div id="keyboard_shortcuts_cont" class="dialog" data-content="keyboard_shortcuts">
 						<div id="keyboard_shortcuts" class="dialog_cont">
 							<a href="javascript:void(0);" id="close_keyboard_shortcuts_cont" class="dialog_close" data-dialog="keyboard_shortcuts_cont" lang="def" title="CLOSE"><i class="fa fa-close"></i></a>
@@ -266,26 +321,8 @@
 						<div id="headerInfo_cont" class="dialog" data-content="headerInfo"></div>
 					</xsl:if>
 					<!-- add by CDP -->
-					<xsl:if test="tei:TEI/tei:text/tei:front/descendant::tei:listBibl or tei:TEI/tei:text/tei:back/descendant::tei:listBibl">
-						<div id="generalBiblio_cont" class="dialog" data-content="generalBiblio">
-							<div id="generalBiblio" class="dialog_cont">
-								<a href="javascript:void(0);" class="dialog_close" data-dialog="generalBiblio_cont" title="CLOSE" lang="def">
-									<i class="fa fa-close"></i>
-								</a>
-								<div class="title main" lang="def">BIBLIO</div>
-								<div class="dialog_separator"><i class="fa fa-caret-down"></i></div>
-									<div id="generalBiblio_content" class="dialog_cont_inner">
-									<div>
-										<xsl:if test="tei:TEI/tei:text/tei:front/descendant::tei:listBibl">
-											<xsl:apply-templates select="tei:TEI/tei:text/tei:front/descendant::tei:listBibl"></xsl:apply-templates>
-										</xsl:if>
-										<xsl:if test="tei:TEI/tei:text/tei:back/descendant::tei:listBibl">
-											<xsl:apply-templates select="tei:TEI/tei:text/tei:back/descendant::tei:listBibl"></xsl:apply-templates>
-										</xsl:if>
-									</div>
-								</div>
-							</div>
-						</div>
+					<xsl:if test="$bibliography=true()">
+						<div id="generalBiblio_cont" class="dialog" data-content="generalBiblio"></div>
 					</xsl:if>
 					<!-- /end Integration by AB -->
 					<header id="main_header">
@@ -321,10 +358,11 @@
 										<xsl:attribute name="class" select="'current_mode mode_view'"/>
 										<xsl:attribute name="title" select="'MODE_IMAGE_TEXT'"/>
 										<xsl:attribute name="lang" select="'def'"/>
-										<img src="images/img-txt.png" class="mainHeaderimg"/>
+									<img src="images/img-txt.png" class="mainHeaderimg"/>
 										<!--<i class="fa evt-imgtxt"></i>-->
 									</xsl:element>
 								</xsl:if>
+
 								<xsl:if test="count($edition_array) &gt; 1">
 									<xsl:element name="a">
 										<xsl:attribute name="href" select="'javascript:void(0);'"/>
@@ -347,9 +385,7 @@
 										<!--<i class="fa evt-bookreader"></i>-->
 									</xsl:element>
 								</xsl:if>
-							</div>
-							<!--                          Aggiungere qui TOOL per Mostra virtuale       add by FS                            -->
-							
+							</div>											
 						
 							<!-- Integration by AB -->
 							<!--<xsl:if test="$headerInfo=true()">
@@ -389,12 +425,23 @@
 							</div>	
 						</xsl:if>
 						
-						<div class="setting_row button_like" id="biblio_link">
-							<div class="setting_row_title">
-								<i class="fa fa-book"></i>
-								<span lang="def">BIBLIO</span>
+						<xsl:if test="$bibliography=true()">
+							<div class="setting_row button_like" id="biblio_link">
+								<div class="setting_row_title">
+									<i class="fa fa-book"></i>
+									<span lang="def">BIBLIO</span>
+								</div>
+							</div>	
+						</xsl:if>
+
+						<xsl:if test="$webSite != ''">
+							<div class="setting_row button_like" id="biblio_link">
+								<a class="setting_row_title" href="{$webSite}" target="blank">
+									<i class="fa fa-external-link"></i>
+									<span lang="def">VISIT_WEB_SITE</span>
+								</a>
 							</div>
-						</div>	
+						</xsl:if>
 						
 						<div class="setting_row">
 							<div class="setting_row_title"><i class="fa fa-language"></i><span lang="def">LANGUAGES</span>:</div>
@@ -402,7 +449,7 @@
 								<img src="images/en.gif" class="flag active" data-value="en" lang="def" title="ENGLISH" alt="ENG"/>
 								<img src="images/fr.gif" class="flag" data-value="fr" lang="def" title="FRENCH" alt="FR"/>
 								<img src="images/ita.gif" class="flag" data-value="it" lang="def" title="ITALIAN"  alt="ITA"/>
-								<img src="images/de.png" class="flag" data-value="de" lang="def" title="GERMAN"  alt="GER"/>								
+								<img src="images/de.png" class="flag" data-value="de" lang="def" title="GERMAN"  alt="GER"/>						<img src="images/cs.png" class="flag" data-value="cs" lang="def" title="CZECH"  alt="CZE"/>		
 							</div>
 						</div>	
 						
@@ -413,7 +460,11 @@
 							</div>
 						</div>
 					</div>
-					<section id="central_wrapper">
+					<xsl:element name="section">
+						<xsl:attribute name="id">central_wrapper</xsl:attribute>
+						<xsl:if test="$bottom_navbar=true()">
+							<xsl:attribute name="class">hasNavbar <xsl:value-of select="if($bottom_navbar_initial_status='expanded') then('navBarExpanded') else('navBarCollapsed')"/></xsl:attribute>
+						</xsl:if>
 						<xsl:element name="i">
 							<xsl:attribute name="class" select="'fa fa-caret-up'"/>
 							<xsl:attribute name="id" select="'header_collapse'"/>
@@ -492,7 +543,7 @@
 												<xsl:attribute name="class"> like_select <xsl:if test="$edition_level_selector=false()"> hidden</xsl:if>
 												</xsl:attribute>
 												<xsl:attribute name="title" select="'SELECTOR_EDITION_LEVEL'"/>
-												<xsl:attribute name="lang" select="'en'"/>
+												<xsl:attribute name="lang" select="'def'"/>
 												<xsl:call-template name="div_select_build">
 													<xsl:with-param name="html_div_class" select="'main_ee_select'"/>
 												</xsl:call-template>
@@ -522,16 +573,29 @@
 										</xsl:if>
 										<xsl:if test="$image_frame=true()">
 											<div id="image_menu">
-												<xsl:if test="$thumbs_button=true()">
-													<xsl:element name="span">
-														<xsl:attribute name="class" select="'imageTopTool mainButtons thumb_link'"/>
-														<xsl:attribute name="id" select="'thumb_elem'"/>
-														<xsl:attribute name="value" select="'th'"/>
-														<xsl:attribute name="title" select="'THUMBNAILS'"/>
-														<xsl:attribute name="lang" select="'def'"/>
-														<span lang="def">THUMBS</span>
-														<i class="fa fa-th"></i>
-													</xsl:element>
+												<!-- Buttons for thumbs and Viscoll will appear only if Bottom Navbar is not active -->
+												<xsl:if test="$bottom_navbar=false()">													
+													<xsl:if test="$thumbs_button=true()">
+														<xsl:element name="span">
+															<xsl:attribute name="class" select="'imageTopTool mainButtons secondary_toggler thumb_link'"/>
+															<xsl:attribute name="id" select="'thumb_elem'"/>
+															<xsl:attribute name="value" select="'th'"/>
+															<xsl:attribute name="title" select="'THUMBNAILS'"/>
+															<xsl:attribute name="lang" select="'def'"/>
+															<span lang="def">THUMBS</span>
+															<i class="fa fa-th"></i>
+														</xsl:element>
+													</xsl:if>
+													<xsl:if test="$viscoll_button=true()">
+														<xsl:element name="span">
+															<xsl:attribute name="class" select="'imageTopTool mainButtons secondary_toggler viscoll_link'"/>
+															<xsl:attribute name="id" select="'viscoll'"/>
+															<xsl:attribute name="title" select="'VISCOLL'"/>
+															<xsl:attribute name="lang" select="'def'"/>
+															<span lang="def">VISCOLL</span>
+															<i class="fa evt-viscoll"></i>
+														</xsl:element>
+													</xsl:if>
 												</xsl:if>
 												<xsl:if test="$mag_button=true()">
 													<xsl:element name="span">
@@ -576,14 +640,14 @@
 														<xsl:attribute name="id" select="'switch_msDesc'"/>
 														<xsl:attribute name="title" select="'MANUSCRIPT_DESCRIPTION'"/>
 														<xsl:attribute name="lang" select="'def'"/>
-														<xsl:attribute name="class">mainButtons <xsl:if test="$left_frame_default_content='info'"> active</xsl:if></xsl:attribute>
+														<xsl:attribute name="class">mainButtons secondary_toggler <xsl:if test="$left_frame_default_content='info'"> active</xsl:if></xsl:attribute>
 														<span lang="def">MS_DESC</span>
 														<xsl:element name="i">
 															<xsl:attribute name="class" select="'fa fa-info-circle'"/>
 														</xsl:element>
 													</xsl:element>
 												</xsl:if>
-												<!-- /end Integration by AB -->
+												<!-- /end Integration by AB -->										
 											</div>
 										</xsl:if>
 									</div>
@@ -607,6 +671,17 @@
 												<xsl:attribute name="lang" select="'def'"/>
 												<xsl:element name="i">
 													<xsl:attribute name="class">fa fa-keyboard-o</xsl:attribute>
+												</xsl:element>
+											</xsl:element>
+											<xsl:element name="span">
+												<xsl:attribute name="id" select="'search_case_sensitive_toggler-add'"/>
+												<xsl:attribute name="class">mainButtons small searchCaseSensitiveButton</xsl:attribute>
+												<xsl:attribute name="data-boxsuffix" select="'-add'"/>
+												<xsl:attribute name="title" select="'TOGGLE_CASE_SENSITIVE'"/>
+												<xsl:attribute name="lang" select="'def'"/>
+												<xsl:element name="i">
+													<xsl:attribute name="class">fake-icon</xsl:attribute>
+													aA
 												</xsl:element>
 											</xsl:element>
 											<div id="tipue_search_input_div-add">
@@ -640,6 +715,19 @@
 								<xsl:if test="count($edition_array) &gt; 1">
 									<!-- Text frame bottom menu -->
 									<div id="text_tool-add" class="bottom-menu hidden">
+										<xsl:if test="$prose_verses_toggler=true()">
+											<xsl:element name="span">
+												<xsl:attribute name="id" select="'toggleVersesProseBtn-add'"/>
+												<xsl:attribute name="class" select="'mainButtons'"/>
+												<xsl:attribute name="data-active-status" select="'prose'"/>
+												<xsl:attribute name="data-boxsuffix" select="''"/>
+												<xsl:attribute name="onclick" select="'toggleProseVerses(this)'"/>
+												<xsl:attribute name="title" select="'versi/prosa'"/>
+												<xsl:attribute name="lang" select="'def'"/>
+												<span lang="def">VERSES</span>
+												<i class="fa fa-align-left" aria-hidden="true"></i>				
+											</xsl:element>
+										</xsl:if>
 										<xsl:if test="$search=true()">
 											<xsl:element name="span">
 												<xsl:attribute name="id" select="'search_link-add'"/>
@@ -663,18 +751,7 @@
 														<i class="fa fa-sort-asc"></i>
 													</div>
 													<div class="option_container up">
-														<xsl:for-each select="$lists">
-															<xsl:if test="./normalize-space()">
-																<xsl:element name="div">
-																	<xsl:attribute name="class">option </xsl:attribute>
-																	<xsl:attribute name="data-value"><xsl:value-of select="name(.)"/></xsl:attribute>
-																	<i class="fa fa-circle filter_color"></i>
-																	<span lang="def"><xsl:value-of select="name(.)"/></span>
-																</xsl:element>
-															</xsl:if>
-														</xsl:for-each>
-														<div class="option" data-value="all" lang="def">SELECT_ALL</div>
-														<div class="option" data-value="clear" lang="def">CLEAR_SELECTION</div>
+														<xsl:call-template name="listsSelector"/>
 													</div>
 												</div>
 											</xsl:element>	
@@ -695,14 +772,8 @@
 										<span id="inside_left_arrow-add" lang="def" title="PREVIOUS_DOCUMENT"><i class="fa fa-chevron-up"></i></span>
 										<span id="inside_right_arrow-add" lang="def" title="NEXT_DOCUMENT"><i class="fa fa-chevron-down"></i></span>
 									</xsl:if>
-									<!-- Integration by AB -->
-									<xsl:if test="$image_frame=true() and $msDesc=true()">
-										<xsl:element name="div">
-											<xsl:attribute name="id">msDesc_cont</xsl:attribute>
-											<xsl:attribute name="class">inner_frame <xsl:if test="$left_frame_default_content='info'"> open</xsl:if></xsl:attribute>
-										</xsl:element>
-									</xsl:if>
-									<!-- /end Integration by AB -->
+									
+									
 									<div id="image_cont" class="inner_frame">
 										<div id="image_fade">
 											<div id="image_elem"></div>
@@ -762,8 +833,21 @@
 										</div>
 										<input id="dimFit" type="hidden" value=""/>
 										<input id="imgTit" type="hidden" value=""/>
-										<div id="thumb_cont" class="inner_frame"></div>									
 									</div>
+									<xsl:if test="$thumbs_button=true()">
+										<div id="thumb_cont" class="inner_frame secondary_content full-height"></div>
+									</xsl:if>
+									<xsl:if test="$viscoll_button=true()">
+										<div id="viscoll_cont" class="inner_frame secondary_content full-height"></div>
+									</xsl:if>
+									<!-- Integration by AB -->
+									<xsl:if test="$image_frame=true() and $msDesc=true()">
+										<xsl:element name="div">
+											<xsl:attribute name="id">msDesc_cont</xsl:attribute>
+											<xsl:attribute name="class">inner_frame secondary_content full-height <xsl:if test="$left_frame_default_content='info'"> open</xsl:if></xsl:attribute>
+										</xsl:element>
+									</xsl:if>
+									<!-- /end Integration by AB -->
 								</xsl:if>
 							</div>
 						</xsl:if>
@@ -820,12 +904,14 @@
 									<xsl:element name="span">
 										<xsl:attribute name="id" select="'span_ee_select'"/>
 										<xsl:attribute name="title" select="'SELECTOR_EDITION_LEVEL'"/>
-										<xsl:attribute name="lang" select="'it'"/>
+										<xsl:attribute name="lang" select="'def'"/>
 										<xsl:attribute name="class">like_select <xsl:if test="$edition_level_selector=false()"> hidden </xsl:if></xsl:attribute>
 										<xsl:call-template name="div_select_build">
 											<xsl:with-param name="html_div_class" select="'main_ee_select'"/>
 										</xsl:call-template>
 									</xsl:element>
+									<!-- MODIFIED BY FS -->
+									
 									<xsl:if test="$regesto=true()">
 										<xsl:element name="span">
 											<xsl:attribute name="class">
@@ -896,6 +982,17 @@
 												<xsl:attribute name="class">fa fa-keyboard-o</xsl:attribute>
 											</xsl:element>
 										</xsl:element>
+										<xsl:element name="span">
+											<xsl:attribute name="id" select="'search_case_sensitive_toggler'"/>
+											<xsl:attribute name="class">mainButtons small searchCaseSensitiveButton</xsl:attribute>
+											<xsl:attribute name="data-boxsuffix" select="''"/>
+											<xsl:attribute name="title" select="'TOGGLE_CASE_SENSITIVE'"/>
+											<xsl:attribute name="lang" select="'def'"/>
+											<xsl:element name="i">
+												<xsl:attribute name="class">fake-icon</xsl:attribute>
+												aA
+											</xsl:element>
+										</xsl:element>
 										<div id="tipue_search_input_div">
 											<input type="text" id="tipue_search_input"  class="searchInput" data-boxsuffix=""/>
 											<xsl:element name="i">
@@ -933,6 +1030,11 @@
 										<xsl:attribute name="lang" select="'def'"/>
 										<i class='fa fa-angle-double-down'></i>
 									</xsl:element>
+									<div id="list_header_elements">
+										<div id="list_header_elements_contents"></div>	
+									</div>
+									<span id="navListHeadersLx" class="mainButtons small no-margin"><i class='fa fa-angle-left'></i></span>
+									<span id="navListHeadersRx" class="mainButtons small"><i class='fa fa-angle-right'></i></span>
 								</div>
 								<div id="list_letters" class="bottomBoxContent">
 									<span class="list_filter" data-filter-type="first_letter" data-value="A">A</span>
@@ -961,8 +1063,13 @@
 									<span class="list_filter" data-filter-type="first_letter" data-value="X">X</span>
 									<span class="list_filter" data-filter-type="first_letter" data-value="Y">Y</span>
 									<span class="list_filter" data-filter-type="first_letter" data-value="Z">Z</span>
+									<span lang="def" class="list_filter" data-filter-type="first_letter" data-value="*">ALL</span>
+								</div>
+								<div id="list_tools" class="bottomBoxContent">
+									<xsl:call-template name="sortOptions"></xsl:call-template>
 								</div>
 							</div>
+							
 							<xsl:if test="$document_navigation=true()">
 								<xsl:element name="span">
 									<xsl:attribute name="id" select="'inside_left_arrow'"/>
@@ -979,6 +1086,19 @@
 							</xsl:if>
 							<!-- Text frame bottom menu -->
 							<div id="text_tool" class="bottom-menu">
+								<xsl:if test="$prose_verses_toggler=true()">
+									<xsl:element name="span">
+										<xsl:attribute name="id" select="'toggleVersesProseBtn'"/>
+										<xsl:attribute name="class" select="'mainButtons'"/>
+										<xsl:attribute name="data-active-status" select="'prose'"/>
+										<xsl:attribute name="data-boxsuffix" select="''"/>
+										<xsl:attribute name="onclick" select="'toggleProseVerses(this)'"/>
+										<xsl:attribute name="title" select="'versi/prosa'"/>
+										<xsl:attribute name="lang" select="'def'"/>
+										<span lang="def">Versi</span>
+										<i class="fa fa-align-left" aria-hidden="true"></i>				
+									</xsl:element>
+								</xsl:if>
 								<xsl:if test="$search=true()">
 									<xsl:element name="span">
 										<xsl:attribute name="id" select="'search_link'"/>
@@ -990,7 +1110,7 @@
 										<i class="fa fa-search"></i>
 									</xsl:element>
 								</xsl:if>
-								<xsl:if test="$list_person=true()">
+								<xsl:if test="$list_person=true() or $list_place=true() or $list_org=true() or $list_term=true() or $list_gloss=true() or $list_doc=true()">
 									<xsl:element name="span">
 										<xsl:attribute name="id" select="'list_link'"/>
 										<xsl:attribute name="class" select="'mainButtons'"/>
@@ -1012,16 +1132,7 @@
 												<i class="fa fa-sort-asc"></i>
 											</div>
 											<div class="option_container up">
-												<xsl:for-each select="$lists">
-													<xsl:element name="div">
-														<xsl:attribute name="class">option </xsl:attribute>
-														<xsl:attribute name="data-value"><xsl:value-of select="name(.)"/></xsl:attribute>
-														<i class="fa fa-circle filter_color"></i>
-														<span lang="def"><xsl:value-of select="name(.)"/></span>
-													</xsl:element>
-												</xsl:for-each>
-												<div class="option" data-value="all" lang="def">SELECT_ALL</div>
-												<div class="option" data-value="clear" lang="def">CLEAR_SELECTION</div>
+												<xsl:call-template name="listsSelector"/>
 											</div>
 										</div>
 									</xsl:element>
@@ -1031,23 +1142,97 @@
 									<i class="fa fa-minus"></i>
 								</span>
 								<span class="mainButtons small font-size-controller" data-action="increase" title="INCREASE_FONT_SIZE" lang="def">
-									<i class="fa fa-font"></i>
-									<i class="fa fa-plus"></i>
-								</span>
-							</div>
+						<i class="fa fa-font"></i>
+						<i class="fa fa-plus"></i>
+							</span> 
 						</div>
-					</section>
+				</div>
+					</xsl:element>
+					
+					
 					<section id="central_button">
 						<input id="folio_page_number" type="hidden" value=""/>
 					</section>
-					<div id="poweredBy">Powered by EVT</div>
+					<div id="poweredBy">Powered by EVT <xsl:value-of select="$evtVersion"/></div>
+					<!-- Creo il div che conterrà la barra di navigazione -->
+					<xsl:if test="$bottom_navbar=true()">						
+						<xsl:element name="div">
+							<xsl:attribute name="id">BRnav</xsl:attribute>
+							<xsl:attribute name="class"><xsl:value-of select="$bottom_navbar_initial_status"/></xsl:attribute>
+								<div class="leftSideButtons">
+									<!-- Sposto l'icona Thumbnails -->
+									<xsl:if test="$thumbs_button=true()">
+										<xsl:element name="span">
+											<xsl:attribute name="class" select="'mainButtons secondary_toggler thumb_link'"/>
+											<xsl:attribute name="id" select="'thumb_elem'"/>
+											<xsl:attribute name="value" select="'th'"/>
+											<xsl:attribute name="title" select="'THUMBNAILS'"/>
+											<!--<xsl:attribute name="lang" select="'def'"/>
+											<span lang="def">THUMBS</span>-->
+											<i class="fa fa-th"></i>
+										</xsl:element>
+									</xsl:if>
+									<xsl:if test="$viscoll_button=true()">
+										<xsl:element name="span">
+											<xsl:attribute name="class" select="'mainButtons secondary_toggler viscoll_link'"/>
+											<xsl:attribute name="id" select="'viscoll'"/>
+											<xsl:attribute name="value" select="'th'"/>
+											<xsl:attribute name="title" select="'VISCOLL'"/>
+										</xsl:element>
+									</xsl:if>
+								</div>
+								<div id="BRnavpos">
+									<div id="BRpager">
+									</div>
+								</div>
+								<!-- Conterrà la pagina sul totale -->
+								<div id="pagenum">
+								</div>
+								<!-- Creo le icone per navigare  -->
+								<div id="BRpage">
+									<xsl:element name="span">
+										<xsl:attribute name="class" select="'mainButtons'"/>
+										<xsl:attribute name="id" select="'BRicon_book_start'"/>
+										<i class="fa fa-minus fa-rotate-90"></i>
+										<i class="fa fa-chevron-left"></i>
+									</xsl:element>
+									<xsl:element name="span">
+										<xsl:attribute name="class" select="'mainButtons'"/>
+										<xsl:attribute name="id" select="'BRicon_book_left'"/>
+										<i class="fa fa-chevron-left"></i>
+									</xsl:element>
+									<xsl:element name="span">
+										<xsl:attribute name="class" select="'mainButtons'"/>
+										<xsl:attribute name="id" select="'BRicon_book_right'"/>
+										<i class="fa fa-chevron-right"></i>
+									</xsl:element>
+									<xsl:element name="span">
+										<xsl:attribute name="class" select="'mainButtons'"/>
+										<xsl:attribute name="id" select="'BRicon_book_end'"/>
+										<i class="fa fa-chevron-right"></i>
+										<i class="fa fa-minus fa-rotate-90"></i>
+									</xsl:element>
+								</div>
+								<!-- Pulsante per ridurre la barra -->
+								<xsl:element name="div">
+									<xsl:attribute name="id">BRnavCntlBtm</xsl:attribute>
+									<xsl:attribute name="class">BRnavCntl <xsl:value-of select="if($bottom_navbar_initial_status='expanded') then('BRdn') else('BRup')"/></xsl:attribute>
+									<xsl:element name="i">
+										<xsl:attribute name="class">fa <xsl:value-of select="if($bottom_navbar_initial_status='expanded') then('fa-caret-down fa-lg') else('fa-caret-up fa-lg')"/></xsl:attribute>
+									</xsl:element>
+								</xsl:element>
+						</xsl:element>
+					</xsl:if>
 					<footer>
-						<p>2012 - 2015 @ EVT team – University of Pisa</p>
+						<p>2012 - 2018 @ EVT team – University of Pisa</p>
 					</footer>
 				</xsl:element>
+				<xsl:call-template name="html_scripts">
+					<xsl:with-param name="html_path" select="$mainPrefix"/>
+				</xsl:call-template>
 				<script src="js/main/fullscreen_request.js"/>
 				<script>
-					(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+					<!-- (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 					  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
 					  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
  					 })(window,document,'script','./js/plugin/analytics.js','ga');
@@ -1058,11 +1243,57 @@
 						'cookieDomain': 'none' // no domain
 					});
 					ga('set', 'checkProtocolTask', function() {}); //HACK
-					ga('send', 'pageview');
+					ga('send', 'pageview'); -->
 
 				</script>
 			</body>
 		</html>
 	</xsl:template>
 	
+	<xsl:template name="listsSelector">
+		<xsl:for-each select="$lists">
+			<xsl:if test="@active='true'">
+				<xsl:if test="count(./*[@active='true']) > 0">
+					<span lang="def" class="groupTitle" title="{@label}">
+						<span lang="def"><xsl:value-of select="@label"/></span>
+					</span>
+					<xsl:for-each select="./*[@active='true']">
+						<xsl:element name="div">
+							<xsl:attribute name="class">option</xsl:attribute>
+							<xsl:attribute name="data-value"><xsl:value-of select="name(.)"/></xsl:attribute>
+							<xsl:attribute name="lang" select="'def'"/>
+							<xsl:attribute name="title"><xsl:value-of select="name(.)"/></xsl:attribute>
+							<xsl:for-each select="@*">
+								<xsl:if test="name(.) != 'active' and name(.) != 'label'">
+									<xsl:attribute name="data-{name(.)}" select="."/>
+								</xsl:if>
+							</xsl:for-each>
+							<xsl:variable name="label">
+								<xsl:choose>
+									<xsl:when test="@label">
+										<xsl:value-of select="@label"/>
+									</xsl:when>
+									<xsl:otherwise>
+										<xsl:variable name="attrLabel">
+											<xsl:for-each select="@*">
+												<xsl:if test="name() != 'active'">
+													<xsl:value-of select="concat(name(.), '_', .)" separator="'_'"/>
+												</xsl:if>
+											</xsl:for-each>
+										</xsl:variable>
+										<xsl:value-of select="upper-case(if (string-length($attrLabel) &gt; 0) then(concat(name(), '_', $attrLabel)) else(name()))"/>
+									</xsl:otherwise>
+								</xsl:choose>
+							</xsl:variable>
+							<xsl:attribute name="data-label"><xsl:value-of select="$label"/></xsl:attribute>
+							<i class="fa fa-circle filter_color"></i>
+							<span lang="def"><xsl:value-of select="$label"/></span>
+						</xsl:element>
+					</xsl:for-each>
+				</xsl:if>
+			</xsl:if>
+		</xsl:for-each>
+		<div class="option" data-value="all" lang="def">SELECT_ALL</div>
+		<div class="option" data-value="clear" lang="def">CLEAR_SELECTION</div>
+	</xsl:template>
 </xsl:stylesheet>
