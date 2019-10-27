@@ -1,25 +1,29 @@
 /**
- * 
+ *
  * KeyDown jQuery
  * Version 0.1 (201210)
  * Copyright (C) 2013-2017 the EVT Development Team.
- * 
- * EVT 1 is free software: you can redistribute it 
- * and/or modify it under the terms of the 
+ *
+ * EVT 1 is free software: you can redistribute it
+ * and/or modify it under the terms of the
  * GNU General Public License version 2
  * available in the LICENSE file (or see <http://www.gnu.org/licenses/>).
- * 
- * EVT 1 is distributed in the hope that it will be useful, 
- * but WITHOUT ANY WARRANTY; without even the implied 
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
+ *
+ * EVT 1 is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU General Public License for more details.
- * 
- * 
- * @author RafMas 
+ *
+ *
+ * @author RafMas
  * @since 2012 @to 2015
  *
- * @author ChiaraDipi 
+ * @author ChiaraDipi
  * @since 2014
+ *
+ * @short-term Greta Musu - GM
+ * (added functions for global navigation bar and support for Viscoll)
+ * @in 2017/18
  **/
 
 //Pressione tasti
@@ -34,7 +38,7 @@ $(document).keydown(function(e){
 			$('#mode_switch .mode_view:nth-child(3)').trigger('click');
 		} else if (e.keyCode == 52) { //alt+1
 			$('#mode_switch .mode_view:nth-child(4)').trigger('click');
-		} 
+		}
 		//NAVIGATION
 		else if (e.keyCode == 80) { //alt+p => open PAGE SELECTOR
 			if ($('#span_pp_select').is(':visible'))
@@ -58,7 +62,14 @@ $(document).keydown(function(e){
 		}
 	}
 
-	if ((e.keyCode == 102 || e.keyCode == 70) && (e.ctrlKey||e.metaKey) && e.altKey && e.shiftKey) { 
+	if ((e.ctrlKey) && (e.keyCode == 32)) { // GM: CTRL+space
+		var BRnavCntlBtm = $('#BRnavCntlBtm');
+		if (BRnavCntlBtm) {
+			BRnavCntlBtm.trigger('click');
+		}
+  }
+
+	if ((e.keyCode == 102 || e.keyCode == 70) && (e.ctrlKey||e.metaKey) && e.altKey && e.shiftKey) {
 		e.preventDefault();
 		//CTRL+ALT+SHIF+f - CMD+ALT+SHIF+f => go fullscreen
 		document.getElementById("main_fullscreen").click();
@@ -72,7 +83,7 @@ $(document).keydown(function(e){
 		        } else {
 		        	$('#tipue_search_input-add').focus();
 		        }
-		    }	
+		    }
         } else {
 	        if($('#search_link').is(':visible')){
 		        if ( !$('#search_link').hasClass('active') ) {
@@ -85,13 +96,13 @@ $(document).keydown(function(e){
         return false;
     }
 	if (e.keyCode == 37) { //left
-		if ((!$("#tipue_search_input") || !$("#tipue_search_input").is(":focus")) && 
+		if ((!$("#tipue_search_input") || !$("#tipue_search_input").is(":focus")) &&
 			 (!$("#tipue_search_input-add") || !$("#tipue_search_input-add").is(":focus"))) {
 			if (!$(".main_left_arrow").hasClass('arrow_left_disable'))
 				$(".main_left_arrow").trigger('click');
 			return false;
 		}
-	}				
+	}
 	if (e.keyCode == 39) { //right
 		if ((!$("#tipue_search_input") || !$("#tipue_search_input").is(":focus")) &&
 			(!$("#tipue_search_input-add") || !$("#tipue_search_input-add").is(":focus"))) {
@@ -99,7 +110,7 @@ $(document).keydown(function(e){
 				$(".main_right_arrow").trigger('click');
 			return false;
 		}
-	}	
+	}
 	if (e.keyCode == 38) { //up
 		if ( !$('#headerInfo_cont').is(':visible')) {
 			if ($('.option_container:visible').length == 0) {
@@ -116,7 +127,7 @@ $(document).keydown(function(e){
 											opacity: 0.2
 										}, 100);
 								});
-							} 
+							}
 							return false;
 						}
 					}
@@ -126,13 +137,13 @@ $(document).keydown(function(e){
 					$('.option_container:visible .option.hovered')
 						.removeClass('hovered')
 						.prev()
-							.addClass('hovered');	
+							.addClass('hovered');
 				} else {
 					$('.hovered').removeClass('hovered');
 					$('.option_container:visible .option.selected:first').prev().addClass('hovered');
 				}
 				var height = $('.option_container:visible').find('.option').height();
-				var selected = $('.option_container:visible').find('.option.hovered').index();    
+				var selected = $('.option_container:visible').find('.option.hovered').index();
 				var scroll = (height*1.5)*selected;
 				$('.option_container:visible').animate({
 					scrollTop: scroll
@@ -140,7 +151,7 @@ $(document).keydown(function(e){
 				return false;
 			}
 		}
-	}				
+	}
 	if (e.keyCode == 40) { //down
 		if ( !$('#headerInfo_cont').is(':visible')) {
 			if ($('.option_container:visible').length == 0) {
@@ -167,13 +178,13 @@ $(document).keydown(function(e){
 					$('.option_container:visible .option.hovered')
 						.removeClass('hovered')
 						.next()
-							.addClass('hovered');	
+							.addClass('hovered');
 				} else {
 					$('.hovered').removeClass('hovered');
 					$('.option_container:visible .option.selected').next().addClass('hovered');
 				}
 				var height = $('.option_container:visible').find('.option').height();
-				var selected = $('.option_container:visible').find('.option.hovered').index();    
+				var selected = $('.option_container:visible').find('.option.hovered').index();
 				var scroll = (height*1.5)*selected;
 				$('.option_container:visible').animate({
 					scrollTop: scroll
@@ -181,18 +192,18 @@ $(document).keydown(function(e){
 				return false;
 			}
 		}
-	}	
+	}
 	if (e.keyCode == 27) { //escape
 		$("#header_collapse.fa-caret-down").trigger('click');
 		$('.full .closeFullScreen').trigger('click');
 		$('.option_container:visible').prev().trigger('click');
 		$('#info_link.active').trigger('click');
-		if ( $('#search_cont').hasClass('collapsed') && 
+		if ( $('#search_cont').hasClass('collapsed') &&
 			$('#tipue_search_input').is(':focus') ) {
 			$("#search_link.active").trigger('click');
 			$('#main_right_frame .highlight').removeClass('highlight');
 		}
-		if ( $('#search_cont-add').hasClass('collapsed') && 
+		if ( $('#search_cont-add').hasClass('collapsed') &&
 			 $('#tipue_search_input-add').is(':focus') ) {
 			$("#search_link-add.active").trigger('click');
 			$('#main_left_frame .highlight').removeClass('highlight');
@@ -210,7 +221,7 @@ $(document).keydown(function(e){
 			$('.dialog:visible').hide('fade', 0);
 		}
 		return false;
-	}	
+	}
 	if ( e.keyCode == 13 ) { //input
 		$('.option_container:visible .hovered').trigger('click').removeClass('hovered');
 	}

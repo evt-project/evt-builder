@@ -36,17 +36,20 @@
 			<xsl:when test="@place='top-middle'">
 				<xsl:element name="span">
 					<xsl:attribute name="class" select="$ed_name2,'center'" separator="-"/>
+					<xsl:call-template name="dataAttributesFromAttributes"/>
 					<xsl:apply-templates mode="#current"/> 
 				</xsl:element>
 			</xsl:when>
 			<xsl:when test="@place='top-right'">
 				<xsl:element name="span">
 					<xsl:attribute name="class" select="$ed_name2,'right'" separator="-"/>
+					<xsl:call-template name="dataAttributesFromAttributes"/>
 					<xsl:apply-templates mode="#current"/> 
 				</xsl:element>
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:element name="span">
+					<xsl:call-template name="dataAttributesFromAttributes"/>
 					<xsl:apply-templates mode="#current"/> 
 				</xsl:element>
 			</xsl:otherwise>
@@ -56,6 +59,7 @@
 	<xsl:template match="tei:ab" mode="interp" priority="2">
 		<xsl:element name="span">
 			<xsl:attribute name="class" select="$ed_name2,name()" separator="-"/>
+			<xsl:call-template name="dataAttributesFromAttributes"/>
 			<xsl:apply-templates mode="#current"/> 
 		</xsl:element>
 	</xsl:template>

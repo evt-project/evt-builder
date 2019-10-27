@@ -1,0 +1,327 @@
+#BRnav #viscoll {
+    background-image: url(../fonts/icon-visColl.png);
+    background-size: 23px 23px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#BRnav #viscoll.active {
+    background-color: #E3C89C;
+}
+
+#BRnav #viscoll[disabled] {
+    opacity: .7;
+    cursor: default;
+    box-shadow: none !important;
+}
+
+#BRnav #viscoll:hover {
+    box-shadow: inset 1px 2px 3px rgba(0, 0, 0, 0.7);
+}
+
+.active {
+    background: #E3C89C;
+    color: #4e443c;
+}
+
+/* CSS per BRnav e altri elementi */
+#BRnav {
+    text-align: center;
+    overflow: visible;
+    margin-top: 30px;
+    position: absolute;
+    /* Prima era fixed */
+    bottom: 0;
+    left: 0;
+    width: 100%;
+	height: 42px;
+	max-height: 42px;
+
+    /*box-shadow:0 10 0 5px #362D28;*/
+    border-style: solid;
+
+    background-color: #362D28;
+    z-index: 9999 !important;
+}
+
+#BRnav.collapsed {
+	bottom: -42px;
+	-webkit-transition: bottom 0.5s;
+    transition: bottom 0.5s;
+}
+
+#BRnav.expanded {
+	bottom: 0;
+	-webkit-transition: bottom 0.5s;
+    transition: bottom 0.5s;
+}
+
+#BRnav .leftSideButtons {
+    width: 130px;
+    min-width: 130px;
+    max-width: 130px;
+    height: 42px;
+    display: block;
+    position: relative;
+    /* Relativo all'elemento contenitore ("nav") */
+    float: left;
+	/* Elementi uno dopo l'altro */
+	text-align: right;
+}
+
+#BRnav .mainButtons {
+    height: 28px;
+    width: 28px;
+    min-width: auto;
+    margin: 5px 5px auto 5px;
+    padding: 0;
+    border: 0;
+    background-size: 28px 28px;
+    background-repeat: no-repeat;
+    background-position: center;
+    font-size: 20px;
+    display: block;
+    position: relative;
+    float: right;
+}
+
+/* Contiene lo slider */
+#BRnavpos {
+	width: -moz-calc(100% - 130px - 130px - 20px);
+	width: calc(100% - 130px - 130px - 20px);
+    height: 42px;
+    display: block;
+    position: relative;
+    float: left;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+#BRpager {
+    padding-left: 12px;
+    text-align: right;
+    /*position: relative;*/
+    margin: 17px 10px 0 10px;
+    max-height: 8px;
+    background-color: #F5EAD4;
+    border-radius: 10px;
+    box-shadow: inset 0 1px 1px 0 rgba(155, 154, 155, 0.39);
+}
+
+#BRpager .ui-slider-handle {
+    width: 8px;
+    height: 28px;
+    margin-top: 4px;
+	cursor: pointer;
+	border-radius: 5px;
+	box-shadow: 0px 1px 3px -1px rgba(0, 0, 0, 0.6)
+}
+#BRpager .ui-slider-handle:focus {
+    outline: none !important;
+}
+
+#BRnavline {
+    position: relative;
+    height: 1px;
+    width: auto;
+    background-color: #000;
+    top: -7px;
+    margin: 0 10px;
+}
+
+.BRnavend {
+    position: absolute;
+    top: -2px;
+    width: 1px;
+    height: 6px;
+    background-color: #000;
+}
+
+#BRnavleft {
+    left: 0;
+}
+
+#BRnavright {
+    right: 0;
+}
+
+/* Contiene i pulsanti */
+#BRpage {
+    width: 130px;
+    min-width: 130px;
+    max-width: 130px;
+    max-height: 42px;
+    padding-left: 0;
+    padding-right: 0;
+    float: left;
+}
+
+#BRpage .mainButtons {
+    float: left !important;
+    margin: 0px !important;
+    margin-top: 7px !important;
+    border-radius: 0;
+    margin-left: 1px !important;
+}
+#BRpage .mainButtons:not(:hover) {
+    -moz-box-shadow: none;
+	-webkit-box-shadow: none;
+	-o-box-shadow: none;
+	-khtml-box-shadow: none;
+	-ms-box-shadow: none;
+	box-shadow: none;
+}
+#BRpage .mainButtons:first-child {
+    border-bottom-left-radius: 5px;
+	border-top-left-radius: 5px;
+	border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+    margin-left: 0 !important;
+}
+
+#BRpage .mainButtons:last-child  {
+	margin-right: 15px;
+	margin-left: 1px !important;
+    border-bottom-right-radius: 5px;
+	border-top-right-radius: 5px;
+	border-bottom-left-radius: 0;
+	border-top-left-radius: 0;
+}
+#BRpage .mainButtons i {
+    margin: 0 0 0 9px;
+}
+#BRpage .mainButtons.arrow_left_disable,
+#BRpage .mainButtons.arrow_right_disable {
+    cursor: default !important;
+    -moz-box-shadow: none !important;
+	-webkit-box-shadow: none !important;
+	-o-box-shadow: none !important;
+	-khtml-box-shadow: none !important;
+	-ms-box-shadow: none !important;
+    box-shadow: none !important;
+    opacity: .7 !important;
+}
+
+#BRicon_book_start, #BRicon_book_end {
+    width: auto !important;
+}
+#BRicon_book_start i,
+#BRicon_book_end i {
+    display: inline-block;
+    margin: 0 !important;
+}
+#BRpage .fa-minus {
+    font-size: 111%;
+    top: 3px !important;
+}
+#BRpage .fa-chevron-left {
+    margin-left: 5px !important;
+}
+#BRpage .fa-chevron-right {
+    margin-left: 9px;
+}
+#BRicon_book_start i.fa-chevron-left {
+    margin-left: -5px !important;
+    margin-right: 5px !important;
+}
+#BRicon_book_end i.fa-chevron-right {
+    margin-left: 5px !important;
+}
+#BRicon_book_end i.fa-minus {
+    margin-left: -8px !important;
+    margin-right: 3px !important;
+}
+
+.BRnavCntl {
+	background-color: #362D28;
+    -moz-border-radius-topleft: 8px;
+    -moz-border-radius-topright: 8px;
+    -webkit-border-top-left-radius: 8px;
+    -webkit-border-top-right-radius: 8px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    /* box-shadow: 0px -8px 5px #000; */
+    border-top: 5px;
+    bottom: 42px;
+    box-shadow: 0px -14px 19px -13px #F5EFE4;
+    color: #F5EFE4;
+    cursor: pointer;
+    height: 30px;
+    left: auto;
+    max-height: 40px;
+    max-width: 40px;
+    position: absolute;
+    right: 10px;
+    width: 40px;
+    z-index: 9999 !important;
+
+}
+
+.BRnavCntl .fa {
+    position: relative;
+    bottom: 0;
+    display: inline-block;
+}
+
+.BRup {
+    background-repeat: no-repeat;
+    opacity: .5;
+    -webkit-transition: opacity 0.5s;
+    /* Safari */
+    transition: opacity 0.5s;
+}
+
+.BRup:hover {
+    opacity: 1;
+    -webkit-transition: opacity 0.5s;
+    /* Safari */
+    transition: opacity 0.5s;
+}
+
+.BRdn {
+    background-repeat: no-repeat;
+}
+
+/* Contiene il numero della pagina visualizzata */
+#pagenum {
+    position: absolute;
+    width: 100%;
+    height: 12px;
+    text-align: center;
+    padding: 0 0 0 0;
+    font-size: 0.5em;
+    font-family: Junicode, Times, serif;
+    color: #F5EFE4;
+}
+
+#pagenum span {
+    text-align: center;
+    font-style: italic;
+}
+
+.mstitle a {
+    font-size: 80%;
+}
+
+#central_wrapper.navBarCollapsed {
+	-webkit-transition: all 0.5s;
+    transition: all 0.5s;
+}
+
+#central_wrapper.navBarExpanded {
+	height: -moz-calc(100% - 40px - 15px - 42px - 15px);
+    height: -webkit-calc(100% - 40px - 15px - 42px - 15px);
+    height: -o-calc(100% - 40px - 15px - 42px - 15px);
+    height: calc(100% - 40px - 15px - 42px - 15px);
+	-webkit-transition: all 0.5s;
+    transition: all 0.5s;
+}
+
+#BRnavCntlBtm.BRdn {
+	bottom: -42px;
+}
+
+.fancybox img:hover {
+	cursor: pointer;
+	opacity: .7;
+}

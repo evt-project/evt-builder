@@ -47,9 +47,7 @@
 	-->
 	
 	<xsl:template match="tei:back" mode="interp">
-        <br />
-		<xsl:apply-templates mode="#current">
-		</xsl:apply-templates>
+		<xsl:apply-templates mode="#current"/>
 	</xsl:template>
 
 	<!-- EN: Template matching the text -->
