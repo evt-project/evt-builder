@@ -3958,3 +3958,10 @@ span.autore {
     font-size: 90%;
     font-variant: small-caps;
 }
+
+.gap-unit[data-unit="pars"]::before {
+    display: block;
+    width: 100%;
+    content: "";
+    white-space: pre-wrap;
+}
