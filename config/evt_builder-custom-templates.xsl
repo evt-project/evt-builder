@@ -17,12 +17,4 @@
         </xd:doc>
     <!-- In order to make it work properly you need to add mode="interp dipl #default" to each template -->
 
-<xsl:template match="tei:note" mode="interp dipl #default" priority="9">
-    <xsl:element name="span">
-        <!-- Aggiungi il valore di @rend alla classe. Se in @rend è presente un '.' viene sostituito con un '_' -->
-        <xsl:attribute name="class" select="name()"/>
-        <xsl:call-template name="dataAttributesFromAttributes"/>
-        <xsl:apply-templates mode="#current"/>
-    </xsl:element>
-</xsl:template>
 </xsl:stylesheet>
