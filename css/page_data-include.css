@@ -1480,7 +1480,7 @@ span.setting, span.popup.setting {
 .inline_note.critical .open_note{
     font-size: 0.8em !important;
     top: -10px;
-    background: rgb(86, 28, 10) none repeat scroll 0% 0%;
+    background: rgb(26, 19, 58) none repeat scroll 0% 0%;
     color: rgb(245, 234, 212);
     padding: 0px 6px 0px 4px;
     border-radius: 5px;
@@ -1502,7 +1502,7 @@ span.setting, span.popup.setting {
 .inline_note.comment .open_note{
     font-size: 0.8em !important;
     top: -10px;
-    background: rgb(26, 19, 58) none repeat scroll 0% 0%;
+    background: rgb(rgb(66, 10, 80))
     color: rgb(255, 255, 255);
     padding: 0px 6px 0px 4px;
     border-radius: 5px;
