@@ -1477,13 +1477,14 @@ span.setting, span.popup.setting {
     background: url("../images/popup_before_grey.png") repeat scroll 0% 0% transparent;
 }
 
-.inline_note.critical .open_note{
+.inline_note.critical .open_note {
     font-size: 0.8em !important;
     top: -10px;
-    background: rgb(23, 35, 100) none repeat scroll 0% 0%;
+    background: rgb(24, 70, 155) none repeat scroll 0% 0%;
     color: rgb(245, 234, 212);
-    padding: 0px 6px 0px 4px;
-    border-radius: 5px;
+    padding: 0px 6px 0px 6px;
+	border-radius: 5px;
+	font-style: normal;
 }
 /*.open_note:hover + span.text_note{
 	display: block;
@@ -1491,19 +1492,21 @@ span.setting, span.popup.setting {
 	text-align: left;
 	padding:1%;
 }*/
+
 /* COMMENT NOTES */
 .inline_note.comment span.tooltip {
     background: #e5e5e5;
 }
-.inline_note.comment span.tooltip span.before{
+.inline_note.comment span.tooltip span.before {
     background: url("../images/popup_before_grey.png") repeat scroll 0% 0% transparent;
 }
 
-.inline_note.comment .open_note{
+.inline_note.comment .open_note {
     font-size: 0.8em !important;
     top: -10px;
-    background: rgb(rgb(66, 10, 80));
+    background: rgb(87, 14, 105) none repeat scroll 0% 0%;
     color: rgb(255, 255, 255);
-    padding: 0px 6px 0px 4px;
-    border-radius: 5px;
+    padding: 0px 6px 0px 6px;
+	border-radius: 5px;
+	font-style: normal;
 }
