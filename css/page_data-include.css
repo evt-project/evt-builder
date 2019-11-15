@@ -1044,7 +1044,9 @@ span.popup:hover span.trigger span.tooltip, span.popup:hover span.trigger span.i
 }
 
 span.inline_note{
-    display:inline-block;
+	display:inline-block;
+	top: -10px;
+    position: relative;
 }
 
 span.text_note{
@@ -1061,7 +1063,6 @@ span.text_note{
 	-o-box-shadow: 2px 2px 2px #7e7067;
 	-khtml-box-shadow: 2px 2px 2px #7e7067;
 	-ms-box-shadow: 2px 2px 2px #7e7067;
-	padding: 0.4%;
 	margin-top:3px;
     margin-left: -13px;
     margin-top: 0px;
@@ -1069,17 +1070,11 @@ span.text_note{
     text-decoration:none !important;
 }
 .open_note{
-    font-size: 0.5em !important;
-    top: -10px;
-    margin: 0px 2px;
+	font-size: 0.5em !important;
+    margin: 0px 5px;
     cursor: pointer;
     color: rgb(87, 14, 105);
-	z-index:0;
-    top: -10px;
-    background: rgb(87, 14, 105) none repeat scroll 0% 0%;
-    padding: 6px 3px 3px 6px;
-	border-radius: 5px;
-	font-style: normal;
+    z-index: 0;
 }
 span.text_note{
 	margin-top: 25px;
@@ -1486,7 +1481,7 @@ span.setting, span.popup.setting {
     font-size: 0.8em !important;
     top: -10px;
     background: rgb(24, 70, 155) none repeat scroll 0% 0%;
-    color: rgb(255, 255, 255);;
+    color: rgb(255, 255, 255) !important;
     padding: 1px 6px 1px 6px;
 	border-radius: 5px;
 	font-style: normal;
@@ -1510,7 +1505,7 @@ span.setting, span.popup.setting {
     font-size: 0.8em !important;
     top: -10px;
     background: rgb(87, 14, 105) none repeat scroll 0% 0%;
-    color: rgb(255, 255, 255);
+    color: rgb(255, 255, 255) !important;
     padding: 1px 6px 1px 6px;
 	border-radius: 5px;
 	font-style: normal;
