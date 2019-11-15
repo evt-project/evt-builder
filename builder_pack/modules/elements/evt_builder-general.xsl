@@ -94,6 +94,12 @@
                         <xsl:value-of select="@n"/>
                     </xsl:element>
                 </xsl:when>
+                <xsl:when test="@type = 'comment' and @n != ''">
+                    <xsl:element name="i">
+                        <xsl:attribute name="class">open_note trigger</xsl:attribute>
+                        <xsl:value-of select="@n"/>
+                    </xsl:element>
+                </xsl:when>
                 <xsl:otherwise>
                     <xsl:element name="i">
                         <xsl:attribute name="class">fa fa-circle open_note trigger</xsl:attribute>
