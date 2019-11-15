@@ -565,6 +565,8 @@ function sortDate(container, items) {
 	});
 	/* inserisco gli elementi nel contenitore dopo averlo svuotato */
 	container.empty().prepend(items);
+	bindRegestoTogglerInList();
+	bindDocumentLinkChronologicalIndex();
 }
 
 /* Anche per l'ordinamento dei documenti ho creato una funzione esterna, in cui recupero il valore
@@ -581,6 +583,8 @@ function sortDocument(container, items, sortingOrder) {
 	}).each(function () {
 		container.prepend(this);
 	});
+	bindRegestoTogglerInList();
+	bindDocumentLinkChronologicalIndex();
 }
 
 /* CDM: Ho creato una funzione di preparazione dell'indice cronologico, che viene eseguita quando si clicca sull'etichetta corrispondente.
@@ -627,31 +631,13 @@ function bindChronologicalIndex() {
 		var items = container.find(".list_element");
 		/* Invoco la funzione per l'ordinamento delle date */
 		sortDate(container, items);
-		showOrHideRegesto();
-		// bindDocumentLinkChronologicalIndex();
+		bindRegestoTogglerInList();
+		bindDocumentLinkChronologicalIndex();
 	});
 }
 
-/* CDM: Ho gestito questa parte del codice per la gestione del regesto in una funzione esterna per non
- * doverla ripetere più volte. */
-function toggleRegestoInIndex(el) {
-	var action = $(el).attr('data-action');
-	$(el).siblings('.toggleRegestoInList').addClass('active');
-	$(el).removeClass('active');
-	var documentRegesto = $(el).parent();
-	if (action === 'expand') {
-		// Sto gestendo il pulsante MORE
-		documentRegesto.find('.regestoExpansion').show();
-		documentRegesto.find('.regestoEllipsis').hide();
-	} else {
-		// Sto gestendo il pulsante LESS
-		documentRegesto.find('.regestoExpansion').hide();
-		documentRegesto.find('.regestoEllipsis').show();
-	}
-}
-
-function showOrHideRegesto() {
-	$('#ul_list_listDoc .list_element .toggleRegestoInList').click(function(event) {
+function bindRegestoTogglerInList() {
+	$('#ul_list_listDoc .list_element .toggleRegestoInList').unbind('click').click(function(event) {
 		var action = $(this).attr('data-action');
 		$(this).siblings('.toggleRegestoInList').addClass('visible');
 		$(this).removeClass('visible');
@@ -757,6 +743,13 @@ function navToDocumentFromList(el) {
 	var docFirstPage = navSelectDoc.attr('data-first-page');
 	updateHash(elementListDoc, docFirstPage, "");
 	$('#toggle_list_cont').trigger('click');
+}
+
+/* Gestione del link alla prima pagina del documento corrispondente all'elemento della lista per l'indice cronologico */
+function bindDocumentLinkChronologicalIndex() {
+	$('.document_list_doc_link').unbind('click').click(function() {
+		navToDocumentFromList($(this));
+	});
 }
 
 function bindShowListElementOccurrences(listName) {
