@@ -3860,6 +3860,7 @@ span.autore {
 }
 [data-rend*='center'] {
     text-align: center !important;
+    display: block;
 }
 
 [data-rend*='left'] {
@@ -3868,6 +3869,11 @@ span.autore {
 
 [data-rend*='right'] {
     text-align: right !important;
+    display: block;
+}
+[data-rend*='empty'],
+[data-type*='empty'] {
+    display: block;
 }
 
 [data-rend*='uppercase'] {
