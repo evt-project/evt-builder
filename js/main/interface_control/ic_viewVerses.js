@@ -41,7 +41,9 @@ function toggleProseVerses(el) {
 function initializeProse() {
 	var lb = document.getElementsByClassName("lb");
 	for (var i = 1; i < lb.length; i++) {
-		$(lb[i]).html("<br />");
+		if (lb[i].getAttribute('data-rend') !== 'empty') {
+			$(lb[i]).html("<br />");
+		}
 	}
 }
 
@@ -55,7 +57,9 @@ function viewVerses(frame) {
 	frame.find(".dipl-lineN+.dipl-left, .interp-lineN+.interp-left").css('display', 'inline');
 
 	for (var i = 1; i < lb.length; i++) {
-		$(lb[i]).html("");
+		if (lb[i].getAttribute('data-rend') !== 'empty') {
+			$(lb[i]).html("");
+		}
 	}
 
 	for (var i = 0; i < numeri.length; i++) {
@@ -70,7 +74,9 @@ function viewVerses(frame) {
 	}
 
 	for (var i = 1; i < spazio.length; i++) {
-		$(spazio[i]).html("<br />");
+		if (spazio[i].getAttribute('data-rend') !== 'empty') {		
+			$(spazio[i]).html("<br />");
+		}
 	}
 }
 
@@ -85,12 +91,16 @@ function viewProse(frame) {
 
 	for (var i = 1; i < lb.length; i++) {
 		if ($(lb[i]).text()) {
-			$(lb[i]).html("<br />");
+			if (lb[i].getAttribute('data-rend') !== 'empty') {
+				$(lb[i]).html("<br />");
+			}
 		}
 	}
 
 	for (var i = 1; i < spazio.length; i++) {
-		$(spazio[i]).html("");
+		if (spazio[i].getAttribute('data-rend') !== 'empty') {
+			$(spazio[i]).html("");
+		}
 	}
 
 	for (var i = 0; i < numeri.length; i++) {

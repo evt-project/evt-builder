@@ -127,7 +127,7 @@
 					<xsl:text> </xsl:text>
 				</xsl:element>
 			</xsl:when>
-			<xsl:when test="not(ancestor::node()[parent::node()[name()=$start_split]]//tei:lb) and (not(@part) or number(@part) &lt; 0 or @group!='lb')">
+			<xsl:when test="not(ancestor-or-self::node()[ancestor-or-self::node()[name()=$start_split]]//tei:lb) and (not(@part) or number(@part) &lt; 0 or @group!='lb')">
 				<xsl:choose>
 					<xsl:when test="@n">
 						<xsl:element name="div">
