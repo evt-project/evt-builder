@@ -697,7 +697,7 @@ function transformBrs() {
 	var brs = document.getElementsByClassName('lb');
 	for (var i = brs.length - 1; i >= 0; i--) {
 		if (brs[i].getAttribute('data-type') === 'empty') {
-			brs[i].innerHTML = '<br />';
+			// brs[i].innerHTML = '<br />';
 		}
 	}
 }
