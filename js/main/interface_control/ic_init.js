@@ -144,7 +144,7 @@ function preparePagePairs(xml, groupingPagesByDoc, optionTooltipInPages) {
                             .find("pb[n='" + first_page_d + "']")
                             .parent().attr('n');
                     }
-                    first_text_ref = first_text_ref.replace(/\s+/g, '');
+                    first_text_ref = first_text_ref ? first_text_ref.replace(/\s+/g, '') : '';
 
                     if (second_page_d !== "") {
                         current_id = first_page_d + "+" + second_page_d;
