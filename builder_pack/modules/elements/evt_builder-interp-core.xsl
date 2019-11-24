@@ -327,6 +327,7 @@
 					<xsl:attribute name="class" select="'lb'"/>
 					<xsl:call-template name="dataAttributesFromAttributes"/>
 					<xsl:attribute name="data-type" select="'empty'"/>
+					<xsl:value-of select="concat(' ', .)"/>
 				</xsl:element>
 			</xsl:otherwise>
 		</xsl:choose>
@@ -989,6 +990,14 @@
 			<xsl:apply-templates mode="#current"> </xsl:apply-templates>
 		</xsl:element>				
     </xsl:template>
+
+	<xsl:template match="tei:titlePage" mode="interp">
+		<xsl:element name="h1">
+			<xsl:attribute name="class" select="'center'"/>
+			<xsl:call-template name="dataAttributesFromAttributes"/>
+			<xsl:apply-templates mode="#current"> </xsl:apply-templates>
+		</xsl:element>
+	</xsl:template>
 
     <!-- DOCAUTHOR-->
     <xsl:template match="tei:docAuthor" mode="interp">
