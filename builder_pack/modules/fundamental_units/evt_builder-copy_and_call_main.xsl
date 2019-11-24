@@ -34,7 +34,7 @@
 	<!-- EN: Close and open back elements when you find a pb or an lb -->
 	<!-- IT: Chiudi e riapri i tag quando trovi un pb o un lb -->
 	<xsl:template
-		match="node()[name() = $start_split]//node()[lb[@* and not(@rend = 'empty')] | pb | cb][not(descendant::node()[lb[@* and not(@rend = 'empty')] | pb | cb])]"
+		match="node()[name() = $start_split or name() = 'front']//node()[lb[@* and not(@rend = 'empty')] | pb | cb][not(descendant::node()[lb[@* and not(@rend = 'empty')] | pb | cb])]"
 		mode="splitLbPb">
 		<xsl:for-each-group select="node()" group-starting-with="lb[@* and not(@rend = 'empty')] | pb | cb">
 			<!-- EN: copy lb/pb if present in this group -->
@@ -175,8 +175,8 @@
 	<xsl:template match="*" mode="splitPages">
 		<!--<xsl:copy-of select="*"></xsl:copy-of>-->
 		<xsl:for-each-group
-				select="//node()[name() = $ed_content]/descendant-or-self::node()[@type = 'document_front']/node() |
-                    	//node()[name() = $ed_content]/descendant-or-self::pb[@type = 'document_front']"			group-starting-with="//tei:pb">
+			select="//node()[name() = $ed_content]/descendant-or-self::node()[name() = 'front']/node()" 
+                    	group-starting-with="//tei:pb">
 			<xsl:if test="self::tei:pb">
 				<!--IT: test per non creare una pagina per un gruppo che non inizia con pb (puo succedere al primo gruppo)  -->
 				<xsl:call-template name="page"/>
