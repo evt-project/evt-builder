@@ -709,6 +709,10 @@ footer {
     background: #000;
 }
 
+#text h1 span.autore {
+    margin-left: 0;
+}
+
 #text,
 #text-add {
     color: #000;
@@ -2933,6 +2937,10 @@ ul.ul_list li.list_element_opened {
 .title {
     display: inline;
     font-style: italic;
+}
+
+.capitalize {
+    text-transform: capitalize;
 }
 
 /* ******* */
