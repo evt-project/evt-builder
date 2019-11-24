@@ -254,6 +254,24 @@
 					<xsl:text>, oggi nota come </xsl:text>
 					<xsl:value-of select="tei:placeName[@type = 'new']"/>
 				</xsl:if>
+				<xsl:if test="current()/tei:placeName and not(tei:placeName[@type])">
+					<xsl:choose>
+						<xsl:when test="count(tei:placeName) > 1">
+							<xsl:for-each select="tei:placeName">
+								<xsl:if test="position() != last()">
+									<xsl:value-of select="current()"/>
+									<xsl:text>/</xsl:text>
+								</xsl:if>
+								<xsl:if test="position() = last()">
+									<xsl:value-of select="current()"/>
+								</xsl:if>
+							</xsl:for-each>
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:value-of select="tei:placeName"/>
+						</xsl:otherwise>
+					</xsl:choose>
+				</xsl:if>
 				<xsl:if test="current()/tei:district">
 					<xsl:text> (</xsl:text>
 					<xsl:value-of select="replace(current()/tei:district/@type, '_', ' ')"/>
