@@ -709,6 +709,10 @@ footer {
     background: #000;
 }
 
+#text h1 span.autore {
+    margin-left: 0;
+}
+
 #text,
 #text-add {
     color: #000;
