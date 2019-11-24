@@ -2935,6 +2935,10 @@ ul.ul_list li.list_element_opened {
     font-style: italic;
 }
 
+.capitalize {
+    text-transform: capitalize;
+}
+
 /* ******* */
 
 /* DIALOGS */
