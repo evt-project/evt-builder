@@ -177,10 +177,10 @@
                                             <xsl:attribute name="src">data/input_data/<xsl:value-of select=".//tei:graphic/@url"/></xsl:attribute>
                                             <xsl:attribute name="width">180px</xsl:attribute>
                                         </xsl:element>
-                                        <div class="imageDetails">
+                                        <span class="imageDetails">
                                             <span class="head"><xsl:value-of select=".//tei:head"/></span>
                                             <span class="figDesc"><xsl:value-of select=".//tei:figDesc"/></span>
-                                        </div>
+                                        </span>
                                     </xsl:for-each>
                                     <!-- aggiungere riferimento ad entita specifica e relative info  -->
                                 </xsl:element>
