@@ -23,10 +23,10 @@
 
 	<!-- Parameters -->
 	<!-- EN: It is possible to modify these prefixes so that they point to a custom web site, for instance:
-		<xsl:param name="filePrefix" select="'http://your.website.org/evtb'"/>
+		<xsl:param name="filePrefix" select="'http://your.website.org/'"/>
 	-->
 	<!-- IT: E' possibile modificare i prefissi per puntare ad un server personalizzato, ad esempio:
-		<xsl:param name="filePrefix" select="'http://tuosito.it/evtb'"/>
+		<xsl:param name="filePrefix" select="'http://tuosito.it/b'"/>
 	-->
 	<xsl:param name="mainPrefix" select="'.'"/> <!-- index -->
 	<xsl:param name="filePrefix" select="'../../..'"/> <!-- file path -->
@@ -35,11 +35,11 @@
 	<xsl:param name="imageExt">jpg</xsl:param> <!-- images extension -->
 
 	<!-- EN: Main web site for digital edition -->
-	<!-- IT: Sito web principale dell'edizione -->
+	<!-- IT: Sito web principale dell'edizione digitale -->
 	<!-- default: '' -->
 	<xsl:param name="webSite" select="'http://piccolabdr.humnet.unipi.it/'"/>
 
-	<!-- EN: Index title -->
+	<!-- EN: Edition title -->
 	<!-- IT: Titolo edizione -->
 	<!-- default: 'Codex Viewer' -->
 	<xsl:param name="index_title" select="'Le Théâtre Italien di Gherardi'"/>
@@ -53,12 +53,12 @@
 		</div>
 		<div>This archive includes a few examples of editions created using EVT,
 			by default you are showed a small excerpt of the
-			<a href="http://piccolabdr.humnet.unipi.it/" target="blank">
-				piccola Biblioteca Digitale Romanza</a>.
+			<a href="http://pelavicino.labcd.unipi.it/" target="blank">
+				Codice Pelavicino Digitale edition</a>.
 		</div>
 		<div>It is recommended to go to full screen mode so that all available screen space is used to show the manuscript images and the transcription text.</div>
-		<div>For more information refer to the EVT Manual in the "doc" folder.
-			If you have any suggestions or spot an error/bug please contact us at <a href="mailto:evt.developers@gmail.com">evt.developers@gmail.com</a></div>
+		<div>For more information refer to the EVT Manual available in the "doc" folder.
+			If you have any suggestions or spot an error/bug please contact us at <a href="mailto:evt.developers@gmail.com">evt.developers@gmail.com</a>.</div>
 	</xsl:param>
 
 	<!-- EN: Hide/Show scans -->
@@ -90,7 +90,7 @@
 	<xsl:param name="regesto" select="false()"/>
 
 	<!-- EN: On/Off <front> Information -->
-	<!-- IT: Attiva/Disattiva <front> Information -->
+	<!-- IT: Attiva/Disattiva Informazioni del <front> -->
 	<!-- default: true() -->
 	<xsl:param name="frontInfo" select="true()"/>
 
@@ -99,7 +99,7 @@
 	<!-- default: true() -->
 	<xsl:param name="msDesc" select="true()"/>
 
-	<!-- EN: On/Off Header information -->
+	<!-- EN: On/Off Header general information -->
 	<!-- IT: Attiva/Disattiva Informazioni generali -->
 	<!-- default: true() -->
 	<xsl:param name="headerInfo" select="true()"/>
@@ -112,6 +112,7 @@
 	<!-- ############## -->
 	<!-- EDITION LEVELS -->
 	<!-- ############## -->
+
 	<!-- EN: To use it in your code:
 		<xsl:value-of select="$edition_array[n]" />	-->
 	<!-- IT: Per l'utilizzo nel codice:
@@ -130,7 +131,7 @@
 
 		<edition>Interpretative</edition>
 		<!-- EN: If you have an interpretative edition put <edition>Interpretative</edition>.
-			 	 If you don't have an interpretative edition put <edition></edition> -->
+			 	 If you DON'T have an interpretative edition put <edition></edition> -->
 		<!-- IT: Se si ha l'edizione interpretativa scrivere <edition>Interpretative</edition>.
 			 	 Se NON si ha l'edizione interpretativa mettere <edition></edition> -->
 
@@ -143,7 +144,7 @@
 	</xsl:variable>
 
 	<!-- EN: It is possibile to customize the prefix used in the creation of the classes of the html elements of the edition -->
-	<!-- IT: E' possibile personalizzare il prefisso usato nella creazione delle classi degli elementi html di un edizione. -->
+	<!-- IT: E' possibile personalizzare il prefisso usato nella creazione delle classi degli elementi html dell'edizione. -->
 	<xsl:variable name="ed_name1">dipl</xsl:variable>
 	<xsl:variable name="ed_name2">interp</xsl:variable>
 	<!-- Variable -->
@@ -152,11 +153,11 @@
 	<!-- IT: Attiva/Disattiva traduzione -->
 	<xsl:variable name="translation" select="true()"/> 
 
-	<!-- Thumb image -->
+	<!-- Thumbnail image -->
 	<xsl:variable name="fb_thumb">thumb_fb.jpg</xsl:variable>
 
 	<!--
-	<xsl:variable name="title" select="teiHeader/fileDesc/titleStmt/title" />
+		<xsl:variable name="title" select="teiHeader/fileDesc/titleStmt/title" />
     <xsl:variable name="author" select="teiHeader/fileDesc/titleStmt/author" />
     <xsl:variable name="publisher" select="teiHeader/fileDesc/publicationStmt/publisher" />
     <xsl:variable name="pubdate" select="teiHeader/fileDesc/publicationStmt/date" />
@@ -170,8 +171,8 @@
 			then(//tei:text/tei:group/name())
 		else ( //tei:text/name() )"/>
 
-	<!-- EN: Starting point for the split of elements containing pb and lb -->
-	<!-- IT: Punto di partenza per la divisione degli elementi contententi pb/lb -->
+	<!-- EN: Starting point for the split of elements containing <pb/> and <lb/> elements -->
+	<!-- IT: Punto di partenza per la divisione degli elementi contententi elementi <pb/> e <lb/> -->
 	<!--<xsl:variable name="start_split" select="if(//tei:text/tei:group[@xml:id='group']) then(//tei:text/tei:group[@xml:id='group']/name()) else( if(//tei:body/tei:div[@subtype='edition_text']) then(//tei:body/tei:div[@subtype='edition_text']/name()) else(//tei:body/name()) )"/>-->
 	<!-- Retrocompatiblità gestita solo per documenti unitari -->
 	<xsl:variable name="start_split" select="
@@ -204,7 +205,6 @@
 	<!-- INTERFACE CONTROL -->
 	<!-- ################# -->
 
-	<!-- -->
 	<!-- DEFAULT CONTENT SEEN -->
 	<!-- EN: Set default content on first load for left frame choosing between image or manuscript info
 			Possible values are:
@@ -262,22 +262,22 @@
 	<xsl:param name="viscoll_button" select="true()"/>
 	
 	<!-- VISCOLL -->
-	<!-- In order to let Viscoll work properly, you need to prepare the collation scheme and the image list, as it is explained in the point 1 and 2 of 
-		Viscoll documentation (https://github.com/leoba/VisColl). First create your collation model, 
+	<!-- In order to let Viscoll work properly, you need to prepare the collation scheme and the image list, as it is explained in the points 
+		1 and 2 of Viscoll documentation (https://github.com/leoba/VisColl). First create your collation model, 
 		then prepare the image list as indicated (or just have an encoded xml TEI file containing a facsimile section) 
 		and process it at http://138.197.87.173:8080/xproc-z/visualize-collation/ -->
 	
 	<!-- EN: Path to xml file containing viscoll scheme. 
-		If you need to use an online resource, put the complete URL (e.g: http://www.mysite.com/viscollScheme.xml).
-		Otherwise put the file in data/input_data/text folder and just put here the relative path starting from that folder. -->
+		If you need to use an online resource, put the complete URL (e.g: http://www.mysite.com/viscollScheme.xml) here.
+		Otherwise put the file in data/input_data/text folder and just put the relative path starting from that folder here. -->
 	<!-- IT: Percorso al file xml contenente lo schema viscoll.
 		Se si usa una risorsa online, inserire il percorso completo (ex. http://www.ilmiosito.it/schemaViscoll.xml).
 		Altrimenti copiare il file nella cartella data/input_data/text e inserire qui solo percorso relativo a partire da quella cartella. -->
 	<xsl:param name="viscoll_scheme_path">text/viscoll/CP_viscollScheme.xml</xsl:param>
 
 	<!-- EN: Path to xml file containing viscoll images list.
-		If you need to use an online resource, put the entire path (e.g: http://www.mysite.com/viscollImagelist.xml).
-		Otherwise put the file in data/input_data/text folder and just put here the relative path starting from that folder. -->
+		If you need to use an online resource, put the entire path (e.g: http://www.mysite.com/viscollImagelist.xml) here.
+		Otherwise put the file in data/input_data/text folder and just put the relative path starting from that folder here. -->
 	<!-- IT: Percorso al file xml contenente la lista delle immagini necessaria al corretto funzionamento di viscoll.
 		Se si usa una risorsa online, inserire il percorso completo (ex. http://www.ilmiosito.it/viscollImagelist.xml).
 		Altrimenti copiare il file nella cartella data/input_data/text e inserire qui solo percorso relativo a partire da quella cartella. -->
@@ -294,14 +294,14 @@
 	<xsl:param name="pp_selector_pos" select="'left'"/>
 
 	<!-- EN: Choose whether or not to group pages by document in the selector -->
-    <!-- IT: Scegli se raggruppare o meno le pagine per documento nel selettore apposito -->
-    <!-- default: true() -->
-    <xsl:param name="pp_selector_doc_grouping" select="true()"/>
+  <!-- IT: Scegli se raggruppare o meno le pagine per documento nel selettore apposito -->
+  <!-- default: true() -->
+  <xsl:param name="pp_selector_doc_grouping" select="true()"/>
 
-    <!-- EN: Choose whether or not having a tooltip on pages option showing the belonging document  -->
-    <!-- IT: Scegli se avere un tooltip sulle opzioni delle pagine che mostra il/i documento/i di appartenenza -->
-    <!-- default: false() -->
-    <xsl:param name="pp_selector_doc_tooltip" select="true()"/>
+  <!-- EN: Choose whether or not having a tooltip on pages option showing the belonging document  -->
+  <!-- IT: Scegli se avere un tooltip sulle opzioni delle pagine che mostra il/i documento/i di appartenenza -->
+  <!-- default: false() -->
+  <xsl:param name="pp_selector_doc_tooltip" select="true()"/>
 
 	<!-- EN: On/Off Search -->
 	<!-- IT: Attiva/Disattiva Ricerca -->
@@ -333,7 +333,7 @@
 	<!-- default: true() -->
 	<xsl:param name="prose_verses_toggler" select="false()"/>
 	
-	<!-- EN: On/Off Tooltip indicating language encoded in @xml:lang -->
+	<!-- EN: On/Off Tooltip indicating language encoded with @xml:lang -->
 	<!-- IT: Attiva/Disattiva Tooltip per la visualizzazione della lingua degli elementi che presentano @xml:lang  -->
 	<!-- default: false() -->
 	<xsl:param name="lang_tooltip" select="true()"/>

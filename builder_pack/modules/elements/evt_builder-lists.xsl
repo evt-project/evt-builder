@@ -28,7 +28,7 @@
 	<xsl:template name="person">
 		<xsl:choose>
 			<xsl:when
-				test="current()//tei:name or current()//tei:forename or current()//tei:surname or current()//tei:sex or current()//tei:occupation or current()//tei:idno">
+				test="current()//tei:persName or current()//tei:name or current()//tei:forename or current()//tei:surname or current()//tei:sex or current()//tei:occupation or current()//tei:idno">
 				<xsl:element name="span">
 					<xsl:attribute name="class">entity_name <xsl:if test="$list_person = true()">
 							link_active</xsl:if></xsl:attribute>
@@ -46,6 +46,24 @@
 					<xsl:if test="current()//tei:surname">
 						<xsl:text>&#xA0;</xsl:text>
 						<xsl:value-of select="tei:persName//tei:surname"/>
+					</xsl:if>
+					<xsl:if test="current()//tei:persName">
+						<xsl:choose>
+							<xsl:when test="count(tei:persName) > 1">
+								<xsl:for-each select="tei:persName">
+									<xsl:if test="position() != last()">
+										<xsl:value-of select="current()"/>
+										<xsl:text>/</xsl:text>
+									</xsl:if>
+									<xsl:if test="position() = last()">
+										<xsl:value-of select="current()"/>
+									</xsl:if>
+								</xsl:for-each>
+							</xsl:when>
+							<xsl:otherwise>
+								<xsl:value-of select="tei:persName/text()"/>
+							</xsl:otherwise>
+						</xsl:choose>
 					</xsl:if>
 				</xsl:element>
 				<!--<xsl:if test="current()/tei:sex">
@@ -253,6 +271,24 @@
 				<xsl:if test="current()/tei:placeName[@type = 'new']">
 					<xsl:text>, oggi nota come </xsl:text>
 					<xsl:value-of select="tei:placeName[@type = 'new']"/>
+				</xsl:if>
+				<xsl:if test="current()/tei:placeName and not(tei:placeName[@type])">
+					<xsl:choose>
+						<xsl:when test="count(tei:placeName) > 1">
+							<xsl:for-each select="tei:placeName">
+								<xsl:if test="position() != last()">
+									<xsl:value-of select="current()"/>
+									<xsl:text>/</xsl:text>
+								</xsl:if>
+								<xsl:if test="position() = last()">
+									<xsl:value-of select="current()"/>
+								</xsl:if>
+							</xsl:for-each>
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:value-of select="tei:placeName"/>
+						</xsl:otherwise>
+					</xsl:choose>
 				</xsl:if>
 				<xsl:if test="current()/tei:district">
 					<xsl:text> (</xsl:text>

@@ -709,6 +709,10 @@ footer {
     background: #000;
 }
 
+#text h1 span.autore {
+    margin-left: 0;
+}
+
 #text,
 #text-add {
     color: #000;
@@ -2935,6 +2939,10 @@ ul.ul_list li.list_element_opened {
     font-style: italic;
 }
 
+.capitalize {
+    text-transform: capitalize;
+}
+
 /* ******* */
 
 /* DIALOGS */
@@ -3860,6 +3868,7 @@ span.autore {
 }
 [data-rend*='center'] {
     text-align: center !important;
+    display: block;
 }
 
 [data-rend*='left'] {
@@ -3868,6 +3877,11 @@ span.autore {
 
 [data-rend*='right'] {
     text-align: right !important;
+    display: block;
+}
+[data-rend*='empty'],
+[data-type*='empty'] {
+    display: block;
 }
 
 [data-rend*='uppercase'] {

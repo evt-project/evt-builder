@@ -127,7 +127,7 @@
 					<xsl:text> </xsl:text>
 				</xsl:element>
 			</xsl:when>
-			<xsl:when test="not(ancestor::node()[parent::node()[name()=$start_split]]//tei:lb) and (not(@part) or number(@part) &lt; 0 or @group!='lb')">
+			<xsl:when test="not(ancestor-or-self::node()[ancestor-or-self::node()[name()=$start_split]]//tei:lb) and (not(@part) or number(@part) &lt; 0 or @group!='lb')">
 				<xsl:choose>
 					<xsl:when test="@n">
 						<xsl:element name="div">
@@ -327,6 +327,7 @@
 					<xsl:attribute name="class" select="'lb'"/>
 					<xsl:call-template name="dataAttributesFromAttributes"/>
 					<xsl:attribute name="data-type" select="'empty'"/>
+					<xsl:value-of select="concat(' ', .)"/>
 				</xsl:element>
 			</xsl:otherwise>
 		</xsl:choose>
@@ -989,6 +990,14 @@
 			<xsl:apply-templates mode="#current"> </xsl:apply-templates>
 		</xsl:element>				
     </xsl:template>
+
+	<xsl:template match="tei:titlePage" mode="interp">
+		<xsl:element name="h1">
+			<xsl:attribute name="class" select="'center'"/>
+			<xsl:call-template name="dataAttributesFromAttributes"/>
+			<xsl:apply-templates mode="#current"> </xsl:apply-templates>
+		</xsl:element>
+	</xsl:template>
 
     <!-- DOCAUTHOR-->
     <xsl:template match="tei:docAuthor" mode="interp">
