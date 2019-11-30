@@ -1344,8 +1344,7 @@
 				</xsl:when>
 				<xsl:otherwise>
 					<xsl:value-of
-						select="concat('text_', current-group()/ancestor-or-self::tei:text[1]/position())"
-					/>
+							select="current-group()/ancestor-or-self::tei:text[1]/position()"/>
 				</xsl:otherwise>
 			</xsl:choose>
 		</xsl:variable>

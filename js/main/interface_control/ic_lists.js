@@ -566,6 +566,7 @@ function sortDate(container, items) {
 	/* inserisco gli elementi nel contenitore dopo averlo svuotato */
 	container.empty().prepend(items);
 	bindRegestoTogglerInList();
+	bindDocumentLinkChronologicalIndex();
 }
 
 /* Anche per l'ordinamento dei documenti ho creato una funzione esterna, in cui recupero il valore
@@ -583,6 +584,7 @@ function sortDocument(container, items, sortingOrder) {
 		container.prepend(this);
 	});
 	bindRegestoTogglerInList();
+	bindDocumentLinkChronologicalIndex();
 }
 
 /* CDM: Ho creato una funzione di preparazione dell'indice cronologico, che viene eseguita quando si clicca sull'etichetta corrispondente.
@@ -630,7 +632,7 @@ function bindChronologicalIndex() {
 		/* Invoco la funzione per l'ordinamento delle date */
 		sortDate(container, items);
 		bindRegestoTogglerInList();
-		// bindDocumentLinkChronologicalIndex();
+		bindDocumentLinkChronologicalIndex();
 	});
 }
 
@@ -741,6 +743,13 @@ function navToDocumentFromList(el) {
 	var docFirstPage = navSelectDoc.attr('data-first-page');
 	updateHash(elementListDoc, docFirstPage, "");
 	$('#toggle_list_cont').trigger('click');
+}
+
+/* Gestione del link alla prima pagina del documento corrispondente all'elemento della lista per l'indice cronologico */
+function bindDocumentLinkChronologicalIndex() {
+	$('.document_list_doc_link').unbind('click').click(function() {
+		navToDocumentFromList($(this));
+	});
 }
 
 function bindShowListElementOccurrences(listName) {
