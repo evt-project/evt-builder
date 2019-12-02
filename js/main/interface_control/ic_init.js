@@ -94,7 +94,6 @@ function preparePagePairs(xml, groupingPagesByDoc, optionTooltipInPages) {
         if (pagesPairArray) {
             first_pp = pagesPairArray.find('pb').first().text();
             last_pp = pagesPairArray.find('pb').last().text();
-
             var f_pair, l_pair;
             f_pair = pagesPairArray.first().children('pb').eq(0).text();
             l_pair = pagesPairArray.first().children('pb').eq(1).text()
@@ -124,75 +123,79 @@ function preparePagePairs(xml, groupingPagesByDoc, optionTooltipInPages) {
                 var first_page_in_front, second_page_in_front;
 
                 var pbElem = $(this).children('pb');
-                first_page_d = pbElem.eq(0).text();
-                first_label_d = pbElem.eq(0).attr("n") != "" ? pbElem.eq(0).attr("n") : first_page_d;
-
-                if (first_page_d.indexOf('-front') < 0) {
-                    second_page_d = pbElem.eq(1).text();
-                    second_label_d = pbElem.eq(1).attr("n") != "" ? pbElem.eq(1).attr("n") : second_page_d;
-
-                    current_id = "";
-                    current_label = "";
-
-                    first_text_ref = $(xml)
-                        .find('textpage text')
-                        .find('pb:contains("' + first_page_d + '")')
-                        .parent().attr('n');
-                    if (first_text_ref === undefined) {
+                if (pbElem.length > 0) {
+                    first_page_d = pbElem.eq(0).text();
+                    first_label_d = pbElem.eq(0).attr("n") != "" ? pbElem.eq(0).attr("n") : first_page_d;
+    
+                    if (first_page_d.indexOf('-front') < 0) {
+                        second_page_d = pbElem.eq(1).text();
+                        second_label_d = pbElem.eq(1).attr("n") != "" ? pbElem.eq(1).attr("n") : second_page_d;
+    
+                        current_id = "";
+                        current_label = "";
+    
                         first_text_ref = $(xml)
                             .find('textpage text')
-                            .find("pb[n='" + first_page_d + "']")
+                            .find('pb:contains("' + first_page_d + '")')
                             .parent().attr('n');
-                    }
-                    first_text_ref = first_text_ref ? first_text_ref.replace(/\s+/g, '') : '';
-
-                    if (second_page_d !== "") {
-                        current_id = first_page_d + "+" + second_page_d;
-                        current_label = first_label_d + " - " + second_label_d;
-                        // if (groupingPagesByDoc) {
-                        //	second_text_ref = $(xml)
-                        // 						.find('textpage text')
-                        // 						.find('pb:contains("'+second_page_d+'")')
-                        // 						.parent().attr('n');
-                        // 	second_text_ref = second_text_ref.replace(/\s+/g, '');
-
-                        // 	if(first_text_ref !== second_text_ref){
-                        // 		$(".main_dd_select [data-doc-group='"+second_text_ref+"']").append(
-                        //			$('<div/>')
-                        //				.attr("data-value", current_id)
-                        // 				.attr("data-first-page-first-doc", first_text_ref)
-                        // 				.addClass('option')
-                        // 				.text(current_label)
-                        // 		);
-                        //	}
-                        // }
-                    } else {
-                        current_id = first_page_d;
-                        if (first_label_d.substr(-1).toLowerCase() == 'v') {
-                            current_label = first_label_d + "<span lang='def'>PAGE_MISSING_RIGHT</span>";
-                        } else {
-                            current_label = "<span lang='def'>PAGE_MISSING_LEFT</span>" + first_label_d;
+                        if (first_text_ref === undefined) {
+                            first_text_ref = $(xml)
+                                .find('textpage text')
+                                .find("pb[n='" + first_page_d + "']")
+                                .parent().attr('n');
                         }
+                        first_text_ref = first_text_ref ? first_text_ref.replace(/\s+/g, '') : '';
+    
+                        if (second_page_d !== "") {
+                            current_id = first_page_d + "+" + second_page_d;
+                            current_label = first_label_d + " - " + second_label_d;
+                            // if (groupingPagesByDoc) {
+                            //	second_text_ref = $(xml)
+                            // 						.find('textpage text')
+                            // 						.find('pb:contains("'+second_page_d+'")')
+                            // 						.parent().attr('n');
+                            // 	second_text_ref = second_text_ref.replace(/\s+/g, '');
+    
+                            // 	if(first_text_ref !== second_text_ref){
+                            // 		$(".main_dd_select [data-doc-group='"+second_text_ref+"']").append(
+                            //			$('<div/>')
+                            //				.attr("data-value", current_id)
+                            // 				.attr("data-first-page-first-doc", first_text_ref)
+                            // 				.addClass('option')
+                            // 				.text(current_label)
+                            // 		);
+                            //	}
+                            // }
+                        } else {
+                            current_id = first_page_d;
+                            if (first_label_d) {
+                                if (first_label_d.substr(-1).toLowerCase() == 'v') {
+                                    current_label = first_label_d + "<span lang='def'>PAGE_MISSING_RIGHT</span>";
+                                } else {
+                                    current_label = "<span lang='def'>PAGE_MISSING_LEFT</span>" + first_label_d;
+                                }
+                            }
+                        }
+    
+                        // if (groupingPagesByDoc) {
+                        // 	$(".main_dd_select [data-doc-group='"+first_text_ref+"']").append(
+                        //  	$('<div/>')
+                        //			.attr("data-value", current_id)
+                        //			.attr("data-first-page-first-doc", first_text_ref)
+                        // 			.addClass('option')
+                        // 			.text(current_label)
+                        //	);
+                        // } else {
+                        $('.main_dd_select .option_container').append(
+                            $('<div/>')
+                                .attr("data-value", current_id)
+                                .attr("data-label", current_label)
+                                .attr("data-first-page-first-doc", first_text_ref)
+                                .addClass('option')
+                                .append(current_label)
+                        );
+                        // }
                     }
-
-                    // if (groupingPagesByDoc) {
-                    // 	$(".main_dd_select [data-doc-group='"+first_text_ref+"']").append(
-                    //  	$('<div/>')
-                    //			.attr("data-value", current_id)
-                    //			.attr("data-first-page-first-doc", first_text_ref)
-                    // 			.addClass('option')
-                    // 			.text(current_label)
-                    //	);
-                    // } else {
-                    $('.main_dd_select .option_container').append(
-                        $('<div/>')
-                            .attr("data-value", current_id)
-                            .attr("data-label", current_label)
-                            .attr("data-first-page-first-doc", first_text_ref)
-                            .addClass('option')
-                            .append(current_label)
-                    );
-                    // }
                 }
             });
             $('.main_dd_select .option_container div.option:first-child').addClass('selected');

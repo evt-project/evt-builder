@@ -177,7 +177,7 @@
 		<xsl:for-each-group
 			select="//node()[name() = $ed_content]/descendant-or-self::node()[name() = 'front']/node()" 
                     	group-starting-with="//tei:pb">
-			<xsl:if test="self::tei:pb">
+			<xsl:if test="self::tei:pb[not(@type='end')]">
 				<!--IT: test per non creare una pagina per un gruppo che non inizia con pb (puo succedere al primo gruppo)  -->
 				<xsl:call-template name="page"/>
 				<!-- See: evt_builder-main -->
@@ -186,7 +186,7 @@
 		<xsl:for-each-group
 			select="//node()[name() = $ed_content]/descendant-or-self::node()[name() = $start_split]/node()"
 			group-starting-with="//tei:pb">
-			<xsl:if test="self::tei:pb">
+			<xsl:if test="self::tei:pb[not(@type='end')]">
 				<!--IT: test per non creare una pagina per un gruppo che non inizia con pb (puo succedere al primo gruppo)  -->
 				<xsl:call-template name="page"/>
 				<!-- See: evt_builder-main -->
