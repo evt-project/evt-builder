@@ -212,8 +212,7 @@
                                             <pb>
                                                 <xsl:call-template name="generatePbElement">
                                                   <xsl:with-param name="pb" select="current()"/>
-                                                  <xsl:with-param name="position"
-                                                  select="position()"/>
+                                                  <xsl:with-param name="position" select="position()"/>
                                                 </xsl:call-template>
                                             </pb>
                                         </xsl:for-each>
