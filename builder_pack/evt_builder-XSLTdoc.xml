@@ -22,24 +22,21 @@
         <a href="#News">News</a>
       </li>
       <li>
-        <a href="#Features">Features</a>
+        <a href="#Features">Features </a>
       </li>
       <li>
-        <a href="#DocumentingTheCode">Documenting the code</a>
+        <a href="#DocumentingTheCode">Documenting the code </a>
       </li>
     </ul>
-    <h2><a name="News">News</a></h2>
-      <h3>2012/10/28</h3>
-      <p>XSLTdoc added</p>
+    <h2><a name="News">News v1.2</a></h2>
+      <h3>2017/07/24</h3>
       <p>Changelog</p>
       <ul>
-        <li>...</li>
-        <li>...</li>
-        <li>...</li>
+        <li>Added a new edition (diplomatic transcription);</li>
+        <li>Added ;</li>
+        <li>Added support for ;</li>
+        <li>Added support for ;</li>
       </ul>
-    
-      <h3>2012/10/..</h3>
-      <p>......</p>
       
     <h2><a name="Features">Features</a></h2>
     <ul>
@@ -162,7 +159,7 @@
   
   
   <!-- Target directory. Absolute or relative to this file -->
-  <TargetDirectory path="../doc"/>
+  <TargetDirectory path="doc"/>
 
   <!-- The stylesheets to document -->
   <RootStylesheets dir="./">

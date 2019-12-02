@@ -1,4 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+    Copyright (C) 2013-2017 the EVT Development Team.
+    
+    EVT 1 is free software: you can redistribute it 
+    and/or modify it under the terms of the 
+    GNU General Public License version 2
+    available in the LICENSE file (or see <http://www.gnu.org/licenses/>).
+    
+    EVT 1 is distributed in the hope that it will be useful, 
+    but WITHOUT ANY WARRANTY; without even the implied 
+    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
+    See the GNU General Public License for more details. 
+-->
 <xsl:stylesheet xpath-default-namespace="http://www.tei-c.org/ns/1.0"
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="2.0"
     xmlns:xs="http://www.w3.org/2001/XMLSchema" 
@@ -77,9 +90,22 @@
             </xsl:call-template>
         </xsl:if>
     </xsl:template>
+
+    <xsl:template name="ee_select_build">
+		<select class="main_ee_select">
+			<xsl:for-each select="$edition_array">
+				<xsl:variable name="edition_name" select="name(.)" />
+				<xsl:if test="$edition_name = 'edition'">
+					<option>
+						<xsl:value-of select="."/>
+					</option>										
+				</xsl:if>
+			</xsl:for-each>
+		</select>
+	</xsl:template>
 			
 	<xsl:template name="pp_select_build">
-	<xsl:param name="html_select_main"/>
+		<xsl:param name="html_select_main"/>
 		<select class="main_pp_select">
 			 <xsl:if test="$html_select_main='html_select_main'">
 				<xsl:attribute name="id">
@@ -95,6 +121,16 @@
 				</option>										
 			</xsl:for-each>
 		</select>
+	</xsl:template>
+
+	<xsl:template name="div_select_build">
+		<xsl:param name="html_div_class"/>
+
+		<div class="{$html_div_class}">
+	     	<span class="label_selected"></span>
+			<div class="open_select" ><i class="fa fa-sort-desc"></i></div>
+	        <div class="option_container down"></div>  
+	    </div>
 	</xsl:template>
 	
 </xsl:stylesheet>

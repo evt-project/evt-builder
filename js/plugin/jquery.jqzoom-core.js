@@ -21,6 +21,8 @@
  
  /*
   * 2012 Edited by JK
+  *
+  * 2016 Edited by CDP
   */
  
 (function ($) {
@@ -30,30 +32,30 @@
     var window = $(window);
     var jqzoompluging_disabled = false; //disabilita globalmente il plugin
     
-	$.fn.jqzoom = function (options) {		/*Do un nome al plugin: Tramite lutilizzo di $.fn.jqzoom creo una nuova funzione che si chiama jqzoom*/
-	return this.each(function () {			/*.each cicla il plugin su tutti gli elementi a cui  associato, Return permette di accodare altre funzioni*/
-		var node = this.nodeName.toLowerCase();
-			if (node == 'a') {
-				new jqzoom(this, options);
-			}
-		});
-	};
-	jqzoom = function (el, options) {
-		var api = null;
-		api = $(el).data("jqzoom");
-		if (api) return api;
-		var obj = this;
-		var settings = $.extend({}, $.jqzoom.defaults, options || {}); /*Merge defaults and options, without modifying the defaults (by passing an empty object as the target we preserve both of the original objects)*/
-		obj.el = el;
-		el.rel = $(el).attr('rel');
+    $.fn.jqzoom = function (options) {      /*Do un nome al plugin: Tramite lutilizzo di $.fn.jqzoom creo una nuova funzione che si chiama jqzoom*/
+    return this.each(function () {          /*.each cicla il plugin su tutti gli elementi a cui  associato, Return permette di accodare altre funzioni*/
+        var node = this.nodeName.toLowerCase();
+            if (node == 'a') {
+                new jqzoom(this, options);
+            }
+        });
+    };
+    jqzoom = function (el, options) {
+        var api = null;
+        api = $(el).data("jqzoom");
+        if (api) return api;
+        var obj = this;
+        var settings = $.extend({}, $.jqzoom.defaults, options || {}); /*Merge defaults and options, without modifying the defaults (by passing an empty object as the target we preserve both of the original objects)*/
+        obj.el = el;
+        el.rel = $(el).attr('rel');
         //ANCHOR ELEMENT
         el.zoom_active = false;
-        el.zoom_disabled = false;		//to disable single zoom instance
-        el.largeimageloading = false;	//tell us if large image is loading
-        el.largeimageloaded = false;	//tell us if large image is loaded
-		el.stageresized = false;		//tell us if large image has been resized
-        el.scale = {};					// = largeimage/smallimage
-		el.scaleI = {};					// = smallimage/largeimage
+        el.zoom_disabled = false;       //to disable single zoom instance
+        el.largeimageloading = false;   //tell us if large image is loading
+        el.largeimageloaded = false;    //tell us if large image is loaded
+        el.stageresized = false;        //tell us if large image has been resized
+        el.scale = {};                  // = largeimage/smallimage
+        el.scaleI = {};                 // = smallimage/largeimage
         el.timer = null;
         el.mousepos = {};
         el.mouseDown = false;
@@ -63,9 +65,9 @@
         });
         //BASE IMAGE
         var img = $("img:eq(0)", el);
-        el.title = $(el).attr('title');
-        el.imagetitle = img.attr('title');
-        var zoomtitle = ($.trim(el.title).length > 0) ? el.title : el.imagetitle;
+        //el.title = $(el).attr('title');
+        //el.imagetitle = img.attr('title');
+        //var zoomtitle = ($.trim(el.title).length > 0) ? el.title : el.imagetitle;
         var smallimage = new Smallimage(img);
         var lens = new Lens();
         var stage = new Stage();
@@ -155,9 +157,9 @@
                     }
                     if (el.largeimageloaded && (settings.zoomType != 'drag' || (settings.zoomType == 'drag' && el.mouseDown))) {
                         lens.setposition(e);
-						if (settings.position == 'inside'){
-							stage.moveposition(e); 
-						}
+                        if (settings.position == 'inside'){
+                            stage.moveposition(e);
+                        }
                     }
                 });
 
@@ -208,7 +210,7 @@
             activate: function (e) {
                 clearTimeout(el.timer);
                 //show lens and zoomWindow
-                lens.show();
+                if (settings.lens==true){lens.show();}
                 stage.show();
             },
             deactivate: function (e) {
@@ -217,8 +219,8 @@
                     //nothing or lens.setcenter();
                     break;
                 default:
-                    img.attr('title', el.imagetitle);
-                    $(el).attr('title', el.title);
+                    //img.attr('title', el.imagetitle);
+                    //$(el).attr('title', el.title);
                     if (settings.alwaysOn) {
                         lens.setcenter();
                     } else {
@@ -265,74 +267,36 @@
         function Smallimage(image) {
             var $obj = this;
             this.node = image[0];
-            /*this.setdimensions = function (){
-                var maxW = $("#image_cont").width();
-                var maxH = $("#image_cont").height();
-                //var maxW = this.node.parent().width();
-                //var maxH = this.parent().width();
-                $("#imgMag").css({
-                    maxWidth: maxW,
-                    maxHeight: maxH
-
-                });
-            };*/
             this.findborder = function () {
-                var bordertop = 0;
-                bordertop = image.css('border-top-width');
-                btop = '';
-                var borderleft = 0;
-                borderleft = image.css('border-left-width');
-                bleft = '';
-                if (bordertop) {
-                    for (i = 0; i < 3; i++) {
-                        var x = [];
-                        x = bordertop.substr(i, 1);
-                        if (isNaN(x) == false) {
-                            btop = btop + '' + bordertop.substr(i, 1);
-                        } else {
-                            break;
-                        }
-                    }
-                }
-                if (borderleft) {
-                    for (i = 0; i < 3; i++) {
-                        if (!isNaN(borderleft.substr(i, 1))) {
-                            bleft = bleft + borderleft.substr(i, 1)
-                        } else {
-                            break;
-                        }
-                    }
-                }
-                $obj.btop = (btop.length > 0) ? eval(btop) : 0;
-                $obj.bleft = (bleft.length > 0) ? eval(bleft) : 0;
+                var bordertop = parseFloat(image.css('border-top-width'));
+                var borderleft = parseFloat(image.css('border-left-width'));
+                $obj.btop = (bordertop> 0) ? eval(bordertop) : 0;
+                $obj.bleft = (borderleft > 0) ? eval(borderleft) : 0;
             };
             this.fetchdata = function () {
-                /*if ($(".zoomPad", el).length == 0) {
-                    el.zoomPad = $('<div/>').addClass('zoomPad');
-                    img.wrap(el.zoomPad);
-                }*/
-				var scaleI = {};
+                var scaleI = {};
                 $obj.findborder();
                 $obj.w = image.width();
                 $obj.h = image.height();
-                $obj.ow = image.outerWidth();
+                $obj.ow = image.outerWidth();   //width+padding+border  (NO margin)
                 $obj.oh = image.outerHeight();
                 $obj.pos = image.offset();
-                $obj.addLeft = image.position().left;
-                $obj.pos.l = image.offset().left + $obj.bleft;
-                //alert($obj.pos.l);
-                $obj.pos.t = image.offset().top + $obj.btop;
+                $obj.position = image.position();
+                $obj.addLeft = $obj.position.left;
+                $obj.addTop = $obj.position.top;
+                $obj.pos.l = $obj.pos.left + $obj.bleft;
+                $obj.pos.t = $obj.pos.top + $obj.btop;
                 $obj.pos.r = $obj.pos.l + $obj.w;
                 $obj.pos.b = $obj.pos.t + $obj.h;
-                $obj.rightlimit = image.offset().left + $obj.ow;
-                $obj.bottomlimit = image.offset().top + $obj.oh;
-				scaleI.x = ($obj.w / largeimage.w);
+                $obj.rightlimit = $obj.pos.left + $obj.ow;
+                $obj.bottomlimit = $obj.pos.top + $obj.oh;
+                scaleI.x = ($obj.w / largeimage.w);
                 scaleI.y = ($obj.h / largeimage.h);
                 el.scaleI = scaleI;
             };
             this.node.onerror = function () {
-                alert('Problems while loading image.');
-                throw 'Problems while loading image.';
+                // alert('Problems while loading image.');
+                throw new Error('SmallImageError/There was a problem while loading the image.'); //Add by CDP
             };
             this.node.onload = function () {
                 if ($(".zoomPad", el).length == 0) obj.create();
@@ -354,8 +318,20 @@
             };
             this.show = function () {
                 smallimage.fetchdata();
-                this.node.top = (smallimage.oh - this.node.height()) / 2;
-                this.node.left = (smallimage.ow - this.node.width()) / 2  + smallimage.addLeft;
+                if(smallimage.addLeft==0){//If add by JK for EVT-builder
+                    var add= (parseFloat($("#main_right_frame").css("width"))-smallimage.ow)/2;
+                    this.node.left = (smallimage.ow - this.node.width())/ 2 + add;
+                }
+                else {
+                   this.node.left = (smallimage.ow - this.node.width()) / 2  + smallimage.addLeft;
+                }
+                if(smallimage.addTop==0){//If add by JK for EVT-builder
+                   //var add= (parseFloat($("#main_right_frame").css("height"))-smallimage.oh)/2;
+                   this.node.top = (smallimage.oh - this.node.height())/ 2;
+                }
+                else {
+                   this.node.top = (smallimage.oh - this.node.height()) / 2 + smallimage.addTop;
+                }
                 //setting position
                 this.node.css({
                     top: this.node.top + "px",
@@ -379,31 +355,30 @@
             var $obj = this;
             this.node = $('<div/>').addClass('zoomPup');
             //this.nodeimgwrapper = $("<div/>").addClass('zoomPupImgWrapper');
-            this.append = function () {												/*creo div.ZoomPup(cioè lente) lo metto dentro zoomPad, invisibile + prendo dimensioni*/
+            this.append = function () {                                             /*creo div.ZoomPup(cioè lente) lo metto dentro zoomPad, invisibile + prendo dimensioni*/
                 $('.zoomPad', el).append($(this.node).hide());
                 if (settings.zoomType == 'reverse') {
                     this.image = new Image();
                     this.image.src = smallimage.node.src; // fires off async
                     $(this.node).empty().append(this.image);
                 }
-				$obj.setdimensions();
+                $obj.setdimensions();
             };
-            this.setdimensions = function () {										/*info dimensioni*/
-                smallimage.fetchdata();
+            this.setdimensions = function () {                                      /*info dimensioni*/
                 this.node.w = (parseInt(settings.lensWidth) > smallimage.w ) ? smallimage.w : parseInt (settings.lensWidth); 
                 this.node.h = (parseInt(settings.lensHeight) > smallimage.h ) ? smallimage.h : parseInt(settings.lensHeight);
-				//centering lens
-				if(smallimage.addLeft==0){//If add by JK for EVT-builder
-				    var add= (parseFloat($("#main_right_frame").css("width"))-zoomImagWidth)/2;  //Var zoomImagWidth set in switchZM.js
-				    this.node.top = (smallimage.oh - this.node.h - 2) / 2;
+                //centering lens
+                /*if(smallimage.addLeft==0){//If add by JK for EVT-builder
+                    var add= (parseFloat($("#main_right_frame").css("width"))-zoomImagWidth)/2;  //Var zoomImagWidth set in switchZM.js
+                    this.node.top = (smallimage.oh - this.node.h - 2) / 2;
                     this.node.left = ((smallimage.ow - this.node.w - 2) / 2) + add;
-				}else {
-				    this.node.top = (smallimage.oh - this.node.h - 2) / 2;
+                }else {
+                    this.node.top = (smallimage.oh - this.node.h - 2) / 2;
                     this.node.left = ((smallimage.ow - this.node.w - 2) / 2) + smallimage.addLeft;
-                }
+                }*/
                 this.node.css({
                     top: 0,
-                    left: this.node.left + 'px',
+                    left: 0,
                     width: this.node.w + 'px',
                     height: this.node.h + 'px',
                     position: 'absolute',
@@ -424,17 +399,22 @@
                     });
 
                 }
-			};
-            this.setcenter = function () {											/*do le coordinare top e left per posizionare la lente al centro*/
+            };
+            this.setcenter = function () {                                          /*do le coordinare top e left per posizionare la lente al centro*/
                 //calculating center position
-				if(smallimage.addLeft==0){//If add by JK for EVT-builder
-				    var add= (parseFloat($("#main_right_frame").css("width"))-zoomImagWidth)/2;  //Var zoomImagWidth set in switchZM.js
-				    this.node.top = (smallimage.oh - this.node.h - 2) / 2;
-                    this.node.left = ((smallimage.ow - this.node.w - 2) / 2) + add;
-				}else {
-				    this.node.top = (smallimage.oh - this.node.h - 2) / 2;
+                if(smallimage.addLeft==0){//If add by JK for EVT-builder
+                    var add= (parseFloat($("#main_right_frame").css("width"))-smallimage.w)/2;
+                    this.node.left = ((smallimage.ow - this.node.w - 2) / 2)+ add;
+                }else {
                     this.node.left = ((smallimage.ow - this.node.w - 2) / 2) + smallimage.addLeft;
                 }
+                if(smallimage.addTop==0){//If add by JK for EVT-builder
+                    var add= (parseFloat($("#main_right_frame").css("height"))-smallimage.h)/2;
+                    this.node.top = ((smallimage.oh - this.node.h - 2) / 2)+add;
+                }else {
+                    this.node.top = (smallimage.oh - this.node.h - 2) / 2 + smallimage.addTop;
+                }
+                this.node.top = (smallimage.oh - this.node.h - 2) / 2;
                 //centering lens
                 this.node.css({
                     top: this.node.top,
@@ -450,29 +430,28 @@
                 }
                 //centering large image
                 largeimage.setposition();
-				//stage.setposition();			//?CONTROLLARE
+                //stage.setposition();          //?CONTROLLARE
             };
-			this.setposition = function (e) {
+            this.setposition = function (e) {
                 el.mousepos.x = e.pageX;
                 el.mousepos.y = e.pageY;
                 var lensleft = 0;
                 var lenstop = 0;
 
                 function overleft(lens) {
-                    return el.mousepos.x - (lens.w / 2) < smallimage.pos.l; 
+                    return el.mousepos.x -1-(lens.w / 2) < smallimage.pos.l; 
                 }
 
                 function overright(lens) {
-                    return el.mousepos.x + (lens.w / 2) > smallimage.pos.r; 
-                   
+                    return el.mousepos.x +1+(lens.w/ 2) > smallimage.pos.r;
                 }
 
                 function overtop(lens) {
-                    return el.mousepos.y - (lens.h) / 2 < smallimage.pos.t; 
+                    return el.mousepos.y -1-(lens.h) / 2 < smallimage.pos.t; 
                 }
 
                 function overbottom(lens) {
-                    return el.mousepos.y + (lens.h) / 2 > smallimage.pos.b; 
+                    return el.mousepos.y +1+(lens.h) / 2 > smallimage.pos.b; 
                 }
                 
                 if (overleft(this.node)) {
@@ -480,16 +459,16 @@
                 } else if (overright(this.node)) {
                     lensleft = smallimage.addLeft + smallimage.w + smallimage.bleft - this.node.w;
                 } else {
-					lensleft = el.mousepos.x + smallimage.bleft - smallimage.pos.l  + smallimage.addLeft - (this.node.w + 2) / 2;
-				}
+                    lensleft = el.mousepos.x-smallimage.pos.l+smallimage.bleft+smallimage.addLeft - ((this.node.w + 2)/2);
+                }
 
                 if (overtop(this.node)) {
-                    lenstop = smallimage.btop - 1;
+                    lenstop = smallimage.addTop + smallimage.btop;
                 } else if (overbottom(this.node)) {
-                    lenstop = smallimage.h + smallimage.btop - this.node.h;
+                    lenstop = smallimage.addTop + smallimage.h + smallimage.btop - this.node.h;
                 } else {
-					lenstop = el.mousepos.y + smallimage.btop - smallimage.pos.t - (this.node.h + 2) / 2;
-				}
+                    lenstop = el.mousepos.y - smallimage.pos.t + smallimage.btop + smallimage.addTop - (this.node.h + 2) / 2;
+                }
                 
                 this.node.left = lensleft;
                 this.node.top = lenstop;
@@ -511,13 +490,7 @@
                 }
                
                 largeimage.setposition();
-			};
-			/*this.getposition = function(e){		//AGG CANC
-				var o = {};
-                o.left = e.pageX;
-                o.top = e.pageY;
-                return o;
-			};*/
+            };
             this.hide = function () {
                 img.css({
                     'opacity': 1
@@ -536,7 +509,7 @@
                 }
             };
             this.getoffset = function () {
-			//Coordinate angolo sx-top lente
+            //Coordinate angolo sx-top lente
                 var o = {};
                 if(smallimage.addLeft==0){
                     var add= (parseFloat($("#main_right_frame").css("width"))-zoomImagWidth)/2;
@@ -561,7 +534,7 @@
             //this.node = $("<div class='zoomWindow'><div class='zoomWrapper'><div class='zoomWrapperTitle'></div><div class='zoomWrapperImage'></div></div></div>");
             this.node = $("<div class='zoomWindow'><div class='zoomWrapperImage'></div></div>");
             //this.ieframe = $('<iframe class="zoomIframe" src="javascript:\'\';" marginwidth="0" marginheight="0" align="bottom" scrolling="no" frameborder="0" ></iframe>');
-			this.append = function () {
+            this.append = function () {
                 $('.zoomPad', el).append(this.node);
                 this.node.css({
                     position: 'absolute',
@@ -571,20 +544,22 @@
                 /*if (settings.position == 'inside') {
                     var thickness = (smallimage.bleft == 0) ? 1 : smallimage.bleft;
                     $('.zoomWrapper', this.node).css({
-						width: Math.round(settings.lensWidth) + 'px',
+                        width: Math.round(settings.lensWidth) + 'px',
                         borderWidth: thickness + 'px'
                     });
                 }*/
-				
+                
                 /*$('.zoomWrapper', this.node).css({
-					width: Math.round(settings.lensWidth) + 'px' ,
-					height: Math.round(settings.lensHeight) + 'px',
-					borderWidth: thickness + 'px'
+                    width: Math.round(settings.lensWidth) + 'px' ,
+                    height: Math.round(settings.lensHeight) + 'px',
+                    borderWidth: thickness + 'px'
                 });*/
-				
+                
                 $('.zoomWrapperImage', this.node).css({
-                    width: Math.round(settings.lensWidth) + 'px',
-                    height: Math.round(settings.lensHeight) + 'px'
+                    // width: Math.round(settings.lensWidth) + 'px',
+                    // height: Math.round(settings.lensHeight) + 'px'
+                    width: Math.round(settings.lensWidth/el.scaleI.x) + 'px' ,
+                    height: Math.round(settings.lensHeight/el.scaleI.y) + 'px'
                 });
                 //zoom title
                 /*$('.zoomWrapperTitle', this.node).css({
@@ -597,18 +572,18 @@
                     $('.zoomWrapperTitle', this.node).html(zoomtitle).show();
                 }*/
             };
-			this.setdimensions = function () {
+            this.setdimensions = function () {
                   /*$('.zoomWrapper', this.node).css({
                       width: Math.round(settings.lensWidth/el.scaleI.x) + 'px' ,
-					  height: Math.round(settings.lensHeight/el.scaleI.y) + 'px'
+                      height: Math.round(settings.lensHeight/el.scaleI.y) + 'px'
                   });*/
-				  $('.zoomWrapperImage', this.node).css({
+                  $('.zoomWrapperImage', this.node).css({
                       width: Math.round(settings.lensWidth/el.scaleI.x) + 'px' ,
-					  height: Math.round(settings.lensHeight/el.scaleI.y) + 'px'
+                      height: Math.round(settings.lensHeight/el.scaleI.y) + 'px'
                   });
-				  el.stageresized = true;
-				  //$obj.setposition();
-			};
+                  el.stageresized = true;
+                  //$obj.setposition();
+            };
             this.hide = function () {
                 switch (settings.hideEffect) {
                 case 'fadeout':
@@ -648,12 +623,12 @@
                     this.ieframe.show();
                 };*/
             };
-			this.setposition = function () {
+            this.setposition = function () {
                 //this.node.leftpos = 0;
                 //this.node.toppos = 0;
                 //if (settings.position != 'inside') {
-				var zoomWidth = Math.round(settings.lensWidth/el.scaleI.x);
-				var zoomHeight = Math.round(settings.lensHeight/el.scaleI.y);
+                var zoomWidth = Math.round(settings.lensWidth/el.scaleI.x);
+                var zoomHeight = Math.round(settings.lensHeight/el.scaleI.y);
                 //positioning
                 switch (settings.position) {
                     case "left":
@@ -668,18 +643,21 @@
                         this.node.leftpos = Math.abs(settings.xOffset);
                         this.node.toppos = (smallimage.pos.t - smallimage.btop + smallimage.oh + Math.abs(settings.yOffset) + zoomHeight < screen.height) ? (smallimage.oh + Math.abs(settings.yOffset)) : (0 - zoomHeight - Math.abs(settings.yOffset));
                         break;
-					case "inside":
-					    if(smallimage.addLeft==0){//If add by JK for EVT-builder
-					       var add= (parseFloat($("#main_right_frame").css("width"))-zoomImagWidth)/2;  //Var zoomImagWidth set in switchZM.js
-					       this.node.leftpos = smallimage.bleft - 2 + (smallimage.w - settings.lensWidth/el.scaleI.x)/ 2 + add;
-						   this.node.toppos =  smallimage.btop - 2 + (smallimage.h - settings.lensHeight/el.scaleI.y) / 2;
-						   break;
-					   }
-					   else {
-						  this.node.leftpos = smallimage.bleft - 2 + (smallimage.w - settings.lensWidth/el.scaleI.x)/ 2 + smallimage.addLeft;
-						  this.node.toppos =  smallimage.btop - 2 + (smallimage.h - settings.lensHeight/el.scaleI.y) / 2;
-						  break;
-						}
+                    case "inside":
+                        if(smallimage.addLeft==0){//If add by JK for EVT-builder
+                           var add= (parseFloat($("#main_right_frame").css("width"))-smallimage.w)/2;
+                           this.node.leftpos = (smallimage.w - settings.lensWidth/el.scaleI.x -2)/ 2 + add -2;
+                       }
+                       else {
+                          this.node.leftpos = smallimage.bleft - 2 + (smallimage.w - settings.lensWidth/el.scaleI.x)/ 2 + smallimage.addLeft;
+                        }
+                        if(smallimage.addTop==0){//If add by JK for EVT-builder
+                           //var add= (parseFloat($("#main_right_frame").css("height"))-smallimage.h)/2;
+                           this.node.toppos = (smallimage.oh - settings.lensHeight/el.scaleI.y -2)/ 2 -2;
+                       }else{
+                          this.node.toppos = smallimage.btop - 2 + (smallimage.h - settings.lensHeight/el.scaleI.y)/ 2 + smallimage.addTop;
+                        }
+                        break;
                     default:
                         this.node.leftpos = (smallimage.rightlimit + Math.abs(settings.xOffset) + zoomWidth < screen.width) ? (smallimage.ow + Math.abs(settings.xOffset)) : (0 - zoomWidth - Math.abs(settings.xOffset));
                         this.node.toppos = Math.abs(settings.yOffset);
@@ -689,59 +667,59 @@
                 this.node.css({
                     'left': this.node.leftpos + 'px',
                     'top': this.node.toppos + 'px',
-					'position': 'absolute'
+                    'position': 'absolute'
                 });
-				/*if (el.largeimageloaded && !(el.stageresized)) {
-				}
-				$obj.setdimensions();*/
+                /*if (el.largeimageloaded && !(el.stageresized)) {
+                }
+                $obj.setdimensions();*/
                 return this;
             };
-			this.moveposition =function(e){
-				//dimensioni ZoomWindow
-				var wid = Math.round(settings.lensWidth/el.scaleI.x);
-				var hei = Math.round(settings.lensHeight/el.scaleI.y);
-				//
-				var lensleft = 0;
-				var lenstop = 0;
-				//funzioni
-				function overleft(stage) {
-					return el.mousepos.x - (wid) / 2 < smallimage.pos.l;
-				}
-				function overright(stage) {
-					return el.mousepos.x + (wid) / 2 > smallimage.pos.r;
-				}
-				function overtop(stage) {
+            this.moveposition =function(e){
+                //dimensioni ZoomWindow
+                var wid = Math.round(settings.lensWidth/el.scaleI.x);
+                var hei = Math.round(settings.lensHeight/el.scaleI.y);
+                //
+                var lensleft = 0;
+                var lenstop = 0;
+                //funzioni
+                function overleft(stage) {
+                    return el.mousepos.x - (wid) / 2 < smallimage.pos.l;
+                }
+                function overright(stage) {
+                    return el.mousepos.x + (wid) / 2 > smallimage.pos.r;
+                }
+                function overtop(stage) {
                     return el.mousepos.y - (hei) / 2 < smallimage.pos.t; 
                 }
-				function overbottom(stage) {
+                function overbottom(stage) {
                     return el.mousepos.y + (hei) / 2 > smallimage.pos.b; 
                 }
 
-				//el.mousepos.x = e.pageX;
+                //el.mousepos.x = e.pageX;
                 //el.mousepos.y = e.pageY;
-				lensleft = el.mousepos.x + smallimage.bleft - smallimage.pos.l - (wid + 2) / 2 + smallimage.addLeft;
-				lenstop = el.mousepos.y + smallimage.btop - smallimage.pos.t - (hei + 2) / 2;
+                lensleft = el.mousepos.x + smallimage.bleft - smallimage.pos.l - (wid + 2) / 2 + smallimage.addLeft;
+                lenstop = el.mousepos.y + smallimage.btop - smallimage.pos.t - (hei + 2) / 2 + smallimage.addTop;
 
-				if (overleft(this.node)) {
-					lensleft = smallimage.addLeft + smallimage.bleft;
-				} else if (overright(this.node)) {
-					lensleft =  smallimage.addLeft + smallimage.w + smallimage.bleft - wid - 2;
-				}
-				if (overtop(this.node)) {
-					lenstop = smallimage.btop;
-				} else if (overbottom(this.node)) {
-					lenstop = smallimage.h + smallimage.btop - hei - 2;
-				}
+                if (overleft(this.node)) {
+                    lensleft = smallimage.addLeft + smallimage.bleft;
+                } else if (overright(this.node)) {
+                    lensleft =  smallimage.addLeft + smallimage.w + smallimage.bleft - wid - 2;
+                }
+                if (overtop(this.node)) {
+                    lenstop = smallimage.btop;
+                } else if (overbottom(this.node)) {
+                    lenstop = smallimage.h + smallimage.btop - hei - 2;
+                }
 
-				this.node.leftpos = lensleft;
-				this.node.toppos = lenstop;
-				this.node.css({
-					'left': this.node.leftpos + 'px',
-					'top': this.node.toppos + 'px'
-				});
-				return this;
-			};
-		};
+                this.node.leftpos = lensleft;
+                this.node.toppos = lenstop;
+                this.node.css({
+                    'left': this.node.leftpos + 'px',
+                    'top': this.node.toppos + 'px'
+                });
+                return this;
+            };
+        };
 /*========================================================,
 |   LargeImage
 |---------------------------------------------------------:
@@ -770,8 +748,8 @@
                 $obj.w = image.width();
                 $obj.h = image.height();
                 $obj.pos = image.offset();
-                $obj.pos.l = image.offset().left;
-                $obj.pos.t = image.offset().top;
+                $obj.pos.l = $obj.pos.left;
+                $obj.pos.t = $obj.pos.top;
                 $obj.pos.r = $obj.w + $obj.pos.l;
                 $obj.pos.b = $obj.h + $obj.pos.t;
                 scale.x = ($obj.w / smallimage.w);
@@ -782,43 +760,42 @@
                 $obj.setdimensions();
                 
             };
-			this.setdimensions = function () {										/*calcola dimensioni*/
+            this.setdimensions = function () {                                      /*calcola dimensioni*/
                 this.w *= settings.zoomRatio; 
                 this.h *= settings.zoomRatio;
                 //centering lens
                 $(this.node).css({
                     width: this.w + 'px',
-					height: this.h + 'px'
+                    height: this.h + 'px'
                 });
-			}
-
+            }
             this.node.onerror = function () {
-                alert('Problems while loading the big image.');
-                throw 'Problems while loading the big image.';
+                // alert('Problems while loading the big image.');
+                throw new Error('BigImageError'); //Add by CDP
             };
             this.node.onload = function () {
                 //fetching data
-                $obj.fetchdata();
-				smallimage.fetchdata();
-				stage.setdimensions();
-				stage.setposition();
-				//setting stage dimensions
+                $obj.fetchdata();       //calls $obj.setdimensions();
+                smallimage.fetchdata();
+                stage.setdimensions();
+                stage.setposition();
+                //setting stage dimensions
                
                 el.largeimageloading = false;
                 el.largeimageloaded = true;
                 loader.hide();
                 if (settings.zoomType == 'drag' || settings.alwaysOn) {
                     lens.setcenter();
-                    lens.show();
+                    if (settings.lens==true){lens.show();}
                     stage.show();
-					//if (settings.position == 'inside'){
-						//stage.setposition();
-					//}
+                    //if (settings.position == 'inside'){
+                        //stage.setposition();
+                    //}
                 }
             };
             this.setposition = function () {
-                var left = -el.scale.x * (lens.getoffset().left - smallimage.bleft + 1) * settings.zoomRatio;
-                var top = -el.scale.y * (lens.getoffset().top - smallimage.btop + 1)* settings.zoomRatio;
+                var left = -el.scale.x * (lens.getoffset().left - smallimage.bleft) * settings.zoomRatio;
+                var top = -el.scale.y * (lens.getoffset().top - smallimage.btop)* settings.zoomRatio;
                 $(this.node).css({
                     'left': left + 'px',
                     'top': top + 'px'
@@ -833,9 +810,9 @@
         defaults: {
             zoomType: 'standard',
             //standard/reverse/drag
-			zoomRatio: 1,
-			//
-			lensWidth: 100,
+            zoomRatio: 1,
+            //
+            lensWidth: 100,
             //Lens default width
             lensHeight: 100,
             //Lens  default height

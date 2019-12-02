@@ -5,8 +5,12 @@ data/output_data/
 doc/
 
 # .gitignore in folder #
-# data/input_data/text/*
-# data/input_data/images/*
+# data/input_data/*
+
+# Sublime Text files #
+#evt-builder.sublime-workspace
+#evt-builder.sublime-project
+*.sublime-*
 
 # Compiled source #
 ###################
@@ -29,6 +33,7 @@ doc/
 *.rar
 *.tar
 *.zip
+*.xpr
 
 # Logs and databases #
 ######################
@@ -46,3 +51,4 @@ doc/
 ehthumbs.db
 Thumbs.db
 You
+*.js~
