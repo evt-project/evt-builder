@@ -197,6 +197,21 @@
 		<!--<xsl:call-template name="index"></xsl:call-template>-->
 	</xsl:template>
 
+	<xsl:template name="generatePbLabel">
+		<xsl:param name="pb"/>
+		<xsl:param name="position"/>
+		<xsl:choose>
+			<xsl:when test="$pb/@n">
+				<xsl:value-of select="$pb/@n"/>
+			</xsl:when>
+			<xsl:when test="$pb/@xml:id">
+				<xsl:value-of select="$pb/@xml:id"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="$position"/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
 	<!-- CDP: Listes -->
 	<xsl:template match="*" mode="listPersonOccurences">
 		<xsl:element name="div">
@@ -206,7 +221,12 @@
 				group-starting-with="//tei:pb">
 				<xsl:if test="self::tei:pb">
 					<xsl:variable name="pb_id" select="@xml:id"/>
-					<xsl:variable name="pb_n" select="@n"/>
+					<xsl:variable name="pb_n">
+						<xsl:call-template name="generatePbLabel">
+							<xsl:with-param name="pb" select="current()"/>
+							<xsl:with-param name="position" select="position()"/>
+						</xsl:call-template>
+					</xsl:variable>
 					<xsl:for-each
 						select="current-group()/descendant::tei:persName[starts-with(@ref, '#')]">
 						<xsl:variable name="doc_id">
@@ -256,7 +276,12 @@
 				group-starting-with="//tei:pb">
 				<xsl:if test="self::tei:pb">
 					<xsl:variable name="pb_id" select="@xml:id"/>
-					<xsl:variable name="pb_n" select="@n"/>
+					<xsl:variable name="pb_n">
+						<xsl:call-template name="generatePbLabel">
+							<xsl:with-param name="pb" select="current()"/>
+							<xsl:with-param name="position" select="position()"/>
+						</xsl:call-template>
+					</xsl:variable>
 					<xsl:for-each
 						select="current-group()/descendant::tei:placeName[starts-with(@ref, '#')]">
 						<xsl:variable name="doc_id">
@@ -306,7 +331,12 @@
 				group-starting-with="//tei:pb">
 				<xsl:if test="self::tei:pb">
 					<xsl:variable name="pb_id" select="@xml:id"/>
-					<xsl:variable name="pb_n" select="@n"/>
+					<xsl:variable name="pb_n">
+						<xsl:call-template name="generatePbLabel">
+							<xsl:with-param name="pb" select="current()"/>
+							<xsl:with-param name="position" select="position()"/>
+						</xsl:call-template>
+					</xsl:variable>
 					<xsl:for-each
 						select="current-group()/descendant::tei:orgName[starts-with(@ref, '#')]">
 						<xsl:variable name="doc_id">
@@ -357,7 +387,12 @@
 				group-starting-with="//tei:pb">
 				<xsl:if test="self::tei:pb">
 					<xsl:variable name="pb_id" select="@xml:id"/>
-					<xsl:variable name="pb_n" select="@n"/>
+					<xsl:variable name="pb_n">
+						<xsl:call-template name="generatePbLabel">
+							<xsl:with-param name="pb" select="current()"/>
+							<xsl:with-param name="position" select="position()"/>
+						</xsl:call-template>
+					</xsl:variable>
 					<xsl:for-each select="current-group()/descendant::tei:term">
 						<xsl:variable name="doc_id">
 							<xsl:choose>
@@ -409,7 +444,12 @@
 				group-starting-with="//tei:pb">
 				<xsl:if test="self::tei:pb">
 					<xsl:variable name="pb_id" select="@xml:id"/>
-					<xsl:variable name="pb_n" select="@n"/>
+					<xsl:variable name="pb_n">
+						<xsl:call-template name="generatePbLabel">
+							<xsl:with-param name="pb" select="current()"/>
+							<xsl:with-param name="position" select="position()"/>
+						</xsl:call-template>
+					</xsl:variable>
 					<xsl:for-each select="current-group()/descendant::tei:gloss">
 						<xsl:variable name="doc_id">
 							<xsl:choose>
