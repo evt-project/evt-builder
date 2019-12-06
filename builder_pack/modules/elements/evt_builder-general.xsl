@@ -84,17 +84,17 @@
 
     <xsl:template name="notePopup">
         <xsl:element name="span">
-            <xsl:attribute name="class">inline_note popup <xsl:value-of select="@type"/></xsl:attribute>
+            <xsl:attribute name="class">inline_note popup <xsl:value-of select="lower-case(@type)"/></xsl:attribute>
             <xsl:call-template name="dataAttributesFromAttributes"/>
             <xsl:attribute name="id">note_<xsl:value-of select="if (@xml:id) then(@xml:id) else(count(preceding::*[name() = name(current())]))"/></xsl:attribute>
             <xsl:choose>
-                <xsl:when test="@type = 'critical' and @n != ''">
+                <xsl:when test="lower-case(@type) = 'critical' and @n != ''">
                     <xsl:element name="i">
                         <xsl:attribute name="class">open_note trigger</xsl:attribute>
                         <xsl:value-of select="@n"/>
                     </xsl:element>
                 </xsl:when>
-                <xsl:when test="@type = 'comment' and @n != ''">
+                <xsl:when test="lower-case(@type) = 'comment' and @n != ''">
                     <xsl:element name="i">
                         <xsl:attribute name="class">open_note trigger</xsl:attribute>
                         <xsl:value-of select="@n"/>
