@@ -825,6 +825,14 @@
 		</xsl:element>
 	</xsl:template>
 
+	<xsl:template match="tei:titlePart" mode="dipl">
+		<xsl:element name="h1">
+			<xsl:attribute name="class" select="'titlePart center'"/>
+			<xsl:call-template name="dataAttributesFromAttributes"/>
+			<xsl:apply-templates mode="#current"> </xsl:apply-templates>
+		</xsl:element>				
+    </xsl:template>
+
     <!-- DOCAUTHOR-->
     <xsl:template match="tei:docAuthor" mode="dipl">
         <xsl:element name="span">

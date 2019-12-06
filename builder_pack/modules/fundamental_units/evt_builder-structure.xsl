@@ -344,7 +344,10 @@
             </xsl:attribute>
 
             <xsl:if
-                test="not(current()/tei:body/child::*[1][self::tei:pb]) and not(current()/tei:body/tei:div/child::*[1][self::tei:pb]) and not(current()/tei:body/tei:div/child::*[1][self::tei:p]/child::*[1][self::tei:pb]) and not(current()/tei:body/tei:div/child::*[1][self::tei:div]/child::*[1][self::tei:pb])">
+                test="not(current()/tei:body/child::*[1][self::tei:pb])
+                and not(current()/tei:body/*[starts-with(name(), 'div')]/child::*[1][self::tei:pb])
+                and not(current()/tei:body/*[starts-with(name(), 'div')]/child::*[1][self::tei:p]/child::*[1][self::tei:pb])
+                and not(current()/tei:body/*[starts-with(name(), 'div')]/child::*[1][self::*[starts-with(name(), 'div')]]/child::*[1][self::tei:pb])">
                 <pb>
                     <xsl:choose>
                         <xsl:when test="current()/preceding-sibling::tei:text[1]/descendant::tei:pb[not(@type='end')]">
