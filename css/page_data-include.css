@@ -1491,6 +1491,11 @@ span.setting, span.popup.setting {
     padding: 1px 6px 1px 6px;
 	border-radius: 5px;
 	font-style: normal;
+
+}
+.inline_note.critical .open_note.fa-circle {
+	color: rgb(24, 70, 155);
+	padding: 1px 2px;
 }
 /*.open_note:hover + span.text_note{
 	display: block;
@@ -1515,4 +1520,8 @@ span.setting, span.popup.setting {
     padding: 1px 6px 1px 6px;
 	border-radius: 5px;
 	font-style: normal;
+}
+.inline_note.comment .open_note.fa-circle {
+	color: rgb(87, 14, 105);
+	padding: 1px 2px;
 }
