@@ -218,24 +218,17 @@
 	</xsl:template>
 	
 	<xsl:template match="tei:front/tei:titlePage">
-		<div class="title">
-			<xsl:element name="h1">
-				<xsl:call-template name="dataAttributesFromAttributes"/>
-				<xsl:choose>
-					<xsl:when test="current()/@type">
-						<xsl:attribute name="class">
-							<xsl:value-of select="concat('title ', @type)"/>
-						</xsl:attribute>
-					</xsl:when>
-					<xsl:otherwise>
-						<xsl:value-of select="."/>
-					</xsl:otherwise>
-				</xsl:choose>
-				<xsl:apply-templates mode="#current"> </xsl:apply-templates>
-			</xsl:element>
-		</div>
+		<xsl:element name="div">
+			<xsl:call-template name="dataAttributesFromAttributes"/>
+			<xsl:attribute name="class">titlePage text-center
+				<xsl:if test="current()/@type">
+						<xsl:value-of select="concat('title ', @type)"/>
+				</xsl:if>
+			</xsl:attribute>
+			<xsl:apply-templates mode="interp"> </xsl:apply-templates>
+		</xsl:element>
 	</xsl:template>
-	
+
 	<xsl:template match="tei:front/tei:div">
 		<xsl:element name="div">
 			<xsl:attribute name="class">
