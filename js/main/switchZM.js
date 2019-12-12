@@ -153,7 +153,8 @@ function magOn() {
 	if (magnifierON == false) {
 		if ($('.zoomWrapperImage').hasClass('bigImageError')) {
 			var errorMsg = $('.zoomWrapperImage').attr('data-error-msg');
-			alert(errorMsg);
+			// alert(errorMsg);
+			console.error(errorMsg);
 		} else {
 			// magnifierReady();
 			// chooseZoomMag();   	
