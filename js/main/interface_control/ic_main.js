@@ -122,7 +122,7 @@ $(function() {
 					var lens = document.getElementsByClassName('zoomPreload')[0];
 					lens.textContent = errorMsg;
 					if ($('.current_mode').attr('id') === 'txtimg_link' || $('.current_mode').attr('id') === 'imgd_link') {
-						alert(errorMsg);
+						console.warn(errorMsg);
 					}
 					$('.zoomWrapperImage')
 						.addClass('bigImageError')
