@@ -246,7 +246,7 @@
                     stage.hide();
                     obj.load();
                 } else {
-                    alert('ERROR :: Missing parameter for largeimage or smallimage.');
+                    // alert('ERROR :: Missing parameter for largeimage or smallimage.');
                     throw 'ERROR :: Missing parameter for largeimage or smallimage.';
                 }
                 return false;
