@@ -273,22 +273,33 @@
 					<xsl:value-of select="tei:placeName[@type = 'new']"/>
 				</xsl:if>
 				<xsl:if test="current()/tei:placeName and not(tei:placeName[@type])">
-					<xsl:choose>
-						<xsl:when test="count(tei:placeName) > 1">
-							<xsl:for-each select="tei:placeName">
-								<xsl:if test="position() != last()">
-									<xsl:value-of select="current()"/>
-									<xsl:text>/</xsl:text>
-								</xsl:if>
-								<xsl:if test="position() = last()">
-									<xsl:value-of select="current()"/>
-								</xsl:if>
-							</xsl:for-each>
-						</xsl:when>
-						<xsl:otherwise>
-							<xsl:value-of select="tei:placeName"/>
-						</xsl:otherwise>
-					</xsl:choose>
+					<xsl:element name="span">
+						<xsl:attribute name="class">
+							entity_name 
+							<xsl:if test="$list_place = true()"> link_active</xsl:if>
+						</xsl:attribute>
+						<xsl:call-template name="dataAttributesFromAttributes"/>
+						<xsl:attribute name="data-list">listPlace</xsl:attribute>
+						<xsl:attribute name="data-ref">
+							<xsl:value-of select="@xml:id"/>
+						</xsl:attribute>
+						<xsl:choose>
+							<xsl:when test="count(tei:placeName) > 1">
+								<xsl:for-each select="tei:placeName">
+									<xsl:if test="position() != last()">
+										<xsl:value-of select="current()"/>
+										<xsl:text>/</xsl:text>
+									</xsl:if>
+									<xsl:if test="position() = last()">
+										<xsl:value-of select="current()"/>
+									</xsl:if>
+								</xsl:for-each>
+							</xsl:when>
+							<xsl:otherwise>
+								<xsl:value-of select="tei:placeName"/>
+							</xsl:otherwise>
+						</xsl:choose>
+					</xsl:element>
 				</xsl:if>
 				<xsl:if test="current()/tei:district">
 					<xsl:text> (</xsl:text>
