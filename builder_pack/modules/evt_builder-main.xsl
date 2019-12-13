@@ -872,11 +872,11 @@
 		<!-- DO NOTHING -->
 	</xsl:template>
 	
-	<xsl:template match="node()[name() = 'span'][@class = 'tooltip_text']" mode="delete_el2">
+	<xsl:template match="node()[name() = 'span'][@class = 'tooltip_text']" mode="delete_el1 delete_el2">
 		<!-- DO NOTHING -->
 	</xsl:template>
 	
-	<xsl:template match="node()[name() = 'span'][@class = 'tooltip' ]" mode="delete_el2">
+	<xsl:template match="node()[name() = 'span'][@class = 'tooltip' ]" mode="delete_el1 delete_el2">
 		<!-- DO NOTHING -->
 	</xsl:template>
 	
