@@ -218,15 +218,22 @@
 	</xsl:template>
 	
 	<xsl:template match="tei:front/tei:titlePage">
-		<xsl:element name="div">
-			<xsl:call-template name="dataAttributesFromAttributes"/>
-			<xsl:attribute name="class">titlePage text-center
-				<xsl:if test="current()/@type">
-						<xsl:value-of select="concat('title ', @type)"/>
-				</xsl:if>
-			</xsl:attribute>
-			<xsl:apply-templates mode="interp"> </xsl:apply-templates>
-		</xsl:element>
+		<xsl:choose>
+			<xsl:when test="@type='document_front'">
+				<!-- DO NOTHING -->
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:element name="div">
+					<xsl:call-template name="dataAttributesFromAttributes"/>
+					<xsl:attribute name="class">titlePage text-center
+						<xsl:if test="current()/@type">
+							<xsl:value-of select="concat('title ', @type)"/>
+						</xsl:if>
+					</xsl:attribute>
+					<xsl:apply-templates mode="interp"> </xsl:apply-templates>
+				</xsl:element>
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:template>
 
 	<xsl:template match="tei:front/tei:div">
@@ -249,12 +256,20 @@
 		</xsl:element>
 	</xsl:template>
 	
-	<xsl:template match="tei:front/tei:listBibl">
+	<xsl:template match="tei:front//tei:listBibl">
 		<span class="title">References</span>
 		<xsl:apply-templates select="tei:front/tei:biblStruct">
 			<xsl:sort order="ascending" select=".//date"/>
 		</xsl:apply-templates>
 	</xsl:template>
+
+	<xsl:template match="tei:front//tei:head">
+		<xsl:element name="h1">
+			<xsl:attribute name="class" select="'center'"/>
+			<xsl:call-template name="dataAttributesFromAttributes"/>
+			<xsl:apply-templates/>
+		</xsl:element>				
+    </xsl:template>
 	
 	<xsl:template match="tei:front//tei:lb">
 		<xsl:value-of disable-output-escaping="yes">&lt;br/&gt;</xsl:value-of>
