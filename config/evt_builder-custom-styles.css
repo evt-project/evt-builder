@@ -2,3 +2,26 @@
  * EN: This file has been prepared for you to add your personal CSS styles
  * IT: Questo file è stato predisposto per accogliere regole CSS personalizzate
  */
+
+/* The following css rules are provided as an example to style the <titlePage> element */
+.byline {
+    display: block;
+    text-align: center;
+}
+
+.docAuthor {
+    display: block;
+    text-align: center;
+    font-size: 110%;
+}
+
+.docEdition {
+    display: block;
+    text-align: center;
+}
+
+.docImprint {
+    display: block;
+    text-align: center;
+    font-size: 80%;
+}
