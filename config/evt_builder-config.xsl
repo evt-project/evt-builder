@@ -398,8 +398,8 @@
 			<novelistic active="true"/>
 			<mixed active="true"/>
 		</group>
-		<group label="OTHERS" active="false">
-			<seg type="metaphor" active="true" label="METAPHOR"/>
+		<group label="OTHERS" active="true">
+			<seg type="kenning" active="true" label="SEG_TYPE_KENNING"/>
 		</group>
 	</xsl:variable>
 	
