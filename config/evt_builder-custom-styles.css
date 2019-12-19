@@ -3,6 +3,16 @@
  * IT: Questo file è stato predisposto per accogliere regole CSS personalizzate
  */
 
+.option[data-value="seg"][data-type="kenning"] .filter_color {
+    color: #00ff00;
+}
+
+.doc.current span.seg[data-type="kenning"].list_active,
+.doc.current span.seg[data-type="kenning"].list_active span.trigger,
+.doc.current span.seg[data-type="kenning"].over>span.trigger,
+.doc.current span.seg[data-type="kenning"].opened>span.trigger {
+    background: #00ff00;
+}
 /* The following css rules are provided as an example to style the <titlePage> element */
 .byline {
     display: block;
