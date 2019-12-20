@@ -271,5 +271,5 @@ jquery_lang_js.prototype.lang.de = {
 	"PREPARING_LISTS": "Préparation des listes ...",
 	"VORBEREITUNG_BIBLIOGRAPHIE": "Bibliographie vorbereiten ...",
 	"OPEN_DOCUMENT": "Dokument öffnen",
-	"SEG_TYPE_KENNING": "Kenning"
+	"KENNING": "Kenning"
 }

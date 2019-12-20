@@ -274,6 +274,6 @@ jquery_lang_js.prototype.lang.it = {
 	"PREPARING_BIBLIOGRAPHY": "Preparazione bibliografia...",
 	"OPEN_DOCUMENT": "Apri documento",
 	"METAPHOR": "Metafore",
-	"SEG_TYPE_KENNING": "Kenning"
+	"KENNING": "Kenning"
 
 }
