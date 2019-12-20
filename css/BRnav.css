@@ -317,10 +317,6 @@
     transition: all 0.5s;
 }
 
-#BRnavCntlBtm.BRdn {
-	bottom: -42px;
-}
-
 .fancybox img:hover {
 	cursor: pointer;
 	opacity: .7;
