@@ -80,7 +80,7 @@
 						<div class="left_col">
 							<span lang="def">MANUSCRIPT_CODE</span><xsl:text>:</xsl:text>
 						</div>
-						<div class="right_col"><xsl:apply-templates select="tei:idno"/></div>    
+						<div class="right_col"><xsl:value-of select="tei:idno"/></div>    
 					</div>
 				</xsl:if>
 				<xsl:if test="tei:msName"> <!--and tei:msName/normalize-space() != ''">-->
