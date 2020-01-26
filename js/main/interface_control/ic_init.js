@@ -818,6 +818,8 @@ function prepareBibliography(xml) {
             if ($('#biblio_link')) {
                 $('#biblio_link').remove();
             }
+            InitializeRefs()
+            bindHeaderInfoBtnClick();
             resolve();
         }
     });
