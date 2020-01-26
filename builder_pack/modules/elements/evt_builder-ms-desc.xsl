@@ -80,7 +80,7 @@
 						<div class="left_col">
 							<span lang="def">MANUSCRIPT_CODE</span><xsl:text>:</xsl:text>
 						</div>
-						<div class="right_col"><xsl:apply-templates select="tei:idno"/></div>    
+						<div class="right_col"><xsl:value-of select="tei:idno"/></div>    
 					</div>
 				</xsl:if>
 				<xsl:if test="tei:msName"> <!--and tei:msName/normalize-space() != ''">-->
@@ -128,27 +128,42 @@
 							<xsl:for-each select="tei:msItem">
 								<div class="msItem">
 									<xsl:if test="tei:locus and tei:title">
-										<div class="block">
+										<div class="block locus-title">
 											<xsl:value-of select="tei:locus"/>
 											<xsl:text>: </xsl:text>
 											<xsl:value-of select="tei:title"/>	
 										</div>
 									</xsl:if>
+									<xsl:if test="tei:locus and not(tei:title)">
+										<div class="block locus">
+											<xsl:value-of select="tei:locus"/>
+										</div>
+									</xsl:if>
+									<xsl:if test="tei:title and not(tei:locus)">
+										<div class="block title">
+											<xsl:value-of select="tei:title"/>
+										</div>
+									</xsl:if>
 									<xsl:if test="tei:incipit">
-										<div class="block">
+										<div class="block incipit">
 											<span lang="def">INCIPIT</span><xsl:text>: </xsl:text>
 											<xsl:value-of select="tei:incipit"/>	
 										</div>
 									</xsl:if>
 									<xsl:if test="tei:explicit">
-										<div class="block">
+										<div class="block explicit">
 											<span lang="def">EXPLICIT</span><xsl:text>: </xsl:text>
 											<xsl:value-of select="tei:explicit"/>
 										</div>
 									</xsl:if>
 									<xsl:if test="tei:colophon">
-										<div class="block">
+										<div class="block colophon">
 											<xsl:value-of select="tei:colophon"/>
+										</div>
+									</xsl:if>
+									<xsl:if test="tei:argument">
+										<div class="block argument">
+											<xsl:value-of select="tei:argument"/>
 										</div>
 									</xsl:if>
 								</div>
