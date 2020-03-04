@@ -199,7 +199,7 @@ function initializeLang() {
 	});
 	window.lang.run();
 	if (window.lang.currentLang === 'undefined') {
-		window.lang.change('en');
+		window.lang.change('it');
 	} else {
 		$('.flag.active').removeClass('active');
 		$(".flag[data-value='" + window.lang.currentLang + "']").addClass('active');

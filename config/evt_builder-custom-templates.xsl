@@ -45,4 +45,12 @@
         </div>
     </xsl:template>
 
+    <xsl:template match="tei:ex" mode="interp dipl #default" priority="9">
+        <xsl:element name="span">
+            <!-- Aggiungi il valore di @rend alla classe. Se in @rend è presente un '.' viene sostituito con un '_' -->
+            <xsl:attribute name="class" select="name()"/>
+            <xsl:call-template name="dataAttributesFromAttributes"/>
+            <xsl:text>(</xsl:text><xsl:apply-templates mode="#current"/><xsl:text>)</xsl:text>
+        </xsl:element>
+    </xsl:template>
 </xsl:stylesheet>
