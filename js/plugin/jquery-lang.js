@@ -37,7 +37,7 @@ var jquery_lang_js = function () {
 
 jquery_lang_js.prototype.lang = {};
 jquery_lang_js.prototype.defaultLang = 'def';
-jquery_lang_js.prototype.currentLang = 'en';
+jquery_lang_js.prototype.currentLang = 'it';
 
 jquery_lang_js.prototype.run = function () {
 	var langElems = $('[lang]');
