@@ -452,16 +452,24 @@ function showItemInList(id_ref, listName) {
 /*= INITIALIZE LINK BETWEEN TEXT TRIGGER AND LIST ELEMENT =*/
 function InitializeLinkTextList() {
 	$('span.tooltip span.entity_name.link_active').unbind('click').click(function () {
-		var id_ref, listName, order_list;
+		var id_ref, listName, listType, order_list;
 
 		$(this).parent('.tooltip').siblings('.trigger').trigger('click');
 		id_ref = $(this).attr('data-ref');
 		listName = $(this).attr('data-list');
-
-		if (!LISTS_MODEL[listName]._items[id_ref]) {
+		listType = $(this).attr('data-list-type');
+		listName += listType ? '_' + listType : '';
+		var listKey;
+		for (let i = 0; i < Object.keys(LISTS_MODEL).length; i++) {
+			var key = Object.keys(LISTS_MODEL)[i];
+			if (key.indexOf(listName) >= 0 && LISTS_MODEL[key]._items[id_ref]) {
+				listKey = key;
+			}
+		}
+		if (!listKey) {
 			alert('There was an error in opening the entity reference. Please try later.');
 		} else {
-			showItemInList(id_ref, listName);
+			showItemInList(id_ref, listKey);
 		}
 	});
 }

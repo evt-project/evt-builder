@@ -1083,10 +1083,54 @@
 	</xsl:template>
 
 	<xsl:template match="tei:name" mode="interp">
-		<xsl:element name="span">
-			<xsl:attribute name="class" select="'name interp-name'"/>
-			<xsl:call-template name="dataAttributesFromAttributes"/>
-			<xsl:apply-templates mode="#current"/>
-		</xsl:element>
+		<xsl:choose>
+			<xsl:when test="@ref and @ref != '' and $root//node()[@xml:id = substring-after(current()/@ref, '#')]">
+				<xsl:variable name="refEl" select="$root//node()[@xml:id = substring-after(current()/@ref, '#')]"/>
+				<xsl:variable name="listParent" select="$refEl/ancestor-or-self::node()[starts-with(name(), 'list')]"/>
+				<xsl:element name="span">
+					<xsl:attribute name="class">popup name</xsl:attribute>
+					<xsl:call-template name="dataAttributesFromAttributes"/>
+					<xsl:attribute name="data-list" select="$listParent/name()"/>
+					<xsl:attribute name="data-list-type" select="$listParent/@type"/>
+					<xsl:attribute name="data-ref">
+						<xsl:value-of select="translate(@ref, '#', '')"/>
+					</xsl:attribute>
+					<xsl:element name="span">
+						<xsl:attribute name="class">trigger</xsl:attribute>
+						<xsl:apply-templates mode="#current"/>
+					</xsl:element>
+					<xsl:element name="span">
+						<xsl:attribute name="class">tooltip</xsl:attribute>
+						<xsl:element name="span">
+							<xsl:attribute name="class">before</xsl:attribute>
+						</xsl:element>
+						<xsl:for-each
+							select="$root//node()[@xml:id = substring-after(current()/@ref, '#')]">
+							<xsl:choose>
+								<xsl:when test="name() = 'person'">
+									<xsl:call-template name="person"/>
+								</xsl:when>
+								<xsl:when test="name() = 'place'">
+									<xsl:call-template name="place"/>
+								</xsl:when>
+								<xsl:when test="name() = 'org'">
+									<xsl:call-template name="org"/>
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:apply-templates mode="#current"/>
+								</xsl:otherwise>
+							</xsl:choose>
+						</xsl:for-each>
+					</xsl:element>
+				</xsl:element>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:element name="span">
+					<xsl:attribute name="class" select="'name interp-name'"/>
+					<xsl:call-template name="dataAttributesFromAttributes"/>
+					<xsl:apply-templates mode="#current"/>
+				</xsl:element>
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:template>
 </xsl:stylesheet>

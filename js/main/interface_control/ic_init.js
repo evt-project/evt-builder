@@ -423,7 +423,7 @@ function handleListOutput(listType, listDefaultLabel, listEl, htmlEl) {
             listLabel = listEl.find('.list-label').text() || listDefaultLabel;
         }
         if (listEl.attr('data-type')) {
-            listName += '_' + listEl.attr('data-type');
+            listName += '_' + listEl.attr('data-type').trim();
         }
         if (!LISTS_MODEL[listName]) {
             LISTS_MODEL[listName] = {
@@ -487,8 +487,8 @@ function initEvents(xml, groupingPagesByDoc, optionTooltipInPages) {
     return new Promise(function (resolve, reject) {
         /* Lanciato dal click sulla thumbnail */
         /* Recupera l'identificativo della pagina di sx e di quella di dx dall'hash se impostato
-           (altrimenti dal selettore delle pagine singole)
-           e aggiorna l'hash che poi provocherà il caricamento della nuova immagine */
+            (altrimenti dal selettore delle pagine singole)
+            e aggiorna l'hash che poi provocherà il caricamento della nuova immagine */
         $(".main_dd_select").on('imgd_thumb', function () {
             var hash_parts, temp_pp, temp_tt, first_page, second_page, newhash;
             var first_page_lab, second_page_lab, newlab;
