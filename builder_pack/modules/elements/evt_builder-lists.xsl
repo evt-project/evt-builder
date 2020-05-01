@@ -238,16 +238,16 @@
 					<xsl:if test="tei:settlement/@type">
 						<xsl:text>, </xsl:text>
 						<xsl:choose>
-							<xsl:when test="contains(current()/tei:settlement/@type, '_')">
+							<xsl:when test="contains(current()/tei:settlement[1]/@type, '_')">
 								<xsl:variable name="settlementType1">
 									<xsl:value-of
-										select="substring-before(current()/tei:settlement/@type, '_')"
+										select="substring-before(current()/tei:settlement[1]/@type, '_')"
 									/>
 								</xsl:variable>
 								<xsl:value-of select="replace($settlementType1, '-', '/')"/>
 								<xsl:variable name="settlementType2">
 									<xsl:value-of
-										select="substring-after(current()/tei:settlement/@type, '_')"
+										select="substring-after(current()/tei:settlement[1]/@type, '_')"
 									/>
 								</xsl:variable>
 								<xsl:choose>
@@ -263,7 +263,7 @@
 							</xsl:when>
 							<xsl:otherwise>
 								<xsl:value-of
-									select="replace(current()/tei:settlement/@type, '-', '/')"/>
+									select="replace(current()/tei:settlement[1]/@type, '-', '/')"/>
 							</xsl:otherwise>
 						</xsl:choose>
 					</xsl:if>
