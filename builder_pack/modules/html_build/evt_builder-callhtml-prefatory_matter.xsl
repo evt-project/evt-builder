@@ -190,6 +190,11 @@
 									</xsl:choose>
 								</xsl:for-each>
 							</p>
+							<p class="appr">
+								<xsl:for-each select="$front//tei:div[@type='appr']/tei:p">
+									<xsl:apply-templates mode='interp'/> 
+								</xsl:for-each>
+							</p>
 						</div>
 					</div>
 				</div>
