@@ -565,14 +565,14 @@
 			<xsl:attribute name="id" select="'ul_listPlace'"/>
 			<xsl:attribute name="class" select="'ul_list'"/>
 			<xsl:for-each select="$root//tei:listPlace/place">
-				<xsl:sort select="lower-case(tei:settlement)" order="ascending"/>
+				<xsl:sort select="lower-case(tei:settlement[1])" order="ascending"/>
 				<xsl:element name="li">
 					<xsl:attribute name="id" select="@xml:id"/>
 					<xsl:attribute name="class" select="'list_element'"/>
 					<xsl:attribute name="data-order-list">
 						<xsl:choose>
-							<xsl:when test="tei:settlement and substring(tei:settlement, 1, 1) != '.' and substring(tei:settlement, 1, 1) != ' '">
-								<xsl:value-of select="substring(tei:settlement, 1, 1)"/>
+							<xsl:when test="tei:settlement[1] and substring(tei:settlement[1], 1, 1) != '.' and substring(tei:settlement[1], 1, 1) != ' '">
+								<xsl:value-of select="substring(tei:settlement[1], 1, 1)"/>
 							</xsl:when>
 							<xsl:otherwise>
 								<xsl:value-of select="substring(@xml:id, 1, 1)"/>
