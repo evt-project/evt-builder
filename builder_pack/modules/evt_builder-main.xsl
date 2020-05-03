@@ -535,7 +535,7 @@
 			<xsl:attribute name="class" select="'ul_list'"/>
 			<xsl:for-each select="$root//tei:listPerson">
 				<li data-type="{@type}" class="ul_list-sublist">
-					<xsl:if test="tei:head">
+					<xsl:if test="$use_list_head_as_label = true() and tei:head">
 						<span class="list-label"><xsl:value-of select="tei:head"/></span>
 					</xsl:if>
 					<ul class="items">						
@@ -575,7 +575,7 @@
 			<xsl:attribute name="class" select="'ul_list'"/>
 			<xsl:for-each select="$root//tei:listPlace">
 				<li data-type="{@type}" class="ul_list-sublist">
-					<xsl:if test="tei:head">
+					<xsl:if test="$use_list_head_as_label = true() and tei:head">
 						<span class="list-label"><xsl:value-of select="tei:head"/></span>
 					</xsl:if>
 					<ul class="items">						
@@ -610,7 +610,7 @@
 			<xsl:attribute name="class" select="'ul_list'"/>
 			<xsl:for-each select="$root//tei:listOrg">
 				<li data-type="{@type}" class="ul_list-sublist">
-					<xsl:if test="tei:head">
+					<xsl:if test="$use_list_head_as_label = true() and tei:head">
 						<span class="list-label"><xsl:value-of select="tei:head"/></span>
 					</xsl:if>
 					<ul class="items">						

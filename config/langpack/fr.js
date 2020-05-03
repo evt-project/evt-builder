@@ -276,5 +276,9 @@ jquery_lang_js.prototype.lang.fr = {
 	"PREPARING_LISTS": "Préparation de listes ...",
 	"PREPARING_BIBLIOGRAPHY": "Préparation de la bibliographie ...",
 	"OPEN_DOCUMENT": "Ouvrir le document",
-	"KENNING": "Kenning"
+	"KENNING": "Kenning",
+	
+	"MEMBERS": "Membres",
+	"LIST_ORG_FAMILIA": "Familles",
+	"LIST_ORG_POPOLI": "Peuples"
 }

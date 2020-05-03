@@ -350,10 +350,11 @@ function initLists(listsArray) {
                         if (subLists && subLists.length > 0) {
                             for (var i = 0; i < subLists.length; i++) {
                                 var listEl = subLists[i];
+                                var subListDefaultLabel = listDefaultLabel;
                                 if (listEl.getAttribute('data-type')) {
-                                    listDefaultLabel += '_' + listEl.getAttribute('data-type').toUpperCase();
+                                    subListDefaultLabel += '_' + listEl.getAttribute('data-type').toUpperCase();
                                 }
-                                handleListOutput(listName, listDefaultLabel, $(listEl), htmlEl);
+                                handleListOutput(listName, subListDefaultLabel, $(listEl), htmlEl);
                             }
                         } else {
                             var listEl = htmlEl.find('#ul_' + listName);

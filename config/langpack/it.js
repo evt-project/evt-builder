@@ -162,7 +162,7 @@ jquery_lang_js.prototype.lang.it = {
 	"SHOULD_BE": "Dovrebbe essere ",
 	"CHARACTERS_OR_MORE": "caratteri minimo",
 
-	"PERSNAME":"Persone",
+	"PERSNAME": "Persone",
 	"PLACENAME": "Luoghi",
 	"ROLENAME": "Mestieri/Ruoli",
 	"ORGNAME": "Enti religiosi",
@@ -275,6 +275,8 @@ jquery_lang_js.prototype.lang.it = {
 	"OPEN_DOCUMENT": "Apri documento",
 	"METAPHOR": "Metafore",
 	"KENNING": "Kenning",
+
 	"MEMBERS": "Membri",
-	"LIST_ORG_FAMILY": "Famiglie"
+	"LIST_ORG_FAMILIA": "Famiglie",
+	"LIST_ORG_POPOLI": "Popoli",
 }

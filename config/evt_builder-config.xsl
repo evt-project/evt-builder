@@ -370,6 +370,11 @@
 	<!-- default: true() -->
 	<xsl:param name="list_doc" select="true()"/>
 
+	<!-- EN: On/Off <head> in <list*> as list label. If false, generic label will be used. -->
+	<!-- IT: Attiva/disattiva l'utilizzo del contenuto di <head> nella <list*> come etichetta della lista stessa. Se falso, verrà usata un'etichetta generica. -->
+	<!-- default: true() -->
+	<xsl:param name="use_list_head_as_label" select="false()"/>
+
 	<!-- EN: It is possibile to personalize the elements in the filter select element that will select and highlight particular (groups of) words.
 			 In order to remove an element from the list in the application just remove the element itself.
 			 In order to add a new element to the list you simply need to know that the tag corresponds to the class name that has be given to the html element referring to the particular words to be selected. -->
