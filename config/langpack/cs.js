@@ -274,5 +274,9 @@ jquery_lang_js.prototype.lang.cs = {
 	"PREPARING_LISTS": "Příprava seznamů ...",
 	"PREPARING_BIBLIOGRAPHY": "Příprava bibliografie ...",
 	"OPEN_DOCUMENT": "Otevřete dokument",
-	"KENNING": "Kenning"
+	"KENNING": "Kenning",
+	
+	"MEMBERS": "Členové",
+	"LIST_ORG_FAMILIA": "Rodiny",
+	"LIST_ORG_POPOLI": "Národy"
 }
