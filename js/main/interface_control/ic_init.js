@@ -351,14 +351,14 @@ function initLists(listsArray) {
                             for (var i = 0; i < subLists.length; i++) {
                                 var listEl = subLists[i];
                                 if (listEl.getAttribute('data-type')) {
-                                    listDefaultLabel += '(' + listEl.getAttribute('data-type') + ')';
+                                    listDefaultLabel += '_' + listEl.getAttribute('data-type').toUpperCase();
                                 }
                                 handleListOutput(listName, listDefaultLabel, $(listEl), htmlEl);
                             }
                         } else {
                             var listEl = htmlEl.find('#ul_' + listName);
                             if (listEl.attr('data-type')) {
-                                listDefaultLabel += '(' + listEl.attr('data-type') + ')';
+                                listDefaultLabel += '_' + listEl.attr('data-type').toUpperCase();
                             }
                             handleListOutput(listName, listDefaultLabel, listEl, htmlEl);
                         }
@@ -413,6 +413,29 @@ function handleListsEventsBindings(LISTS) {
         }
         bindChronologicalIndex();
     }
+    handleFamiliesData();
+}
+function handleFamiliesData() {
+    if (LISTS_MODEL.listPerson) {
+        LISTS_MODEL.listPerson._orgMembershipData = LISTS_MODEL.listPerson._orgMembershipData || {};    
+        for (var k = 0; k < Object.keys(LISTS_MODEL).length; k++) {
+            var key = Object.keys(LISTS_MODEL)[k];
+            if (key.indexOf('listOrg') >= 0) {
+                var itemsKeys = Object.keys(LISTS_MODEL[key]._items);
+                for (var i = 0; i < itemsKeys.length; i ++) {
+                    var orgItem = LISTS_MODEL[key]._items[itemsKeys[i]];
+                    var members = Array.from(orgItem.querySelectorAll('.nested-list li'));
+                    members.forEach(e => {
+                        var personId = e.getAttribute('data-ref');
+                        if (!LISTS_MODEL.listPerson._orgMembershipData[personId]) {
+                            LISTS_MODEL.listPerson._orgMembershipData[personId] = [];
+                        }
+                        LISTS_MODEL.listPerson._orgMembershipData[personId].push(orgItem.getAttribute('id'))
+                    });
+                }   
+            }
+        }
+    }
 }
 
 function handleListOutput(listType, listDefaultLabel, listEl, htmlEl) {
@@ -445,17 +468,19 @@ function handleListOutput(listType, listDefaultLabel, listEl, htmlEl) {
         list_container.append(ulListContainer);
         list_container.appendTo('#lists_cont');
 
-        $('<span />')
-            .addClass('labelList')
-            .attr('id', 'header_' + listName)
-            .attr('data-list-name', listName)
-            .attr('lang', 'def')
-            .text(listLabel)
-            .unbind("click")
-            .click(function () {
-                openList(this, listName);
-            })
-            .appendTo('#list_header_elements_contents');
+        if (!document.getElementById('header_' + listName)) {
+            $('<span />')
+                .addClass('labelList')
+                .attr('id', 'header_' + listName)
+                .attr('data-list-name', listName)
+                .attr('lang', 'def')
+                .text(listLabel)
+                .unbind("click")
+                .click(function () {
+                    openList(this, listName);
+                })
+                .appendTo('#list_header_elements_contents');
+        }
         listEl.find('.list_element[id]').each(function () {
             if (listName !== 'listDoc') {
                 var orderListLetter = this.getAttribute('data-order-list')
