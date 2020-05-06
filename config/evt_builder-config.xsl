@@ -369,7 +369,7 @@
 	<!-- IT: Attiva/disattiva indice cronologico -->
 	<!-- default: true() -->
 	<xsl:param name="list_doc" select="true()"/>
-
+	
 	<!-- EN: On/Off <head> in <list*> as list label. If false, generic label will be used. -->
 	<!-- IT: Attiva/disattiva l'utilizzo del contenuto di <head> nella <list*> come etichetta della lista stessa. Se falso, verrà usata un'etichetta generica. -->
 	<!-- default: true() -->
@@ -386,6 +386,8 @@
 			<persName active="true"/>
 			<placeName active="true"/>
 			<orgName active="true"/>
+			<name active="true" list-type="familia"/>
+			<orgName active="true" type="gens"/>
 		</group>
 		<group label="INTERESTING_ELEMENTS" active="true">
 			<roleName active="true"/>

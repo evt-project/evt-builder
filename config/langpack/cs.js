@@ -278,5 +278,7 @@ jquery_lang_js.prototype.lang.cs = {
 	
 	"MEMBERS": "Členové",
 	"LIST_ORG_FAMILIA": "Rodiny",
-	"LIST_ORG_POPOLI": "Národy"
+	"NAME_LIST-TYPE_FAMILIA": "Rodiny",
+	"LIST_ORG_POPOLI": "Národy",
+	"ORGNAME_TYPE_GENS": "Národy"
 }

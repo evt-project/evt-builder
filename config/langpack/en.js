@@ -277,5 +277,7 @@ jquery_lang_js.prototype.lang.en = {
 	
 	"MEMBERS": "Members",
 	"LIST_ORG_FAMILIA": "Families",
-	"LIST_ORG_POPOLI": "Peoples"
+	"NAME_LIST-TYPE_FAMILIA": "Families",
+	"LIST_ORG_POPOLI": "Peoples",
+	"ORGNAME_TYPE_GENS": "Peoples"
 }

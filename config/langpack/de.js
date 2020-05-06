@@ -275,5 +275,7 @@ jquery_lang_js.prototype.lang.de = {
 
 	"MEMBERS": "Mitglieder",
 	"LIST_ORG_FAMILIA": "Familien",
-	"LIST_ORG_POPOLI": "Völker"
+	"NAME_LIST-TYPE_FAMILIA": "Familien",
+	"LIST_ORG_POPOLI": "Völker",
+	"ORGNAME_TYPE_GENS": "Völker"
 }
