@@ -2715,7 +2715,14 @@ div.doc.not_current:hover {
     top: 63px;
     padding: 0px;
 }
-
+#lists_cont .list.full-height {
+    height: 90%;
+    height: -moz-calc(100% - 33px);
+    height: -webkit-calc(100% - 33px);
+    height: -o-calc(100% - 33px);
+    height: calc(100% - 33px);
+    top: 33px;
+}
 #lists_cont[data-list-active="listDoc"] .list {
     height: 90%;
     height: -moz-calc(100% - 86px);
@@ -2754,7 +2761,8 @@ div.doc.not_current:hover {
     width: auto !important;
 }
 
-ul.ul_list li {
+ul.ul_list li,
+.nested-list > span {
     list-style-type: none;
     padding: 5px 5px 5px 10px;
     border-bottom: 1px solid #ccc;
@@ -2763,15 +2771,20 @@ ul.ul_list li {
     transition: all 2s;
 }
 
-ul.ul_list li:nth-child(odd) {
+ul.ul_list li:nth-child(odd),
+.nested-list > span:nth-child(odd) {
     background: rgba(185, 170, 153, .1);
 }
 
 ul.ul_list li:hover,
-ul.ul_list li.list_element_opened {
+ul.ul_list li.list_element_opened,
+.nested-list > span:hover,
+.nested-list > span.list_element_opened {
     background: rgba(185, 170, 153, .2);
 }
-
+.nested-list > span {
+    display: block;
+}
 .list_element .more_info {
     display: none;
 }
@@ -2903,9 +2916,15 @@ ul.ul_list li.list_element_opened {
 
 /* fine aggiunte per indice cronologico */
 
-.small-note {
+.small-note, .nested-list-container {
     font-size: 90%;
     display: none;
+}
+
+.nested-list-container {
+    margin: 10px 0 20px;
+    border-bottom: 3px double #ccc;
+    border-top: 3px double #ccc;
 }
 
 .tooltip .small-note {
@@ -2913,8 +2932,9 @@ ul.ul_list li.list_element_opened {
     padding-top: 3px;
 }
 
-.list_element_opened .occurences,
-.list_element_opened .small-note {
+.list_element_opened > .occurences,
+.list_element_opened > .small-note,
+.list_element_opened > .nested-list-container {
     display: block !important;
 }
 

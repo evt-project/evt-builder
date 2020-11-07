@@ -110,7 +110,7 @@
 	<xsl:template name="org">
 		<xsl:choose>
 			<xsl:when
-				test="current()[@type] or current()[@subtype] or current()[@role] or current()/tei:orgName or current()/tei:desc or current()//tei:idno">
+				test="current()[@type] or current()[@subtype] or current()[@role] or current()/tei:orgName or current()/tei:desc or current()//tei:idno or current()//tei:listPerson">
 				<xsl:if test="current()/tei:orgName">
 					<xsl:element name="span">
 						<xsl:attribute name="class">entity_name <xsl:if test="$list_org = true()">
@@ -207,6 +207,28 @@
 				</xsl:if>
 				<xsl:if test="current()/tei:idno">
 					<xsl:apply-templates select="tei:idno"/>
+				</xsl:if>
+				<xsl:if test="current()//tei:person">
+					<span class="nested-list-container">
+						<span lang="def">MEMBERS</span>:
+						<span class="nested-list" data-list="listPerson">
+							<xsl:for-each select="current()//tei:person">
+								<span data-ref="{substring-after(current()/@sameAs, '#')}">
+									<xsl:choose>
+										<xsl:when test="@sameAs">
+											<xsl:for-each
+												select="$root//node()[@xml:id = substring-after(current()/@sameAs, '#')]">										
+												<xsl:call-template name="person"/>
+											</xsl:for-each>
+										</xsl:when>
+										<xsl:otherwise>
+											<xsl:apply-templates select="."/>
+										</xsl:otherwise>
+									</xsl:choose>
+								</span>
+							</xsl:for-each>
+						</span>
+					</span>
 				</xsl:if>
 			</xsl:when>
 			<xsl:otherwise>

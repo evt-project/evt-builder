@@ -5,11 +5,11 @@ function prepareEditionLevel(xml) {
             var current_id = $(this).text();
             $('.main_ee_select .option_container').append(
                 $('<div/>')
-                    .attr("data-value", current_id.toLowerCase())
-                    .attr("data-key", $(this).attr('data-key'))
-                    .attr("lang", 'def')
-                    .addClass('option')
-                    .text(current_id.toUpperCase())
+                .attr("data-value", current_id.toLowerCase())
+                .attr("data-key", $(this).attr('data-key'))
+                .attr("lang", 'def')
+                .addClass('option')
+                .text(current_id.toUpperCase())
             );
         });
         if ($(xml).find('translation[active="1"]').length > 0) {
@@ -20,17 +20,17 @@ function prepareEditionLevel(xml) {
                     if (addedLangs.indexOf(langs[i].textContent) < 0) {
                         $('.main_ee_select .option_container').append(
                             $('<div/>')
-                                .attr("data-value", "translation-" + langs[i].textContent)
-                                .attr("data-key", "transl")
-                                .addClass('option')
-                                .append(
-                                    $('<span/>')
-                                        .attr("lang", 'def')
-                                        .text("TRANSLATION"),
-                                    $('<span/>')
-                                        .addClass('transLang')
-                                        .text(" (" + langs[i].textContent + ")")
-                                )
+                            .attr("data-value", "translation-" + langs[i].textContent)
+                            .attr("data-key", "transl")
+                            .addClass('option')
+                            .append(
+                                $('<span/>')
+                                .attr("lang", 'def')
+                                .text("TRANSLATION"),
+                                $('<span/>')
+                                .addClass('transLang')
+                                .text(" (" + langs[i].textContent + ")")
+                            )
                         );
                         addedLangs.push(langs[i].textContent)
                     }
@@ -38,11 +38,11 @@ function prepareEditionLevel(xml) {
             } else {
                 $('.main_ee_select .option_container').append(
                     $('<div/>')
-                        .attr("data-value", "translation")
-                        .attr("data-key", "transl")
-                        .attr("lang", 'def')
-                        .addClass('option')
-                        .text("TRANSLATION")
+                    .attr("data-value", "translation")
+                    .attr("data-key", "transl")
+                    .attr("lang", 'def')
+                    .addClass('option')
+                    .text("TRANSLATION")
                 );
             }
         }
@@ -126,14 +126,14 @@ function preparePagePairs(xml, groupingPagesByDoc, optionTooltipInPages) {
                 if (pbElem.length > 0) {
                     first_page_d = pbElem.eq(0).text();
                     first_label_d = pbElem.eq(0).attr("n") != "" ? pbElem.eq(0).attr("n") : first_page_d;
-    
+
                     if (first_page_d.indexOf('-front') < 0) {
                         second_page_d = pbElem.eq(1).text();
                         second_label_d = pbElem.eq(1).attr("n") != "" ? pbElem.eq(1).attr("n") : second_page_d;
-    
+
                         current_id = "";
                         current_label = "";
-    
+
                         first_text_ref = $(xml)
                             .find('textpage text')
                             .find('pb:contains("' + first_page_d + '")')
@@ -145,7 +145,7 @@ function preparePagePairs(xml, groupingPagesByDoc, optionTooltipInPages) {
                                 .parent().attr('n');
                         }
                         first_text_ref = first_text_ref ? first_text_ref.replace(/\s+/g, '') : '';
-    
+
                         if (second_page_d !== "") {
                             current_id = first_page_d + "+" + second_page_d;
                             current_label = first_label_d + " - " + second_label_d;
@@ -155,7 +155,7 @@ function preparePagePairs(xml, groupingPagesByDoc, optionTooltipInPages) {
                             // 						.find('pb:contains("'+second_page_d+'")')
                             // 						.parent().attr('n');
                             // 	second_text_ref = second_text_ref.replace(/\s+/g, '');
-    
+
                             // 	if(first_text_ref !== second_text_ref){
                             // 		$(".main_dd_select [data-doc-group='"+second_text_ref+"']").append(
                             //			$('<div/>')
@@ -176,7 +176,7 @@ function preparePagePairs(xml, groupingPagesByDoc, optionTooltipInPages) {
                                 }
                             }
                         }
-    
+
                         // if (groupingPagesByDoc) {
                         // 	$(".main_dd_select [data-doc-group='"+first_text_ref+"']").append(
                         //  	$('<div/>')
@@ -188,11 +188,11 @@ function preparePagePairs(xml, groupingPagesByDoc, optionTooltipInPages) {
                         // } else {
                         $('.main_dd_select .option_container').append(
                             $('<div/>')
-                                .attr("data-value", current_id)
-                                .attr("data-label", current_label)
-                                .attr("data-first-page-first-doc", first_text_ref)
-                                .addClass('option')
-                                .append(current_label)
+                            .attr("data-value", current_id)
+                            .attr("data-label", current_label)
+                            .attr("data-first-page-first-doc", first_text_ref)
+                            .addClass('option')
+                            .append(current_label)
                         );
                         // }
                     }
@@ -221,22 +221,22 @@ function prepareTextsAndPages(xml, groupingPagesByDoc, optionTooltipInPages) {
 
                 $('.main_tt_select .option_container').append(
                     $('<div/>')
-                        .attr("data-value", current_id)
-                        .attr("data-first-page", first_page_id)
-                        .attr("data-real-label", current_label)
-                        .attr("title", current_label)
-                        .addClass('option')
-                        // GENERAL COMMAND .text(cropLongTextLabel(current_label, 12))
-                        // SOLO X PELAVICINO
-                        .text(cropLongTextLabel(current_label, 20))
+                    .attr("data-value", current_id)
+                    .attr("data-first-page", first_page_id)
+                    .attr("data-real-label", current_label)
+                    .attr("title", current_label)
+                    .addClass('option')
+                    // GENERAL COMMAND .text(cropLongTextLabel(current_label, 12))
+                    // SOLO X PELAVICINO
+                    .text(cropLongTextLabel(current_label, 20))
                 );
 
                 if (groupingPagesByDoc) {
                     $('.main_pp_select .option_container').append(
                         $('<div/>')
-                            .attr("data-doc-group", current_id)
-                            .addClass('optionGroup')
-                            .append($('<span>').text(current_label))
+                        .attr("data-doc-group", current_id)
+                        .addClass('optionGroup')
+                        .append($('<span>').text(current_label))
                     );
                 }
 
@@ -333,98 +333,49 @@ function initLists(listsArray) {
                 .attr('id', 'lists_cont_temp')
                 .css('display', 'none')
                 .appendTo('body');
+            var LISTS = [];
             listsArray.each(function () {
                 // if ($(this).attr('active') == '1') {
                 var listName, listLabel;
                 listName = $(this).get(0).tagName;
-                listLabel = $(this).text();
-                LISTS_MODEL[listName] = {
-                    _indexes: [],
-                    _items: {},
-                    _filterIndexes: []
-                };
-
-                var ulListContainer = $('<ul>');
-                ulListContainer.attr('id', 'ul_list_' + listName);
-                ulListContainer.addClass('ul_list');
-
-                var list_container = $('<div />');
-
-                list_container.attr('id', 'list_' + listName);
-                list_container.addClass('list');
-                list_container.append(ulListContainer);
-                list_container.appendTo('#lists_cont');
-
-
-                $('<span />')
-                    .addClass('labelList')
-                    .attr('id', 'header_' + listName)
-                    .attr('data-list-name', listName)
-                    .attr('lang', 'def')
-                    .text(listLabel)
-                    .unbind("click")
-                    .click(function () {
-                        openList(this, listName);
-                    })
-                    .appendTo('#list_header_elements_contents');
-
-                var listElement = $('#list_' + listName);
+                LISTS.push(listName);
+                var listDefaultLabel = $(this).text();
                 $.ajax({
                     type: "GET",
                     url: "data/output_data/liste/" + listName + ".html",
                     dataType: "html",
                     success: function (html) {
                         var htmlEl = $(html);
-                        if (htmlEl.find('li').length == 0) {
-                            listElement.remove();
-                            $('#header_' + listName).remove();
-
-                            if ($('#list_header_elements_contents').find('.labelList').length == 0) {
-                                $('#lists_cont').remove();
-                                $('#list_link').remove();
+                        var subLists = htmlEl.find('.ul_list-sublist');
+                        if (subLists && subLists.length > 0) {
+                            for (var i = 0; i < subLists.length; i++) {
+                                var listEl = subLists[i];
+                                var subListDefaultLabel = listDefaultLabel;
+                                if (listEl.getAttribute('data-type')) {
+                                    subListDefaultLabel += '_' + listEl.getAttribute('data-type').toUpperCase();
+                                }
+                                handleListOutput(listName, subListDefaultLabel, $(listEl), htmlEl);
                             }
                         } else {
-                            htmlEl.find('.list_element[id]').each(function () {
-                                if (listName !== 'listDoc') {
-                                    var orderListLetter = this.getAttribute('data-order-list')
-                                    if (orderListLetter) {
-                                        orderListLetter = orderListLetter.toUpperCase();
-                                        if (orderListLetter === 'Ç') {
-                                            orderListLetter = "C";
-                                        }
-                                        if (!LISTS_MODEL[listName][orderListLetter]) {
-                                            LISTS_MODEL[listName][orderListLetter] = [];
-                                            LISTS_MODEL[listName]._filterIndexes.push(orderListLetter);
-                                        }
-                                        LISTS_MODEL[listName][orderListLetter].push(this.id);
-                                        LISTS_MODEL[listName]._items[this.id] = this;
-                                    }
-                                    htmlEl.find('.list_element[id="' + this.id + '"]:gt(0)').remove();
-                                } else {
-                                    LISTS_MODEL[listName]._items[this.id] = this;
-                                    LISTS_MODEL[listName]._indexes.push(this.id);
-                                }
-                            });
-                            if (htmlEl.find('#occorrenze_' + listName)) {
-                                LISTS_MODEL[listName]._occurrences = htmlEl.find('#occorrenze_' + listName)[0];
+                            var listEl = htmlEl.find('#ul_' + listName);
+                            if (listEl.attr('data-type')) {
+                                listDefaultLabel += '_' + listEl.attr('data-type').toUpperCase();
                             }
+                            handleListOutput(listName, listDefaultLabel, listEl, htmlEl);
                         }
                         listsLoaded++;
                         if (listsLoaded === totLists) {
-                            bindChronologicalIndex();
+                            handleListsEventsBindings(LISTS)
                             resolve();
                         }
                     },
                     error: function () {
+                        listsLoaded++;
                         console.log('Error: File "data/output_data/liste/' + listName + '.html" non trovato');
-                        listElement.remove();
-                        $('#header_' + listName).remove();
-
-                        if ($('#list_header_elements_contents').find('.labelList').length == 0) {
-                            $('#lists_cont').remove();
-                            $('#list_link').remove();
+                        if (listsLoaded === totLists) {
+                            handleListsEventsBindings(LISTS)
+                            resolve();
                         }
-                        resolve();
                     }
                 });
                 // }
@@ -442,13 +393,128 @@ function initLists(listsArray) {
         }
     })
 }
+function handleListsEventsBindings(LISTS) {
+    if ($('#list_header_elements_contents').find('.labelList').length == 0) {
+        $('#lists_cont').remove();
+        $('#list_link').remove();
+    } else {
+        var temp = document.createElement('div');
+        for (let i = 0; i < LISTS.length; i++) {
+            const l = LISTS[i];
+            var labelEls = Array.from(document.querySelectorAll('*[data-list-name^="'+l+'"]'));
+            for (let j = 0; j < labelEls.length; j++) {
+                const labelEl = labelEls[j];
+                temp.appendChild(labelEl);
+            }
+        }
+        var tempLabel = Array.from(temp.children);
+        var listHeader = document.getElementById('list_header_elements_contents');
+        for (let k = 0; k < tempLabel.length; k++) {
+            listHeader.appendChild(tempLabel[k]);
+        }
+        bindChronologicalIndex();
+    }
+    handleFamiliesData();
+}
+function handleFamiliesData() {
+    if (LISTS_MODEL.listPerson) {
+        LISTS_MODEL.listPerson._orgMembershipData = LISTS_MODEL.listPerson._orgMembershipData || {};    
+        for (var k = 0; k < Object.keys(LISTS_MODEL).length; k++) {
+            var key = Object.keys(LISTS_MODEL)[k];
+            if (key.indexOf('listOrg') >= 0) {
+                var itemsKeys = Object.keys(LISTS_MODEL[key]._items);
+                for (var i = 0; i < itemsKeys.length; i ++) {
+                    var orgItem = LISTS_MODEL[key]._items[itemsKeys[i]];
+                    var members = Array.from(orgItem.querySelectorAll('.nested-list li'));
+                    members.forEach(e => {
+                        var personId = e.getAttribute('data-ref');
+                        if (!LISTS_MODEL.listPerson._orgMembershipData[personId]) {
+                            LISTS_MODEL.listPerson._orgMembershipData[personId] = [];
+                        }
+                        LISTS_MODEL.listPerson._orgMembershipData[personId].push(orgItem.getAttribute('id'))
+                    });
+                }   
+            }
+        }
+    }
+}
+
+function handleListOutput(listType, listDefaultLabel, listEl, htmlEl) {
+    if (listEl.find('li').length > 0) {
+        var listLabel = listDefaultLabel;
+        var listName = listType;
+        if (listEl.find('.list-label').length > 0) {
+            listLabel = listEl.find('.list-label').text() || listDefaultLabel;
+        }
+        if (listEl.attr('data-type')) {
+            listName += '_' + listEl.attr('data-type').trim();
+        }
+        if (!LISTS_MODEL[listName]) {
+            LISTS_MODEL[listName] = {
+                _indexes: [],
+                _items: {},
+                _filterIndexes: []
+            };
+        }
+
+        var ulListContainer = $('<ul>');
+        ulListContainer.attr('id', 'ul_list_' + listName);
+        ulListContainer.addClass('ul_list');
+
+        var list_container = $('<div />');
+        list_container.attr('id', 'list_' + listName);
+        list_container.attr('data-type', listType);
+        list_container.addClass('list');
+
+        list_container.append(ulListContainer);
+        list_container.appendTo('#lists_cont');
+
+        if (!document.getElementById('header_' + listName)) {
+            $('<span />')
+                .addClass('labelList')
+                .attr('id', 'header_' + listName)
+                .attr('data-list-name', listName)
+                .attr('lang', 'def')
+                .text(listLabel)
+                .unbind("click")
+                .click(function () {
+                    openList(this, listName);
+                })
+                .appendTo('#list_header_elements_contents');
+        }
+        listEl.find('.list_element[id]').each(function () {
+            if (listName !== 'listDoc') {
+                var orderListLetter = this.getAttribute('data-order-list')
+                if (orderListLetter) {
+                    orderListLetter = orderListLetter.toUpperCase();
+                    if (orderListLetter === 'Ç') {
+                        orderListLetter = "C";
+                    }
+                    if (!LISTS_MODEL[listName][orderListLetter]) {
+                        LISTS_MODEL[listName][orderListLetter] = [];
+                        LISTS_MODEL[listName]._filterIndexes.push(orderListLetter);
+                    }
+                    LISTS_MODEL[listName][orderListLetter].push(this.id);
+                    LISTS_MODEL[listName]._items[this.id] = this;
+                }
+                listEl.find('.list_element[id="' + this.id + '"]:gt(0)').remove();
+            } else {
+                LISTS_MODEL[listName]._items[this.id] = this;
+                LISTS_MODEL[listName]._indexes.push(this.id);
+            }
+        });
+        if (htmlEl.find('#occorrenze_' + listType)) {
+            LISTS_MODEL[listName]._occurrences = htmlEl.find('#occorrenze_' + listType)[0];
+        }
+    }
+}
 
 function initEvents(xml, groupingPagesByDoc, optionTooltipInPages) {
     return new Promise(function (resolve, reject) {
         /* Lanciato dal click sulla thumbnail */
         /* Recupera l'identificativo della pagina di sx e di quella di dx dall'hash se impostato
-           (altrimenti dal selettore delle pagine singole)
-           e aggiorna l'hash che poi provocherà il caricamento della nuova immagine */
+            (altrimenti dal selettore delle pagine singole)
+            e aggiorna l'hash che poi provocherà il caricamento della nuova immagine */
         $(".main_dd_select").on('imgd_thumb', function () {
             var hash_parts, temp_pp, temp_tt, first_page, second_page, newhash;
             var first_page_lab, second_page_lab, newlab;

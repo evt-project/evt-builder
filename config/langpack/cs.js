@@ -126,11 +126,11 @@ jquery_lang_js.prototype.lang.cs = {
 	"PROVENANCE": "Provenience",
 	"ADDITIONAL_INFORMATION": "Další informace",
 	"ADDITIONAL_MATERIALS": "Další materiály",
-	"LIST_PERSON": "Seznam osob",
-	"LIST_PLACE": "Seznam míst",
-	"LIST_ORG": "Seznam institucí",
-	"LIST_TERM": "Seznam slov",
-	"LIST_GLOSS": "Seznam lesků",
+	"LIST_PERSON": "Osob",
+	"LIST_PLACE": "Míst",
+	"LIST_ORG": "Institucí",
+	"LIST_TERM": "Slov",
+	"LIST_GLOSS": "Lesků",
 	"NO_ELEMENTS": "Žádné položky",
 	"PAGE_MISSING": "(miss)",
 	"PAGE_MISSING_RIGHT": " - (miss)",
@@ -274,5 +274,11 @@ jquery_lang_js.prototype.lang.cs = {
 	"PREPARING_LISTS": "Příprava seznamů ...",
 	"PREPARING_BIBLIOGRAPHY": "Příprava bibliografie ...",
 	"OPEN_DOCUMENT": "Otevřete dokument",
-	"KENNING": "Kenning"
+	"KENNING": "Kenning",
+	
+	"MEMBERS": "Členové",
+	"LIST_ORG_FAMILIA": "Rodiny",
+	"NAME_LIST-TYPE_FAMILIA": "Rodiny",
+	"LIST_ORG_POPOLI": "Národy",
+	"ORGNAME_TYPE_GENS": "Národy"
 }

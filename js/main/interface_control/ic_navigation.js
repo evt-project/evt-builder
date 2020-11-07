@@ -1128,7 +1128,7 @@ function bindFilterOptionClick() {
 					var key = Object.keys(htmlEl.dataset)[i];
 					if (key !== 'value' && key !== 'label') {
 						var dataAttr = htmlEl.dataset[key];
-						selectorForActivation += '[data-' + key + '*="' + dataAttr + '"]';
+						selectorForActivation += '[data-' +  camelToKebab(key) + '*="' + dataAttr + '"]';
 					}
 				}
 				jQueryEl.toggleClass('selected');
