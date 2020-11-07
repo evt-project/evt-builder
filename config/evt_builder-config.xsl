@@ -386,6 +386,8 @@
 			<persName active="true"/>
 			<placeName active="false"/>
 			<orgName active="false"/>
+			<name active="false" list-type="familia"/>
+			<orgName active="false" type="gens"/>
 		</group>
 		<group label="INTERESTING_ELEMENTS" active="false">
 			<roleName active="true"/>
