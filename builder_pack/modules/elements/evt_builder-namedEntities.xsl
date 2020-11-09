@@ -47,6 +47,24 @@
 					</xsl:element>
 				</xsl:element>
 			</xsl:when>
+			<xsl:when test="@from or @to">
+				<xsl:element name="span">
+					<xsl:attribute name="class">popup date</xsl:attribute>
+					<xsl:call-template name="dataAttributesFromAttributes"/>
+					<xsl:element name="span">
+						<xsl:attribute name="class">trigger</xsl:attribute>
+						<xsl:apply-templates mode="#current"/>
+					</xsl:element>
+					<xsl:element name="span">
+						<xsl:attribute name="class">tooltip</xsl:attribute>
+						<xsl:element name="span">
+							<xsl:attribute name="class">before</xsl:attribute>
+						</xsl:element>
+						<xsl:text>Data normalizzata: </xsl:text>
+						<xsl:value-of select="@from"/>/<xsl:value-of select="@to"/>
+					</xsl:element>
+				</xsl:element>
+			</xsl:when>
 			<xsl:otherwise>
 				<xsl:element name="span">
 					<xsl:attribute name="class">date no-info </xsl:attribute>
