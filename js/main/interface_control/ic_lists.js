@@ -210,6 +210,8 @@ function updateKeysVisibility(listName) {
 	listLetters.innerHTML = '';
 	if (LISTS_MODEL[listName]._items && Object.keys(LISTS_MODEL[listName]._items).length >= 30) {
 		var orderedIndexes = LISTS_MODEL[listName]._filterIndexes.sort(function (a, b) {
+			a = a === 'Ç' ? 'C' : a;
+			b = b === 'Ç' ? 'C' : b;
 			if (a < b) return -1;
 			if (a > b) return 1;
 			return 0;

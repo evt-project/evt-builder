@@ -487,9 +487,6 @@ function handleListOutput(listType, listDefaultLabel, listEl, htmlEl) {
                 var orderListLetter = this.getAttribute('data-order-list')
                 if (orderListLetter) {
                     orderListLetter = orderListLetter.toUpperCase();
-                    if (orderListLetter === 'Ç') {
-                        orderListLetter = "C";
-                    }
                     if (!LISTS_MODEL[listName][orderListLetter]) {
                         LISTS_MODEL[listName][orderListLetter] = [];
                         LISTS_MODEL[listName]._filterIndexes.push(orderListLetter);
