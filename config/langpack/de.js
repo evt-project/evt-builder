@@ -123,11 +123,11 @@ jquery_lang_js.prototype.lang.de = {
 	"PROVENANCE": "Ursprung",
 	"ADDITIONAL_INFORMATION": "Zus&auml;tzliche Informationen",
 	"ADDITIONAL_MATERIALS": "Zus&auml;tzliche Materialien",
-	"LIST_PERSON": "Personenliste",
-	"LIST_PLACE": "Ortliste",
-	"LIST_ORG": "Liste der Institutionen",
-	"LIST_TERM": "Liste der Begriffe",
-	"LIST_GLOSS": "Liste der Glossen",
+	"LIST_PERSON": "Personen",
+	"LIST_PLACE": "Ort",
+	"LIST_ORG": "Institutionen",
+	"LIST_TERM": "Begriffe",
+	"LIST_GLOSS": "Glossen",
 	"NO_ELEMENTS": "Keine elemente",
 	"PAGE_MISSING": "(miss)",
 	"PAGE_MISSING_RIGHT": " - (miss)",
@@ -271,5 +271,11 @@ jquery_lang_js.prototype.lang.de = {
 	"PREPARING_LISTS": "Préparation des listes ...",
 	"VORBEREITUNG_BIBLIOGRAPHIE": "Bibliographie vorbereiten ...",
 	"OPEN_DOCUMENT": "Dokument öffnen",
-	"KENNING": "Kenning"
+	"KENNING": "Kenning",
+
+	"MEMBERS": "Mitglieder",
+	"LIST_ORG_FAMILIA": "Familien",
+	"NAME_LIST-TYPE_FAMILIA": "Familien",
+	"LIST_ORG_POPOLI": "Völker",
+	"ORGNAME_TYPE_GENS": "Völker"
 }

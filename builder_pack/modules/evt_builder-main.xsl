@@ -533,28 +533,37 @@
 		<xsl:element name="ul">
 			<xsl:attribute name="id" select="'ul_listPerson'"/>
 			<xsl:attribute name="class" select="'ul_list'"/>
-			<xsl:for-each select="$root//tei:listPerson/person">
-				<xsl:sort select="lower-case(tei:persName/tei:forename)" order="ascending"/>
-				<xsl:sort select="lower-case(tei:persName/tei:name)" order="ascending"/>
-				<xsl:element name="li">
-					<xsl:attribute name="id" select="@xml:id"/>
-					<xsl:attribute name="class" select="'list_element'"/>
-					<xsl:attribute name="data-order-list">
-						<xsl:choose>
-							<xsl:when test="tei:persName/tei:forename and substring(tei:persName/tei:forename, 1, 1) != '.' and substring(tei:persName/tei:forename, 1, 1) != ' '">
-								<xsl:value-of select="substring(tei:persName/tei:forename, 1, 1)"/>
-							</xsl:when>
-							<xsl:when test="tei:persName/tei:name and substring(tei:persName/tei:name, 1, 1) != '.' and substring(tei:persName/tei:name, 1, 1) != ' '">
-								<xsl:value-of select="substring(tei:persName/tei:name, 1, 1)"/>
-							</xsl:when>
-							<xsl:otherwise>
-								<xsl:value-of select="substring(@xml:id, 1, 1)"/>
-							</xsl:otherwise>
-						</xsl:choose>
-					</xsl:attribute>
-					<!--<xsl:value-of select="substring(@xml:id, 1, 1)"/>-->
-					<xsl:call-template name="person"/>
-				</xsl:element>
+			<xsl:for-each select="$root//tei:listPerson">
+				<li data-type="{@type}" class="ul_list-sublist">
+					<xsl:if test="$use_list_head_as_label = true() and tei:head">
+						<span class="list-label"><xsl:value-of select="tei:head"/></span>
+					</xsl:if>
+					<ul class="items">						
+						<xsl:for-each select="tei:person">
+							<xsl:sort select="lower-case(tei:persName/tei:forename)" order="ascending"/>
+							<xsl:sort select="lower-case(tei:persName/tei:name)" order="ascending"/>
+							<xsl:element name="li">
+								<xsl:attribute name="id" select="@xml:id"/>
+								<xsl:attribute name="class" select="'list_element'"/>
+								<xsl:attribute name="data-order-list">
+									<xsl:choose>
+										<xsl:when test="tei:persName/tei:forename and substring(tei:persName/tei:forename, 1, 1) != '.' and substring(tei:persName/tei:forename, 1, 1) != ' '">
+											<xsl:value-of select="substring(tei:persName/tei:forename, 1, 1)"/>
+										</xsl:when>
+										<xsl:when test="tei:persName/tei:name and substring(tei:persName/tei:name, 1, 1) != '.' and substring(tei:persName/tei:name, 1, 1) != ' '">
+											<xsl:value-of select="substring(tei:persName/tei:name, 1, 1)"/>
+										</xsl:when>
+										<xsl:otherwise>
+											<xsl:value-of select="substring(@xml:id, 1, 1)"/>
+										</xsl:otherwise>
+									</xsl:choose>
+								</xsl:attribute>
+								<!--<xsl:value-of select="substring(@xml:id, 1, 1)"/>-->
+								<xsl:call-template name="person"/>
+							</xsl:element>
+						</xsl:for-each>
+					</ul>
+				</li>
 			</xsl:for-each>
 		</xsl:element>
 	</xsl:template>
@@ -564,23 +573,32 @@
 		<xsl:element name="ul">
 			<xsl:attribute name="id" select="'ul_listPlace'"/>
 			<xsl:attribute name="class" select="'ul_list'"/>
-			<xsl:for-each select="$root//tei:listPlace/place">
-				<xsl:sort select="lower-case(tei:settlement[1])" order="ascending"/>
-				<xsl:element name="li">
-					<xsl:attribute name="id" select="@xml:id"/>
-					<xsl:attribute name="class" select="'list_element'"/>
-					<xsl:attribute name="data-order-list">
-						<xsl:choose>
-							<xsl:when test="tei:settlement[1] and substring(tei:settlement[1], 1, 1) != '.' and substring(tei:settlement[1], 1, 1) != ' '">
-								<xsl:value-of select="substring(tei:settlement[1], 1, 1)"/>
-							</xsl:when>
-							<xsl:otherwise>
-								<xsl:value-of select="substring(@xml:id, 1, 1)"/>
-							</xsl:otherwise>
-						</xsl:choose>
-					</xsl:attribute>
-					<xsl:call-template name="place"/>
-				</xsl:element>
+			<xsl:for-each select="$root//tei:listPlace">
+				<li data-type="{@type}" class="ul_list-sublist">
+					<xsl:if test="$use_list_head_as_label = true() and tei:head">
+						<span class="list-label"><xsl:value-of select="tei:head"/></span>
+					</xsl:if>
+					<ul class="items">						
+						<xsl:for-each select="tei:place">
+							<xsl:sort select="lower-case(tei:settlement[1])" order="ascending"/>
+							<xsl:element name="li">
+								<xsl:attribute name="id" select="@xml:id"/>
+								<xsl:attribute name="class" select="'list_element'"/>
+								<xsl:attribute name="data-order-list">
+									<xsl:choose>
+										<xsl:when test="tei:settlement[1] and substring(tei:settlement[1], 1, 1) != '.' and substring(tei:settlement[1], 1, 1) != ' '">
+											<xsl:value-of select="substring(tei:settlement[1], 1, 1)"/>
+										</xsl:when>
+										<xsl:otherwise>
+											<xsl:value-of select="substring(@xml:id, 1, 1)"/>
+										</xsl:otherwise>
+									</xsl:choose>
+								</xsl:attribute>
+								<xsl:call-template name="place"/>
+							</xsl:element>
+						</xsl:for-each>
+					</ul>
+				</li>
 			</xsl:for-each>
 		</xsl:element>
 	</xsl:template>
@@ -590,14 +608,23 @@
 		<xsl:element name="ul">
 			<xsl:attribute name="id" select="'ul_listOrg'"/>
 			<xsl:attribute name="class" select="'ul_list'"/>
-			<xsl:for-each select="$root//tei:listOrg/org">
-				<xsl:sort select="lower-case(@xml:id)" order="ascending"/>
-				<xsl:element name="li">
-					<xsl:attribute name="id" select="@xml:id"/>
-					<xsl:attribute name="class" select="'list_element'"/>
-					<xsl:attribute name="data-order-list" select="substring(@xml:id, 1, 1)"/>
-					<xsl:call-template name="org"/>
-				</xsl:element>
+			<xsl:for-each select="$root//tei:listOrg">
+				<li data-type="{@type}" class="ul_list-sublist">
+					<xsl:if test="$use_list_head_as_label = true() and tei:head">
+						<span class="list-label"><xsl:value-of select="tei:head"/></span>
+					</xsl:if>
+					<ul class="items">						
+						<xsl:for-each select="tei:org">
+							<xsl:sort select="lower-case(@xml:id)" order="ascending"/>
+							<xsl:element name="li">
+								<xsl:attribute name="id" select="@xml:id"/>
+								<xsl:attribute name="class" select="'list_element'"/>
+								<xsl:attribute name="data-order-list" select="substring(@xml:id, 1, 1)"/>
+								<xsl:call-template name="org"/>
+							</xsl:element>
+						</xsl:for-each>
+					</ul>
+				</li>
 			</xsl:for-each>
 		</xsl:element>
 	</xsl:template>
@@ -724,7 +751,7 @@
 
 	<xsl:template name="listDoc">
 		<xsl:element name="ul">
-			<xsl:attribute name="id" select="'ul_listDocument'"/>
+			<xsl:attribute name="id" select="'ul_listDoc'"/>
 			<xsl:attribute name="class" select="'ul_list'"/>
 			<xsl:for-each select="$root//tei:text/tei:group/tei:text">
 				<xsl:element name="li">

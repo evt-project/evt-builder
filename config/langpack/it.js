@@ -124,11 +124,11 @@ jquery_lang_js.prototype.lang.it = {
 	"PROVENANCE": "Provenienza",
 	"ADDITIONAL_INFORMATION": "Informazioni aggiuntive",
 	"ADDITIONAL_MATERIALS": "Materiali aggiuntivi",
-	"LIST_PERSON": "Lista delle persone",
-	"LIST_PLACE": "Lista dei luoghi",
-	"LIST_ORG": "Lista di enti",
-	"LIST_TERM": "Lista di parole",
-	"LIST_GLOSS": "Lista di glosse",
+	"LIST_PERSON": "Persone",
+	"LIST_PLACE": "Luoghi",
+	"LIST_ORG": "Enti",
+	"LIST_TERM": "Parole",
+	"LIST_GLOSS": "Glosse",
 	"NO_ELEMENTS": "Nessun elemento",
 	"PAGE_MISSING": "(miss)",
 	"PAGE_MISSING_RIGHT": " - (miss)",
@@ -162,7 +162,7 @@ jquery_lang_js.prototype.lang.it = {
 	"SHOULD_BE": "Dovrebbe essere ",
 	"CHARACTERS_OR_MORE": "caratteri minimo",
 
-	"PERSNAME":"Persone",
+	"PERSNAME": "Persone",
 	"PLACENAME": "Luoghi",
 	"ROLENAME": "Mestieri/Ruoli",
 	"ORGNAME": "Enti religiosi",
@@ -274,6 +274,11 @@ jquery_lang_js.prototype.lang.it = {
 	"PREPARING_BIBLIOGRAPHY": "Preparazione bibliografia...",
 	"OPEN_DOCUMENT": "Apri documento",
 	"METAPHOR": "Metafore",
-	"KENNING": "Kenning"
+	"KENNING": "Kenning",
 
+	"MEMBERS": "Membri",
+	"LIST_ORG_FAMILIA": "Famiglie",
+	"NAME_LIST-TYPE_FAMILIA": "Famiglie",
+	"LIST_ORG_POPOLI": "Popoli",
+	"ORGNAME_TYPE_GENS": "Popoli"
 }

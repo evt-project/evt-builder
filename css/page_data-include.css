@@ -1387,6 +1387,28 @@ span.no-info {
     color: #69513a;
 }
 
+.option[data-value="name"][data-list-type="familia"] .filter_color {
+    color: #e1bee7;
+}
+
+.doc.current span.name[data-list-type="familia"].list_active span.trigger,
+.doc.current span.name[data-list-type="familia"]:hover>span.trigger,
+.doc.current span.name[data-list-type="familia"].over>span.trigger,
+.doc.current span.name[data-list-type="familia"].opened>span.trigger {
+    background: #e1bee7;
+}
+
+.option[data-value="orgName"][data-type="gens"] .filter_color {
+    color: #b2dfdb;
+}
+
+.doc.current span.orgName[data-type="gens"].list_active span.trigger,
+.doc.current span.orgName[data-type="gens"]:hover>span.trigger,
+.doc.current span.orgName[data-type="gens"].over>span.trigger,
+.doc.current span.orgName[data-type="gens"].opened>span.trigger {
+    background: #b2dfdb;
+}
+
 /* Style for TERM */
 .doc.current span.term.list_active,
 .doc.current span.term.over,

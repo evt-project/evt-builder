@@ -208,23 +208,27 @@ function updateKeysVisibility(listName) {
 	var filterActiveValue = listFilter ? listFilter.attr('data-value') : '';
 	var listLetters = document.getElementById('list_letters');
 	listLetters.innerHTML = '';
-	var orderedIndexes = LISTS_MODEL[listName]._filterIndexes.sort(function (a, b) {
-		if (a < b) return -1;
-		if (a > b) return 1;
-		return 0;
-	});
-	orderedIndexes.forEach(function (key) {
-		var indexEl = document.createElement('span');
-		indexEl.setAttribute('data-filter-type', 'first_letter');
-		indexEl.setAttribute('data-value', key);
-		indexEl.className = 'list_filter';
-		if (filterActiveValue === key) {
-			indexEl.className = ' filter_active';
-		}
-		indexEl.textContent = key;
-		indexEl.setAttribute('onclick', 'filterListElements(this)');
-		listLetters.append(indexEl);
-	});
+	if (LISTS_MODEL[listName]._items && Object.keys(LISTS_MODEL[listName]._items).length >= 30) {
+		var orderedIndexes = LISTS_MODEL[listName]._filterIndexes.sort(function (a, b) {
+			a = a === 'Ç' ? 'C' : a;
+			b = b === 'Ç' ? 'C' : b;
+			if (a < b) return -1;
+			if (a > b) return 1;
+			return 0;
+		});
+		orderedIndexes.forEach(function (key) {
+			var indexEl = document.createElement('span');
+			indexEl.setAttribute('data-filter-type', 'first_letter');
+			indexEl.setAttribute('data-value', key);
+			indexEl.className = 'list_filter';
+			if (filterActiveValue === key) {
+				indexEl.className = ' filter_active';
+			}
+			indexEl.textContent = key;
+			indexEl.setAttribute('onclick', 'filterListElements(this)');
+			listLetters.append(indexEl);
+		});
+	}
 }
 /*= OPEN SINGLE LIST =*/
 function openList(elem, listName) {
@@ -244,9 +248,14 @@ function openList(elem, listName) {
 		listCont.attr('data-list-active', listName);
 
 		if (listName !== 'listDoc') {
-			var listFilter = $('.filter_active');
-			listFilter = listFilter && listFilter.length > 0 ? listFilter : $('.list_filter:first');
-			listFilter.trigger('click');
+			if (LISTS_MODEL[listName]._items && Object.keys(LISTS_MODEL[listName]._items).length >= 30) {
+				var listFilter = $('.filter_active');
+				listFilter = listFilter && listFilter.length > 0 ? listFilter : $('.list_filter:first');
+				listFilter.trigger('click');
+			} else {
+				listElem.addClass('full-height');
+				appendItemsInList(Object.keys(LISTS_MODEL[listName]._items), listName);	
+			}
 		} else {
 			appendItemsInList(Object.keys(LISTS_MODEL[listName]._items), listName);
 			var container = $("#ul_list_listDoc");
@@ -266,23 +275,28 @@ function openList(elem, listName) {
 function showListElementOccurrences(elem, listName) {
 	if ($(elem).hasClass('list_element_opened')) {
 		// $(elem).find('.small-note, .occurences').toggle();
-		$(elem).find('.fa').removeClass('fa-angle-down').addClass('fa-angle-right');
+		$(elem).find('> .toggle_list_element .fa').removeClass('fa-angle-down').addClass('fa-angle-right');
 		$(elem).removeClass('list_element_opened');
 	} else {
 		if ($(elem).find('.occurences').length <= 0) {
+			if ($(elem).parents('.nested-list') && $(elem).parents('.nested-list').length > 0) {
+				listName = $(elem).parents('.nested-list').attr('data-list');
+			}
 			prepareOccurrencesList(elem, listName);
 		}
 		// $(elem).parents('.list').find('.occurences:visible').hide();
-		var elemList = $(elem).parents('.list');
-		elemList.find('.small-note:visible').hide();
-		elemList.find('.list_element_opened')
-			.removeClass('list_element_opened')
-			.find('.fa-angle-down')
-			.removeClass('fa-angle-down')
-			.addClass('fa-angle-right');
+		if (!$(elem).parents('.nested-list') || $(elem).parents('.nested-list').length === 0) {
+			var elemList = $(elem).parents('.list');
+			elemList.find('.small-note:visible').hide();
+			elemList.find('> .list_element_opened')
+				.removeClass('list_element_opened')
+				.find('> .toggle_list_element .fa-angle-down')
+				.removeClass('fa-angle-down')
+				.addClass('fa-angle-right');
+		}
 		$(elem)
 			.addClass('list_element_opened')
-			.find('.fa')
+			.find('> .toggle_list_element .fa')
 			.removeClass('fa-angle-right')
 			.addClass('fa-angle-down');
 	}
@@ -292,7 +306,7 @@ function showListElementOccurrences(elem, listName) {
 function prepareOccurrencesList(elem, listName) {
 	var occ_ref;
 	var list_ref, list_occ;
-	list_ref = $(elem).attr('id');
+	list_ref = $(elem).attr('id') || $(elem).attr('data-ref');
 	list_occ = $("<div/>").addClass('occurences');
 	occ_ref = $(LISTS_MODEL[listName]._occurrences)
 		.find("span[data-ref='" + list_ref + "']");
@@ -332,7 +346,9 @@ function prepareOccurrencesList(elem, listName) {
 	$(elem).append(list_occ);
 	window.lang.run();
 }
+function prepareFamilyList(elem, listName) {
 
+}
 /*= GO TO OCCURRECE PAGE =*/
 function goToOccurrencePage(elem, pb, doc) {
 	var current_pp, current_tt;
@@ -411,9 +427,14 @@ function showItemInList(id_ref, listName) {
 			$('#' + list_id).addClass('list_opened').show();
 		}
 		updateKeysVisibility(listName);
-		// Open the letter of the element
-		list_filter_pos = $(entityEl).attr('data-order-list');
-		$(".list_filter[data-value='" + list_filter_pos.toUpperCase() + "']").trigger('click');
+		if (LISTS_MODEL[listName]._items && Object.keys(LISTS_MODEL[listName]._items).length >= 30) {
+			// Open the letter of the element
+			list_filter_pos = $(entityEl).attr('data-order-list');
+			$(".list_filter[data-value='" + list_filter_pos.toUpperCase() + "']").trigger('click');
+		} else {
+			$('#' + list_id).addClass('full-height');
+			appendItemsInList(Object.keys(LISTS_MODEL[listName]._items), listName);	
+		}
 
 		scrollDownListContainer(0);
 		listsCont.show(0);
@@ -431,7 +452,7 @@ function showItemInList(id_ref, listName) {
 				scrollTop: 0
 			}, function () {
 				if (!$(entityEl).hasClass('list_element_opened')) {
-					$(entityEl).find('.toggle_list_element').trigger('click');
+					$(entityEl).find('> .toggle_list_element').trigger('click');
 				}
 				$(entityEl).addClass('highlight');
 				var listsTimeout = setTimeout(function () {
@@ -452,16 +473,24 @@ function showItemInList(id_ref, listName) {
 /*= INITIALIZE LINK BETWEEN TEXT TRIGGER AND LIST ELEMENT =*/
 function InitializeLinkTextList() {
 	$('span.tooltip span.entity_name.link_active').unbind('click').click(function () {
-		var id_ref, listName, order_list;
+		var id_ref, listName, listType, order_list;
 
 		$(this).parent('.tooltip').siblings('.trigger').trigger('click');
 		id_ref = $(this).attr('data-ref');
 		listName = $(this).attr('data-list');
-
-		if (!LISTS_MODEL[listName]._items[id_ref]) {
+		listType = $(this).attr('data-list-type');
+		listName += listType ? '_' + listType : '';
+		var listKey;
+		for (let i = 0; i < Object.keys(LISTS_MODEL).length; i++) {
+			var key = Object.keys(LISTS_MODEL)[i];
+			if (key.indexOf(listName) >= 0 && LISTS_MODEL[key]._items[id_ref]) {
+				listKey = key;
+			}
+		}
+		if (!listKey) {
 			alert('There was an error in opening the entity reference. Please try later.');
 		} else {
-			showItemInList(id_ref, listName);
+			showItemInList(id_ref, listKey);
 		}
 	});
 }
@@ -753,7 +782,8 @@ function bindDocumentLinkChronologicalIndex() {
 }
 
 function bindShowListElementOccurrences(listName) {
-	$('.list_element').find('.toggle_list_element, .entity_name').unbind("click").click(function () {
+	$('.list_element').find('.toggle_list_element, .entity_name').unbind("click").click(function (event) {
+		event.stopPropagation();
 		showListElementOccurrences($(this).parent(), listName);
 	});
 	/* Integration by LS */

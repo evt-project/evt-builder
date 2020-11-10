@@ -556,7 +556,7 @@
 				<xsl:value-of select="' ', name()" separator=""/>
 			</xsl:attribute>
 			<xsl:call-template name="dataAttributesFromAttributes"/>
-			<xsl:apply-templates select="normalize-space()" mode="#current"/>
+			<xsl:apply-templates mode="#current"/>
 		</xsl:element>
 	</xsl:template>
 
