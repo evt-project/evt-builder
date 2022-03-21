@@ -71,7 +71,7 @@
             <xsl:otherwise>
                 <xsl:choose>
                     <xsl:when
-                        test="node()/ancestor::tei:listPerson or node()/ancestor::tei:listPlace">
+                        test="node()/ancestor::tei:listPerson or node()/ancestor::tei:listPlace or node()/ancestor::tei:entry">
                         <xsl:apply-templates mode="#current"/>
                     </xsl:when>
                     <xsl:otherwise>
@@ -192,7 +192,7 @@
         </xsl:choose>
     </xsl:template>
 
-    <xsl:template match="tei:back//tei:ref" mode="interp dipl #default">
+    <xsl:template match="tei:back//tei:ref | tei:entry//tei:ref" mode="interp dipl #default">
         <xsl:choose>
             <xsl:when test="@target[contains(., 'www')] or @target[contains(., 'http')]">
                 <xsl:element name="a">
@@ -318,6 +318,24 @@
             </xsl:choose>
             <xsl:apply-templates mode="#current"/>
         </xsl:element>    
+    </xsl:template>
+    
+    <xsl:template match="tei:mentioned" mode="interp dipl #default">
+        <span class="mentioned">
+            <xsl:apply-templates mode="#current"/>
+        </span>
+    </xsl:template>
+    
+    <xsl:template match="tei:def" mode="interp dipl #default">
+        <span class="def">
+            <xsl:apply-templates mode="#current"/>
+        </span>
+    </xsl:template>
+    
+    <xsl:template match="tei:m" mode="interp dipl #default">
+        <span class="m">
+            <xsl:apply-templates mode="#current"/>
+        </span>
     </xsl:template>
     
     <xsl:template name="dataAttributesFromAttributes">
