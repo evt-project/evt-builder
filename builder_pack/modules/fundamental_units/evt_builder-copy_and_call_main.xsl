@@ -536,6 +536,63 @@
 		</xsl:element>
 	</xsl:template>
 
+	<!-- GLOSSARY OCCURRENCES -->
+	<xsl:template match="*" mode="listGlossaryOccurences">
+		<xsl:element name="div">
+			<xsl:attribute name="id">occorrenze_listGlossary</xsl:attribute>
+			<xsl:for-each-group
+				select="//node()[name() = $ed_content]/descendant-or-self::node()[name() = $start_split]/node()"
+				group-starting-with="//tei:pb">
+				<xsl:if test="self::tei:pb">
+					<xsl:variable name="pb_id" select="@xml:id"/>
+					<xsl:variable name="pb_n">
+						<xsl:call-template name="generatePbLabel">
+							<xsl:with-param name="pb" select="current()"/>
+							<xsl:with-param name="position" select="position()"/>
+						</xsl:call-template>
+					</xsl:variable>
+					<xsl:for-each select="current-group()/descendant::tei:term">
+						<xsl:variable name="doc_id">
+							<xsl:choose>
+								<xsl:when test="current()/ancestor::tei:text[1]/@xml:id">
+									<xsl:value-of select="current()/ancestor::tei:text[1]/@xml:id"/>
+								</xsl:when>
+								<xsl:when
+									test="current()/ancestor::tei:body[1]/tei:div[@subtype = 'edition_text']/@xml:id">
+									<xsl:value-of
+										select="current()/ancestor::tei:body[1]/tei:div[@subtype = 'edition_text']/@xml:id"
+									/>
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:value-of
+										select="count(current()/ancestor::tei:text[1]/preceding-sibling::tei:text) + 1"
+									/>
+								</xsl:otherwise>
+							</xsl:choose>
+						</xsl:variable>
+						<xsl:element name="span">
+							<xsl:attribute name="data-list">listGlossary</xsl:attribute>
+							<xsl:variable name="termText">
+								<xsl:apply-templates select="current()"/>
+							</xsl:variable>
+							<xsl:attribute name="data-ref"
+								select="translate(normalize-space($termText), ' ', '')"/>
+							<xsl:attribute name="data-doc">
+								<xsl:value-of select="$doc_id"/>
+							</xsl:attribute>
+							<xsl:attribute name="data-pb">
+								<xsl:value-of select="$pb_id"/>
+							</xsl:attribute>
+							<xsl:attribute name="data-pb-n">
+								<xsl:value-of select="$pb_n"/>
+							</xsl:attribute>
+						</xsl:element>
+					</xsl:for-each>
+				</xsl:if>
+			</xsl:for-each-group>
+		</xsl:element>
+	</xsl:template>
+
 	<!-- GM -->
 	<!--<xsl:template match="/" mode="viscollCP"> 
 		<xsl:copy-of select="./*" />
