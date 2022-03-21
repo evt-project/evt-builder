@@ -131,6 +131,9 @@
                     <xsl:if test="$list_gloss = true()">
                         <listGloss active="1" lang="def">LIST_GLOSS</listGloss>
                     </xsl:if>
+                    <xsl:if test="$list_glossary = true()">
+                        <listGlossary active="1" lang="def">LIST_GLOSSARY</listGlossary>
+                    </xsl:if>
                     <xsl:if test="$list_doc = true()">
                         <listDoc active="1" lang="def">LIST_DOC</listDoc>
                     </xsl:if>

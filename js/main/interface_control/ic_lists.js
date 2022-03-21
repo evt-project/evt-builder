@@ -277,8 +277,25 @@ function showListElementOccurrences(elem, listName) {
 		// $(elem).find('.small-note, .occurences').toggle();
 		$(elem).find('> .toggle_list_element .fa').removeClass('fa-angle-down').addClass('fa-angle-right');
 		$(elem).removeClass('list_element_opened');
+		var toggler = $(elem).find('.toggle_list_element');
+		if (toggler && toggler.data('element-to-show')) {
+			var elToShow = toggler.data('element-to-show');
+			$(elem).find(elToShow).hide();
+		}
 	} else {
-		if ($(elem).find('.occurences').length <= 0) {
+		var toggler = $(elem).find('.toggle_list_element');
+		if (toggler && toggler.data('element-to-show')) {
+			var elToShow = toggler.data('element-to-show');
+			$(elem).find(elToShow).show();
+			if (toggler.data('element-for-accordion')) {
+				var elForAccordion = toggler.data('element-for-accordion');
+				$(elForAccordion).accordion({
+					collapsible: true,
+					heightStyle: "content"
+				});
+			}
+		}
+		if ($(elem).find('.occurences[data-loaded=true]').length <= 0) {
 			if ($(elem).parents('.nested-list') && $(elem).parents('.nested-list').length > 0) {
 				listName = $(elem).parents('.nested-list').attr('data-list');
 			}
@@ -307,7 +324,12 @@ function prepareOccurrencesList(elem, listName) {
 	var occ_ref;
 	var list_ref, list_occ;
 	list_ref = $(elem).attr('id') || $(elem).attr('data-ref');
-	list_occ = $("<div/>").addClass('occurences');
+	list_occ = $(elem).find('.occurences');
+	var toAppend = false;
+	if (!list_occ || list_occ.length === 0) {
+		toAppend = true;
+		list_occ = $("<div/>").addClass('occurences');
+	}
 	occ_ref = $(LISTS_MODEL[listName]._occurrences)
 		.find("span[data-ref='" + list_ref + "']");
 	if (occ_ref.length > 0) {
@@ -343,7 +365,11 @@ function prepareOccurrencesList(elem, listName) {
 	} else {
 		$(list_occ).append("<span class='no_occ' lang='" + window.lang.currentLang + "'>" + window.lang.convert('NO_MATCHES_FOUND', window.lang.currentLang) + "</span>");
 	}
-	$(elem).append(list_occ);
+	console.log(elem);
+	list_occ.attr('data-loaded', 'true');
+	if (toAppend) {
+		$(elem).append(list_occ);
+	}
 	window.lang.run();
 }
 function prepareFamilyList(elem, listName) {
@@ -472,7 +498,7 @@ function showItemInList(id_ref, listName) {
 
 /*= INITIALIZE LINK BETWEEN TEXT TRIGGER AND LIST ELEMENT =*/
 function InitializeLinkTextList() {
-	$('span.tooltip span.entity_name.link_active').unbind('click').click(function () {
+	$('span.tooltip span.entity_name.link_active, span.tooltip span.term_occ.link_active').unbind('click').click(function () {
 		var id_ref, listName, listType, order_list;
 
 		$(this).parent('.tooltip').siblings('.trigger').trigger('click');
@@ -637,22 +663,22 @@ function bindChronologicalIndex() {
 			$('#sortingOrder i').attr('class', 'fa fa-sort-amount-asc');
 			/* Recupero il contenitore della lista e gli assegno un attributo 'sort' che sarà inizialmente 'asc' */
 			container.attr('data-sort', 'asc');
-			
+
 			/* Gestisco la riduzione del regesto */
 			var minimized_text = $('#ul_list_listDoc .list_element .document_list_regesto .text');
 			var minimized_character_count = 300;
-			minimized_text.each(function() {
+			minimized_text.each(function () {
 				var text = $(this).text();
 				if (text.length >= minimized_character_count) {
 					$(this).html(
 						text.slice(0, minimized_character_count) + '<span class="regestoEllipsis"></span>' +
 						'<span class="regestoExpansion">' + text.slice(minimized_character_count, text.length) + '</span>');
 				} else {
-					try { 
+					try {
 						var expandBtn = $(this).next();
-						expandBtn.hide(); 
+						expandBtn.hide();
 						expandBtn.removeClass('visible');
-					} catch(e){}
+					} catch (e) { }
 				}
 			});
 			container.attr('data-init', true)
@@ -666,7 +692,7 @@ function bindChronologicalIndex() {
 }
 
 function bindRegestoTogglerInList() {
-	$('#ul_list_listDoc .list_element .toggleRegestoInList').unbind('click').click(function(event) {
+	$('#ul_list_listDoc .list_element .toggleRegestoInList').unbind('click').click(function (event) {
 		var action = $(this).attr('data-action');
 		$(this).siblings('.toggleRegestoInList').addClass('visible');
 		$(this).removeClass('visible');
@@ -776,13 +802,13 @@ function navToDocumentFromList(el) {
 
 /* Gestione del link alla prima pagina del documento corrispondente all'elemento della lista per l'indice cronologico */
 function bindDocumentLinkChronologicalIndex() {
-	$('.document_list_doc_link').unbind('click').click(function() {
+	$('.document_list_doc_link').unbind('click').click(function () {
 		navToDocumentFromList($(this));
 	});
 }
 
 function bindShowListElementOccurrences(listName) {
-	$('.list_element').find('.toggle_list_element, .entity_name').unbind("click").click(function (event) {
+	$('.list_element').find('.toggle_list_element, .entity_name, .term_occ').unbind("click").click(function (event) {
 		event.stopPropagation();
 		showListElementOccurrences($(this).parent(), listName);
 	});

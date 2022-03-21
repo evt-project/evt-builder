@@ -2950,7 +2950,6 @@ ul.ul_list li.list_element_opened,
 }
 
 #text span.popup.selected_from_list .tooltip,
-#text span.term.selected_from_list,
 #text span.gloss.selected_from_list {
     background: rgb(229, 218, 196) !important;
     text-shadow: none !important;
@@ -4039,4 +4038,64 @@ span.autore {
 }
 .appr {
     margin-top: 10px;
+}
+
+/* GLOSSARY */
+.glossaryEntry-details-container {
+    max-height: 200px;
+    overflow: auto;
+    display: none;
+}
+.glossaryEntry-details-tabs .ui-accordion-header-icon.ui-icon {
+    left: 0;
+    background: none !important;
+    font: normal normal normal 14px/1 FontAwesome;
+    display: inline-block;
+    font-size: 80%;
+    margin-top: -5.5px !important;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-indent: 0;
+}
+.glossaryEntry-details-tabs .ui-accordion-header-icon.ui-icon::before {
+    content: "\f0da";
+}
+.glossaryEntry-details-tabs .ui-accordion-header-active .ui-accordion-header-icon.ui-icon::before {
+    content: "\f0d7";
+}
+.glossaryEntry-details-tabs .ui-accordion-header {
+    background: none;
+    border: 0;
+    padding: 0 0 0 1.5em !important;
+    color: inherit;
+    font-variant: small-caps;
+    font-variant-caps: all-small-caps;
+    font-size: 90%;
+}
+.glossaryEntry-details-tabs .ui-accordion-content {
+    border: 0;
+    background: none;
+    color: inherit;
+    padding: 0.3em 1em 0.5em 1.8em !important;
+    font-size: 75%;
+}
+.glossaryEntry-lemma {
+    font-weight: bold;
+}
+.glossaryEntry-inflected, .glossaryEntry-variant {
+    font-style: italic;
+}
+.glossaryEntry-details-container .mentioned,
+.glossaryEntry-details-container .def,
+.glossaryEntry-details-container .m {
+    font-style: italic;
+}
+
+.glossaryEntry-details-container .occurences {
+    display: block;
+}
+
+.glossaryEntry-details-container .occurences .no_occ {
+    display: none;
 }

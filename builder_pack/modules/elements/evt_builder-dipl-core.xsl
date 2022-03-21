@@ -678,29 +678,6 @@
 		</xsl:element>
 	</xsl:template>
 
-	<!-- TERM -->
-	<xsl:template match="tei:term" mode="dipl">
-		<xsl:element name="span">
-			<xsl:attribute name="class">term</xsl:attribute>
-			<xsl:call-template name="dataAttributesFromAttributes"/>
-			<xsl:variable name="termText">
-				<xsl:apply-templates mode="#current"/>
-			</xsl:variable>
-			<xsl:attribute name="data-list">listTerm</xsl:attribute>
-			<xsl:attribute name="data-ref">
-				<xsl:choose>
-					<xsl:when test="@xml:id">
-						<xsl:value-of select="@xml:id"/>
-					</xsl:when>
-					<xsl:otherwise>
-						<xsl:value-of select="translate(normalize-space($termText), ' ', '')"/>
-					</xsl:otherwise>
-				</xsl:choose>
-			</xsl:attribute>
-			<xsl:apply-templates mode="#current"/>
-		</xsl:element>
-	</xsl:template>
-
 	<!-- GLOSS -->
 	<xsl:template match="tei:gloss" mode="dipl">
 		<xsl:element name="span">

@@ -364,6 +364,11 @@
 	<!-- IT: Attiva/disattiva lista glosses -->
 	<!-- default: true() -->
 	<xsl:param name="list_gloss" select="false()"/>
+	
+	<!-- EN: On/Off glossary list -->
+	<!-- IT: Attiva/disattiva lista glossario -->
+	<!-- default: true() -->
+	<xsl:param name="list_glossary" select="true()"/>
 
 	<!-- EN: On/Off chronological index for texts -->
 	<!-- IT: Attiva/disattiva indice cronologico -->
@@ -407,6 +412,9 @@
 		</group>
 		<group label="OTHERS" active="true">
 			<seg type="kenning" active="true" label="KENNING"/>
+		</group>
+		<group label="GLOSSARY" active="true">
+			<term active="true" label="TERM"/>
 		</group>
 	</xsl:variable>
 	
