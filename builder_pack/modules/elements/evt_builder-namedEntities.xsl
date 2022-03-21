@@ -334,5 +334,51 @@
 		</xsl:element>
 	</xsl:template>
 	
-	
+	<!-- TERM -->
+	<xsl:template match="tei:term" mode="dipl interp">
+		<xsl:choose>
+			<xsl:when test="count(ancestor::tei:teiHeader) > 0">
+				<xsl:apply-templates mode="#current"/>
+			</xsl:when>
+			<xsl:when test="$list_glossary=false()">
+				<xsl:apply-templates mode="#current"/>
+			</xsl:when>
+			<xsl:when
+				test="@ref and @ref != '' and $root//tei:entry[@xml:id = substring-after(current()/@ref, '#')]">
+				<xsl:element name="span">
+					<xsl:attribute name="class">popup term</xsl:attribute>
+					<xsl:call-template name="dataAttributesFromAttributes"/>
+					<xsl:attribute name="data-list">listGlossary</xsl:attribute>
+					<xsl:attribute name="data-ref">
+						<xsl:value-of select="translate(@ref, '#', '')"/>
+					</xsl:attribute>
+					<xsl:element name="span">
+						<xsl:attribute name="class">trigger</xsl:attribute>
+						<xsl:apply-templates mode="#current"/>
+					</xsl:element>
+					<xsl:element name="span">
+						<xsl:attribute name="class">tooltip</xsl:attribute>
+						<xsl:element name="span">
+							<xsl:attribute name="class">before</xsl:attribute>
+						</xsl:element>
+						<xsl:for-each
+							select="$root//tei:entry[@xml:id = substring-after(current()/@ref, '#')]">
+							<xsl:call-template name="glossaryEntry"/>
+						</xsl:for-each>
+					</xsl:element>
+				</xsl:element>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:element name="span">
+					<xsl:attribute name="class">term no-info <xsl:value-of
+							select="substring-after(current()/@ref, '#')"/></xsl:attribute>
+					<xsl:call-template name="dataAttributesFromAttributes"/>
+					<xsl:attribute name="title">
+						<xsl:value-of select="substring-after(current()/@ref, '#')"/>
+					</xsl:attribute>
+					<xsl:apply-templates mode="#current"/>
+				</xsl:element>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
 </xsl:stylesheet>
