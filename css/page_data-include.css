@@ -1410,12 +1410,10 @@ span.no-info {
 }
 
 /* Style for TERM */
-.doc.current span.term.list_active,
-.doc.current span.term.over,
 .doc.current span.term.list_active span.trigger,
 .doc.current span.term.over span.trigger,
 .doc.current span.term.opened span.trigger {
-    background-color: #f0d4b7;
+    border-bottom: 2px dashed;
     /*cursor:pointer;*/
 }
 
@@ -1450,16 +1448,22 @@ span.quote {
     font-style: italic;
 }
 
-span.tooltip span.entity_name.link_active {
+span.tooltip span.entity_name.link_active,
+span.tooltip span.term_occ.link_active {
+    cursor: pointer;
+}
+span.tooltip span.entity_name.link_active,
+span.tooltip span.term_occ.link_active .glossaryEntry-lemma {
     text-decoration: underline;
+
+}
+.list_element span.entity_name,
+.list_element span.term_occ {
     cursor: pointer;
 }
 
-.list_element span.entity_name {
-    cursor: pointer;
-}
-
-.list_element span.entity_name:hover {
+.list_element span.entity_name:hover, 
+.list_element span.term_occ:hover .glossaryEntry-lemma {
     text-decoration: underline;
 }
 

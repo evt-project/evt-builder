@@ -257,7 +257,7 @@
 						</xsl:attribute>
 						<xsl:value-of select="tei:settlement"/>
 					</xsl:element>
-					<xsl:if test="tei:settlement/@type">
+					<xsl:if test="tei:settlement[1]/@type">
 						<xsl:text>, </xsl:text>
 						<xsl:choose>
 							<xsl:when test="contains(current()/tei:settlement[1]/@type, '_')">
@@ -450,4 +450,137 @@
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
+
+	<xsl:template name="glossaryEntry">
+		<xsl:element name="span">
+			<xsl:attribute name="class">term_occ <xsl:if test="$list_glossary = true()">
+				link_active</xsl:if></xsl:attribute>
+			<xsl:call-template name="dataAttributesFromAttributes"/>
+			<xsl:attribute name="data-list">listGlossary</xsl:attribute>
+			<xsl:attribute name="data-ref">
+				<xsl:value-of select="@xml:id"/>
+			</xsl:attribute>
+			
+			<xsl:if test="current()/tei:form[@type='lemma']">
+				<span class="glossaryEntry-lemma">
+					<xsl:value-of select="current()/tei:form[@type='lemma']/tei:orth"/>
+					<xsl:apply-templates select="current()/tei:form[@type='lemma']/tei:gramGrp" mode="glossary"></xsl:apply-templates>
+				</span>
+			</xsl:if>
+			<xsl:if test="current()/tei:form[@type='inflected']">
+				<xsl:for-each select="current()/tei:form[@type='inflected']">
+					<xsl:text>, </xsl:text>
+					<span class="glossaryEntry-inflected">
+						<xsl:value-of select="current()/tei:orth"/>
+						<xsl:apply-templates select="current()/tei:gramGrp" mode="glossary"></xsl:apply-templates>					
+					</span>
+				</xsl:for-each>
+			</xsl:if>
+			<xsl:if test="current()/tei:form[@type='variant']">
+				<xsl:for-each select="current()/tei:form[@type='variant']">
+					<xsl:text>, </xsl:text>
+					<span class="glossaryEntry-variant">
+						<xsl:value-of select="current()/tei:orth"/>
+						<xsl:if test="current()/tei:form[@type='inflected']">
+							<xsl:for-each select="current()/tei:form[@type='inflected']">
+								<xsl:text>, </xsl:text>
+								<span class="glossaryEntry-inflected"><xsl:value-of select="current()/tei:orth"/></span>
+								<xsl:apply-templates select="current()/tei:gramGrp" mode="glossary"></xsl:apply-templates>					
+							</xsl:for-each>
+						</xsl:if>
+					</span>
+				</xsl:for-each>
+			</xsl:if>
+			<xsl:if test="current()/tei:form[@type='current']">
+				<xsl:text> (</xsl:text>
+				<xsl:value-of select="current()/tei:form[@type='current']/tei:orth"/>
+				<xsl:text>)</xsl:text>
+			</xsl:if>
+			<xsl:text>. </xsl:text>
+			<xsl:apply-templates select="current()/tei:sense[not(@type)]/tei:def"/>
+		</xsl:element>
+		<span class="toggle_list_element" data-element-to-show=".glossaryEntry-details-container" 
+			data-element-for-accordion=".glossaryEntry-details-tabs">
+			<i class="fa fa-angle-right"/>
+		</span>
+		<div class="glossaryEntry-details-container">
+			<div class="glossaryEntry-details-tabs">
+				<xsl:if test="current()/tei:sense[@type='desc']">
+					<h3 lang="def" title="DESCRIPTION"><span lang="def">DESCRIPTION</span></h3>
+					<div>
+						<xsl:apply-templates select="current()/tei:sense[@type='desc']"/>
+					</div>
+				</xsl:if>
+				<xsl:if test="current()/tei:etym">
+					<h3 lang="def" title="ETYMOLOGY"><span lang="def">ETYMOLOGY</span></h3>
+					<div>
+						<xsl:apply-templates select="current()/tei:etym"/>
+					</div>
+				</xsl:if>
+				<xsl:if test="current()/tei:note[@type='biblio']">
+					<h3 lang="def" title="BIBLIO"><span lang="def">BIBLIO</span></h3>
+					<div>
+						<xsl:apply-templates select="current()/tei:note[@type='biblio']"/>
+					</div>
+				</xsl:if>
+				
+				<h3 lang="def" title="OCCURRENCES"><span lang="def">OCCURRENCES</span></h3>
+				<div>
+					<xsl:for-each select="current()/tei:cit[@type='concordances']/tei:cit">
+						<div>
+							<xsl:apply-templates/>
+						</div>
+					</xsl:for-each>
+					<div class="occurences"></div>
+				</div>
+			</div>
+		</div>
+	</xsl:template>
+	
+	<xsl:template match="tei:gramGrp" mode="glossary">
+		<xsl:for-each select="child::node()">
+			<xsl:choose>
+				<xsl:when test="self::comment()"></xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="gramGrpElementLabel"/>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:for-each>
+	</xsl:template>
+	
+	<xsl:template name="gramGrpElementLabel">
+		<xsl:variable name="empty_string" select="''" />
+		<xsl:choose>
+			<xsl:when test="self::comment()"></xsl:when>
+			<xsl:when test="@ana">
+				<xsl:variable name="interpId" select="substring-after(@ana, '#')"/>
+				<xsl:choose>
+					<xsl:when test="$root//tei:interp[@xml:id=$interpId]">
+						<xsl:choose>
+							<xsl:when test="$root//tei:interp[@xml:id=$interpId]/@n">
+								<xsl:text> </xsl:text><xsl:value-of select="$root//tei:interp[@xml:id=$interpId]/@n"/>
+							</xsl:when>
+							<xsl:otherwise>
+								<xsl:text> </xsl:text><xsl:value-of select="$root//tei:interp[@xml:id=$interpId]"/>
+							</xsl:otherwise>
+						</xsl:choose>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:text> </xsl:text><xsl:value-of select="$interpId"/>
+					</xsl:otherwise>
+				</xsl:choose>
+			</xsl:when>
+			<xsl:when test="@n">
+				<xsl:text> </xsl:text><xsl:value-of select="@n"/>
+			</xsl:when>
+			<xsl:when test="normalize-space(.) != $empty_string">
+				<xsl:text> </xsl:text><xsl:value-of select="current()"/>
+			</xsl:when>
+			<xsl:when test="@value">
+				<xsl:text> </xsl:text><xsl:value-of select="@value"/>
+			</xsl:when>
+			<xsl:otherwise/>
+		</xsl:choose>	
+	</xsl:template>
+
 </xsl:stylesheet>

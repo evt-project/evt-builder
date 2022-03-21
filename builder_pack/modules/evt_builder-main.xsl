@@ -194,6 +194,16 @@
 				</xsl:element>
 			</xsl:result-document>
 		</xsl:if>
+		<xsl:if test="$list_glossary=true()">
+			<xsl:result-document method="html" encoding="UTF-8" media-type="text/plain" byte-order-mark="yes" href="{$filePrefix}/data/output_data/liste/listGlossary.html" indent="yes">
+				<xsl:element name="div">
+					<xsl:attribute name="id">listGlossary</xsl:attribute>
+					<xsl:attribute name="class">can-change-font-size</xsl:attribute>
+					<xsl:call-template name="listGlossary"/>
+					<xsl:apply-templates select="$step0" mode="listGlossaryOccurences"/>
+				</xsl:element>
+			</xsl:result-document>
+		</xsl:if>
 		<!--chronological index /list document -->
 		<xsl:if test="$list_doc = true()">
 			<xsl:result-document method="html" encoding="UTF-8" media-type="text/plain"
@@ -707,6 +717,48 @@
 		</xsl:element>
 	</xsl:template>
 
+	<!-- GLOSSARY -->
+	<xsl:template name="listGlossary">
+		<xsl:element name="ul">
+			<xsl:attribute name="id" select="'ul_listGlossary'"/>
+			<xsl:attribute name="class" select="'ul_list'"/>
+			<xsl:for-each select="$root//div[@type='glossary']//tei:entry">
+				<xsl:sort
+					select="
+					if (@sortKey) then (@sortKey)
+					else if (@xml:id) then (lower-case(@xml:id))
+					else if (@n) then (lower-case(@n))
+					else (lower-case(normalize-space(current())))"
+					order="ascending"/>
+				<xsl:variable name="lemma">
+					<xsl:apply-templates select="current()/tei:form[@type='lemma']"/>
+				</xsl:variable>
+				<xsl:variable name="inflected">
+					<xsl:apply-templates select="current()/tei:form[@type='inflected']"/>
+				</xsl:variable>
+				<xsl:variable name="current">
+					<xsl:apply-templates select="current()/tei:form[@type='current']"/>
+				</xsl:variable>
+				<xsl:element name="li">
+					<xsl:attribute name="id">
+						<xsl:choose>
+							<xsl:when test="@xml:id">
+								<xsl:value-of select="@xml:id"/>
+							</xsl:when>
+							<xsl:otherwise>
+								<xsl:value-of
+									select="translate(normalize-space($lemma), ' ', '')"/>
+							</xsl:otherwise>
+						</xsl:choose>
+					</xsl:attribute>
+					<xsl:attribute name="class" select="'list_element'"/>
+					<xsl:attribute name="data-order-list" select="@sortKey"/>
+					<xsl:call-template name="glossaryEntry"/>
+				</xsl:element>
+			</xsl:for-each>
+		</xsl:element>
+	</xsl:template>
+	
 	<!--CHRONOLOGICAL INDEX - LIST DOCUMENT -->
 	<!--TEMPLATE FOR SORTING ATTRIBUTE AND BUTTON ASC/DESC-->
 

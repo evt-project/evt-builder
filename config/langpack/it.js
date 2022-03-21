@@ -280,5 +280,10 @@ jquery_lang_js.prototype.lang.it = {
 	"LIST_ORG_FAMILIA": "Famiglie",
 	"NAME_LIST-TYPE_FAMILIA": "Famiglie",
 	"LIST_ORG_POPOLI": "Popoli",
-	"ORGNAME_TYPE_GENS": "Popoli"
+	"ORGNAME_TYPE_GENS": "Popoli",
+
+	"DESCRIPTION": "Descrizione",
+	"ETYMOLOGY": "Etimologia",
+	"LIST_GLOSSARY": "Glossario",
+	"GLOSSARY": "Glossario"
 }

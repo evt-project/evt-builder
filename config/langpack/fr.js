@@ -282,5 +282,9 @@ jquery_lang_js.prototype.lang.fr = {
 	"LIST_ORG_FAMILIA": "Familles",
 	"NAME_LIST-TYPE_FAMILIA": "Familles",
 	"LIST_ORG_POPOLI": "Peuples",
-	"ORGNAME_TYPE_GENS": "Peuples"
+	"ORGNAME_TYPE_GENS": "Peuples",
+
+	"DESCRIPTION": "Description",
+	"ETYMOLOGY": "Étymologie",
+	"LIST_GLOSSARY": "Glossaire"
 }
