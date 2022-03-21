@@ -413,6 +413,9 @@
 		<group label="OTHERS" active="true">
 			<seg type="kenning" active="true" label="KENNING"/>
 		</group>
+		<group label="GLOSSARY" active="true">
+			<term active="true" label="TERM"/>
+		</group>
 	</xsl:variable>
 	
 	<!-- EN: Information about EVT -->
