@@ -277,5 +277,9 @@ jquery_lang_js.prototype.lang.de = {
 	"LIST_ORG_FAMILIA": "Familien",
 	"NAME_LIST-TYPE_FAMILIA": "Familien",
 	"LIST_ORG_POPOLI": "Völker",
-	"ORGNAME_TYPE_GENS": "Völker"
+	"ORGNAME_TYPE_GENS": "Völker",
+
+	"DESCRIPTION": "Beschreibung",
+	"ETYMOLOGY": "Etymologie",
+	"LIST_GLOSSARY": "Glossar"
 }

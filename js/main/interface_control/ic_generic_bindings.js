@@ -462,13 +462,18 @@ function InitializeRefs() {
 			}
 			$(this).parents('.bottomBoxOpened').find("[id*='toggle']").trigger('click');
 		} else {
-			var targetElem = $('#' + target);
-			if (targetElem.length > 0) {
-				targetElem.addClass('highlight');
-				$('#generalBiblio_content').scrollTop(0);
-				$('#biblio_link').trigger('click');
+			if (target.indexOf('doc=') >= 0 || target.indexOf('page=') >= 0) {
+				window.location.hash = target;
+				$(this).parents('.bottomBoxOpened').find("[id*='toggle']").trigger('click');
 			} else {
-				alert(window.lang.convert('NO_REF', window.lang.currentLang));
+				var targetElem = $('#' + target);
+				if (targetElem.length > 0) {
+					targetElem.addClass('highlight');
+					$('#generalBiblio_content').scrollTop(0);
+					$('#biblio_link').trigger('click');
+				} else {
+					alert(window.lang.convert('NO_REF', window.lang.currentLang));
+				}
 			}
 		}
 	});

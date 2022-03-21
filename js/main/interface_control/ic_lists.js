@@ -277,8 +277,25 @@ function showListElementOccurrences(elem, listName) {
 		// $(elem).find('.small-note, .occurences').toggle();
 		$(elem).find('> .toggle_list_element .fa').removeClass('fa-angle-down').addClass('fa-angle-right');
 		$(elem).removeClass('list_element_opened');
+		var toggler = $(elem).find('.toggle_list_element');
+		if (toggler && toggler.data('element-to-show')) {
+			var elToShow = toggler.data('element-to-show');
+			$(elem).find(elToShow).hide();
+		}
 	} else {
-		if ($(elem).find('.occurences').length <= 0) {
+		var toggler = $(elem).find('.toggle_list_element');
+		if (toggler && toggler.data('element-to-show')) {
+			var elToShow = toggler.data('element-to-show');
+			$(elem).find(elToShow).show();
+			if (toggler.data('element-for-accordion')) {
+				var elForAccordion = toggler.data('element-for-accordion');
+				$(elForAccordion).accordion({
+					collapsible: true,
+					heightStyle: "content"
+				});
+			}
+		}
+		if ($(elem).find('.occurences[data-loaded=true]').length <= 0) {
 			if ($(elem).parents('.nested-list') && $(elem).parents('.nested-list').length > 0) {
 				listName = $(elem).parents('.nested-list').attr('data-list');
 			}

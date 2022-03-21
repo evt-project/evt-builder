@@ -280,5 +280,9 @@ jquery_lang_js.prototype.lang.cs = {
 	"LIST_ORG_FAMILIA": "Rodiny",
 	"NAME_LIST-TYPE_FAMILIA": "Rodiny",
 	"LIST_ORG_POPOLI": "Národy",
-	"ORGNAME_TYPE_GENS": "Národy"
+	"ORGNAME_TYPE_GENS": "Národy",
+
+	"DESCRIPTION": "Popis",
+	"ETYMOLOGY": "Etymologie",
+	"LIST_GLOSSARY": "Glosář"
 }
