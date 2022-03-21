@@ -497,7 +497,7 @@
 				<xsl:text>)</xsl:text>
 			</xsl:if>
 			<xsl:text>. </xsl:text>
-			<xsl:apply-templates select="current()/tei:sense[not(@type)]/tei:def"/>
+			<xsl:apply-templates select="current()/tei:sense[not(@value)]/tei:def"/>
 		</xsl:element>
 		<span class="toggle_list_element" data-element-to-show=".glossaryEntry-details-container" 
 			data-element-for-accordion=".glossaryEntry-details-tabs">
@@ -505,10 +505,10 @@
 		</span>
 		<div class="glossaryEntry-details-container">
 			<div class="glossaryEntry-details-tabs">
-				<xsl:if test="current()/tei:sense[@type='desc']">
+				<xsl:if test="current()/tei:sense[@value='desc']">
 					<h3 lang="def" title="DESCRIPTION"><span lang="def">DESCRIPTION</span></h3>
 					<div>
-						<xsl:apply-templates select="current()/tei:sense[@type='desc']"/>
+						<xsl:apply-templates select="current()/tei:sense[@value='desc']"/>
 					</div>
 				</xsl:if>
 				<xsl:if test="current()/tei:etym">
@@ -517,10 +517,14 @@
 						<xsl:apply-templates select="current()/tei:etym"/>
 					</div>
 				</xsl:if>
-				<xsl:if test="current()/tei:note[@type='biblio']">
+				<xsl:if test="current()/tei:listBibl">
 					<h3 lang="def" title="BIBLIO"><span lang="def">BIBLIO</span></h3>
 					<div>
-						<xsl:apply-templates select="current()/tei:note[@type='biblio']"/>
+						<xsl:for-each select="current()/tei:listBibl/tei:bibl">
+							<div>						
+								<xsl:apply-templates select="current()"/>
+							</div>
+						</xsl:for-each>
 					</div>
 				</xsl:if>
 				
