@@ -257,7 +257,7 @@
 						</xsl:attribute>
 						<xsl:value-of select="tei:settlement"/>
 					</xsl:element>
-					<xsl:if test="tei:settlement/@type">
+					<xsl:if test="tei:settlement[1]/@type">
 						<xsl:text>, </xsl:text>
 						<xsl:choose>
 							<xsl:when test="contains(current()/tei:settlement[1]/@type, '_')">
