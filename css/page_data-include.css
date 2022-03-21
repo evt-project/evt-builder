@@ -1452,7 +1452,7 @@ span.tooltip span.entity_name.link_active,
 span.tooltip span.term_occ.link_active {
     cursor: pointer;
 }
-span.tooltip span.entity_name.link_active .glossaryEntry-lemma,
+span.tooltip span.entity_name.link_active,
 span.tooltip span.term_occ.link_active .glossaryEntry-lemma {
     text-decoration: underline;
 
@@ -1462,7 +1462,7 @@ span.tooltip span.term_occ.link_active .glossaryEntry-lemma {
     cursor: pointer;
 }
 
-.list_element span.entity_name:hover .glossaryEntry-lemma, 
+.list_element span.entity_name:hover, 
 .list_element span.term_occ:hover .glossaryEntry-lemma {
     text-decoration: underline;
 }
