@@ -539,13 +539,19 @@
 	
 	<xsl:template match="tei:gramGrp" mode="glossary">
 		<xsl:for-each select="child::node()">
-			<xsl:call-template name="gramGrpElementLabel"/>
+			<xsl:choose>
+				<xsl:when test="self::comment()"></xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="gramGrpElementLabel"/>
+				</xsl:otherwise>
+			</xsl:choose>
 		</xsl:for-each>
 	</xsl:template>
 	
 	<xsl:template name="gramGrpElementLabel">
 		<xsl:variable name="empty_string" select="''" />
 		<xsl:choose>
+			<xsl:when test="self::comment()"></xsl:when>
 			<xsl:when test="@ana">
 				<xsl:variable name="interpId" select="substring-after(@ana, '#')"/>
 				<xsl:choose>
