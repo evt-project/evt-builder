@@ -463,7 +463,7 @@
 			
 			<xsl:if test="current()/tei:form[@type='lemma']">
 				<span class="glossaryEntry-lemma">
-					<xsl:value-of select="current()/tei:form[@type='lemma']/tei:orth"/>
+					<span class="lemma"><xsl:value-of select="current()/tei:form[@type='lemma']/tei:orth"/></span>
 					<xsl:apply-templates select="current()/tei:form[@type='lemma']/tei:gramGrp" mode="glossary"></xsl:apply-templates>
 				</span>
 			</xsl:if>
@@ -471,7 +471,7 @@
 				<xsl:for-each select="current()/tei:form[@type='inflected']">
 					<xsl:text>, </xsl:text>
 					<span class="glossaryEntry-inflected">
-						<xsl:value-of select="current()/tei:orth"/>
+						<span class="orth"><xsl:value-of select="current()/tei:orth"/></span>
 						<xsl:apply-templates select="current()/tei:gramGrp" mode="glossary"></xsl:apply-templates>					
 					</span>
 				</xsl:for-each>
@@ -496,8 +496,9 @@
 				<xsl:value-of select="current()/tei:form[@type='current']/tei:orth"/>
 				<xsl:text>)</xsl:text>
 			</xsl:if>
-			<xsl:text>. </xsl:text>
+			<xsl:text>, ‘</xsl:text>
 			<xsl:apply-templates select="current()/tei:sense[not(@value)]/tei:def"/>
+			<xsl:text>’</xsl:text>
 		</xsl:element>
 		<span class="toggle_list_element" data-element-to-show=".glossaryEntry-details-container" 
 			data-element-for-accordion=".glossaryEntry-details-tabs">
@@ -542,14 +543,16 @@
 	</xsl:template>
 	
 	<xsl:template match="tei:gramGrp" mode="glossary">
-		<xsl:for-each select="child::node()">
-			<xsl:choose>
-				<xsl:when test="self::comment()"></xsl:when>
-				<xsl:otherwise>
-					<xsl:call-template name="gramGrpElementLabel"/>
-				</xsl:otherwise>
-			</xsl:choose>
-		</xsl:for-each>
+		<span class="gramGrp">
+			<xsl:for-each select="child::node()">
+				<xsl:choose>
+					<xsl:when test="self::comment()"></xsl:when>
+					<xsl:otherwise>
+						<xsl:call-template name="gramGrpElementLabel"/>
+					</xsl:otherwise>
+				</xsl:choose>
+			</xsl:for-each>
+		</span>
 	</xsl:template>
 	
 	<xsl:template name="gramGrpElementLabel">
