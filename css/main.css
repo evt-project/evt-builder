@@ -4099,3 +4099,7 @@ span.autore {
 .glossaryEntry-details-container .occurences .no_occ {
     display: none;
 }
+
+.gramGrp {
+    font-style: normal;
+}
