@@ -450,8 +450,7 @@
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
-
-	<xsl:template name="glossaryEntry">
+	<xsl:template name="glossaryEntryPartial">
 		<xsl:element name="span">
 			<xsl:attribute name="class">term_occ <xsl:if test="$list_glossary = true()">
 				link_active</xsl:if></xsl:attribute>
@@ -500,6 +499,10 @@
 			<xsl:apply-templates select="current()/tei:sense[not(@value)]/tei:def"/>
 			<xsl:text>’</xsl:text>
 		</xsl:element>
+	</xsl:template>
+	
+	<xsl:template name="glossaryEntryFull">
+		<xsl:call-template name="glossaryEntryPartial"/>
 		<span class="toggle_list_element" data-element-to-show=".glossaryEntry-details-container" 
 			data-element-for-accordion=".glossaryEntry-details-tabs">
 			<i class="fa fa-angle-right"/>

@@ -753,7 +753,7 @@
 					</xsl:attribute>
 					<xsl:attribute name="class" select="'list_element'"/>
 					<xsl:attribute name="data-order-list" select="@sortKey"/>
-					<xsl:call-template name="glossaryEntry"/>
+					<xsl:call-template name="glossaryEntryFull"/>
 				</xsl:element>
 			</xsl:for-each>
 		</xsl:element>
