@@ -363,7 +363,7 @@
 						</xsl:element>
 						<xsl:for-each
 							select="$root//tei:entry[@xml:id = substring-after(current()/@ref, '#')]">
-							<xsl:call-template name="glossaryEntry"/>
+							<xsl:call-template name="glossaryEntryPartial"/>
 						</xsl:for-each>
 					</xsl:element>
 				</xsl:element>
